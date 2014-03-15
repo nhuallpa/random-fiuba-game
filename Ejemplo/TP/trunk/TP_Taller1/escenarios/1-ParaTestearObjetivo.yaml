@@ -1,0 +1,54 @@
+objetivo:
+  descripcion: "Mire como cae la pelota en el canasto."
+  objetivoDelJuego: meterAlgo
+  idEntidades: ~
+  idEntidad: 10
+  unaZona:
+    centro:
+      x: 12.135542
+      y: 15.185558
+    tam:
+      x: 1.700001
+      y: 1.700001
+escenario:
+  mundo:
+    10:
+      centro:
+        x: 12.135542
+        y: 10.284081
+      clase: PelotaBowling
+      id: 10
+      tamanio:
+        x: 0.999999
+        y: 1.000000
+    8:
+      centro:
+        x: 12.135542
+        y: 15.185558
+      clase: Canasto
+      id: 8
+      tamanio:
+        x: 1.700001
+        y: 1.700000
+    validarColisiones: false
+  pathFondo: imagenes/fondos/wallpaperGrim.png
+jugadores:
+  Jugador1:
+    elementoMouse: 0
+    entidades:
+      PelotaBowling: 1
+    estadoMouse: 0
+    fuenteMouse: ~
+    jugador: 1
+    modoJuego: 0
+    posicionMouse:
+      x: 0.000000
+      y: 0.000000
+    region:
+      centro:
+        x: 12.200000
+        y: 13.000000
+      tam:
+        x: 4.000000
+        y: 7.000000
+musica: ~

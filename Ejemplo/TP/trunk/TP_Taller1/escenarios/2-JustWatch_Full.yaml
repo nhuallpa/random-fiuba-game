@@ -1,0 +1,844 @@
+escenario:
+  mundo:
+    154:
+      centro:
+        x: 9.910328
+        y: 9.712744
+      clase: CintaTransportadora
+      elemPuenteAtado:
+        - 159
+      id: 154
+      tamanio:
+        x: 6.337815
+        y: 0.800001
+    156:
+      centro:
+        x: 17.578289
+        y: 17.019854
+      clase: Engranaje
+      id: 156
+      tamanio:
+        x: 0.999998
+        y: 1.000000
+    267:
+      id: 267
+      tamanio:
+        x: 0.500004
+        y: 0.999999
+      clase: Vela
+      centro:
+        y: 1.744084
+        x: 19.683214
+    333:
+      centro:
+        x: 7.444557
+        y: 12.328869
+      estaAnimando: true
+      clase: Globo
+      id: 333
+      tamanio:
+        x: 0.900000
+        y: 0.999997
+    335:
+      centro:
+        x: 7.414487
+        y: 13.802320
+      estaAnimando: true
+      clase: Globo
+      id: 335
+      tamanio:
+        x: 0.900002
+        y: 0.999997
+    337:
+      centro:
+        x: 3.354981
+        y: 18.493305
+      id: 337
+      clase: Tijera
+      tamanio:
+        x: 1.299999
+        y: 1.100000
+    338:
+      centro:
+        x: 3.745896
+        y: 19.455559
+      elemPuenteAtado:
+        - 339
+      clase: Gancho
+      id: 338
+      tamanio:
+        x: 0.500000
+        y: 0.500002
+    339:
+      angulo: -89.000229
+      centro:
+        x: 3.835368
+        y: 14.328552
+      id: 339
+      clase: Soga
+      idEntidadExtremoA: 268
+      idEntidadExtremoB: 338
+      puntoDeLigaduraEntidadA:
+        x: 3.924839
+        y: 9.201547
+      puntoDeLigaduraEntidadB:
+        x: 3.745896
+        y: 19.455559
+      tamanio:
+        x: 10.255573
+        y: 0.150000
+    342:
+      clase: PelotaBasquet
+      centro:
+        x: 3.144488
+        y: 13.621897
+      id: 342
+      tamanio:
+        x: 1.000001
+        y: 0.999999
+    346:
+      centro:
+        x: 0.648644
+        y: 8.088941
+      elemPuenteAtado:
+        - 347
+      clase: Yunque
+      id: 346
+      tamanio:
+        x: 2.000000
+        y: 1.000000
+    255:
+      elemPuenteAtado:
+        - 257
+      id: 255
+      tamanio:
+        x: 11.991061
+        y: 0.800000
+      centro:
+        y: 2.946900
+        x: 9.489345
+      clase: CintaTransportadora
+    258:
+      centro:
+        x: 19.532862
+        y: 0.631479
+      clase: Clavo
+      id: 258
+      tamanio:
+        x: 0.450005
+        y: 0.450000
+      angulo: 180.000000
+    265:
+      centro:
+        x: 19.743355
+        y: 19.635979
+      elemPuenteAtado:
+        - 266
+      clase: Gancho
+      id: 265
+      tamanio:
+        x: 0.500002
+        y: 0.500002
+    266:
+      angulo: -125.403030
+      centro:
+        x: 18.239834
+        y: 17.520557
+      id: 266
+      clase: Soga
+      idEntidadExtremoA: 196
+      idEntidadExtremoB: 265
+      puntoDeLigaduraEntidadA:
+        x: 16.736315
+        y: 15.405136
+      puntoDeLigaduraEntidadB:
+        x: 19.743355
+        y: 19.635979
+      tamanio:
+        x: 5.190599
+        y: 0.150000
+    268:
+      centro:
+        x: 3.294840
+        y: 9.201547
+      elemPuenteAtado:
+        - 339
+        - 347
+      clase: Polea
+      id: 268
+      tamanio:
+        x: 1.399999
+        y: 1.400000
+    175:
+      id: 175
+      tamanio:
+        x: 1.000004
+        y: 1.000000
+      clase: PelotaBowling
+      centro:
+        x: 18.059412
+        y: 6.044153
+    190:
+      centro:
+        x: 7.504698
+        y: 18.192600
+      estaAnimando: true
+      clase: Globo
+      id: 190
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    191:
+      centro:
+        x: 7.504698
+        y: 16.779289
+      estaAnimando: true
+      clase: Globo
+      id: 191
+      tamanio:
+        x: 0.900000
+        y: 1.000002
+    192:
+      centro:
+        x: 7.504698
+        y: 15.275770
+      estaAnimando: true
+      clase: Globo
+      id: 192
+      tamanio:
+        x: 0.899998
+        y: 1.000000
+    196:
+      centro:
+        x: 16.736315
+        y: 15.005136
+      elemPuenteAtado:
+        - 266
+      clase: Globo
+      estaAnimando: true
+      id: 196
+      tamanio:
+        x: 0.899998
+        y: 1.000000
+    216:
+      centro:
+        x: 3.535403
+        y: 6.886125
+      clase: Queso
+      id: 216
+      tamanio:
+        x: 0.999998
+        y: 0.800001
+    217:
+      centro:
+        x: 12.346035
+        y: 7.728096
+      id: 217
+      clase: Yunque
+      tamanio:
+        x: 2.000000
+        y: 1.000000
+    233:
+      centro:
+        x: 2.994136
+        y: 2.916830
+      elemPuenteAtado:
+        - 257
+      clase: Engranaje
+      id: 233
+      tamanio:
+        x: 0.600001
+        y: 0.600000
+    236:
+      centro:
+        x: 6.482304
+        y: 5.743449
+      elemPuenteAtado:
+        - 248
+      clase: MotorRaton
+      id: 236
+      sentidoHorario: false
+      tamanio:
+        x: 1.700003
+        y: 1.200001
+    246:
+      clase: Engranaje
+      id: 246
+      tamanio:
+        x: 1.000000
+        y: 1.000000
+      centro:
+        x: 2.212305
+        y: 2.946901
+    247:
+      centro:
+        x: 1.129770
+        y: 2.916830
+      elemPuenteAtado:
+        - 248
+      clase: Engranaje
+      id: 247
+      tamanio:
+        x: 1.400000
+        y: 1.400000
+    248:
+      angulo: 27.838079
+      centro:
+        x: 3.806037
+        y: 4.330139
+      id: 248
+      clase: Correa
+      idEntidadExtremoA: 236
+      idEntidadExtremoB: 247
+      puntoDeLigaduraEntidadA:
+        x: 6.482304
+        y: 5.743449
+      puntoDeLigaduraEntidadB:
+        x: 1.129770
+        y: 2.916830
+      tamanio:
+        x: 6.053048
+        y: 0.500000
+    257:
+      angulo: 0.265255
+      centro:
+        x: 6.241740
+        y: 2.931865
+      id: 257
+      clase: Correa
+      idEntidadExtremoA: 255
+      idEntidadExtremoB: 233
+      puntoDeLigaduraEntidadA:
+        x: 9.489345
+        y: 2.946900
+      puntoDeLigaduraEntidadB:
+        x: 2.994136
+        y: 2.916830
+      tamanio:
+        x: 6.495278
+        y: 0.500000
+    347:
+      angulo: -151.108582
+      centro:
+        x: 1.656742
+        y: 8.645244
+      id: 347
+      clase: Soga
+      idEntidadExtremoA: 346
+      idEntidadExtremoB: 268
+      puntoDeLigaduraEntidadA:
+        x: 0.648644
+        y: 8.088941
+      puntoDeLigaduraEntidadB:
+        x: 2.664840
+        y: 9.201547
+      tamanio:
+        x: 2.302811
+        y: 0.150000
+    382:
+      angulo: 41.262897
+      centro:
+        x: 13.248147
+        y: 17.290487
+      clase: Canio
+      id: 382
+      tamanio:
+        x: 2.500000
+        y: 1.499996
+    383:
+      angulo: 180.000000
+      centro:
+        x: 18.540539
+        y: 0.631479
+      id: 383
+      clase: Clavo
+      tamanio:
+        x: 0.450001
+        y: 0.450000
+    384:
+      centro:
+        x: 10.241106
+        y: 15.756897
+      id: 384
+      clase: Codo
+      tamanio:
+        x: 2.499999
+        y: 2.499997
+    386:
+      angulo: 90.545059
+      centro:
+        x: 9.759979
+        y: 12.930278
+      clase: Canio
+      id: 386
+      tamanio:
+        x: 2.499999
+        y: 1.500000
+    387:
+      centro:
+        x: 9.790051
+        y: 10.855419
+      clase: PelotaBowling
+      id: 387
+      tamanio:
+        x: 0.999999
+        y: 1.000000
+    404:
+      centro:
+        x: 11.955119
+        y: 18.042248
+      id: 404
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.599998
+    405:
+      centro:
+        x: 11.504063
+        y: 17.921967
+      id: 405
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.599998
+    406:
+      centro:
+        x: 10.962795
+        y: 17.831755
+      id: 406
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.599998
+    407:
+      centro:
+        x: 10.451598
+        y: 17.681402
+      id: 407
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.599998
+    410:
+      centro:
+        x: 9.940401
+        y: 17.591192
+      id: 410
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.599998
+    411:
+      centro:
+        x: 9.429204
+        y: 17.470909
+      id: 411
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.600000
+    412:
+      centro:
+        x: 9.038289
+        y: 17.350628
+      id: 412
+      clase: Domino
+      tamanio:
+        x: 0.150000
+        y: 0.599998
+    419:
+      centro:
+        x: 10.842514
+        y: 18.703796
+      id: 419
+      clase: Plataforma
+      tamanio:
+        x: 4.593729
+        y: 0.500006
+    421:
+      centro:
+        x: 12.346035
+        y: 18.072319
+      id: 421
+      clase: Domino
+      tamanio:
+        x: 0.150001
+        y: 0.599998
+    432:
+      centro:
+        x: 8.677444
+        y: 10.795279
+      id: 432
+      clase: Huevo
+      tamanio:
+        x: 0.599999
+        y: 0.599998
+    435:
+      centro:
+        x: 10.782373
+        y: 19.365345
+      elemPuenteAtado:
+        - 437
+      clase: CintaTransportadora
+      id: 435
+      tamanio:
+        x: 4.353163
+        y: 0.800005
+    436:
+      centro:
+        x: 17.337723
+        y: 19.004501
+      elemPuenteAtado:
+        - 437
+      clase: Motor
+      id: 436
+      tamanio:
+        x: 1.700001
+        y: 1.400002
+    437:
+      angulo: -3.150705
+      centro:
+        x: 14.060048
+        y: 19.184923
+      id: 437
+      clase: Correa
+      idEntidadExtremoA: 436
+      idEntidadExtremoB: 435
+      puntoDeLigaduraEntidadA:
+        x: 17.337723
+        y: 19.004501
+      puntoDeLigaduraEntidadB:
+        x: 10.782373
+        y: 19.365345
+      tamanio:
+        x: 6.565273
+        y: 0.500000
+    442:
+      centro:
+        x: 15.202724
+        y: 18.763939
+      angulo: 90.251572
+      clase: Plataforma
+      id: 442
+      tamanio:
+        x: 2.188086
+        y: 0.500002
+    492:
+      centro:
+        x: 14.150259
+        y: 4.209858
+      elemPuenteAtado:
+        - 494
+      clase: Globo
+      estaAnimando: true
+      id: 492
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    493:
+      centro:
+        x: 11.022936
+        y: 5.863730
+      elemPuenteAtado:
+        - 494
+      clase: Gancho
+      id: 493
+      tamanio:
+        x: 0.499999
+        y: 0.500000
+    494:
+      angulo: -21.847878
+      centro:
+        x: 12.586597
+        y: 5.236794
+      id: 494
+      clase: Soga
+      idEntidadExtremoA: 492
+      idEntidadExtremoB: 493
+      puntoDeLigaduraEntidadA:
+        x: 14.150259
+        y: 4.609858
+      puntoDeLigaduraEntidadB:
+        x: 11.022936
+        y: 5.863730
+      tamanio:
+        x: 3.369324
+        y: 0.150001
+    520:
+      centro:
+        x: 5.520051
+        y: 13.621897
+      clase: Yunque
+      elemPuenteAtado:
+        - 522
+      id: 520
+      tamanio:
+        x: 2.000000
+        y: 0.999999
+    521:
+      centro:
+        x: 5.550121
+        y: 10.223941
+      elemPuenteAtado:
+        - 522
+      clase: Globo
+      estaAnimando: true
+      id: 521
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    522:
+      angulo: 90.574677
+      centro:
+        x: 5.535086
+        y: 12.122919
+      id: 522
+      clase: Soga
+      idEntidadExtremoA: 520
+      idEntidadExtremoB: 521
+      puntoDeLigaduraEntidadA:
+        x: 5.520051
+        y: 13.621897
+      puntoDeLigaduraEntidadB:
+        x: 5.550121
+        y: 10.623940
+      tamanio:
+        x: 2.998107
+        y: 0.150001
+    528:
+      centro:
+        x: 17.578285
+        y: 0.631479
+      angulo: 180.000000
+      clase: Clavo
+      id: 528
+      tamanio:
+        x: 0.449999
+        y: 0.450000
+    530:
+      centro:
+        x: 2.272444
+        y: 7.216899
+      angulo: 26.786251
+      id: 530
+      clase: Plataforma
+      tamanio:
+        x: 9.795912
+        y: 0.499999
+    534:
+      centro:
+        x: 15.172653
+        y: 16.689079
+      id: 534
+      clase: Canasto
+      tamanio:
+        x: 1.700001
+        y: 1.700001
+    537:
+      centro:
+        x: 15.323006
+        y: 6.074224
+      id: 537
+      clase: PelotaBasquet
+      tamanio:
+        x: 1.000000
+        y: 1.000000
+    540:
+      angulo: 180.000000
+      centro:
+        x: 16.195045
+        y: 0.631479
+      clase: Clavo
+      id: 540
+      tamanio:
+        x: 0.449999
+        y: 0.450000
+    542:
+      centro:
+        x: 0.768925
+        y: 16.839432
+      clase: Huevo
+      id: 542
+      tamanio:
+        x: 0.600000
+        y: 0.599998
+    544:
+      centro:
+        x: 1.791319
+        y: 17.591192
+      id: 544
+      clase: Balancin
+      tamanio:
+        x: 2.999999
+        y: 0.500004
+    547:
+      angulo: -30.000000
+      centro:
+        x: 0.949348
+        y: 14.012813
+      clase: PaletaFlipper
+      id: 547
+      sentidoHorario: false
+      tamanio:
+        x: 1.899996
+        y: 0.800003
+    556:
+      centro:
+        x: 1.941672
+        y: 1.864366
+      clase: PelotaBowling
+      id: 556
+      tamanio:
+        x: 1.000000
+        y: 0.999999
+    587:
+      centro:
+        x: 4.407445
+        y: 0.691620
+      id: 587
+      clase: Carrito
+      tamanio:
+        x: 2.000000
+        y: 1.200000
+    588:
+      centro:
+        x: 6.903290
+        y: 0.691620
+      id: 588
+      clase: Carrito
+      tamanio:
+        x: 1.999998
+        y: 1.200000
+    589:
+      centro:
+        x: 9.369064
+        y: 0.691619
+      id: 589
+      clase: Carrito
+      tamanio:
+        x: 2.000001
+        y: 1.200000
+    600:
+      centro:
+        x: 16.886665
+        y: 2.285352
+      estaAnimando: true
+      clase: Globo
+      id: 600
+      tamanio:
+        x: 0.899992
+        y: 1.000003
+    601:
+      centro:
+        x: 16.886665
+        y: 1.413309
+      id: 601
+      clase: Huevo
+      tamanio:
+        x: 0.599998
+        y: 0.600000
+    validarColisiones: false
+    157:
+      centro:
+        x: 16.856596
+        y: 17.019854
+      elemPuenteAtado:
+        - 159
+      clase: Engranaje
+      id: 157
+      tamanio:
+        x: 0.599998
+        y: 0.599998
+    159:
+      angulo: 46.450203
+      centro:
+        x: 13.383462
+        y: 13.366299
+      id: 159
+      clase: Correa
+      idEntidadExtremoA: 157
+      idEntidadExtremoB: 154
+      puntoDeLigaduraEntidadA:
+        x: 16.856596
+        y: 17.019854
+      puntoDeLigaduraEntidadB:
+        x: 9.910328
+        y: 9.712744
+      tamanio:
+        x: 10.081889
+        y: 0.500000
+    189:
+      centro:
+        x: 7.504698
+        y: 19.696121
+      estaAnimando: true
+      clase: Globo
+      id: 189
+      tamanio:
+        x: 0.899998
+        y: 0.999994
+  pathFondo: imagenes/fondos/wallpaperMountains.png
+musica: ~
+objetivo:
+  descripcion: imagenes/mensajes/justWatch.png
+  idEntidad: 189
+  idEntidades: ~
+  objetivoDelJuego: romperGlobo
+  unaZona:
+    centro:
+      x: 5.000000
+      y: 5.000000
+    tam:
+      x: 5.000000
+      y: 5.000000
+jugadores:
+  Jugador1:
+    region:
+      centro:
+        y: 1.000000
+        x: 1.000000
+      tam:
+        x: 2.000000
+        y: 2.000000
+    elementoMouse: 0
+    entidades:
+      Globo: 1
+    estadoMouse: 0
+    fuenteMouse: ~
+    jugador: 1
+    posicionMouse:
+      y: 0.000000
+      x: 0.000000
+    modoJuego: 0
+    canvasAbsoluto:
+      centro:
+        y: 0.000000
+        x: 0.000000
+      tam:
+        y: 0.000000
+        x: 0.000000
+  Jugador2:
+    canvasAbsoluto:
+      centro:
+        x: 0.000000
+        y: 0.000000
+      tam:
+        x: 0.000000
+        y: 0.000000
+    elementoMouse: 0
+    entidades:
+      Globo: 1
+    estadoMouse: 0
+    fuenteMouse: ~
+    jugador: 2
+    modoJuego: 0
+    posicionMouse:
+      x: 0.000000
+      y: 0.000000
+    region:
+      centro:
+        x: 12.000000
+        y: 1.000000
+      tam:
+        x: 2.000000
+        y: 2.000000

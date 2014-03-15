@@ -1,0 +1,1 @@
+http://yaml.org/spec/1.2/errata.html
