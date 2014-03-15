@@ -1,0 +1,341 @@
+escenario:
+  pathFondo: imagenes/fondos/wallpaperTIMMP1.png
+  mundo:
+    69:
+      angulo: 49.856621
+      centro:
+        x: 15.924414
+        y: 10.840384
+      id: 69
+      clase: Correa
+      idEntidadExtremoA: 61
+      idEntidadExtremoB: 67
+      puntoDeLigaduraEntidadA:
+        x: 16.976877
+        y: 12.088306
+      puntoDeLigaduraEntidadB:
+        x: 14.871949
+        y: 9.592462
+      tamanio:
+        x: 3.264960
+        y: 0.500000
+    70:
+      angulo: -10.007975
+      centro:
+        x: 10.616986
+        y: 11.231299
+      id: 70
+      clase: Correa
+      idEntidadExtremoA: 68
+      idEntidadExtremoB: 26
+      puntoDeLigaduraEntidadA:
+        x: 14.962161
+        y: 10.464504
+      puntoDeLigaduraEntidadB:
+        x: 6.271811
+        y: 11.998095
+      tamanio:
+        x: 8.824629
+        y: 0.500000
+    validarColisiones: false
+    52:
+      elemPuenteAtado:
+        - 56
+      id: 52
+      tamanio:
+        x: 0.999998
+        y: 1.000000
+      centro:
+        y: 8.630209
+        x: 17.909061
+      clase: Engranaje
+    53:
+      centro:
+        x: 17.848923
+        y: 9.532321
+      elemPuenteAtado:
+        - 55
+      clase: Engranaje
+      id: 53
+      tamanio:
+        x: 0.999998
+        y: 1.000000
+    54:
+      centro:
+        x: 16.916737
+        y: 6.495210
+      elemPuenteAtado:
+        - 56
+      clase: MotorRaton
+      id: 54
+      sentidoHorario: false
+      tamanio:
+        x: 1.700001
+        y: 1.200000
+    55:
+      angulo: 19.536638
+      centro:
+        x: 15.052372
+        y: 8.539997
+      id: 55
+      clase: Correa
+      idEntidadExtremoA: 53
+      idEntidadExtremoB: 24
+      puntoDeLigaduraEntidadA:
+        x: 17.848923
+        y: 9.532321
+      puntoDeLigaduraEntidadB:
+        x: 12.255822
+        y: 7.547674
+      tamanio:
+        x: 5.934779
+        y: 0.500000
+    56:
+      angulo: 65.071503
+      centro:
+        x: 17.412899
+        y: 7.562709
+      id: 56
+      clase: Correa
+      idEntidadExtremoA: 52
+      idEntidadExtremoB: 54
+      puntoDeLigaduraEntidadA:
+        x: 17.909061
+        y: 8.630209
+      puntoDeLigaduraEntidadB:
+        x: 16.916737
+        y: 6.495210
+      tamanio:
+        x: 2.354343
+        y: 0.500000
+    60:
+      clase: Plataforma
+      centro:
+        x: 15.774061
+        y: 11.607180
+      angulo: 90.918579
+      id: 60
+      tamanio:
+        x: 7.029427
+        y: 0.500002
+    61:
+      centro:
+        x: 16.976877
+        y: 12.088306
+      elemPuenteAtado:
+        - 69
+      clase: MotorRaton
+      id: 61
+      tamanio:
+        x: 1.700001
+        y: 1.199999
+    64:
+      angulo: 90.441994
+      centro:
+        x: 19.743355
+        y: 11.727461
+      id: 64
+      clase: Plataforma
+      tamanio:
+        x: 3.000000
+        y: 0.499997
+    65:
+      centro:
+        x: 17.758709
+        y: 12.870137
+      id: 65
+      clase: Plataforma
+      tamanio:
+        x: 2.999998
+        y: 0.500000
+    67:
+      centro:
+        x: 14.871949
+        y: 9.592462
+      elemPuenteAtado:
+        - 69
+      clase: Engranaje
+      id: 67
+      tamanio:
+        x: 0.999998
+        y: 1.000000
+    68:
+      elemPuenteAtado:
+        - 70
+      clase: Engranaje
+      id: 68
+      tamanio:
+        x: 1.000000
+        y: 0.999999
+      centro:
+        x: 14.962161
+        y: 10.464504
+    22:
+      centro:
+        x: 6.362022
+        y: 2.495844
+      clase: CintaTransportadora
+      elemPuenteAtado:
+        - 44
+      id: 22
+      tamanio:
+        x: 12.081265
+        y: 0.799999
+    42:
+      centro:
+        x: 0.979418
+        y: 19.094711
+      id: 42
+      clase: Canasto
+      tamanio:
+        x: 1.700000
+        y: 1.699999
+    43:
+      centro:
+        x: 16.736313
+        y: 1.082535
+      elemPuenteAtado:
+        - 44
+      clase: Motor
+      id: 43
+      sentidoHorario: false
+      tamanio:
+        x: 1.700000
+        y: 1.400000
+    44:
+      centro:
+        x: 11.549168
+        y: 1.789189
+      id: 44
+      clase: Correa
+      idEntidadExtremoA: 22
+      idEntidadExtremoB: 43
+      puntoDeLigaduraEntidadA:
+        x: 6.362022
+        y: 2.495844
+      puntoDeLigaduraEntidadB:
+        x: 16.736313
+        y: 1.082535
+      tamanio:
+        x: 10.470117
+        y: 0.500000
+      angulo: 172.242249
+    24:
+      centro:
+        x: 12.255822
+        y: 7.547674
+      clase: CintaTransportadora
+      elemPuenteAtado:
+        - 55
+      id: 24
+      tamanio:
+        x: 12.111334
+        y: 0.800001
+    33:
+      angulo: 89.335403
+      centro:
+        x: 0.558432
+        y: 7.277040
+      id: 33
+      clase: Plataforma
+      tamanio:
+        x: 7.570702
+        y: 0.500000
+    36:
+      angulo: 89.397911
+      centro:
+        x: 18.029343
+        y: 3.668591
+      id: 36
+      clase: Plataforma
+      tamanio:
+        x: 6.397943
+        y: 0.500000
+    37:
+      tamanio:
+        x: 1.000000
+        y: 1.000000
+      centro:
+        x: 1.250052
+        y: 1.052464
+      id: 37
+      clase: PelotaBasquet
+    26:
+      centro:
+        x: 6.271811
+        y: 11.998095
+      elemPuenteAtado:
+        - 70
+      clase: CintaTransportadora
+      id: 26
+      tamanio:
+        x: 11.991056
+        y: 0.800002
+jugadores:
+  Jugador1:
+    canvasAbsoluto:
+      centro:
+        x: 0.000000
+        y: 0.000000
+      tam:
+        x: 0.000000
+        y: 0.000000
+    elementoMouse: 0
+    entidades:
+      PelotaBowling: 1
+      Plataforma: 1
+      Queso: 2
+    fuenteMouse: ~
+    estadoMouse: 0
+    jugador: 1
+    modoJuego: 0
+    posicionMouse:
+      x: 0.000000
+      y: 0.000000
+    region:
+      centro:
+        x: 15.000000
+        y: 3.500000
+      tam:
+        x: 9.900002
+        y: 7.000000
+  Jugador2:
+    canvasAbsoluto:
+      centro:
+        x: 0.000000
+        y: 0.000000
+      tam:
+        x: 0.000000
+        y: 0.000000
+    elementoMouse: 0
+    entidades:
+      Canio: 4
+      Codo: 1
+      Gancho: 1
+    fuenteMouse: ~
+    estadoMouse: 0
+    jugador: 2
+    modoJuego: 0
+    posicionMouse:
+      x: 0.000000
+      y: 0.000000
+    region:
+      centro:
+        x: 10.000000
+        y: 15.500000
+      tam:
+        x: 19.500000
+        y: 8.000000
+objetivo:
+  idEntidad: 37
+  descripcion: imagenes/mensajes/motores.png
+  idEntidades: ~
+  objetivoDelJuego: meterAlgo
+  unaZona:
+    centro:
+      x: 1.000000
+      y: 19.200001
+    tam:
+      x: 1.800000
+      y: 1.799999
+musica: ~

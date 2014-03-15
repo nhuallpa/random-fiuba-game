@@ -1,0 +1,302 @@
+escenario:
+  mundo:
+    12:
+      centro:
+        x: 14.300611
+        y: 19.094713
+      clase: Globo
+      id: 12
+      tamanio:
+        x: 0.899999
+        y: 1.000000
+    13:
+      centro:
+        x: 15.834202
+        y: 19.064642
+      id: 13
+      clase: Globo
+      tamanio:
+        x: 0.899997
+        y: 1.000000
+    15:
+      centro:
+        x: 2.362657
+        y: 19.154854
+      id: 15
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    16:
+      centro:
+        x: 3.986460
+        y: 19.335276
+      id: 16
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000004
+    17:
+      centro:
+        x: 11.834837
+        y: 17.741543
+      id: 17
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 0.999998
+    19:
+      centro:
+        x: 13.488710
+        y: 17.681402
+      id: 19
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    20:
+      centro:
+        x: 15.142583
+        y: 17.741543
+      id: 20
+      clase: Globo
+      tamanio:
+        x: 0.899996
+        y: 0.999998
+    21:
+      centro:
+        x: 16.646103
+        y: 17.921967
+      id: 21
+      clase: Globo
+      tamanio:
+        x: 0.899998
+        y: 1.000000
+    23:
+      centro:
+        x: 6.301881
+        y: 18.042248
+      id: 23
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    24:
+      centro:
+        x: 7.384416
+        y: 19.335276
+      id: 24
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    25:
+      centro:
+        x: 9.128500
+        y: 19.275135
+      id: 25
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000004
+    26:
+      centro:
+        x: 8.466951
+        y: 17.801685
+      id: 26
+      clase: Globo
+      tamanio:
+        x: 0.899998
+        y: 1.000000
+    27:
+      centro:
+        x: 10.842514
+        y: 19.124783
+      id: 27
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    28:
+      centro:
+        x: 4.617938
+        y: 18.042248
+      id: 28
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    33:
+      centro:
+        x: 3.324911
+        y: 17.921967
+      id: 33
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    36:
+      centro:
+        x: 5.760614
+        y: 30.111970
+      id: 36
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000001
+    37:
+      centro:
+        x: 15.202724
+        y: 25.991689
+      id: 37
+      clase: Globo
+      tamanio:
+        x: 0.899997
+        y: 1.000000
+    6:
+      centro:
+        x: 17.427935
+        y: 19.034573
+      id: 6
+      clase: Globo
+      tamanio:
+        x: 0.900002
+        y: 0.999998
+    7:
+      centro:
+        x: 12.586597
+        y: 19.305206
+      id: 7
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 0.999998
+    8:
+      centro:
+        x: 5.489981
+        y: 19.455557
+      id: 8
+      clase: Globo
+      tamanio:
+        x: 0.900000
+        y: 1.000000
+    validarColisiones: false
+  pathFondo: imagenes/fondos/wallpaperClouds.jpg
+jugadores:
+  Jugador1:
+    jugador: 1
+    fuenteMouse: ~
+    elementoMouse: 0
+    canvasAbsoluto:
+      tam:
+        x: 0.000000
+        y: 0.000000
+      centro:
+        x: 0.000000
+        y: 0.000000
+    estadoMouse: 0
+    entidades:
+      Clavo: 1
+      Queso: 1
+    modoJuego: 0
+    posicionMouse:
+      y: 0.000000
+      x: 0.000000
+    region:
+      tam:
+        x: 9.949999
+        y: 9.950001
+      centro:
+        x: 14.999999
+        y: 5.000000
+  Jugador3:
+    canvasAbsoluto:
+      centro:
+        x: 0.000000
+        y: 0.000000
+      tam:
+        x: 0.000000
+        y: 0.000000
+    elementoMouse: 0
+    entidades:
+      Clavo: 1
+      Yunque: 1
+    estadoMouse: 0
+    fuenteMouse: ~
+    jugador: 3
+    modoJuego: 0
+    posicionMouse:
+      x: 0.000000
+      y: 0.000000
+    region:
+      centro:
+        x: 5.000000
+        y: 14.999999
+      tam:
+        x: 9.950001
+        y: 9.949999
+  Jugador4:
+    canvasAbsoluto:
+      centro:
+        x: 0.000000
+        y: 0.000000
+      tam:
+        x: 0.000000
+        y: 0.000000
+    elementoMouse: 0
+    entidades:
+      Clavo: 1
+      PelotaBowling: 1
+    estadoMouse: 0
+    fuenteMouse: ~
+    jugador: 4
+    modoJuego: 0
+    posicionMouse:
+      x: 0.000000
+      y: 0.000000
+    region:
+      centro:
+        x: 14.999999
+        y: 14.999999
+      tam:
+        x: 9.949999
+        y: 9.949999
+  Jugador2:
+    elementoMouse: 0
+    estadoMouse: 0
+    canvasAbsoluto:
+      centro:
+        y: 0.000000
+        x: 0.000000
+      tam:
+        x: 0.000000
+        y: 0.000000
+    posicionMouse:
+      y: 0.000000
+      x: 0.000000
+    region:
+      centro:
+        x: 5.000000
+        y: 5.000000
+      tam:
+        x: 9.950001
+        y: 9.950001
+    entidades:
+      Clavo: 1
+      PelotaBasquet: 1
+    modoJuego: 0
+    fuenteMouse: ~
+    jugador: 2
+objetivo:
+  descripcion: Es simple, hay que romper el globo. Pero cual?
+  idEntidades: ~
+  unaZona:
+    tam:
+      y: 0.000000
+      x: 0.000000
+    centro:
+      x: 0.000000
+      y: 0.000000
+  idEntidad: 36
+  objetivoDelJuego: romperGlobo
+musica: ~
