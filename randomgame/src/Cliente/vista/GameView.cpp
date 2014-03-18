@@ -7,18 +7,17 @@
 
 #include "GameView.h"
 #include "Sprites.h"
+#include "../../utils/Log.h"
 
 bool GameView::init(){
 
 	//Initialization flag
 	bool success = true;
 
-
-
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
-		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+		Log::e( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
 		success = false;
 	}
 	else
@@ -26,51 +25,67 @@ bool GameView::init(){
 		//Enable VSync
 		if( !SDL_SetHint( SDL_HINT_RENDER_VSYNC, "1" ) )
 		{
-			printf( "Warning: VSync not enabled!" );
+			Log::e( "Warning: VSync not enabled!" );
 		}
 
 		//Set texture filtering to linear
 		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 		{
-			printf( "Warning: Linear texture filtering not enabled!" );
+			Log::e( "Warning: Linear texture filtering not enabled!" );
 		}
 	}
-
-
-	//TODO Parse YAML para obtener sprites images
-	//hardcoded
-
+	ParserYaml* aParser = ParserYaml::getInstance();
 	this->vScreen = Screen::getInstance();
-	this->vScreen->init();
+
+	this->vScreen->init(aParser->getNivelNombre(),
+						atoi(aParser->getNivelAncho().c_str()),
+						atoi(aParser->getNivelAlto().c_str()));
 
 	// Load text
 	this->fontTextures[0].setRenderer(Screen::getInstance()->getRenderer());
 	this->fontTextures[1].setRenderer(Screen::getInstance()->getRenderer());
 	this->loadFonts();
 
-	// TODO Change for bulk load - The last item (SHOULD)would be the arrows!!
-	Sprites::getInstance()->addSprite(CIRCLE_SPRITE,"image/circulo.png");
-	Sprites::getInstance()->addSprite(SQUARE_SPRITE,"image/cuadrado.png");
-	Sprites::getInstance()->addSprite(TRIANGLE_SPRITE,"image/triangulo.png");
-	Sprites::getInstance()->addSprite(PENTAGON_SPRITE,"image/pentagono.png");
 
+	int i=0;
 
-	//Agrego las imagenes de configuracion ( flechas, boton guardar, boton cambiar background)
-	Sprites::getInstance()->addSprite(4,"image/mario-back.jpg");
-	Sprites::getInstance()->addSprite(5,"image/arrow.png");
-	Sprites::getInstance()->addSprite(6,"image/save.png");
-	Sprites::getInstance()->addSprite(7,"image/changeBack.png");
+	for(;i<aParser->getCantDataElem();i++){
+		Sprites::getInstance()->addSprite(aParser->getElementPosition(aParser->getDataElemNombre(i)),
+										  aParser->getImagePath(aParser->getDataElemNombre(i)) );
+	}
+
+	
+	Sprites::getInstance()->addSprite(i,"image/bricks.jpg");
+	i++;
+
+	//Agrego el background en pos siguiente
+	this->loadBackground(i,aParser->getNivelFondo());
+	i++;
+	//Agrego boton de flechas, exit, save y cambio de fondo
+
+	Sprites::getInstance()->addSprite(i,"image/arrow.png");
+	i++;
+	Sprites::getInstance()->addSprite(i,"image/exit.png");
+	i++;
+	Sprites::getInstance()->addSprite(i,"image/save.png");
+	i++;
+	Sprites::getInstance()->addSprite(i,"image/change.png");
+
+	this->menu.init();
 
 	return success;
 
 }
 
+void GameView::loadBackground(int pos, std::string str){
+	this->background = str;
+	Sprites::getInstance()->addSprite(pos,str);
+}
+
 
 void GameView::close()
 {
-	// TODO Destructor
 	Screen::getInstance()->close();
-
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -81,7 +96,7 @@ bool GameView::loadFonts(){
 	bool success = true;
 	if( !fontTextures[0].loadFromRenderedText( "Background:", this->gameFont.getTextColor(), this->gameFont.getFont() ) )
 		{
-			printf( "Failed to render prompt text!\n" );
+			Log::e( "Failed to render prompt text!\n" );
 			success = false;
 		}
 
@@ -91,12 +106,12 @@ bool GameView::loadFonts(){
 bool GameView::loadSprite(int type, std::string spritePath){
 
 	bool success = true;
-	this->spritesTextures[type].setRenderer(Screen::getInstance()->getRenderer());
-	if( !this->spritesTextures[type].loadFromFile(spritePath) )
-	{
-		std::cout << "Failed to load sprite texture!\n" << std::endl;
-		success = false;
-	}
+	//this->spritesTextures[type].setRenderer(Screen::getInstance()->getRenderer());
+	//if( !this->spritesTextures[type].loadFromFile(spritePath) )
+	//{
+	//	Log::e("Failed to load sprite texture!\n");
+	//	success = false;
+	//}
 	return success;
 }
 
@@ -127,6 +142,18 @@ void GameView::render(){
 
 }
 
+void GameView::moveToEnd(const std::list<ElementView>::iterator el){
+	this->elems.splice( this->elems.end(), this->elems, el );
+}
+
+void GameView::removeElement(ElementView el){
+	this->elems.remove(el);
+}
+
+void GameView::addElement(ElementView el){
+	this->elems.push_back(el);
+}
+
 
 void GameView::drawInputText( std::string inputText ){
 
@@ -141,12 +168,12 @@ void GameView::drawInputText( std::string inputText ){
 }
 
 void GameView::drawText(){
-	fontTextures[0].renderFonts( 20, Screen::getInstance()->getHeight() - 10 - fontTextures[0].getHeight()*2 );
-	fontTextures[1].renderFonts( 20, Screen::getInstance()->getHeight() - 10 - fontTextures[1].getHeight());
+	//fontTextures[0].renderFonts( 20, Screen::getInstance()->getHeight() - 10 - fontTextures[0].getHeight()*2 );
+	fontTextures[1].renderFonts( 20, Screen::getInstance()->getHeight() - 10 - 40);
 }
 
 
-void GameView::addElement(int type, int posX, int posY, int degree){
+void GameView::addElement(int type, float posX, float posY, int degree){
 	this->elems.push_back(ElementView(type,posX,posY,degree,Sprites::getInstance()->getSprite(type)));
 
 }
@@ -161,7 +188,7 @@ Screen* GameView::getScreen(){
 
 
 void GameView::drawBackground(){
-	Sprites::getInstance()->getSprite(Sprites::getInstance()->getSpriteMap()->size()-4)->renderFixSize(0,
+	Sprites::getInstance()->getSprite(Sprites::getInstance()->getSpriteMap()->size()-5)->renderFixSize(0,
 			0,
 			Screen::getInstance()->getWidth(),
 			Screen::getInstance()->getHeight(),
@@ -169,3 +196,24 @@ void GameView::drawBackground(){
 }
 
 
+void GameView::moveMenuUp(){
+	this->menu.moveUp();
+}
+
+void GameView::moveMenuDown(){
+	this->menu.moveDown();
+}
+
+int GameView::getMenuOffset(){
+	return this->menu.getOffset();
+}
+
+std::string GameView::getBackground(){
+	return this->background;
+
+}
+
+void GameView::setBackground(std::string b){
+	this->background = b;
+
+}

@@ -1,4 +1,5 @@
 #include "./Administrador.h"
+#include "./utils/Log.h"
 #include <string>
 #include <iostream>
 
@@ -28,14 +29,14 @@ void Administrador::run(){
 
 	this->aServer = new Servidor();
 	if( this->aServer->run() == false ){
-			std::cout << "error" << std::endl;
-			//TODO @LOG - "Error al correr el juego en modo Servidor";
+			//std::cout << "error" << std::endl;
+			Log::e("Error al correr el juego en modo Servidor");
 		}
 	
 	this->aClient = new Cliente(this->aServer);
 	if( this->aClient->run() == false ){
-		std::cout << "error" << std::endl;
-		//TODO @LOG - "Error al correr el juego en modo Cliente";
+		//std::cout << "error" << std::endl;
+		Log::e("Error al correr el juego en modo Cliente");
 	}	
 	return void();
 }

@@ -14,6 +14,8 @@
 #include "../../Servidor/modelo/GameLevel.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../vista/GameView.h"
+#include "../../utils/PersistYaml.h"
+//#include "../../utils/utils.h"
 
 
 class GameController {
@@ -21,15 +23,13 @@ public:
 	GameController();
 	GameController(GameLevel* gL, GameView* gV);
 	virtual ~GameController();
-	bool getState(State action);
 	bool init();
-	void clearStates();
 	void detectEvents();
-	void handleEvents();
-	void setState(State action, bool value);
+	bool handleEvents();
 	ElementView* checkInsideElements();
 	ElementView* checkInsideMenu();
 	bool getChanges();
+	void updateElements();
 
 private:
 	GameView *gView;
@@ -37,12 +37,16 @@ private:
 	ElementView* currentMenuElement;
 	GameLevel* cLevel;
 	Detector cDetector;
-	bool cState[TOTAL_STATES];
 	bool changes;
+	std::pair<float,float> lastElemPos;
 
-
+	void persist();
 	bool checkSaveRequested();
 	bool checkChangeBackground();
+	bool checkMoveDownRequested();
+	bool checkMoveUpRequested();
+	bool checkExitRequested();
+
 
 };
 

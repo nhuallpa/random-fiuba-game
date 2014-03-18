@@ -1,4 +1,5 @@
 #include "./Cliente.h"
+#include "../utils/Log.h"
 #include <string>
 #include <iostream>
 #include <ctime>
@@ -30,7 +31,7 @@ void Cliente::loop(void){
 	while (quit == false){
 
 		this->cController.detectEvents();
-		this->cController.handleEvents();
+		quit = this->cController.handleEvents();
 
 		this->cView.clearScreen();
 		this->cView.render();
@@ -43,7 +44,7 @@ bool Cliente::run(){
 	if( this->begin() == true ){
 		this->loop();
 	}else{
-		//TODO: LOG - "Error al iniciar el juego el cliente.");
+		Log::e("Error al iniciar el juego el cliente");
 		return false;
 	}
 	return true;

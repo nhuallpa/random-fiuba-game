@@ -6,12 +6,14 @@
  */
 
 #include "Sprites.h"
+#include "../../utils/Log.h"
 
 Sprites *Sprites::instance = NULL;
 
 Sprites::~Sprites() {
-	// TODO Auto-generated destructor stub
-	std::cout << "destroyed" << std::endl;
+	for (int i=0; i < this->sTexturesMap.size() ; i++){
+		free(this->sTexturesMap[i]);
+	}
 }
 
 Sprites *Sprites::getInstance() {
@@ -27,7 +29,7 @@ void Sprites::addSprite(int type, std::string sPath){
 	this->sTexturesMap[type]->setRenderer(Screen::getInstance()->getRenderer());
 	if( !this->sTexturesMap[type]->loadFromFile(sPath) )
 	{
-		std::cout << "Failed to load sprite texture!\n" << std::endl;
+		Log::e("Failed to load sprite texture!\n");
 	}
 }
 

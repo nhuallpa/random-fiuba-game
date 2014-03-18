@@ -17,26 +17,18 @@
  *
  */
 
-enum ElementType
-{
-	CIRCLE = 0,
-	SQUARE = 1,
-	PENTAGON = 2,
-	TRIANGLE = 3,
-	TOTAL_ELEMS = 4
-};
 
 class GameElement {
 public:
-	GameElement(ElementType type, float posX, float posY, int degrees);
+	GameElement(int type, float posX, float posY, int degrees);
 	void render();
-	ElementType getType();
+	int getType();
 	int getRotation();
 	std::pair<float,float> getPosition();
 	void setPosition(std::pair<float,float> p);
 
 private:
-	ElementType type;
+	int type;
 	int degrees;
 	std::pair<float,float> position;
 };

@@ -23,15 +23,15 @@
  */
 class ElementView {
 public:
-	ElementView(int type, int posX, int posY, float degree,Textures* aTexture);
+	ElementView(int type, float posX, float posY, float degree,Textures* aTexture);
 	ElementView(ElementView *e);
 	virtual ~ElementView();
 	void render();
-	int getPosX();
-	int getPosY();
-	int getAngle();
-	void setPosX(int x);
-	void setPosY(int y);
+	float getPosX();
+	float getPosY();
+	float getAngle();
+	void setPosX(float x);
+	void setPosY(float y);
 	void setAngle(float degree);
 	int getType();
 	void setWidth(float w);
@@ -42,8 +42,8 @@ public:
 	bool operator==(const ElementView& e)const;
 
 private:
-	int posX;
-	int posY;
+	float posX;
+	float posY;
 	float degree;
 	int shapeType;
 	Textures* eTexture;

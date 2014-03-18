@@ -16,6 +16,7 @@
 #include <string>
 #include <iostream>
 #include "../../utils/Constantes/Constantes.h"
+#include <math.h>
 /*
  *
  */
@@ -44,14 +45,22 @@ class Textures {
 		int getHeight();
 		SDL_Renderer* getRenderer();
 
+		void* getPixels();
+		int getPitch();
+
 		SDL_Texture* getTexture();
 		void setRenderer(SDL_Renderer* tRenderer);
+		bool isAlphaPixel(int x, int y);
+		bool unlockTexture();
+		bool lockTexture();
 
 	private:
 
 		SDL_Texture* mTexture;
 		SDL_Renderer* tRenderer;
-
+		SDL_PixelFormat fmt;
+		void* mPixels;
+		int mPitch;
 		int mWidth;
 		int mHeight;
 
