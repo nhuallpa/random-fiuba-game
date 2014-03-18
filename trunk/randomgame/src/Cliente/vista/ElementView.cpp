@@ -32,7 +32,7 @@ ElementView::~ElementView() {
 	// TODO - release texture
 }
 
-ElementView::ElementView(int type, int posX, int posY, float degree,Textures* aTexture){
+ElementView::ElementView(int type, float posX, float posY, float degree,Textures* aTexture){
 	this->degree = degree;
 	this->posX = posX;
 	this->posY = posY;
@@ -47,25 +47,25 @@ void ElementView::render(){
 }
 
 
-int ElementView::getPosX(){
+float ElementView::getPosX(){
 	return this->posX;
 }
 
 
-int ElementView::getPosY(){
+float ElementView::getPosY(){
 	return this->posY;
 }
 
-int ElementView::getAngle(){
+float ElementView::getAngle(){
 	return this->degree;
 }
 
-void ElementView::setPosX(int x){
+void ElementView::setPosX(float x){
 	this->posX = x;
 }
 
 
-void ElementView::setPosY(int y){
+void ElementView::setPosY(float y){
 	this->posY = y;
 }
 

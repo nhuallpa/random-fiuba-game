@@ -6,12 +6,14 @@
  */
 
 #include "Detector.h"
+#include "../../utils/Log.h"
 
 using namespace std;
 
 Detector::Detector() {
 	this->backgroundText = "";
 	this->changedPosition = false;
+	this->clearStates();
 }
 
 Detector::~Detector() {
@@ -23,8 +25,13 @@ void Detector::detect(){
 	SDL_Event* ev = new SDL_Event();
 	while( SDL_PollEvent( ev ) != 0 )
 	{
+		if ( ev->type == SDL_QUIT){
+			this->cState[EXIT_REQUEST] = true;
+			return;
+		}
 		this->handleEvents(ev);
 	}
+	free(ev);
 }
 
 
@@ -44,19 +51,17 @@ void Detector::handleEvents(SDL_Event* e){
 
 	if( e->type == SDL_WINDOWEVENT )
 	{
-			std::cout << "new w: " << Screen::getInstance()->getWidth()  << std::endl;
-			std::cout << "event: " <<  e->window.data1  << std::endl;
-			std::cout << "I expect: " <<  SDL_WINDOWEVENT_SIZE_CHANGED << std::endl;
-
 			if( e->window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 			{
 			//Get new dimensions and repaint on window size change
 			// Ideally I need to re-call a controller (lets say Screen Controller)
+				Screen::getInstance()->updateLastFactor();
 				Screen::getInstance()->setWidth( e->window.data1 );
 				Screen::getInstance()->setHeight( e->window.data2 );
+				this->cState[WNDW_SIZE_CHGD] = true;
+
 				// TODO @LOG - changed size
-				//std::cout << "new w: " << Screen::getInstance()->getWidth()  << std::endl;
-				//std::cout << "new h: " << Screen::getInstance()->getHeight()  << std::endl;
+				Log::d("Changed size width:%d, height:%d",Screen::getInstance()->getWidth(),Screen::getInstance()->getHeight());
 				SDL_RenderPresent( Screen::getInstance()->getRenderer() );
 			}
 
@@ -102,6 +107,12 @@ void Detector::handleEvents(SDL_Event* e){
 				this->cState[MOUSE_RIGHT_PRESSED] = false;
 				this->cState[MOUSE_MOVING] = false;
 			}
+
+			if (e->button.button == 4)
+				this->cState[KB_UP_ARROW] = true;
+			if (e->button.button == 5 )
+				this->cState[KB_DOWN_ARROW] = true;
+
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
@@ -116,6 +127,12 @@ void Detector::handleEvents(SDL_Event* e){
 				this->cState[MOUSE_LEFT_PRESSED] = true;
 				this->cState[MOUSE_MOVING] = false;
 			}else{
+
+				if (e->button.button == 4 )
+					this->cState[KB_UP_ARROW] = true;
+				if (e->button.button == 5 )
+					this->cState[KB_DOWN_ARROW] = true;
+
 				//Si estaba apretado el otro libero los dos
 				if ( this->cState[MOUSE_LEFT_PRESSED] ){
 					this->cState[MOUSE_LEFT_PRESSED] = false;
@@ -128,12 +145,25 @@ void Detector::handleEvents(SDL_Event* e){
 			}
 			break;
 
+		case SDL_MOUSEWHEEL:
+			if ( e->wheel.y > 0 ){
+				this->cState[KB_UP_ARROW] = true;
+			}
+			if ( e->wheel.y < 0 ){
+				this->cState[KB_DOWN_ARROW] = true;
+			}
+
+			break;
+
 		case SDL_KEYDOWN:
-			//Handle backspace
+			//borrar
 			if( e->key.keysym.sym == SDLK_BACKSPACE && this->backgroundText.length() > 0 )
 			{
-				//lop off character
-				this->backgroundText.pop_back();
+				if ( this->backgroundText.length() == 1 ){
+					this->backgroundText = "";
+				}else
+					this->backgroundText = this->backgroundText.substr(0,this->backgroundText.length()-1);
+
 				this->cState[INPUT_TXT_CHGD] = true;
 			}else if( e->key.keysym.sym == SDLK_v && (SDL_GetModState() & KMOD_CTRL) )
 			{
@@ -144,10 +174,8 @@ void Detector::handleEvents(SDL_Event* e){
 			break;
 
 		case SDL_TEXTINPUT:
-			//Not pasting
 			if( !( ( e->text.text[ 0 ] == 'v' || e->text.text[ 0 ] == 'V' ) && (SDL_GetModState() & KMOD_CTRL) ) )
 			{
-				//Append character
 				this->backgroundText += e->text.text;
 				this->cState[INPUT_TXT_CHGD] = true;
 			}
@@ -157,10 +185,19 @@ void Detector::handleEvents(SDL_Event* e){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 	if (currentKeyStates[ SDL_SCANCODE_LSHIFT ] ){
 		this->cState[KB_SHIFT_PRESSED] = true;
-	}else
-		this->cState[KB_SHIFT_PRESSED] = false;
+	}
 
+	if (currentKeyStates[ SDL_SCANCODE_DOWN ] ){
+		this->cState[KB_DOWN_ARROW] = true;
+	}
+	
+	if (currentKeyStates[ SDL_SCANCODE_RETURN ] ){
+		this->cState[KB_ENTER_PRESSED] = true;
+	}
 
+	if (currentKeyStates[ SDL_SCANCODE_UP ] ){
+		this->cState[KB_UP_ARROW] = true;
+	}
 	//delay over detecting events
 	SDL_Delay(5);
 

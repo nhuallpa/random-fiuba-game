@@ -6,6 +6,7 @@
  */
 
 #include "Screen.h"
+#include "../../utils/Log.h"
 
 Screen *Screen::instance = NULL;
 
@@ -17,6 +18,7 @@ Screen::Screen() {
 	this->vRenderer = NULL;
 	this->vWindow = NULL;
 	this->sFullScreen = false;
+	this->lastLogic2PixelsFactor = this->getLogic2PixelsFactor();
 
 }
 
@@ -33,7 +35,7 @@ bool Screen::init() {
 	this->vWindow = SDL_CreateWindow( "TIM v1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE );
 	if( this->vWindow == NULL )
 	{
-		printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
+		Log::e( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
 		success = false;
 	}
 	else
@@ -47,7 +49,7 @@ bool Screen::init() {
 		this->vRenderer = SDL_CreateRenderer( this->vWindow, -1, SDL_RENDERER_ACCELERATED );
 		if( this->vRenderer == NULL )
 		{
-			printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+			Log::e( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
 			success = false;
 		}
 		else
@@ -59,7 +61,7 @@ bool Screen::init() {
 			int imgFlags = IMG_INIT_PNG;
 			if( !( IMG_Init( imgFlags ) & imgFlags ) )
 			{
-				printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+				Log::e( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 				success = false;
 			}
 		}
@@ -81,6 +83,7 @@ void Screen::close()
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
+	free(instance);
 }
 
 
@@ -150,6 +153,68 @@ std::pair<float,float> Screen::getLogic2PixelsFactor(){
 }
 
 
+std::pair<float,float> Screen::getLastLogic2PixelsFactor(){
+	return this->lastLogic2PixelsFactor;
+}
+
+void Screen::updateLastFactor(){
+	this->lastLogic2PixelsFactor = this->getLogic2PixelsFactor();
+}
+
+std::string Screen::getScreenName(){
+	return this->screenName;
+}
+
+void Screen::setScreenName(std::string name){
+	this->screenName = name;
+}
+
+SDL_Window* Screen::getWindow(){
+	return this->vWindow;
+}
 
 
+bool Screen::init(std::string name, int sWidth, int sHeight) {
 
+	//Initialization flag
+	bool success = true;
+	this->screenName = name;
+
+	//Create window
+	this->vWindow = SDL_CreateWindow( name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, sWidth, sHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE );
+	if( this->vWindow == NULL )
+	{
+		Log::e( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
+		success = false;
+	}
+	else
+	{
+		this->width = sWidth;
+		this->height = sHeight;
+		this->sMouseFocus = true;
+		this->sKeyboardFocus = true;
+
+		//Create renderer for window
+		this->vRenderer = SDL_CreateRenderer( this->vWindow, -1, SDL_RENDERER_ACCELERATED );
+		if( this->vRenderer == NULL )
+		{
+			Log::e( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+			success = false;
+		}
+		else
+		{
+			//Initialize renderer color
+			SDL_SetRenderDrawColor( this->vRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+			//Initialize PNG loading
+			int imgFlags = IMG_INIT_PNG;
+			if( !( IMG_Init( imgFlags ) & imgFlags ) )
+			{
+				Log::e( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+				success = false;
+			}
+		}
+	}
+
+	return success;
+}

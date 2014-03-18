@@ -8,13 +8,13 @@
 #include "GameElement.h"
 
 
-GameElement::GameElement(ElementType type, float posX, float posY, int degrees){
+GameElement::GameElement(int type, float posX, float posY, int degrees){
 	this->type = type;
 	this->degrees = degrees;
 	this->position = std::make_pair(posX,posY);
 }
 
-ElementType GameElement::getType(){
+int GameElement::getType(){
 	return this->type;
 }
 

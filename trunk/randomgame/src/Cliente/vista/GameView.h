@@ -22,20 +22,7 @@
 #include "Screen.h"
 #include "MenuView.h"
 #include "ElementView.h"
-
-
-
-
-
-
-enum sprites
-{
-	CIRCLE_SPRITE = 0,
-	SQUARE_SPRITE = 1,
-	PENTAGON_SPRITE = 2,
-	TRIANGLE_SPRITE = 3,
-	TOTAL_SPRITES = 4
-};
+#include "../../utils/PersistYaml.h"
 
 
 class GameView{
@@ -48,24 +35,34 @@ class GameView{
 		void renderLevel();
 		bool loadFonts();
 
-		Textures spritesTextures[TOTAL_SPRITES];
+		//Textures spritesTextures[TOTAL_SPRITES];
 		Textures fontTextures[2];
 		Screen* vScreen;
 		std::list<ElementView> elems;
 		MenuView menu;
+		std::string background;
 
 	public:
 		Screen* getScreen();
 		std::list<ElementView>* getElems();
 		GameFonts gameFont;
+		void moveToEnd(std::list<ElementView>::iterator el);
+		void removeElement(ElementView el);
 
+		void setBackground(std::string b);
+		std::string getBackground();
+		void loadBackground(int pos,std::string str);
 		void close();
 		bool init();
 		bool loadSprite(int type, std::string spritePath);
 		void render();
 		void clearScreen();
-		void addElement(int type, int posX, int posY, int degree);
+		void addElement(int type, float posX, float posY, int degree);
+		void addElement(ElementView el);
 		void drawInputText(std::string inputText);
+		void moveMenuUp();
+		void moveMenuDown();
+		int getMenuOffset();
 };
 
 #endif /* GAMEVIEW_H_ */

@@ -5,7 +5,9 @@
 #include <algorithm>
 #include "GameElement.h"
 #include <list>
-
+#include "../../utils/ParserYaml.h"
+#include "../../utils/PersistYaml.h"
+//#include "../../utils/utils.h"
 
 
 class GameLevel {
@@ -43,7 +45,7 @@ class GameLevel {
 
 		std::multimap<std::pair<float, float>, GameElement> getEntities();
 		void addEntity(GameElement entidad);
-		void removeEntity(GameElement entidad);
+		void removeEntity(std::pair<float,float> pos);
 		void entityUpdatePosition(int tileX, int tileY, int id);
 		bool posicionOcupada(float x, float y);
 		bool checkMapPosition(float x, float y);

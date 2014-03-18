@@ -30,6 +30,7 @@ public:
 	int getHeight();
 	int getWidth();
 	bool init();
+	bool init(std::string name, int width, int height);
 	void close();
 	void clearScreen();
 	SDL_Renderer* getRenderer();
@@ -40,7 +41,11 @@ public:
 	void setMouseFocus(bool f);
 	void setKeyboardFocus(bool f);
 	std::pair<float,float> getLogic2PixelsFactor();
-
+	std::pair<float,float> getLastLogic2PixelsFactor();
+	void updateLastFactor();
+	std::string getScreenName();
+	void setScreenName(std::string name);
+	SDL_Window* getWindow();
 
 private:
 	SDL_Renderer* vRenderer;
@@ -55,7 +60,8 @@ private:
 
 	int height;
 	int width;
-
+	std::string screenName;
+	std::pair<float,float> lastLogic2PixelsFactor;
 	bool sMouseFocus;
 	bool sKeyboardFocus;
 	bool sFullScreen;

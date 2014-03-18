@@ -20,9 +20,16 @@
 #define ALIGN_SPRITE 50
 #define ARROW_Y_POS 15
 
-#define CONFIG_IMAGES 4
+#define CONFIG_IMAGES 6
 
+#define BACKGROUND "background"
+#define ARROW_BUTTON "arrow"
+#define SAVE_BUTTON "save"
+#define EXIT_BUTTON "exit"
+#define LOAD_BACK_BUTTON "loadButton"
 
+#define DEFAULT_YAML_LEVEL "level.yaml"
+#define CONFIG_FILE "config/config.yaml"
 
 
 
@@ -31,15 +38,12 @@
 /****************************************************************************************************/
 
 /**************************** Directorios ****************************/
-#define DIRECTORIO_IMG "./img"
-#define DIRECTORIO_CONFIG "./config"
+#define DIRECTORIO_IMG "image/"
+#define DIRECTORIO_CONFIG "config/"
 
 /**************************** Log ****************************/
 #define LOG_RUTA "./DI_Log.txt"
-#define LOG_NIVEL LOG_NIVEL_DEBUG_ALTO  /* <<< Acá se cambia el nivel del log, se usa uno de los de abajo */
-#define LOG_NIVEL_RELEASE 1		/* Nivel 1: Release, Nivel 2: Debug Bajo, Nivel 3: Debug Alto, se pueden habilitar niveles mas altos. El nivel elegido incluye los niveles inferiores*/
-#define LOG_NIVEL_DEBUG_BAJO 2
-#define LOG_NIVEL_DEBUG_ALTO 3
+#define LOG_MAX_LINE_SIZE 256
 
 // Para setear el uso del archivo de log
 #define LOG_ESCRITURA LOG_ON  // <<< Acá se setea, se puede poner LOG_OFF o LOG_ON
@@ -95,3 +99,8 @@
 #define YAML_FPS_TOPE_MAXIMO 99
 #define YAML_DELAY_TOPE_MAXIMO 99
 #define YAML_CANTIDAD_OBLIGATORIA_DE_ANIMACIONES_PROTAGONISTA 24
+
+
+/**************************** LOG2 ***************************/
+
+#define LOG_PATH "./LOG"
