@@ -477,14 +477,20 @@ void ParserYaml::cargarNivelYaml(std::string file){
 }
 
 
-bool ParserYaml::esNumero(std::string cadena){
-	try{ 
-		float f=boost::lexical_cast<float>(cadena);
-		return true;
-	}catch(boost::bad_lexical_cast& e){
-		return false;
-	}
 
+//Esto hay que programarlo de nuevo sin boost, salvo q quieran usarlo
+//bool ParserYaml::esNumero(std::string cadena){
+//	try{ 
+//		float f=boost::lexical_cast<float>(cadena);
+//		return true;
+//	}catch(boost::bad_lexical_cast& e){
+//		return false;
+//	}
+//
+//}
+
+bool ParserYaml::esNumero(std::string cadena){
+	return true;
 }
 
 //+++++geters++++++
@@ -558,39 +564,53 @@ std::string parserInt2String(int n){
 	return ss.str();
 }
 
-std::string ParserYaml::validaAngulo(std::string ang){
-	try{ 
-		int i=boost::lexical_cast<int>(ang);
-		i=i%360;
-		if(i<0) i+=360;
-		return parserInt2String(i);
-	}catch(boost::bad_lexical_cast& e){
-		return "";
-	}
+//reprogrmar usa boost...
+//std::string ParserYaml::validaAngulo(std::string ang){
+//	try{ 
+//		int i=boost::lexical_cast<int>(ang);
+//		i=i%360;
+//		if(i<0) i+=360;
+//		return parserInt2String(i);
+//	}catch(boost::bad_lexical_cast& e){
+//		return "";
+//	}
+//
+//}
 
+std::string ParserYaml::validaAngulo(std::string ang){
+	return "";
 }
+
+//reprogramar usa boost
+//std::string ParserYaml::validaPosicion(std::string pos){
+//	try{ 
+//		float f=boost::lexical_cast<float>(pos);
+//		if(f<0) f=0;
+//		if(f>100) f=100;
+//		return parserFloat2String(f);
+//	}catch(boost::bad_lexical_cast& e){
+//		return "";
+//	}
+//}
 
 std::string ParserYaml::validaPosicion(std::string pos){
-	try{ 
-		float f=boost::lexical_cast<float>(pos);
-		if(f<0) f=0;
-		if(f>100) f=100;
-		return parserFloat2String(f);
-	}catch(boost::bad_lexical_cast& e){
-		return "";
-	}
-}
+	return ""; }
 
+
+//reprogramar usa boost
+//std::string ParserYaml::validaPantalla(std::string tam){
+//	try{ 
+//		int f=boost::lexical_cast<int>(tam);
+//		if(f<0) f=600;
+//		if(f>2000) f=800;
+//		return parserFloat2String(f);
+//	}catch(boost::bad_lexical_cast& e){
+//		return "";
+//	}
+//}
 std::string ParserYaml::validaPantalla(std::string tam){
-	try{ 
-		int f=boost::lexical_cast<int>(tam);
-		if(f<0) f=600;
-		if(f>2000) f=800;
-		return parserFloat2String(f);
-	}catch(boost::bad_lexical_cast& e){
-		return "";
+	return "";
 	}
-}
 
 
 

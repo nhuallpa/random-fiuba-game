@@ -87,8 +87,10 @@ bool GameLevel::createLevel(GameLevel&){
 
 			this->addEntity(GameElement(
 								aParser->getElementPosition(aParser->getElemNombre(i,j)),
-								nearest(boost::lexical_cast<float>( (aParser->getElemX(i,j)).c_str() )),
-								nearest(boost::lexical_cast<float>( (aParser->getElemY(i,j)).c_str() )),
+								//nearest(boost::lexical_cast<float>( (aParser->getElemX(i,j)).c_str() )),
+								//nearest(boost::lexical_cast<float>( (aParser->getElemY(i,j)).c_str() )),
+								0.0,
+								0.0,
 								atoi( (aParser->getElemAngulo(i,j)).c_str()) ));
 
 			//std::cout<<"added one at " <<  nearest(boost::lexical_cast<float>((aParser->getElemX(i,j)).c_str()))  << ", " << nearest(boost::lexical_cast<float>(((aParser->getElemY(i,j)).c_str()))) << std::endl;
