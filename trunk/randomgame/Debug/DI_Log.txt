@@ -96,3 +96,47 @@
 
 [ERROR] 2014-03-19.15:52:12 Failed to load sprite texture!
 
+[DEBUG] 2014-03-20.15:09:47 Datos de los elementos encontrados correctamente
+[DEBUG] 2014-03-20.15:09:47 Se cargo el nivel correctamente
+[ERROR] 2014-03-20.15:09:52 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
+
+[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:09:52 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
+
+[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:09:52 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:09:52 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:09:52 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
+
+[DEBUG] 2014-03-20.15:10:19 Datos de los elementos encontrados correctamente
+[DEBUG] 2014-03-20.15:10:20 Se cargo el nivel correctamente
+[ERROR] 2014-03-20.15:10:20 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
+
+[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:10:20 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
+
+[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:10:20 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:10:20 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
+
+[ERROR] 2014-03-20.15:10:20 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
+
