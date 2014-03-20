@@ -1,0 +1,2 @@
+[ERROR] 2014-03-20.15:09:26 Archivo de nivel:  e, invalido/corrupto o no encontrado
+[ERROR] 2014-03-20.15:09:26 No se puede abirir el archivo de configuracion
