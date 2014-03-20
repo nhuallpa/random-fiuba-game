@@ -1,9 +1,146 @@
-﻿Compilación iniciada a las 20/03/2014 03:08:32 p.m..
+﻿Compilación iniciada a las 20/03/2014 05:23:53 p.m..
      1>Proyecto "C:\random-fiuba-game\randomgame\randomgame\randomgame.vcxproj" en el nodo 2 (build destinos).
      1>InitializeBuildStatus:
          Se creará "Debug\randomgame.unsuccessfulbuild" porque se especificó "AlwaysCreate".
        ClCompile:
-         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\main.cpp
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\Administrador.cpp ..\src\Cliente\Cliente.cpp ..\src\Cliente\controlador\GameController.cpp ..\src\Cliente\vista\GameView.cpp ..\src\Servidor\Servidor.cpp ..\src\Servidor\modelo\GameEngine.cpp ..\src\Servidor\modelo\GameLevel.cpp ..\src\main.cpp ..\src\utils\ParserYaml.cpp
+         ParserYaml.cpp
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(372): warning C4101: 'x' : variable local sin referencia
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(385): warning C4018: '<' : no coinciden signed/unsigned
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+     1>c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\conversion.h(61): warning C4146: operador unario menos aplicado a un tipo unsigned; el resultado aún no tiene signo
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodereadimpl.h(82) : vea la referencia a la creación de instancias de plantilla de función 'bool YAML::Convert<T>(const std::string &,T &,void *)' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodereadimpl.h(35) : vea la referencia a la creación de instancias de plantilla de función 'bool YAML::ConvertScalar<T>(const YAML::Node &,T &)' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodereadimpl.h(71) : vea la referencia a la creación de instancias de plantilla de función 'bool YAML::read_impl<true>::read<T>(const YAML::Node &,T &)' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodeimpl.h(47) : vea la referencia a la creación de instancias de plantilla de función 'bool YAML::Node::Read<T>(T &) const' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodeimpl.h(37) : vea la referencia a la creación de instancias de plantilla de función 'const YAML::Node *YAML::Node::FindValueForKey<T>(const T &) const' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodeimpl.h(58) : vea la referencia a la creación de instancias de plantilla de función 'const YAML::Node *YAML::Node::FindValue<T>(const T &) const' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\nodeimpl.h(65) : vea la referencia a la creación de instancias de plantilla de función 'const YAML::Node &YAML::Node::GetValue<T>(const T &) const' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+                 c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(99) : vea la referencia a la creación de instancias de plantilla de función 'const YAML::Node &YAML::Node::operator []<unsigned int>(const T &) const' que se está compilando
+                 with
+                 [
+                     T=unsigned int
+                 ]
+         GameLevel.cpp
+     1>c:\random-fiuba-game\randomgame\src\servidor\modelo\gamelevel.cpp(27): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         GameEngine.cpp
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         Servidor.cpp
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         GameView.cpp
+     1>c:\random-fiuba-game\randomgame\src\cliente\vista\gameview.cpp(177): warning C4244: 'argumento' : conversión de 'int' a 'float'; posible pérdida de datos
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         GameController.cpp
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(16): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(62): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(62): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(104): warning C4244: 'inicializando' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(107): warning C4244: 'inicializando' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(115): warning C4244: 'argumento' : conversión de 'float' a 'int'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(115): warning C4244: 'argumento' : conversión de 'float' a 'int'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(189): warning C4244: 'inicializando' : conversión de 'double' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(235): warning C4244: 'argumento' : conversión de 'float' a 'int'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(267): warning C4244: 'argumento' : conversión de 'float' a 'int'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(350): warning C4018: '>' : no coinciden signed/unsigned
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(373): warning C4244: 'argumento' : conversión de 'int' a 'float'; posible pérdida de datos
+     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(373): warning C4244: 'argumento' : conversión de 'int' a 'float'; posible pérdida de datos
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         Cliente.cpp
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         Administrador.cpp
+     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
+                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
+                 with
+                 [
+                     _OutIt=unsigned char *,
+                     _InIt=const unsigned char *
+                 ]
+         Generando código...
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(411): warning C4715: 'ParserYaml::getElementType' : no todas las rutas de acceso de control devuelven un valor
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(623): warning C4717: 'ParserYaml::getElemNombre' : recursiva para todas las rutas de acceso de control; la función provocará el desbordamiento de la pila en tiempo de ejecución
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(624): warning C4717: 'ParserYaml::getElemX' : recursiva para todas las rutas de acceso de control; la función provocará el desbordamiento de la pila en tiempo de ejecución
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(625): warning C4717: 'ParserYaml::getElemY' : recursiva para todas las rutas de acceso de control; la función provocará el desbordamiento de la pila en tiempo de ejecución
+     1>c:\random-fiuba-game\randomgame\src\utils\parseryaml.cpp(626): warning C4717: 'ParserYaml::getElemAngulo' : recursiva para todas las rutas de acceso de control; la función provocará el desbordamiento de la pila en tiempo de ejecución
+         Compilando...
          main.cpp
      1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
                  c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
@@ -13,6 +150,7 @@
                      _OutIt=unsigned char *,
                      _InIt=const unsigned char *
                  ]
+         Generando código...
        Link:
          C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\random-fiuba-game\randomgame\Debug\randomgame.exe" /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib Box2D.lib "libyaml-cppmdd.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\randomgame.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\random-fiuba-game\randomgame\Debug\randomgame.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\random-fiuba-game\randomgame\Debug\randomgame.lib" /MACHINE:X86 Debug\Administrador.obj
          Debug\Cliente.obj
@@ -47,4 +185,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:23.71
+Tiempo transcurrido 00:00:37.24
