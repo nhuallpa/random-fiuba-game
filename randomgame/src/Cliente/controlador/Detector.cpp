@@ -1,8 +1,8 @@
 /*
  * Detector.cpp
  *
- *  Created on: 09/09/2013
- *      Author: ALiguori
+ *  Created on: 01/03/2014
+ *      Author: ALiguori/eschmoll
  */
 
 #include "Detector.h"
@@ -15,8 +15,6 @@ using namespace std;
 
 
 Detector::Detector() {
-	//this->backgroundText = "";
-	//this->changedPosition = false;
 	this->clearStates();
 	createButtons();
 	m_keys = SDL_GetKeyboardState(NULL);
@@ -52,8 +50,6 @@ void Detector::destroyButtons(){
 	return;
 }
 
-
-
 void Detector::handleEventKeys(){
 	SDL_PumpEvents();
 	std::list<GameButton*>::iterator it;
@@ -74,11 +70,65 @@ void Detector::handleEvents(SDL_Event* e){
 	return;
 }
 
+bool Detector::getState(State action){
+	return this->cState[action];
+}
+
+void Detector::clearStates(){
+	for (int i=0; i <= TOTAL_STATES; i++){
+		this->cState[i] = false;
+	}
+}
+
+void Detector::setState(State action, bool value){
+	this->cState[action] = value;
+}
+
+/*******************************************************************************
+
+
+#include "Detector.h"
+#include "../../utils/Log.h"
+#include "SButton.h"
+#include "PButton.h"
+
+using namespace std;
+
+
+
+Detector::Detector() {
+	this->backgroundText = "";
+	this->changedPosition = false;
+	this->clearStates();
+}
+
+Detector::~Detector() {
+}
+
+void Detector::detect(){
+	SDL_Event* ev = new SDL_Event();
+	SDL_StartTextInput();
+	while(SDL_PollEvent( ev ))
+	{
+		this->handleEvents(ev);
+	}
+	free(ev);
+	return;
+}
+
+void Detector::handleEvents(SDL_Event* e){
+	if ( e->type == SDL_QUIT){
+		this->cState[EXIT_REQUEST] = true;
+		return;
+	}
+	return;
+}
+
 bool Detector::changedRelPosition(){
 	return this->changedPosition;
 }
 
-/*
+
 void Detector::handleEvents(SDL_Event* e){
 
 	this->mousePosition = make_pair(e->motion.x,e->motion.y);
@@ -242,7 +292,7 @@ void Detector::handleEvents(SDL_Event* e){
 	SDL_Delay(5);
 
 }
-*/
+
 
 std::string Detector::getBackgroundText(){
 	return this->backgroundText;
@@ -263,22 +313,6 @@ std::pair<int,int> Detector::getMouseRelativePosition(){
 	return this->mouseRelativePosition;
 }
 
-
-bool Detector::getState(State action){
-	return this->cState[action];
-}
-
-
-void Detector::clearStates(){
-	for (int i=0; i <= TOTAL_STATES; i++){
-		this->cState[i] = false;
-	}
-}
-
-void Detector::setState(State action, bool value){
-	this->cState[action] = value;
-}
-
 void Detector::setLastMousePosition(int x, int y){
 	this->lastMousePosition = std::make_pair(x,y);
 }
@@ -286,3 +320,7 @@ void Detector::setLastMousePosition(int x, int y){
 std::pair<int,int> Detector::getLastMousePosition(){
 	return this->lastMousePosition;
 }
+
+
+*********************************************************************************/
+

@@ -1,8 +1,8 @@
 /*
  * Detector.h
  *
- *  Created on: 09/09/2013
- *      Author: ALiguori
+ *  Created on: 01/03/2014
+ *      Author: ALiguori/eschmoll
  */
 
 #pragma once
@@ -26,6 +26,60 @@
 /*
  *
  */
+
+enum State{
+	BEGIN_LIFE = 0,
+	REGENERATE_WORLD = 1,
+	EXIT_REQUEST=2,
+	TOTAL_STATES=3
+};
+
+class Detector {
+public:
+	Detector();
+	virtual ~Detector();
+	void detect();
+	bool getState(State action);
+	void clearStates();
+	void setState(State action, bool value);
+
+private:
+	bool cState[TOTAL_STATES];
+	void createButtons();
+	void destroyButtons();
+	void handleEventKeys();
+	void handleEvents(SDL_Event* e);
+	std::list<GameButton*> l_buttons;
+	const Uint8* m_keys;
+};
+
+#endif /* DETECTOR_H_ */
+
+
+
+
+
+
+
+
+/******************************************************************
+#pragma once
+
+#ifndef DETECTOR_H_
+#define DETECTOR_H_
+
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <SDL_image.h>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <list>
+#include "../vista/Screen.h"
+#include "GameButton.h"
+
+
 
 
 enum State{
@@ -82,4 +136,6 @@ private:
 	// Mod-18 End	
 };
 
-#endif /* DETECTOR_H_ */
+
+
+**********************************************************************/

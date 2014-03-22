@@ -72,7 +72,7 @@ void GameController::detectEvents(){
 
 
 ElementView* GameController::checkInsideElements(){
-
+	/*
 	std::list<ElementView>* mmap = this->gView->getElems();
 	std::list<ElementView>::reverse_iterator elems = mmap->rbegin();
 
@@ -116,14 +116,14 @@ ElementView* GameController::checkInsideElements(){
 			if ( !alpha)
 				return &(*elems);
 		}
-	}
+	}*/
 	return NULL;
 }
 
 
 bool GameController::handleEvents(){
 
-	
+	/*
 	if ( this->cDetector.getState(EXIT_REQUEST) ){
 		return true;
 	}
@@ -333,7 +333,7 @@ bool GameController::handleEvents(){
 	}
 
 	this->changes = somethingHappened;
-
+	*/
 
 	return false;
 }
@@ -344,7 +344,7 @@ ElementView* GameController::checkInsideMenu(){
 
 	bool inside = true;
 
-
+	/*
 	int qtyMenuElems = Screen::getInstance()->getHeight() / (ARROW_Y_POS + ARROW_Y_POS + SPRITES_HEIGHT);
 
 	if ( qtyMenuElems > (Sprites::getInstance()->getSpriteMap()->size()-CONFIG_IMAGES) ){
@@ -376,7 +376,7 @@ ElementView* GameController::checkInsideMenu(){
 
 
 	}
-
+	*/
 	return NULL;
 }
 
@@ -388,9 +388,9 @@ bool GameController::getChanges(){
 
 
 bool GameController::checkSaveRequested(){
-
+	
 	bool inside = true;
-
+	/*
 	if ( this->cDetector.getMousePosition().first < (Screen::getInstance()->getWidth() - MENU_WIDTH - (SPRITES_WIDTH*2) -(15*2))  ){
 		inside = false;
 	}
@@ -406,16 +406,16 @@ bool GameController::checkSaveRequested(){
 	if ( this->cDetector.getMousePosition().second > (Screen::getInstance()->getHeight() - ARROW_Y_POS ) ){
 		inside = false;
 	}
-
+	*/
 	return inside;
 
 }
 
 
 bool GameController::checkChangeBackground(){
-
+	
 	bool inside = true;
-
+	/*
 	if ( this->cDetector.getMousePosition().first < (Screen::getInstance()->getWidth() - MENU_WIDTH - SPRITES_WIDTH - 15)  ){
 		inside = false;
 	}
@@ -431,7 +431,7 @@ bool GameController::checkChangeBackground(){
 	if ( this->cDetector.getMousePosition().second > (Screen::getInstance()->getHeight() - ARROW_Y_POS ) ){
 		inside = false;
 	}
-
+	*/
 	return inside;
 
 }
@@ -439,7 +439,7 @@ bool GameController::checkChangeBackground(){
 bool GameController::checkExitRequested(){
 
 	bool inside = true;
-
+	/*
 	if ( this->cDetector.getMousePosition().first < (Screen::getInstance()->getWidth() - MENU_WIDTH - (SPRITES_WIDTH*3) -(15*3))  ){
 		inside = false;
 	}
@@ -455,7 +455,7 @@ bool GameController::checkExitRequested(){
 	if ( this->cDetector.getMousePosition().second > (Screen::getInstance()->getHeight() - ARROW_Y_POS ) ){
 		inside = false;
 	}
-
+	*/
 	return inside;
 
 }
@@ -463,7 +463,7 @@ bool GameController::checkExitRequested(){
 bool GameController::checkMoveUpRequested(){
 
 	bool inside = true;
-
+	/*
 	if ( this->cDetector.getMousePosition().first < (Screen::getInstance()->getWidth() - MENU_WIDTH + ALIGN_SPRITE)  ){
 		inside = false;
 	}
@@ -479,7 +479,7 @@ bool GameController::checkMoveUpRequested(){
 	if ( this->cDetector.getMousePosition().second > (SPRITES_HEIGHT + ARROW_Y_POS ) ){
 		inside = false;
 	}
-
+	*/
 	return inside;
 
 }
@@ -487,7 +487,7 @@ bool GameController::checkMoveUpRequested(){
 bool GameController::checkMoveDownRequested(){
 
 	bool inside = true;
-
+	/*
 	if ( this->cDetector.getMousePosition().first < (Screen::getInstance()->getWidth() - MENU_WIDTH + ALIGN_SPRITE)  ){
 		inside = false;
 	}
@@ -503,7 +503,7 @@ bool GameController::checkMoveDownRequested(){
 	if ( this->cDetector.getMousePosition().second > (Screen::getInstance()->getHeight() - ARROW_Y_POS ) ){
 		inside = false;
 	}
-
+	*/
 	return inside;
 
 }
@@ -549,6 +549,7 @@ void GameController::persist(){
 }
 
 void GameController::updateElements(){
+	/*
 	std::list<ElementView>* mmap = this->gView->getElems();
 	std::list<ElementView>::iterator elems = mmap->begin();
 
@@ -559,6 +560,6 @@ void GameController::updateElements(){
 	}
 
 	this->cDetector.setState(WNDW_SIZE_CHGD,false);
-
+	*/
 }
 
