@@ -19,7 +19,7 @@
 #include <iostream>
 #include <list>
 #include "../vista/Screen.h"
-
+#include "GameButton.h"
 
 
 
@@ -63,6 +63,7 @@ public:
 	std::pair<int,int> getLastMousePosition();
 
 
+
 private:
 	bool changedPosition;
 	std::pair<int,int> mousePosition;
@@ -71,6 +72,14 @@ private:
 	bool cState[TOTAL_STATES];
 	//SDL_Event event;
 	std::string backgroundText;
+	// Mod-18 Begin
+	void createButtons();
+	void destroyButtons();
+	void handleEventKeys();
+	SDL_Window* view;
+	std::list<GameButton*> l_buttons;
+	const Uint8* m_keys;
+	// Mod-18 End	
 };
 
 #endif /* DETECTOR_H_ */
