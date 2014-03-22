@@ -7,38 +7,78 @@
 
 #include "Detector.h"
 #include "../../utils/Log.h"
+#include "SButton.h"
+#include "PButton.h"
 
 using namespace std;
 
+
+
 Detector::Detector() {
-	this->backgroundText = "";
-	this->changedPosition = false;
+	//this->backgroundText = "";
+	//this->changedPosition = false;
 	this->clearStates();
+	createButtons();
+	m_keys = SDL_GetKeyboardState(NULL);
 }
 
 Detector::~Detector() {
+	destroyButtons();
 }
 
 void Detector::detect(){
-
-	SDL_StartTextInput();
 	SDL_Event* ev = new SDL_Event();
-	while( SDL_PollEvent( ev ) != 0 )
+	SDL_StartTextInput();
+	while(SDL_PollEvent( ev ))
 	{
-		if ( ev->type == SDL_QUIT){
-			this->cState[EXIT_REQUEST] = true;
-			return;
-		}
 		this->handleEvents(ev);
 	}
 	free(ev);
+	return;
 }
 
+
+void Detector::createButtons(){
+	l_buttons.push_back(new SButton());
+	l_buttons.push_back(new PButton());
+	return;
+}
+
+void Detector::destroyButtons(){
+	std::list<GameButton*>::iterator it;
+	for(it = l_buttons.begin(); it != l_buttons.end(); it++){
+		delete *it;
+	}
+	return;
+}
+
+
+
+void Detector::handleEventKeys(){
+	SDL_PumpEvents();
+	std::list<GameButton*>::iterator it;
+	for(it = l_buttons.begin(); it != l_buttons.end(); it++){
+		(*it)->execute(m_keys);
+	}
+	return;
+}
+
+void Detector::handleEvents(SDL_Event* e){
+	if ( e->type == SDL_QUIT){
+		this->cState[EXIT_REQUEST] = true;
+		return;
+	}
+	else if(e->type == SDL_KEYDOWN){
+		this->handleEventKeys();
+	}
+	return;
+}
 
 bool Detector::changedRelPosition(){
 	return this->changedPosition;
 }
 
+/*
 void Detector::handleEvents(SDL_Event* e){
 
 	this->mousePosition = make_pair(e->motion.x,e->motion.y);
@@ -202,7 +242,7 @@ void Detector::handleEvents(SDL_Event* e){
 	SDL_Delay(5);
 
 }
-
+*/
 
 std::string Detector::getBackgroundText(){
 	return this->backgroundText;
