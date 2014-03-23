@@ -15,9 +15,9 @@ using namespace std;
 
 
 Detector::Detector() {
-	this->clearStates();
 	createButtons();
 	m_keys = SDL_GetKeyboardState(NULL);
+	quit = false;
 }
 
 Detector::~Detector() {
@@ -31,58 +31,109 @@ void Detector::detect(){
 	{
 		this->handleEvents(ev);
 	}
-	free(ev);
-	return;
+	delete ev;
 }
 
 
 void Detector::createButtons(){
-	l_buttons.push_back(new SButton());
-	l_buttons.push_back(new PButton());
-	return;
+	Elements[SBUTTON] = new SButton();
+	Elements[PBUTTON] = new PButton();
 }
 
 void Detector::destroyButtons(){
-	std::list<GameButton*>::iterator it;
-	for(it = l_buttons.begin(); it != l_buttons.end(); it++){
-		delete *it;
+	map<TypeElement, GameButton*>::iterator it;
+	for(it = Elements.begin(); it != Elements.end(); it++){
+		delete (*it).second;
 	}
-	return;
 }
 
 void Detector::handleEventKeys(){
 	SDL_PumpEvents();
-	std::list<GameButton*>::iterator it;
-	for(it = l_buttons.begin(); it != l_buttons.end(); it++){
-		(*it)->execute(m_keys);
+	map<TypeElement, GameButton*>::iterator it;
+	for(it = Elements.begin(); it != Elements.end(); it++){
+		(*it).second->execute(m_keys);
 	}
-	return;
 }
 
 void Detector::handleEvents(SDL_Event* e){
 	if ( e->type == SDL_QUIT){
-		this->cState[EXIT_REQUEST] = true;
+		quit = true;
 		return;
 	}
 	else if(e->type == SDL_KEYDOWN){
 		this->handleEventKeys();
 	}
-	return;
 }
 
 bool Detector::getState(State action){
-	return this->cState[action];
+	return cState[action];
 }
 
+bool Detector::isBeginLife(){
+	SButton* element = (SButton*) getElement(SBUTTON);
+	return element->isBeginLife();
+}
+
+bool Detector::isRegenerateWorld(){
+	SButton* element = (SButton*) getElement(SBUTTON);
+	return element->isRegenerateWorld();
+}
+
+bool Detector::isPuase(){
+	PButton* element = (PButton*) getElement(PBUTTON);
+	return element->isPause();
+}
+
+bool Detector::isQuit(){
+	return quit;
+}
+
+GameButton* Detector::getElement(TypeElement te){
+	map<TypeElement, GameButton*>::iterator it;
+	for(it = Elements.begin(); it != Elements.end(); it++){
+		if((*it).first == te){
+			return (*it).second;
+		}
+	}
+	return NULL;
+}
+
+
 void Detector::clearStates(){
-	for (int i=0; i <= TOTAL_STATES; i++){
-		this->cState[i] = false;
+	map<TypeElement, GameButton*>::iterator it;
+	for(it = Elements.begin(); it != Elements.end(); it++){
+		(*it).second->cleanState();
 	}
 }
 
 void Detector::setState(State action, bool value){
 	this->cState[action] = value;
 }
+
+/*
+void Detector::updateStates(){
+	map<TypeElement, GameButton*>::iterator it;
+	for(it = Elements.begin(); it != Elements.end(); it++){
+		if((*it).first == SBUTTON){
+			if(!cState[BEGIN_LIFE]){
+				cState[BEGIN_LIFE] = (*it).second->getPush(BUTTON_PUSH);
+			}
+			else{
+				cState[REGENERATE_WORLD] = (*it).second->getPush(BUTTON_PUSH);
+			}
+		}
+		else if((*it).first == PBUTTON){
+			if(!cState[PAUSE]){
+				cState[PAUSE] = (*it).second->getPush(BUTTON_PUSH);
+			}
+			else{
+				cState[PAUSE] = !(*it).second->getPush(BUTTON_PUSH);
+			}
+		}
+	}
+	return;
+}
+*/
 
 /*******************************************************************************
 
@@ -293,6 +344,11 @@ void Detector::handleEvents(SDL_Event* e){
 
 }
 
+void Detector::clearStates(){
+	for (int i=0; i < TOTAL_STATES; i++){
+		this->cState[i] = false;
+	}
+}
 
 std::string Detector::getBackgroundText(){
 	return this->backgroundText;

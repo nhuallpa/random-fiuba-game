@@ -5,7 +5,7 @@
 
 #include <SDL.h>
 
-	enum bState{BUTTON_PUSH, BUTTON_POP};
+
 
 class GameButton
 {
@@ -13,9 +13,7 @@ public:
 	GameButton(void);
 	~GameButton(void);
 	virtual void execute(const Uint8* keys);
-	bool getPush(bState state);
-protected:
-	bState m_state;
+	virtual void cleanState();
 };
 
 #endif /*__GAMEBUTTON__*/

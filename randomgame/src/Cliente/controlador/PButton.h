@@ -10,6 +10,10 @@ public:
 	PButton(void);
 	~PButton(void);
 	void execute(const Uint8* keys);
+	bool isPause();
+	void cleanState();
+private:
+	bool pause;
 };
 
 #endif /*__PBUTTON__*/

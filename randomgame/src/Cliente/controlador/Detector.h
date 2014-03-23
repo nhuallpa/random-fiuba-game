@@ -17,11 +17,10 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include <list>
 #include "../vista/Screen.h"
 #include "GameButton.h"
 
-
+using namespace std;
 
 /*
  *
@@ -30,30 +29,40 @@
 enum State{
 	BEGIN_LIFE = 0,
 	REGENERATE_WORLD = 1,
-	EXIT_REQUEST=2,
-	TOTAL_STATES=3
+	PAUSE = 2,
+	EXIT_REQUEST=3,
+	TOTAL_STATES=4
 };
+
 
 class Detector {
 public:
 	Detector();
 	virtual ~Detector();
 	void detect();
-	bool getState(State action);
 	void clearStates();
+	bool isBeginLife();
+	bool isRegenerateWorld();
+	bool isPuase();
+	bool isQuit();
+	bool getState(State action);
 	void setState(State action, bool value);
 
 private:
+	enum TypeElement{SBUTTON, PBUTTON};
+	map<TypeElement, GameButton*> Elements;
+	const Uint8* m_keys;
+	bool quit;
 	bool cState[TOTAL_STATES];
 	void createButtons();
 	void destroyButtons();
 	void handleEventKeys();
 	void handleEvents(SDL_Event* e);
-	std::list<GameButton*> l_buttons;
-	const Uint8* m_keys;
+	GameButton* getElement(TypeElement te);
 };
 
 #endif /* DETECTOR_H_ */
+
 
 
 
