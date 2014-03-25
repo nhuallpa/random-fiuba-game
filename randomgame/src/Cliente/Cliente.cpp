@@ -23,8 +23,9 @@ void Cliente::loop(void){
 	bool quit = false;
 
 	//init View
+	std::cout << "antes de view init" << std::endl;
 	this->cView.init();
-
+	std::cout << "despues de view init" << std::endl;
 	//init Controller
 	this->cController.init();
 

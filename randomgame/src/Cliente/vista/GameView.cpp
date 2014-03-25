@@ -34,33 +34,35 @@ bool GameView::init(){
 			Log::e( "Warning: Linear texture filtering not enabled!" );
 		}
 	}
-	ParserYaml* aParser = ParserYaml::getInstance();
+	//ToDo: Tomar datos de tamano del parser
+	//ParserYaml* aParser = ParserYaml::getInstance();
 	this->vScreen = Screen::getInstance();
+	this->vScreen->init("Random Game",640,480);
 
-	this->vScreen->init(aParser->getNivelNombre(),
-						atoi(aParser->getNivelAncho().c_str()),
-						atoi(aParser->getNivelAlto().c_str()));
+	//this->vScreen->init(aParser->getNivelNombre(),
+	//					atoi(aParser->getNivelAncho().c_str()),
+	//					atoi(aParser->getNivelAlto().c_str()));
 
 	// Load text
-	this->fontTextures[0].setRenderer(Screen::getInstance()->getRenderer());
-	this->fontTextures[1].setRenderer(Screen::getInstance()->getRenderer());
-	this->loadFonts();
+	//this->fontTextures[0].setRenderer(Screen::getInstance()->getRenderer());
+	//this->fontTextures[1].setRenderer(Screen::getInstance()->getRenderer());
+	//this->loadFonts();
 
 
 	int i=0;
 
-	for(;i<aParser->getCantDataElem();i++){
-		Sprites::getInstance()->addSprite(aParser->getElementPosition(aParser->getDataElemNombre(i)),
-										  aParser->getImagePath(aParser->getDataElemNombre(i)) );
-	}
+	//for(;i<aParser->getCantDataElem();i++){
+	//	Sprites::getInstance()->addSprite(aParser->getElementPosition(aParser->getDataElemNombre(i)),
+	//									  aParser->getImagePath(aParser->getDataElemNombre(i)) );
+	//}
 
 	
 	Sprites::getInstance()->addSprite(i,"image/bricks.jpg");
 	i++;
 
-	//Agrego el background en pos siguiente
-	this->loadBackground(i,aParser->getNivelFondo());
-	i++;
+	//ToDo: Agrego el background en pos siguiente
+	//this->loadBackground(i,aParser->getNivelFondo());
+	//i++;
 	//Agrego boton de flechas, exit, save y cambio de fondo
 
 	Sprites::getInstance()->addSprite(i,"image/arrow.png");
@@ -71,7 +73,7 @@ bool GameView::init(){
 	i++;
 	Sprites::getInstance()->addSprite(i,"image/change.png");
 
-	this->menu.init();
+	//this->menu.init();
 
 	return success;
 
@@ -135,8 +137,8 @@ void GameView::render(){
 	
 	this->drawBackground();
 	this->renderLevel();
-	this->drawMenu();
-	this->drawText();
+	//this->drawMenu();
+	//this->drawText();
 
 	SDL_RenderPresent( Screen::getInstance()->getRenderer() );
 

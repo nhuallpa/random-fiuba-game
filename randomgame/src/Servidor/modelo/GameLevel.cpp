@@ -73,30 +73,30 @@ void GameLevel::entityUpdatePosition(int tileX, int tileY, int id){
 }
 
 bool GameLevel::createLevel(GameLevel&){
+	//ToDo: crear nivel a partir de yaml persistido
+	//ParserYaml* aParser = ParserYaml::getInstance();
 
-	ParserYaml* aParser = ParserYaml::getInstance();
+	//if ( aParser->getDefault() == false ){
+	//for(int i=0;i<1;i++){
+	//	//std::cout<<"elementos:"<< aParser->getCantElem(i) << "\n\t\t";
+	//	for(int j=0;j<aParser->getCantElem(i);j++){
+	//		//std::cout<<"tipo: "<< aParser->getElemNombre(i,j)<<"\n\t\t";
+	//		//std::cout<<"x: "<< aParser->getElemX(i,j)<<"\n\t\t";
+	//		//std::cout<<"y: "<< aParser->getElemY(i,j)<<"\n\t\t";
+	//		//std::cout<<"angulo: "<< aParser->getElemAngulo(i,j)<<"\n\t\t";
 
-	if ( aParser->getDefault() == false ){
-	for(int i=0;i<1;i++){
-		//std::cout<<"elementos:"<< aParser->getCantElem(i) << "\n\t\t";
-		for(int j=0;j<aParser->getCantElem(i);j++){
-			//std::cout<<"tipo: "<< aParser->getElemNombre(i,j)<<"\n\t\t";
-			//std::cout<<"x: "<< aParser->getElemX(i,j)<<"\n\t\t";
-			//std::cout<<"y: "<< aParser->getElemY(i,j)<<"\n\t\t";
-			//std::cout<<"angulo: "<< aParser->getElemAngulo(i,j)<<"\n\t\t";
+	//		this->addEntity(GameElement(
+	//							aParser->getElementPosition(aParser->getElemNombre(i,j)),
+	//							//nearest(boost::lexical_cast<float>( (aParser->getElemX(i,j)).c_str() )),
+	//							//nearest(boost::lexical_cast<float>( (aParser->getElemY(i,j)).c_str() )),
+	//							0.0,
+	//							0.0,
+	//							atoi( (aParser->getElemAngulo(i,j)).c_str()) ));
 
-			this->addEntity(GameElement(
-								aParser->getElementPosition(aParser->getElemNombre(i,j)),
-								//nearest(boost::lexical_cast<float>( (aParser->getElemX(i,j)).c_str() )),
-								//nearest(boost::lexical_cast<float>( (aParser->getElemY(i,j)).c_str() )),
-								0.0,
-								0.0,
-								atoi( (aParser->getElemAngulo(i,j)).c_str()) ));
-
-			//std::cout<<"added one at " <<  nearest(boost::lexical_cast<float>((aParser->getElemX(i,j)).c_str()))  << ", " << nearest(boost::lexical_cast<float>(((aParser->getElemY(i,j)).c_str()))) << std::endl;
-		}
-	}
-	}
+	//		//std::cout<<"added one at " <<  nearest(boost::lexical_cast<float>((aParser->getElemX(i,j)).c_str()))  << ", " << nearest(boost::lexical_cast<float>(((aParser->getElemY(i,j)).c_str()))) << std::endl;
+	//	}
+	//}
+	//}
 
 	return true;
 
