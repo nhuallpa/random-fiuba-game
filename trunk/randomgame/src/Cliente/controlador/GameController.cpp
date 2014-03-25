@@ -522,30 +522,31 @@ std::string float2String(float n){
 
 
 void GameController::persist(){
-	PersistYaml* aPersist=PersistYaml::getInstance();
-	ParserYaml* aParser = ParserYaml::getInstance();
-	std::multimap<std::pair<float, float>, GameElement> mmap = this->cLevel->getEntities();
-	std::multimap<std::pair<float, float>, GameElement>::iterator elems = mmap.begin();
+	//Todo: arreglar persistencia controlador
+	//PersistYaml* aPersist=PersistYaml::getInstance();
+	//ParserYaml* aParser = ParserYaml::getInstance();
+	//std::multimap<std::pair<float, float>, GameElement> mmap = this->cLevel->getEntities();
+	//std::multimap<std::pair<float, float>, GameElement>::iterator elems = mmap.begin();
 
-	aPersist->setNivelNombre( Screen::getInstance()->getScreenName() );
-	aPersist->setNivelFondo( this->gView->getBackground() );
-	aPersist->setNivelAlto( toString(Screen::getInstance()->getHeight()) );
-	aPersist->setNivelAncho( toString(Screen::getInstance()->getWidth()) );
+	//aPersist->setNivelNombre( Screen::getInstance()->getScreenName() );
+	//aPersist->setNivelFondo( this->gView->getBackground() );
+	//aPersist->setNivelAlto( toString(Screen::getInstance()->getHeight()) );
+	//aPersist->setNivelAncho( toString(Screen::getInstance()->getWidth()) );
 
-	for ( int i=0; elems != mmap.end(); elems++,i++) {
-		//((*elems).first).first; //x - up left corner
-		//((*elems).first).second; //y - up left corner
-		//((*elems).second).getType(); // elem type
-		//((*elems).second).getRotation(); // rotation
-		//(int type, int posX, int posY, int degree);
-		//std::cout << "elem: " <<i<<std::endl;
-		aPersist->setElem(	aParser->getElementType( ((*elems).second).getType()) ,
-						float2String( ((*elems).first).first ),
-						float2String( ((*elems).first).second ),
-						toString( (int)((*elems).second).getRotation()) );	
-	}
+	//for ( int i=0; elems != mmap.end(); elems++,i++) {
+	//	//((*elems).first).first; //x - up left corner
+	//	//((*elems).first).second; //y - up left corner
+	//	//((*elems).second).getType(); // elem type
+	//	//((*elems).second).getRotation(); // rotation
+	//	//(int type, int posX, int posY, int degree);
+	//	//std::cout << "elem: " <<i<<std::endl;
+	//	aPersist->setElem(	aParser->getElementType( ((*elems).second).getType()) ,
+	//					float2String( ((*elems).first).first ),
+	//					float2String( ((*elems).first).second ),
+	//					toString( (int)((*elems).second).getRotation()) );	
+	//}
 
-	aPersist->escribirYaml(aParser->getLevelFilePath());
+	//aPersist->escribirYaml(aParser->getLevelFilePath());
 }
 
 void GameController::updateElements(){
