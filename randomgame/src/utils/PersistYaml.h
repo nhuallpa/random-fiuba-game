@@ -31,6 +31,10 @@ private:
 		std::string fondo;
 		std::string ancho;
 		std::string alto;
+		std::string altoP;
+		std::string anchoP;
+		std::string agua;
+		std::string tierra;
 		std::vector <stElemento> elem;	
 	};
 
@@ -51,6 +55,10 @@ public:
 	void setNivelFondo(std::string);
 	void setNivelAncho(std::string);
 	void setNivelAlto(std::string);
+	void setNivelAltoPantalla(std::string);
+	void setNivelAnchoPantalla(std::string);
+	void setNivelAgua(std::string);
+	void setNivelTierra(std::string);
 
 	void setElemNombre(std::string);
 	void setElemX(std::string);

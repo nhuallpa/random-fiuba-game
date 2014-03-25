@@ -32,6 +32,7 @@ void ParserYaml::startWithDefaultLevel(){
 	lvl.alto = "480";
 	lvl.fondo = "";
 	lvl.nombre = "TIMv1";
+	lvl.agua = "50";
 	this->todo.nivel.push_back(lvl);
 }
 
@@ -113,7 +114,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.x = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.x)){
 					std::string aux = elem.x;
-					elem.x = this->validaPosicion(elem.x);
+					//elem.x = this->validaPosicion(elem.x);
 					if (aux.compare(elem.x) != 0)
 						Log::d("Truncado valor de atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 					fX = true;
@@ -124,7 +125,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.y = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.y)){
 					std::string aux = elem.y;
-					elem.y = this->validaPosicion(elem.y);
+					//elem.y = this->validaPosicion(elem.y);
 					if (aux.compare(elem.y) != 0)
 						Log::d("Truncado valor de atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
 					fY = true;
@@ -135,7 +136,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.angulo = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.angulo)){
 					std::string aux = elem.angulo;
-					elem.angulo = this->validaAngulo(elem.angulo);
+					//elem.angulo = this->validaAngulo(elem.angulo);
 					if (aux.compare(elem.angulo) != 0)
 						Log::d("Truncado valor de atributo ANGULO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fAngulo = true;
@@ -217,13 +218,18 @@ void ParserYaml::cargarDataElementos(const YAML::Node& nodeVect,std::vector <dtE
 	}
 }
 
+
 void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,std::vector <stNivel>& nivelVect){
 	stNivel nivel;
 	bool fNombre = false;
 	bool fElem = false;
 	bool fAncho = false;
 	bool fAlto = false;
+	bool fAnchoP = false;
+	bool fAltoP = false;
 	bool fBackg = false;
+	bool fAgua = false;
+	bool fTierra = false;
 	for (unsigned i=0; i<nodeVect.size();i++){
 		
 		const YAML::Node& node = nodeVect[i];
@@ -254,7 +260,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,std::vector <stNivel>&
 					nivel.ancho = this->yamlNodeToString(it.second());
 					if (this->esNumero(nivel.ancho)){
 						std::string aux = nivel.ancho;
-						nivel.ancho = this->validaPantalla(nivel.ancho);
+						//nivel.ancho = this->validaPantalla(nivel.ancho);
 						if (aux.compare(nivel.ancho) != 0)
 							Log::d("Truncado valor de atributo ANCHO en nodo linea: %d.",(mark.line + 1));
 							fAncho = true;
@@ -266,13 +272,70 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,std::vector <stNivel>&
 					nivel.alto = this->yamlNodeToString(it.second());
 					if (this->esNumero(nivel.alto)){
 						std::string aux = nivel.alto;
-						nivel.alto = this->validaPantalla(nivel.alto);
+						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(nivel.alto) != 0)
 							Log::d("Truncado valor de atributo ALTO en nodo linea: %d.",(mark.line + 1));
 							fAlto = true;
 						} else
 							Log::e("Valor incorrecto para atributo ALTO en nodo linea: %d.",(mark.line + 1));
 				}
+
+				else if (key.compare("anchoPantalla")==0){
+
+					nivel.anchoP = this->yamlNodeToString(it.second());
+					if (this->esNumero(nivel.anchoP)){
+						std::string aux = nivel.anchoP;
+						//nivel.alto = this->validaPantalla(nivel.alto);
+						if (aux.compare(nivel.anchoP) != 0)
+							Log::d("Truncado valor de atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
+							fAnchoP = true;
+						} else
+							Log::e("Valor incorrecto para atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
+				}
+				
+				else if (key.compare("altoPantalla")==0){
+
+					nivel.altoP = this->yamlNodeToString(it.second());
+					if (this->esNumero(nivel.altoP)){
+						std::string aux = nivel.altoP;
+						//nivel.alto = this->validaPantalla(nivel.alto);
+						if (aux.compare(nivel.altoP) != 0)
+							Log::d("Truncado valor de atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
+							fAltoP = true;
+						} else
+							Log::e("Valor incorrecto para atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
+				}
+				
+				else if (key.compare("wlvl")==0){
+
+					nivel.agua = this->yamlNodeToString(it.second());
+					if (this->esNumero(nivel.agua)){
+						std::string aux = nivel.agua;
+						//nivel.alto = this->validaPantalla(nivel.alto);
+						if (aux.compare(nivel.agua) != 0)
+							Log::d("Truncado valor de atributo WLVL en nodo linea: %d.",(mark.line + 1));
+							fAgua = true;
+						} else
+							Log::e("Valor incorrecto para atributo WLVL en nodo linea: %d.",(mark.line + 1));
+				}
+				
+
+
+				else if (key.compare("tierra")==0){
+
+					nivel.tierra = this->yamlNodeToString(it.second());
+					if (this->esNumero(nivel.tierra)){
+						std::string aux = nivel.tierra;
+						//nivel.alto = this->validaPantalla(nivel.alto);
+						if (aux.compare(nivel.tierra) != 0)
+							Log::d("Truncado valor de atributo TIERRA en nodo linea: %d.",(mark.line + 1));
+							fTierra = true;
+						} else
+							Log::e("Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
+				}
+
+
+
 				else if (key.compare("elementos")==0){
 					fElem = true;
 					this->cargarElementos(it.second(),nivel.elem);
@@ -287,7 +350,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,std::vector <stNivel>&
 			exit(1);
 		 }
 		
-		if (fNombre && fElem && fAncho && fAlto && fBackg){
+		if (fNombre && fElem && fAncho && fAlto && fAnchoP && fAltoP && fBackg && fAgua && fTierra){
 			nivelVect.push_back(nivel);
 			//Log carga Nivel correctamente
 		}
@@ -307,9 +370,25 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,std::vector <stNivel>&
 				Log::e("Alto no encontrado, seteando default");
 				nivel.alto = "480";
 			}
+			if (!fAnchoP){
+				Log::e("Ancho no encontrado, seteando default");
+				nivel.ancho = "640";
+			}
+			if (!fAltoP){
+				Log::e("Alto no encontrado, seteando default");
+				nivel.alto = "480";
+			}
 			if (!fBackg){
 				Log::e("Background no encontrado, seteando default");
 				nivel.fondo ="";
+			}
+			if (!fAgua){
+				Log::e("Wlvl no encontrado, seteando default");
+				nivel.agua="";
+			}
+			if (!fTierra){
+				Log::e("Tierra no encontrado, seteando default");
+				nivel.tierra="";
 			}
 			nivelVect.push_back(nivel);
 		}
@@ -324,7 +403,7 @@ void ParserYaml::cargarConfYaml(std::string file){
 	
 	//flags
 	bool fElem = false;
-
+	
 	if (fin.good() == true){
 		try{
 			YAML::Parser parser(fin);
@@ -342,6 +421,7 @@ void ParserYaml::cargarConfYaml(std::string file){
 					this->cargarDataElementos(data,this->todo.dataE);
 					
 				}
+				
 				else{
 					//LOG: key no es un identificador correcto del archivo de configuracion + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
 					Log::e("Key: %s, no es un identificador correcto del archivo de configuracion.",key);
@@ -494,6 +574,9 @@ bool ParserYaml::esNumero(std::string cadena){
 }
 
 //+++++geters++++++
+
+
+
 int ParserYaml::getCantDataElem(){
 	return this->todo.dataE.size();
 }
@@ -525,6 +608,22 @@ std::string ParserYaml::getNivelAlto(int i){
 
 std::string ParserYaml::getNivelAncho(int i){
 	return this->todo.nivel[i].ancho;
+}
+
+std::string ParserYaml::getNivelAltoPantalla(int i){
+	return this->todo.nivel[i].altoP;
+}
+
+std::string ParserYaml::getNivelAnchoPantalla(int i){
+	return this->todo.nivel[i].anchoP;
+}
+
+std::string ParserYaml::getNivelAgua(int i){
+	return this->todo.nivel[i].agua;
+}
+
+std::string ParserYaml::getNivelTierra(int i){
+	return this->todo.nivel[i].tierra;
 }
 
 int ParserYaml::getCantElem(int i){
@@ -619,6 +718,8 @@ std::string ParserYaml::getNivelNombre(){return  this->getNivelNombre(0);}
 std::string ParserYaml::getNivelFondo(){return this->getNivelFondo(0);}
 std::string ParserYaml::getNivelAlto(){return this->getNivelAlto(0);}
 std::string ParserYaml::getNivelAncho(){return this->getNivelAncho(0);}
+std::string ParserYaml::getNivelAgua(){return this->getNivelAgua(0);}
+std::string ParserYaml::getNivelTierra(){return this->getNivelTierra(0);}
 int ParserYaml::getCantElem(){return this->getCantElem(0);}
 std::string ParserYaml::getElemNombre(int){return this->getElemNombre(0);}
 std::string ParserYaml::getElemX(int){return this->getElemX(0);}
