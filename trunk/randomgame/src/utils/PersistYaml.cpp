@@ -35,6 +35,19 @@ void PersistYaml::setNivelAlto(std::string alto){
 	this->nivel.alto = alto;
 }
 
+void PersistYaml::setNivelAltoPantalla(std::string altoP){
+	this->nivel.altoP = altoP;
+}
+void PersistYaml::setNivelAnchoPantalla(std::string anchoP){
+	this->nivel.anchoP = anchoP;
+}
+void PersistYaml::setNivelAgua(std::string agua){
+	this->nivel.agua = agua;
+}
+void PersistYaml::setNivelTierra(std::string tierra){
+	this->nivel.tierra = tierra;
+}
+
 void PersistYaml::setElemNombre(std::string nombre){
 	this->elem.nombre = nombre;
 }
@@ -79,6 +92,14 @@ void PersistYaml::escribirYaml(std::string fileOut){
 	out << YAML::Value << this->nivel.ancho;
 	out << YAML::Key << "alto";
 	out << YAML::Value << this->nivel.alto;
+	out << YAML::Key << "anchoPantalla";
+	out << YAML::Value << this->nivel.anchoP;
+	out << YAML::Key << "altoPantalla";
+	out << YAML::Value << this->nivel.altoP;
+	out << YAML::Key << "wlvl";
+	out << YAML::Value << this->nivel.agua;
+	out << YAML::Key << "tierra";
+	out << YAML::Value << this->nivel.tierra;
 	out << YAML::Key << "elementos";
 	out << YAML::Value << YAML::BeginSeq;
 	for(unsigned i=0;i<this->nivel.elem.size();i++){

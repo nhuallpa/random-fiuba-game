@@ -30,6 +30,10 @@ private:
 		std::string fondo;
 		std::string alto;
 		std::string ancho;
+		std::string agua;
+		std::string anchoP;
+		std::string altoP;
+		std::string tierra;
 		std::vector <stElemento> elem;	
 	};
 
@@ -38,13 +42,14 @@ private:
 		std::string imagen;
 	};
 
+
 	struct stTodo{
 		std::vector <dtElemento> dataE;//contiene la data de un elemento
 		std::vector <stNivel> nivel;//lista de niveles
 	};
 private:
 	
-	stTodo todo;	
+	stTodo todo;
 	std::string yamlNodeToString(const YAML::Node&);
 	void cargarElementos(const YAML::Node&,std::vector <stElemento>&);
 	void cargarDataElementos(const YAML::Node&,std::vector <dtElemento>&);
@@ -105,6 +110,10 @@ public:
 	std::string getNivelFondo(int);
 	std::string getNivelAlto(int);
 	std::string getNivelAncho(int);
+	std::string getNivelAltoPantalla(int);
+	std::string getNivelAnchoPantalla(int);
+	std::string getNivelAgua(int);
+	std::string getNivelTierra(int);
 
 	//elemento en nivel
 		//el primer int que siempre se pasa es para el nivel especificado de la lista de niveles
@@ -122,6 +131,8 @@ public:
 	std::string getNivelFondo();
 	std::string getNivelAlto();
 	std::string getNivelAncho();
+	std::string getNivelAgua();
+	std::string getNivelTierra();
 
 	//elemento en nivel
 		//el primer int que siempre se pasa es para el nivel especificado de la lista de niveles
