@@ -96,3 +96,47 @@
 
 [ERROR] 2014-03-25.11:15:20 Failed to load sprite texture!
 
+[ERROR] 2014-03-25.11:52:26 Failed to load lazy font! SDL_ttf Error: Couldn't open image/arial.ttf
+
+[ERROR] 2014-03-25.11:52:28 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.11:52:28 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:52:28 Unable to load image image/arrow.png! SDL_image Error: Couldn't open image/arrow.png
+
+[ERROR] 2014-03-25.11:52:28 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:52:28 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.11:52:28 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:52:28 Unable to load image image/save.png! SDL_image Error: Couldn't open image/save.png
+
+[ERROR] 2014-03-25.11:52:28 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:52:28 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.11:52:28 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:37 Failed to load lazy font! SDL_ttf Error: Couldn't open image/arial.ttf
+
+[ERROR] 2014-03-25.11:59:38 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.11:59:38 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:38 Unable to load image image/arrow.png! SDL_image Error: Couldn't open image/arrow.png
+
+[ERROR] 2014-03-25.11:59:38 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:38 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.11:59:38 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:38 Unable to load image image/save.png! SDL_image Error: Couldn't open image/save.png
+
+[ERROR] 2014-03-25.11:59:38 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:38 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.11:59:38 Failed to load sprite texture!
+
