@@ -13,6 +13,7 @@
 #include "utils/ParserYaml.h"
 #include "utils/PersistYaml.h"
 
+
 #include <cstdio>
 using namespace std;
 
@@ -61,7 +62,6 @@ int main(int argc, char* argv[]) {
 	//	}
 	//}
 
-	std::cout<<"angulo: "<<"\n\t\t";
 	Administrador administrador; 
 	administrador.run();
 
