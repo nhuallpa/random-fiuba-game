@@ -3,6 +3,9 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include "vista\Bootstrap.h"
+#include "vista\Activity.h"
+#include "vista\GameActivity.h"
 
 Cliente::Cliente(Servidor* server){
 	this->server = server;
@@ -22,10 +25,14 @@ void Cliente::loop(void){
 
 	bool quit = false;
 
+	Bootstrap bootstrap;
+	bootstrap.init();
+
+	Activity* currentActivity = new GameActivity(bootstrap.getScreen());
+
 	//init View
-	std::cout << "antes de view init" << std::endl;
-	this->cView.init();
-	std::cout << "despues de view init" << std::endl;
+	//this->cView.init();
+
 	//init Controller
 	this->cController.init();
 
@@ -34,10 +41,15 @@ void Cliente::loop(void){
 		this->cController.detectEvents();
 		quit = this->cController.handleEvents();
 
-		this->cView.clearScreen();
-		this->cView.render();
+		currentActivity->update();
+		currentActivity->render();
 
 	}
+	
+	bootstrap.getScreen().terminate();
+
+	delete currentActivity;
+
 }
 
 bool Cliente::run(){
