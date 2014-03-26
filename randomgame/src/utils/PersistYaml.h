@@ -26,7 +26,7 @@ private:
 		std::string angulo;
 	};
 
-	struct stNivel{
+	struct stEscenario{
 		std::string nombre;
 		std::string fondo;
 		std::string ancho;
@@ -39,7 +39,7 @@ private:
 	};
 
 	stElemento elem;
-	stNivel nivel;
+	stEscenario escenario;
 
 	void destroyLevel();
 
