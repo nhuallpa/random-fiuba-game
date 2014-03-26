@@ -6,7 +6,8 @@
 
 class Cuadrado: public Body{
 public:
-	Cuadrado(b2World* myWorld);
+	Cuadrado(ElementType type, b2Body *body, int posX, int posY, float h, 
+		float w, float masa, float angle, b2World *myWorld);
 	virtual ~Cuadrado();
 	void animate();
 	void touch(Body* touchingWith, b2World* mundo);

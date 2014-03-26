@@ -26,6 +26,9 @@ bool GameEngine::initWorld(){
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
 	myWorld = new b2World(b2Vec2(0,10.0));
+
+
+
 }
 
 
@@ -72,9 +75,7 @@ int GameEngine::howManyPlayers(void){
 }
 
 GameLevel GameEngine::getLevel(){
-
 	return this->gameLevel;
-
 }
 
 
