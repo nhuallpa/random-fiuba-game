@@ -1,33 +1,11 @@
-﻿Compilación iniciada a las 25/03/2014 12:12:18 p.m..
+﻿Compilación iniciada a las 26/03/2014 10:36:11 a.m..
      1>Proyecto "C:\random-fiuba-game\randomgame\randomgame\randomgame.vcxproj" en el nodo 2 (build destinos).
      1>InitializeBuildStatus:
-         Aplicando tarea Touch a "Debug\randomgame.unsuccessfulbuild".
+         Se creará "Debug\randomgame.unsuccessfulbuild" porque se especificó "AlwaysCreate".
        ClCompile:
-         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\Cliente\controlador\GameController.cpp ..\src\main.cpp
-         main.cpp
-     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
-                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
-                 with
-                 [
-                     _OutIt=unsigned char *,
-                     _InIt=const unsigned char *
-                 ]
-         GameController.cpp
-     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(16): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
-     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(62): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
-     1>c:\random-fiuba-game\randomgame\src\cliente\controlador\gamecontroller.cpp(62): warning C4244: 'argumento' : conversión de 'double' a 'float'; posible pérdida de datos
-     1>c:\program files\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-                 c:\program files\microsoft visual studio 10.0\vc\include\xutility(2212) : vea la declaración de 'std::_Copy_impl'
-                 c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : vea la referencia a la creación de instancias de plantilla de función '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' que se está compilando
-                 with
-                 [
-                     _OutIt=unsigned char *,
-                     _InIt=const unsigned char *
-                 ]
-         Generando código...
+         Todas las salidas están actualizadas.
        Link:
-         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\random-fiuba-game\randomgame\Debug\randomgame.exe" /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib Box2D.lib "libyaml-cppmdd.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\randomgame.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\random-fiuba-game\randomgame\Debug\randomgame.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\random-fiuba-game\randomgame\Debug\randomgame.lib" /MACHINE:X86 Debug\Administrador.obj
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\random-fiuba-game\randomgame\Debug\randomgame.exe" /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib Box2D.lib "libyaml-cppmdd.lib" SDL2_gfx.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\randomgame.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\random-fiuba-game\randomgame\Debug\randomgame.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\random-fiuba-game\randomgame\Debug\randomgame.lib" /MACHINE:X86 Debug\Administrador.obj
          Debug\Cliente.obj
          Debug\Detector.obj
          Debug\GameButton.obj
@@ -52,7 +30,6 @@
          Debug\Log.obj
          Debug\ParserYaml.obj
          Debug\PersistYaml.obj
-         LINK : no se encontró C:\random-fiuba-game\randomgame\Debug\randomgame.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
      1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: la biblioteca predeterminada'msvcrt.lib' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
          randomgame.vcxproj -> C:\random-fiuba-game\randomgame\Debug\randomgame.exe
        Manifest:
@@ -64,4 +41,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:08.76
+Tiempo transcurrido 00:00:01.24
