@@ -100,6 +100,9 @@
     <ClCompile Include="..\src\Servidor\modelo\GameEntity.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameLevel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameLoop.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Body.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\ContactListener.cpp" />
     <ClCompile Include="..\src\Servidor\Servidor.cpp" />
@@ -140,6 +143,9 @@
     <ClInclude Include="..\src\Servidor\modelo\GameEntity.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameLevel.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameLoop.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Body.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\ContactListener.h" />
     <ClInclude Include="..\src\Servidor\Servidor.h" />

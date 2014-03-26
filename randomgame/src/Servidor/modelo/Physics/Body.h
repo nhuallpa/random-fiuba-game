@@ -7,7 +7,6 @@
 
 
 class b2Body;
-class b2RevoluteJoint;
 class b2Vec2;
 class b2World;
 
@@ -18,18 +17,16 @@ public:
 	virtual ~Body();
 
 	virtual b2Body* getBody(){ return body; };
-	virtual void touch(Body* touchingWith, b2World* mundo);
+	virtual void touch(Body* touchingWith, b2World* mundo){};
 
 
-	virtual b2Body* getSoporte(){return NULL;};
 	virtual void animate(){};
-	virtual void destroy();
 
-	virtual void modelarContacto();
+
 	ElementType type;
 	b2Body* body;
 	b2Vec2 posicionInicial;
 	b2World* myWorld;
 };
 
-#endif /* CUERPO_H_ */
+#endif 

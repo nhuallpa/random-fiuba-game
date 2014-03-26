@@ -40,6 +40,9 @@
     <Filter Include="Archivos de código fuente\server\model\physics">
       <UniqueIdentifier>{84fe9597-59fc-49e8-a9ea-6c8acecacaa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\server\model\physics\Bodies">
+      <UniqueIdentifier>{119d74c4-9d38-4f3f-a6c0-23f812296fee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Administrador.cpp">
@@ -159,6 +162,15 @@
     <ClCompile Include="..\src\Cliente\vista\WaterView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Administrador.h">
@@ -277,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\WaterView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
