@@ -11,17 +11,23 @@
 #include <map>
 #include <iostream>
 #include <vector>
+#include <string>
 #include <list>
 
 /*
  *
  */
 
+enum ElementType{
+	SQUARE = 0,
+	CIRCLE =1,
+};
+
 
 class GameElement {
 public:
-	GameElement(int type, float posX, float posY, int degrees);
-	void render();
+	GameElement(ElementType type, float posX, float posY, int degrees);
+	
 	int getType();
 	int getRotation();
 	std::pair<float,float> getPosition();
