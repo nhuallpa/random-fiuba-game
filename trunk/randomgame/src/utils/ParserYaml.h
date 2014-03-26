@@ -19,44 +19,42 @@ private:
 	static void DestroySingleton();
 
 	struct stElemento{
-		std::string nombre;
+		std::string tipo;
 		std::string x;
 		std::string y;
 		std::string angulo;
 	};
 
-	struct stNivel{
-		std::string nombre;
-		std::string fondo;
+	struct stEscenario{
 		std::string alto;
 		std::string ancho;
 		std::string agua;
 		std::string anchoP;
 		std::string altoP;
 		std::string tierra;
+		std::string cielo;
 		std::vector <stElemento> elem;	
 	};
-
+	/*
 	struct dtElemento{
 		std::string nombre;
 		std::string imagen;
-	};
+	};*/
 
 
 	struct stTodo{
-		std::vector <dtElemento> dataE;//contiene la data de un elemento
-		std::vector <stNivel> nivel;//lista de niveles
+		//std::vector <dtElemento> dataE;//contiene la data de un elemento
+		stEscenario escenario;
 	};
 private:
 	
 	stTodo todo;
 	std::string yamlNodeToString(const YAML::Node&);
 	void cargarElementos(const YAML::Node&,std::vector <stElemento>&);
-	void cargarDataElementos(const YAML::Node&,std::vector <dtElemento>&);
-	void cargarNiveles(const YAML::Node&,std::vector <stNivel>&);
+//	void cargarDataElementos(const YAML::Node&,std::vector <dtElemento>&);
+	void cargarNiveles(const YAML::Node&,stEscenario&);
 		
-	bool existeNivel(std::string,std::vector <stNivel>&);
-	bool existeElemen(std::string,std::vector <dtElemento>&);
+//	bool existeElemen(std::string,std::vector <dtElemento>&);
 
 	void startWithDefaultLevel();
 	
@@ -89,55 +87,35 @@ public:
 	virtual ~ParserYaml();
 	static ParserYaml* getInstance();
 	static ParserYaml* getInstance(std::string file);
-	void cargarConfYaml(std::string);
+	//void cargarConfYaml(std::string);
 	void cargarNivelYaml(std::string);
-	std::string getImElem(const std::vector <dtElemento>,std::string);
+	//std::string getImElem(const std::vector <dtElemento>,std::string);
 	bool getDefault();
 
 
 	//++++++geters+++++++++
 	
 	//dataElem
-	int getCantDataElem();
+	/*int getCantDataElem();
 	std::string getDataElemNombre(int);//devuelve el nombre de el dataElem de la posicion que se le pase
-	std::string getDataElemImagen(int);
+	std::string getDataElemImagen(int);*/
 	
 	
-	//todo esto sirve para muchos niveles
-	//nivel
-	int getCantNiveles();
-	std::string getNivelNombre(int);
-	std::string getNivelFondo(int);
-	std::string getNivelAlto(int);
-	std::string getNivelAncho(int);
-	std::string getNivelAltoPantalla(int);
-	std::string getNivelAnchoPantalla(int);
-	std::string getNivelAgua(int);
-	std::string getNivelTierra(int);
+	
+	
+	//para trabajar con un solo escenario
+	std::string getEscenarioAltoU();
+	std::string getEscenarioAnchoU();
+	std::string getEscenarioAgua();
+	std::string getEscenarioTierra();
+	std::string getEscenarioAnchoP();
+	std::string getEscenarioAltoP();
+	std::string getEscenarioCielo();
 
-	//elemento en nivel
-		//el primer int que siempre se pasa es para el nivel especificado de la lista de niveles
-	int getCantElem(int);
-	std::string getElemNombre(int,int);
-	std::string getElemX(int,int);
-	std::string getElemY(int,int);
-	std::string getElemAngulo(int,int);
-
-	
-	
-	
-	//para trabajar con un solo nivel
-	std::string getNivelNombre();
-	std::string getNivelFondo();
-	std::string getNivelAlto();
-	std::string getNivelAncho();
-	std::string getNivelAgua();
-	std::string getNivelTierra();
-
-	//elemento en nivel
+	//elemento en escenario
 		//el primer int que siempre se pasa es para el nivel especificado de la lista de niveles
 	int getCantElem();
-	std::string getElemNombre(int);
+	std::string getElemTipo(int);
 	std::string getElemX(int);
 	std::string getElemY(int);
 	std::string getElemAngulo(int);

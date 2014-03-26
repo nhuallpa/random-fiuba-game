@@ -20,32 +20,32 @@ PersistYaml* PersistYaml::getInstance(){
 
 
 void PersistYaml::setNivelNombre(std::string nombre){
-	this->nivel.nombre = nombre;
+	this->escenario.nombre = nombre;
 }
 
 void PersistYaml::setNivelFondo(std::string fondo){
-	this->nivel.fondo = fondo;
+	this->escenario.fondo = fondo;
 }
 
 void PersistYaml::setNivelAncho(std::string ancho){
-	this->nivel.ancho = ancho;
+	this->escenario.ancho = ancho;
 }
 
 void PersistYaml::setNivelAlto(std::string alto){
-	this->nivel.alto = alto;
+	this->escenario.alto = alto;
 }
 
 void PersistYaml::setNivelAltoPantalla(std::string altoP){
-	this->nivel.altoP = altoP;
+	this->escenario.altoP = altoP;
 }
 void PersistYaml::setNivelAnchoPantalla(std::string anchoP){
-	this->nivel.anchoP = anchoP;
+	this->escenario.anchoP = anchoP;
 }
 void PersistYaml::setNivelAgua(std::string agua){
-	this->nivel.agua = agua;
+	this->escenario.agua = agua;
 }
 void PersistYaml::setNivelTierra(std::string tierra){
-	this->nivel.tierra = tierra;
+	this->escenario.tierra = tierra;
 }
 
 void PersistYaml::setElemNombre(std::string nombre){
@@ -65,7 +65,7 @@ void PersistYaml::setElemAngulo(std::string angulo){
 }
 
 void PersistYaml::setNivelElem(stElemento elem){
-	this->nivel.elem.push_back(elem);
+	this->escenario.elem.push_back(elem);
 }
 
 void PersistYaml::setElem(std::string nombre,std::string x,std::string y,std::string angulo){
@@ -74,36 +74,36 @@ void PersistYaml::setElem(std::string nombre,std::string x,std::string y,std::st
 	elem.x = x;
 	elem.y = y;
 	elem.angulo = angulo;
-	this->nivel.elem.push_back(elem);
+	this->escenario.elem.push_back(elem);
 }
 
 void PersistYaml::escribirYaml(std::string fileOut){
 	int i;
 	YAML::Emitter out;
 	out << YAML::BeginMap;
-	out << YAML::Key << "niveles";
+	out << YAML::Key << "escenario";
 	out << YAML::Value << YAML::BeginSeq;
 	out << YAML::BeginMap;
 	out << YAML::Key << "nombre";
-	out << YAML::Value << this->nivel.nombre;
+	out << YAML::Value << this->escenario.nombre;
 	out << YAML::Key << "background";
-	out << YAML::Value << this->nivel.fondo;
+	out << YAML::Value << this->escenario.fondo;
 	out << YAML::Key << "ancho";
-	out << YAML::Value << this->nivel.ancho;
+	out << YAML::Value << this->escenario.ancho;
 	out << YAML::Key << "alto";
-	out << YAML::Value << this->nivel.alto;
+	out << YAML::Value << this->escenario.alto;
 	out << YAML::Key << "anchoPantalla";
-	out << YAML::Value << this->nivel.anchoP;
+	out << YAML::Value << this->escenario.anchoP;
 	out << YAML::Key << "altoPantalla";
-	out << YAML::Value << this->nivel.altoP;
+	out << YAML::Value << this->escenario.altoP;
 	out << YAML::Key << "wlvl";
-	out << YAML::Value << this->nivel.agua;
+	out << YAML::Value << this->escenario.agua;
 	out << YAML::Key << "tierra";
-	out << YAML::Value << this->nivel.tierra;
+	out << YAML::Value << this->escenario.tierra;
 	out << YAML::Key << "elementos";
 	out << YAML::Value << YAML::BeginSeq;
-	for(unsigned i=0;i<this->nivel.elem.size();i++){
-		stElemento elem = this->nivel.elem[i];
+	for(unsigned i=0;i<this->escenario.elem.size();i++){
+		stElemento elem = this->escenario.elem[i];
 		out << YAML::BeginMap;
 		out << YAML::Key << "nombre";
 		out << YAML::Value << elem.nombre;
@@ -131,7 +131,7 @@ void PersistYaml::escribirYaml(std::string fileOut){
 }
 
 void PersistYaml::destroyLevel(){
-	this->nivel.elem.clear();
+	this->escenario.elem.clear();
 }
 
 
