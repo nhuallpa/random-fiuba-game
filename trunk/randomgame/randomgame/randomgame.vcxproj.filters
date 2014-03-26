@@ -37,6 +37,9 @@
     <Filter Include="Archivos de código fuente\server\model">
       <UniqueIdentifier>{beb97245-adfc-498d-91b8-59b9d8111276}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\server\model\physics">
+      <UniqueIdentifier>{84fe9597-59fc-49e8-a9ea-6c8acecacaa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Administrador.cpp">
@@ -114,6 +117,54 @@
     <ClCompile Include="..\src\Cliente\vista\ViewMock.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Body.cpp">
+      <Filter>Archivos de código fuente\server\model\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\ContactListener.cpp">
+      <Filter>Archivos de código fuente\server\model\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\Activity.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\Bootstrap.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\FigureView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\Game.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\GameActivity.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\GameException.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\main.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\SDLScreen.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\SkyView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\TextureManager.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\TScreen.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\View.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\ViewGroup.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\WaterView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Administrador.h">
@@ -189,6 +240,48 @@
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\ViewMock.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Body.h">
+      <Filter>Archivos de código fuente\server\model\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\ContactListener.h">
+      <Filter>Archivos de código fuente\server\model\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\Activity.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\Bootstrap.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\FigureView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\GameActivity.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\GameException.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\SDLScreen.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\SkyView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\TextureManager.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\TScreen.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\View.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\ViewGroup.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\WaterView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
