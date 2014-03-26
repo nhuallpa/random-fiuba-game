@@ -78,12 +78,10 @@
     <ClCompile Include="..\src\Cliente\vista\Bootstrap.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ElementView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\Game.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameActivity.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameException.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameFonts.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\main.cpp" />
     <ClCompile Include="..\src\Cliente\vista\MenuView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Screen.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SDLScreen.cpp" />

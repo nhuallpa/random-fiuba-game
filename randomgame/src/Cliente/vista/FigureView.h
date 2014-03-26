@@ -8,7 +8,7 @@ class FigureView : 	public View
 private:
 	std::string imageId;
 public:
-	FigureView(std::string imageId, int x, int y, int width, int height);
+	FigureView(std::string imageId, int x, int y);
 	~FigureView(void);
 
 	void clean();
