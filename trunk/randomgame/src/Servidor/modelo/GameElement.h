@@ -19,8 +19,10 @@
  */
 
 enum ElementType{
-	SQUARE = 0,
-	CIRCLE =1,
+	SQUARE=0,
+	CIRCLE=1,
+	TRIANGLE=2,
+	PENTA=3,
 };
 
 
