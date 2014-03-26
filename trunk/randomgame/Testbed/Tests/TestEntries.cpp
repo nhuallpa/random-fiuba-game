@@ -73,6 +73,7 @@ using namespace std;
 #include "VaryingRestitution.h"
 #include "VerticalStack.h"
 #include "Web.h"
+#include "TestCuadrado.h"
 
 TestEntry g_testEntries[] =
 {
@@ -121,5 +122,6 @@ TestEntry g_testEntries[] =
 	{"Slider Crank", SliderCrank::Create},
 	{"Varying Friction", VaryingFriction::Create},
 	{"Add Pair Stress Test", AddPair::Create},
+	{"Cuadrado Test", CuadradoTest::Create},
 	{NULL, NULL}
 };
