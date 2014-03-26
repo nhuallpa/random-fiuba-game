@@ -9,7 +9,7 @@ class SkyView: public View
 	std::string imageId;
 
 public:
-	SkyView(std::string imageId, int x, int y, int width, int height);
+	SkyView(std::string imageId);
 									
 	void clean();
 	

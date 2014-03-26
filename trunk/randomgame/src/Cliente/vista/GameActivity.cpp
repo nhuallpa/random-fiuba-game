@@ -8,8 +8,8 @@ GameActivity::GameActivity(const SDLScreen & screen):Activity(screen)
 	waterView=0;
 	viewContainer=0;
 
-	rectView = new FigureView("cuadrado",100,100,60,60);
-	skyView = new SkyView("fondo",0,0,29,642);
+	rectView = new FigureView("cuadrado",100,100);
+	skyView = new SkyView("fondo");
 	waterView = new WaterView("water",60,60,205,101);
 	
 	viewContainer = new ViewGroup(0,0,0,0);

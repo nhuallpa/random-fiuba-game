@@ -132,16 +132,10 @@
     <ClCompile Include="..\src\Cliente\vista\FigureView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\Game.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\GameActivity.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\GameException.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\main.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\SDLScreen.cpp">

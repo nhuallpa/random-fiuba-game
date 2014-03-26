@@ -1,8 +1,8 @@
 #include "SkyView.h"
 
 
-SkyView::SkyView(std::string imageId, int x, int y, int width, int height)
-							: View(x, y, width, height), imageId(imageId)
+SkyView::SkyView(std::string imageId)
+				: View(0, 0, 0, 0), imageId(imageId)
 {
 }
 
