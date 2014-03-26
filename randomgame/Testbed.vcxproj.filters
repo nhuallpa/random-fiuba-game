@@ -7,6 +7,9 @@
     <Filter Include="Tests">
       <UniqueIdentifier>{CF6BC554-9DC6-4547-9F18-A1BA2F3345BF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Bodies">
+      <UniqueIdentifier>{7be68f8e-f12d-4f38-81f1-e2aa0e8179f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Testbed\Framework\Render.h">
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Testbed\Tests\Web.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Testbed\TestCuadrado.h">
+      <Filter>Tests\Bodies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

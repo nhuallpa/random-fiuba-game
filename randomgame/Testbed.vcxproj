@@ -78,7 +78,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">obj\x64\Release\Testbed\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Testbed</TargetName>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\randomgame\src\Testbed;C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
@@ -204,6 +204,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Testbed\TestCuadrado.h" />
     <ClInclude Include="Testbed\Framework\Render.h" />
     <ClInclude Include="Testbed\Framework\Test.h" />
     <ClInclude Include="Testbed\Tests\AddPair.h" />
