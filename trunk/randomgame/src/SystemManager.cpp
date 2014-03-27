@@ -1,15 +1,15 @@
-#include "./Administrador.h"
+#include "./SystemManager.h"
 #include "./utils/Log.h"
 #include <string>
 #include <iostream>
 
-Administrador::Administrador(void){
-	this->isServer = false;
+SystemManager::SystemManager(void){
+	this->runningMode = CLIENT;
 	this->aServer = NULL;
 	this->aClient = NULL;
 }
 
-Administrador::~Administrador(void){
+SystemManager::~SystemManager(void){
 	if( this->aServer != NULL){
 		this->aServer->destroyWorld();
 		delete this->aServer;
@@ -23,7 +23,7 @@ Administrador::~Administrador(void){
 	}
 }
 
-void Administrador::run(){
+void SystemManager::run(){
 
 	this->parseCommands();
 
@@ -41,7 +41,7 @@ void Administrador::run(){
 	return void();
 }
 
-void Administrador::parseCommands(void){
+void SystemManager::parseCommands(void){
 
 	// TODO @future - Detects if it's going to run as server or client mode
 	return void();

@@ -2,7 +2,7 @@
 // Descomentar este código para probar SDL
 #include <iostream>
 
-#include "./Administrador.h"
+#include "./SystemManager.h"
 #include "./utils/Log.h"
 #include <Box2D/Box2D.h>
 #include <yaml-cpp/yaml.h>
@@ -62,8 +62,8 @@ int main(int argc, char* argv[]) {
 	//	}
 	//}
 
-	Administrador administrador; 
-	administrador.run();
+	SystemManager sys; 
+	sys.run();
 
 	
 

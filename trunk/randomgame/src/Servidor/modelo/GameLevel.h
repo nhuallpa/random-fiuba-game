@@ -46,7 +46,7 @@ class GameLevel {
 		std::multimap<std::pair<float, float>, GameElement> getEntities();
 		void addEntity(GameElement entidad);
 		void removeEntity(std::pair<float,float> pos);
-		void entityUpdatePosition(int tileX, int tileY, int id);
+		//void entityUpdatePosition(int tileX, int tileY, int id);
 		bool posicionOcupada(float x, float y);
 		bool checkMapPosition(float x, float y);
 };

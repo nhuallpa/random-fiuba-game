@@ -15,13 +15,14 @@ class GameEngine {
 		//ThreadRcv* pRcvThread;
 
 		std::list<Body*> bodies;
+		b2World* myWorld;
 
 		Body* lookForABody();
 		ContactListener contactListener;
+		std::list<Body*> gameBodies;
 
 	public:
 		GameEngine();
-		
 		virtual ~GameEngine();
 
 		bool step();
@@ -32,18 +33,18 @@ class GameEngine {
 		bool initWorld();
 		bool loop();
 
+		// Create simple world
 		void animateWorld();
+
+		
 		void animateBodies();
+
 		void animateJoints();
 
-		b2World* myWorld;
-		//Lista de cuerpos que se va a recorrer y hacer vivir en
-		//cada step del simulador.
 
 
 
-
-		//void endRcvPhase(void);
+		// Le pasa el nivel completo al
 		GameLevel getLevel();
 		int howManyPlayers(void);
 };

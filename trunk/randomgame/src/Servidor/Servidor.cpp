@@ -25,7 +25,7 @@ void Servidor::loop(void){
 		if( this->gameEngine.initWorld() ) quit = true;
 	}
 
-		//TODO @future -  Al finalizar el juego cierro la recepción de jugadores
+		//TODO @future -  CERRAR CONEXIONES DE CLIENTES 
 		return void();
 }
 
@@ -33,9 +33,9 @@ bool Servidor::run(void){
 	if( this->begin() == true ){
 		this->loop();
 
-		//TODO @future - stop receiving data;
+		
 	}else{
-		//TODO @LOG - "Error al iniciar el juego el cliente.");
+		
 		return false;
 	}
 	return true;
