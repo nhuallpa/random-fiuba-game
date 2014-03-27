@@ -65,11 +65,8 @@ void GameLevel::removeEntity(std::pair<float,float> pos) {
 
 
 bool GameLevel::posicionOcupada(float x, float y){
-	//TODO @future - logic for placement
+	//TODO @future - logic for placement / El modelo lo rechaza antes que Box2D
 	return false;
-}
-
-void GameLevel::entityUpdatePosition(int tileX, int tileY, int id){
 }
 
 bool GameLevel::createLevel(GameLevel&){
@@ -97,6 +94,11 @@ bool GameLevel::createLevel(GameLevel&){
 	//	}
 	//}
 	//}
+	
+	//ToDo @aliguo: Agrego hardcoded un cuadrado
+	this->addEntity(GameElement(SQUARE,10.0,10.0,45,3,4,15.0));
+
+	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
 
 	return true;
 
@@ -109,6 +111,8 @@ std::multimap<std::pair<float, float>, GameElement> GameLevel::getEntities(){
 }
 
 
+
+// Chequea posiciones dentro del mapa
 bool GameLevel::checkMapPosition(float x, float y){
 	//std::cout << "validando: " << x << ", " << y << std::endl;
 	if (x > this->getWidth() || x < 0)

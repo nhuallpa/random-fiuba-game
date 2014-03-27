@@ -1,26 +1,14 @@
-/*
- * GameElement.cpp
- *
- *  Created on: 09/09/2013
- *      Author: ALiguori
- */
-
 #include "GameElement.h"
 
 
-GameElement::GameElement(ElementType type, float posX, float posY, int degrees){
+GameElement::GameElement(ElementType type, float posX, float posY, int degrees, int h, int w, float mass){
 	
-	switch (type){
-	case SQUARE:
-
-		break;
-	case CIRCLE:
-
-		break;
-	}
 	this->type = type;
 	this->degrees = degrees;
 	this->position = std::make_pair(posX,posY);
+	this->height = h;
+	this->width = w;
+	this->mass = mass;
 }
 
 int GameElement::getType(){
@@ -29,6 +17,18 @@ int GameElement::getType(){
 
 int GameElement::getRotation(){
 	return this->degrees;
+}
+
+int GameElement::getHeight(){
+	return this->height;
+}
+
+float GameElement::getMass(){
+	return this->mass;
+}
+
+int GameElement::getWidth(){
+	return this->width;
 }
 
 
