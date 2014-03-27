@@ -1,0 +1,44 @@
+niveles:
+  - nombre: nivel1
+    background: "nivel1.png"
+    ancho: 150
+    alto: 250
+    elementos:
+      - nombre: circulo
+        x: 2CACA
+        y: 15
+        angulo: 90
+      - nombre: triangulo
+        x: 12
+        y: 22
+        angulo: 45
+      - nombre: triangulo
+        x: 1asdasd2
+        y: 22
+        angulo: 45
+      - nombre: triangulo
+        x: 12
+        y: 2asdasdas2
+        angulo: 45
+      - nombre: triangulo
+        x: 12
+        y: 22
+        angulo: 4asdasda5
+      - nombre: circulo2
+        x: 108
+        y: 158
+        angulo: 908
+      - nombre: triangulo
+        x: 13
+        y: 23
+        angulo: 77
+      - nombre: triangulo
+        x: 15
+        y: 25
+      - nombre: t32424
+        x: 12
+        y: 24
+        angulo: 45
+      - nombre: triangulo
+        x: 15
+			y: 25
