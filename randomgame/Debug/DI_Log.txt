@@ -140,3 +140,123 @@
 
 [ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
 
+[ERROR] 2014-03-25.10:41:18 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.10:41:18 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:41:18 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.10:41:18 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:41:18 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.10:41:18 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:41:40 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.10:41:40 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:41:40 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.10:41:40 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:41:40 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.10:41:40 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:49:53 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.10:49:53 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:49:53 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.10:49:53 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:49:53 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.10:49:53 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:55:22 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.10:55:22 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:55:22 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.10:55:22 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:55:22 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.10:55:22 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:57:45 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.10:57:45 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:57:45 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.10:57:45 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:57:45 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.10:57:45 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:58:02 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.10:58:02 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:58:02 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.10:58:02 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.10:58:02 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.10:58:02 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:10:59 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.11:10:59 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:11:00 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.11:11:00 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:11:00 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.11:11:00 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:13:51 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.11:13:51 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:13:51 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.11:13:51 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:13:51 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.11:13:51 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:53:30 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.11:53:30 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:53:30 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.11:53:30 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:53:30 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.11:53:30 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:17 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
+
+[ERROR] 2014-03-25.11:59:17 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:17 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
+
+[ERROR] 2014-03-25.11:59:17 Failed to load sprite texture!
+
+[ERROR] 2014-03-25.11:59:17 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
+
+[ERROR] 2014-03-25.11:59:17 Failed to load sprite texture!
+
