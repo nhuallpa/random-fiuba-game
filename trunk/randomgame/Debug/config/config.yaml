@@ -1,0 +1,13 @@
+elementos:
+  - nombre: circulo
+    imagen: image/circulo.png
+  - nombre: cuadrado
+    imagen: image/cuadrado.png
+  - nombre: triangulo
+    imagen: image/triangulo.png
+  - nombre: pentagono
+    imagen: image/pentagono.png
+  - nombre: tennisball
+    imagen: image/tennisball.png
+  - nombre: darktriangle
+    imagen: image/darktriangle.png

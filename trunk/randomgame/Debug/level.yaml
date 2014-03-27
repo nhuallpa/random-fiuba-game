@@ -1,0 +1,26 @@
+niveles:
+  - nombre: TIMv1
+    background: image/lab-back.jpg
+    ancho: 800
+    alto: 480
+    elementos:
+      - nombre: tennisball
+        x: 43.44
+        y: 100
+        angulo: 0
+      - nombre: cuadrado
+        x: 74.18
+        y: 0.77
+        angulo: 0
+      - nombre: cuadrado
+        x: 74.18
+        y: 0.77
+        angulo: 0
+      - nombre: tennisball
+        x: 93.44
+        y: 0
+        angulo: 0
+      - nombre: cuadrado
+        x: 100
+        y: 0.77
+        angulo: 0
