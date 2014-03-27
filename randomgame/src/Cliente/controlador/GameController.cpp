@@ -41,7 +41,6 @@ GameController::~GameController() {
 }
 
 
-
 bool GameController::init(){
 	//lee elementos del mundo
 	// por cada uno de ellos agrega un ElementView en la vista
@@ -68,6 +67,22 @@ bool GameController::init(){
 
 void GameController::detectEvents(){
 	this->cDetector.detect();
+}
+
+bool GameController::isBeginLife(){
+	return cDetector.isBeginLife();
+}
+
+bool GameController::isRegenerateWorld(){
+	return cDetector.isRegenerateWorld();
+}
+
+bool GameController::isPuase(){
+	return cDetector.isPuase();
+}
+
+void GameController::clearStates(){
+	cDetector.clearStates();
 }
 
 
@@ -121,9 +136,10 @@ ElementView* GameController::checkInsideElements(){
 }
 
 
+	
 bool GameController::handleEvents(){
-
-	/*
+	return cDetector.isQuit();
+/*
 	if ( this->cDetector.getState(EXIT_REQUEST) ){
 		return true;
 	}
@@ -333,9 +349,9 @@ bool GameController::handleEvents(){
 	}
 
 	this->changes = somethingHappened;
-	*/
-
+	
 	return false;
+	*/
 }
 
 
