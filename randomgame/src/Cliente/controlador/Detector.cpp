@@ -102,7 +102,7 @@ GameButton* Detector::getElement(TypeElement te){
 void Detector::clearStates(){
 	map<TypeElement, GameButton*>::iterator it;
 	for(it = Elements.begin(); it != Elements.end(); it++){
-		(*it).second->cleanState();
+//		(*it).second->cleanState();
 	}
 }
 
