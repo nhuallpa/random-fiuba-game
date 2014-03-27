@@ -45,9 +45,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Administrador.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -171,11 +168,11 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.cpp">
       <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SystemManager.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Administrador.h">
-      <Filter>Archivos de código fuente</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\utils\Log.h">
       <Filter>Archivos de código fuente\utils</Filter>
     </ClInclude>
@@ -298,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.h">
       <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SystemManager.h">
+      <Filter>Archivos de código fuente</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

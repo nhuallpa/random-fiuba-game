@@ -67,7 +67,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Administrador.cpp" />
+    <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Detector.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\GameButton.cpp" />
@@ -111,7 +111,7 @@
     <ClCompile Include="..\src\utils\PersistYaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Administrador.h" />
+    <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\Detector.h" />
     <ClInclude Include="..\src\Cliente\controlador\GameButton.h" />
