@@ -23,20 +23,29 @@ public:
 	GameController();
 	GameController(GameLevel* gL, GameView* gV);
 	virtual ~GameController();
-	bool init();
 	void detectEvents();
 	bool handleEvents();
+	void clearStates();
+	bool isBeginLife();
+	bool isRegenerateWorld();
+	bool isPuase();
+
+
+	bool init();
 	ElementView* checkInsideElements();
 	ElementView* checkInsideMenu();
 	bool getChanges();
 	void updateElements();
 
 private:
+	Detector cDetector;
+
+
+
 	GameView *gView;
 	ElementView* currentElement;
 	ElementView* currentMenuElement;
 	GameLevel* cLevel;
-	Detector cDetector;
 	bool changes;
 	std::pair<float,float> lastElemPos;
 

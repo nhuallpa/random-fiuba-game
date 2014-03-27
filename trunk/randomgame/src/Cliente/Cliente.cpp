@@ -41,9 +41,20 @@ void Cliente::loop(void){
 		this->cController.detectEvents();
 		quit = this->cController.handleEvents();
 
+		if(this->cController.isBeginLife()){
+			//TODO: Darle vida al mundo
+		}
+		if(this->cController.isRegenerateWorld()){
+			//TODO: Regenerar el mundo
+		}
+		if(this->cController.isPuase()){
+			//TODO: Parar el mundo en el estado en el que esta!!!
+		}
+
 		currentActivity->update();
 		currentActivity->render();
 
+		this->cController.clearStates();
 	}
 	
 	bootstrap.getScreen().terminate();
