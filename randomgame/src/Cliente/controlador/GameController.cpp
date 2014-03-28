@@ -45,8 +45,8 @@ bool GameController::init(){
 	//lee elementos del mundo
 	// por cada uno de ellos agrega un ElementView en la vista
 	cDetector.init();
-	std::multimap<std::pair<float, float>, GameElement> mmap = this->cLevel->getEntities();
-	std::multimap<std::pair<float, float>, GameElement>::iterator elems = mmap.begin();
+	std::multimap<std::pair<float, float>, GameElement*> mmap = this->cLevel->getEntities();
+	std::multimap<std::pair<float, float>, GameElement*>::iterator elems = mmap.begin();
 
 	for ( ; elems != mmap.end(); elems++) {
 		//((*elems).first).first; //x - up left corner
@@ -55,10 +55,10 @@ bool GameController::init(){
 		//((*elems).second)->getRotation(); // rotation
 		//(int type, int posX, int posY, int degree);
 		
-		this->gView->addElement(((*elems).second).getType(),
+		this->gView->addElement(((*elems).second)->getType(),
 				(((*elems).first).first * Screen::getInstance()->getLogic2PixelsFactor().first) - ((ELEM_WIDTH * Screen::getInstance()->getLogic2PixelsFactor().first)/2.0) ,
 				(((*elems).first).second * Screen::getInstance()->getLogic2PixelsFactor().second) - ((ELEM_HEIGHT * Screen::getInstance()->getLogic2PixelsFactor().second)/2.0),
-				((*elems).second).getRotation());
+				((*elems).second)->getRotation());
 	}
 
 
