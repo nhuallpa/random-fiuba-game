@@ -47,21 +47,26 @@ void Cliente::loop(void){
 		}
 		if(this->cController.isRegenerateWorld()){
 			//TODO: Regenerar el mundo
+			this->server->getGameEngine().reInitWorld();
+			currentActivity->update();
+			currentActivity->render();
+			running = 0;
 		}
-		while(this->cController.isPuase()){
+		if(this->cController.isPuase()){
 			running=0;
 			//TODO: Parar el mundo en el estado en el que esta!!!
-			this->cController.detectEvents();
+			//this->cController.detectEvents();
 		}
-		if (running) this->server->getGameEngine().step();
-		currentActivity->update();
-		currentActivity->render();
+
+		if (running){
+			this->server->getGameEngine().step();
+			currentActivity->update();
+			currentActivity->render();
+		}
 
 		this->cController.clearStates();
 	}
-	
 	bootstrap.getScreen().terminate();
-
 	delete currentActivity;
 
 }

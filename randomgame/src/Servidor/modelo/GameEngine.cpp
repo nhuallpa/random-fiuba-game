@@ -109,6 +109,19 @@ GameLevel GameEngine::getLevel(){
 }
 
 
+void GameEngine::reInitWorld(){
+
+	//Load from scratch from YAML, first delete all
+	this->gameLevel.destroyEntities();
+	
+	//Carga nivel
+	this->gameLevel.createLevel(this->gameLevel);
+	
+	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
+	animateBodies();
+
+}
+
 void GameEngine::animateJoints() {
 	//recorro todos los contactos que existen en el m_mundo
 

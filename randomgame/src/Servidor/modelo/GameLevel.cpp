@@ -99,10 +99,7 @@ bool GameLevel::createLevel(GameLevel&){
 	this->addEntity(new GameElement(SQUARE,0.0,0.0,45,3,4,15.0));
 
 	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
-
 	return true;
-
-
 }
 
 
@@ -110,6 +107,13 @@ std::multimap<std::pair<float, float>, GameElement*> GameLevel::getEntities(){
 	return (this->entities);
 }
 
+
+void GameLevel::destroyEntities(){
+	std::multimap<std::pair<float, float>, GameElement*>::iterator it = this->entities.begin();
+	for ( ; it != this->entities.end(); it++){
+		delete (*it).second;
+	}
+}
 
 
 // Chequea posiciones dentro del mapa

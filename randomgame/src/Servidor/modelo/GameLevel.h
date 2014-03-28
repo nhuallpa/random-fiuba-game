@@ -24,11 +24,13 @@ class GameLevel {
 		GameElement getEntity(int id);
 
 		void destroyPlayers();
-		void destroyEntities();
+
 
 	public:
 		GameLevel();
 		virtual ~GameLevel();
+
+		void destroyEntities();
 
 		//Creates the level based on YAML parser data
 		bool createLevel(GameLevel&);
