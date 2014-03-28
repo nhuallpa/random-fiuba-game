@@ -31,6 +31,7 @@ class GameEngine {
 		//bool beginRcv(SocketServidor* pSocket);
 
 		bool initWorld();
+		void reInitWorld();
 		bool loop();
 
 		// Create simple world
