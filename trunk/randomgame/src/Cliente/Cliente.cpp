@@ -42,13 +42,16 @@ void Cliente::loop(void){
 		quit = this->cController.handleEvents();
 
 		if(this->cController.isBeginLife()){
+			quit = quit;
 			//TODO: Darle vida al mundo
 		}
 		if(this->cController.isRegenerateWorld()){
+			quit = quit;
 			//TODO: Regenerar el mundo
 		}
-		if(this->cController.isPuase()){
+		while(this->cController.isPuase()){
 			//TODO: Parar el mundo en el estado en el que esta!!!
+			this->cController.detectEvents();
 		}
 
 		currentActivity->update();
