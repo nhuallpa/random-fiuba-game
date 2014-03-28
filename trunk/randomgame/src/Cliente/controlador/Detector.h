@@ -39,6 +39,7 @@ class Detector {
 public:
 	Detector();
 	virtual ~Detector();
+	void init();
 	void detect();
 	void clearStates();
 	bool isBeginLife();
