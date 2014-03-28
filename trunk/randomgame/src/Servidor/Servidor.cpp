@@ -32,10 +32,7 @@ void Servidor::loop(void){
 bool Servidor::run(void){
 	if( this->begin() == true ){
 		this->loop();
-
-		
 	}else{
-		
 		return false;
 	}
 	return true;
@@ -48,4 +45,9 @@ void Servidor::destroyWorld(void){
 GameLevel Servidor::getLevel(){
 
 	return this->gameEngine.getLevel();
+}
+
+GameEngine Servidor::getGameEngine(){
+
+	return this->gameEngine;
 }

@@ -14,19 +14,21 @@ bool GameEngine::initWorld(){
 	animateWorld();
 
 	//Carga nivel
-	return this->gameLevel.createLevel(this->gameLevel);
+	this->gameLevel.createLevel(this->gameLevel);
 	
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
 	animateBodies();
 
 	//Crea contactos de Box2d
 	animateJoints();
+
+	return true;
 }
 
 
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
-	myWorld = new b2World(b2Vec2(0,-10.0));
+	this->myWorld = new b2World(b2Vec2(0,-10.0));
 
 
 
@@ -38,8 +40,9 @@ void GameEngine::animateBodies() {
 	// Recorro todos los elementos del nivel y por cada uno de ellos armo el cuerpo de box2d		
 	std::multimap<std::pair<float, float>, GameElement> mmap = this->gameLevel.getEntities();
 	std::multimap<std::pair<float, float>, GameElement>::iterator elems = mmap.begin();
-
+	Log::d("Creando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
+		Log::d("Encontre un elemento");
 		switch ((*elems).second.getType()){
 			// Match de tipos y creacion de elementos en base a ello.
 			case SQUARE:
@@ -64,10 +67,9 @@ float GameEngine::getTimeStep () {
 bool GameEngine::step(){
 
 	//animateJoints();
-
-	//Simulo (1 step)
-	//this->myWorld->Step( timeStep, velocityIterations, positionIterations);
-	
+	float32 timeStep = (1.0f/60.0f);
+	//Simulo (1 step) - default values Box2D
+	this->myWorld->Step(timeStep,8,3);
 
 	//Reflect model
 	std::list<Body*>::const_iterator iterator;
@@ -75,7 +77,6 @@ bool GameEngine::step(){
 		Body* aBody = *iterator;
 		aBody->animate();
 	}
-
 
 	return true;
 }

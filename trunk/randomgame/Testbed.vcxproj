@@ -79,7 +79,7 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Testbed</TargetName>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\randomgame\src\Testbed;C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\randomgame\libs\Box2D;C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
