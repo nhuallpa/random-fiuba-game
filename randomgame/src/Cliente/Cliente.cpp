@@ -42,11 +42,9 @@ void Cliente::loop(void){
 		quit = this->cController.handleEvents();
 
 		if(this->cController.isBeginLife()){
-			quit = quit;
 			//TODO: Darle vida al mundo
 		}
 		if(this->cController.isRegenerateWorld()){
-			quit = quit;
 			//TODO: Regenerar el mundo
 		}
 		while(this->cController.isPuase()){
