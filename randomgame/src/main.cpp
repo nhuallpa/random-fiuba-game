@@ -17,19 +17,19 @@
 #include <cstdio>
 using namespace std;
 
-void persistir(){
-	PersistYaml* aPersist=PersistYaml::getInstance();
-	PersistYaml* aPersist2=PersistYaml::getInstance();
-	aPersist->setNivelNombre("nivel1");
-	aPersist->setNivelFondo("fondo.png");
-	aPersist->setNivelAlto("999");
-	aPersist->setNivelAncho("777");
-	aPersist->setElem("circulo","12","46","90");
-	aPersist->setElem("triangulo","122","462","902");
-	aPersist2->escribirYaml("out.yaml");
-
-
-}
+//void persistir(){
+//	PersistYaml* aPersist=PersistYaml::getInstance();
+//	PersistYaml* aPersist2=PersistYaml::getInstance();
+//	aPersist->setNivelNombre("nivel1");
+//	aPersist->setNivelFondo("fondo.png");
+//	aPersist->setNivelAlto("999");
+//	aPersist->setNivelAncho("777");
+//	aPersist->setElem("circulo","12","46","90");
+//	aPersist->setElem("triangulo","122","462","902");
+//	aPersist2->escribirYaml("out.yaml");
+//
+//
+//}
 
 
 int main(int argc, char* argv[]) {
@@ -64,6 +64,7 @@ int main(int argc, char* argv[]) {
 
 	SystemManager sys; 
 	sys.run();
+	Log::d("INICIO");
 
 	
 

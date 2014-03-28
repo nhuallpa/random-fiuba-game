@@ -43,6 +43,12 @@
 		
 		} 
         
+		void Step(Settings* settings)
+        {
+            //run the default physics and rendering
+            Test::Step(settings); 
+		}
+
         static Test* Create()
         {
             return new CuadradoTest;

@@ -1,6 +1,7 @@
 #include <Box2D/Box2D.h>
 #include <math.h>
 #include "Cuadrado.h"
+#include "../../../../utils/Log.h"
 
 Cuadrado::Cuadrado(ElementType type, int posX, int posY, float h, 
 		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement)
@@ -23,22 +24,37 @@ Cuadrado::Cuadrado(ElementType type, int posX, int posY, float h,
 
 
 	b2PolygonShape boxShape;
-	boxShape.SetAsBox(h,w,this->center,angle * DEGTORAD);
-  
+	
+	boxShape.SetAsBox(h,w);
+	//boxShape.SetAsBox(1,1);
+
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &boxShape;
 	boxFixtureDef.density = 1;
 	dynamicBody->CreateFixture(&boxFixtureDef);
+	b2Vec2 v = this->body->GetPosition();
+	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
 
 }
 
+
+void Cuadrado::GetVertex(){
+
+      //verts now contains world co-ords of all the verts
+	this->body->GetWorldPoint(b2Vec2( 0,0));
+
+}
 
 //At each step links current box2d with model data
 void Cuadrado::animate(){
 	//Use userdata to reflect changes in physics to model
 	//ToDo @aliguo
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
-	ge->setPosition(std::make_pair(0,0));
+	b2Vec2 v = this->body->GetPosition();
+	Log::d("Nueva posicion: %.3f, %.3f", v.x, v.y);
+	//ge->setPosition(std::make_pair(0,0));
+	
+
 	
 }
 

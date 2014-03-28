@@ -35,23 +35,25 @@ void Cliente::loop(void){
 
 	//init Controller
 	this->cController.init();
-
+	int running = 0;
 	while (quit == false){
-
+		
 		this->cController.detectEvents();
 		quit = this->cController.handleEvents();
 
 		if(this->cController.isBeginLife()){
+			running=1;
 			//TODO: Darle vida al mundo
 		}
 		if(this->cController.isRegenerateWorld()){
 			//TODO: Regenerar el mundo
 		}
 		while(this->cController.isPuase()){
+			running=0;
 			//TODO: Parar el mundo en el estado en el que esta!!!
 			this->cController.detectEvents();
 		}
-
+		if (running) this->server->getGameEngine().step();
 		currentActivity->update();
 		currentActivity->render();
 
