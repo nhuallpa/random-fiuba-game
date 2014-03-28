@@ -20,21 +20,26 @@ private:
 
 
 	struct stElemento{
-		std::string nombre;
+		std::string tipo;
 		std::string x;
 		std::string y;
-		std::string angulo;
+		std::string alto;
+		std::string ancho;
+		std::string color;
+		std::string estatico;
+		std::string masa;
+		std::string rot;
 	};
 
 	struct stEscenario{
-		std::string nombre;
-		std::string fondo;
 		std::string ancho;
 		std::string alto;
 		std::string altoP;
 		std::string anchoP;
 		std::string agua;
 		std::string tierra;
+		std::string cielo;
+
 		std::vector <stElemento> elem;	
 	};
 
@@ -51,23 +56,27 @@ public:
 
 
 
-	void setNivelNombre(std::string);
-	void setNivelFondo(std::string);
-	void setNivelAncho(std::string);
-	void setNivelAlto(std::string);
-	void setNivelAltoPantalla(std::string);
-	void setNivelAnchoPantalla(std::string);
-	void setNivelAgua(std::string);
-	void setNivelTierra(std::string);
+	void setEscenarioAnchoU(std::string);
+	void setEscenarioAltoU(std::string);
+	void setEscenarioAltoP(std::string);
+	void setEscenarioAnchoP(std::string);
+	void setEscenarioAgua(std::string);
+	void setEscenarioTierra(std::string);
+	void setEscenarioCielo(std::string);
 
-	void setElemNombre(std::string);
+	void setElemTipo(std::string);
 	void setElemX(std::string);
 	void setElemY(std::string);
-	void setElemAngulo(std::string);
+	void setElemRot(std::string);
+	void setElemAlto(std::string);
+	void setElemAncho(std::string);
+	void setElemMasa(std::string);
+	void setElemEstatico(std::string);
+	void setElemColor(std::string);
 
-	void setNivelElem(stElemento);
+	void setEscenarioElem(stElemento);
 
-	void setElem(std::string,std::string,std::string,std::string);
+	void setElem(std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string);
 
 	void escribirYaml(std::string);
 
