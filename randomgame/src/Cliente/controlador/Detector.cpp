@@ -15,13 +15,16 @@ using namespace std;
 
 
 Detector::Detector() {
-	createButtons();
 	m_keys = SDL_GetKeyboardState(NULL);
 	quit = false;
 }
 
 Detector::~Detector() {
 	destroyButtons();
+}
+
+void Detector::init(){
+	createButtons();
 }
 
 void Detector::detect(){
@@ -43,7 +46,8 @@ void Detector::createButtons(){
 void Detector::destroyButtons(){
 	map<TypeElement, GameButton*>::iterator it;
 	for(it = Elements.begin(); it != Elements.end(); it++){
-		delete (*it).second;
+		if((*it).second)
+			delete (*it).second;
 	}
 }
 
@@ -102,7 +106,7 @@ GameButton* Detector::getElement(TypeElement te){
 void Detector::clearStates(){
 	map<TypeElement, GameButton*>::iterator it;
 	for(it = Elements.begin(); it != Elements.end(); it++){
-//		(*it).second->cleanState();
+		(*it).second->cleanState();
 	}
 }
 
