@@ -22,7 +22,12 @@ private:
 		std::string tipo;
 		std::string x;
 		std::string y;
-		std::string angulo;
+		std::string alto;
+		std::string ancho;
+		std::string color;
+		std::string estatico;
+		std::string masa;
+		std::string rot;
 	};
 
 	struct stEscenario{
@@ -118,7 +123,12 @@ public:
 	std::string getElemTipo(int);
 	std::string getElemX(int);
 	std::string getElemY(int);
-	std::string getElemAngulo(int);
+	std::string getElemAncho(int);
+	std::string getElemAlto(int);
+	std::string getElemColor(int);
+	std::string getElemMasa(int);
+	std::string getElemEstatico(int);
+	std::string getElemRot(int);
 
 
 };
