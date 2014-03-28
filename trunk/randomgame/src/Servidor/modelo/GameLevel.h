@@ -19,7 +19,8 @@ class GameLevel {
 
 		int levelHeight;
 		int levelWidth;
-		std::multimap<std::pair<float, float>, GameElement> entities;
+		std::multimap<std::pair<float, float>, GameElement*> entities;
+
 		GameElement getEntity(int id);
 
 		void destroyPlayers();
@@ -43,8 +44,8 @@ class GameLevel {
 		//TODO @future - void removePlayer(GamePlayer *jugador);
 		//TODO @future - void addPlayer(GamePlayer *jugador);
 
-		std::multimap<std::pair<float, float>, GameElement> getEntities();
-		void addEntity(GameElement entidad);
+		std::multimap<std::pair<float, float>, GameElement*> getEntities();
+		void addEntity(GameElement *entidad);
 		void removeEntity(std::pair<float,float> pos);
 		//void entityUpdatePosition(int tileX, int tileY, int id);
 		bool posicionOcupada(float x, float y);

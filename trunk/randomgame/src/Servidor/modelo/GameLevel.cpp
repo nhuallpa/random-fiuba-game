@@ -27,7 +27,7 @@ float nearest(float f){
 	return floorf(f * 100 + 0.5) / 100; 
 }
 
-void GameLevel::addEntity(GameElement entidad) {
+void GameLevel::addEntity(GameElement *entidad) {
 
 	//if ( entidad.getPosition().first < 0 )
 	//	entidad.setPosition( std::make_pair(0,entidad.getPosition().second) );
@@ -38,7 +38,7 @@ void GameLevel::addEntity(GameElement entidad) {
 	//if ( entidad.getPosition().second > this->getHeight() )
 	//	entidad.setPosition( std::make_pair(entidad.getPosition().first,this->getHeight()) );
 	// Log::d("Adding to model %d, %d", entidad.getPosition().first, entidad.getPosition().second);
-	this->entities.insert(std::make_pair( entidad.getPosition(), entidad ));
+	this->entities.insert(std::make_pair( entidad->getPosition(), entidad ));
 }
 
 void GameLevel::setHeight(int h){
@@ -52,7 +52,7 @@ void GameLevel::setWidth(int w){
 void GameLevel::removeEntity(std::pair<float,float> pos) {
 	std::pair<float,float> pos2 = std::make_pair((float)pos.first,(float)pos.second);
 	//std::cout << "removiendo: "<< pos2.first << ", " << pos2.second << std::endl;
-	std::multimap<std::pair<float, float>, GameElement>::iterator it = this->entities.begin();
+	std::multimap<std::pair<float, float>, GameElement*>::iterator it = this->entities.begin();
 	//for ( ; it != this->entities.end(); it++)
 	//	std::cout << "elem: " << (*it).first.first << ", " << (*it).first.second << std::endl;
 	it = this->entities.find(pos2);
@@ -96,7 +96,7 @@ bool GameLevel::createLevel(GameLevel&){
 	//}
 	
 	//ToDo @aliguo: Agrego hardcoded un cuadrado
-	this->addEntity(GameElement(SQUARE,0.0,0.0,45,3,4,15.0));
+	this->addEntity(new GameElement(SQUARE,0.0,0.0,45,3,4,15.0));
 
 	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
 
@@ -106,7 +106,7 @@ bool GameLevel::createLevel(GameLevel&){
 }
 
 
-std::multimap<std::pair<float, float>, GameElement> GameLevel::getEntities(){
+std::multimap<std::pair<float, float>, GameElement*> GameLevel::getEntities(){
 	return (this->entities);
 }
 

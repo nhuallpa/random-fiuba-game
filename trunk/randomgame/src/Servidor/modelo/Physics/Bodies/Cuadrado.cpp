@@ -51,11 +51,10 @@ void Cuadrado::animate(){
 	//ToDo @aliguo
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	b2Vec2 v = this->body->GetPosition();
-	Log::d("Nueva posicion: %.3f, %.3f", v.x, v.y);
-	//ge->setPosition(std::make_pair(0,0));
-	
+	Log::d("Nueva posicion (Physics): %.3f, %.3f", v.x, v.y);
+	ge->setPosition(std::make_pair( (v.x * 50.0f) , (v.y * 50.0f) ) );
+	Log::d("Nueva posicion (Modelo): %.3f, %.3f", (v.x * 50.0f), (v.y * 50.0f));
 
-	
 }
 
 void Cuadrado::touch(Body* touchingWith, b2World* mundo) {

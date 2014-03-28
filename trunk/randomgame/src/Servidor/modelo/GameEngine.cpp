@@ -38,17 +38,17 @@ void GameEngine::animateWorld() {
 void GameEngine::animateBodies() {
 
 	// Recorro todos los elementos del nivel y por cada uno de ellos armo el cuerpo de box2d		
-	std::multimap<std::pair<float, float>, GameElement> mmap = this->gameLevel.getEntities();
-	std::multimap<std::pair<float, float>, GameElement>::iterator elems = mmap.begin();
+	std::multimap<std::pair<float, float>, GameElement*> mmap = this->gameLevel.getEntities();
+	std::multimap<std::pair<float, float>, GameElement*>::iterator elems = mmap.begin();
 	Log::d("Creando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
 		Log::d("Encontre un elemento");
-		switch ((*elems).second.getType()){
+		switch ((*elems).second->getType()){
 			// Match de tipos y creacion de elementos en base a ello.
 			case SQUARE:
-				Cuadrado* sq = new Cuadrado(SQUARE, (*elems).second.getPosition().first , (*elems).second.getPosition().second, 
-					(*elems).second.getHeight(), (*elems).second.getWidth(), (*elems).second.getMass(),
-					(*elems).second.getRotation(), this->myWorld, &((*elems).second) );
+				Cuadrado* sq = new Cuadrado(SQUARE, (*elems).second->getPosition().first , (*elems).second->getPosition().second, 
+					(*elems).second->getHeight(), (*elems).second->getWidth(), (*elems).second->getMass(),
+					(*elems).second->getRotation(), this->myWorld, ((*elems).second) );
 				this->gameBodies.push_back(sq);
 				break;
 		}
@@ -77,6 +77,17 @@ bool GameEngine::step(){
 		Body* aBody = *iterator;
 		aBody->animate();
 	}
+
+	//Check game Level Elements - Just TSHOOT
+	std::multimap<std::pair<float, float>, GameElement*> mmap = this->gameLevel.getEntities();
+	std::multimap<std::pair<float, float>, GameElement*>::iterator elems = mmap.begin();
+	Log::d("TSHOOT - Listando cuerpos");
+	for ( ; elems != mmap.end(); elems++) {
+		Log::d("Posicion Elemento en modelo: %.3f, %.3f",
+			(*elems).second->getPosition().first,
+			(*elems).second->getPosition().second);
+	}
+
 
 	return true;
 }

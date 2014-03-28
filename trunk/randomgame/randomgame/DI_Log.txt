@@ -1,0 +1,780 @@
+[DEBUG] 2014-03-28.16:56:17 Creando cuerpos
+[DEBUG] 2014-03-28.16:56:17 Encontre un elemento
+[DEBUG] 2014-03-28.16:56:17 Posicion Inicial: 2.000, 1.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.497
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 74.861
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 74.861
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.492
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 74.583
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 74.583
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.483
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 74.167
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 74.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.472
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 73.611
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 73.611
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.458
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 72.917
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 72.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.442
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 72.083
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 72.083
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.422
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 71.111
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 71.111
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.400
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 70.000
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 70.000
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.375
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 68.750
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 68.750
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.347
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 67.361
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 67.361
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.317
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 65.833
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 65.833
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.283
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 64.167
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 64.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.247
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 62.361
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 62.361
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.208
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 60.417
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 60.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 58.333
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 58.333
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.122
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 56.111
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 56.111
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.075
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 53.750
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 53.750
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 1.025
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 51.250
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 51.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.972
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 48.611
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 48.611
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 45.833
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 45.833
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.858
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 42.917
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 42.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.797
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 39.861
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 39.861
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.733
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 36.667
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 36.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 33.333
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 33.333
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.597
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 29.861
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 29.861
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.525
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 26.250
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 26.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.450
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 22.500
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 22.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.372
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 18.611
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 18.611
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.292
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 14.583
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 14.583
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.208
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 10.417
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 10.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.122
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 6.111
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 6.111
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, 0.033
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, 1.667
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, 1.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.058
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -2.917
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -2.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.153
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -7.639
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -7.639
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -12.500
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -12.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.350
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -17.500
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -17.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.453
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -22.639
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -22.639
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.558
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -27.917
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -27.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -33.333
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -33.333
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.778
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -38.889
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -38.889
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -0.892
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -44.583
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -44.583
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.008
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -50.417
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -50.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.128
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -56.389
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -56.389
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -62.500
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -62.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.375
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -68.750
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -68.750
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.503
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -75.139
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -75.139
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.633
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -81.667
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -81.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.767
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -88.333
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -88.333
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -1.903
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -95.139
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -95.139
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.042
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -102.083
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -102.083
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.183
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -109.167
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -109.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.328
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -116.389
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -116.389
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.475
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -123.750
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -123.750
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.625
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -131.250
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -131.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.778
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -138.889
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -138.889
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -2.933
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -146.667
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -146.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -3.092
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -154.583
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -154.583
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -3.253
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -162.639
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -162.639
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -3.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -170.833
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -170.833
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -3.583
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -179.167
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -179.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -3.753
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -187.639
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -187.639
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -3.925
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -196.250
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -196.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -4.100
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -205.000
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -205.000
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -4.278
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -213.889
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -213.889
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -4.458
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -222.917
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -222.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -4.642
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -232.083
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -232.083
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -4.828
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -241.389
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -241.389
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -5.017
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -250.833
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -250.833
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -5.208
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -260.417
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -260.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -5.403
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -270.139
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -270.139
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -5.600
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -280.000
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -280.000
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -5.800
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -290.000
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -290.000
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -6.003
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -300.139
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -300.139
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -6.208
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -310.417
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -310.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -6.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -320.833
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -320.833
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -6.628
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -331.389
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -331.389
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -6.842
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -342.083
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -342.083
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -7.058
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -352.917
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -352.917
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -7.278
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -363.889
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -363.889
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -7.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -375.000
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -375.000
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -7.725
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -386.250
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -386.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -7.953
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -397.639
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -397.639
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -8.183
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -409.167
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -409.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -8.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -420.833
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -420.833
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -8.653
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -432.639
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -432.639
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -8.892
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -444.583
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -444.583
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -9.133
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -456.667
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -456.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -9.378
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -468.889
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -468.889
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -9.625
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -481.250
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -481.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -9.875
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -493.750
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -493.750
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -10.128
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -506.389
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -506.389
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -10.383
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -519.167
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -519.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -10.642
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -532.083
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -532.083
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -10.903
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -545.139
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -545.139
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -11.167
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -558.333
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -558.333
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -11.433
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -571.667
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -571.667
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -11.703
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -585.139
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -585.139
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -11.975
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -598.750
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -598.750
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -12.250
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -612.500
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -612.500
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -12.528
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -626.389
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -626.389
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -12.808
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -640.417
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -640.417
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -13.092
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -654.584
+[DEBUG] 2014-03-28.16:56:19 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:19 Posicion Elemento en modelo: 100.000, -654.584
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Physics): 2.000, -13.378
+[DEBUG] 2014-03-28.16:56:19 Nueva posicion (Modelo): 100.000, -668.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -668.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -13.667
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -683.334
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -683.334
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -13.958
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -697.917
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -697.917
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -14.253
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -712.639
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -712.639
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -14.550
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -727.500
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -727.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -14.850
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -742.500
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -742.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -15.153
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -757.639
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -757.639
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -15.458
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -772.917
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -772.917
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -15.767
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -788.334
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -788.334
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -16.078
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -803.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -803.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -16.392
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -819.584
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -819.583
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -16.708
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -835.417
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -835.417
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -17.028
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -851.389
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -851.389
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -17.350
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -867.500
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -867.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -17.675
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -883.750
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -883.750
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -18.003
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -900.139
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -900.139
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -18.333
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -916.667
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -916.667
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -18.667
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -933.334
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -933.334
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -19.003
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -950.139
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -950.139
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -19.342
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -967.084
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -967.084
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -19.683
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -984.167
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -984.167
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -20.028
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1001.389
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1001.389
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -20.375
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1018.750
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1018.750
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -20.725
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1036.250
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1036.250
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -21.078
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1053.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1053.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -21.433
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1071.667
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1071.667
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -21.792
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1089.583
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1089.583
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -22.153
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1107.639
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1107.639
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -22.517
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1125.834
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1125.833
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -22.883
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1144.167
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1144.167
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -23.253
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1162.639
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1162.639
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -23.625
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1181.250
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1181.250
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -24.000
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1200.000
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1200.000
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -24.378
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1218.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1218.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -24.758
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1237.917
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1237.917
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -25.142
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1257.084
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1257.083
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -25.528
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1276.389
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1276.389
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -25.917
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1295.833
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1295.833
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -26.308
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1315.417
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1315.417
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -26.703
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1335.139
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1335.139
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -27.100
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1355.000
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1355.000
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -27.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1375.000
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1375.000
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -27.903
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1395.139
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1395.139
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -28.308
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1415.417
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1415.417
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -28.717
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1435.833
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1435.833
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -29.128
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1456.389
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1456.389
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -29.542
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1477.083
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1477.083
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -29.958
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1497.917
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1497.917
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -30.378
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1518.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1518.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -30.800
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1540.000
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1540.000
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -31.225
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1561.250
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1561.250
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -31.653
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1582.639
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1582.639
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -32.083
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1604.167
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1604.167
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -32.517
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1625.833
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1625.833
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -32.953
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1647.639
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1647.639
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -33.392
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1669.583
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1669.583
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -33.833
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1691.667
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1691.667
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -34.278
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1713.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1713.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -34.725
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1736.250
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1736.250
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -35.175
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1758.750
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1758.750
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -35.628
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1781.389
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1781.389
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -36.083
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1804.167
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1804.167
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -36.542
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1827.083
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1827.083
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -37.003
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1850.139
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1850.139
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -37.467
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1873.333
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1873.333
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -37.933
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1896.667
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1896.667
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -38.403
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1920.139
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1920.139
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -38.875
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1943.750
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1943.750
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -39.350
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1967.500
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1967.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -39.828
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -1991.389
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -1991.389
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -40.308
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2015.416
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2015.416
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -40.792
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2039.583
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2039.583
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -41.278
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2063.889
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2063.889
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -41.767
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2088.333
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2088.333
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -42.258
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2112.916
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2112.916
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -42.753
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2137.638
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2137.638
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -43.250
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2162.499
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2162.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -43.750
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2187.499
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2187.500
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -44.253
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2212.638
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2212.638
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -44.758
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2237.916
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2237.916
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -45.267
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2263.333
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2263.333
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -45.778
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2288.888
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2288.888
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -46.292
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2314.583
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2314.583
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -46.808
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2340.416
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2340.416
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -47.328
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2366.388
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2366.388
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -47.850
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2392.499
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2392.499
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -48.375
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2418.749
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2418.749
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -48.903
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2445.138
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2445.138
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -49.433
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2471.666
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2471.666
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -49.967
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2498.332
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2498.333
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -50.503
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2525.138
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2525.138
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Physics): 2.000, -51.042
+[DEBUG] 2014-03-28.16:56:20 Nueva posicion (Modelo): 100.000, -2552.082
+[DEBUG] 2014-03-28.16:56:20 TSHOOT - Listando cuerpos
+[DEBUG] 2014-03-28.16:56:20 Posicion Elemento en modelo: 100.000, -2552.082
+[DEBUG] 2014-03-28.16:56:20 INICIO
