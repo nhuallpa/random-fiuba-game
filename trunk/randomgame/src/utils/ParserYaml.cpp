@@ -86,7 +86,12 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 	bool fNombre = false;
 	bool fX = false;
 	bool fY = false;
-	bool fAngulo = false;
+	bool fRot = false;
+	bool fMasa = false;
+	bool fAlto = false;
+	bool fAncho = false;
+	bool fEstatico = false;
+	bool fColor = false;
 	
 	elemVect.clear();//debo limpiar el elemVect de algun ciclo anterior
 
@@ -122,22 +127,77 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				}else
 					Log::e("Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
 			}
-			else if (key.compare("angulo")==0){
-				elem.angulo = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.angulo)){
-					std::string aux = elem.angulo;
-					//elem.angulo = this->validaAngulo(elem.angulo);
-					if (aux.compare(elem.angulo) != 0)
-						Log::d("Truncado valor de atributo ANGULO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
-					fAngulo = true;
+			else if (key.compare("ancho")==0){
+				elem.ancho = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.ancho)){
+					std::string aux = elem.ancho;
+					//elem.ancho = this->validaAngulo(elem.ancho);
+					if (aux.compare(elem.ancho) != 0)
+						Log::d("Truncado valor de atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					fAncho = true;
 				} else
-					Log::e("Valor incorrecto para atributo ANGULO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e("Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+			}
+			else if (key.compare("alto")==0){
+				elem.alto = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.alto)){
+					std::string aux = elem.alto;
+					//elem.alto = this->validaAngulo(elem.alto);
+					if (aux.compare(elem.alto) != 0)
+						Log::d("Truncado valor de atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					fAlto = true;
+				} else
+					Log::e("Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+			}
+			else if (key.compare("color")==0){
+				elem.color = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.color)){
+					std::string aux = elem.color;
+					//elem.color = this->validaAngulo(elem.color);
+					if (aux.compare(elem.color) != 0)
+						Log::d("Truncado valor de atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					fColor = true;
+				} else
+					Log::e("Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+			}
+			else if (key.compare("masa")==0){
+				elem.masa = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.masa)){
+					std::string aux = elem.masa;
+					//elem.masa = this->validaAngulo(elem.masa);
+					if (aux.compare(elem.masa) != 0)
+						Log::d("Truncado valor de atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					fMasa = true;
+				} else
+					Log::e("Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+			}
+			else if (key.compare("estatico")==0){
+				elem.estatico = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.estatico)){
+					std::string aux = elem.estatico;
+					//elem.estatico = this->validaAngulo(elem.estatico);
+					if (aux.compare(elem.estatico) != 0)
+						Log::d("Truncado valor de atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					fEstatico = true;
+				} else
+					Log::e("Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+			}
+			else if (key.compare("rot")==0){
+				elem.rot = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.rot)){
+					std::string aux = elem.rot;
+					//elem.rot = this->validaAngulo(elem.rot);
+					if (aux.compare(elem.rot) != 0)
+						Log::d("Truncado valor de atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					fRot = true;
+				} else
+					Log::e("Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			
 		}
 
-		
-		if (fNombre && fX && fY && fAngulo){
+
+		if (fNombre && fX && fY && fRot && fMasa && fAlto && fAncho && fEstatico && fColor){
 			//Log::d("Elemento %s, cargado correctamente en posicion (%s,%s) con angulo %s",elem.nombre,elem.x,elem.y,elem.angulo);
 			elemVect.push_back(elem);
 			//Log se carga el elemento correctamente
@@ -146,12 +206,22 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			if (!fNombre)Log::d("Atributo NOMBRE faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
 			if (!fX) Log::d("Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
 			if (!fY) Log::d("Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-			if (!fAngulo) Log::d("Atributo ANGULO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fRot) Log::d("Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fMasa) Log::d("Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fAlto) Log::d("Atributo ALTO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fAncho) Log::d("Atributo ANCHO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fEstatico) Log::d("Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fColor) Log::d("Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
 		}
 		fNombre = false;
 		fX = false;
 		fY = false;
-		fAngulo = false;
+		fRot = false;
+		fMasa = false;
+		fAlto = false;
+		fAncho = false;
+		fEstatico = false;
+		fColor = false;
 	
 	
 	}
@@ -566,10 +636,29 @@ std::string ParserYaml::getElemY(int e){
 	return this->todo.escenario.elem[e].y;
 }
 
-std::string ParserYaml::getElemAngulo(int e){
-	return this->todo.escenario.elem[e].angulo;
+std::string ParserYaml::getElemAncho(int e){
+	return this->todo.escenario.elem[e].ancho;
 }
 
+std::string ParserYaml::getElemAlto(int e){
+	return this->todo.escenario.elem[e].alto;
+}
+
+std::string ParserYaml::getElemColor(int e){
+	return this->todo.escenario.elem[e].color;
+}
+
+std::string ParserYaml::getElemMasa(int e){
+	return this->todo.escenario.elem[e].masa;
+}
+
+std::string ParserYaml::getElemEstatico(int e){
+	return this->todo.escenario.elem[e].estatico;
+}
+
+std::string ParserYaml::getElemRot(int e){
+	return this->todo.escenario.elem[e].rot;
+}
 
 
 
