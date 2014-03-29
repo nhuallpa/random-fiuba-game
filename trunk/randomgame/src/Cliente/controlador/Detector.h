@@ -18,7 +18,6 @@
 #include <algorithm>
 #include <iostream>
 //#include "../vista/Screen.h"
-#include "GameButton.h"
 
 using namespace std;
 
@@ -39,7 +38,7 @@ class Detector {
 public:
 	Detector();
 	virtual ~Detector();
-	void init();
+	/*void init();
 	void detect();
 	void clearStates();
 	bool isBeginLife();
@@ -48,8 +47,8 @@ public:
 	bool isQuit();
 	
 	bool getState(State action);
-	void setState(State action, bool value);
-
+	void setState(State action, bool value);*/
+/*
 private:
 	enum TypeElement{SBUTTON, PBUTTON};
 	map<TypeElement, GameButton*> Elements;
@@ -60,7 +59,7 @@ private:
 	void handleEventKeys();
 	void createButtons();
 	void handleEvents(SDL_Event* e);
-	GameButton* getElement(TypeElement te);
+	GameButton* getElement(TypeElement te);*/
 };
 
 #endif /* DETECTOR_H_ */

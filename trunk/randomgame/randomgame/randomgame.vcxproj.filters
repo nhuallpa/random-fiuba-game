@@ -84,15 +84,6 @@
     <ClCompile Include="..\src\Servidor\modelo\GameLoop.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\GameButton.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\PButton.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\SButton.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\ViewMock.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
@@ -199,15 +190,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\GameLoop.h">
       <Filter>Archivos de código fuente\server\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\GameButton.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\PButton.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\SButton.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\ViewMock.h">
       <Filter>Archivos de código fuente\client\view</Filter>

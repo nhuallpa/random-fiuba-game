@@ -7,22 +7,19 @@
 
 #include "Detector.h"
 #include "../../utils/Log.h"
-#include "SButton.h"
-#include "PButton.h"
 
 using namespace std;
 
 
 
 Detector::Detector() {
-	m_keys = SDL_GetKeyboardState(NULL);
-	quit = false;
+	
 }
 
 Detector::~Detector() {
-	destroyButtons();
+	
 }
-
+/*
 void Detector::init(){
 	createButtons();
 }
@@ -112,7 +109,7 @@ void Detector::clearStates(){
 
 void Detector::setState(State action, bool value){
 	this->cState[action] = value;
-}
+}*/
 
 /*
 void Detector::updateStates(){

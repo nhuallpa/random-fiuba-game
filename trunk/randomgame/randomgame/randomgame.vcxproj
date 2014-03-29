@@ -73,10 +73,7 @@
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Detector.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\GameButton.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\GameController.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\PButton.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\SButton.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Activity.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Bootstrap.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureView.cpp" />
@@ -113,10 +110,7 @@
     <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\Detector.h" />
-    <ClInclude Include="..\src\Cliente\controlador\GameButton.h" />
     <ClInclude Include="..\src\Cliente\controlador\GameController.h" />
-    <ClInclude Include="..\src\Cliente\controlador\PButton.h" />
-    <ClInclude Include="..\src\Cliente\controlador\SButton.h" />
     <ClInclude Include="..\src\Cliente\vista\Activity.h" />
     <ClInclude Include="..\src\Cliente\vista\Bootstrap.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureView.h" />

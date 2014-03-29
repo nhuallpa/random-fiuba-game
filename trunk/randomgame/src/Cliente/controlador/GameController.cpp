@@ -44,7 +44,7 @@ GameController::~GameController() {
 bool GameController::init(){
 	//lee elementos del mundo
 	// por cada uno de ellos agrega un ElementView en la vista
-	cDetector.init();
+	//cDetector.init();
 	std::multimap<std::pair<float, float>, GameElement*> mmap = this->cLevel->getEntities();
 	std::multimap<std::pair<float, float>, GameElement*>::iterator elems = mmap.begin();
 
@@ -71,23 +71,23 @@ bool GameController::init(){
 }
 
 void GameController::detectEvents(){
-	this->cDetector.detect();
+	//this->cDetector.detect();
 }
 
 bool GameController::isBeginLife(){
-	return cDetector.isBeginLife();
+	return true;//return cDetector.isBeginLife();
 }
 
 bool GameController::isRegenerateWorld(){
-	return cDetector.isRegenerateWorld();
+	return true;//return cDetector.isRegenerateWorld();
 }
 
 bool GameController::isPuase(){
-	return cDetector.isPuase();
+	return true;//return cDetector.isPuase();
 }
 
 void GameController::clearStates(){
-	cDetector.clearStates();
+	//cDetector.clearStates();
 }
 
 
@@ -143,7 +143,7 @@ void GameController::clearStates(){
 
 	
 bool GameController::handleEvents(){
-	return cDetector.isQuit();
+	return true;//return cDetector.isQuit();
 /*
 	if ( this->cDetector.getState(EXIT_REQUEST) ){
 		return true;
