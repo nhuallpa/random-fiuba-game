@@ -44,7 +44,7 @@ GameController::~GameController() {
 bool GameController::init(){
 	//lee elementos del mundo
 	// por cada uno de ellos agrega un ElementView en la vista
-	//cDetector.init();
+	cDetector.init();
 	std::multimap<std::pair<float, float>, GameElement*> mmap = this->cLevel->getEntities();
 	std::multimap<std::pair<float, float>, GameElement*>::iterator elems = mmap.begin();
 
@@ -71,28 +71,28 @@ bool GameController::init(){
 }
 
 void GameController::detectEvents(){
-	//this->cDetector.detect();
+	this->cDetector.detect();
 }
 
 bool GameController::isBeginLife(){
-	return true;//return cDetector.isBeginLife();
+	return cDetector.isBeginLife();
 }
 
 bool GameController::isRegenerateWorld(){
-	return true;//return cDetector.isRegenerateWorld();
+	return cDetector.isRegenerateWorld();
 }
 
-bool GameController::isPuase(){
-	return true;//return cDetector.isPuase();
+bool GameController::isPause(){
+	return cDetector.isPause();
 }
 
 void GameController::clearStates(){
-	//cDetector.clearStates();
+	cDetector.updateStates();
 }
 
 
-//ElementView* GameController::checkInsideElements(){
-	/*
+/*ElementView* GameController::checkInsideElements(){
+	
 	std::list<ElementView>* mmap = this->gView->getElems();
 	std::list<ElementView>::reverse_iterator elems = mmap->rbegin();
 
@@ -136,14 +136,17 @@ void GameController::clearStates(){
 			if ( !alpha)
 				return &(*elems);
 		}
-	}*/
-//	return NULL;
-//}
+	}
+	return NULL;
+}*/
 
 
-	
-bool GameController::handleEvents(){
-	return true;//return cDetector.isQuit();
+bool GameController::isQuit(){
+	return cDetector.isQuit();
+}
+
+void GameController::handleEvents(){
+	//return cDetector.isQuit();
 /*
 	if ( this->cDetector.getState(EXIT_REQUEST) ){
 		return true;
@@ -361,7 +364,7 @@ bool GameController::handleEvents(){
 
 
 
-//ElementView* GameController::checkInsideMenu(){
+/*ElementView* GameController::checkInsideMenu(){
 //
 //	bool inside = true;
 
@@ -397,10 +400,10 @@ bool GameController::handleEvents(){
 
 
 	}
-	*/
-//	return NULL;
-//}
-//
+	
+	return NULL;
+}*/
+
 
 bool GameController::getChanges(){
 	return this->changes;
