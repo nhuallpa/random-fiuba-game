@@ -66,27 +66,6 @@
     <ClCompile Include="..\src\Cliente\controlador\GameController.cpp">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\ElementView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\GameFonts.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\GameView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\MenuView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\Screen.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\Sprites.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\Textures.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Servidor\Servidor.cpp">
       <Filter>Archivos de código fuente\server</Filter>
     </ClCompile>
@@ -171,6 +150,15 @@
     <ClCompile Include="..\src\SystemManager.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\CircleView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -194,24 +182,6 @@
     <ClInclude Include="..\src\Cliente\controlador\GameController.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\ElementView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\GameFonts.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\GameView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\MenuView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\Sprites.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\Textures.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Servidor\Servidor.h">
       <Filter>Archivos de código fuente\server</Filter>
     </ClInclude>
@@ -229,9 +199,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\GameLoop.h">
       <Filter>Archivos de código fuente\server\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\Screen.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\GameButton.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
@@ -298,6 +265,15 @@
     </ClInclude>
     <ClInclude Include="..\src\SystemManager.h">
       <Filter>Archivos de código fuente</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\RectangleView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\CircleView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\PolygonView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

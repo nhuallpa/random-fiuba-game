@@ -3,19 +3,25 @@
 #define __FIGURE_VIEW_H_
 #include "View.h"
 #include "TextureManager.h"
+
 class FigureView : 	public View
 {
 private:
-	std::string imageId;
+	int mRotation;
 public:
-	FigureView(std::string imageId, int x, int y);
+	int getRotation() {return mRotation;}
+	void setRotation(int rotation) {mRotation = rotation;}
+	FigureView(int x, int y, Uint32 color, int rotation);
 	~FigureView(void);
 
-	void clean();
-	
-	void update();
-
-	void draw(SDLScreen & screen);
 
 };
+
+struct s_point{
+	int x;
+	int y;
+};
+typedef struct s_point tPoint;
+
 #endif /* defined(__FIGURE_VIEW_H_) */
+

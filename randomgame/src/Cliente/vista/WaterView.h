@@ -6,17 +6,16 @@
 class WaterView : public View
 {
 private:
-	std::string imageId;
 
+	int height;
 public:
 	
 	~WaterView(void);
 
-	WaterView(std::string imageId, int x, int y, int width, int height);
-									
-	void clean();
-	
-	void update();
+	WaterView(int height, Uint32 color);
+				
+	int getHeight() {return height;}
+	void setHeight(int height) {this->height = height;}
 
 	void draw(SDLScreen & screen);
 };

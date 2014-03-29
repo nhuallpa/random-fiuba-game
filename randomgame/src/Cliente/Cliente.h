@@ -1,6 +1,6 @@
 #pragma once
 #include "controlador/GameController.h"
-#include "vista/GameView.h"
+//#include "vista/GameView.h"
 #include "../Servidor/Servidor.h"
 
 class Cliente{
@@ -11,7 +11,7 @@ class Cliente{
 		bool begin();		// Inicia el VistaJuego y ControladorJuego
 		void loop(void);
 		GameLevel cLevel;
-		GameView cView;
+		//GameView cView;
 		GameController cController;
 		bool connect2server(Servidor* server);
 		Servidor* server;

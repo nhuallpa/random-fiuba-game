@@ -13,7 +13,7 @@
 #include "Detector.h"
 #include "../../Servidor/modelo/GameLevel.h"
 #include "../../Servidor/modelo/GameElement.h"
-#include "../vista/GameView.h"
+//#include "../vista/GameView.h"
 #include "../../utils/PersistYaml.h"
 //#include "../../utils/utils.h"
 
@@ -21,7 +21,11 @@
 class GameController {
 public:
 	GameController();
-	GameController(GameLevel* gL, GameView* gV);
+
+	//GameController(GameLevel* gL, GameView* gV);
+	// TODO: Hasta la integracion, no se pasa la vista. Nestor
+	GameController(GameLevel* gL);
+
 	virtual ~GameController();
 	void detectEvents();
 	bool handleEvents();
@@ -32,8 +36,8 @@ public:
 
 
 	bool init();
-	ElementView* checkInsideElements();
-	ElementView* checkInsideMenu();
+	//ElementView* checkInsideElements();
+	//ElementView* checkInsideMenu();
 	bool getChanges();
 	void updateElements();
 
@@ -42,9 +46,9 @@ private:
 
 
 
-	GameView *gView;
-	ElementView* currentElement;
-	ElementView* currentMenuElement;
+	//GameView *gView;
+	//ElementView* currentElement;
+	//ElementView* currentMenuElement;
 	GameLevel* cLevel;
 	bool changes;
 	std::pair<float,float> lastElemPos;

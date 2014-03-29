@@ -29,11 +29,6 @@ void Cliente::loop(void){
 	bootstrap.init();
 
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen());
-
-	//init View
-	//this->cView.init();
-
-	//init Controller
 	this->cController.init();
 	int running = 0;
 	while (quit == false){
@@ -64,6 +59,9 @@ void Cliente::loop(void){
 			currentActivity->render();
 		}
 
+		/*currentActivity->update();
+		currentActivity->render();
+		*/
 		this->cController.clearStates();
 	}
 	bootstrap.getScreen().terminate();
@@ -91,7 +89,8 @@ void Cliente::destroyWorld(void){
 
 bool Cliente::connect2server(Servidor* server){
 	this->cLevel = server->getLevel();
-	this->cController = GameController(&this->cLevel,&this->cView);
+	//this->cController = GameController(&this->cLevel,&this->cView);
+	this->cController = GameController(&this->cLevel);
 	return true;
 }
 

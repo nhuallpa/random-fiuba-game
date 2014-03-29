@@ -5,6 +5,12 @@
 
 class TScreen
 {
+
+protected:
+
+	int width;
+	int height;
+
 public:
 	TScreen(void);
 
@@ -17,6 +23,10 @@ public:
 	virtual void render() = 0;
 	/*** Shut down screen*/
 	virtual void terminate() = 0;
+
+	int getWidth();
+
+	int getHeight();
 
 	~TScreen(void);
 };

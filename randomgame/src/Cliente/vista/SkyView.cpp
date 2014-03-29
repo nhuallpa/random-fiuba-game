@@ -2,7 +2,7 @@
 
 
 SkyView::SkyView(std::string imageId)
-				: View(0, 0, 0, 0), imageId(imageId)
+				: View(0, 0), imageId(imageId)
 {
 }
 

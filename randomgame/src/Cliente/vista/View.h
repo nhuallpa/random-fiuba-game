@@ -1,36 +1,35 @@
 #pragma once
 #ifndef __VIEW_H_
 #define __VIEW_H_
-
+#define DEFAULT_COLOR 0x00000000
+#include <SDL2_gfxPrimitives.h>
 #include "SDLScreen.h"
 
 class View
 {
 	int x;
 	int y;
-	int width;
-	int height;
-
+	Uint32 color;
+	
 public:
-	View(int x, int y, int width, int height);
+	View(int x, int y, Uint32 color = DEFAULT_COLOR);
 	~View(void);
 
 	/** Set the view to initial state */
-	virtual void clean() = 0;
+	virtual void clean();
 	/** Update the view */
-	virtual void update() = 0;
+	virtual void update();
 	/** Draw on screen */
 	virtual void draw(SDLScreen & screen) = 0;
 
-	int View::getX() { return x;}
-	int View::getY() { return y;}
-	int View::getWidth() { return width;}
-	int View::getHeight() { return height;}
+	int getX() { return x;}
+	int getY() { return y;}
+	Uint32 getColor() { return color;}
 
-	void View::setX(int x) {this->x = x;}
-	void View::setY(int y) {this->y = y;}
-	void View::setWidth(int width) {this->width = width;}
-	void View::setHeight(int height) {this->height = height;}
+	void setX(int x) {this->x = x;}
+	void setY(int y) {this->y = y;}
+	void setColor(Uint32 color) { this->color = color;}
+
 
 };
 
