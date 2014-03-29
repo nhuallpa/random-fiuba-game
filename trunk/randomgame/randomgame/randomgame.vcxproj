@@ -67,6 +67,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Cliente\controlador\Event.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\EventP.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\EventQuit.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\EventS.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
@@ -104,6 +108,10 @@
     <ClCompile Include="..\src\utils\PersistYaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Cliente\controlador\Event.h" />
+    <ClInclude Include="..\src\Cliente\controlador\EventP.h" />
+    <ClInclude Include="..\src\Cliente\controlador\EventQuit.h" />
+    <ClInclude Include="..\src\Cliente\controlador\EventS.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />

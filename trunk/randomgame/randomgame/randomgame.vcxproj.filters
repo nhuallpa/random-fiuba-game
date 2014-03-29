@@ -150,6 +150,18 @@
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Event.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\EventP.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\EventQuit.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\EventS.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -256,6 +268,18 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Event.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\EventP.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\EventQuit.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\EventS.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
