@@ -2,8 +2,10 @@
 
 
 ViewGroup::ViewGroup(int x, int y, int width, int height)
-								: View(x, y, width, height)
+								: View(x, y)
 {
+	this->setWidth(width);
+	this->setHeight(height);
 }
 
 

@@ -17,7 +17,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include "../vista/Screen.h"
+//#include "../vista/Screen.h"
 #include "GameButton.h"
 
 using namespace std;
@@ -46,6 +46,7 @@ public:
 	bool isRegenerateWorld();
 	bool isPuase();
 	bool isQuit();
+	
 	bool getState(State action);
 	void setState(State action, bool value);
 
@@ -55,9 +56,9 @@ private:
 	const Uint8* m_keys;
 	bool quit;
 	bool cState[TOTAL_STATES];
-	void createButtons();
 	void destroyButtons();
 	void handleEventKeys();
+	void createButtons();
 	void handleEvents(SDL_Event* e);
 	GameButton* getElement(TypeElement te);
 };

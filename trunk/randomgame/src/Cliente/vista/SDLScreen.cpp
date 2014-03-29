@@ -15,13 +15,14 @@ bool SDLScreen::init(const char* title, int xpos, int ypos, int width,
 
 	if(m_pWindow != 0) // window init success
 	{
-
+		this->height = height;
+		this->width = width;
 		renderer = SDL_CreateRenderer(m_pWindow, -1, 0);
 		if(renderer != 0) // renderer init success
 		{
 
 			SDL_SetRenderDrawColor(renderer,
-			255,255,255,255);
+			0,0,0,0);
 		}
 		else
 		{

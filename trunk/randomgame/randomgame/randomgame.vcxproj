@@ -67,6 +67,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Detector.cpp" />
@@ -76,19 +79,12 @@
     <ClCompile Include="..\src\Cliente\controlador\SButton.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Activity.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Bootstrap.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\ElementView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameActivity.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameException.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\GameFonts.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\GameView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\MenuView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\Screen.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SDLScreen.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SkyView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\Sprites.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TextureManager.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\Textures.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TScreen.cpp" />
     <ClCompile Include="..\src\Cliente\vista\View.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ViewGroup.cpp" />
@@ -111,6 +107,9 @@
     <ClCompile Include="..\src\utils\PersistYaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
+    <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
+    <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
     <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\Detector.h" />
@@ -120,19 +119,12 @@
     <ClInclude Include="..\src\Cliente\controlador\SButton.h" />
     <ClInclude Include="..\src\Cliente\vista\Activity.h" />
     <ClInclude Include="..\src\Cliente\vista\Bootstrap.h" />
-    <ClInclude Include="..\src\Cliente\vista\ElementView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureView.h" />
     <ClInclude Include="..\src\Cliente\vista\GameActivity.h" />
     <ClInclude Include="..\src\Cliente\vista\GameException.h" />
-    <ClInclude Include="..\src\Cliente\vista\GameFonts.h" />
-    <ClInclude Include="..\src\Cliente\vista\GameView.h" />
-    <ClInclude Include="..\src\Cliente\vista\MenuView.h" />
-    <ClInclude Include="..\src\Cliente\vista\Screen.h" />
     <ClInclude Include="..\src\Cliente\vista\SDLScreen.h" />
     <ClInclude Include="..\src\Cliente\vista\SkyView.h" />
-    <ClInclude Include="..\src\Cliente\vista\Sprites.h" />
     <ClInclude Include="..\src\Cliente\vista\TextureManager.h" />
-    <ClInclude Include="..\src\Cliente\vista\Textures.h" />
     <ClInclude Include="..\src\Cliente\vista\TScreen.h" />
     <ClInclude Include="..\src\Cliente\vista\View.h" />
     <ClInclude Include="..\src\Cliente\vista\ViewGroup.h" />

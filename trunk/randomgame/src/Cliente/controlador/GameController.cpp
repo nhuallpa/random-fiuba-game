@@ -6,7 +6,7 @@
  */
 
 #include "GameController.h"
-#include "../vista/Sprites.h"
+//#include "../vista/Sprites.h"
 #include <math.h>
 
 
@@ -18,19 +18,19 @@ float nearest2(float f){
 
 
 GameController::GameController() {
-	gView = NULL;
-	currentElement = NULL;
-	currentMenuElement = NULL;
+	//gView = NULL;
+	//currentElement = NULL;
+	//currentMenuElement = NULL;
 	cLevel  = NULL;
 	changes = false;
 
 }
 
-GameController::GameController(GameLevel* gL, GameView* gV) {
+GameController::GameController(GameLevel* gL) {
 	this->cLevel = gL;
-	this->gView = gV;
-	this->currentElement = NULL;
-	this->currentMenuElement = NULL;
+	//this->gView = gV;
+	//this->currentElement = NULL;
+	//this->currentMenuElement = NULL;
 	this->changes = false;
 	//generate a ElemntView per Game Element
 
@@ -55,10 +55,15 @@ bool GameController::init(){
 		//((*elems).second)->getRotation(); // rotation
 		//(int type, int posX, int posY, int degree);
 		
+
+
+		/** TODO: De momento no lo voy a usar y lo comento. Nestor
 		this->gView->addElement(((*elems).second)->getType(),
 				(((*elems).first).first * Screen::getInstance()->getLogic2PixelsFactor().first) - ((ELEM_WIDTH * Screen::getInstance()->getLogic2PixelsFactor().first)/2.0) ,
 				(((*elems).first).second * Screen::getInstance()->getLogic2PixelsFactor().second) - ((ELEM_HEIGHT * Screen::getInstance()->getLogic2PixelsFactor().second)/2.0),
 				((*elems).second)->getRotation());
+
+		**/
 	}
 
 
@@ -86,7 +91,7 @@ void GameController::clearStates(){
 }
 
 
-ElementView* GameController::checkInsideElements(){
+//ElementView* GameController::checkInsideElements(){
 	/*
 	std::list<ElementView>* mmap = this->gView->getElems();
 	std::list<ElementView>::reverse_iterator elems = mmap->rbegin();
@@ -132,8 +137,8 @@ ElementView* GameController::checkInsideElements(){
 				return &(*elems);
 		}
 	}*/
-	return NULL;
-}
+//	return NULL;
+//}
 
 
 	
@@ -356,9 +361,9 @@ bool GameController::handleEvents(){
 
 
 
-ElementView* GameController::checkInsideMenu(){
-
-	bool inside = true;
+//ElementView* GameController::checkInsideMenu(){
+//
+//	bool inside = true;
 
 	/*
 	int qtyMenuElems = Screen::getInstance()->getHeight() / (ARROW_Y_POS + ARROW_Y_POS + SPRITES_HEIGHT);
@@ -393,9 +398,9 @@ ElementView* GameController::checkInsideMenu(){
 
 	}
 	*/
-	return NULL;
-}
-
+//	return NULL;
+//}
+//
 
 bool GameController::getChanges(){
 	return this->changes;

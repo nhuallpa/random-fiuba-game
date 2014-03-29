@@ -7,6 +7,8 @@
 class ViewGroup : 	public View
 {
 private:
+	int mWidth;
+	int mHeight;
 
 	std::list<View*> views;
 
@@ -20,6 +22,12 @@ public:
 	void update();
 	
 	void draw(SDLScreen & screen);
+
+	void setHeight(int height) {mHeight=height;}
+	void setWidth(int width) {mWidth=width;}
+
+	int getHeight() {return mHeight;}
+	int getWidth() {return mWidth;}
 
 	~ViewGroup(void);
 };

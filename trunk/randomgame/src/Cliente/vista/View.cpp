@@ -1,14 +1,21 @@
 #include "View.h"
 
 
-View::View(int x, int y, int width, int height)
+View::View(int x, int y, Uint32 color)
 {
 	this->x = x;
 	this->y = y;
-	this->width = width;
-	this->height = height;
+	this->color = color;
 }
 
+
+void View::clean()
+{
+}
+
+void View::update()
+{
+}
 
 View::~View(void)
 {

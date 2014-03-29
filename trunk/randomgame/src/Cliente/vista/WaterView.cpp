@@ -1,9 +1,10 @@
 #include "WaterView.h"
 
 
-WaterView::WaterView(std::string imageId, int x, int y, int width, int height)
-							: View(x, y, width, height), imageId(imageId)
+WaterView::WaterView(int height,Uint32 color)
+							: View(0, 0, color)
 {
+	this->setHeight(height);
 }
 
 
@@ -12,24 +13,15 @@ WaterView::~WaterView(void)
 }
 
 
-void WaterView::clean()
-{
-
-}
-	
-void WaterView::update() 
-{
-
-}
-
 void WaterView::draw(SDLScreen & screen)
 {
-	TextureManager::Instance().draw(imageId.c_str(),
-								this->getX(),
-								this->getY(),
-								this->getWidth(),
-								this->getHeight(),
-								screen.getRenderer());
-
+	int x1=0;
+	int y1=screen.getHeight() - this->getHeight();
+	int x2 = screen.getWidth();
+	int y2 = screen.getHeight();
+	boxColor(screen.getRenderer(),
+				x1, y1,
+				x2, y2, this->getColor());
+			
 }
 

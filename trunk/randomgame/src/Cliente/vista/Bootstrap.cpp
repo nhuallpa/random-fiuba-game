@@ -11,7 +11,7 @@ void Bootstrap::init()
 	// attempt to initialize SDL
 	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
-		this->getScreen().init("Chapter 1", 100, 100, 640, 480, 0);
+		this->getScreen().init("Chapter 1", 50, 50, 640, 480, 0);
 	} 
 
 	std::map<std::string, std::string> map_images;
