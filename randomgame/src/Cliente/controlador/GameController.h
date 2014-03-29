@@ -21,19 +21,15 @@
 class GameController {
 public:
 	GameController();
-
-	//GameController(GameLevel* gL, GameView* gV);
-	// TODO: Hasta la integracion, no se pasa la vista. Nestor
 	GameController(GameLevel* gL);
-
 	virtual ~GameController();
 	void detectEvents();
-	bool handleEvents();
+	void handleEvents();
 	void clearStates();
 	bool isBeginLife();
 	bool isRegenerateWorld();
-	bool isPuase();
-
+	bool isPause();
+	bool isQuit();
 
 	bool init();
 	//ElementView* checkInsideElements();
@@ -46,9 +42,9 @@ private:
 
 
 
-	//GameView *gView;
-	//ElementView* currentElement;
-	//ElementView* currentMenuElement;
+	/*GameView *gView;
+	ElementView* currentElement;
+	ElementView* currentMenuElement;*/
 	GameLevel* cLevel;
 	bool changes;
 	std::pair<float,float> lastElemPos;

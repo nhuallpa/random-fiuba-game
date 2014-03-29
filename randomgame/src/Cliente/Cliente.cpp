@@ -31,10 +31,10 @@ void Cliente::loop(void){
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen());
 	this->cController.init();
 	int running = 0;
-	while (quit == false){
+	while (!this->cController.isQuit()){
 		
 		this->cController.detectEvents();
-		quit = this->cController.handleEvents();
+		this->cController.handleEvents();
 
 		if(this->cController.isBeginLife()){
 			running=1;
@@ -47,10 +47,9 @@ void Cliente::loop(void){
 			currentActivity->render();
 			running = 0;
 		}
-		if(this->cController.isPuase()){
+		if(this->cController.isPause()){
 			running=0;
 			//TODO: Parar el mundo en el estado en el que esta!!!
-			//this->cController.detectEvents();
 		}
 
 		if (running){
