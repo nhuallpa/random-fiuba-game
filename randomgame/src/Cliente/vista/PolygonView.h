@@ -5,10 +5,15 @@
 #include "FigureView.h"
 class PolygonView :	public FigureView
 {
+private:
+
+	Sint16* vertexX;
+	Sint16* vertexY;
+
 	std::list<tPoint> m_points;
 
 public:
-	PolygonView(int x, int y, Uint32 color, int rotation);
+	PolygonView(int x, int y, std::string  color, int rotation);
 
 	void addPoint(int x, int y);
 

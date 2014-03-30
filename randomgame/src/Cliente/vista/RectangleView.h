@@ -21,7 +21,7 @@ public:
 
 	void draw(SDLScreen & screen);
 
-	RectangleView(int x, int y, int width, int height, Uint32 color, int rotation);
+	RectangleView(int x, int y, int width, int height, std::string  color, int rotation);
 	~RectangleView(void);
 };
 

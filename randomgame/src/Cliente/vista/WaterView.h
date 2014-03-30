@@ -12,7 +12,7 @@ public:
 	
 	~WaterView(void);
 
-	WaterView(int height, Uint32 color);
+	WaterView(int height, std::string  color);
 				
 	int getHeight() {return height;}
 	void setHeight(int height) {this->height = height;}

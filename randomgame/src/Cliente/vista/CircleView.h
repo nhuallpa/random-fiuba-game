@@ -11,7 +11,7 @@ private:
 	
 
 public:
-	CircleView(int x, int y, int radio, Uint32 color, int rotation);
+	CircleView(int x, int y, int radio, std::string  color, int rotation);
 
 	int getRadio() {return radio;}
 	void setRadio(int radio) {this->radio = radio;}
