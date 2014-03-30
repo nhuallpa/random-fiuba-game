@@ -27,8 +27,8 @@ void Cliente::loop(void){
 
 	Bootstrap bootstrap;
 	bootstrap.init();
-
-	Activity* currentActivity = new GameActivity(bootstrap.getScreen());
+	DefaultViewBuilder builder;
+	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), builder);
 	this->cController.init();
 	int running = 0;
 	while (!this->cController.isQuit()){

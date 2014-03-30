@@ -16,7 +16,26 @@ void PolygonView::addPoint(int x, int y)
 
 void PolygonView::draw(SDLScreen & screen) 
 {
+	Sint16* vertexX = new Sint16[m_points.size()];
+	Sint16* vertexY = new Sint16[m_points.size()];
 
+	std::list<tPoint>::iterator  it;
+
+	int index=0;
+	for (it = m_points.begin(); it != m_points.end(); ++it)  
+	{
+		vertexX[index] = (*it).x;
+		vertexY[index] = (*it).y;
+	}
+
+	polygonColor(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				m_points.size(),
+				this->getColor());
+
+	delete [] vertexX;
+	delete [] vertexY;
 }
 
 PolygonView::~PolygonView(void)

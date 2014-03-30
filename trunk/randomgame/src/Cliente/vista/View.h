@@ -13,7 +13,7 @@ class View
 	
 public:
 	View(int x, int y, Uint32 color = DEFAULT_COLOR);
-	~View(void);
+	virtual ~View(void);
 
 	/** Set the view to initial state */
 	virtual void clean();

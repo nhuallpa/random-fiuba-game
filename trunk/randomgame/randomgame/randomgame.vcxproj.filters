@@ -162,6 +162,12 @@
     <ClCompile Include="..\src\Cliente\controlador\EventS.cpp">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -280,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\EventS.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

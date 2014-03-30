@@ -72,8 +72,10 @@
     <ClCompile Include="..\src\Cliente\controlador\EventQuit.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\EventS.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Detector.cpp" />
@@ -113,8 +115,10 @@
     <ClInclude Include="..\src\Cliente\controlador\EventQuit.h" />
     <ClInclude Include="..\src\Cliente\controlador\EventS.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
+    <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
+    <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
     <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\Detector.h" />
