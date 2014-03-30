@@ -11,6 +11,12 @@ ViewGroup::ViewGroup(int x, int y, int width, int height)
 
 ViewGroup::~ViewGroup(void)
 {
+	std::list<View*>::iterator it;
+	for (it = views.begin(); it != views.end(); ++it) 
+	{
+		delete (*it);
+	}
+	views.clear();
 }
 
 void ViewGroup::add(View* aView)

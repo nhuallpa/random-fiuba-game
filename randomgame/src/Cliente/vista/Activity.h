@@ -9,7 +9,6 @@ class Activity
 {
 private:
 	SDLScreen m_screen;
-	View* aView;
 
 protected:
 	/** Clear windows to draw view*/
@@ -18,11 +17,13 @@ protected:
 	/** Set the view to draw on window*/
 	void setContentView(View * newView);
 
+	View* aView;
+
 public:
 
 	Activity(const SDLScreen & screen);
 
-	~Activity(void);
+	virtual ~Activity(void);
 
 	/** Update the view*/
 	void update();

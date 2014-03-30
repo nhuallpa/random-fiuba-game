@@ -1,7 +1,7 @@
 #pragma once
 #include "controlador/GameController.h"
-//#include "vista/GameView.h"
 #include "../Servidor/Servidor.h"
+#include "vista/DefaultViewBuilder.h"
 
 class Cliente{
 

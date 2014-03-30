@@ -28,7 +28,7 @@ public:
 
 	int getHeight();
 
-	~TScreen(void);
+	virtual ~TScreen(void);
 };
 
 #endif /* defined(__T_SCREEN_H_) */

@@ -3,24 +3,18 @@
 #define __GAME_ACTIVITY_H_
 #include <iostream>
 #include "Activity.h"
-#include "FigureView.h"
-#include "SkyView.h"
-#include "ViewGroup.h"
-#include "WaterView.h"
-#include "RectangleView.h"
-#include "CircleView.h"
+#include "ViewBuilder.h"
 
 class GameActivity : public Activity
 {
 private:
 	
-	std::list< FigureView* > mFigures;
-	SkyView * skyView;
-	WaterView * waterView;
 	ViewGroup * viewContainer;
 
 public:
-	GameActivity(const SDLScreen & screen);
+	GameActivity(const SDLScreen & screen, ViewBuilder & builder);
+
+	View* buildView( ViewBuilder & builder);
 
 	void onCreate();
 
