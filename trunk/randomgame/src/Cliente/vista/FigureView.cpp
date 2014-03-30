@@ -1,7 +1,7 @@
 #include "FigureView.h"
 
 
-FigureView::FigureView(int x, int y, Uint32 color, int rotation) : View(x, y, color)
+FigureView::FigureView(int x, int y, std::string  color, int rotation) : View(x, y, color)
 {
 	this->mRotation = rotation;
 }

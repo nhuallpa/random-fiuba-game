@@ -1,7 +1,7 @@
 #include "WaterView.h"
 
 
-WaterView::WaterView(int height,Uint32 color)
+WaterView::WaterView(int height,std::string  color)
 							: View(0, 0, color)
 {
 	this->setHeight(height);
@@ -21,7 +21,7 @@ void WaterView::draw(SDLScreen & screen)
 	int y2 = screen.getHeight();
 	boxColor(screen.getRenderer(),
 				x1, y1,
-				x2, y2, this->getColor());
+				x2, y2, this->getColorCod());
 			
 }
 

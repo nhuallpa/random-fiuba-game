@@ -1,18 +1,29 @@
 #pragma once
 #ifndef __VIEW_H_
 #define __VIEW_H_
-#define DEFAULT_COLOR 0x00000000
+#define DEFAULT_COLOR "0xFFFFFFFF"
 #include <SDL2_gfxPrimitives.h>
+#include <string>
+#include <sstream>
+#include <iostream>
 #include "SDLScreen.h"
+
+
+typedef struct t_color {
+	Uint8 r;
+	Uint8 g;
+	Uint8 b;
+	Uint8 a;
+} tColor;
 
 class View
 {
 	int x;
 	int y;
-	Uint32 color;
+	std::string color;
 	
 public:
-	View(int x, int y, Uint32 color = DEFAULT_COLOR);
+	View(int x, int y, std::string color = DEFAULT_COLOR);
 	virtual ~View(void);
 
 	/** Set the view to initial state */
@@ -24,12 +35,16 @@ public:
 
 	int getX() { return x;}
 	int getY() { return y;}
-	Uint32 getColor() { return color;}
+	std::string getColor() { return color;}
+
+	Uint32 getColorCod();
+	tColor getColorRGBA();
 
 	void setX(int x) {this->x = x;}
 	void setY(int y) {this->y = y;}
-	void setColor(Uint32 color) { this->color = color;}
+	void setColor(std::string color) { this->color = color;}
 
+	void swapEndian(Uint32 *colorCode);
 
 };
 

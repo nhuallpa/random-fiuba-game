@@ -1,7 +1,7 @@
 #include "RectangleView.h"
 
 
-RectangleView::RectangleView(int x, int y, int width, int height, Uint32 color, int rotation):
+RectangleView::RectangleView(int x, int y, int width, int height, std::string  color, int rotation):
 								FigureView(x,y,color,rotation)
 {
 	this->setWidth(width);
@@ -21,5 +21,5 @@ void RectangleView::draw(SDLScreen & screen)
 					this->getY(),					
 					this->getX() + this->getWidth(),
 					this->getY() + this->getHeight(), 
-					this->getColor());
+					this->getColorCod());
 }

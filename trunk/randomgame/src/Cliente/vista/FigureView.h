@@ -11,7 +11,7 @@ private:
 public:
 	int getRotation() {return mRotation;}
 	void setRotation(int rotation) {mRotation = rotation;}
-	FigureView(int x, int y, Uint32 color, int rotation);
+	FigureView(int x, int y, std::string  color, int rotation);
 	~FigureView(void);
 
 
