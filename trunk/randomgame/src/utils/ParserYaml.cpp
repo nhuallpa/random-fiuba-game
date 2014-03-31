@@ -3,7 +3,6 @@
 #include <iostream>
 
 
-
 ParserYaml::ParserYaml(){}
 
 ParserYaml::ParserYaml(std::string config, std::string level){
@@ -56,7 +55,7 @@ ParserYaml* ParserYaml::getInstance(std::string file){
 		if( fin.good() == true){
 			pInstance = new ParserYaml(CONFIG_FILE,file);
 		}else{
-			Log::e("Archivo de escenario: %s, invalido/corrupto o no encontrado", file);
+			Log::e(PARSER,"Archivo de escenario: %s, invalido/corrupto o no encontrado", file);
 			pInstance = new ParserYaml(CONFIG_FILE);
 		}
 	}
@@ -111,10 +110,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				if (this->esNumero(elem.x)){
 					std::string aux = elem.x;
 					if (aux.compare(elem.x) != 0)
-						Log::d("Truncado valor de atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 					fX = true;
 				}else
-					Log::e("Valor incorrecto para atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 			}
 			else if (key.compare("y")==0){
 				elem.y = this->yamlNodeToString(it.second());
@@ -122,10 +121,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.y;
 					//elem.y = this->validaPosicion(elem.y);
 					if (aux.compare(elem.y) != 0)
-						Log::d("Truncado valor de atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
 					fY = true;
 				}else
-					Log::e("Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
 			}
 			else if (key.compare("ancho")==0){
 				elem.ancho = this->yamlNodeToString(it.second());
@@ -133,10 +132,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.ancho;
 					//elem.ancho = this->validaAngulo(elem.ancho);
 					if (aux.compare(elem.ancho) != 0)
-						Log::d("Truncado valor de atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fAncho = true;
 				} else
-					Log::e("Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			else if (key.compare("alto")==0){
 				elem.alto = this->yamlNodeToString(it.second());
@@ -144,10 +143,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.alto;
 					//elem.alto = this->validaAngulo(elem.alto);
 					if (aux.compare(elem.alto) != 0)
-						Log::d("Truncado valor de atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fAlto = true;
 				} else
-					Log::e("Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			else if (key.compare("color")==0){
 				elem.color = this->yamlNodeToString(it.second());
@@ -155,10 +154,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.color;
 					//elem.color = this->validaAngulo(elem.color);
 					if (aux.compare(elem.color) != 0)
-						Log::d("Truncado valor de atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fColor = true;
 				} else
-					Log::e("Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			else if (key.compare("masa")==0){
 				elem.masa = this->yamlNodeToString(it.second());
@@ -166,10 +165,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.masa;
 					//elem.masa = this->validaAngulo(elem.masa);
 					if (aux.compare(elem.masa) != 0)
-						Log::d("Truncado valor de atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fMasa = true;
 				} else
-					Log::e("Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			else if (key.compare("estatico")==0){
 				elem.estatico = this->yamlNodeToString(it.second());
@@ -177,10 +176,10 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.estatico;
 					//elem.estatico = this->validaAngulo(elem.estatico);
 					if (aux.compare(elem.estatico) != 0)
-						Log::d("Truncado valor de atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fEstatico = true;
 				} else
-					Log::e("Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			else if (key.compare("rot")==0){
 				elem.rot = this->yamlNodeToString(it.second());
@@ -188,30 +187,30 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					std::string aux = elem.rot;
 					//elem.rot = this->validaAngulo(elem.rot);
 					if (aux.compare(elem.rot) != 0)
-						Log::d("Truncado valor de atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+						Log::d(PARSER,"Truncado valor de atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fRot = true;
 				} else
-					Log::e("Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			
 		}
 
 
 		if (fNombre && fX && fY && fRot && fMasa && fAlto && fAncho && fEstatico && fColor){
-			//Log::d("Elemento %s, cargado correctamente en posicion (%s,%s) con angulo %s",elem.nombre,elem.x,elem.y,elem.angulo);
+			//Log::d(PARSER,"Elemento %s, cargado correctamente en posicion (%s,%s) con angulo %s",elem.nombre,elem.x,elem.y,elem.angulo);
 			elemVect.push_back(elem);
 			//Log se carga el elemento correctamente
 		}
 		else{
-			if (!fNombre)Log::d("Atributo NOMBRE faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-			if (!fX) Log::d("Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-			if (!fY) Log::d("Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-			if (!fRot) Log::d("Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fMasa) Log::d("Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fAlto) Log::d("Atributo ALTO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fAncho) Log::d("Atributo ANCHO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fEstatico) Log::d("Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fColor) Log::d("Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fNombre)Log::d(PARSER,"Atributo NOMBRE faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+			if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
+			if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+			if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fAlto) Log::d(PARSER,"Atributo ALTO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fAncho) Log::d(PARSER,"Atributo ANCHO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
 		}
 		fNombre = false;
 		fX = false;
@@ -257,17 +256,17 @@ void ParserYaml::cargarDataElementos(const YAML::Node& nodeVect,std::vector <dtE
 			}
 			else {
 				//LOG: key no es un identificador correcto de los datos de los elementos + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
-				Log::e("Element key no es un identificador correcto de elemento. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
+				Log::e(PARSER,"Element key no es un identificador correcto de elemento. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 		}
 		if (fNombre && fImagen){
 			dElemVect.push_back(elem);
 			//Log carga elemento <elem> correctamente
-			//Log::d("Elemento %s, cargado correctamente",elem.nombre);
+			//Log::d(PARSER,"Elemento %s, cargado correctamente",elem.nombre);
 		}
 		else{
-			if (!fNombre) Log::e("Elemento %s, no encontrado.",elem.nombre);
-			if (!fImagen) Log::e("Imagen %s, no encontrada",elem.imagen);
+			if (!fNombre) Log::e(PARSER,"Elemento %s, no encontrado.",elem.nombre);
+			if (!fImagen) Log::e(PARSER,"Imagen %s, no encontrada",elem.imagen);
 		}
 		fNombre = false;
 		fImagen = false;
@@ -297,7 +296,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 			 YAML::Iterator it=node.begin();
 			 
 			 if (!node.size()){
-				Log::e("Error parseando escenario. Iniciando escenario con configuración default");
+				Log::e(PARSER,"Error parseando escenario. Iniciando escenario con configuración default");
 				this->startWithDefaultLevel();
 				return;
 			 }
@@ -321,10 +320,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.ancho;
 						//nivel.ancho = this->validaPantalla(nivel.ancho);
 						if (aux.compare(escenario.ancho) != 0)
-							Log::d("Truncado valor de atributo ANCHO en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo ANCHO en nodo linea: %d.",(mark.line + 1));
 							fAncho = true;
 						} else
-							Log::e("Valor incorrecto para atributo ANCHO en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo ANCHO en nodo linea: %d.",(mark.line + 1));
 				}
 				else if (key.compare("alto-un")==0){
 
@@ -333,10 +332,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.alto;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.alto) != 0)
-							Log::d("Truncado valor de atributo ALTO en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo ALTO en nodo linea: %d.",(mark.line + 1));
 							fAlto = true;
 						} else
-							Log::e("Valor incorrecto para atributo ALTO en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo ALTO en nodo linea: %d.",(mark.line + 1));
 				}
 
 				else if (key.compare("ancho-px")==0){
@@ -346,10 +345,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.anchoP;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.anchoP) != 0)
-							Log::d("Truncado valor de atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
 							fAnchoP = true;
 						} else
-							Log::e("Valor incorrecto para atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
 				}
 				
 				else if (key.compare("alto-px")==0){
@@ -359,10 +358,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.altoP;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.altoP) != 0)
-							Log::d("Truncado valor de atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
 							fAltoP = true;
 						} else
-							Log::e("Valor incorrecto para atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
 				}
 				
 				else if (key.compare("nivel_agua")==0){
@@ -372,10 +371,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.agua;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.agua) != 0)
-							Log::d("Truncado valor de atributo AGUA en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo AGUA en nodo linea: %d.",(mark.line + 1));
 							fAgua = true;
 						} else
-							Log::e("Valor incorrecto para atributo AGUA en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo AGUA en nodo linea: %d.",(mark.line + 1));
 				}
 				
 
@@ -387,10 +386,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.tierra;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.tierra) != 0)
-							Log::d("Truncado valor de atributo TIERRA en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo TIERRA en nodo linea: %d.",(mark.line + 1));
 							fTierra = true;
 						} else
-							Log::e("Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
 				}
 
 				else if (key.compare("imagen_cielo")==0){
@@ -400,10 +399,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 						std::string aux = escenario.cielo;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.cielo) != 0)
-							Log::d("Truncado valor de atributo CIELO en nodo linea: %d.",(mark.line + 1));
+							Log::d(PARSER,"Truncado valor de atributo CIELO en nodo linea: %d.",(mark.line + 1));
 							fCielo = true;
 						} else
-							Log::e("Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
+							Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
 				}
 
 				else if (key.compare("objetos")==0){
@@ -412,11 +411,11 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				}
 				else {
 					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
-					Log::e("Element key no es un identificador correcto de elemento. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
+					Log::e(PARSER,"Element key no es un identificador correcto de elemento. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
 				}
 			}
 		 }catch(YAML::Exception& e){ 
-			Log::e("%s",e.what());
+			Log::e(PARSER,"%s",e.what());
 			exit(1);
 		 }
 		
@@ -426,34 +425,34 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 		}
 		else{
 			if (!fElem){
-				Log::e("Elemento no encontrado, seteando default");
+				Log::e(PARSER,"Elemento no encontrado, seteando default");
 			}
 			if (!fAncho){
-				Log::e("Ancho no encontrado, seteando default");
+				Log::e(PARSER,"Ancho no encontrado, seteando default");
 				escenario.ancho = "640";
 			}
 			if (!fAlto){
-				Log::e("Alto no encontrado, seteando default");
+				Log::e(PARSER,"Alto no encontrado, seteando default");
 				escenario.alto = "480";
 			}
 			if (!fAnchoP){
-				Log::e("Ancho no encontrado, seteando default");
+				Log::e(PARSER,"Ancho no encontrado, seteando default");
 				escenario.ancho = "640";
 			}
 			if (!fAltoP){
-				Log::e("Alto no encontrado, seteando default");
+				Log::e(PARSER,"Alto no encontrado, seteando default");
 				escenario.alto = "480";
 			}
 			if (!fAgua){
-				Log::e("Wlvl no encontrado, seteando default");
+				Log::e(PARSER,"Wlvl no encontrado, seteando default");
 				escenario.agua="";
 			}
 			if (!fTierra){
-				Log::e("Tierra no encontrado, seteando default");
+				Log::e(PARSER,"Tierra no encontrado, seteando default");
 				escenario.tierra="";
 			}
 			if (!fCielo){
-				Log::e("Cielo no encontrado, seteando default");
+				Log::e(PARSER,"Cielo no encontrado, seteando default");
 				escenario.cielo="";
 			}
 			escenarioVect = escenario;
@@ -507,8 +506,8 @@ void ParserYaml::cargarNivelYaml(std::string file){
 			try{ parser.GetNextDocument(node);
 			}catch(YAML::Exception& e){
 
-				Log::e("%s", e.what());
-				Log::e("Iniciado juego con escenario default");
+				Log::e(PARSER,"%s", e.what());
+				Log::e(PARSER,"Iniciado juego con escenario default");
 				this->startWithDefaultLevel();
 				//exit(1);
 
@@ -524,34 +523,34 @@ void ParserYaml::cargarNivelYaml(std::string file){
 				}
 				else{
 					//LOG: key no es un identificador correcto del archivo de nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
-					Log::e("%s no es un identificador correcto del archivo de escenario.", key);
+					Log::e(PARSER,"%s no es un identificador correcto del archivo de escenario.", key);
 				}
 			}
 			
 			if(fNivel){
 				//LOG: Se cargo el nivel correctamente
-				Log::d("Se cargo el escenario correctamente");
+				Log::d(PARSER,"Se cargo el escenario correctamente");
 				
 			}
 			else{
 				//LOG: La carga del nivel guardado es incorrecta
-				Log::e("La carga del escenario guardado es incorrecta");
-				Log::e("Iniciando escenario con configuración default");
+				Log::e(PARSER,"La carga del escenario guardado es incorrecta");
+				Log::e(PARSER,"Iniciando escenario con configuración default");
 				this->startWithDefaultLevel();
 				//exit(1);
 			}
 			fin.close();
 		
 		}catch(YAML::Exception& e){
-			Log::e("%s", e.what());
-			Log::e("Iniciando escenario con configuración default");
+			Log::e(PARSER,"%s", e.what());
+			Log::e(PARSER,"Iniciando escenario con configuración default");
 			this->startWithDefaultLevel();
 		}
 	
 		fin.close();
 	} else {
 		//LOG: No se puede abrir el archivo de escenario
-		Log::e("No se puede abrir el archivo de escenario");
+		Log::e(PARSER,"No se puede abrir el archivo de escenario");
 		this->startWithDefaultLevel();
 		//exit(1);	
 	}

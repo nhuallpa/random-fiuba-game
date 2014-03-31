@@ -15,48 +15,93 @@ Log::~Log(void)
 
 //Public
 
-void Log::d(std::string msg)
+
+/*LOGGER GENERICO*/
+void Log::d(char* form, ...)
 {
-	Log::log(DEBUG,msg);
+	va_list argumentos;
+	va_start(argumentos,form);
+	Log::d(Log::stringConFormato(form,argumentos));
 }
 
-void Log::d(char* fmt, ...)
+void Log::e(char* form, ...)
 {
-	va_list args;
-	va_start(args,fmt);
-	Log::d(Log::stringWithFormat(fmt,args));
+	va_list argumentos;
+	va_start(argumentos,form);
+	Log::e(Log::stringConFormato(form,argumentos));
 }
 
-void Log::e(std::string msg)
+void Log::d(std::string msj)
 {
-	Log::log(ERROR,msg);
+	Log::log(DEBUG,NO_DEFINIDO,msj);
 }
 
-void Log::e(char* fmt, ...)
+void Log::e(std::string msj)
 {
-	va_list args;
-	va_start(args,fmt);
-	Log::e(Log::stringWithFormat(fmt,args));
+	Log::log(ERROR,NO_DEFINIDO,msj);
 }
+
+
+/*PARA AGREGAR LUGAR*/
+void Log::d(LugarLog lugarLog,char* form, ...)
+{
+	va_list argumentos;
+	va_start(argumentos,form);
+	Log::d(lugarLog,Log::stringConFormato(form,argumentos));
+}
+
+void Log::e(LugarLog lugarLog,char* form, ...)
+{
+	va_list argumentos;
+	va_start(argumentos,form);
+	Log::e(lugarLog,Log::stringConFormato(form,argumentos));
+}
+
+void Log::d(LugarLog lugarLog,std::string msj)
+{
+	Log::log(DEBUG,lugarLog,msj);
+}
+
+void Log::e(LugarLog lugarLog,std::string msj)
+{
+	Log::log(ERROR,lugarLog,msj);
+}
+
+/**/
+
+
 
 //Private
 
-std::string Log::stringWithFormat(char* fmt,va_list args)
+std::string Log::stringConFormato(char* form,va_list argumentos)
 {
 char buffer[LOG_MAX_LINE_SIZE];
 	std::string bufferString;
 
 	
-    vsprintf_s(buffer,LOG_MAX_LINE_SIZE, fmt,args);
-    va_end(args);
+    vsprintf_s(buffer,LOG_MAX_LINE_SIZE, form,argumentos);
+    va_end(argumentos);
 
 	bufferString.assign(buffer);
 	return bufferString;
 }
 
-std::string Log::typeTextForLogType(LogType logType)
+std::string Log::logearLugarLog(LugarLog lugarLog)
 {
-	switch (logType)
+	switch (lugarLog)
+	{
+		case NO_DEFINIDO:
+			return "";
+		case PARSER:
+			return "[PARSER]";
+	}
+	return "";
+}
+
+
+std::string Log::logearTipoLog(TipoLog tipoLog)
+{
+	switch (tipoLog)
 	{
 		case DEBUG:
 			return "[DEBUG]";
@@ -66,20 +111,21 @@ std::string Log::typeTextForLogType(LogType logType)
 	return "";
 }
 
-void Log::log(LogType logType,std::string msg)
+void Log::log(TipoLog tipoLog,LugarLog lugarLog,std::string msj)
 {
-	std::ofstream myfile(LOG_RUTA, std::ios::out | std::ios::app);
-	if (myfile.is_open())
+	std::ofstream file(LOG_RUTA, std::ios::out | std::ios::app);
+	if (file.is_open())
 	{
-		myfile	<< Log::typeTextForLogType(logType) << " "
-				<< Log::currentDateTime() << " " 
-				<< msg << "\n";
-		myfile.close();
+		file	<< Log::logearTipoLog(tipoLog) << " "
+				<< Log::logearLugarLog(lugarLog) << " "
+				<< Log::tiempoActual() << " " 
+				<< msj << "\n";
+		file.close();
 	}
 }
 
 
-const std::string Log::currentDateTime() {
+const std::string Log::tiempoActual() {
     time_t now = time(0);
     struct tm  tstruct;
     char       buf[80];
