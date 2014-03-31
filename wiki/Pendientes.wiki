@@ -1,0 +1,8 @@
+= Pendientes =
+
+== Ariel L ==
+  # Tratar de darle posiciones de vertices a Nestor
+  # Modelar el resto de las figuras
+  # Simular choques contra el terreno
+  # Mutex
+  # Sockets
