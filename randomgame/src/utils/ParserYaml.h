@@ -64,6 +64,7 @@ private:
 	void startWithDefaultLevel();
 	
 	bool esNumero(std::string);
+	bool esHexa(std::string);
 	bool isDefault;
 
 	std::string confFilePath;
@@ -71,7 +72,6 @@ private:
 
 	void initializeElementMap();
 	std::map< std::string, std::pair<int,std::string> > elementMap;
-
 
 	ParserYaml(std::string config, std::string level);
 	ParserYaml(std::string config);
