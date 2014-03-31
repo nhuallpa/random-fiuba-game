@@ -382,27 +382,27 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("imagen_tierra")==0){
 
 					escenario.tierra = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.tierra)){
+					//if (this->esNumero(escenario.tierra)){
 						std::string aux = escenario.tierra;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.tierra) != 0)
 							Log::d(PARSER,"Truncado valor de atributo TIERRA en nodo linea: %d.",(mark.line + 1));
 							fTierra = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
+						//} else
+							//Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
 				}
 
 				else if (key.compare("imagen_cielo")==0){
 
 					escenario.cielo = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.cielo)){
+					//if (this->esNumero(escenario.cielo)){
 						std::string aux = escenario.cielo;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.cielo) != 0)
 							Log::d(PARSER,"Truncado valor de atributo CIELO en nodo linea: %d.",(mark.line + 1));
 							fCielo = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
+						//} else
+							//Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
 				}
 
 				else if (key.compare("objetos")==0){
@@ -569,10 +569,10 @@ void ParserYaml::cargarNivelYaml(std::string file){
 //	}
 //
 //}
-
+/*
 bool ParserYaml::esNumero(std::string cadena){
 	return true;
-}
+}*/
 
 //+++++geters++++++
 
@@ -728,6 +728,42 @@ std::string ParserYaml::validaPantalla(std::string tam){
 	}
 
 
+bool ParserYaml::esNumero(std::string str){
+	int len = str.length();
+	int i = 0;
+	int ret = 1;
+	int deccnt = 0;
+	while(i < len && ret != 0)
+    {
+        if(str[i] == '.')           // is there a decimal
+        {
+            deccnt++;               // count a decimal
+            if(deccnt > 1)          // is there too many decimal points
+                ret = 0;            // too many decimals set return for not numeric
+        }
+        else
+            ret = isdigit(str[i]); // is this character numeric
+        i++;                       // increment to next character
+    }
+	// return result =0 not numeric !=0 is numeric
+	if (ret == 0) return false;
+	else return true;
 
+}
+bool ParserYaml::esHexa(std::string str){
+	int len = str.length();
+	int i = 1;
+	bool ret = true;
+	if (str[i] =! '#') return false;
+	while(i < len && ret != 0)
+    {
+        if ((isdigit(str[i]) || str[i]=='A' || str[i]=='B' || str[i]=='C' || str[i]=='D' || str[i]=='E' || str[i]=='F') == false) return false;
+        i++;                       // increment to next character
+    }
+	// return result =0 not numeric !=0 is numeric
+	if (ret == false) return false;
+	else return true;
+
+}
 
 ParserYaml* ParserYaml::pInstance = NULL;
