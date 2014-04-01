@@ -65,6 +65,7 @@ private:
 	
 	bool esNumero(std::string);
 	bool esHexa(std::string);
+
 	bool isDefault;
 
 	std::string confFilePath;
@@ -81,6 +82,7 @@ private:
 
 
 public:
+	
 	
 
 	int getElementPosition(std::string name);
