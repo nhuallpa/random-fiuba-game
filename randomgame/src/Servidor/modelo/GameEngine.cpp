@@ -16,6 +16,11 @@ bool GameEngine::initWorld(){
 	//Carga nivel
 	this->gameLevel.createLevel(this->gameLevel);
 	
+
+	//ToDo @aliguo
+	//Create terrain from BMP
+
+
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
 	animateBodies();
 

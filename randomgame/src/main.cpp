@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
 	//	}
 	//}
 
+
 	SystemManager sys; 
 	sys.run();
 	Log::d("INICIO");

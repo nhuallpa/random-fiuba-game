@@ -37,8 +37,13 @@ public:
 	int getWidth();
 	int getHeight();
 	float getMass();
+	void getVertex();
+
 
 private:
+	int id;
+	bool hasChanged;
+	float ratio;
 	int type;
 	int degrees;
 	int height;
