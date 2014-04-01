@@ -5,7 +5,7 @@
 using namespace std;
 
 
-
+//ToDo @aliguo: crear nivel a partir de UL de YAML
 GameLevel::GameLevel() {
 	this->levelHeight = 100;
 	this->levelWidth = 100;
@@ -23,22 +23,18 @@ int GameLevel::getWidth() {
 	return this->levelWidth;
 }
 
-float nearest(float f){
-	return floorf(f * 100 + 0.5) / 100; 
-}
+//float nearest(float f){
+//	return floorf(f * 100 + 0.5) / 100; 
+//}
 
 void GameLevel::addEntity(GameElement *entidad) {
+	this->entities.insert(std::make_pair(entidad->getId(), entidad ));
+	this->modelElements.insert(std::make_pair(entidad->getId(),
+		GameElement(entidad->getId(), entidad->getType(), entidad->getPosition().first,
+		entidad->getPosition().second, entidad->getRotation(), entidad->getHeight(), 
+		entidad->getWidth(), entidad->getMass() ) ) );
 
-	//if ( entidad.getPosition().first < 0 )
-	//	entidad.setPosition( std::make_pair(0,entidad.getPosition().second) );
-	//if ( entidad.getPosition().first > this->getWidth() )
-	//	entidad.setPosition( std::make_pair(this->getWidth(),entidad.getPosition().second) );
-	//if ( entidad.getPosition().second < 0 )
-	//	entidad.setPosition( std::make_pair(entidad.getPosition().first,0) );
-	//if ( entidad.getPosition().second > this->getHeight() )
-	//	entidad.setPosition( std::make_pair(entidad.getPosition().first,this->getHeight()) );
-	// Log::d("Adding to model %d, %d", entidad.getPosition().first, entidad.getPosition().second);
-	this->entities.insert(std::make_pair( entidad->getPosition(), entidad ));
+
 }
 
 void GameLevel::setHeight(int h){
@@ -49,16 +45,18 @@ void GameLevel::setWidth(int w){
 	this->levelWidth = w;
 }
 
-void GameLevel::removeEntity(std::pair<float,float> pos) {
-	std::pair<float,float> pos2 = std::make_pair((float)pos.first,(float)pos.second);
-	//std::cout << "removiendo: "<< pos2.first << ", " << pos2.second << std::endl;
-	std::multimap<std::pair<float, float>, GameElement*>::iterator it = this->entities.begin();
-	//for ( ; it != this->entities.end(); it++)
-	//	std::cout << "elem: " << (*it).first.first << ", " << (*it).first.second << std::endl;
-	it = this->entities.find(pos2);
+void GameLevel::removeEntity(int id) {
+
+	std::map<int, GameElement*>::iterator it = this->entities.begin();
+	it = this->entities.find(id);
 	if ( it != this->entities.end() ){
-		//std::cout << "encontrado: " << (*it).first.first << ", " << (*it).first.second << std::endl;
 		this->entities.erase(it);
+	}
+
+	std::map<int, GameElement>::iterator it2 = this->modelElements.begin();
+	it2 = this->modelElements.find(id);
+	if ( it2 != this->modelElements.end() ){
+		this->modelElements.erase(it2);
 	}
 }
 
@@ -66,6 +64,10 @@ void GameLevel::removeEntity(std::pair<float,float> pos) {
 
 bool GameLevel::posicionOcupada(float x, float y){
 	//TODO @future - logic for placement / El modelo lo rechaza antes que Box2D
+	//Chequear en base a radio/distancia del centro. Recibe pos central y tiene h, w
+
+
+
 	return false;
 }
 
@@ -96,20 +98,24 @@ bool GameLevel::createLevel(GameLevel&){
 	//}
 	
 	//ToDo @aliguo: Agrego hardcoded un cuadrado
-	this->addEntity(new GameElement(SQUARE,0.0,0.0,0.0,1,1,15.0));
+	this->addEntity(new GameElement(1,SQUARE,0.0,0.0,0.0,1,1,15.0));
 
 	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
 	return true;
 }
 
+std::map<int,GameElement> GameLevel::getModelElements(){
+	return this->modelElements;
+}
 
-std::multimap<std::pair<float, float>, GameElement*> GameLevel::getEntities(){
+
+std::map<int, GameElement*> GameLevel::getEntities(){
 	return (this->entities);
 }
 
 
 void GameLevel::destroyEntities(){
-	std::multimap<std::pair<float, float>, GameElement*>::iterator it = this->entities.begin();
+	std::map<int, GameElement*>::iterator it = this->entities.begin();
 	for ( ; it != this->entities.end(); it++){
 		delete (*it).second;
 	}

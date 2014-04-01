@@ -1,8 +1,10 @@
 #include "GameElement.h"
 
 
-GameElement::GameElement(ElementType type, float posX, float posY, int degrees, int h, int w, float mass){
+GameElement::GameElement(int id, ElementType type, float posX, float posY, int degrees, int h, int w, float mass){
 	
+	this->id = id;
+	this->changed = false;
 	this->type = type;
 	this->degrees = degrees;
 	this->position = std::make_pair(posX,posY);
@@ -12,11 +14,18 @@ GameElement::GameElement(ElementType type, float posX, float posY, int degrees, 
 }
 
 
-void getVertex(){
-	
+int GameElement::getId(){
+	return this->id;
 }
 
-int GameElement::getType(){
+std::list<std::pair<float,float>> GameElement::getVertex(){
+	std::list<std::pair<float,float>> mList;
+	
+	
+	return mList;
+}
+
+ElementType GameElement::getType(){
 	return this->type;
 }
 
@@ -36,11 +45,14 @@ int GameElement::getWidth(){
 	return this->width;
 }
 
-
 std::pair<float,float> GameElement::getPosition(){
 	return this->position;
 }
 
 void GameElement::setPosition(std::pair<float,float> p){
 	this->position = p;
+}
+
+bool GameElement::hasChanged(){
+	return this->changed;
 }
