@@ -13,6 +13,8 @@ Body::Body(ElementType type, b2Body *body, int posX, int posY, float h,
 	this->angle = angle;
 	this->masa = masa;
 	this->type = type;
+	this->height = h;
+	this->width = w;
 	this->myWorld = myWorld;
 }
 

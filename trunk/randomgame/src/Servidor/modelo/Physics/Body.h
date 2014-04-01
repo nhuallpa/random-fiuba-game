@@ -34,6 +34,8 @@ public:
 	virtual void touch(Body* touchingWith, b2World* mundo){};
 	virtual void animate(){};
 	
+	float width;
+	float height;
 	ElementType type;
 	b2Body* body;
 	float angle;

@@ -19,6 +19,8 @@ class GameLevel {
 
 		int levelHeight;
 		int levelWidth;
+
+		//ToDo @aliguo ID, map de gameelements
 		std::multimap<std::pair<float, float>, GameElement*> entities;
 
 		GameElement getEntity(int id);

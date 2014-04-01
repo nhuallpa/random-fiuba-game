@@ -7,10 +7,12 @@ Cuadrado::Cuadrado(ElementType type, int posX, int posY, float h,
 		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement)
 {
 	this->myWorld = myWorld;
-	this->center = b2Vec2( posX+w/2, posY+h/2 );
+	this->center = b2Vec2( posX+(w/2), posY+(h/2) );
 	this->angle = angle;
 	this->masa = masa;
 	this->type = type;
+	this->width = w;
+	this->height = h;
 
 	b2BodyDef myBodyDef;
 	myBodyDef.type = b2_dynamicBody;
@@ -33,6 +35,7 @@ Cuadrado::Cuadrado(ElementType type, int posX, int posY, float h,
 	boxFixtureDef.density = 1;
 	dynamicBody->CreateFixture(&boxFixtureDef);
 	b2Vec2 v = this->body->GetPosition();
+
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
 
 }
@@ -40,8 +43,30 @@ Cuadrado::Cuadrado(ElementType type, int posX, int posY, float h,
 
 void Cuadrado::GetVertex(){
 
-      //verts now contains world co-ords of all the verts
-	this->body->GetWorldPoint(b2Vec2( 0,0));
+	
+    //verts now contains world co-ords of all the verts
+	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
+	Log::d("Posicion central 0,0: %.3f, %.3f", v.x, v.y);
+
+	b2PolygonShape* poly = (b2PolygonShape*)this->body->GetFixtureList()->GetShape();
+
+	b2Vec2 verts = poly->GetVertex(0);
+	b2Vec2 f = this->body->GetWorldPoint(verts);
+	Log::d("Posicion vert 0: %.3f, %.3f", f.x, f.y);
+
+	verts = poly->GetVertex(1);
+	f = this->body->GetWorldPoint(verts);
+	Log::d("Posicion vert 1: %.3f, %.3f", f.x, f.y);
+
+	verts = poly->GetVertex(2);
+	f = this->body->GetWorldPoint(verts);
+	Log::d("Posicion vert 2: %.3f, %.3f", f.x, f.y);
+
+	verts = poly->GetVertex(3);
+	f = this->body->GetWorldPoint(verts);
+	Log::d("Posicion vert 3: %.3f, %.3f", f.x, f.y);
+
+
 
 }
 
@@ -54,6 +79,7 @@ void Cuadrado::animate(){
 	Log::d("Nueva posicion (Physics): %.3f, %.3f", v.x, v.y);
 	ge->setPosition(std::make_pair( (v.x * 50.0f) , (v.y * 50.0f) ) );
 	Log::d("Nueva posicion (Modelo): %.3f, %.3f", (v.x * 50.0f), (v.y * 50.0f));
+	this->GetVertex();
 
 }
 

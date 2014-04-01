@@ -11,6 +11,11 @@ GameElement::GameElement(ElementType type, float posX, float posY, int degrees, 
 	this->mass = mass;
 }
 
+
+void getVertex(){
+	
+}
+
 int GameElement::getType(){
 	return this->type;
 }
