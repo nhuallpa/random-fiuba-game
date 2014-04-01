@@ -150,7 +150,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("color")==0){
 				elem.color = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.color)){
+				if (this->esHexa(elem.color)){
 					std::string aux = elem.color;
 					//elem.color = this->validaAngulo(elem.color);
 					if (aux.compare(elem.color) != 0)
@@ -754,7 +754,9 @@ bool ParserYaml::esHexa(std::string str){
 	int len = str.length();
 	int i = 1;
 	bool ret = true;
-	if (str[i] =! '#') return false;
+	if (len != 7) return false;
+	else return true;
+	if (str[0] =! '#') return false;
 	while(i < len && ret != 0)
     {
         if ((isdigit(str[i]) || str[i]=='A' || str[i]=='B' || str[i]=='C' || str[i]=='D' || str[i]=='E' || str[i]=='F') == false) return false;
@@ -763,7 +765,6 @@ bool ParserYaml::esHexa(std::string str){
 	// return result =0 not numeric !=0 is numeric
 	if (ret == false) return false;
 	else return true;
-
 }
 
 ParserYaml* ParserYaml::pInstance = NULL;
