@@ -45,8 +45,8 @@ bool GameController::init(){
 	//lee elementos del mundo
 	// por cada uno de ellos agrega un ElementView en la vista
 	cDetector.init();
-	std::multimap<std::pair<float, float>, GameElement*> mmap = this->cLevel->getEntities();
-	std::multimap<std::pair<float, float>, GameElement*>::iterator elems = mmap.begin();
+	std::map<int, GameElement*> mmap = this->cLevel->getEntities();
+	std::map<int, GameElement*>::iterator elems = mmap.begin();
 
 	for ( ; elems != mmap.end(); elems++) {
 		//((*elems).first).first; //x - up left corner

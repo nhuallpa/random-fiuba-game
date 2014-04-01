@@ -29,6 +29,14 @@ void Cliente::loop(void){
 	bootstrap.init();
 	DefaultViewBuilder builder;
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), builder);
+
+	// @Nestor, esto te devuelve todos los GameElements en un map que tiene de clave id
+	// A esos gameElement le podes pedir los vertices, pos (te da la central), height, width,
+	// angle, mass, etc. Usalo para dibujar inicialmente en el build y dentro de cada update.
+	// Ahora (01/04 18:05hs) no esta dandote los vertices :) pero el metodo existe para que lo
+	// empieces a integrar :)
+	std::map<int,GameElement> map = this->cLevel.getModelElements();
+
 	this->cController.init();
 	int running = 0;
 	while (!this->cController.isQuit()){

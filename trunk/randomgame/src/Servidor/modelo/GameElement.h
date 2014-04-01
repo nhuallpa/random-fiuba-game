@@ -28,27 +28,30 @@ enum ElementType{
 
 class GameElement {
 public:
-	GameElement(ElementType type, float posX, float posY, int degrees, int h, int w, float mass);
+	GameElement(int id, ElementType type, float posX, float posY, int degrees, int h, int w, float mass);
 	
-	int getType();
+	ElementType getType();
+	int getId();
 	int getRotation();
 	std::pair<float,float> getPosition();
 	void setPosition(std::pair<float,float> p);
 	int getWidth();
 	int getHeight();
 	float getMass();
-	void getVertex();
+	std::list<std::pair<float,float>> getVertex();
+	bool hasChanged();
 
 
 private:
 	int id;
-	bool hasChanged;
+	bool changed;
 	float ratio;
-	int type;
+	ElementType type;
 	int degrees;
 	int height;
 	int width;
 	float mass;
+	// Center position!
 	std::pair<float,float> position;
 };
 
