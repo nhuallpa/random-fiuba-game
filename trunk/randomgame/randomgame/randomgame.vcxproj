@@ -77,6 +77,7 @@
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Point.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Polygon.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
+    <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h" />
     <ClInclude Include="..\src\Servidor\modelo\Point.h" />
     <ClInclude Include="..\src\Servidor\modelo\Polygon.h" />

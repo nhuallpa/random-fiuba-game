@@ -180,6 +180,9 @@
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\b2Separator.h">
+      <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
