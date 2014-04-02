@@ -8,6 +8,7 @@
 #include "RectangleView.h"
 #include "PolygonView.h"
 #include "CircleView.h"
+#include "TriangleView.h"
 #include "ViewBuilder.h"
 
 class DefaultViewBuilder :	public ViewBuilder

@@ -1,5 +1,11 @@
 #include "PolygonView.h"
 
+PolygonView::PolygonView(std::string  color) : FigureView(0, 0, color, 0)
+{
+	vertexX = 0;
+	vertexY = 0;
+}
+
 
 PolygonView::PolygonView(int x, int y, std::string  color, int rotation)
 								: FigureView(x,y,color,rotation)
@@ -37,18 +43,17 @@ void PolygonView::addPoint(int x, int y)
 void PolygonView::draw(SDLScreen & screen) 
 {
 
-	polygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				m_points.size(),
-				this->getColorCod());
-
 	filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
 				m_points.size(),
 				this->getColorCod());
 
+	polygonColor(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				m_points.size(),
+				this->getBorderColorCod());
 }
 
 PolygonView::~PolygonView(void)

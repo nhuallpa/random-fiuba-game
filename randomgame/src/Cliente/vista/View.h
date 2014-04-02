@@ -9,18 +9,14 @@
 #include "SDLScreen.h"
 
 
-typedef struct t_color {
-	Uint8 r;
-	Uint8 g;
-	Uint8 b;
-	Uint8 a;
-} tColor;
-
 class View
 {
 	int x;
 	int y;
 	std::string color;
+	std::string borderColor;
+
+	Uint32 convertToInt(std::string aColor);
 	
 public:
 	View(int x, int y, std::string color = DEFAULT_COLOR);
@@ -36,13 +32,16 @@ public:
 	int getX() { return x;}
 	int getY() { return y;}
 	std::string getColor() { return color;}
+	std::string getBorderColor() { return borderColor;}
 
 	Uint32 getColorCod();
-	tColor getColorRGBA();
+	Uint32 getBorderColorCod();
+	
 
 	void setX(int x) {this->x = x;}
 	void setY(int y) {this->y = y;}
 	void setColor(std::string color) { this->color = color;}
+	void setBorderColor(std::string color) { this->borderColor = color;}
 
 	void swapEndian(Uint32 *colorCode);
 
