@@ -6,6 +6,7 @@ escenario:
     ancho-px: 	800
     nivel_agua: 50
 	color_agua: #0000FF99
+	color_tierra: #BC794FFF
     imagen_tierra: 	image/TIMv1.jpg
     imagen_cielo: 	image/cielo1.png
     objetos:
