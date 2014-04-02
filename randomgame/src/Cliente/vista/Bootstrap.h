@@ -8,6 +8,7 @@
 #include <iostream>
 #include "SDLScreen.h"
 #include "TextureManager.h"
+#include "../../utils/ParserYaml.h"
 class Bootstrap
 {
 private:

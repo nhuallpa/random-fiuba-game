@@ -18,7 +18,7 @@ ViewGroup* DefaultViewBuilder::buildContainer()
 
 void DefaultViewBuilder::buildSky(ViewGroup* container)
 {
-	container->add(new SkyView("fondo"));
+	container->add(new SkyView("sky"));
 }
 
 void DefaultViewBuilder::buildFigures(ViewGroup* container)
