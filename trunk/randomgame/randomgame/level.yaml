@@ -1,0 +1,54 @@
+escenario:
+    ancho-un: 2500
+    alto-un: 600
+    alto-px: 400
+    ancho-px: 800
+    nivel_agua: 50
+    imagen_tierra: image/TIMv1.jpg
+    imagen_cielo: image/cielo1.png
+    objetos:
+    - tipo:       tennisball
+      x:           43.44
+      y:           100
+      alto: 1
+      ancho: 1
+      color: #aa
+      estatico: 1
+      rot: 0
+      masa: 1
+    - tipo: cuadrado
+      x: 74.18
+      y: 0.77
+      alto: 1
+      ancho: 1
+      color: #aa
+      estatico: 1
+      rot: 0
+      masa: 1
+    - tipo: cuadrado
+      x: 74.18
+      y: 0.77
+      alto: 1
+      ancho: 1
+      color: #aa
+      estatico: 1
+      rot: 0
+      masa: 1
+    - tipo: tennisball
+      x: 93.44
+      y: 0
+      alto: 1
+      ancho: 1
+      color: #aa
+      estatico: 1
+      rot: 0
+      masa: 1
+    - tipo: pepeto
+      x: 100
+      y: 0.77
+      alto: 1
+      ancho: 1
+      color: #aa
+      estatico: 1
+      rot: 0
+      masa: 1

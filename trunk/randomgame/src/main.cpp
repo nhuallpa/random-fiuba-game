@@ -35,8 +35,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
 	//parsear();
-	//std::string path = (argc > 1) ? argv[1] : DEFAULT_YAML_LEVEL;
-	//ParserYaml* aParser = ParserYaml::getInstance(path);
+	std::string path = (argc > 1) ? argv[1] : DEFAULT_YAML_LEVEL;
+	ParserYaml* aParser = ParserYaml::getInstance(path);
 
 	//std::cout<<"data elementos:\n\t";
 	//for(unsigned i=0;i<aParser->getCantDataElem();i++){
