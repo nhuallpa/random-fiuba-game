@@ -40,7 +40,6 @@ public:
     static void deletePositionList(list<Position*> * aListToDelete);
     static void deletePixelList(list<PixelBmp*> * aListToDelete);
     void showBitmap();
-    void showColorMap();
     virtual ~DataBmp();
 
 protected:

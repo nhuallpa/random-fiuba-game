@@ -1,14 +1,10 @@
 #ifndef BMP_H
 #define BMP_H
 
-#include <fstream>
-#include <string>
-#include <vector>
 #include <list>
-#include <iostream>
-
 #include "DataBmp.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 

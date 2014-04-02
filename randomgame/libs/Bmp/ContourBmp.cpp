@@ -227,7 +227,7 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
                                    posXcontour=pX;
                 posYcontour=pY;
                 stepX=1;
-                stepY=1;
+                stepY=0;
                 }else
                 {
                 posXcontour=pX;
@@ -269,15 +269,16 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
         }
 
         // saving contour point
+		if(squareValue==13&& !( (prevX ==1) &&(prevY ==1)))
+        {
+            aContour->push_back(new Position(posXcontour, posYcontour-1));
+        }
         if( (posPrevXcontour != posXcontour) || (posPrevYcontour != posYcontour))
         {
 
             aContour->push_back(new Position(posXcontour, posYcontour));
         }
-        if(squareValue==13&& !( (prevX ==1) &&(prevY ==1)))
-        {
-            aContour->push_back(new Position(posXcontour, posYcontour-1));
-        }
+
 
         posPrevXcontour = posXcontour;
         posPrevYcontour = posYcontour;
@@ -290,9 +291,7 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
             closedLoop=true;
 
     }
-
-    aContour->sort(Position::lessPosX);
-    aContour->unique(Position::samePos);
+	aContour->sort(Position::lessPosX);
     return aContour;
 }
 

@@ -4,24 +4,25 @@
 using namespace std;
 
 
-void showComponents(list< list<Position*> *>* connectedComponents)
+void showComponents(list< list<Position*> *>* connectedComponents, int height, int width)
 {
-    Bmp* aBmpFile= new Bmp("Untitled.bmp");
     list< list<Position*> *>::iterator itComponent= connectedComponents->begin();
     int numeroDeComponente=1;
 
 
     while(itComponent != connectedComponents->end())
     {
-        cout<<"numero de componente:" << numeroDeComponente<<endl;
+		cout<<endl;
+		cout<<endl;
+		cout<<"**************************"<<endl;
+        cout<<"Contorno de la Componente " << numeroDeComponente<<endl;
+		cout<<endl;
         list<Position*> *aConnectedComponent =*itComponent;
-            cout<<"Tamanio del contorno cuando entra a mostrarse: "<<aConnectedComponent->size()<<endl;
-
         aConnectedComponent->sort(Position::lessPosX);
 
-        for(int i=0; i<aBmpFile->getHeight(); i++)
+        for(int i=0; i<height; i++)
         {
-            for(int j=0; j<aBmpFile->getWidth(); j++)
+            for(int j=0; j<width; j++)
             {
 
                 if((*itComponent)->size() >0)
@@ -56,10 +57,15 @@ void showComponents(list< list<Position*> *>* connectedComponents)
 
 int main()
 {
-    Bmp* aBmpFile = new Bmp("test1.bmp");
+    Bmp* aBmpFile = new Bmp("C:\\random-fiuba-game\\randomgame\\libs\\Bmp\\test1.bmp");
     ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
+
     list< list<Position*> *>* connectedComponents =aContourBmp->getContour();
-    //showComponents(connectedComponents);
+
+	//Mostrar por consola el Bitmap y el contorno de las componentes
+	//aBmpFile->showBitmap();
+	//showComponents(connectedComponents, aBmpFile->getHeight(), aBmpFile->getWidth());
+
 	delete aContourBmp;
 
 	//

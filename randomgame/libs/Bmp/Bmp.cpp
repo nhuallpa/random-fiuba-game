@@ -1,9 +1,27 @@
 #include "Bmp.h"
 
-/***Chequear validez del archivo***/
+
 Bmp::Bmp(char* path)
 {
     fileBmp = fopen(path, "rb");
+  if (fileBmp==NULL) {
+
+	/* Cargar el archivo por default
+	//fileBmp = fopen(pathDefault, "rb");
+		if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
+		{
+			fputs ("Default Bmp File Error",stderr); exit (1);
+		}
+	*/
+	  fputs ("File error",stderr); exit (1);
+  }
+
+  // obtain file size:
+  fseek (fileBmp , 0 , SEEK_END);
+  long lSize = ftell (fileBmp);
+  rewind (fileBmp);
+
+
     unsigned char info[54];
     fread(info, sizeof(unsigned char), 54, fileBmp); // read the 54-byte header
 
