@@ -15,15 +15,17 @@ CircleView::~CircleView(void)
 void CircleView::draw(SDLScreen & screen) 
 {
 	
-	aacircleColor(screen.getRenderer(),
-						this->getX(),
-						this->getY(),
-						this->getRadio(),
-						this->getColorCod());
-
+	
 	filledCircleColor(screen.getRenderer(),
 						this->getX(),
 						this->getY(),
 						this->getRadio(),
 						this->getColorCod());
+
+	aacircleColor(screen.getRenderer(),
+						this->getX(),
+						this->getY(),
+						this->getRadio(),
+						this->getBorderColorCod());
+
 }

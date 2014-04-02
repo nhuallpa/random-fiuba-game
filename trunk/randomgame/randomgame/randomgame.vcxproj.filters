@@ -177,6 +177,9 @@
     <ClCompile Include="..\src\Servidor\modelo\Polygon.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Polygon.h">
       <Filter>Archivos de código fuente\server\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\TriangleView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

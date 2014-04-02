@@ -13,6 +13,8 @@ private:
 	std::list<tPoint> m_points;
 
 public:
+
+	PolygonView(std::string  color);
 	PolygonView(int x, int y, std::string  color, int rotation);
 
 	void addPoint(int x, int y);
