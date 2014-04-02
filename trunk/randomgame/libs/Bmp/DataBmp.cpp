@@ -28,12 +28,14 @@ DataBmp::DataBmp(unsigned char* data,int row_padded, int height,int width)
     for(int i=0; i<height; i++)
     {
         row->push_back(new vector<bool>());
-        column=(*row)[i];
+       /* column=(*row)[i];
         for(int j=0; j<width; j++)
         {
             column->push_back(false);
-        }
+        }*/
+
     }
+
     this->loadMatrix(data,row_padded,height,width);
 
 
@@ -70,20 +72,25 @@ void DataBmp::loadMatrix(unsigned char* data,int row_padded, int height,int widt
             {
                 PixelBmp* aInvalidPixel = new PixelBmp(new Position(height-1-i,j/3), new ColorRgb(red,green,blue,255));
                 invalidPixels->push_back(aInvalidPixel);
-                //cout << "Se encontro un pixel en la pos:("<<height-1-i<<","<<j/3<<") de color: "<<endl;
-                //cout << "R:"<<red<<" G:"<<green<<" B:"<<blue<<endl;
+				(*bitmap)[height-1-i]->push_back(false);
+				///***********************
+				//Avisar en el log el color encontrado
             }
             else //blanco o negro
             {
-                if(val==1)//blanco
-                {
+					if( (val==1) || (posValid(height-i, j/3) && getBit(height-i,j/3)==true) )//Si el bit debajo es blanco, pongo un blanco
+					{
+					(*bitmap)[height-1-i]->push_back(true);
                     setWhitePosition(height-1-i,j/3);
-                }
-                else//negro
-                {
+
+					}else //negro
+					{
+					(*bitmap)[height-1-i]->push_back(false);
                     setBlackPosition(height-1-i,j/3);
-                }
-                setBit(height-1-i,j/3,val);
+
+					}
+	
+               //setBit(height-1-i,j/3,val);
             }
         }
     }
@@ -304,8 +311,11 @@ void DataBmp::deletePixelList(list<PixelBmp*> * aListToDelete)
 //1:White
 void DataBmp::showBitmap()
 {
-    cout<<endl;
-    cout<<"Bitmap:"<<endl;
+		cout<<endl;
+		cout<<endl;
+		cout<<"***********"<<endl;
+        cout<<"Archivo BMP" <<endl;
+		cout<<endl;
     for(int i=0; i<height; i++)
     {
         for(int j=0; j<width; j++)
@@ -314,63 +324,6 @@ void DataBmp::showBitmap()
         }
         cout<<endl;
     }
-}
-
-//Muestra los valores de las listas
-//0:Black
-//1:White
-void DataBmp::showColorMap()
-{
-    list<Position*>* aWhiteList = getWhitePositions();
-    list<Position*>* aBlackList = getBlackPositions();
-    aWhiteList->sort(Position::lessPosX);
-    aBlackList->sort(Position::lessPosX);
-
-    list<Position*>::iterator itWhite = aWhiteList->begin();
-    list<Position*>::iterator itBlack = aBlackList->begin();
-
-    while(itWhite != aWhiteList->end() && itBlack != aBlackList->end())
-    {
-        if( itWhite != aWhiteList->end() && (*(*itWhite)< *itBlack))
-        {
-            if((*itWhite)->getY()==0)
-                cout<<endl;
-            cout << "1";
-            itWhite++;
-        }
-        else
-        {
-            if((*itBlack)->getY()==0)
-                cout<<endl;
-            cout << "0";
-            itBlack++;
-        }
-    }
-
-    if(itWhite != aWhiteList->end())
-    {
-        while(itWhite != aWhiteList->end())
-        {
-            if((*itWhite)->getY()==0)
-                cout<<endl;
-            cout << "1";
-            itWhite++;
-        }
-    }
-    else
-    {
-        while(itBlack != aBlackList->end())
-        {
-            if((*itBlack)->getY()==0)
-                cout<<endl;
-            cout << "0";
-            itBlack++;
-        }
-    }
-
-    this->deletePositionList(aWhiteList);
-    this->deletePositionList(aBlackList);
-
 }
 
 DataBmp::~DataBmp()
