@@ -73,7 +73,7 @@ float HandleContour::findPerpendicularDistance(Point* p, Point* p1, Point* p2){
 	}
 	return result;
 }
-
+/*
 
 int HandleContour::Validate(list<b2Vec2*> l){ 
 	list<b2Vec2*>::iterator it, jt, it2, jt2, it3;
@@ -192,11 +192,11 @@ list<b2Vec2*> HandleContour::calcShapes(list<b2Vec2*> l){
 		vec.push_back(*(queue.begin()));
 		isConvex = true;
 		for(it = l.begin(); it != l.end(); it++){
-			/*
-			i1=i;
-            i2=(i<n-1)?i+1:i+1-n;
-            i3=(i<n-2)?i+2:i+2-n;
-			*/
+			
+			//i1=i;
+   //         i2=(i<n-1)?i+1:i+1-n;
+   //         i3=(i<n-2)?i+2:i+2-n;
+			
 			it1 = it;					//TODO: REEMPLACE i+1-n por l.begin()
 			it2 = (it != --(l.end())) ? it2 = it, ++it2 : l.begin();
 			it3 = (it != --(--(l.end()))) ? it3 = it, ++(++it3) : --(l.end());
@@ -204,5 +204,5 @@ list<b2Vec2*> HandleContour::calcShapes(list<b2Vec2*> l){
 	}
 	return figsVec;
 }
-
+*/
 
