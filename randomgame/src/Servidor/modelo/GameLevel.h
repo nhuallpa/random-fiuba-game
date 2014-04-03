@@ -19,6 +19,7 @@ class GameLevel {
 
 		int levelHeight;
 		int levelWidth;
+		float waterLevel;
 
 		//ToDo @aliguo ID, map de gameelements
 		std::map<int,GameElement> modelElements;

@@ -204,6 +204,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Testbed\CuadradoConAgua.h" />
+    <ClInclude Include="src\Testbed\iforce2d_Buoyancy.h" />
+    <ClInclude Include="src\Testbed\iforce2d_Buoyancy_functions.h" />
+    <ClInclude Include="src\Testbed\NivelDeAgua.h" />
     <ClInclude Include="src\Testbed\TestCuadrado.h" />
     <ClInclude Include="Testbed\Framework\Render.h" />
     <ClInclude Include="Testbed\Framework\Test.h" />
@@ -257,6 +261,7 @@
     <ClInclude Include="Testbed\Tests\Web.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Testbed\buoyancy.cpp" />
     <ClCompile Include="Testbed\Framework\Main.cpp" />
     <ClCompile Include="Testbed\Framework\Render.cpp" />
     <ClCompile Include="Testbed\Framework\Test.cpp" />
