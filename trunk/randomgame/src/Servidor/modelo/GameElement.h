@@ -8,6 +8,7 @@
 
 #ifndef GAMEELEMENT_H_
 #define GAMEELEMENT_H_
+#include "../../utils/ParserYaml.h"
 #include <map>
 #include <iostream>
 #include <vector>
