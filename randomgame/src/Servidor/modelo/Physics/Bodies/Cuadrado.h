@@ -9,7 +9,7 @@ public:
 	Cuadrado(ElementType type, int posX, int posY, float h, 
 		float w, float masa, float angle, b2World *myWorld, GameElement* modelElement);
 	virtual ~Cuadrado();
-	void GetVertex();
+	std::list<std::pair<int,int>> GetVertex();
 	void animate();
 	void touch(Body* touchingWith, b2World* mundo);
 

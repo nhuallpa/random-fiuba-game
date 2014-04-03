@@ -329,5 +329,8 @@
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\utils\Transform.h">
+      <Filter>Archivos de código fuente\utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
