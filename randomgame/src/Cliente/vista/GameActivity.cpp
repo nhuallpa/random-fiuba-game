@@ -13,6 +13,7 @@ View* GameActivity::buildView( ViewBuilder & builder)
 	ViewGroup* container = builder.buildContainer();
 	builder.buildSky(container);
 	builder.buildFigures(container);
+	builder.buildTerrain(container);
 	builder.buildWater(container);
 	return container;
 }

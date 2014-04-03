@@ -75,6 +75,7 @@
     <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
+    <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
