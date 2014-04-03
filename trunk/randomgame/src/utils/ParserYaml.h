@@ -30,15 +30,19 @@ private:
 		std::string estatico;
 		std::string masa;
 		std::string rot;
+		std::string radio;
 	};
 
 	struct stEscenario{
+		std::string fps;
 		std::string alto;
 		std::string ancho;
 		std::string agua;
+		std::string colorAgua;
 		std::string anchoP;
 		std::string altoP;
 		std::string tierra;
+		std::string colorTierra;
 		std::string cielo;
 		std::vector <stElemento> elem;	
 	};
@@ -68,8 +72,8 @@ private:
 	bool esNumero(std::string);
 	bool esHexa(std::string);
 	bool esTipoValido(std::string);
-	bool validarGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool);
-	void loggearErrGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,YAML::Mark);
+	bool validarGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool);
+	void loggearErrGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,YAML::Mark);
 	bool estaticoValido(std::string);
 
 	bool isDefault;
@@ -117,10 +121,13 @@ public:
 	
 	
 	//para trabajar con un solo escenario
+	std::string getEscenarioFps();
 	std::string getEscenarioAltoU();
 	std::string getEscenarioAnchoU();
 	std::string getEscenarioAgua();
+	std::string getEscenarioColorAgua();
 	std::string getEscenarioTierra();
+	std::string getEscenarioColorTierra();
 	std::string getEscenarioAnchoP();
 	std::string getEscenarioAltoP();
 	std::string getEscenarioCielo();
@@ -139,6 +146,7 @@ public:
 	std::string getElemMasa(int);
 	std::string getElemEstatico(int);
 	std::string getElemRot(int);
+	std::string getElemRadio(int);
 
 
 };
