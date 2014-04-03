@@ -32,6 +32,12 @@ public:
 	*/
 	virtual void buildWater(ViewGroup* container) = 0;
 
+	/**
+	* Build a terrain view and add it to container
+	* @param ViewGroup a container
+	*/
+	virtual void buildTerrain(ViewGroup* container) = 0;
+
 	~ViewBuilder(void);
 };
 

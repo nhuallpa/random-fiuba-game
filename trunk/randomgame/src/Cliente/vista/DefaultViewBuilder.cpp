@@ -68,3 +68,33 @@ void DefaultViewBuilder::buildWater(ViewGroup* container)
 {
 	container->add(new WaterView(100, "#0000FF99")); 
 }
+
+void DefaultViewBuilder::buildTerrain(ViewGroup* container)
+{
+	TerrainView* aTerrain = new TerrainView("#BC794FFF");
+
+	// Set points of each polygon
+	std::list<std::list<tPoint>> pointsOfPolygons;
+	std::list<tPoint> points;
+	int i=1;
+	for (i=1; i <= 8; i++) {
+		tPoint aPoint;
+		aPoint.x = i*50 + 80;
+		if (i<=3) {	aPoint.y = 500 - i*100 ;	} 
+		else if (i<=6) 	{ aPoint.y = 370; }
+		else if (i<8) {	aPoint.y = 100 + i*10 ; }
+		else { aPoint.y = 400; }
+		points.push_back(aPoint);
+	}
+	pointsOfPolygons.push_back(points);
+
+	std::list<std::list<tPoint>>::iterator it;
+
+	for (it = pointsOfPolygons.begin(); it != pointsOfPolygons.end(); ++it)
+	{
+		aTerrain->buildPart((*it));
+	}
+
+	container->add(aTerrain); 
+}
+

@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef __LOG_H_1__
+#define __LOG_H_1__
 #include <string>
 #include <iostream>
 
@@ -10,7 +11,8 @@ enum TipoLog{
 
 enum LugarLog{
 	NO_DEFINIDO,
-	PARSER
+	PARSER,
+	BOOT
 };
 
 class Log
@@ -49,3 +51,4 @@ private:
 	std::string static logearLugarLog(LugarLog lugarLog);
 	const static std::string tiempoActual();
 };
+#endif /**__LOG_H_1__*/

@@ -9,10 +9,13 @@
 #include "PolygonView.h"
 #include "CircleView.h"
 #include "TriangleView.h"
+#include "TerrainView.h"
 #include "ViewBuilder.h"
 
 class DefaultViewBuilder :	public ViewBuilder
 {
+
+
 public:
 	DefaultViewBuilder(void);
 	~DefaultViewBuilder(void);
@@ -24,6 +27,8 @@ public:
 	void buildFigures(ViewGroup* container);
 
 	void buildWater(ViewGroup* container);
+
+	void buildTerrain(ViewGroup* container);
 };
 
 #endif /**__DEFAULT_VIEW_BUILDER_H__*/
