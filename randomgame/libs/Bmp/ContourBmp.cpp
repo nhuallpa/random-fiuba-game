@@ -291,7 +291,6 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
             closedLoop=true;
 
     }
-	aContour->sort(Position::lessPosX);
     return aContour;
 }
 
