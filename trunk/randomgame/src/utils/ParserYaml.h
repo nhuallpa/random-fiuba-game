@@ -20,6 +20,8 @@ private:
 
 	struct stElemento{
 		std::string tipo;
+		std::string id;
+		std::string escala;
 		std::string x;
 		std::string y;
 		std::string alto;
@@ -65,6 +67,10 @@ private:
 	
 	bool esNumero(std::string);
 	bool esHexa(std::string);
+	bool esTipoValido(std::string);
+	bool validarGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool);
+	void loggearErrGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,YAML::Mark);
+	bool estaticoValido(std::string);
 
 	bool isDefault;
 
@@ -123,6 +129,8 @@ public:
 		//el primer int que siempre se pasa es para el nivel especificado de la lista de niveles
 	int getCantElem();
 	std::string getElemTipo(int);
+	std::string getElemId(int);
+	std::string getElemEscala(int);
 	std::string getElemX(int);
 	std::string getElemY(int);
 	std::string getElemAncho(int);

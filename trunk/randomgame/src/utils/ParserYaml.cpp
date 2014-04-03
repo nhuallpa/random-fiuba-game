@@ -91,6 +91,8 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 	bool fAncho = false;
 	bool fEstatico = false;
 	bool fColor = false;
+	bool fId = false;
+	bool fEscala = false;
 	
 	elemVect.clear();//debo limpiar el elemVect de algun ciclo anterior
 
@@ -102,15 +104,29 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 		for(YAML::Iterator it=node.begin();it!=node.end();++it){			
 			std::string key = this->yamlNodeToString(it.first());
 			if (key.compare("tipo")==0){
-				fNombre = true;
 				elem.tipo = this->yamlNodeToString(it.second());
+				if (this->esTipoValido(elem.tipo)){
+					fNombre = true;
+				}else
+					Log::e(PARSER,"Valor incorrecto para atributo TIPO en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 			}
+			else if (key.compare("id")==0){
+				fId = true;
+				elem.id = this->yamlNodeToString(it.second());
+			}
+
+			else if (key.compare("escala")==0){
+				elem.escala = this->yamlNodeToString(it.second());
+				if (this->esNumero(elem.escala)){
+					fEscala = true;
+				}else
+					Log::e(PARSER,"Valor incorrecto para atributo ESCALA en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+			}
+
 			else if (key.compare("x")==0){
 				elem.x = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.x)){
 					std::string aux = elem.x;
-					if (aux.compare(elem.x) != 0)
-						Log::d(PARSER,"Truncado valor de atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 					fX = true;
 				}else
 					Log::e(PARSER,"Valor incorrecto para atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
@@ -119,9 +135,6 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.y = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.y)){
 					std::string aux = elem.y;
-					//elem.y = this->validaPosicion(elem.y);
-					if (aux.compare(elem.y) != 0)
-						Log::d(PARSER,"Truncado valor de atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
 					fY = true;
 				}else
 					Log::e(PARSER,"Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
@@ -130,9 +143,6 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.ancho = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.ancho)){
 					std::string aux = elem.ancho;
-					//elem.ancho = this->validaAngulo(elem.ancho);
-					if (aux.compare(elem.ancho) != 0)
-						Log::d(PARSER,"Truncado valor de atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fAncho = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
@@ -141,9 +151,6 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.alto = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.alto)){
 					std::string aux = elem.alto;
-					//elem.alto = this->validaAngulo(elem.alto);
-					if (aux.compare(elem.alto) != 0)
-						Log::d(PARSER,"Truncado valor de atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fAlto = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
@@ -152,9 +159,6 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.color = this->yamlNodeToString(it.second());
 				if (this->esHexa(elem.color)){
 					std::string aux = elem.color;
-					//elem.color = this->validaAngulo(elem.color);
-					if (aux.compare(elem.color) != 0)
-						Log::d(PARSER,"Truncado valor de atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fColor = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
@@ -163,20 +167,14 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.masa = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.masa)){
 					std::string aux = elem.masa;
-					//elem.masa = this->validaAngulo(elem.masa);
-					if (aux.compare(elem.masa) != 0)
-						Log::d(PARSER,"Truncado valor de atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fMasa = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
 			else if (key.compare("estatico")==0){
 				elem.estatico = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.estatico)){
+				if (this->estaticoValido(elem.estatico)){
 					std::string aux = elem.estatico;
-					//elem.estatico = this->validaAngulo(elem.estatico);
-					if (aux.compare(elem.estatico) != 0)
-						Log::d(PARSER,"Truncado valor de atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fEstatico = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
@@ -185,32 +183,23 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				elem.rot = this->yamlNodeToString(it.second());
 				if (this->esNumero(elem.rot)){
 					std::string aux = elem.rot;
-					//elem.rot = this->validaAngulo(elem.rot);
-					if (aux.compare(elem.rot) != 0)
-						Log::d(PARSER,"Truncado valor de atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 					fRot = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
 			}
-			
+			else {
+				Log::e(PARSER,"Atributo incorrecto en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+			}
 		}
+		if (!fNombre) elem.tipo = "no init";
 
+		if (validarGuardar(elem.tipo,fNombre,fId,fEscala,fX,fY,fRot,fMasa,fAlto,fAncho,fEstatico,fColor)){
 
-		if (fNombre && fX && fY && fRot && fMasa && fAlto && fAncho && fEstatico && fColor){
-			//Log::d(PARSER,"Elemento %s, cargado correctamente en posicion (%s,%s) con angulo %s",elem.nombre,elem.x,elem.y,elem.angulo);
 			elemVect.push_back(elem);
 			//Log se carga el elemento correctamente
 		}
 		else{
-			if (!fNombre)Log::d(PARSER,"Atributo NOMBRE faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-			if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-			if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-			if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fAlto) Log::d(PARSER,"Atributo ALTO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fAncho) Log::d(PARSER,"Atributo ANCHO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-			if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+			loggearErrGuardar(elem.tipo,fNombre,fId,fEscala,fX,fY,fRot,fMasa,fAlto,fAncho,fEstatico,fColor,mark);
 		}
 		fNombre = false;
 		fX = false;
@@ -221,58 +210,13 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 		fAncho = false;
 		fEstatico = false;
 		fColor = false;
+		fId = false;
+		fEscala = false;
 	
 	
 	}
 
 }
-
-/*std::string ParserYaml::getImElem(const std::vector <dtElemento> dElemVect ,std::string nombreE){
-	for(unsigned i=0;i<dElemVect.size();i++){
-		dtElemento elem = dElemVect[i];
-		if (elem.nombre.compare(nombreE)==0) return elem.imagen;
-	}
-	return "";//si retorna esto no encontro el elemento en la lista
-}*/
-/*
-void ParserYaml::cargarDataElementos(const YAML::Node& nodeVect,std::vector <dtElemento>& dElemVect){
-	dtElemento elem;
-	bool fNombre = false;
-	bool fImagen = false;
-	
-	for (unsigned i=0; i<nodeVect.size();i++){
-		
-		const YAML::Node& node = nodeVect[i];
-		YAML::Mark mark = node.GetMark();
-		for(YAML::Iterator it=node.begin();it!=node.end();++it){			
-			std::string key = this->yamlNodeToString(it.first());
-			if (key.compare("nombre")==0){
-				fNombre = true;
-				elem.nombre = this->yamlNodeToString(it.second());
-			}
-			else if (key.compare("imagen")==0){
-				fImagen = true;
-				elem.imagen = this->yamlNodeToString(it.second());
-			}
-			else {
-				//LOG: key no es un identificador correcto de los datos de los elementos + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
-				Log::e(PARSER,"Element key no es un identificador correcto de elemento. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-		}
-		if (fNombre && fImagen){
-			dElemVect.push_back(elem);
-			//Log carga elemento <elem> correctamente
-			//Log::d(PARSER,"Elemento %s, cargado correctamente",elem.nombre);
-		}
-		else{
-			if (!fNombre) Log::e(PARSER,"Elemento %s, no encontrado.",elem.nombre);
-			if (!fImagen) Log::e(PARSER,"Imagen %s, no encontrada",elem.imagen);
-		}
-		fNombre = false;
-		fImagen = false;
-	}
-}*/
-
 
 void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenarioVect){
 	stEscenario escenario;
@@ -461,14 +405,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 	
 }
 
-/*
-void ParserYaml::initializeElementMap(){
-	for(unsigned i=0;i<this->getCantDataElem();i++){
-		//std::cout<<"nombre: "<< aParser->getDataElemNombre(i)<<"\n\t";
-		//std::cout<<"imagen: "<< aParser->getDataElemImagen(i)<<"\n\t";
-		this->elementMap[ this->getDataElemNombre(i) ] = std::make_pair(i,this->getDataElemImagen(i));
-	}
-}*/
+
 
 int ParserYaml::getElementPosition(std::string name){
 	std::map< std::string, std::pair<int,std::string> >::iterator it;
@@ -559,38 +496,11 @@ void ParserYaml::cargarNivelYaml(std::string file){
 
 
 
-//Esto hay que programarlo de nuevo sin boost, salvo q quieran usarlo
-//bool ParserYaml::esNumero(std::string cadena){
-//	try{ 
-//		float f=boost::lexical_cast<float>(cadena);
-//		return true;
-//	}catch(boost::bad_lexical_cast& e){
-//		return false;
-//	}
-//
-//}
-/*
-bool ParserYaml::esNumero(std::string cadena){
-	return true;
-}*/
 
 //+++++geters++++++
 
 
 
-/*
-int ParserYaml::getCantDataElem(){
-	return this->todo.dataE.size();
-}
-*//*
-std::string ParserYaml::getDataElemNombre(int i){
-	return this->todo.dataE[i].nombre;
-}
-*//*
-std::string ParserYaml::getDataElemImagen(int i){
-	return this->todo.dataE[i].imagen;
-
-}*/
 
 std::string ParserYaml::getEscenarioAltoU(){
 	return this->todo.escenario.alto;
@@ -625,6 +535,14 @@ int ParserYaml::getCantElem(){
 
 std::string ParserYaml::getElemTipo(int e){
 	return this->todo.escenario.elem[e].tipo;
+}
+
+std::string ParserYaml::getElemId(int e){
+	return this->todo.escenario.elem[e].id;
+}
+
+std::string ParserYaml::getElemEscala(int e){
+	return this->todo.escenario.elem[e].escala;
 }
 	
 std::string ParserYaml::getElemX(int e){
@@ -679,50 +597,16 @@ std::string parserInt2String(int n){
 	return ss.str();
 }
 
-//reprogrmar usa boost...
-//std::string ParserYaml::validaAngulo(std::string ang){
-//	try{ 
-//		int i=boost::lexical_cast<int>(ang);
-//		i=i%360;
-//		if(i<0) i+=360;
-//		return parserInt2String(i);
-//	}catch(boost::bad_lexical_cast& e){
-//		return "";
-//	}
-//
-//}
 
 std::string ParserYaml::validaAngulo(std::string ang){
 	return "";
 }
 
-//reprogramar usa boost
-//std::string ParserYaml::validaPosicion(std::string pos){
-//	try{ 
-//		float f=boost::lexical_cast<float>(pos);
-//		if(f<0) f=0;
-//		if(f>100) f=100;
-//		return parserFloat2String(f);
-//	}catch(boost::bad_lexical_cast& e){
-//		return "";
-//	}
-//}
 
 std::string ParserYaml::validaPosicion(std::string pos){
 	return ""; }
 
 
-//reprogramar usa boost
-//std::string ParserYaml::validaPantalla(std::string tam){
-//	try{ 
-//		int f=boost::lexical_cast<int>(tam);
-//		if(f<0) f=600;
-//		if(f>2000) f=800;
-//		return parserFloat2String(f);
-//	}catch(boost::bad_lexical_cast& e){
-//		return "";
-//	}
-//}
 std::string ParserYaml::validaPantalla(std::string tam){
 	return "";
 	}
@@ -766,5 +650,79 @@ bool ParserYaml::esHexa(std::string str){
 	if (ret == false) return false;
 	else return true;
 }
+
+bool ParserYaml::esTipoValido(std::string str){
+	if ((str.compare("rec")==0) || (str.compare("tri")==0) || (str.compare("pent")==0) || (str.compare("circ")==0)) return true;
+	return false;
+
+
+}
+bool ParserYaml::validarGuardar(std::string str,bool fNombre,bool fId,bool fEscala,bool fX,bool fY,bool fRot,bool fMasa,bool fAlto,bool fAncho,bool fEstatico,bool fColor){
+	if ((str.compare("rec")==0) && fId && fNombre && fX && fY && fRot && fMasa && fAlto && fAncho && fEstatico && fColor) return true;
+	if ((str.compare("tri")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor) return true;
+	if ((str.compare("pent")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor) return true;
+	if ((str.compare("circ")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor) return true;	
+	return false;
+}
+
+void ParserYaml::loggearErrGuardar(std::string str,bool fNombre,bool fId,bool fEscala,bool fX,bool fY,bool fRot,bool fMasa,bool fAlto,bool fAncho,bool fEstatico,bool fColor,YAML::Mark mark){
+	if (str.compare("rec")==0){
+		if (!fId)Log::d(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
+		if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+		if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fAlto) Log::d(PARSER,"Atributo ALTO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fAncho) Log::d(PARSER,"Atributo ANCHO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+	}
+	else if (str.compare("tri")==0){
+		if (!fId)Log::d(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
+		if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+		if (!fEscala) Log::d(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+		if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+	}
+	else if (str.compare("pent")==0){
+
+		if (!fId)Log::d(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
+		if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+		if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEscala) Log::d(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+	}
+	else if (str.compare("circ")==0){
+		if (!fId)Log::d(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
+		if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+		if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEscala) Log::d(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+	}
+	else if (str.compare("no init")==0){
+		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+	}
+	else Log::d(PARSER,"Atributo TIPO incorrecto en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+}
+
+bool ParserYaml::estaticoValido(std::string str){
+	if (str.compare("si") == 0) return true;
+	if (str.compare("no") == 0) return true;
+	return false;
+}
+
 
 ParserYaml* ParserYaml::pInstance = NULL;
