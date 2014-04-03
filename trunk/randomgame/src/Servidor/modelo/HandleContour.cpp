@@ -6,14 +6,14 @@ using namespace server_model_handle;
 
 HandleContour::HandleContour(){}
 HandleContour::~HandleContour(){}
-list<Point*> HandleContour::rdp(list<Point*> contour, int epsilon){
-	list<Point*>::iterator it;
-	Point* firstPoint = (*contour.begin());
-	Point* lastPoint = (*(--contour.end()));
-	Point* splitPoint = NULL;
+list<b2Vec2*> HandleContour::rdp(list<b2Vec2*> contour, int epsilon){
+	list<b2Vec2*>::iterator it;
+	b2Vec2* firstPoint = (*contour.begin());
+	b2Vec2* lastPoint = (*(--contour.end()));
+	b2Vec2* splitPoint = NULL;
 	float distance, aux = 0.0;
-	list<Point*> contourRDP;
-	list<Point*> contour1, contour2, 
+	list<b2Vec2*> contourRDP;
+	list<b2Vec2*> contour1, contour2, 
 		         contour3, contour4;
 
 	if(contour.size() <= SEGMENT){
@@ -57,18 +57,18 @@ list<Point*> HandleContour::rdp(list<Point*> contour, int epsilon){
 	return contour;
 }
 
-float HandleContour::findPerpendicularDistance(Point* p, Point* p1, Point* p2){
+float HandleContour::findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2){
 	float slope = 0.0;
 	float intercept = 0.0;
 	float result = 0.0;
 
-	if(p1->getX() == p2->getX()){
-		return abs(p->getX() - p1->getX());
+	if(p1->x == p2->x){
+		return abs(p->x - p1->x);
 	}
 	else{
-		slope = (p2->getY() - p1->getY()) / (p2->getX() - p1->getX());
-		intercept = p1->getY() - (slope * p1->getX());
-		result = abs(slope * p->getX() - p->getY() + intercept) 
+		slope = (p2->y - p1->y) / (p2->x - p1->x);
+		intercept = p1->y - (slope * p1->x);
+		result = abs(slope * p->x - p->y + intercept) 
 				/ sqrt(pow(slope, 2) + 1);
 	}
 	return result;

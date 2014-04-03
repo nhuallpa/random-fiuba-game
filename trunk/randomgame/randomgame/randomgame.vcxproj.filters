@@ -171,9 +171,6 @@
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Point.cpp">
-      <Filter>Archivos de código fuente\server\model</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\Polygon.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
@@ -315,9 +312,6 @@
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h">
-      <Filter>Archivos de código fuente\server\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Point.h">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Polygon.h">
