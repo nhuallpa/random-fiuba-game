@@ -18,7 +18,7 @@ class GameEngine {
 		b2World* myWorld;
 
 		Body* lookForABody();
-		ContactListener contactListener;
+		ContactListener* myContactListener;
 		std::list<Body*> gameBodies;
 
 	public:

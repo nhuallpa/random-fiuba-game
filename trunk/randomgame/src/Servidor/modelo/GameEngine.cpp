@@ -34,8 +34,8 @@ bool GameEngine::initWorld(){
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
 	this->myWorld = new b2World(b2Vec2(0,-10.0));
-
-
+	this->myContactListener = new ContactListener();
+	this->myWorld->SetContactListener(this->myContactListener);
 
 }
 

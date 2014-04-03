@@ -186,6 +186,9 @@
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="..\src\utils\Transform.h">
       <Filter>Archivos de código fuente\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
