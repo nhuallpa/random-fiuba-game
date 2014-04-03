@@ -15,9 +15,10 @@ namespace server_model_handle{
 	public:
 		HandleContour();
 		~HandleContour();
-		list<Point*> rdp(list<Point*> contour, int epsilon);
+		list<b2Vec2*> rdp(list<b2Vec2*> contour, int epsilon);
+
 	private:
-		float findPerpendicularDistance(Point* p, Point* p1, Point* p2);
+		float findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2);
 	};
 }
 #endif /*__HANDLECONTOUR__*/
