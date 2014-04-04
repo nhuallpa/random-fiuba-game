@@ -338,7 +338,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("color_agua")==0){
 
 					escenario.colorAgua = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.colorAgua)){
+					if (this->esHexaSdl(escenario.colorAgua)){
 						fCAgua = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo COLOR_AGUA en nodo linea: %d.",(mark.line + 1));
@@ -359,7 +359,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("color_tierra")==0){
 
 					escenario.colorTierra = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.colorTierra)){
+					if (this->esHexaSdl(escenario.colorTierra)){
 						fCTierra = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo COLOR_TIERRA en nodo linea: %d.",(mark.line + 1));
@@ -700,8 +700,8 @@ bool ParserYaml::esHexa(std::string str){
 	int i = 1;
 	bool ret = true;
 	if (len != 7) return false;
-	else return true;
-	if (str[0] =! '#') return false;
+	//else return true;
+	if (str[0] != '#') return false;
 	while(i < len && ret != 0)
     {
         if ((isdigit(str[i]) || str[i]=='A' || str[i]=='B' || str[i]=='C' || str[i]=='D' || str[i]=='E' || str[i]=='F') == false) return false;
@@ -711,6 +711,26 @@ bool ParserYaml::esHexa(std::string str){
 	if (ret == false) return false;
 	else return true;
 }
+
+bool ParserYaml::esHexaSdl(std::string str){
+	int len = str.length();
+	int i = 1;
+	bool ret = true;
+	if (len != 9) return false;
+	//else return true;
+	if (str[0] != '#') return false;
+	while(i < 7 && ret != 0)
+    {
+        if ((isdigit(str[i]) || str[i]=='A' || str[i]=='B' || str[i]=='C' || str[i]=='D' || str[i]=='E' || str[i]=='F') == false) return false;
+        i++;                       // increment to next character
+    }
+	// return result =0 not numeric !=0 is numeric
+	if (ret == false) return false;
+	if (str[7] != 'A') return false;
+	if (str[8] != 'A') return false;
+	return true;
+}
+
 
 bool ParserYaml::esTipoValido(std::string str){
 	if ((str.compare("rec")==0) || (str.compare("tri")==0) || (str.compare("pent")==0) || (str.compare("circ")==0)) return true;
