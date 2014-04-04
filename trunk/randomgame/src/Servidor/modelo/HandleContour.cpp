@@ -76,13 +76,18 @@ float HandleContour::findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2
 }
 
 
-vector<vector<b2Vec2>> HandleContour::getPolygonConvex(list<b2Vec2*> contour){
+vector<vector<b2Vec2>> HandleContour::getPolygonConvex(list<b2Vec2*> contour, int scale){
 	list<b2Vec2*>::iterator it;
 	vector<b2Vec2> vec;
 	vector<vector<b2Vec2> >result;
-	int i = 0;
-	
-	// 1) We create a b2Separator instance.
+	for(it = contour.begin();
+	it != contour.end();
+	it++){
+		b2Vec2 b2vec;
+		b2vec.x = (*it)->x * scale;
+		b2vec.y = (*it)->y * scale;
+		vec.push_back(b2vec);
+	}
     b2Separator* sep = new b2Separator();
 	if (sep->Validate(vec)==0) {
 		sep->calcShapes(vec, result);
