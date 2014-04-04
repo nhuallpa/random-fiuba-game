@@ -13,16 +13,23 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, int d
 	this->mass = mass;
 }
 
+void GameElement::setVertexList(std::list<std::pair<float,float>> l){
+	this->vertexList = l;
+}
+
+void GameElement::setBody(void* ab){
+	Log::d("Guardando: %p",ab); 
+	this->myBody = ab;
+}
 
 int GameElement::getId(){
 	return this->id;
 }
 
 std::list<std::pair<float,float>> GameElement::getVertex(){
-	std::list<std::pair<float,float>> mList;
-	
-	
-	return mList;
+
+
+	return this->vertexList;
 }
 
 ElementType GameElement::getType(){

@@ -3,7 +3,7 @@
 #include "Cuadrado.h"
 #include "../../../../utils/Log.h"
 
-Cuadrado::Cuadrado(ElementType type, int posX, int posY, float h, 
+Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h, 
 		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement)
 {
 	this->myWorld = myWorld;
@@ -46,14 +46,14 @@ float round(float d)
   return floor(d + 0.5);
 }
 
-std::list<std::pair<int,int>> Cuadrado::GetVertex(){
+std::list<std::pair<float,float>> Cuadrado::GetVertex(){
 
 	
     //verts now contains world co-ords of all the verts
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion central 0,0: %.3f, %.3f", v.x, v.y);
 	b2PolygonShape* poly = (b2PolygonShape*)this->body->GetFixtureList()->GetShape();
-	std::list<std::pair<int,int>> vertexList;
+	std::list<std::pair<float,float>> vertexList;
 	int count = poly->GetVertexCount();
 	ParserYaml* aParser = ParserYaml::getInstance();
 
@@ -61,8 +61,8 @@ std::list<std::pair<int,int>> Cuadrado::GetVertex(){
 		b2Vec2 verts = poly->GetVertex(i);
 		b2Vec2 f = this->body->GetWorldPoint(verts);
 		Log::d("Posicion vert %d: %.3f, %.3f",i, f.x, f.y);
-		int x = round(f.x + atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
-		int y = round((-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() )/2);
+		int x = f.x + (atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
+		int y = (-1*f.y)+(atoi((aParser->getEscenarioAltoU()).c_str() )/2);
 		Log::d("Posicion vert (Modelo) %d: %d, %d",i, x, y);		
 		vertexList.push_back(std::make_pair(x,y));
 	}
@@ -84,7 +84,7 @@ void Cuadrado::animate(){
 	int y = round((-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() )/2);
 	ge->setPosition(std::make_pair( x,y) );
 	Log::d("Nueva posicion (Modelo): %d, %d", x,y);
-	this->GetVertex();
+	ge->setVertexList(this->GetVertex());
 
 }
 

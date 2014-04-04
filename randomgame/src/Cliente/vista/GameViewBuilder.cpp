@@ -37,7 +37,9 @@ void GameViewBuilder::buildFigures(ViewGroup* container)
 			aFigure = new CircleView(posX, posY,20,"#00FF00FF", 0);
 		} else if (it->second.getType() == ElementType::SQUARE) 
 		{
+			Log::d("imprimiendo vertices en vista");
 			std::list<std::pair<float,float>> theVertex = it->second.getVertex();
+			
 			//std::list<std::pair<float,float>>::iterator itVertex;
 			//// Vertex A
 			//itVertex = theVertex.begin();

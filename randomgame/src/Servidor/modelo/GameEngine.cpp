@@ -54,6 +54,8 @@ void GameEngine::animateBodies() {
 				Cuadrado* sq = new Cuadrado(SQUARE, (*elems).second->getPosition().first , (*elems).second->getPosition().second, 
 					(*elems).second->getHeight(), (*elems).second->getWidth(), (*elems).second->getMass(),
 					(*elems).second->getRotation(), this->myWorld, ((*elems).second) );
+				(*elems).second->setBody(sq);
+				Log::d("Puntero cuadrado: %p",sq); 
 				this->gameBodies.push_back(sq);
 				break;
 		}
