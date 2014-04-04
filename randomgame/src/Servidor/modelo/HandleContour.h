@@ -14,10 +14,12 @@ namespace server_model_handle{
 	public:
 		HandleContour();
 		~HandleContour();
-		list<b2Vec2*> rdp(list<b2Vec2*> contour, int epsilon);
 		vector<vector<b2Vec2>> getPolygonConvex(list<b2Vec2*> contour, int scale);
 	private:
+		list<b2Vec2*> rdp(list<b2Vec2*> contour, int epsilon);
 		float findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2);
+		vector<b2Vec2> change(list<b2Vec2*> contour, int scale);
+		
 	};
 }
 #endif /*__HANDLECONTOUR__*/
