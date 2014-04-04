@@ -75,6 +75,7 @@ private:
 	bool validarGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool);
 	void loggearErrGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,YAML::Mark);
 	bool estaticoValido(std::string);
+	bool esHexaSdl(std::string);
 
 	bool isDefault;
 
@@ -94,7 +95,7 @@ private:
 public:
 	
 	
-
+	
 	int getElementPosition(std::string name);
 	std::string getImagePath(std::string name);
 	std::string getElementType(int id);
