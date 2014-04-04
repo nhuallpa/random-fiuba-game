@@ -27,13 +27,17 @@ void Cliente::loop(void){
 
 	Bootstrap bootstrap;
 	bootstrap.init();
-	DefaultViewBuilder builder;
+
+	/** Retrieve the domain element to create the view elements*/
+	std::map<int,GameElement> map = this->cLevel.getModelElements();
+	GameViewBuilder builder(map);
+
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), builder);
 
 	// @Nestor, esto te devuelve todos los GameElements en un map que tiene de clave id
 	// A esos gameElement le podes pedir los vertices, pos (te da la central), height, width,
 	// angle, mass, etc. Usalo para dibujar inicialmente en el build y dentro de cada update.
-	std::map<int,GameElement> map = this->cLevel.getModelElements();
+	
 
 	//a cada element hacele getVertex() que te devuelve una lista de pair<int,int> cada pos
 	// del par (x,y) la multiplicas por la conversion a pixels y listo

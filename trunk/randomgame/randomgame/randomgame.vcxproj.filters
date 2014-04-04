@@ -183,6 +183,9 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp">
       <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h">
       <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
