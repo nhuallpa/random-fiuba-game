@@ -12,7 +12,8 @@ enum TipoLog{
 enum LugarLog{
 	NO_DEFINIDO,
 	PARSER,
-	BOOT
+	BOOT,
+	VIEW_BUILDER
 };
 
 class Log

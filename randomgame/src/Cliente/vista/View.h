@@ -15,7 +15,7 @@ class View
 	int y;
 	std::string color;
 	std::string borderColor;
-
+	int id;
 	Uint32 convertToInt(std::string aColor);
 	
 public:
@@ -29,6 +29,7 @@ public:
 	/** Draw on screen */
 	virtual void draw(SDLScreen & screen) = 0;
 
+	int getId() { return id;}
 	int getX() { return x;}
 	int getY() { return y;}
 	std::string getColor() { return color;}
@@ -37,7 +38,7 @@ public:
 	Uint32 getColorCod();
 	Uint32 getBorderColorCod();
 	
-
+	void setId(int id) {this->id = id;}
 	void setX(int x) {this->x = x;}
 	void setY(int y) {this->y = y;}
 	void setColor(std::string color) { this->color = color;}
