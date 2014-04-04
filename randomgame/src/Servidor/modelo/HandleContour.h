@@ -4,11 +4,10 @@
 #define __HANDLECONTOUR__
 
 #include <list>
-#include "Point.h"
 #include <Box2D.h>
+#include <vector>
 
 using namespace std;
-using namespace server_model_point;
 
 namespace server_model_handle{
 	class HandleContour{
@@ -16,7 +15,7 @@ namespace server_model_handle{
 		HandleContour();
 		~HandleContour();
 		list<b2Vec2*> rdp(list<b2Vec2*> contour, int epsilon);
-
+		vector<vector<b2Vec2>> getPolygonConvex(list<b2Vec2*> contour);
 	private:
 		float findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2);
 	};
