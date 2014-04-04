@@ -39,8 +39,10 @@ public:
 	int getWidth();
 	int getHeight();
 	float getMass();
-	std::list<std::pair<float,float>> getVertex();
 	bool hasChanged();
+	void setBody(void* ab);
+	std::list<std::pair<float,float>> getVertex();
+	void setVertexList(std::list<std::pair<float,float>> l);
 
 
 private:
@@ -52,8 +54,10 @@ private:
 	int height;
 	int width;
 	float mass;
+	void* myBody;
 	// Center position!
 	std::pair<float,float> position;
+	std::list<std::pair<float,float>> vertexList;
 };
 
 #endif /* GAMEELEMENT_H_ */
