@@ -12,7 +12,7 @@ list<b2Vec2*> HandleContour::rdp(list<b2Vec2*> contour, int epsilon){
 	b2Vec2* firstPoint = (*contour.begin());
 	b2Vec2* lastPoint = (*(--contour.end()));
 	b2Vec2* splitPoint = NULL;
-	float distance, aux = 0.0;
+	float distance = 0.0, aux = 0.0;
 	list<b2Vec2*> contourRDP;
 	list<b2Vec2*> contour1, contour2, 
 		         contour3, contour4;
@@ -75,26 +75,38 @@ float HandleContour::findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2
 	return result;
 }
 
-
-vector<vector<b2Vec2>> HandleContour::getPolygonConvex(list<b2Vec2*> contour, int scale){
+vector<b2Vec2> HandleContour::change(list<b2Vec2*> contour, int scale){
 	list<b2Vec2*>::iterator it;
 	vector<b2Vec2> vec;
-	vector<vector<b2Vec2> >result;
-	for(it = contour.begin();
-	it != contour.end();
+	list<b2Vec2*> contour2;
+	for(it = contour2.begin();
+	it != contour2.end();
 	it++){
 		b2Vec2 b2vec;
 		b2vec.x = (*it)->x * scale;
 		b2vec.y = (*it)->y * scale;
 		vec.push_back(b2vec);
 	}
+	return vec;
+}
+
+vector<vector<b2Vec2>> HandleContour::getPolygonConvex(list<b2Vec2*> contour, int scale){
+	int i;
+	vector<vector<b2Vec2> >result;
+	list<b2Vec2*> contour2;
+	vector<b2Vec2> vec;
+	contour2 = this->rdp(contour, 0.5);
+	vec = change(contour2, scale);
+
     b2Separator* sep = new b2Separator();
+
 	if (sep->Validate(vec)==0) {
 		sep->calcShapes(vec, result);
     }
     else {
         //error
     }
+
 	delete sep;
 	return result;
 }
