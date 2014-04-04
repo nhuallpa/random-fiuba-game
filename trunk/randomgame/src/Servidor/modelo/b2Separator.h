@@ -65,10 +65,10 @@ public:
         
     int Validate(const vector<b2Vec2>& verticesVec);
 
-    
-private:
     void calcShapes(vector<b2Vec2> &pVerticesVec, vector<vector<b2Vec2> > &result);
-	b2Vec2* hitRay(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+	
+private:
+    b2Vec2* hitRay(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	b2Vec2* hitSegment(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	bool isOnSegment(float px, float py, float x1, float y1, float x2, float y2);
     bool pointsMatch(float x1, float y1, float x2,float y2);

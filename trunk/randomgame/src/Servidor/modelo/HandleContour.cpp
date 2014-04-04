@@ -1,5 +1,6 @@
 #include "HandleContour.h"
 #include <cmath>
+#include "b2Separator.h"
 
 #define SEGMENT 2
 using namespace server_model_handle;
@@ -71,6 +72,25 @@ float HandleContour::findPerpendicularDistance(b2Vec2* p, b2Vec2* p1, b2Vec2* p2
 		result = abs(slope * p->x - p->y + intercept) 
 				/ sqrt(pow(slope, 2) + 1);
 	}
+	return result;
+}
+
+
+vector<vector<b2Vec2>> HandleContour::getPolygonConvex(list<b2Vec2*> contour){
+	list<b2Vec2*>::iterator it;
+	vector<b2Vec2> vec;
+	vector<vector<b2Vec2> >result;
+	int i = 0;
+	
+	// 1) We create a b2Separator instance.
+    b2Separator* sep = new b2Separator();
+	if (sep->Validate(vec)==0) {
+		sep->calcShapes(vec, result);
+    }
+    else {
+        //error
+    }
+	delete sep;
 	return result;
 }
 
