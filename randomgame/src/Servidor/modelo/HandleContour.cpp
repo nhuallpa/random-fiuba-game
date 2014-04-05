@@ -1,10 +1,15 @@
 #include "HandleContour.h"
 #include <cmath>
-#include <exception>
+#include "Exceptions\ContourException.h"
+#include <string>
+#include <utility>
+#include "..\..\utils\Log.h"
 
 #define SEGMENT 2
 #define MAX_VERTEX 8
+
 using namespace server_model_handle;
+using namespace server_model_exp;
 
 HandleContour::HandleContour(){}
 HandleContour::~HandleContour(){}
@@ -14,7 +19,7 @@ HandleContour::~HandleContour(){}
 
 vector<vector<b2Vec2>> HandleContour::
 	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale)
-	throw (int, bad_exception){
+	throw (ContourExp, exception){
 	vector<vector<b2Vec2>>::iterator it;
 	vector<vector<b2Vec2>> result;
 	vector<b2Vec2> contourAux;
@@ -22,6 +27,7 @@ vector<vector<b2Vec2>> HandleContour::
 
 	try{
 		if (sep->Validate(contour)) {
+			//Log::e(
 			throw (sep->Validate(contour),"Contour not invalid");
 		}
 	
