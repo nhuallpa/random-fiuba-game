@@ -1,5 +1,6 @@
 #include "HandleContour.h"
 #include <cmath>
+#include <exception>
 
 #define SEGMENT 2
 #define MAX_VERTEX 8
@@ -12,62 +13,31 @@ HandleContour::~HandleContour(){}
 
 
 vector<vector<b2Vec2>> HandleContour::
-	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
+	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale)
+	throw (int, bad_exception){
+	vector<vector<b2Vec2>>::iterator it;
+	vector<vector<b2Vec2>> result;
+	vector<b2Vec2> contourAux;
+	b2Separator* sep = NULL;
 
-	vector<vector<b2Vec2>> result, resultSplit, aux;
-	vector<vector<b2Vec2>>::iterator jt;
-	vector<b2Vec2>::iterator it;
-	vector<b2Vec2> contourReduced, contourEscalade;
-    b2Separator* sep = NULL;
-
-
+	try{
+		if (sep->Validate(contour)) {
+			throw (sep->Validate(contour),"Contour not invalid");
+		}
 	
-	contourReduced = this->rdp(contour, epsilon);
+		contourAux = this->rdp(contour, epsilon);
+		contourAux = this->mulK(contourAux, scale);
 
-
-
-	for(it = contourReduced.begin();
-	it != contourReduced.end();
-	it++){
-		contourEscalade.push_back(b2Vec2((*it).x*scale,(*it).y*scale));
+		sep = new b2Separator();
+		sep->calcShapes(contourAux, result);
+		contourAux.clear();
+		delete sep;
+		result = this->mulK(result, scale);
+		result = this->valSize(result);
 	}
-	contourReduced.clear();
-
-	sep = new b2Separator();
-	if (sep->Validate(contourEscalade)==0) {
-		sep->calcShapes(contourEscalade, result);
+	catch(exception e){
 		
-		contourEscalade.clear();
-
-		for(jt = result.begin();
-		jt != result.end();
-		jt++){
-			vector<b2Vec2> vec;
-			contourEscalade = (*jt);
-			for(it = contourEscalade.begin();
-			it != contourEscalade.end();
-			it++){
-				vec.push_back(b2Vec2((*it).x/scale,(*it).y/scale));
-			}
-			aux.push_back(vec);
-		}
 	}
-	else {
-		//lanzar excepcion
-	}
-	
-	result.clear();
-		
-	for(jt = aux.begin(); jt != aux.end(); jt++){
-		if((*jt).size() > MAX_VERTEX){
-			resultSplit = this->split((*jt));
-			result.insert(result.end(), resultSplit.begin(), resultSplit.end());
-		}
-		else{
-			result.push_back((*jt));
-		}
-	}
-	delete sep;
 	return result;
 }
 
@@ -75,7 +45,6 @@ vector<b2Vec2> HandleContour::rdp(vector<b2Vec2> contour, float epsilon){
 	vector<b2Vec2>::iterator it;
 	b2Vec2 firstPoint = (*contour.begin());
 	b2Vec2 lastPoint = (*(--contour.end()));
-	b2Vec2 splitPoint;
 	float distance = 0.0, aux = 0.0;
 	vector<b2Vec2> contourRDP;
 	vector<b2Vec2> contour1, contour2, 
@@ -88,27 +57,23 @@ vector<b2Vec2> HandleContour::rdp(vector<b2Vec2> contour, float epsilon){
 
 	for(it = ++(contour.begin());
 		it != --(contour.end());
-		it++){
+		it++, i++){
 		aux = findPerpendicularDistance((*it),firstPoint,lastPoint);
 		if(aux > distance){
 			distance = aux;
-			splitPoint = (*it);
 			j = i;
 		}
-		i++;
 	}
-		i = 0;
 	if(distance > epsilon){
-		for(it = contour.begin();
+		for(it = contour.begin(), i = 0;
 			it != contour.end();
-			it++){
+			it++, i++){
 				if(i <= j){
 					contour1.push_back((*it));
 				}
 				if(i >= j){
 					contour2.push_back((*it));
 				}
-				i++;
 		}
 		contour3 = this->rdp(contour1, epsilon);
 		contour4 = this->rdp(contour2, epsilon);
@@ -153,7 +118,6 @@ vector<vector<b2Vec2>> HandleContour::split(vector<b2Vec2> contour){
 	vector<b2Vec2>::iterator it;
 	b2Vec2 firstPoint = (*contour.begin());
 	b2Vec2 lastPoint = (*(--contour.end()));
-	b2Vec2 splitPoint;
 	float distance = 0.0, aux = 0.0;
 	vector<b2Vec2> contour1, contour2;
 	vector<vector<b2Vec2>> result, 
@@ -169,30 +133,26 @@ vector<vector<b2Vec2>> HandleContour::split(vector<b2Vec2> contour){
 
 	for(it = ++(contour.begin());
 		it != --(contour.end());
-		it++){
+		it++, i++){
 		aux = findPerpendicularDistance((*it),firstPoint,lastPoint);
 		if(aux > distance){
 			distance = aux;
-			splitPoint = (*it);
 			j = i;
 		}
-		i++;
 	}
-		i = 0;
 	
 	
-	for(it = contour.begin();
+	for(it = contour.begin(), i = 0;
 		it != contour.end();
-		it++){
+		it++, i++){
 			if(i <= j){
 				contour1.push_back((*it));
 			}
 			if(i >= j){
 				contour2.push_back((*it));
 			}
-			i++;
 	}
-	//agrego uno mas!
+	//add the firsPoint!!
 	contour2.push_back(firstPoint);
 
 	contour3 = this->split(contour1);
@@ -207,6 +167,41 @@ vector<vector<b2Vec2>> HandleContour::split(vector<b2Vec2> contour){
 	return contourRDP;
 }
 
+
+vector<b2Vec2> HandleContour::mulK(vector<b2Vec2> contour, float scale){
+	vector<b2Vec2>::iterator it;
+	vector<b2Vec2> result;
+	for(it = contour.begin();
+	it != contour.end();
+	it++){
+		result.push_back(b2Vec2((*it).x*scale,(*it).y*scale));
+	}
+	return result;
+}
+
+vector<vector<b2Vec2>> HandleContour::mulK(vector<vector<b2Vec2>> contours, float scale){
+	vector<vector<b2Vec2>>::iterator it;
+	vector<vector<b2Vec2>> result;
+	for(it = contours.begin(); it != contours.end(); it++){
+		result.push_back(this->mulK((*it), (float) 1/scale));
+	}
+	return result;
+}
+
+vector<vector<b2Vec2>> HandleContour::valSize(vector<vector<b2Vec2>> contours){
+	vector<vector<b2Vec2>> result, resultSplit;
+	vector<vector<b2Vec2>>::iterator jt;
+	for(jt = contours.begin(); jt != contours.end(); jt++){
+		if((*jt).size() > MAX_VERTEX){
+			resultSplit = this->split((*jt));
+			result.insert(result.end(), resultSplit.begin(), resultSplit.end());
+		}
+		else{
+			result.push_back((*jt));
+		}
+	}
+	return result;
+}
 
 
 /*
