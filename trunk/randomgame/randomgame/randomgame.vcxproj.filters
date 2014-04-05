@@ -43,6 +43,9 @@
     <Filter Include="Archivos de código fuente\server\model\physics\Bodies">
       <UniqueIdentifier>{119d74c4-9d38-4f3f-a6c0-23f812296fee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\server\model\Exceptions">
+      <UniqueIdentifier>{7c18e9bb-e2b4-4867-9923-21eef227a6f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp">
+      <Filter>Archivos de código fuente\server\model\Exceptions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h">
+      <Filter>Archivos de código fuente\server\model\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
