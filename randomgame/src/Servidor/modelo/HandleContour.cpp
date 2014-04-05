@@ -29,7 +29,7 @@ vector<vector<b2Vec2>> HandleContour::
 	vector<vector<b2Vec2>> result;
 	vector<b2Vec2> contourAux;
 	b2Separator* sep = NULL;
-
+	Log::i(HANDLE_CONTOUR, "============== INICIANDO HANDLE CONTOUR =============");
 	try{
 		if (sep->Validate(contour)) {
 			Log::e(HANDLE_CONTOUR, "Contour not invalid: %s",
