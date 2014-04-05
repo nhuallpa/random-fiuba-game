@@ -16,7 +16,7 @@ bool Servidor::begin(void){
 }
 
 void Servidor::loop(void){
-
+	Log::i("============== INICIANDO SERVIDOR =============");		
 	// Init conns from clients
 	bool quit = false;		
 	while (quit == false){
@@ -25,8 +25,8 @@ void Servidor::loop(void){
 		if( this->gameEngine.initWorld() ) quit = true;
 	}
 
-		//TODO @future -  CERRAR CONEXIONES DE CLIENTES 
-		return void();
+	//TODO @future -  CERRAR CONEXIONES DE CLIENTES 
+	return void();
 }
 
 bool Servidor::run(void){

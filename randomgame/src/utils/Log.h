@@ -1,12 +1,29 @@
 #pragma once
 #ifndef __LOG_H_1__
 #define __LOG_H_1__
+
+/**
+	TRACE 0
+	DEBUG 1
+	INFO  2
+	ERROR 3
+*/
+#define LOG_LEVEL 2
+
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <ctime>
+#include <cstdarg>
+#include <cstdio>
+#include "./Constantes/Constantes.h"
+
 
 enum TipoLog{
+	TRACE,
 	DEBUG,
-	ERROR
+	INFO,
+	ERROR,
 };
 
 enum LugarLog{
@@ -18,38 +35,188 @@ enum LugarLog{
 
 class Log
 {
+
+	std::ofstream file;
+
+
 public:
 	Log(void);
 	virtual ~Log(void);
 	
-	//Debug
-	void static d(std::string msj);
+	static Log & Instance(){
+			static Log logger;
+			return logger;
+	}
 
-	//Esto recibe exactamente lo mismo que printf y sirve para armar errores
-	//Maximo LOG_MAX_LINE_SIZE definido en Constantes.h
-	void static d(char* form, ...);
+	/**
+	* Logea con TRACE
+	* 
+	* @param msj String con el mensaje
+	*/
+	static void t(std::string msj);
 
-	//Error
-	void static e(std::string msj);
-	//Esto recibe exactamente lo mismo que printf y sirve para armar errores
-	//Maximo LOG_MAX_LINE_SIZE definido en Constantes.h
-	void static e(char* form, ...);
+	/**
+	* Logea con DEBUG
+	* 
+	* @param msj String con el mensaje
+	*/
+	static void d(std::string msj);
 
+	/**
+	* Logea con INFO
+	* 
+	* @param msj String con el mensaje
+	*/
+	static void i(std::string msj);
 
-	/*LOG CON LUGAR*/
-	void static Log::d(LugarLog lugarLog,char* form, ...);
-	void static Log::e(LugarLog lugarLog,char* form, ...);
-	void static Log::d(LugarLog lugarLog,std::string msj);
-	void static Log::e(LugarLog lugarLog,std::string msj);
+	/**
+	* Logea con ERROR
+	* 
+	* @param msj String con el mensaje
+	*/
+	static void e(std::string msj);
 
 	
+	/**
+	* Logea con TRACE
+	* 
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void t(char* form, ...);
+
+	/**
+	* Logea con DEBUG
+	* 
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void d(char* form, ...);
+
+	/**
+	* Logea con INFO
+	* 
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void i(char* form, ...);
+	
+	/**
+	* Logea con ERROR
+	* 
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void e(char* form, ...);
+
+	/**
+	* Logea con TRACE
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void t(LugarLog lugarLog,char* form, ...);
+
+	/**
+	* Logea con DEBUG
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void d(LugarLog lugarLog,char* form, ...);
+
+	/**
+	* Logea con INFO
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void i(LugarLog lugarLog,char* form, ...);
+
+	/**
+	* Logea con ERROR
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param form Cadena con mascara para imprimir mensaje (Idem fprint)
+	* @param ... Argumentos (Idem fprint)
+	*/
+	static void e(LugarLog lugarLog,char* form, ...);
+
+
+	/**
+	* Logea con TRACE
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param msj Mensaje a logguear
+	*/
+	static void t(LugarLog lugarLog, std::string msj);
+
+	/**
+	* Logea con DEBUG
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param msj Mensaje a logguear
+	*/
+	static void d(LugarLog lugarLog, std::string msj);
+
+	/**
+	* Logea con INFO
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param msj Mensaje a logguear
+	*/
+	static void i(LugarLog lugarLog, std::string msj);
+
+	/**
+	* Logea con ERROR
+	* 
+	* @param LugarLog lugar donde se utiliza el logger
+	* @param msj Mensaje a logguear
+	*/
+	static void e(LugarLog lugarLog, std::string msj);
+
+
 
 
 private:
-	std::string static Log::stringConFormato(char* form,va_list argumentos);
-	void static log(TipoLog tipoLog,LugarLog lugarLog,std::string msj);
-	std::string static logearTipoLog(TipoLog tipoLog);
-	std::string static logearLugarLog(LugarLog lugarLog);
+
+	static std::string  Log::stringConFormato(char* form,va_list argumentos);
+
+	/**
+	* Escribe en el archivo de logs
+	*
+	* @param TipoLog Nivel del log utilizado
+	* @param LugarLog Lugar donde se utliza el logger
+	* @param msj Mensaje a logguear
+	*/
+	void log(TipoLog tipoLog,LugarLog lugarLog,std::string msj);
+
+	/**
+	* Devuelve el literal del tipo de log utilizado
+	*
+	* @param TipoLog Nivel del log utilizado
+	* @return String El literal literal del log utilizado
+	*/
+	static std::string logearTipoLog(TipoLog tipoLog);
+
+	
+	/**
+	* Devuelve el literal del lugar donde se indico el logueo
+	*
+	* @param LugarLog Lugar donde se utliza el logger
+	* @return String El literal del lugar
+	*/
+	static std::string logearLugarLog(LugarLog lugarLog);
+
+
+	/**
+	* Devuelve el tiempo actual
+	*
+	* @return String El tiempo Actual
+	*/
 	const static std::string tiempoActual();
 };
 #endif /**__LOG_H_1__*/

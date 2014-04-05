@@ -37,20 +37,32 @@ void GameViewBuilder::buildFigures(ViewGroup* container)
 			aFigure = new CircleView(posX, posY,20,"#00FF00FF", 0);
 		} else if (it->second.getType() == ElementType::SQUARE) 
 		{
-			Log::d("imprimiendo vertices en vista");
-			std::list<std::pair<float,float>> theVertex = it->second.getVertex();
-			
+			Log::d("Imprimiendo vertices del RECTANGULO");
+			//std::list<std::pair<float,float>> theVertex = it->second.getVertex();
+			//
 			//std::list<std::pair<float,float>>::iterator itVertex;
 			//// Vertex A
 			//itVertex = theVertex.begin();
 			//RectangleView* aRectangle = new RectangleView("#FF0000FF");
-			//aRectangle->setVertexA((int)(itVertex->first), (int)(itVertex->second));
-			//++it;
-			//aRectangle->setVertexB((int)itVertex->first, (int)itVertex->second);
-			//++it;
-			//aRectangle->setVertexC((int)itVertex->first, (int)itVertex->second);
-			//++it;
-			//aRectangle->setVertexD((int)itVertex->first, (int)itVertex->second);
+			//try {
+			//	++itVertex;
+			//	aRectangle->setVertexA((int)(itVertex->first), (int)(itVertex->second));
+			//	Log::d("Va[%f, %f]", (itVertex->first), (itVertex->second));
+			//	++itVertex;
+			//	aRectangle->setVertexB((int)itVertex->first, (int)itVertex->second);
+			//	Log::d("Vb[%f, %f]", (itVertex->first), (itVertex->second));
+			//	++itVertex;
+			//	aRectangle->setVertexC((int)itVertex->first, (int)itVertex->second);
+			//	Log::d("Vc[%f, %f]", (itVertex->first), (itVertex->second));
+			//	++itVertex;
+			//	aRectangle->setVertexD((int)itVertex->first, (int)itVertex->second);
+			//	Log::d("Vd[%f, %f]", (itVertex->first), (itVertex->second));
+			//} 
+			//catch (std::exception & e) 
+			//{
+			//	Log::d("Excepcion: %s", e.what());
+			//}
+
 
 			//aFigure = aRectangle;
 		}

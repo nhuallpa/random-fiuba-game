@@ -14,7 +14,7 @@ public:
 	FigureView(int x, int y, std::string  color, int rotation);
 	~FigureView(void);
 
-
+	virtual std::string toString();
 };
 
 struct s_point{
