@@ -80,6 +80,7 @@
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h" />
     <ClInclude Include="..\src\SystemManager.h" />
