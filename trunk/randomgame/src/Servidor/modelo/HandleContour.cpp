@@ -51,15 +51,17 @@ vector<vector<b2Vec2>> HandleContour::
 	}
 		
 		
-		for(jt = resultEnd.begin(); jt != resultEnd.end(); it++){
-			if((*jt).size() > MAX_VERTEX){
-				resultSplit = this->split((*jt));
-				aux.insert(aux.end(), resultSplit.begin(), resultSplit.end());
-			}
+	for(jt = resultEnd.begin(); jt != resultEnd.end(); jt++){
+		if((*jt).size() > MAX_VERTEX){
+			resultSplit = this->split((*jt));
+			aux.insert(aux.end(), resultSplit.begin(), resultSplit.end());
 		}
-		resultEnd.insert(resultEnd.end(), aux.begin(), aux.end());
+		else{
+			aux.push_back((*jt));
+		}
+	}
 	delete sep;
-	return resultEnd;
+	return aux;
 }
 
 vector<b2Vec2> HandleContour::rdp(vector<b2Vec2> contour, float epsilon){
