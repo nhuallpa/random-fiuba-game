@@ -1,9 +1,9 @@
 #include "HandleContour.h"
 #include <cmath>
 #include "Exceptions\ContourException.h"
-#include <string>
 #include <utility>
 #include "..\..\utils\Log.h"
+#include "..\..\utils\Constantes\Constantes.h"
 
 #define SEGMENT 2
 #define MAX_VERTEX 8
@@ -11,7 +11,12 @@
 using namespace server_model_handle;
 using namespace server_model_exp;
 
-HandleContour::HandleContour(){}
+HandleContour::HandleContour(){
+	_error[1001] = HC_ERROR_1;
+	_error[1002] = HC_ERROR_2;
+	_error[1003] = HC_ERROR_3;
+
+}
 HandleContour::~HandleContour(){}
 
 
@@ -27,7 +32,8 @@ vector<vector<b2Vec2>> HandleContour::
 
 	try{
 		if (sep->Validate(contour)) {
-			//Log::e(
+			Log::e(HANDLE_CONTOUR, "Contour not invalid: %s",
+				this->getErr(sep->Validate(contour)));
 			throw (sep->Validate(contour),"Contour not invalid");
 		}
 	
@@ -41,8 +47,13 @@ vector<vector<b2Vec2>> HandleContour::
 		result = this->mulK(result, scale);
 		result = this->valSize(result);
 	}
+	catch(ContourExp ce){
+		throw ce;
+	}
 	catch(exception e){
-		
+		Log::e(HANDLE_CONTOUR, "Contour not invalid: %s",
+		this->getErr(sep->Validate(contour)));
+		throw (sep->Validate(contour),"Contour not invalid");
 	}
 	return result;
 }
@@ -208,6 +219,12 @@ vector<vector<b2Vec2>> HandleContour::valSize(vector<vector<b2Vec2>> contours){
 	}
 	return result;
 }
+
+
+string HandleContour::getErr(int valueErr){
+	 return _error[HC_OFFSET + valueErr];
+}
+
 
 
 /*

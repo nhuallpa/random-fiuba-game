@@ -103,4 +103,15 @@
 
 /**************************** LOG2 ***************************/
 
+
+/**************************** HANDLE CONTOUR ***************************/
+#define HC_OFFSET 1000
+#define HC_ERROR_1 /*1001*/ "there are overlapping lines."
+#define HC_ERROR_2 /*1002*/ "the points are not in clockwise order."
+#define HC_ERROR_3 /*1003*/ "there are overlapping lines and the points are not in clockwise order."
+/**************************** HANDLE CONTOUR ***************************/
+
+
+
+
 #define LOG_PATH "./LOG"
