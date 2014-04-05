@@ -45,6 +45,7 @@ public:
 
 	RectangleView(int x, int y, int width, int height, std::string  color, int rotation);
 	~RectangleView(void);
+
 };
 
 #endif /** __RECTANGLE_VIEW_H_ */

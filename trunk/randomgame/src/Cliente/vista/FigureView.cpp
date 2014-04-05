@@ -11,3 +11,8 @@ FigureView::~FigureView(void)
 {
 
 }
+
+std::string FigureView::toString()
+{
+	return "";
+}

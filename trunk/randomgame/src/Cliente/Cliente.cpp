@@ -22,6 +22,7 @@ bool Cliente::begin(){
 }
 
 void Cliente::loop(void){
+	Log::i("============== INICIANDO CLIENTE =============");		
 
 	bool quit = false;
 
@@ -33,16 +34,6 @@ void Cliente::loop(void){
 	GameViewBuilder builder(map);
 
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), builder);
-
-	// @Nestor, esto te devuelve todos los GameElements en un map que tiene de clave id
-	// A esos gameElement le podes pedir los vertices, pos (te da la central), height, width,
-	// angle, mass, etc. Usalo para dibujar inicialmente en el build y dentro de cada update.
-	
-
-	//a cada element hacele getVertex() que te devuelve una lista de pair<int,int> cada pos
-	// del par (x,y) la multiplicas por la conversion a pixels y listo
-	
-
 
 	this->cController.init();
 

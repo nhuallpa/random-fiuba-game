@@ -27,8 +27,6 @@ int GameElement::getId(){
 }
 
 std::list<std::pair<float,float>> GameElement::getVertex(){
-
-
 	return this->vertexList;
 }
 

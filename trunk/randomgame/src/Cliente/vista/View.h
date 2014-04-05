@@ -46,6 +46,8 @@ public:
 
 	void swapEndian(Uint32 *colorCode);
 
+	
+
 };
 
 

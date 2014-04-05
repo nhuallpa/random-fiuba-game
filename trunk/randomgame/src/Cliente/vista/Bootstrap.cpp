@@ -29,7 +29,7 @@ void Bootstrap::init()
 			TextureManager::Instance().load(it->second.c_str(),it->first.c_str(),this->getScreen().getRenderer());
 		} catch (GameException & e) 
 		{
-			Log::e(BOOT,e.what());		
+			Log::e(BOOT, e.what());		
 		}
 	}
 }
