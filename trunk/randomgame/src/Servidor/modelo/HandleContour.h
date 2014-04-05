@@ -20,7 +20,7 @@ namespace server_model_handle{
 			                                    float epsilon, 
 												int scale);
 	private:
-		map<int, string> _error;
+		map<int, string> _error, _trace;
 		vector<b2Vec2> rdp(vector<b2Vec2> contour, float epsilon);
 		float findPerpendicularDistance(b2Vec2 p, b2Vec2 p1, b2Vec2 p2);
 		vector<vector<b2Vec2>> split(vector<b2Vec2> contour);
@@ -28,6 +28,7 @@ namespace server_model_handle{
 		vector<vector<b2Vec2>> mulK(vector<vector<b2Vec2>> contours, float scale);
 		vector<vector<b2Vec2>> valSize(vector<vector<b2Vec2>> contours);
 		string getErr(int valueErr);
+		string getTrace(int valueTrace);
 	};
 }
 #endif /*__HANDLECONTOUR__*/
