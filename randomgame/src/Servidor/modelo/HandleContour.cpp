@@ -36,10 +36,8 @@ vector<vector<b2Vec2>> HandleContour::
 				this->getErr(sep->Validate(contour)));
 			throw (sep->Validate(contour),"Contour not invalid");
 		}
-	
 		contourAux = this->rdp(contour, epsilon);
 		contourAux = this->mulK(contourAux, scale);
-
 		sep = new b2Separator();
 		sep->calcShapes(contourAux, result);
 		contourAux.clear();
@@ -100,16 +98,12 @@ vector<b2Vec2> HandleContour::rdp(vector<b2Vec2> contour, float epsilon){
 		contourRDP.insert(contourRDP.end(),
 			              contour4.begin(),
 						  contour4.end());
-		
-		return contourRDP;
 	}
 	else{
 		contourRDP.push_back(firstPoint);
 		contourRDP.push_back(lastPoint);
-		return contourRDP;
 	}
-	return contour;
-	//debo lanzar una excepcion
+	return contourRDP;
 }
 
 float HandleContour::findPerpendicularDistance(b2Vec2 p, b2Vec2 p1, b2Vec2 p2){

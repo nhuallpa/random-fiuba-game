@@ -106,9 +106,13 @@
 
 /**************************** HANDLE CONTOUR ***************************/
 #define HC_OFFSET 1000
-#define HC_ERROR_1 /*1001*/ "there are overlapping lines."
-#define HC_ERROR_2 /*1002*/ "the points are not in clockwise order."
-#define HC_ERROR_3 /*1003*/ "there are overlapping lines and the points are not in clockwise order."
+#define HC_ERROR_1 /*1001*/ "Existen Lineas superpuestas"
+#define HC_ERROR_2 /*1002*/ "Los puntos no esta en orde antihorario"
+#define HC_ERROR_3 /*1003*/ "Existen Lineas superpuestas y ademas los puntos no esta en orde antihorario"
+#define HC_TRACE_VAL  "Chequeando la validacion del contorno"
+#define HC_TRACE_RDP  "Procesando la eliminacion de puntos en el contorno"
+#define HC_TRACE_SHAPES  "Procesando las formas para los poligonos"
+#define HC_TRACE_MAX_VERTEX  "Procesando separacion de puntos por poligono"
 /**************************** HANDLE CONTOUR ***************************/
 
 
