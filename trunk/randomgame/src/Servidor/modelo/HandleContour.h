@@ -6,6 +6,8 @@
 #include <Box2D.h>
 #include <vector>
 #include "b2Separator.h"
+#include <string>
+#include <map>
 
 using namespace std;
 
@@ -18,13 +20,14 @@ namespace server_model_handle{
 			                                    float epsilon, 
 												int scale);
 	private:
-		
+		map<int, string> _error;
 		vector<b2Vec2> rdp(vector<b2Vec2> contour, float epsilon);
 		float findPerpendicularDistance(b2Vec2 p, b2Vec2 p1, b2Vec2 p2);
 		vector<vector<b2Vec2>> split(vector<b2Vec2> contour);
 		vector<b2Vec2> mulK(vector<b2Vec2> contour, float scale);
 		vector<vector<b2Vec2>> mulK(vector<vector<b2Vec2>> contours, float scale);
 		vector<vector<b2Vec2>> valSize(vector<vector<b2Vec2>> contours);
+		string getErr(int valueErr);
 	};
 }
 #endif /*__HANDLECONTOUR__*/
