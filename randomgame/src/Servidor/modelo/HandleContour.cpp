@@ -12,26 +12,32 @@ HandleContour::~HandleContour(){}
 
 
 vector<vector<b2Vec2>> HandleContour::
-	getPolygonConvex(vector<b2Vec2> contour, 
-	                 float epsilon, 
-					 int scale){
-	vector<vector<b2Vec2>> result, resultSplit, resultEnd, aux;
+	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
+
+	vector<vector<b2Vec2>> result, resultSplit, aux;
 	vector<vector<b2Vec2>>::iterator jt;
 	vector<b2Vec2>::iterator it;
 	vector<b2Vec2> contourReduced, contourEscalade;
+    b2Separator* sep = NULL;
 
-    b2Separator* sep = new b2Separator();
-	//ESCALAR?
-	for(it = contour.begin();
-	it != contour.end();
+
+	
+	contourReduced = this->rdp(contour, epsilon);
+
+
+
+	for(it = contourReduced.begin();
+	it != contourReduced.end();
 	it++){
 		contourEscalade.push_back(b2Vec2((*it).x*scale,(*it).y*scale));
 	}
+	contourReduced.clear();
 
-
-	contourReduced = this->rdp(contourEscalade, epsilon);
-	if (sep->Validate(contourReduced)==0) {
-		sep->calcShapes(contourReduced, result);
+	sep = new b2Separator();
+	if (sep->Validate(contourEscalade)==0) {
+		sep->calcShapes(contourEscalade, result);
+		
+		contourEscalade.clear();
 
 		for(jt = result.begin();
 		jt != result.end();
@@ -43,25 +49,26 @@ vector<vector<b2Vec2>> HandleContour::
 			it++){
 				vec.push_back(b2Vec2((*it).x/scale,(*it).y/scale));
 			}
-			resultEnd.push_back(vec);
+			aux.push_back(vec);
 		}
 	}
 	else {
 		//lanzar excepcion
 	}
+	
+	result.clear();
 		
-		
-	for(jt = resultEnd.begin(); jt != resultEnd.end(); jt++){
+	for(jt = aux.begin(); jt != aux.end(); jt++){
 		if((*jt).size() > MAX_VERTEX){
 			resultSplit = this->split((*jt));
-			aux.insert(aux.end(), resultSplit.begin(), resultSplit.end());
+			result.insert(result.end(), resultSplit.begin(), resultSplit.end());
 		}
 		else{
-			aux.push_back((*jt));
+			result.push_back((*jt));
 		}
 	}
 	delete sep;
-	return aux;
+	return result;
 }
 
 vector<b2Vec2> HandleContour::rdp(vector<b2Vec2> contour, float epsilon){
@@ -200,4 +207,61 @@ vector<vector<b2Vec2>> HandleContour::split(vector<b2Vec2> contour){
 	return contourRDP;
 }
 
+
+
+/*
+
+
+vector<vector<b2Vec2>> HandleContour::
+	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
+
+	vector<vector<b2Vec2>> result, resultSplit, aux;
+	vector<vector<b2Vec2>>::iterator jt;
+	vector<b2Vec2>::iterator it;
+	vector<b2Vec2> contourReduced, contourEscalade;
+    b2Separator* sep = NULL;
+
+	for(it = contour.begin();
+	it != contour.end();
+	it++){
+		contourEscalade.push_back(b2Vec2((*it).x*scale,(*it).y*scale));
+	}
+
+	sep = new b2Separator();
+	contourReduced = this->rdp(contourEscalade, epsilon);
+	if (sep->Validate(contourReduced)==0) {
+		sep->calcShapes(contourReduced, result);
+		
+		for(jt = result.begin();
+		jt != result.end();
+		jt++){
+			vector<b2Vec2> vec;
+			contourEscalade = (*jt);
+			for(it = contourEscalade.begin();
+			it != contourEscalade.end();
+			it++){
+				vec.push_back(b2Vec2((*it).x/scale,(*it).y/scale));
+			}
+			aux.push_back(vec);
+		}
+	}
+	else {
+		//lanzar excepcion
+	}
+	
+	result.clear();
+		
+	for(jt = aux.begin(); jt != aux.end(); jt++){
+		if((*jt).size() > MAX_VERTEX){
+			resultSplit = this->split((*jt));
+			result.insert(result.end(), resultSplit.begin(), resultSplit.end());
+		}
+		else{
+			result.push_back((*jt));
+		}
+	}
+	delete sep;
+	return result;
+}
+*/
 
