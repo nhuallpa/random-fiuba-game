@@ -33,6 +33,7 @@ namespace server_model_handle{
 		vector<vector<b2Vec2>> valSize(vector<vector<b2Vec2>> contours);
 		string getErr(int valueErr);
 		string getTrace(int valueTrace);
+		void removeVertexThanMore(vector<b2Vec2>* contour);
 	};
 }
 #endif /*__HANDLECONTOUR__*/
