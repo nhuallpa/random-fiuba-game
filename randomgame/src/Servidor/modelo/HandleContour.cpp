@@ -156,14 +156,14 @@ vector<vector<b2Vec2>> HandleContour::split(vector<b2Vec2> contour){
 		         contour3, contour4,
 				 contourRDP;
 
-	int i = 1, j = 0;
+	int i = 2, j = 0;
 
 	if(contour.size() <= MAX_VERTEX){
 		result.push_back(contour);
 		return result;
 	}
 
-	for(it = ++(contour.begin());
+	for(it = contour.begin(), ++it, ++it;
 		it != --(contour.end());
 		it++, i++){
 		aux = findPerpendicularDistance((*it),firstPoint,lastPoint);
