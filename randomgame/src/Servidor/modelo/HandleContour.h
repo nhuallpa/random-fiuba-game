@@ -19,9 +19,13 @@ namespace server_model_handle{
 		vector<vector<b2Vec2>> getPolygonConvex(vector<b2Vec2> contour,
 			                                    float epsilon, 
 												int scale);
+		vector<vector<vector<b2Vec2>>> 
+			getPolygonConvex(vector<vector<b2Vec2>> contours,
+			                                    float epsilon, 
+												int scale);
+		vector<b2Vec2> rdp(vector<b2Vec2> contour, float epsilon);
 	private:
 		map<int, string> _error;
-		vector<b2Vec2> rdp(vector<b2Vec2> contour, float epsilon);
 		float findPerpendicularDistance(b2Vec2 p, b2Vec2 p1, b2Vec2 p2);
 		vector<vector<b2Vec2>> split(vector<b2Vec2> contour);
 		vector<b2Vec2> mulK(vector<b2Vec2> contour, float scale);
