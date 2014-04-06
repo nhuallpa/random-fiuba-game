@@ -37,7 +37,8 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
 	this->GetVertex();
-
+	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
+	ge->setVertexList(this->GetVertex());
 
 }
 
