@@ -4,6 +4,7 @@
 #include <utility>
 #include "..\..\utils\Log.h"
 #include "..\..\utils\Constantes\Constantes.h"
+#include <map>
 
 #define SEGMENT 2
 #define MAX_VERTEX 8
@@ -223,6 +224,7 @@ vector<vector<b2Vec2>> HandleContour::valSize(vector<vector<b2Vec2>> contours){
 	vector<vector<b2Vec2>> result, resultSplit;
 	vector<vector<b2Vec2>>::iterator jt;
 	for(jt = contours.begin(); jt != contours.end(); jt++){
+		removeVertexThanMore(&(*jt));
 		if((*jt).size() > MAX_VERTEX){
 			resultSplit = this->split((*jt));
 			result.insert(result.end(), resultSplit.begin(), resultSplit.end());
@@ -234,6 +236,51 @@ vector<vector<b2Vec2>> HandleContour::valSize(vector<vector<b2Vec2>> contours){
 	return result;
 }
 
+void HandleContour::
+	removeVertexThanMore(vector<b2Vec2>* contour){
+		bool isDelete = false;
+		vector<b2Vec2>::iterator it;
+		vector<b2Vec2>::iterator itPoint;
+		map<float,vector<vector<b2Vec2>::iterator>>::iterator ft;
+		map<float,vector<vector<b2Vec2>::iterator>> mx;
+		map<float,vector<vector<b2Vec2>::iterator>> my;
+		for(it = contour->begin(); it != contour->end(); it++){
+			
+			//search x
+			ft = mx.find((*it).x);
+			if(ft != mx.end()){
+				(*ft).second.push_back(it);
+				if((*ft).second.size() >= 3){
+					itPoint = (*ft).second[1];
+					isDelete = true;
+					break;
+				}
+			}
+			else{
+				mx[(*it).x] = vector<vector<b2Vec2>::iterator>();	
+				mx[(*it).x].push_back(it);
+			}
+
+			//search y
+			ft = my.find((*it).y);
+			if(ft != my.end()){
+				(*ft).second.push_back(it);
+				if((*ft).second.size() >= 3){
+					itPoint = (*ft).second[1];
+					isDelete = true;
+					break;
+				}
+				
+			}
+			else{
+				my[(*it).y] = vector<vector<b2Vec2>::iterator>();
+				my[(*it).y].push_back(it);
+			}
+
+		}
+		if(isDelete) 
+			contour->erase(itPoint);
+}
 
 string HandleContour::getErr(int valueErr){
 	 return _error[HC_OFFSET + valueErr];
