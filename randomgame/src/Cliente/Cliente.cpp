@@ -30,7 +30,7 @@ void Cliente::loop(void){
 	bootstrap.init();
 
 	/** Retrieve the domain element to create the view elements*/
-	std::map<int,GameElement> map = this->cLevel.getModelElements();
+	std::map<int,GameElement*> map = this->cLevel.getEntities();
 	GameViewBuilder builder(map);
 
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), builder);

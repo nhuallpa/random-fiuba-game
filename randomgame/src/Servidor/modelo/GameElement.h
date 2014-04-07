@@ -30,6 +30,7 @@ enum ElementType{
 class GameElement {
 public:
 	GameElement(int id, ElementType type, float posX, float posY, int degrees, int h, int w, float mass);
+	GameElement(const GameElement & aGameElement);
 	
 	ElementType getType();
 	int getId();
@@ -41,7 +42,7 @@ public:
 	float getMass();
 	bool hasChanged();
 	void setBody(void* ab);
-	std::list<std::pair<float,float>> getVertex();
+	std::list<std::pair<float,float>> & getVertex();
 	void setVertexList(std::list<std::pair<float,float>> l);
 
 

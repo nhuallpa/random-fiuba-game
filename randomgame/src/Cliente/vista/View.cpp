@@ -6,7 +6,7 @@ View::View(int x, int y, std::string  color)
 	this->x = x;
 	this->y = y;
 	this->color = color;
-	this->borderColor = "#000000FF";
+	this->borderColor = color;
 }
 
 

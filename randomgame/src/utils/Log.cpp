@@ -143,9 +143,10 @@ void Log::log(TipoLog tipoLog, LugarLog lugarLog, std::string msj)
 {
 	if (file.is_open() && tipoLog >= LOG_LEVEL)
 	{
-		file	<< Log::logearTipoLog(tipoLog) << " "
+		file	<< Log::tiempoActual() << " " 
 				<< Log::logearLugarLog(lugarLog) << " "
-				<< Log::tiempoActual() << " " 
+				<< Log::logearTipoLog(tipoLog) << " "
+				
 				<< msj << "\n";
 
 		file.flush();

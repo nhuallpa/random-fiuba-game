@@ -2,8 +2,8 @@ escenario:
 	fps:		60
     ancho-un: 	2500
     alto-un: 	600
-    alto-px: 	400
-    ancho-px: 	800
+    alto-px: 	500
+    ancho-px: 	500
     nivel_agua: 50
 	color_agua: #0000FF99
 	color_tierra: #BC794FFF
