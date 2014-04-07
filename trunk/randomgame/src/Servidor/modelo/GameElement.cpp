@@ -13,6 +13,16 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, int d
 	this->mass = mass;
 }
 
+GameElement::GameElement(const GameElement & aGameElement):
+					id(aGameElement.id), changed(aGameElement.changed), 
+					ratio(aGameElement.ratio), type(aGameElement.type),
+					position(aGameElement.position), height(aGameElement.type), 
+					mass(aGameElement.type), myBody(aGameElement.myBody),
+					degrees(aGameElement.degrees), vertexList(aGameElement.vertexList)
+{
+}
+
+
 void GameElement::setVertexList(std::list<std::pair<float,float>> l){
 	this->vertexList = l;
 }
@@ -26,7 +36,7 @@ int GameElement::getId(){
 	return this->id;
 }
 
-std::list<std::pair<float,float>> GameElement::getVertex(){
+std::list<std::pair<float,float>> & GameElement::getVertex(){
 	return this->vertexList;
 }
 

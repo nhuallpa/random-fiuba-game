@@ -1,7 +1,7 @@
 #include "GameViewBuilder.h"
 
 
-GameViewBuilder::GameViewBuilder(const std::map<int,GameElement>& map):
+GameViewBuilder::GameViewBuilder(const std::map<int,GameElement*>& map):
 						domainElements(map)
 {
 }
@@ -24,47 +24,53 @@ void GameViewBuilder::buildSky(ViewGroup* container)
 
 void GameViewBuilder::buildFigures(ViewGroup* container)
 {
-	std::map<int,GameElement>::iterator it;
+	std::map<int,GameElement*>::iterator it;
 	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", domainElements.size());
 	for (it = domainElements.begin(); it != domainElements.end(); ++it)
 	{
+		GameElement* domainElement = it->second;
 		FigureView* aFigure = 0;
-		if (it->second.getType() == ElementType::CIRCLE) 
+		if (domainElement->getType() == ElementType::CIRCLE) 
 		{
-			int posX= it->second.getPosition().first;
-			int posY= it->second.getPosition().second;
-			//	int radio = it->second.
+			int posX= domainElement->getPosition().first;
+			int posY= domainElement->getPosition().second;
+
 			aFigure = new CircleView(posX, posY,20,"#00FF00FF", 0);
-		} else if (it->second.getType() == ElementType::SQUARE) 
+		} else if (domainElement->getType() == ElementType::SQUARE) 
 		{
-			Log::d("Imprimiendo vertices del RECTANGULO");
-			//std::list<std::pair<float,float>> theVertex = it->second.getVertex();
-			//
-			//std::list<std::pair<float,float>>::iterator itVertex;
-			//// Vertex A
-			//itVertex = theVertex.begin();
-			//RectangleView* aRectangle = new RectangleView("#FF0000FF");
-			//try {
-			//	++itVertex;
-			//	aRectangle->setVertexA((int)(itVertex->first), (int)(itVertex->second));
-			//	Log::d("Va[%f, %f]", (itVertex->first), (itVertex->second));
-			//	++itVertex;
-			//	aRectangle->setVertexB((int)itVertex->first, (int)itVertex->second);
-			//	Log::d("Vb[%f, %f]", (itVertex->first), (itVertex->second));
-			//	++itVertex;
-			//	aRectangle->setVertexC((int)itVertex->first, (int)itVertex->second);
-			//	Log::d("Vc[%f, %f]", (itVertex->first), (itVertex->second));
-			//	++itVertex;
-			//	aRectangle->setVertexD((int)itVertex->first, (int)itVertex->second);
-			//	Log::d("Vd[%f, %f]", (itVertex->first), (itVertex->second));
-			//} 
-			//catch (std::exception & e) 
-			//{
-			//	Log::d("Excepcion: %s", e.what());
-			//}
+			RectangleView* aRectangle;
+			Log::d("Creando rectangulo del RECTANGULO");
+			aRectangle = new RectangleView("#FF0000FF");
+			int vertexIndex = 1;
 
-
-			//aFigure = aRectangle;
+			std::list<std::pair<float,float>> & theVertex = domainElement->getVertex();
+			std::list<std::pair<float,float>>::iterator itVertex;
+				
+			for ( itVertex = theVertex.begin();
+					itVertex != theVertex.end();
+					++itVertex) 
+			{
+				Log::t("Vertex %d [%f, %f]", vertexIndex ,(itVertex->first), (itVertex->second));
+				int x = (int)(itVertex->first) / 10;
+				int y = (int)(itVertex->second);
+				switch (vertexIndex)
+				{
+					case 1:
+						aRectangle->setVertexA(x, y);
+						break;
+					case 2:
+						aRectangle->setVertexB(x, y);
+						break;
+					case 3:
+						aRectangle->setVertexC(x, y);
+						break;
+					case 4:
+						aRectangle->setVertexD(x, y);
+						break;
+				}
+				vertexIndex++;
+			}
+			aFigure = aRectangle;
 		}
 		if (aFigure) 
 		{
@@ -76,6 +82,13 @@ void GameViewBuilder::buildFigures(ViewGroup* container)
 
 void GameViewBuilder::buildWater(ViewGroup* container)
 {
+	//ParserYaml* aParser = ParserYaml::getInstance();
+	//std::string color = aParser->getEscenarioColorAgua();
+	//
+	///*** TODO: retrive from domain*/
+	//int heigth = 100;
+	//
+	//container->add(new WaterView(heigth, color)); 
 }
 
 void GameViewBuilder::buildTerrain(ViewGroup* container)

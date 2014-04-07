@@ -15,11 +15,11 @@
 class GameViewBuilder :
 	public ViewBuilder
 {
-	std::map<int,GameElement> domainElements;
+	std::map<int,GameElement*> domainElements;
 
 public:
 
-	GameViewBuilder(const std::map<int,GameElement>& map);
+	GameViewBuilder(const std::map<int,GameElement*> & map);
 	~GameViewBuilder(void);
 
 	
