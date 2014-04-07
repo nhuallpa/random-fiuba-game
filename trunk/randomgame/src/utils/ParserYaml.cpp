@@ -338,7 +338,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("color_agua")==0){
 
 					escenario.colorAgua = this->yamlNodeToString(it.second());
-					if (this->esHexaSdl(escenario.colorAgua)){
+					if (this->esHexa(escenario.colorAgua)){
 						fCAgua = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo COLOR_AGUA en nodo linea: %d.",(mark.line + 1));
@@ -359,7 +359,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("color_tierra")==0){
 
 					escenario.colorTierra = this->yamlNodeToString(it.second());
-					if (this->esHexaSdl(escenario.colorTierra)){
+					if (this->esHexa(escenario.colorTierra)){
 						fCTierra = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo COLOR_TIERRA en nodo linea: %d.",(mark.line + 1));
@@ -699,7 +699,7 @@ bool ParserYaml::esHexa(std::string str){
 	int len = str.length();
 	int i = 1;
 	bool ret = true;
-	if (len != 7) return false;
+	if (len != 9) return false;
 	//else return true;
 	if (str[0] != '#') return false;
 	while(i < len && ret != 0)
