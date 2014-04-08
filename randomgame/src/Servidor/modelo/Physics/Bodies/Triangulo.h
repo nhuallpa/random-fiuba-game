@@ -4,11 +4,13 @@
 
 #include "../Body.h"
 
-class Triangulo: public Body{
+class Triangle: public Body{
 public:
-	Triangulo(b2World* myWorld);
-	virtual ~Triangulo();
+	Triangle(ElementType type, float posX, float posY, float angle, float scale, float masa, b2World *myWorld, GameElement* modelElement, bool fixed);
+	virtual ~Triangle();
+	std::list<std::pair<float,float>> GetVertex();
 	void animate();
+	void touch(Body* touchingWith, b2World* mundo);
 
 private:
 	b2Body* createBody();

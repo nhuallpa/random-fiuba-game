@@ -6,6 +6,8 @@
 Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h, 
 		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement)
 {
+
+	//ToDo: escalar
 	this->myWorld = myWorld;
 	this->center = b2Vec2( posX+(w/2), posY+(h/2) );
 	this->angle = angle;
@@ -36,21 +38,19 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	dynamicBody->CreateFixture(&boxFixtureDef);
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
-	this->GetVertex();
+	//this->GetVertex();
+	
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	ge->setVertexList(this->GetVertex());
 
 }
 
-float round(float d)
-{
-  return floor(d + 0.5);
-}
+
 
 std::list<std::pair<float,float>> Cuadrado::GetVertex(){
 
-	
-    //verts now contains world co-ords of all the verts
+    //Los vertices los devuelve con las coordenadas cambiadas al sistemas de SDL (0,0) arriba a la izq
+
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion central 0,0: %.3f, %.3f", v.x, v.y);
 	b2PolygonShape* poly = (b2PolygonShape*)this->body->GetFixtureList()->GetShape();
@@ -62,9 +62,11 @@ std::list<std::pair<float,float>> Cuadrado::GetVertex(){
 		b2Vec2 verts = poly->GetVertex(i);
 		b2Vec2 f = this->body->GetWorldPoint(verts);
 		Log::d("Posicion vert %d: %.3f, %.3f",i, f.x, f.y);
-		int x = f.x + (atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
-		int y = (-1*f.y)+(atoi((aParser->getEscenarioAltoU()).c_str() )/2);
-		Log::d("Posicion vert (Modelo) %d: %d, %d",i, x, y);		
+		//float x = f.x + (atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
+		float x = f.x;
+		float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
+		//float y = f.y;
+		Log::d("Posicion vert (Modelo) %d: %.3f, %.3f",i, x, y);		
 		vertexList.push_back(std::make_pair(x,y));
 	}
 
@@ -81,10 +83,11 @@ void Cuadrado::animate(){
 	Log::d("Nueva posicion (Physics): %.3f, %.3f", f.x, f.y);
 
 	ParserYaml* aParser = ParserYaml::getInstance();
-	int x = round(f.x + atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
-	int y = round((-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() )/2);
+	float x = f.x;
+	//float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
+	float y = f.y;
 	ge->setPosition(std::make_pair( x,y) );
-	Log::d("Nueva posicion (Modelo): %d, %d", x,y);
+	Log::d("Nueva posicion (Modelo): %.3f, %.3f", x,y);
 	ge->setVertexList(this->GetVertex());
 
 }
