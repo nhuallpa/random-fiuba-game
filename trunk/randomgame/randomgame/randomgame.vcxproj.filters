@@ -141,9 +141,6 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.cpp">
       <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.cpp">
-      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\SystemManager.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -221,6 +218,15 @@
     </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\Position.cpp">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Circle.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +320,6 @@
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.h">
       <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.h">
-      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\SystemManager.h">
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
@@ -397,6 +400,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\Position.h">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Circle.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

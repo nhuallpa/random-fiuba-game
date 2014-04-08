@@ -91,6 +91,9 @@
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\PixelBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\Position.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Circle.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
@@ -116,7 +119,6 @@
     <ClCompile Include="..\src\Servidor\modelo\GameLevel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameLoop.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp" />
-    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Body.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\ContactListener.cpp" />
@@ -150,6 +152,9 @@
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\PixelBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\Position.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Circle.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h" />
     <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
@@ -174,7 +179,6 @@
     <ClInclude Include="..\src\Servidor\modelo\GameLevel.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameLoop.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.h" />
-    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pelota.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Body.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\ContactListener.h" />

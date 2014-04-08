@@ -74,9 +74,9 @@ float GameEngine::getTimeStep () {
 bool GameEngine::step(){
 
 	//animateJoints();
-	float32 timeStep = (1.0f/60.0f);
+	float32 timeStep = (1.0f/120.0f);
 	//Simulo (1 step) - default values Box2D
-	this->myWorld->Step(timeStep,8,3);
+	this->myWorld->Step(timeStep,2,2);
 
 	//Reflect model
 	std::list<Body*>::const_iterator iterator;
