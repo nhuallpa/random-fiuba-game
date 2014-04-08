@@ -47,4 +47,3 @@ void ViewGroup::draw(SDLScreen & screen)
 		(*it)->draw(screen);
 	}
 }
-

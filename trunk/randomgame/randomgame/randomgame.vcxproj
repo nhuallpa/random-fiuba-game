@@ -73,6 +73,7 @@
     <ClCompile Include="..\src\Cliente\controlador\EventS.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="..\src\utils\Log.cpp" />
     <ClCompile Include="..\src\utils\ParserYaml.cpp" />
     <ClCompile Include="..\src\utils\PersistYaml.cpp" />
+    <ClCompile Include="..\src\utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\controlador\Event.h" />
@@ -134,6 +136,7 @@
     <ClInclude Include="..\src\Cliente\controlador\EventS.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
+    <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
@@ -187,7 +190,7 @@
     <ClInclude Include="..\src\utils\Log.h" />
     <ClInclude Include="..\src\utils\ParserYaml.h" />
     <ClInclude Include="..\src\utils\PersistYaml.h" />
-    <ClInclude Include="..\src\utils\Transform.h" />
+    <ClInclude Include="..\src\utils\Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

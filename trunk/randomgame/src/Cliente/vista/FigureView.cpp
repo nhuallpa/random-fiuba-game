@@ -16,3 +16,7 @@ std::string FigureView::toString()
 {
 	return "";
 }
+
+void FigureView::update(GameElement* domainElement)
+{
+}

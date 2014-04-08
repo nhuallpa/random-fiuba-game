@@ -144,9 +144,8 @@ void Log::log(TipoLog tipoLog, LugarLog lugarLog, std::string msj)
 	if (file.is_open() && tipoLog >= LOG_LEVEL)
 	{
 		file	<< Log::tiempoActual() << " " 
-				<< Log::logearLugarLog(lugarLog) << " "
 				<< Log::logearTipoLog(tipoLog) << " "
-				
+				<< Log::logearLugarLog(lugarLog) << " "
 				<< msj << "\n";
 
 		file.flush();
@@ -164,7 +163,7 @@ std::string Log::logearTipoLog(TipoLog tipoLog)
 			return "[DEBUG]";
 			break;
 		case INFO :
-			return "[INFO]";
+			return "[INFO] ";
 			break;
 		case ERROR :
 			return "[ERROR]";
@@ -181,6 +180,8 @@ std::string Log::logearLugarLog(LugarLog lugarLog)
 			return "";
 		case PARSER:
 			return "[PARSER]";
+		case VIEW:
+			return "[VISTA]";
 	}
 	return "";
 }

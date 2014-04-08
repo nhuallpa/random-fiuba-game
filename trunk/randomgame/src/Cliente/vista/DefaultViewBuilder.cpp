@@ -16,12 +16,18 @@ ViewGroup* DefaultViewBuilder::buildContainer()
 	return new ViewGroup(0,0,0,0);
 }
 
+
+FigureViewGroup* DefaultViewBuilder::buildFigureContainer()
+{
+	return new FigureViewGroup(0,0,0,0);
+}
+
 void DefaultViewBuilder::buildSky(ViewGroup* container)
 {
 	container->add(new SkyView("sky"));
 }
 
-void DefaultViewBuilder::buildFigures(ViewGroup* container)
+void DefaultViewBuilder::buildFigures(FigureViewGroup* container)
 {
 
 	std::list< FigureView* > listFigures;
