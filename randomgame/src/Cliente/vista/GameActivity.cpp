@@ -1,21 +1,46 @@
 #include "GameActivity.h"
 
 
-GameActivity::GameActivity(const SDLScreen & screen, 
-							ViewBuilder & builder):Activity(screen)
+GameActivity::GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel)
+							:Activity(screen),cLevel(cLevel)
 {
-	View*  viewContainer = this->buildView(builder);
+	ViewGroup*  viewContainer = this->buildView(builder);
 	this->setContentView(viewContainer);
 }
 
-View* GameActivity::buildView( ViewBuilder & builder)
+ViewGroup* GameActivity::buildView( ViewBuilder & builder)
 {
 	ViewGroup* container = builder.buildContainer();
+	this->figureContainer = builder.buildFigureContainer();
 	builder.buildSky(container);
-	builder.buildFigures(container);
+	builder.buildFigures(figureContainer);
+
+	container->add(this->figureContainer);
+	
 	builder.buildTerrain(container);
 	builder.buildWater(container);
 	return container;
+}
+
+void GameActivity::update() 
+{
+	std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
+	std::map<int,GameElement*>::iterator it;
+	Log::d(VIEW,"Actualizando %d en elemento", domainElements.size());
+
+	for (it = domainElements.begin(); it != domainElements.end(); ++it)
+	{
+		GameElement* domainElement = it->second;
+		try
+		{
+			FigureView* aFigure = this->figureContainer->findById(domainElement->getId());
+			aFigure->update(domainElement);
+		}
+		catch (GameException e) {
+			Log::e(e.what());
+		}
+
+	}
 }
 
 GameActivity::~GameActivity(void)

@@ -29,7 +29,7 @@ void Activity::clear()
 {
 	this->m_screen.clear();
 }
-void Activity::setContentView(View * newView)
+void Activity::setContentView(ViewGroup * newView)
 {
 	this->aView = newView;
 }

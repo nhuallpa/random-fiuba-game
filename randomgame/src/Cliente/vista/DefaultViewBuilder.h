@@ -22,9 +22,11 @@ public:
 
 	ViewGroup* buildContainer();
 
+	FigureViewGroup* buildFigureContainer();
+
 	void buildSky(ViewGroup* container);
 
-	void buildFigures(ViewGroup* container);
+	void buildFigures(FigureViewGroup* container);
 
 	void buildWater(ViewGroup* container);
 

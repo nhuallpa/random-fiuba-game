@@ -15,12 +15,24 @@ private:
 public:
 	ViewGroup(int x, int y, int width, int height);
 
+	/**
+	* Add a view
+	*/
 	void add(View* aView);
 
+	/**
+	* Clean every view
+	*/
 	void clean();
 	
+	/**
+	* Update each view
+	*/
 	void update();
 	
+	/**
+	* Draw each view
+	*/
 	void draw(SDLScreen & screen);
 
 	void setHeight(int height) {mHeight=height;}

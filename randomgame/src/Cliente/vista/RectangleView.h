@@ -3,6 +3,7 @@
 #ifndef __RECTANGLE_VIEW_H_
 #define __RECTANGLE_VIEW_H_
 #include "FigureView.h"
+#include <list>
 class RectangleView :	public FigureView
 {
 
@@ -36,6 +37,16 @@ public:
 	tPoint getVertexB(){return this->vertexB;}
 	tPoint getVertexC(){return this->vertexC;}
 	tPoint getVertexD(){return this->vertexD;}
+
+	/**
+	* Update Figure view from DomainView object
+	*/
+	void update(GameElement* domainElement);
+
+	/**
+	* Update each vertex
+	*/
+	void updateVertex(std::list<std::pair<float,float>> & theVertex);
 
 
 	void draw(SDLScreen & screen);

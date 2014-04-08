@@ -54,23 +54,48 @@ void RectangleView::draw(SDLScreen & screen)
 				4,
 				this->getBorderColorCod());
 
+}
 
-	/* Only draw a rectangule without rotation
-	tPoint vertex1;
-	tPoint vertex2;
+void RectangleView::update(GameElement* domainElement)
+{
+	this->updateVertex(domainElement->getVertex());
+}
 
-	vertex1.x = (-1)*(this->getWidth() / 2);
-	vertex1.y = (this->getWidth() / 2);
-	vertex2.x = (this->getWidth() / 2);
-	vertex2.y = (-1)*(this->getWidth() / 2);
+void RectangleView::updateVertex(std::list<std::pair<float,float>> & theVertex)
+{
+	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
+	float factorX = scale_factor.first;
+	float factorY = scale_factor.second;
+	Log::t("Factor x y: [%f, %f]", factorX, factorY);
 
-	boxColor(screen.getRenderer(), 
-					this->getX() + vertex1.x, 
-					this->getY() + vertex1.y,					
-					this->getX() + vertex2.x,
-					this->getY() + vertex2.y, 
-					this->getColorCod());
-	*/
+	std::list<std::pair<float,float>>::iterator itVertex;
+	int vertexIndex = 1;
+	for ( itVertex = theVertex.begin();
+			itVertex != theVertex.end();
+			++itVertex) 
+	{
+				
+		int x = (factorX * itVertex->first);
+		int y = (factorX * itVertex->second);
+		Log::t("Vertex %d [%d, %d]", vertexIndex, x, y);
+ 
+		switch (vertexIndex)
+		{
+			case 1:
+				this->setVertexA(x, y);
+				break;
+			case 2:
+				this->setVertexB(x, y);
+				break;
+			case 3:
+				this->setVertexC(x, y);
+				break;
+			case 4:
+				this->setVertexD(x, y);
+				break;
+		}
+		vertexIndex++;
+	}
 
 }
 

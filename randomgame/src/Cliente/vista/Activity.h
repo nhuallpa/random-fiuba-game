@@ -4,7 +4,8 @@
 #ifndef __ACTIVITY_H_
 #define __ACTIVITY_H_
 #include "SDLScreen.h"
-#include "View.h"
+#include "ViewGroup.h"
+
 class Activity
 {
 private:
@@ -15,9 +16,9 @@ protected:
 	void clear();
 
 	/** Set the view to draw on window*/
-	void setContentView(View * newView);
+	void setContentView(ViewGroup * newView);
 
-	View* aView;
+	ViewGroup* aView;
 
 public:
 
@@ -26,7 +27,7 @@ public:
 	virtual ~Activity(void);
 
 	/** Update the view*/
-	void update();
+	virtual void update();
 
 	/** Render the view on screen*/
 	void render();

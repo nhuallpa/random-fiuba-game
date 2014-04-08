@@ -4,17 +4,22 @@
 #include <iostream>
 #include "Activity.h"
 #include "ViewBuilder.h"
+#include "../../Servidor/modelo/GameLevel.h"
 
 class GameActivity : public Activity
 {
 private:
 	
-	ViewGroup * viewContainer;
+	GameLevel* cLevel;
+
+	FigureViewGroup* figureContainer;
 
 public:
-	GameActivity(const SDLScreen & screen, ViewBuilder & builder);
+	GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel);
 
-	View* buildView( ViewBuilder & builder);
+	ViewGroup* buildView( ViewBuilder & builder);
+
+	void update();
 
 	void onCreate();
 

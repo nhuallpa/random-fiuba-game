@@ -3,6 +3,7 @@
 #ifndef __VIEW_BUILDER_H__
 #define __VIEW_BUILDER_H__
 #include "ViewGroup.h"
+#include "FigureViewGroup.h"
 class ViewBuilder
 {
 public:
@@ -15,6 +16,12 @@ public:
 	virtual ViewGroup* buildContainer() = 0;
 
 	/**
+	* Build a view group to store a many figures
+	* @return ViewGroup a view group
+	*/
+	virtual FigureViewGroup* buildFigureContainer() = 0;
+
+	/**
 	* Build a sky view and add it to container
 	* @param ViewGroup a container
 	*/
@@ -24,7 +31,7 @@ public:
 	* Build many figures of view and add it to container
 	* @param ViewGroup a container
 	*/
-	virtual void buildFigures(ViewGroup* container) = 0;
+	virtual void buildFigures(FigureViewGroup* container) = 0;
 
 	/**
 	* Build a water view and add it to container

@@ -3,6 +3,7 @@
 #define __GAME_VIEW_BUILDER_H__
 #include "SkyView.h"
 #include "ViewGroup.h"
+#include "FigureViewGroup.h"
 #include "WaterView.h"
 #include "RectangleView.h"
 #include "PolygonView.h"
@@ -10,6 +11,7 @@
 #include "TriangleView.h"
 #include "TerrainView.h"
 #include "ViewBuilder.h"
+#include "../../utils/Util.h"
 #include "../../Servidor/modelo/GameElement.h"
 
 class GameViewBuilder :
@@ -25,9 +27,11 @@ public:
 	
 	ViewGroup* buildContainer();
 
+	FigureViewGroup* buildFigureContainer();
+
 	void buildSky(ViewGroup* container);
 
-	void buildFigures(ViewGroup* container);
+	void buildFigures(FigureViewGroup* container);
 
 	void buildWater(ViewGroup* container);
 
