@@ -454,7 +454,69 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 	
 }
 
+void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
+	stMeta meta;
+	//bool fNombre = false;
+	bool fEps = false;
+	bool fSca = false;
+	
+	const YAML::Node& node = nodeVect;
+		 YAML::Mark mark = node.GetMark();
+		 try{
+			 YAML::Iterator it=node.begin();
+			 
+			 if (!node.size()){
+				Log::e(PARSER,"Error parseando escenario. Iniciando escenario con configuración default");
+				this->startWithDefaultLevel();
+				return;
+			 }
 
+			 for(;it!=node.end();++it){
+				
+				std::string key = this->yamlNodeToString(it.first());
+				
+				if (key.compare("epsilon")==0){
+
+					meta.epsilon = this->yamlNodeToString(it.second());
+					if (this->esNumero(meta.epsilon)){
+					fEps = true;
+					} else
+						Log::e(PARSER,"Valor incorrecto para atributo EPSILON en nodo linea: %d.",(mark.line + 1));
+				}
+				else if (key.compare("scale")==0){
+
+					meta.scale = this->yamlNodeToString(it.second());
+					if (this->esInt(meta.scale)){
+						fSca = true;
+						} else
+							Log::e(PARSER,"Valor incorrecto para atributo SCALE en nodo linea: %d.",(mark.line + 1));
+				}
+				else {
+					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
+					Log::e(PARSER,"Metadata key no es un identificador correcto de metadata. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
+				}
+			 }
+			}catch(YAML::Exception& e){ 
+			Log::e(PARSER,"%s",e.what());
+			exit(1);
+		 }
+		 if ( fEps && fSca){
+			esMeta = meta;
+			//Log carga Nivel correctamente
+		}
+		else{
+			if (!fEps){
+				Log::e(PARSER,"epsilon no encontrado, seteando default");
+				meta.epsilon = "10";
+			}
+			if (!fSca){
+				Log::e(PARSER,"scale no encontrado, seteando default");
+				meta.scale = "10";
+			}
+		}
+		esMeta = meta;
+
+}
 
 int ParserYaml::getElementPosition(std::string name){
 	std::map< std::string, std::pair<int,std::string> >::iterator it;
@@ -477,13 +539,15 @@ std::string ParserYaml::getElementType(int id){
 	}
 }
 
+
+
 void ParserYaml::cargarNivelYaml(std::string file){
 	std::ifstream fin(file.c_str());
 	this->levelFilePath = file;
 	
 	//flags
 	bool fNivel = false;
-
+	bool fMeta = false;
 
 	if (fin.good() == true){
 		try{
@@ -507,6 +571,10 @@ void ParserYaml::cargarNivelYaml(std::string file){
 					fNivel = true;
 					this->cargarNiveles(data,this->todo.escenario);
 				}
+				else if (key.compare("metadata")==0){
+					fMeta = true;
+					this->cargarMeta(data,this->todo.meta);
+				}
 				else{
 					//LOG: key no es un identificador correcto del archivo de nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
 					Log::e(PARSER,"%s no es un identificador correcto del archivo de escenario.", key);
@@ -522,6 +590,18 @@ void ParserYaml::cargarNivelYaml(std::string file){
 				//LOG: La carga del nivel guardado es incorrecta
 				Log::e(PARSER,"La carga del escenario guardado es incorrecta");
 				Log::e(PARSER,"Iniciando escenario con configuración default");
+				this->startWithDefaultLevel();
+				//exit(1);
+			}
+			if(fMeta){
+				//LOG: Se cargo el nivel correctamente
+				Log::d(PARSER,"Se cargo la metadata correctamente");
+				
+			}
+			else{
+				//LOG: La carga del nivel guardado es incorrecta
+				Log::e(PARSER,"La carga de la metadata guardado es incorrecta");
+				Log::e(PARSER,"Iniciando metadata con configuración default");
 				this->startWithDefaultLevel();
 				//exit(1);
 			}
@@ -547,6 +627,15 @@ void ParserYaml::cargarNivelYaml(std::string file){
 
 
 //+++++geters++++++
+
+std::string ParserYaml::getMetaEps(){
+	return this->todo.meta.epsilon;
+}
+
+std::string ParserYaml::getMetaSca(){
+	return this->todo.meta.scale;
+}
+
 
 
 std::string ParserYaml::getEscenarioFps(){
@@ -672,6 +761,13 @@ std::string ParserYaml::validaPantalla(std::string tam){
 	return "";
 	}
 
+
+bool ParserYaml::esInt(std::string str){
+	for (unsigned int i=0;i<str.length();i++)
+		if (isdigit(str[i])==0) return false;
+	return true;
+
+}
 
 bool ParserYaml::esNumero(std::string str){
 	int len = str.length();
