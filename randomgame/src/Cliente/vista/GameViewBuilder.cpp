@@ -38,14 +38,22 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 		FigureView* aFigure = 0;
 		if (domainElement->getType() == ElementType::CIRCLE) 
 		{
-			int posX= domainElement->getPosition().first;
-			int posY= domainElement->getPosition().second;
+			Log::d("Creando CIRCULO");
 
-			aFigure = new CircleView(posX, posY,20,"#00FF00FF", 0);
+			//float factorRadius = Util::getTransformRadiusFromU2PX();
+			float radius = domainElement->getRadius();// * factorRadius;
+			Log::t("Radio: %f", radius);
+
+			CircleView* aCircle = new CircleView("#00FF00FF");
+			aCircle->setRadio(radius);
+			aCircle->updatePositions(domainElement->getPosition());
+			aCircle->setId(domainElement->getId());
+			aFigure = aCircle;
+
 		} 
 		else if (domainElement->getType() == ElementType::SQUARE) 
 		{
-			Log::d("Creando rectangulo del RECTANGULO");
+			Log::d("Creando RECTANGULO");
 			RectangleView* aRectangle = new RectangleView("#FF0000FF");
 			aRectangle->updateVertex(domainElement->getVertex());
 			aRectangle->setId(domainElement->getId());

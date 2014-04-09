@@ -4,6 +4,8 @@
 #include <list>
 #include "Physics\ContactListener.h"
 #include "Physics\Body.h"
+#include "Physics\Bodies\Cuadrado.h"
+#include "Physics\Bodies\Circle.h"
 
 class GameEngine {
 
