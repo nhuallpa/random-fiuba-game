@@ -29,7 +29,20 @@ enum ElementType{
 
 class GameElement {
 public:
+
+	/**
+	* Constructor for Rectangule
+	*/
 	GameElement(int id, ElementType type, float posX, float posY, int degrees, int h, int w, float mass);
+
+	/**
+	* Constructor for Circle
+	*/
+	GameElement(int id, float posX, float posY, float radius, float scale, float mass, bool isFixed);
+
+	/**
+	* Constructor for Copy
+	*/
 	GameElement(const GameElement & aGameElement);
 	
 	ElementType getType();
@@ -44,6 +57,9 @@ public:
 	void setBody(void* ab);
 	std::list<std::pair<float,float>> & getVertex();
 	void setVertexList(std::list<std::pair<float,float>> l);
+	float getRadius();
+	float getScale();
+	bool isFixed();
 
 
 private:
@@ -59,6 +75,15 @@ private:
 	// Center position!
 	std::pair<float,float> position;
 	std::list<std::pair<float,float>> vertexList;
+
+	/** Used for circule */
+	float radius;
+
+	/** The scale factor */
+	float scale;
+
+	/** True if the element is static */
+	bool fixed;
 };
 
 #endif /* GAMEELEMENT_H_ */

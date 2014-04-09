@@ -13,12 +13,26 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, int d
 	this->mass = mass;
 }
 
+GameElement::GameElement(int id, float posX, float posY, float radius, float scale, float mass, bool fixed)
+{
+	this->id = id;
+	this->changed = false;
+	this->type = CIRCLE;
+	this->position = std::make_pair(posX,posY);
+	this->mass = mass;
+	this->radius = radius;
+	this->scale = scale;
+	this->fixed = fixed;
+}
+
 GameElement::GameElement(const GameElement & aGameElement):
 					id(aGameElement.id), changed(aGameElement.changed), 
 					ratio(aGameElement.ratio), type(aGameElement.type),
 					position(aGameElement.position), height(aGameElement.type), 
 					mass(aGameElement.type), myBody(aGameElement.myBody),
-					degrees(aGameElement.degrees), vertexList(aGameElement.vertexList)
+					degrees(aGameElement.degrees), vertexList(aGameElement.vertexList),
+					radius(aGameElement.radius), scale(aGameElement.scale),
+					fixed(aGameElement.fixed)
 {
 }
 
@@ -70,4 +84,19 @@ void GameElement::setPosition(std::pair<float,float> p){
 
 bool GameElement::hasChanged(){
 	return this->changed;
+}
+
+float GameElement::getRadius()
+{
+	return this->radius;
+}
+
+float GameElement::getScale()
+{
+	return this->scale;
+}
+
+bool GameElement::isFixed()
+{
+	return this->fixed;
 }

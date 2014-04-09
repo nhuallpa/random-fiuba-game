@@ -50,11 +50,18 @@ class GameLevel {
 		//TODO @future - void removePlayer(GamePlayer *jugador);
 		//TODO @future - void addPlayer(GamePlayer *jugador);
 
+		// ESTE NO VA 
 		std::map<int,GameElement> getModelElements();
+
 		std::map<int, GameElement*> getEntities();
+
 		void addEntity(GameElement *entidad);
+
 		void removeEntity(int id);
+
 		//void entityUpdatePosition(int tileX, int tileY, int id);
 		bool posicionOcupada(float x, float y);
+
 		bool checkMapPosition(float x, float y);
+
 };

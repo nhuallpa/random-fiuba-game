@@ -1,5 +1,5 @@
 #include "GameEngine.h"
-#include "Physics\Bodies\Cuadrado.h"
+
 
 GameEngine::GameEngine() {
 	
@@ -47,16 +47,36 @@ void GameEngine::animateBodies() {
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
 	Log::d("Creando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
-		Log::d("Encontre un elemento");
+		Log::t("Encontre un elemento");
 		switch ((*elems).second->getType()){
 			// Match de tipos y creacion de elementos en base a ello.
 			case SQUARE:
-				Cuadrado* sq = new Cuadrado(SQUARE, (*elems).second->getPosition().first , (*elems).second->getPosition().second, 
-					(*elems).second->getHeight(), (*elems).second->getWidth(), (*elems).second->getMass(),
-					(*elems).second->getRotation(), this->myWorld, ((*elems).second) );
-				(*elems).second->setBody(sq);
-				Log::d("Puntero cuadrado: %p",sq); 
-				this->gameBodies.push_back(sq);
+				{
+					Cuadrado* sq = new Cuadrado(SQUARE, (*elems).second->getPosition().first , (*elems).second->getPosition().second, 
+						(*elems).second->getHeight(), (*elems).second->getWidth(), (*elems).second->getMass(),
+						(*elems).second->getRotation(), this->myWorld, ((*elems).second) );
+					(*elems).second->setBody(sq);
+					Log::t("Puntero cuadrado: %p",sq); 
+					this->gameBodies.push_back(sq);
+				}
+				break;
+			case CIRCLE:
+				{
+					Circle* sq = new Circle(SQUARE, 
+							(*elems).second->getPosition().first , 
+							(*elems).second->getPosition().second,
+							(*elems).second->getRadius(), 
+							(*elems).second->getScale(), 
+							(*elems).second->getMass(),
+							this->myWorld, 
+							(*elems).second,
+							(*elems).second->isFixed());
+
+					(*elems).second->setBody(sq);
+
+					Log::t("Puntero circulo: %p",sq); 
+					this->gameBodies.push_back(sq);
+				}
 				break;
 		}
 
