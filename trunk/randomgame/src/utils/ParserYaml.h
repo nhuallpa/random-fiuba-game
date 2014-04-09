@@ -46,6 +46,11 @@ private:
 		std::string cielo;
 		std::vector <stElemento> elem;	
 	};
+	struct stMeta{
+		std::string epsilon ;
+		std::string scale ;
+	};
+
 	/*
 	struct dtElemento{
 		std::string nombre;
@@ -56,6 +61,7 @@ private:
 	struct stTodo{
 		//std::vector <dtElemento> dataE;//contiene la data de un elemento
 		stEscenario escenario;
+		stMeta meta;
 	};
 private:
 	
@@ -64,6 +70,7 @@ private:
 	void cargarElementos(const YAML::Node&,std::vector <stElemento>&);
 //	void cargarDataElementos(const YAML::Node&,std::vector <dtElemento>&);
 	void cargarNiveles(const YAML::Node&,stEscenario&);
+	void cargarMeta(const YAML::Node&,stMeta&);
 		
 //	bool existeElemen(std::string,std::vector <dtElemento>&);
 
@@ -76,6 +83,7 @@ private:
 	void loggearErrGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,YAML::Mark);
 	bool estaticoValido(std::string);
 	bool esHexaSdl(std::string);
+	bool esInt(std::string str);
 
 	bool isDefault;
 
@@ -118,7 +126,8 @@ public:
 	std::string getDataElemNombre(int);//devuelve el nombre de el dataElem de la posicion que se le pase
 	std::string getDataElemImagen(int);*/
 	
-	
+	std::string getMetaEps();
+	std::string getMetaSca();
 	
 	
 	//para trabajar con un solo escenario
@@ -149,5 +158,7 @@ public:
 	std::string getElemRot(int);
 	std::string getElemRadio(int);
 
+
+	
 
 };
