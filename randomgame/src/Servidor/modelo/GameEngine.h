@@ -1,11 +1,15 @@
 #pragma once
 
+#ifndef __GAMEENGINE__ 
+#define __GAMEENGINE__
+
 #include "GameLevel.h"
 #include <list>
 #include "Physics\ContactListener.h"
 #include "Physics\Body.h"
 #include "Physics\Bodies\Cuadrado.h"
 #include "Physics\Bodies\Circle.h"
+#include "TerrainProcessor.h"
 
 class GameEngine {
 
@@ -15,7 +19,7 @@ class GameEngine {
 		int velocityIterations;   
 		int positionIterations;
 		//ThreadRcv* pRcvThread;
-
+		TerrainProcessor* aTerrainProcessor;
 		std::list<Body*> bodies;
 		b2World* myWorld;
 
@@ -51,3 +55,6 @@ class GameEngine {
 		GameLevel getLevel();
 		int howManyPlayers(void);
 };
+
+
+#endif /*__GAMEENGINE__*/

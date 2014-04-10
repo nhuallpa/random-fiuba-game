@@ -19,6 +19,10 @@ bool GameEngine::initWorld(){
 
 	//ToDo @aliguo
 	//Create terrain from BMP
+	ParserYaml* aParser=ParserYaml::getInstance();
+	string path="C:\\random-fiuba-game\\randomgame\\randomgame\\image\\test2.bmp";//aParser->getEscenarioTierra();
+	char *pepe=(char*)path.c_str();
+	aTerrainProcessor=new TerrainProcessor(this->myWorld,pepe,1.5,100);
 
 
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
