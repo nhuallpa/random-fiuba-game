@@ -1,5 +1,5 @@
 #include "GameEngine.h"
-
+#include <list>
 
 GameEngine::GameEngine() {
 	
@@ -23,6 +23,9 @@ bool GameEngine::initWorld(){
 	string path="C:\\random-fiuba-game\\randomgame\\randomgame\\image\\test2.bmp";//aParser->getEscenarioTierra();
 	char *pepe=(char*)path.c_str();
 	aTerrainProcessor=new TerrainProcessor(this->myWorld,pepe,1.5,100);
+	this->gameLevel.setTerrain(aTerrainProcessor);
+
+	list<list<pair<float,float>>> *pepee = aTerrainProcessor->getListOfPolygons();
 
 
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
