@@ -234,6 +234,9 @@
     <ClCompile Include="..\src\utils\Util.cpp">
       <Filter>Archivos de código fuente\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -418,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="..\src\utils\Util.h">
       <Filter>Archivos de código fuente\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\EllipseView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

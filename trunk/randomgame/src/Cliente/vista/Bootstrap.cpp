@@ -19,7 +19,7 @@ void Bootstrap::init()
 	} 
 
 	std::map<std::string, std::string> map_images;
-	map_images["sky"] = aParser->getEscenarioCielo();
+	map_images["sky"] = "image/cielo1.png";///aParser->getEscenarioCielo();
 
 
 	std::map<std::string, std::string>::iterator it;
