@@ -45,6 +45,11 @@ void GameLevel::setWidth(int w){
 	this->levelWidth = w;
 }
 
+void GameLevel::setTerrain(TerrainProcessor* aNewTerrain)
+{
+	this->aTerrainProcessor=aNewTerrain;
+}
+
 void GameLevel::removeEntity(int id) {
 
 	std::map<int, GameElement*>::iterator it = this->entities.begin();
@@ -114,6 +119,10 @@ std::map<int, GameElement*> GameLevel::getEntities(){
 	return (this->entities);
 }
 
+TerrainProcessor* GameLevel::getTerrain()
+{
+	return this->aTerrainProcessor;
+}
 
 void GameLevel::destroyEntities(){
 	std::map<int, GameElement*>::iterator it = this->entities.begin();

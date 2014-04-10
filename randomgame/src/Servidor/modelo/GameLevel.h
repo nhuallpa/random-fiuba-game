@@ -7,6 +7,7 @@
 #include <list>
 #include "../../utils/ParserYaml.h"
 #include "../../utils/PersistYaml.h"
+#include "TerrainProcessor.h"
 //#include "../../utils/utils.h"
 
 
@@ -24,7 +25,7 @@ class GameLevel {
 		//ToDo @aliguo ID, map de gameelements
 		std::map<int,GameElement> modelElements;
 		std::map<int, GameElement*> entities;
-
+		TerrainProcessor* aTerrainProcessor;
 		GameElement getEntity(int id);
 
 		void destroyPlayers();
@@ -42,10 +43,12 @@ class GameLevel {
 		// Getters
 		int getHeight();
 		int getWidth();
+		TerrainProcessor* getTerrain();
 
 		// Setters
 		void setHeight(int h);
 		void setWidth(int w);
+		void setTerrain(TerrainProcessor* aTerrainProcessor);
 
 		//TODO @future - void removePlayer(GamePlayer *jugador);
 		//TODO @future - void addPlayer(GamePlayer *jugador);
