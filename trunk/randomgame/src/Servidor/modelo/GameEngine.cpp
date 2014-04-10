@@ -25,7 +25,7 @@ bool GameEngine::initWorld(){
 	aTerrainProcessor=new TerrainProcessor(this->myWorld,pepe,1.5,100);
 	this->gameLevel.setTerrain(aTerrainProcessor);
 
-	list<list<pair<float,float>>> *pepee = aTerrainProcessor->getListOfPolygons();
+	//list<list<pair<float,float>>> *pepee = aTerrainProcessor->getListOfPolygons();
 
 
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
