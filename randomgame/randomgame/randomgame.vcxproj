@@ -73,6 +73,7 @@
     <ClCompile Include="..\src\Cliente\controlador\EventS.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="..\src\Cliente\controlador\EventS.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
+    <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
