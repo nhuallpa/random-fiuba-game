@@ -1,8 +1,10 @@
 #ifndef BMP_H
 #define BMP_H
 
-#include <list>
+
 #include "DataBmp.h"
+#include "../../../utils/Log.h"
+#include <list>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,6 +25,7 @@ public:
 	int getWidth();
 	bool posValid(int posX, int posY);
 	list<Position*>* getBlackPositions();
+	void validarArchivo();
     ~Bmp();
 };
 #endif
