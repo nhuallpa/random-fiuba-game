@@ -18,8 +18,7 @@
 
 			m_world->SetGravity(b2Vec2(0.0f, -10.0f));
 			b2Vec2 center = b2Vec2( posX+w/2, posY+h/2 );
-			angle = angle;
-			masa = masa;
+
 
 
 			b2BodyDef myBodyDef;
@@ -38,6 +37,7 @@
 			boxFixtureDef.shape = &boxShape;
 			boxFixtureDef.density = masa;
 			dynamicBody->CreateFixture(&boxFixtureDef);
+			dynamicBody->SetTransform( dynamicBody->GetPosition(), angle );
 
 
 		
