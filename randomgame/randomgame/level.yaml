@@ -1,50 +1,44 @@
+metadata:
+    epsilon: 10
+    scale: 15
 escenario:
-    fps: 60
-    ancho-un: 2500
-    alto-un: 600
-    alto-px: 400
-    ancho-px: 1000
+    fps: 100
+    ancho-un: 600
+    alto-un: 900
+    alto-px: 600
+    ancho-px: 300
     nivel_agua: 50
-    color_agua: "#0000FF99"
     imagen_tierra: image/TIMv1.jpg
-    color_tierra: "#BC794FFF"
-    imagen_cielo: image/cielo1.png
+    imagen_cielo:   cielo1.png
+    color_tierra: "#00FF00AA"
+    color_agua: "#00FF00AB"
     objetos:
-    - tipo: 	rec
-      id: 		1
-      x: 		43.44
-      y: 		100
-      alto: 	10
-      ancho: 	10
-      color: 	"#FF0000FF"
-      estatico: no
-      rot: 		0
-      masa: 	1
-    - tipo: 	tri
-      id:		2
-      x: 		50
-      y: 		50
-      escala:	3.5
-      color: 	"#00FF00FF"
+    - tipo: rec
+      id: rec1
+      x:           43.444444
+      y:           100
+      alto: 1
+      ancho: 1
+      color: "#00FF00CB"
       estatico: si
-      rot: 		0
-      masa: 	1
-    - tipo: 	pent
-      id:		3
-      x: 		150
-      y: 		50
-      escala:	2
-      color: 	"#0000FFFF"
-      estatico: si
-      rot: 		10
-      masa: 	4
-    - tipo: 	circ
-      id:		4
-      x: 		150
-      y: 		250
-      escala:	1.5
-      color: 	"#00FFFFFF"
+      rot: 0
+      masa: 1
+    - tipo: tri
+      id: tri1
+      x: 74.18
+      y: 0.77
+      escala: 2
+      color: "#F10000BC"
       estatico: no
-      rot: 		10
-      masa: 	4
-      radio: 	3
+      rot: 0
+      masa: 1
+    - tipo: circ
+      escala: 2
+      id: circ1
+      x: 74.18
+      y: 0.77
+      radio: 15
+      color: "#F10000AA"
+      estatico: si
+      rot: 0
+      masa: 1
