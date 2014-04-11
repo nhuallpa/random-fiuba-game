@@ -109,13 +109,14 @@ void ParserYaml::startWithDefaultLevel(){
 void ParserYaml::DestroySingleton(){
 	if(pInstance != NULL) delete pInstance;
 }
-/*
+
 ParserYaml* ParserYaml::getInstance(){
+	std::string path = "level.yaml";
 	if(pInstance == NULL){
-		pInstance = new ParserYaml(CONFIG_FILE);
+		pInstance = new ParserYaml(CONFIG_FILE,path,true);
 	}
 	return pInstance;
-}*/
+}
 
 
 ParserYaml* ParserYaml::getInstance(std::string file){
