@@ -80,7 +80,7 @@ void GameViewBuilder::buildWater(ViewGroup* container)
 	std::string color = aParser->getEscenarioColorAgua();
 	
 	/*** TODO: retrive from domain*/
-	int heigth = 100;
+	int heigth = 20;
 	
 	container->add(new WaterView(heigth, color)); 
 }
@@ -90,9 +90,6 @@ void GameViewBuilder::buildTerrain(ViewGroup* container)
 	Log::d("Creando TERRENO en vista");
 
 	TerrainView* aTerrain = new TerrainView("#BC794FFF");
-
-	ParserYaml* aParser = ParserYaml::getInstance();
-	int heightScreen = atoi(aParser->getEscenarioAltoP().c_str());
 
 	list< list< pair<float,float> > > * polygonsPoint = this->cLevel->getTerrain()->getListOfPolygons();
 	list< list< pair<float,float> > >::iterator itPolygons;
@@ -112,12 +109,8 @@ void GameViewBuilder::buildTerrain(ViewGroup* container)
 		for (itPoints = points.begin(); itPoints!=points.end(); ++itPoints) 
 		{
 			Log::t("----> Punto: %f %f", itPoints->first, itPoints->second);
-			tPoint aPoint;
+			tPoint aPoint = Util::convertPointUL2PXSDL(itPoints->first, itPoints->second);
 			
-			aPoint.x = itPoints->first;
-			aPoint.y = (heightScreen - itPoints->second);	
-
-
 			pointsToView.push_back(aPoint);
 		}
 		polygonsToView.push_back(pointsToView);

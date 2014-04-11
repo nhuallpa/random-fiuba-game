@@ -6,6 +6,13 @@
 #include "ParserYaml.h"
 #include <stdlib.h>
 
+
+struct s_point{
+	int x;
+	int y;
+};
+typedef struct s_point tPoint;
+
 class Util
 {
 public:
@@ -32,6 +39,17 @@ public:
 	* @return float
 	*/
 	static float string2float(std::string number);
+
+
+	/**
+	* Convert a coordinate x y to coordinate in SDL system reference
+	* @param x Value of axis x in domain
+	* @param y Value of axis y in domain
+	* @return aPoint in SLD system reference
+	*/
+	static tPoint convertPointUL2PXSDL(float x, float y);
 };
+
+
 
 #endif
