@@ -24,7 +24,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 		}
 		try
 		{
-			result = hc.getPolygonConvex(lista, 0.5, 100);
+			result = hc.getPolygonConvex(lista, epsilon, scale);
 		}
 		catch(exception e)
 		{
@@ -40,7 +40,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			for(int nroVertice=0; nroVertice < cantDeVerticesDelPoligono; nroVertice++)
 			{
 				b2Vec2 unVertice = aPolygon[nroVertice];
-				vertices[nroVertice] = this->transformBmpToBox2D(unVertice, aBmpFile->getHeight());
+				vertices[nroVertice] = this->transformBmpToBox2D(unVertice, aBmpFile->getHeight(), aBmpFile->getWidth());
 				pair<float,float> aPosition(vertices[nroVertice].x,vertices[nroVertice].y);
 				aListOfPoints.push_back(aPosition);
 			}
@@ -79,11 +79,12 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 
 
 //	swapea los valores del b2vec
-b2Vec2 TerrainProcessor::transformBmpToBox2D(b2Vec2 vertex, int height)
+b2Vec2 TerrainProcessor::transformBmpToBox2D(b2Vec2 vertex, int height, int width)
 	{
+		ParserYaml* aParser = ParserYaml::getInstance();
 		b2Vec2 nuevo;
-		nuevo.y =(-1*vertex.x)+height-1;
-		nuevo.x = vertex.y;
+		nuevo.y =((-1*vertex.x)+height-1)*(atoi((aParser->getEscenarioAltoU()).c_str() ) / height);
+		nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / width);
 		return nuevo;
 	}
 

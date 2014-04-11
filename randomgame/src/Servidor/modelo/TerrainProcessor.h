@@ -6,6 +6,8 @@
 #include "HandlerBmp/ContourBmp.h"
 #include "HandleContour.h"
 #include "../../libs/Box2D/Box2D.h"
+#include"../../utils/ParserYaml.h"
+
 #include <cstdio>
 #include <iostream>
 #include <iostream>
@@ -18,7 +20,7 @@ using namespace std;
 class TerrainProcessor
 {
 private:
-	b2Vec2 transformBmpToBox2D(b2Vec2 vertex, int height);
+	b2Vec2 transformBmpToBox2D(b2Vec2 vertex, int height, int width);
 	list< list< pair<float,float> > >* aListOfPolygons;
 
 public:

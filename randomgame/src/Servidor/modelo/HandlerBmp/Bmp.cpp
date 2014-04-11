@@ -3,18 +3,9 @@
 
 Bmp::Bmp(char* path)
 {
-    fileBmp = fopen(path, "rb");
-  if (fileBmp==NULL) {
+  fileBmp = fopen(path, "rb");
+  validarArchivo();
 
-	/* Cargar el archivo por default
-	//fileBmp = fopen(pathDefault, "rb");
-		if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
-		{
-			fputs ("Default Bmp File Error",stderr); exit (1);
-		}
-	*/
-	  fputs ("File error",stderr); exit (1);
-  }
 
   // obtain file size:
   fseek (fileBmp , 0 , SEEK_END);
@@ -36,6 +27,28 @@ Bmp::Bmp(char* path)
 
     aDataBmp = new DataBmp(data,row_padded,height,width);
 }
+
+void Bmp::validarArchivo()
+{
+	  if (fileBmp==NULL) { 
+		 //Log::e("Class Bmp.cpp: No existe el archivo. Se levantará el archivo bmp por default");
+		 //fileBmp = fopen(pathDefault, "rb");
+	  }//else if !(esUnBmp(filebmp) )
+	  //{
+	  	//Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se levantará el archivo bmp por default");
+	  	//fileBmp = fopen(pathDefault, "rb");
+		//copiar archivo por default al path
+		//Cargar el archivo por default
+		
+	  //fileBmp = fopen(pathDefault, "rb");
+		  //if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
+		  //{
+			  	  	//Log::e("Class Bmp.cpp: El archivo por default no existe");
+		  //exit (1);
+		  //}
+}
+
+
 
 Bmp::~Bmp()
 {
