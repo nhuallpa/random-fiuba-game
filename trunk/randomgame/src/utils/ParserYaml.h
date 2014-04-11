@@ -79,14 +79,16 @@ private:
 	void startWithDefaultLevel();
 	void startWithDefaultElem(std::vector <stElemento>&);
 	
-	bool esNumero(std::string);
+	bool esUnsFloat(std::string);
+	bool esSigFloat(std::string);
 	bool esHexa(std::string);
 	bool esTipoValido(std::string);
 	bool validarGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool);
 	void loggearErrGuardar(std::string,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,YAML::Mark);
 	bool estaticoValido(std::string);
 	bool esHexaSdl(std::string);
-	bool esInt(std::string str);
+	bool esUnsInt(std::string str);
+	bool esImagen(std::string str);
 
 	bool isDefault;
 
@@ -96,8 +98,8 @@ private:
 	void initializeElementMap();
 	std::map< std::string, std::pair<int,std::string> > elementMap;
 
+	ParserYaml(std::string config, std::string level, bool aux);
 	ParserYaml(std::string config, std::string level);
-	ParserYaml(std::string config);
 	std::string validaAngulo(std::string ang);
 	std::string validaPosicion(std::string ang);
 	std::string validaPantalla(std::string tam);

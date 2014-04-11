@@ -5,15 +5,17 @@
 
 ParserYaml::ParserYaml(){}
 
-ParserYaml::ParserYaml(std::string config, std::string level){
+ParserYaml::ParserYaml(std::string config, std::string level, bool aux){
 	this->confFilePath = config;
+	this->levelFilePath = level;
 	//this->cargarConfYaml(this->confFilePath);
 	this->isDefault = false;
 	this->cargarNivelYaml(level);
 }
 
-ParserYaml::ParserYaml(std::string config){
+ParserYaml::ParserYaml(std::string config,std::string level){
 	this->confFilePath = config;
+	this->levelFilePath = level;
 	//this->cargarConfYaml(this->confFilePath);
 	this->isDefault = true;
 	this->startWithDefaultLevel();
@@ -98,33 +100,33 @@ void ParserYaml::startWithDefaultLevel(){
 	aPersist->setEscenarioImCielo("cielo1.png");
 	aPersist->setRec("rec1","5","15","45","15","8","10","no","#00FF00AA");
 	aPersist->setTri("tri1","9","8","45","47","si","#00FF00AA","15");
-	aPersist->escribirYaml(DEFAULT_YAML_LEVEL);
+	aPersist->escribirYaml(this->levelFilePath);
 	Log::d(PARSER,"Se creo el archivo de Nivel Default");
-	this->cargarNivelYaml(DEFAULT_YAML_LEVEL);
+	this->cargarNivelYaml(this->levelFilePath);
 
 }
 
 void ParserYaml::DestroySingleton(){
 	if(pInstance != NULL) delete pInstance;
 }
-
+/*
 ParserYaml* ParserYaml::getInstance(){
 	if(pInstance == NULL){
 		pInstance = new ParserYaml(CONFIG_FILE);
 	}
 	return pInstance;
-}
+}*/
 
 
 ParserYaml* ParserYaml::getInstance(std::string file){
 	if(pInstance == NULL){
 		std::ifstream fin(file.c_str());
 		if( fin.good() == true){
-			pInstance = new ParserYaml(CONFIG_FILE,file);
+			pInstance = new ParserYaml(CONFIG_FILE,file,true);
 		}else{
 			Log::e(PARSER,"Archivo de escenario: %s, invalido/corrupto o no encontrado", file);
 			Log::d(PARSER,"Se carga informacion default");
-			pInstance = new ParserYaml(CONFIG_FILE);
+			pInstance = new ParserYaml(CONFIG_FILE,file);
 		}
 	}
 	return pInstance;
@@ -149,7 +151,7 @@ std::string ParserYaml::yamlNodeToString(const YAML::Node& node){
 } */
 
 void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stElemento>& elemVect){
-	stElemento elem;
+	
 	bool fNombre = false;
 	bool fX = false;
 	bool fY = false;
@@ -167,7 +169,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 	elemVect.clear();//debo limpiar el elemVect de algun ciclo anterior
 
 	for (unsigned i=0; i<nodeVect.size();i++){
-		
+		stElemento elem;
 		const YAML::Node& node = nodeVect[i];
 		YAML::Mark mark = node.GetMark();
 
@@ -181,13 +183,16 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 					Log::e(PARSER,"Valor incorrecto para atributo TIPO en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 			}
 			else if (key.compare("id")==0){
-				fId = true;
 				elem.id = this->yamlNodeToString(it.second());
+				if (this->esUnsInt(elem.tipo)){
+					fId = true;
+				}else
+					Log::e(PARSER,"Valor incorrecto para atributo ID en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
 			}
 
 			else if (key.compare("escala")==0){
 				elem.escala = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.escala)){
+				if (this->esUnsFloat(elem.escala)){
 					fEscala = true;
 				}else
 					Log::e(PARSER,"Valor incorrecto para atributo ESCALA en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
@@ -195,7 +200,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 
 			else if (key.compare("x")==0){
 				elem.x = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.x)){
+				if (this->esSigFloat(elem.x)){
 					std::string aux = elem.x;
 					fX = true;
 				}else
@@ -203,7 +208,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("y")==0){
 				elem.y = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.y)){
+				if (this->esSigFloat(elem.y)){
 					std::string aux = elem.y;
 					fY = true;
 				}else
@@ -211,7 +216,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("ancho")==0){
 				elem.ancho = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.ancho)){
+				if (this->esUnsFloat(elem.ancho)){
 					std::string aux = elem.ancho;
 					fAncho = true;
 				} else
@@ -219,7 +224,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("alto")==0){
 				elem.alto = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.alto)){
+				if (this->esUnsFloat(elem.alto)){
 					std::string aux = elem.alto;
 					fAlto = true;
 				} else
@@ -235,7 +240,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("masa")==0){
 				elem.masa = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.masa)){
+				if (this->esUnsFloat(elem.masa)){
 					std::string aux = elem.masa;
 					fMasa = true;
 				} else
@@ -251,7 +256,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("rot")==0){
 				elem.rot = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.rot)){
+				if (this->esUnsFloat(elem.rot)){
 					std::string aux = elem.rot;
 					fRot = true;
 				} else
@@ -259,7 +264,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			}
 			else if (key.compare("radio")==0){
 				elem.radio = this->yamlNodeToString(it.second());
-				if (this->esNumero(elem.radio)){
+				if (this->esUnsFloat(elem.radio)){
 					fRadio = true;
 				} else
 					Log::e(PARSER,"Valor incorrecto para atributo RADIO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
@@ -342,7 +347,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				if (key.compare("ancho-un")==0){
 
 					escenario.ancho = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.ancho)){
+					if (this->esUnsFloat(escenario.ancho)){
 						std::string aux = escenario.ancho;
 						//nivel.ancho = this->validaPantalla(nivel.ancho);
 						if (aux.compare(escenario.ancho) != 0)
@@ -354,7 +359,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("alto-un")==0){
 
 					escenario.alto = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.alto)){
+					if (this->esUnsFloat(escenario.alto)){
 						std::string aux = escenario.alto;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.alto) != 0)
@@ -367,7 +372,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("ancho-px")==0){
 
 					escenario.anchoP = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.anchoP)){
+					if (this->esUnsInt(escenario.anchoP)){
 						std::string aux = escenario.anchoP;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.anchoP) != 0)
@@ -380,7 +385,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("alto-px")==0){
 
 					escenario.altoP = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.altoP)){
+					if (this->esUnsInt(escenario.altoP)){
 						std::string aux = escenario.altoP;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.altoP) != 0)
@@ -393,7 +398,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("nivel_agua")==0){
 
 					escenario.agua = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.agua)){
+					if (this->esUnsFloat(escenario.agua)){
 						std::string aux = escenario.agua;
 						//nivel.alto = this->validaPantalla(nivel.alto);
 						if (aux.compare(escenario.agua) != 0)
@@ -415,14 +420,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("imagen_tierra")==0){
 
 					escenario.tierra = this->yamlNodeToString(it.second());
-					//if (this->esNumero(escenario.tierra)){
-						std::string aux = escenario.tierra;
-						//nivel.alto = this->validaPantalla(nivel.alto);
-						if (aux.compare(escenario.tierra) != 0)
-							Log::d(PARSER,"Truncado valor de atributo TIERRA en nodo linea: %d.",(mark.line + 1));
-							fTierra = true;
-						//} else
-							//Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
+					if (this->esImagen(escenario.tierra)){
+						fTierra = true;
+					} else
+							Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
 				}
 				else if (key.compare("color_tierra")==0){
 
@@ -436,19 +437,15 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				else if (key.compare("imagen_cielo")==0){
 
 					escenario.cielo = this->yamlNodeToString(it.second());
-					//if (this->esNumero(escenario.cielo)){
-						std::string aux = escenario.cielo;
-						//nivel.alto = this->validaPantalla(nivel.alto);
-						if (aux.compare(escenario.cielo) != 0)
-							Log::d(PARSER,"Truncado valor de atributo CIELO en nodo linea: %d.",(mark.line + 1));
+					if (this->esImagen(escenario.cielo)){					
 							fCielo = true;
-						//} else
-							//Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
+					} else
+							Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
 				}
 				else if (key.compare("fps")==0){
 
 					escenario.fps = this->yamlNodeToString(it.second());
-					if (this->esNumero(escenario.fps)){
+					if (this->esUnsInt(escenario.fps)){
 						fFPS = true;
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo FPS en nodo linea: %d.",(mark.line + 1));
@@ -546,7 +543,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 				if (key.compare("epsilon")==0){
 
 					meta.epsilon = this->yamlNodeToString(it.second());
-					if (this->esNumero(meta.epsilon)){
+					if (this->esUnsFloat(meta.epsilon)){
 					fEps = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo EPSILON en nodo linea: %d.",(mark.line + 1));
@@ -554,7 +551,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 				else if (key.compare("scale")==0){
 
 					meta.scale = this->yamlNodeToString(it.second());
-					if (this->esInt(meta.scale)){
+					if (this->esUnsInt(meta.scale)){
 						fSca = true;
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo SCALE en nodo linea: %d.",(mark.line + 1));
@@ -830,14 +827,38 @@ std::string ParserYaml::validaPantalla(std::string tam){
 	}
 
 
-bool ParserYaml::esInt(std::string str){
+bool ParserYaml::esUnsInt(std::string str){
 	for (unsigned int i=0;i<str.length();i++)
 		if (isdigit(str[i])==0) return false;
 	return true;
 
 }
 
-bool ParserYaml::esNumero(std::string str){
+bool ParserYaml::esSigFloat(std::string str){
+	int len = str.length();
+	int i = 0;
+	int ret = 1;
+	int deccnt = 0;
+	if (str[0]== '-') i++;
+		while(i < len && ret != 0)
+		{
+			if(str[i] == '.')           // is there a decimal
+			{
+				deccnt++;               // count a decimal
+				if(deccnt > 1)          // is there too many decimal points
+					ret = 0;            // too many decimals set return for not numeric
+			}
+			else
+				ret = isdigit(str[i]); // is this character numeric
+			i++;                       // increment to next character
+		}
+	// return result =0 not numeric !=0 is numeric
+	if (ret == 0) return false;
+	else return true;
+
+}
+
+bool ParserYaml::esUnsFloat(std::string str){
 	int len = str.length();
 	int i = 0;
 	int ret = 1;
@@ -991,5 +1012,12 @@ bool ParserYaml::estaticoValido(std::string str){
 	return false;
 }
 
+bool ParserYaml::esImagen(std::string str){
+	std::string ext(str,str.length()-4,4);
+	if (ext.compare(".jpg") == 0) return true;
+	if (ext.compare(".bmp") == 0) return true;
+	if (ext.compare(".png") == 0) return true;
+	return false;
+}
 
 ParserYaml* ParserYaml::pInstance = NULL;
