@@ -1,18 +1,20 @@
 #include "GameElement.h"
 
-
-GameElement::GameElement(int id, ElementType type, float posX, float posY, int degrees, int h, int w, float mass){
+/* Rectangle constructor */
+GameElement::GameElement(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed){
 	
-	this->id = id;
-	this->changed = false;
-	this->type = type;
-	this->degrees = degrees;
-	this->position = std::make_pair(posX,posY);
-	this->height = h;
-	this->width = w;
-	this->mass = mass;
+			this->id = id;
+			this->changed = false;
+			this->type = type;
+			this->degrees = degrees;
+			this->position = std::make_pair(posX,posY);
+			this->height = h;
+			this->width = w;
+			this->mass = mass;
+			this->fixed = isFixed;
 }
 
+/* Circle constructor */
 GameElement::GameElement(int id, float posX, float posY, float radius, float scale, float mass, bool fixed)
 {
 	this->id = id;
@@ -24,6 +26,37 @@ GameElement::GameElement(int id, float posX, float posY, float radius, float sca
 	this->scale = scale;
 	this->fixed = fixed;
 }
+
+/* Any other polygon constructor */
+GameElement::GameElement(int id, ElementType type, float posX, float posY, float scale, float degrees, float mass, bool isFixed){
+	
+	
+	switch (type){
+		case TRIANGLE:
+			this->id = id;
+			this->changed = false;
+			this->type = type;
+			this->degrees = degrees;
+			this->position = std::make_pair(posX,posY);
+			this->scale = scale;
+			this->mass = mass;
+			break;
+		case HEXAGON:
+			this->id = id;
+			this->changed = false;
+			this->type = type;
+			this->degrees = degrees;
+			this->position = std::make_pair(posX,posY);
+			this->scale = scale;
+			this->mass = mass;
+			break;
+
+
+	}
+}
+
+
+
 
 GameElement::GameElement(const GameElement & aGameElement):
 					id(aGameElement.id), changed(aGameElement.changed), 
@@ -58,11 +91,11 @@ ElementType GameElement::getType(){
 	return this->type;
 }
 
-int GameElement::getRotation(){
+float GameElement::getRotation(){
 	return this->degrees;
 }
 
-int GameElement::getHeight(){
+float GameElement::getHeight(){
 	return this->height;
 }
 
@@ -70,7 +103,7 @@ float GameElement::getMass(){
 	return this->mass;
 }
 
-int GameElement::getWidth(){
+float GameElement::getWidth(){
 	return this->width;
 }
 
