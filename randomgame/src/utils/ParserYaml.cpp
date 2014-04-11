@@ -23,9 +23,48 @@ ParserYaml::ParserYaml(std::string config){
 
 ParserYaml::~ParserYaml(){}
 
+
+void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
+	stElemento elem;
+
+	/* Para agregar uno o varios objetos default rapido copiar y pegar los parametros
+	IMPORTANTE: recordar que no todos los objetos reciben los mismos parametros
+	rec:
+		tipo,id,x,y,rot,masa,alto,ancho,estatico,color
+	tri:
+		tipo,id,x,y,rot,masa,estatico,color	
+	pent:
+		tipo,id,x,y,rot,masa,escala,rot,estatico,color
+	circ:
+		tipo,id,x,y,rot,masa,escala,estatico,color,radio
+
+	elem.tipo = "";
+	elem.id = "";
+	elem.escala = "";
+	elem.x = "";
+	elem.y = "";
+	elem.alto = "";
+	elem.ancho = "";
+	elem.color = "";
+	elem.estatico = "";
+	elem.masa = "";
+	elem.rot = "";
+	elem.radio = "";
+	vElem.push_back(elem);
+	*/
+	
+
+}
+
+
 void ParserYaml::startWithDefaultLevel(){
 	this->levelFilePath = DEFAULT_YAML_LEVEL;
 	this->isDefault = true;
+	stMeta meta;
+	
+	meta.epsilon = "10";
+	meta.scale = "12";
+
 	stEscenario lvl;
 	lvl.fps = "60";
 	lvl.ancho = "400";
@@ -37,6 +76,10 @@ void ParserYaml::startWithDefaultLevel(){
 	lvl.colorTierra = "#BC794FFF";
 	lvl.cielo = "image/default.png";
 	lvl.tierra = "tierra default";
+
+	this->startWithDefaultElem(lvl.elem);
+
+	this->todo.meta = meta;
 	this->todo.escenario= lvl;
 }
 
@@ -59,6 +102,7 @@ ParserYaml* ParserYaml::getInstance(std::string file){
 			pInstance = new ParserYaml(CONFIG_FILE,file);
 		}else{
 			Log::e(PARSER,"Archivo de escenario: %s, invalido/corrupto o no encontrado", file);
+			Log::d(PARSER,"Se carga informacion default");
 			pInstance = new ParserYaml(CONFIG_FILE);
 		}
 	}

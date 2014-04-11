@@ -75,6 +75,7 @@ private:
 //	bool existeElemen(std::string,std::vector <dtElemento>&);
 
 	void startWithDefaultLevel();
+	void startWithDefaultElem(std::vector <stElemento>&);
 	
 	bool esNumero(std::string);
 	bool esHexa(std::string);
