@@ -43,7 +43,7 @@ void DefaultViewBuilder::buildFigures(FigureViewGroup* container)
 	CircleView* aCircleView = new CircleView("#00FF00FF");
 	aCircleView->setX(100);
 	aCircleView->setY(250);
-	aCircleView->setRadio(20);
+	aCircleView->setRadio(10);
 	listFigures.push_back(aCircleView);
 
 	// build a polygon

@@ -11,8 +11,12 @@ public:
 	void animate();
 	void touch(Body* touchingWith, b2World* mundo);
 
+	int getRadio() {return radius;}
+	void setRadio(int radius) {this->radius = radius;}
+
 private:
 	b2Body* createBody();
+	float radius;
 };
 
 
