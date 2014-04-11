@@ -84,8 +84,8 @@ void Cuadrado::animate(){
 
 	ParserYaml* aParser = ParserYaml::getInstance();
 	float x = f.x;
-	//float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
-	float y = f.y;
+	float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
+	//float y = f.y;
 	ge->setPosition(std::make_pair( x,y) );
 	Log::d("Nueva posicion (Modelo): %.3f, %.3f", x,y);
 	ge->setVertexList(this->GetVertex());

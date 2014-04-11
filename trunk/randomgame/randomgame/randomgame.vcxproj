@@ -97,6 +97,7 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\TerrainProcessor.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Detector.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h" />
+    <ClInclude Include="..\src\Servidor\modelo\TerrainProcessor.h" />
     <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\Detector.h" />

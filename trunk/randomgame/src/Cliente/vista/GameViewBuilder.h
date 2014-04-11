@@ -8,20 +8,24 @@
 #include "RectangleView.h"
 #include "PolygonView.h"
 #include "CircleView.h"
+#include "EllipseView.h"
 #include "TriangleView.h"
 #include "TerrainView.h"
 #include "ViewBuilder.h"
 #include "../../utils/Util.h"
 #include "../../Servidor/modelo/GameElement.h"
+#include "../../Servidor/modelo/GameLevel.h"
 
 class GameViewBuilder :
 	public ViewBuilder
 {
 	std::map<int,GameElement*> domainElements;
 
+	GameLevel* cLevel;
+
 public:
 
-	GameViewBuilder(const std::map<int,GameElement*> & map);
+	GameViewBuilder(const std::map<int,GameElement*> & map, GameLevel * cLevel);
 	~GameViewBuilder(void);
 
 	
