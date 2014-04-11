@@ -53,9 +53,8 @@ vector<vector<b2Vec2>> HandleContour::
 	Log::i(HANDLE_CONTOUR, "============== INICIANDO HANDLE CONTOUR =============");
 	try{
 		if (sep->Validate(contour)) {
-			Log::e(HANDLE_CONTOUR, "Contour not invalid: %s",
-				this->getErr(sep->Validate(contour)));
-			throw (sep->Validate(contour),"Contour not invalid");
+			Log::e(HANDLE_CONTOUR, "Contour not invalid: "+this->getErr(sep->Validate(contour)));
+			throw (new ContourExp(pair<int,string>(sep->Validate(contour),"Contour not invalid")));
 		}
 		contourAux = this->rdp(contour, epsilon);
 		contourAux = this->mulK(contourAux, scale);
@@ -287,60 +286,4 @@ string HandleContour::getErr(int valueErr){
 }
 
 
-
-/*
-
-
-vector<vector<b2Vec2>> HandleContour::
-	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
-
-	vector<vector<b2Vec2>> result, resultSplit, aux;
-	vector<vector<b2Vec2>>::iterator jt;
-	vector<b2Vec2>::iterator it;
-	vector<b2Vec2> contourReduced, contourEscalade;
-    b2Separator* sep = NULL;
-
-	for(it = contour.begin();
-	it != contour.end();
-	it++){
-		contourEscalade.push_back(b2Vec2((*it).x*scale,(*it).y*scale));
-	}
-
-	sep = new b2Separator();
-	contourReduced = this->rdp(contourEscalade, epsilon);
-	if (sep->Validate(contourReduced)==0) {
-		sep->calcShapes(contourReduced, result);
-		
-		for(jt = result.begin();
-		jt != result.end();
-		jt++){
-			vector<b2Vec2> vec;
-			contourEscalade = (*jt);
-			for(it = contourEscalade.begin();
-			it != contourEscalade.end();
-			it++){
-				vec.push_back(b2Vec2((*it).x/scale,(*it).y/scale));
-			}
-			aux.push_back(vec);
-		}
-	}
-	else {
-		//lanzar excepcion
-	}
-	
-	result.clear();
-		
-	for(jt = aux.begin(); jt != aux.end(); jt++){
-		if((*jt).size() > MAX_VERTEX){
-			resultSplit = this->split((*jt));
-			result.insert(result.end(), resultSplit.begin(), resultSplit.end());
-		}
-		else{
-			result.push_back((*jt));
-		}
-	}
-	delete sep;
-	return result;
-}
-*/
 
