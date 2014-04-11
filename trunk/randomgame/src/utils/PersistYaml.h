@@ -21,6 +21,8 @@ private:
 
 	struct stElemento{
 		std::string tipo;
+		std::string id;
+		std::string escala;
 		std::string x;
 		std::string y;
 		std::string alto;
@@ -29,22 +31,30 @@ private:
 		std::string estatico;
 		std::string masa;
 		std::string rot;
+		std::string radio;
 	};
 
 	struct stEscenario{
-		std::string ancho;
+		std::string fps;
 		std::string alto;
-		std::string altoP;
-		std::string anchoP;
+		std::string ancho;
 		std::string agua;
+		std::string colorAgua;
+		std::string anchoP;
+		std::string altoP;
 		std::string tierra;
+		std::string colorTierra;
 		std::string cielo;
-
 		std::vector <stElemento> elem;	
+	};
+	struct stMeta{
+		std::string epsilon ;
+		std::string scale ;
 	};
 
 	stElemento elem;
 	stEscenario escenario;
+	stMeta meta;
 
 	void destroyLevel();
 
@@ -55,15 +65,23 @@ public:
 	static PersistYaml* getInstance();
 
 
+	void setMetaEps(std::string);
+	void setMetaSca(std::string);
 
-	void setEscenarioAnchoU(std::string);
+	void setEscenarioFps(std::string);
 	void setEscenarioAltoU(std::string);
+	void setEscenarioAnchoU(std::string);
 	void setEscenarioAltoP(std::string);
 	void setEscenarioAnchoP(std::string);
-	void setEscenarioAgua(std::string);
-	void setEscenarioTierra(std::string);
-	void setEscenarioCielo(std::string);
+	void setEscenarioNivelAgua(std::string);
+	void setEscenarioColorAgua(std::string);
+	void setEscenarioImTierra(std::string);
+	void setEscenarioColorTierra(std::string);
+	void setEscenarioImCielo(std::string);
 
+	
+	
+	
 	void setElemTipo(std::string);
 	void setElemX(std::string);
 	void setElemY(std::string);
@@ -77,6 +95,14 @@ public:
 	void setEscenarioElem(stElemento);
 
 	void setElem(std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string);
+	/*rec: tipo,id,x,y,rot,masa,alto,ancho,estatico,color*/
+	void setRec(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string alto,std::string ancho,std::string estatico,std::string color);
+	/*tri: tipo,id,x,y,rot,masa,estatico,color,escala	*/
+	void setTri(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string estatico,std::string color,std::string escala);
+	/*pent: tipo,id,x,y,rot,masa,escala,estatico,color*/
+	void setPent(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color);
+	/*circ:	tipo,id,x,y,rot,masa,escala,estatico,color,radio*/
+	void setCirc(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color,std::string radio);
 
 	void escribirYaml(std::string);
 

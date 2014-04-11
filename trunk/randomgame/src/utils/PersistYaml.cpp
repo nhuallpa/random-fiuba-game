@@ -18,6 +18,19 @@ PersistYaml* PersistYaml::getInstance(){
 }
 
 
+
+void PersistYaml::setMetaEps(std::string eps){
+	this->meta.epsilon = eps;
+}
+
+void PersistYaml::setMetaSca(std::string sca){
+	this->meta.scale = sca;
+}
+
+void PersistYaml::setEscenarioFps(std::string fps){
+	this->escenario.fps = fps;
+}
+
 void PersistYaml::setEscenarioAnchoU(std::string ancho){
 	this->escenario.ancho = ancho;
 }
@@ -32,16 +45,28 @@ void PersistYaml::setEscenarioAltoP(std::string altoP){
 void PersistYaml::setEscenarioAnchoP(std::string anchoP){
 	this->escenario.anchoP = anchoP;
 }
-void PersistYaml::setEscenarioAgua(std::string agua){
+void PersistYaml::setEscenarioNivelAgua(std::string agua){
 	this->escenario.agua = agua;
 }
-void PersistYaml::setEscenarioTierra(std::string tierra){
+
+void PersistYaml::setEscenarioColorAgua(std::string agua){
+	this->escenario.colorAgua = agua;
+}
+
+
+void PersistYaml::setEscenarioImTierra(std::string tierra){
 	this->escenario.tierra = tierra;
 }
 
-void PersistYaml::setEscenarioCielo(std::string cielo){
+void PersistYaml::setEscenarioColorTierra(std::string tierra){
+	this->escenario.colorTierra = tierra;
+}
+
+void PersistYaml::setEscenarioImCielo(std::string cielo){
 	this->escenario.cielo = cielo;
 }
+
+
 
 void PersistYaml::setElemTipo(std::string tipo){
 	this->elem.tipo = tipo;
@@ -94,13 +119,93 @@ void PersistYaml::setElem(std::string tipo,std::string x,std::string y,std::stri
 	this->escenario.elem.push_back(elem);
 }
 
+	/*rec: tipo,id,x,y,rot,masa,alto,ancho,estatico,color*/
+void PersistYaml::setRec(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string alto,std::string ancho,std::string estatico,std::string color){
+	stElemento elem;
+	elem.tipo = "rec";
+	elem.id = id;
+	elem.x = x;
+	elem.y = y;
+	elem.rot = rot;
+	elem.masa = masa;
+	elem.alto = alto;
+	elem.ancho = ancho;
+	elem.color = color;
+	elem.estatico = estatico;
+
+	this->escenario.elem.push_back(elem);
+}
+	/*tri: tipo,id,x,y,rot,masa,estatico,color,escala	*/
+void PersistYaml::setTri(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string estatico,std::string color,std::string escala){
+	stElemento elem;
+	elem.tipo = "tri";
+	elem.id = id;
+	elem.x = x;
+	elem.y = y;
+	elem.rot = rot;
+	elem.masa = masa;
+	elem.color = color;
+	elem.escala = escala;
+	elem.estatico = estatico;
+
+	this->escenario.elem.push_back(elem);
+}
+	/*pent: tipo,id,x,y,rot,masa,escala,estatico,color*/
+void PersistYaml::setPent(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color){
+	stElemento elem;
+	elem.tipo = "pent";
+	elem.id = id;
+	elem.x = x;
+	elem.y = y;
+	elem.rot = rot;
+	elem.masa = masa;
+	elem.escala = escala;
+	elem.color = color;
+	elem.estatico = estatico;
+
+	this->escenario.elem.push_back(elem);
+}
+	/*circ:	tipo,id,x,y,rot,masa,escala,estatico,color,radio*/
+void PersistYaml::setCirc(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color,std::string radio){
+	stElemento elem;
+	elem.tipo = "circ";
+	elem.id = id;
+	elem.x = x;
+	elem.y = y;
+	elem.rot = rot;
+	elem.masa = masa;
+	elem.escala = escala;
+	elem.color = color;
+	elem.estatico = estatico;
+	elem.radio = radio;
+
+	this->escenario.elem.push_back(elem);
+}
+
+
+
+
+
+
 void PersistYaml::escribirYaml(std::string fileOut){
 	int i;
 	YAML::Emitter out;
 	out << YAML::BeginMap;
+	out << YAML::Key << "metadata";
+	out << YAML::Value;
+	out << YAML::BeginMap;
+	out << YAML::Key << "epsilon";
+	out << YAML::Value << this->meta.epsilon;
+	out << YAML::Key << "scale";
+	out << YAML::Value << this->meta.scale;
+	out << YAML::EndMap;
+
+
 	out << YAML::Key << "escenario";
 	out << YAML::Value; //<< YAML::BeginSeq;
 	out << YAML::BeginMap;
+	out << YAML::Key << "fps";
+	out << YAML::Value << this->escenario.fps;
 	out << YAML::Key << "ancho-un";
 	out << YAML::Value << this->escenario.ancho;
 	out << YAML::Key << "alto-un";
@@ -115,6 +220,10 @@ void PersistYaml::escribirYaml(std::string fileOut){
 	out << YAML::Value << this->escenario.tierra;
 	out << YAML::Key << "imagen_cielo";
 	out << YAML::Value << this->escenario.cielo;
+	out << YAML::Key << "color_tierra";
+	out << YAML::Value << this->escenario.colorTierra;
+	out << YAML::Key << "color_agua";
+	out << YAML::Value << this->escenario.colorAgua;
 	out << YAML::Key << "objetos";
 	out << YAML::Value << YAML::BeginSeq;
 	for(unsigned i=0;i<this->escenario.elem.size();i++){
@@ -122,14 +231,18 @@ void PersistYaml::escribirYaml(std::string fileOut){
 		out << YAML::BeginMap;
 		out << YAML::Key << "tipo";
 		out << YAML::Value << elem.tipo;
+		out << YAML::Key << "id";
+		out << YAML::Value << elem.id;
 		out << YAML::Key << "x";
 		out << YAML::Value << elem.x;
 		out << YAML::Key << "y";
 		out << YAML::Value << elem.y;
-		out << YAML::Key << "alto";
-		out << YAML::Value << elem.alto;
-		out << YAML::Key << "ancho";
-		out << YAML::Value << elem.ancho;
+		if (elem.tipo.compare("rec")==0){
+			out << YAML::Key << "alto";
+			out << YAML::Value << elem.alto;
+			out << YAML::Key << "ancho";
+			out << YAML::Value << elem.ancho;
+		}
 		out << YAML::Key << "color";
 		out << YAML::Value << elem.color;
 		out << YAML::Key << "estatico";
@@ -138,6 +251,14 @@ void PersistYaml::escribirYaml(std::string fileOut){
 		out << YAML::Value << elem.rot;
 		out << YAML::Key << "masa";
 		out << YAML::Value << elem.masa;
+		if (elem.tipo.compare("rec")!=0){
+			out << YAML::Key << "escala";
+			out << YAML::Value << elem.escala;
+		}
+		if (elem.tipo.compare("circ")==0){
+			out << YAML::Key << "radio";
+			out << YAML::Value << elem.radio;
+		}
 		out << YAML::EndMap;		
 	}
 	out << YAML::EndMap;
