@@ -30,9 +30,6 @@ GameElement::GameElement(int id, float posX, float posY, float radius, float sca
 /* Any other polygon constructor */
 GameElement::GameElement(int id, ElementType type, float posX, float posY, float scale, float degrees, float mass, bool isFixed){
 	
-	
-	switch (type){
-		case TRIANGLE:
 			this->id = id;
 			this->changed = false;
 			this->type = type;
@@ -40,19 +37,7 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, float
 			this->position = std::make_pair(posX,posY);
 			this->scale = scale;
 			this->mass = mass;
-			break;
-		case HEXAGON:
-			this->id = id;
-			this->changed = false;
-			this->type = type;
-			this->degrees = degrees;
-			this->position = std::make_pair(posX,posY);
-			this->scale = scale;
-			this->mass = mass;
-			break;
-
-
-	}
+			this->fixed = isFixed;
 }
 
 

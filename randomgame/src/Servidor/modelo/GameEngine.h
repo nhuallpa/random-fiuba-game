@@ -10,6 +10,8 @@
 #include "Physics\Bodies\Cuadrado.h"
 #include "Physics\Bodies\Circle.h"
 #include "Physics\Bodies\Hexagon.h"
+#include "Physics\Bodies\Triangulo.h"
+#include "Physics\Bodies\Pentagon.h"
 #include "TerrainProcessor.h"
 
 class GameEngine {

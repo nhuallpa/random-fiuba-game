@@ -99,7 +99,43 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					Log::t("Puntero circulo: %p",sq); 
+					Log::t("Puntero hexagono: %p",sq); 
+					this->gameBodies.push_back(sq);
+				}
+				break;
+			case TRIANGLE:
+				{
+					Triangle* sq = new Triangle(TRIANGLE, 
+							(*elems).second->getPosition().first , 
+							(*elems).second->getPosition().second,
+							(*elems).second->getScale(), 
+							(*elems).second->getMass(),
+							(*elems).second->getRotation(),
+							this->myWorld, 
+							(*elems).second,
+							(*elems).second->isFixed());
+
+					(*elems).second->setBody(sq);
+
+					Log::t("Puntero hexagono: %p",sq); 
+					this->gameBodies.push_back(sq);
+				}
+				break;
+			case PENTA:
+				{
+					Pentagon* sq = new Pentagon(PENTA, 
+							(*elems).second->getPosition().first , 
+							(*elems).second->getPosition().second,
+							(*elems).second->getScale(), 
+							(*elems).second->getMass(),
+							(*elems).second->getRotation(),
+							this->myWorld, 
+							(*elems).second,
+							(*elems).second->isFixed());
+
+					(*elems).second->setBody(sq);
+
+					Log::t("Puntero hexagono: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
