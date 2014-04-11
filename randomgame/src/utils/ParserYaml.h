@@ -8,6 +8,8 @@
 #include <sstream>
 #include "../utils/Constantes/Constantes.h"
 #include "./Log.h"
+#include "PersistYaml.h"
+
 //#include <boost/lexical_cast.hpp>
 //#include <boost/math/special_functions/round.hpp>
 

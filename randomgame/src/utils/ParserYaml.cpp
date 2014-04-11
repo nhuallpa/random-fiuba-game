@@ -34,7 +34,7 @@ void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
 	tri:
 		tipo,id,x,y,rot,masa,estatico,color	
 	pent:
-		tipo,id,x,y,rot,masa,escala,rot,estatico,color
+		tipo,id,x,y,rot,masa,escala,estatico,color
 	circ:
 		tipo,id,x,y,rot,masa,escala,estatico,color,radio
 
@@ -58,6 +58,7 @@ void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
 
 
 void ParserYaml::startWithDefaultLevel(){
+	/*
 	this->levelFilePath = DEFAULT_YAML_LEVEL;
 	this->isDefault = true;
 	stMeta meta;
@@ -81,6 +82,26 @@ void ParserYaml::startWithDefaultLevel(){
 
 	this->todo.meta = meta;
 	this->todo.escenario= lvl;
+	*/
+	PersistYaml* aPersist=PersistYaml::getInstance();
+	aPersist->setMetaEps("100");
+	aPersist->setMetaSca("200");	
+	aPersist->setEscenarioFps("789");
+	aPersist->setEscenarioAltoU("999");
+	aPersist->setEscenarioAnchoU("777");
+	aPersist->setEscenarioAltoP("1024");
+	aPersist->setEscenarioAnchoP("1024");
+	aPersist->setEscenarioNivelAgua("50");
+	aPersist->setEscenarioColorAgua("#00FF00AA");
+	aPersist->setEscenarioImTierra("image/TIMv1.jpg");
+	aPersist->setEscenarioColorTierra("#00FF00AA");
+	aPersist->setEscenarioImCielo("cielo1.png");
+	aPersist->setRec("rec1","5","15","45","15","8","10","no","#00FF00AA");
+	aPersist->setTri("tri1","9","8","45","47","si","#00FF00AA","15");
+	aPersist->escribirYaml(DEFAULT_YAML_LEVEL);
+	Log::d(PARSER,"Se creo el archivo de Nivel Default");
+	this->cargarNivelYaml(DEFAULT_YAML_LEVEL);
+
 }
 
 void ParserYaml::DestroySingleton(){
