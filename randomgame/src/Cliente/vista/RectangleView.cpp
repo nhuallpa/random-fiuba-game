@@ -66,7 +66,8 @@ void RectangleView::updateVertex(std::list<std::pair<float,float>> & theVertex)
 	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
 	float factorX = scale_factor.first;
 	float factorY = scale_factor.second;
-	Log::t("Factor x y: [%f, %f]", factorX, factorY);
+
+	//float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
 
 	std::list<std::pair<float,float>>::iterator itVertex;
 	int vertexIndex = 1;

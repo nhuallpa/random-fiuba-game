@@ -27,12 +27,15 @@ void ParserYaml::startWithDefaultLevel(){
 	this->levelFilePath = DEFAULT_YAML_LEVEL;
 	this->isDefault = true;
 	stEscenario lvl;
-	lvl.ancho = "640";
-	lvl.alto = "480";
-	lvl.agua = "50";
-	lvl.altoP = "500";
-	lvl.anchoP = "1000";
-	lvl.cielo = "cielo default";
+	lvl.fps = "60";
+	lvl.ancho = "400";
+	lvl.alto = "400";
+	lvl.agua = "20";
+	lvl.altoP = "400";
+	lvl.anchoP = "400";
+	lvl.colorAgua = "#0000FF44";
+	lvl.colorTierra = "#BC794FFF";
+	lvl.cielo = "image/default.png";
 	lvl.tierra = "tierra default";
 	this->todo.escenario= lvl;
 }
@@ -845,10 +848,6 @@ bool ParserYaml::validarGuardar(std::string str,bool fNombre,bool fId,bool fEsca
 	if ((str.compare("circ")==0) && (fAlto || fAncho))return false;	
 	if ((str.compare("circ")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor && fRadio) return true;	
 
-	
-	
-	
-	
 	return false;
 }
 

@@ -1,8 +1,8 @@
 #include "GameViewBuilder.h"
 
 
-GameViewBuilder::GameViewBuilder(const std::map<int,GameElement*>& map):
-						domainElements(map)
+GameViewBuilder::GameViewBuilder(const std::map<int,GameElement*>& map, GameLevel * cLevel):
+						domainElements(map), cLevel(cLevel)
 {
 }
 
@@ -44,8 +44,14 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 			float radius = domainElement->getRadius();// * factorRadius;
 			Log::t("Radio: %f", radius);
 
-			CircleView* aCircle = new CircleView("#00FF00FF");
+			/*CircleView* aCircle = new CircleView("#00FF00FF");
 			aCircle->setRadio(radius);
+			aCircle->updatePositions(domainElement->getPosition());
+			aCircle->setId(domainElement->getId());
+			aFigure = aCircle;*/
+
+			EllipseView* aCircle = new EllipseView("#00FF00FF");
+			aCircle->updateRadius(radius);
 			aCircle->updatePositions(domainElement->getPosition());
 			aCircle->setId(domainElement->getId());
 			aFigure = aCircle;
@@ -81,4 +87,50 @@ void GameViewBuilder::buildWater(ViewGroup* container)
 
 void GameViewBuilder::buildTerrain(ViewGroup* container)
 {
+	Log::d("Creando TERRENO en vista");
+
+	TerrainView* aTerrain = new TerrainView("#BC794FFF");
+
+	ParserYaml* aParser = ParserYaml::getInstance();
+	int heightScreen = atoi(aParser->getEscenarioAltoP().c_str());
+
+	list< list< pair<float,float> > > * polygonsPoint = this->cLevel->getTerrain()->getListOfPolygons();
+	list< list< pair<float,float> > >::iterator itPolygons;
+
+	int countPolygons = 0;
+
+	std::list<std::list<tPoint>> polygonsToView;
+	for (itPolygons = polygonsPoint->begin(); itPolygons!=polygonsPoint->end(); ++itPolygons) 
+	{
+		countPolygons++;
+		Log::t("Creando polygono nro: %d", countPolygons);
+		list< pair< float, float> > ::iterator itPoints;	
+		list< pair<float,float> > points = (*itPolygons);
+
+
+		std::list<tPoint> pointsToView;
+		for (itPoints = points.begin(); itPoints!=points.end(); ++itPoints) 
+		{
+			Log::t("----> Punto: %f %f", itPoints->first, itPoints->second);
+			tPoint aPoint;
+			
+			aPoint.x = itPoints->first;
+			aPoint.y = (heightScreen - itPoints->second);	
+
+
+			pointsToView.push_back(aPoint);
+		}
+		polygonsToView.push_back(pointsToView);
+	}
+
+	delete polygonsPoint;
+	
+	std::list<std::list<tPoint>>::iterator it;
+
+	for (it = polygonsToView.begin(); it != polygonsToView.end(); ++it)
+	{
+		aTerrain->buildPart((*it));
+	}
+
+	container->add(aTerrain); 
 }

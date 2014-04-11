@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __CIRCLE_VIEW_H_
-#define __CIRCLE_VIEW_H_
+#ifndef __ELLIPSE_VIEW_H_
+#define __ELLIPSE_VIEW_H_
 
 #include "FigureView.h"
 class EllipseView : 	public FigureView
@@ -16,9 +16,11 @@ public:
 	void setRadioX(int radioX) {this->radioX = radioX;}
 
 	int getRadioY() {return radioY;}
-	void setRadioY(int radio) {this->radioY = radioY;}
+	void setRadioY(int radioY) {this->radioY = radioY;}
 
 	void draw(SDLScreen & screen);
+
+	void updateRadius(float radiusModel);
 
 	/**
 	* Update Figure view from DomainView object
@@ -33,5 +35,5 @@ public:
 	~EllipseView(void);
 };
 
-#endif /** __CIRCLE_VIEW_H_ */
+#endif /** __ELLIPSE_VIEW_H_ */
 

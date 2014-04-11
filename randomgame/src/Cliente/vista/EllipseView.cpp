@@ -23,7 +23,7 @@ void EllipseView::draw(SDLScreen & screen)
 						this->getRadioY(),
 						this->getColorCod());
 
-	ellipseColor(screen.getRenderer(),
+	aaellipseColor(screen.getRenderer(),
 						this->getX(),
 						this->getY(),
 						this->getRadioX(),
@@ -37,20 +37,37 @@ void EllipseView::update(GameElement* domainElement)
 	this->updatePositions(domainElement->getPosition());
 }
 
+void EllipseView::updateRadius(float radiusModel)
+{
+	Log::t("Escalamos radios del circulo");
+
+	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
+	float factorX = scale_factor.first;
+	float factorY = scale_factor.second;
+			
+	Log::t("Radio ciruculo ANTES de escalar: %f", radiusModel);
+
+	float radiusX = radiusModel * factorX;
+	float radiusY = radiusModel * factorY;
+	
+	Log::t("Radio ciruculo DESPUES de escalar en x y: %f, %f", radiusX, radiusY);
+
+	this->setRadioX(radiusX);
+	this->setRadioY(radiusY);
+}
+
 void EllipseView::updatePositions(std::pair<float, float> positions)
 {
 
 	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
 	float factorX = scale_factor.first;
 	float factorY = scale_factor.second;
-			
-	Log::t("Factor x y: [%f, %f]", factorX, factorY);
 
 	int posX = positions.first * factorX;
 	int posY = positions.second * factorY;
 	
 	this->setX(posX);
 	this->setY(posY);
-	Log::t("Posicion x y: [%dpx, %dpx]", posX, posY);
+	Log::t("Posicion del Elipse x y: [%dpx, %dpx]", posX, posY);
 }
 

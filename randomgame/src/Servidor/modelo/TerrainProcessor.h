@@ -15,7 +15,6 @@
 
 using namespace server_model_handle;
 using namespace std;
-
 class TerrainProcessor
 {
 private:

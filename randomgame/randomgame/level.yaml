@@ -10,7 +10,7 @@ escenario:
     color_tierra: "#BC794FFF"
     imagen_cielo: image/cielo1.png
     objetos:
-    - tipo: 	rect
+    - tipo: 	rec
       id: 		1
       x: 		43.44
       y: 		100
