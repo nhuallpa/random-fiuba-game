@@ -12,7 +12,7 @@
 			int posY = 10;
 			float angle= 45.0;
 			float masa = 32.0;
-			float scale = 40.0;
+			float scale = 4.0;
 			bool isFixed = false;
 
 
