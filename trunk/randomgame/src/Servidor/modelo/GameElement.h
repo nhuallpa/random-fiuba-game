@@ -24,34 +24,32 @@ enum ElementType{
 	CIRCLE=1,
 	TRIANGLE=2,
 	PENTA=3,
+	HEXAGON=4,
 };
 
 
 class GameElement {
 public:
 
-	/**
-	* Constructor for Rectangule
-	*/
-	GameElement(int id, ElementType type, float posX, float posY, int degrees, int h, int w, float mass);
+	/* Constructor for Rectangule */
+	GameElement(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
 
-	/**
-	* Constructor for Circle
-	*/
+	/* Constructor for Circle */
 	GameElement(int id, float posX, float posY, float radius, float scale, float mass, bool isFixed);
 
-	/**
-	* Constructor for Copy
-	*/
+	/* Constructor for any other polygon */
+	GameElement(int id, ElementType type, float posX, float posY, float scale, float degrees, float mass, bool isFixed);
+
+	/* Constructor for Copy */
 	GameElement(const GameElement & aGameElement);
 	
 	ElementType getType();
 	int getId();
-	int getRotation();
+	float getRotation();
 	std::pair<float,float> getPosition();
 	void setPosition(std::pair<float,float> p);
-	int getWidth();
-	int getHeight();
+	float getWidth();
+	float getHeight();
 	float getMass();
 	bool hasChanged();
 	void setBody(void* ab);
@@ -67,9 +65,9 @@ private:
 	bool changed;
 	float ratio;
 	ElementType type;
-	int degrees;
-	int height;
-	int width;
+	float degrees;
+	float height;
+	float width;
 	float mass;
 	void* myBody;
 	// Center position!
