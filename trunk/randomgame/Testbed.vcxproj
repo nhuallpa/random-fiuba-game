@@ -205,10 +205,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Testbed\CuadradoConAgua.h" />
+    <ClInclude Include="src\Testbed\Hexagono.h" />
     <ClInclude Include="src\Testbed\iforce2d_Buoyancy.h" />
     <ClInclude Include="src\Testbed\iforce2d_Buoyancy_functions.h" />
     <ClInclude Include="src\Testbed\NivelDeAgua.h" />
+    <ClInclude Include="src\Testbed\Pentagono.h" />
     <ClInclude Include="src\Testbed\TestCuadrado.h" />
+    <ClInclude Include="src\Testbed\Triangulo.h" />
     <ClInclude Include="Testbed\Framework\Render.h" />
     <ClInclude Include="Testbed\Framework\Test.h" />
     <ClInclude Include="Testbed\Tests\AddPair.h" />

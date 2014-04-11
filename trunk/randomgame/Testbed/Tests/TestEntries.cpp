@@ -74,6 +74,9 @@ using namespace std;
 #include "VerticalStack.h"
 #include "Web.h"
 #include "TestCuadrado.h"
+#include "Triangulo.h"
+#include "Pentagono.h"
+#include "Hexagono.h"
 #include "CuadradoConAgua.h"
 #include "iforce2d_Buoyancy.h"
 
@@ -125,6 +128,9 @@ TestEntry g_testEntries[] =
 	{"Varying Friction", VaryingFriction::Create},
 	{"Add Pair Stress Test", AddPair::Create},
 	{"Cuadrado Test", CuadradoTest::Create},
+	{"Triangulo Test", TrianguloTest::Create},
+	{"Pentagono Test", PentagonoTest::Create},
+	{"Hexagono Test", HexagonoTest::Create},
 	{"Cuadrado con Agua Test", CuadradoConAguaTest::Create},
 	{"iforce2d_Buoyancy", iforce2d_Buoyancy::Create},
 	{NULL, NULL}

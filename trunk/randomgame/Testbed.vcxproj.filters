@@ -177,6 +177,15 @@
     <ClInclude Include="src\Testbed\iforce2d_Buoyancy_functions.h">
       <Filter>Tests\Bodies</Filter>
     </ClInclude>
+    <ClInclude Include="src\Testbed\Hexagono.h">
+      <Filter>Tests\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Testbed\Pentagono.h">
+      <Filter>Tests\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Testbed\Triangulo.h">
+      <Filter>Tests\Bodies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Testbed\Framework\Main.cpp">
