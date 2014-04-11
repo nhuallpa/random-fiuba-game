@@ -52,7 +52,7 @@ std::list<std::pair<float,float>> Cuadrado::GetVertex(){
     //Los vertices los devuelve con las coordenadas cambiadas al sistemas de SDL (0,0) arriba a la izq
 
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
-	Log::d("Posicion central 0,0: %.3f, %.3f", v.x, v.y);
+	//Log::d("Posicion central 0,0: %.3f, %.3f", v.x, v.y);
 	b2PolygonShape* poly = (b2PolygonShape*)this->body->GetFixtureList()->GetShape();
 	std::list<std::pair<float,float>> vertexList;
 	int count = poly->GetVertexCount();
@@ -61,12 +61,12 @@ std::list<std::pair<float,float>> Cuadrado::GetVertex(){
 	for( int i = 0; i < count; i++ ){
 		b2Vec2 verts = poly->GetVertex(i);
 		b2Vec2 f = this->body->GetWorldPoint(verts);
-		Log::d("Posicion vert %d: %.3f, %.3f",i, f.x, f.y);
+		//Log::d("Posicion vert %d: %.3f, %.3f",i, f.x, f.y);
 		//float x = f.x + (atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
 		float x = f.x;
 		float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
 		//float y = f.y;
-		Log::d("Posicion vert (Modelo) %d: %.3f, %.3f",i, x, y);		
+		//Log::d("Posicion vert (Modelo) %d: %.3f, %.3f",i, x, y);		
 		vertexList.push_back(std::make_pair(x,y));
 	}
 
@@ -80,14 +80,14 @@ void Cuadrado::animate(){
 	//ToDo @aliguo
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	b2Vec2 f = this->body->GetPosition();
-	Log::d("Nueva posicion (Physics): %.3f, %.3f", f.x, f.y);
+	//Log::d("Nueva posicion (Physics): %.3f, %.3f", f.x, f.y);
 
 	ParserYaml* aParser = ParserYaml::getInstance();
 	float x = f.x;
 	float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
 	//float y = f.y;
 	ge->setPosition(std::make_pair( x,y) );
-	Log::d("Nueva posicion (Modelo): %.3f, %.3f", x,y);
+	//Log::d("Nueva posicion (Modelo): %.3f, %.3f", x,y);
 	ge->setVertexList(this->GetVertex());
 
 }

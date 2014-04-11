@@ -29,10 +29,7 @@ int GameLevel::getWidth() {
 
 void GameLevel::addEntity(GameElement *entidad) {
 	this->entities.insert(std::make_pair(entidad->getId(), entidad ));
-	this->modelElements.insert(std::make_pair(entidad->getId(),
-		GameElement(entidad->getId(), entidad->getType(), entidad->getPosition().first,
-		entidad->getPosition().second, entidad->getRotation(), entidad->getHeight(), 
-		entidad->getWidth(), entidad->getMass() ) ) );
+	
 
 
 }
@@ -103,14 +100,25 @@ bool GameLevel::createLevel(GameLevel&){
 	//}
 	
 	//ToDo @aliguo: Agrego hardcoded un cuadrado
-	this->addEntity(new GameElement(1,SQUARE,50.0,50.0,0.0,20,20,60.0));
-	this->addEntity(new GameElement(2, 100.0, 100.0, 10.0, 2.0, 15.0, false));
+	this->addEntity(new GameElement(1,SQUARE,100.0,200.0,0.0,20,20,60.0));
+	this->addEntity(new GameElement(2, 65, 150.0, 10.0, 2.0, 60.0, false));
 
 	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
 	return true;
 }
 
 std::map<int,GameElement> GameLevel::getModelElements(){
+	std::map<int, GameElement*>::iterator it = this->entities.begin();
+
+	//todo arreglar para que se actualicen los vertices
+	//for ( ; it != this->entities.end(); it++){
+	//	this->modelElements.insert(std::make_pair(it->second->getId(),
+	//	GameElement(it->second->getId(), it->second->getType(), it->second->getPosition().first,
+	//	it->second->getPosition().second, it->second->getRotation(), it->second->getHeight(), 
+	//	it->second->getWidth(), it->second->getMass() ) ) );
+
+	//}
+	
 	return this->modelElements;
 }
 

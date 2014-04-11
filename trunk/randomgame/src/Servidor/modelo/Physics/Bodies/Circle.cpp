@@ -15,32 +15,57 @@ Circle::Circle(	ElementType type, float posX, float posY, float radius, float sc
 	this->type = type;
 
 
-	b2BodyDef myBodyDef;
+	//b2BodyDef myBodyDef;
 
+	//if (fixed){
+	//	myBodyDef.type = b2_dynamicBody;
+	//}else{
+	//	myBodyDef.type = b2_staticBody;
+	//}
+	//myBodyDef.position.Set(posX, posY); //starting position (at center)
+
+
+	//b2Body* dynamicBody = this->myWorld->CreateBody(&myBodyDef);
+	//this->body = dynamicBody;
+	//this->body->SetUserData(modelElement);
+
+
+	//b2CircleShape  circleShape;
+	//
+	//circleShape.m_p.Set(posX, posY);
+	//circleShape.m_radius = radius*scale;
+
+	//b2FixtureDef circleFixtureDef;
+	//circleFixtureDef.shape = &circleShape;
+	//circleFixtureDef.density = 1;
+	//dynamicBody->CreateFixture(&circleFixtureDef);
+	//b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
+	//Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
+
+	b2CircleShape shape;
+	shape.m_radius = radius*scale;
+
+	b2FixtureDef fd;
+	fd.shape = &shape;
+	fd.density = 1.0f;
+
+	b2BodyDef bd;
 	if (!fixed){
-		myBodyDef.type = b2_dynamicBody;
+		bd.type = b2_dynamicBody;
 	}else{
-		myBodyDef.type = b2_staticBody;
+		bd.type = b2_staticBody;
 	}
-	myBodyDef.position.Set(posX, posY); //starting position (at center)
 
+	bd.position.Set(posX, posY);
+	b2Body* body = this->myWorld->CreateBody(&bd);
+	body->CreateFixture(&fd);
 
-	b2Body* dynamicBody = this->myWorld->CreateBody(&myBodyDef);
-	this->body = dynamicBody;
+	this->body = body;
 	this->body->SetUserData(modelElement);
 
-
-	b2CircleShape  circleShape;
-	
-	circleShape.m_p.Set(posX, posY);
-	circleShape.m_radius = radius*scale;
-
-	b2FixtureDef circleFixtureDef;
-	circleFixtureDef.shape = &circleShape;
-	circleFixtureDef.density = 1;
-	dynamicBody->CreateFixture(&circleFixtureDef);
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
+
 	//this->GetVertex();
 
 }
@@ -52,6 +77,7 @@ void Circle::animate(){
 	//Use userdata to reflect changes in physics to model
 	//ToDo @aliguo
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
+	//b2Vec2 f = this->body->GetWorldPoint(b2Vec2(0,0));
 	b2Vec2 f = this->body->GetPosition();
 	Log::d("Nueva posicion (Physics): %.3f, %.3f", f.x, f.y);
 

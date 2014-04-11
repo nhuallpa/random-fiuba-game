@@ -41,8 +41,8 @@ bool GameEngine::initWorld(){
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
 	this->myWorld = new b2World(b2Vec2(0,-10.0));
-	this->myContactListener = new ContactListener();
-	this->myWorld->SetContactListener(this->myContactListener);
+	//this->myContactListener = new ContactListener();
+	//this->myWorld->SetContactListener(this->myContactListener);
 
 }
 
@@ -69,7 +69,7 @@ void GameEngine::animateBodies() {
 				break;
 			case CIRCLE:
 				{
-					Circle* sq = new Circle(SQUARE, 
+					Circle* sq = new Circle(CIRCLE, 
 							(*elems).second->getPosition().first , 
 							(*elems).second->getPosition().second,
 							(*elems).second->getRadius(), 
@@ -117,7 +117,7 @@ bool GameEngine::step(){
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
 	Log::d("TSHOOT - Listando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
-		Log::d("Posicion Elemento en modelo: %.3f, %.3f",
+		Log::t("Posicion Elemento en modelo: %.3f, %.3f",
 			(*elems).second->getPosition().first,
 			(*elems).second->getPosition().second);
 	}
