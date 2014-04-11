@@ -27,11 +27,7 @@ public:
 	virtual std::string toString();
 };
 
-struct s_point{
-	int x;
-	int y;
-};
-typedef struct s_point tPoint;
+
 
 #endif /* defined(__FIGURE_VIEW_H_) */
 

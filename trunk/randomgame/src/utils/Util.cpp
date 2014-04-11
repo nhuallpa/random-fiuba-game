@@ -33,6 +33,20 @@ std::pair<float, float> Util::getTransformFromU2PX(){
 	return vec;
 }
 
+tPoint Util::convertPointUL2PXSDL(float x, float y)
+{
+	tPoint aPoint;
+	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
+
+
+	ParserYaml* aParser = ParserYaml::getInstance();
+	int heightScreen = atoi(aParser->getEscenarioAltoP().c_str());
+
+	aPoint.x = x * scale_factor.first;
+	aPoint.y = (heightScreen - y) * scale_factor.second;	
+
+	return aPoint;
+}
 
 int Util::string2int(std::string number)
 {
@@ -43,3 +57,5 @@ float Util::string2float(std::string number)
 {
 	return atof(number.c_str());
 }
+
+
