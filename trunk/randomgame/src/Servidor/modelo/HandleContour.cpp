@@ -54,7 +54,7 @@ vector<vector<b2Vec2>> HandleContour::
 	try{
 		if (sep->Validate(contour)) {
 			Log::e(HANDLE_CONTOUR, "Contour not invalid: "+this->getErr(sep->Validate(contour)));
-			throw (new ContourExp(pair<int,string>(sep->Validate(contour),"Contour not invalid")));
+			//throw (new ContourExp(pair<int,string>(sep->Validate(contour),"Contour not invalid")));
 		}
 		contourAux = this->rdp(contour, epsilon);
 		contourAux = this->mulK(contourAux, scale);
