@@ -2,7 +2,18 @@
 
 using namespace server_model_exp;
 
-const char* ContourExp::what() const throw() {
-	return e.second.c_str();
+ContourExp::ContourExp(int error) : exception(), idError(error) {
+	mError[0] = "Ocurrio un error del tipo 0";
+}
+
+
+
+ContourExp::~ContourExp(void)
+{
+}
+
+
+const char* ContourExp::what(){
+	return mError[idError].c_str();
 }
 
