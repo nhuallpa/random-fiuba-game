@@ -1,9 +1,12 @@
 #include "ContourException.h"
+#include "..\..\..\utils\Constantes\Constantes.h"
 
 using namespace server_model_exp;
 
 ContourExp::ContourExp(int error) : exception(), idError(error) {
-	mError[0] = "Ocurrio un error del tipo 0";
+	mError[HC_OFFSET + 1] = HC_ERROR_1;
+	mError[HC_OFFSET + 2] = HC_ERROR_2;
+	mError[HC_OFFSET + 3] = HC_ERROR_3;
 }
 
 

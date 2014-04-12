@@ -3,7 +3,6 @@
 #include "Exceptions\ContourException.h"
 #include <utility>
 #include "..\..\utils\Log.h"
-#include "..\..\utils\Constantes\Constantes.h"
 #include <map>
 
 #define SEGMENT 2
@@ -13,9 +12,6 @@ using namespace server_model_handle;
 using namespace server_model_exp;
 
 HandleContour::HandleContour(){
-	_error[1001] = HC_ERROR_1;
-	_error[1002] = HC_ERROR_2;
-	_error[1003] = HC_ERROR_3;
 
 }
 HandleContour::~HandleContour(){}
@@ -282,7 +278,7 @@ void HandleContour::
 }
 
 string HandleContour::getErr(int valueErr){
-	 return _error[HC_OFFSET + valueErr];
+	 return "";//_error[HC_OFFSET + valueErr];
 }
 
 
