@@ -33,13 +33,12 @@ void Bmp::validarArchivo(char* path)
 	fileBmp = fopen(path, "rb");
 	if (fileBmp==NULL)
 	{ 
-		Log::e("Class Bmp.cpp: No existe el archivo. Se levantará el archivo bmp por default");
+		Log::e("Class Bmp.cpp: No existe el archivo. Se cargará el archivo bmp por default");
 		fileBmp = fopen("C:\\random-fiuba-game\\randomgame\\randomgame\\image\\testDefault.bmp", "rb");
 	}
 	else if (!esUnBmp(path))
 	{
-		Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se levantará el archivo bmp por default");
-
+		Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se cargará el archivo bmp por default");
 		//copiar archivo por default al path
 		//Cargar el archivo por default
 		fileBmp = fopen("C:\\random-fiuba-game\\randomgame\\randomgame\\image\\testDefault.bmp", "rb");
