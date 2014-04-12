@@ -43,7 +43,7 @@ Circle::Circle(	ElementType type, float posX, float posY, float radius, float sc
 	//Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
 
 	b2CircleShape shape;
-	shape.m_radius = radius*scale;
+	shape.m_radius = radius * scale;
 
 	b2FixtureDef fd;
 	fd.shape = &shape;

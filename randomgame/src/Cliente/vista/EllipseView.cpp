@@ -45,12 +45,12 @@ void EllipseView::updateRadius(float radiusModel)
 	float factorX = scale_factor.first;
 	float factorY = scale_factor.second;
 			
-	Log::t("Radio ciruculo ANTES de escalar: %f", radiusModel);
+	Log::t("Radio circulo ANTES de escalar: %f", radiusModel);
 
 	float radiusX = radiusModel * factorX;
 	float radiusY = radiusModel * factorY;
 	
-	Log::t("Radio ciruculo DESPUES de escalar en x y: %f, %f", radiusX, radiusY);
+	Log::t("Radio circulo DESPUES de escalar en x y: %f, %f", radiusX, radiusY);
 
 	this->setRadioX(radiusX);
 	this->setRadioY(radiusY);
