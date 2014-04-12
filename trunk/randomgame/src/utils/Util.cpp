@@ -70,11 +70,11 @@ std::string Util::int2string(int number)
 
 bool Util::string2bool(std::string sino)
 {
-	if (sino.compare("si"))
+	if (sino.compare("si") == 0)
 	{
 		return true;	
 	} 
-	else if (sino.compare("si")) 
+	else if (sino.compare("si") != 0) 
 	{
 		return false;
 	}
