@@ -3,8 +3,8 @@
 
 Bmp::Bmp(char* path)
 {
-  fileBmp = fopen(path, "rb");
-  validarArchivo();
+
+  validarArchivo(path);
 
 
   // obtain file size:
@@ -28,26 +28,39 @@ Bmp::Bmp(char* path)
     aDataBmp = new DataBmp(data,row_padded,height,width);
 }
 
-void Bmp::validarArchivo()
+void Bmp::validarArchivo(char* path)
 {
-	  if (fileBmp==NULL) { 
-		 //Log::e("Class Bmp.cpp: No existe el archivo. Se levantará el archivo bmp por default");
-		 //fileBmp = fopen(pathDefault, "rb");
-	  }//else if !(esUnBmp(filebmp) )
-	  //{
-	  	//Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se levantará el archivo bmp por default");
-	  	//fileBmp = fopen(pathDefault, "rb");
+	fileBmp = fopen(path, "rb");
+	if (fileBmp==NULL)
+	{ 
+		Log::e("Class Bmp.cpp: No existe el archivo. Se levantará el archivo bmp por default");
+		fileBmp = fopen("C:\\random-fiuba-game\\randomgame\\randomgame\\image\\testDefault.bmp", "rb");
+	}
+	else if (!esUnBmp(path))
+	{
+		Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se levantará el archivo bmp por default");
+
 		//copiar archivo por default al path
 		//Cargar el archivo por default
-		
-	  //fileBmp = fopen(pathDefault, "rb");
-		  //if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
-		  //{
-			  	  	//Log::e("Class Bmp.cpp: El archivo por default no existe");
-		  //exit (1);
-		  //}
+		fileBmp = fopen("C:\\random-fiuba-game\\randomgame\\randomgame\\image\\testDefault.bmp", "rb");
+	}
+	if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
+	{
+		Log::e("Class Bmp.cpp: El archivo por default no existe");
+		exit (1);
+	}
 }
 
+bool Bmp::esUnBmp(char* path)
+{
+	int longitudPath= strlen(path);
+	bool valido= 
+		(path[longitudPath-4]=='.' &&
+		path[longitudPath-3]=='b' &&
+		path[longitudPath-2]=='m' &&
+		path[longitudPath-1]=='p');
+	return valido;
+}
 
 
 Bmp::~Bmp()

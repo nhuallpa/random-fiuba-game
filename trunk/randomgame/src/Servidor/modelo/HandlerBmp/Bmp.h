@@ -16,6 +16,8 @@ private:
 
     FILE* fileBmp;
 	DataBmp* aDataBmp;
+		void validarArchivo(char* path);
+		bool esUnBmp(char* path);
 
 public:
     Bmp(char* path);
@@ -25,7 +27,7 @@ public:
 	int getWidth();
 	bool posValid(int posX, int posY);
 	list<Position*>* getBlackPositions();
-	void validarArchivo();
+
     ~Bmp();
 };
 #endif
