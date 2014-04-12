@@ -64,8 +64,7 @@ std::list<std::pair<float,float>> Cuadrado::GetVertex(){
 		//Log::d("Posicion vert %d: %.3f, %.3f",i, f.x, f.y);
 		//float x = f.x + (atoi((aParser->getEscenarioAnchoU()).c_str() )/2);
 		float x = f.x;
-		float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
-		//float y = f.y;
+		float y = f.y;
 		//Log::d("Posicion vert (Modelo) %d: %.3f, %.3f",i, x, y);		
 		vertexList.push_back(std::make_pair(x,y));
 	}

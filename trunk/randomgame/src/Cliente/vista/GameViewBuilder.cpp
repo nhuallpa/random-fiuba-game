@@ -32,25 +32,22 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 	std::map<int,GameElement*>::iterator it;
 	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", domainElements.size());
 
+	ParserYaml* aParser = ParserYaml::getInstance();
+
 	for (it = domainElements.begin(); it != domainElements.end(); ++it)
 	{
 		GameElement* domainElement = it->second;
 		FigureView* aFigure = 0;
+		std::string color= aParser->getColorById(Util::int2string(domainElement->getId()));
 		if (domainElement->getType() == ElementType::CIRCLE) 
 		{
 			Log::d("Creando CIRCULO");
 
-			//float factorRadius = Util::getTransformRadiusFromU2PX();
-			float radius = domainElement->getRadius();// * factorRadius;
+
+			float radius = domainElement->getRadius();
 			Log::t("Radio: %f", radius);
 
-			/*CircleView* aCircle = new CircleView("#00FF00FF");
-			aCircle->setRadio(radius);
-			aCircle->updatePositions(domainElement->getPosition());
-			aCircle->setId(domainElement->getId());
-			aFigure = aCircle;*/
-
-			EllipseView* aCircle = new EllipseView("#00FF00FF");
+			EllipseView* aCircle = new EllipseView(color);
 			aCircle->updateRadius(radius);
 			aCircle->updatePositions(domainElement->getPosition());
 			aCircle->setId(domainElement->getId());
@@ -60,10 +57,34 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 		else if (domainElement->getType() == ElementType::SQUARE) 
 		{
 			Log::d("Creando RECTANGULO");
-			RectangleView* aRectangle = new RectangleView("#FF0000FF");
+			RectangleView* aRectangle = new RectangleView(color);
 			aRectangle->updateVertex(domainElement->getVertex());
 			aRectangle->setId(domainElement->getId());
 			aFigure = aRectangle;
+		}
+		else if (domainElement->getType() == ElementType::TRIANGLE) 
+		{
+			Log::d("Creando TRIANGULO");
+			TriangleView* aTriangle = new TriangleView(color);
+			aTriangle->updateVertex(domainElement->getVertex());
+			aTriangle->setId(domainElement->getId());
+			aFigure = aTriangle;
+		}
+		else if (domainElement->getType() == ElementType::PENTA) 
+		{
+			Log::d("Creando PENTAGONO");
+			PentagonView* aPentagon = new PentagonView(color);
+			aPentagon->updateVertex(domainElement->getVertex());
+			aPentagon->setId(domainElement->getId());
+			aFigure = aPentagon;
+		}
+		else if (domainElement->getType() == ElementType::HEXAGON) 
+		{
+			Log::d("Creando HEXAGONO");
+			HexagonView* aHexagon = new HexagonView(color);
+			aHexagon->updateVertex(domainElement->getVertex());
+			aHexagon->setId(domainElement->getId());
+			aFigure = aHexagon;
 		}
 		if (aFigure) 
 		{
@@ -88,8 +109,10 @@ void GameViewBuilder::buildWater(ViewGroup* container)
 void GameViewBuilder::buildTerrain(ViewGroup* container)
 {
 	Log::d("Creando TERRENO en vista");
+	ParserYaml* aParser = ParserYaml::getInstance();
+	std::string color = aParser->getEscenarioColorTierra();
 
-	TerrainView* aTerrain = new TerrainView("#BC794FFF");
+	TerrainView* aTerrain = new TerrainView(color);
 
 	list< list< pair<float,float> > > * polygonsPoint = this->cLevel->getTerrain()->getListOfPolygons();
 	list< list< pair<float,float> > >::iterator itPolygons;

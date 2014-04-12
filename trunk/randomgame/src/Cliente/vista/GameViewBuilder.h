@@ -6,6 +6,8 @@
 #include "FigureViewGroup.h"
 #include "WaterView.h"
 #include "RectangleView.h"
+#include "PentagonView.h"
+#include "HexagonView.h"
 #include "PolygonView.h"
 #include "CircleView.h"
 #include "EllipseView.h"

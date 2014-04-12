@@ -164,6 +164,7 @@ public:
 	std::string getElemRadio(int);
 
 
+	std::string getColorById(std::string id);
 	
 
 };

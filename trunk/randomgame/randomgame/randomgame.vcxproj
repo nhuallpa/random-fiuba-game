@@ -76,6 +76,8 @@
     <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
@@ -141,6 +143,8 @@
     <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
+    <ClInclude Include="..\src\Cliente\vista\HexagonView.h" />
+    <ClInclude Include="..\src\Cliente\vista\PentagonView.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />

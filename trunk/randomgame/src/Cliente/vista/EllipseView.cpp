@@ -58,16 +58,11 @@ void EllipseView::updateRadius(float radiusModel)
 
 void EllipseView::updatePositions(std::pair<float, float> positions)
 {
-
-	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
-	float factorX = scale_factor.first;
-	float factorY = scale_factor.second;
-
-	int posX = positions.first * factorX;
-	int posY = positions.second * factorY;
+	Log::t("Posicion del Elipse x y Modelo: [%fUL, %fUL]", positions.first, positions.second);
+	tPoint sdlPoint = Util::convertPointUL2PXSDL(positions.first, positions.second);
 	
-	this->setX(posX);
-	this->setY(posY);
-	Log::t("Posicion del Elipse x y: [%dpx, %dpx]", posX, posY);
+	this->setX(sdlPoint.x);
+	this->setY(sdlPoint.y);
+	Log::t("Posicion del Elipse x y: [%dpx, %dpx]", sdlPoint.x, sdlPoint.y);
 }
 

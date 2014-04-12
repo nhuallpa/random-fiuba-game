@@ -20,7 +20,7 @@ bool GameEngine::initWorld(){
 	//ToDo @aliguo
 	//Create terrain from BMP
 	ParserYaml* aParser=ParserYaml::getInstance();
-	string path="C:\\random-fiuba-game\\randomgame\\randomgame\\image\\terreno.bmp";//aParser->getEscenarioTierra();
+	string path = aParser->getEscenarioTierra();
 	char *pepe=(char*)path.c_str();
 	aTerrainProcessor=new TerrainProcessor(this->myWorld,pepe,1.5,100);
 	this->gameLevel.setTerrain(aTerrainProcessor);

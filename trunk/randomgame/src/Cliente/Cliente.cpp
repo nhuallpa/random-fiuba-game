@@ -37,7 +37,9 @@ void Cliente::loop(void){
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), 
 													builder, &this->cLevel);
 	this->cController.init();
-
+	
+	/** refresh the initial view*/
+	currentActivity->render();
 
 	int running = 0;
 	while (!this->cController.isQuit()){
@@ -67,9 +69,6 @@ void Cliente::loop(void){
 			currentActivity->render();
 		}
 
-		/*currentActivity->update();
-		currentActivity->render();
-		*/
 		this->cController.clearStates();
 	}
 	bootstrap.getScreen().terminate();

@@ -44,6 +44,44 @@ void TriangleView::draw(SDLScreen & screen)
 				this->getBorderColorCod());
 }
 
+
+
+void TriangleView::update(GameElement* domainElement)
+{
+	this->updateVertex(domainElement->getVertex());
+}
+
+void TriangleView::updateVertex(std::list<std::pair<float,float>> & theVertex)
+{
+	std::list<std::pair<float,float>>::iterator itVertex;
+	int vertexIndex = 1;
+	for ( itVertex = theVertex.begin();	itVertex != theVertex.end(); ++itVertex) 
+	{
+		tPoint sdlPoint = Util::convertPointUL2PXSDL(itVertex->first, itVertex->second);
+		int x = sdlPoint.x;
+		int y = sdlPoint.y;
+
+		Log::t("Vertex Triangulo id:%d pos:[%d, %d]", vertexIndex, x, y);
+ 
+		switch (vertexIndex)
+		{
+			case 1:
+				this->setVertexA(x, y);
+				break;
+			case 2:
+				this->setVertexB(x, y);
+				break;
+			case 3:
+				this->setVertexC(x, y);
+				break;
+		}
+		vertexIndex++;
+	}
+
+}
+
+
+
 void TriangleView::setVertexA(int x, int y)
 {
 	this->vertexA.x = x;
