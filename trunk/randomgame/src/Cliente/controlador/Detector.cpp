@@ -19,8 +19,8 @@ Detector::~Detector() {
 }
 
 void Detector::init(){
-	_state = REGENERATE;
-	_previousState = REGENERATE;
+	_state = NONE;
+	_previousState = NONE;
 	createStates();
 	createEvents();
 }
@@ -39,6 +39,7 @@ void Detector::createStates(){
 	_mapStateEvent.insert(pair<State, list<Event*>>(INITILIZE,NULL));
 	_mapStateEvent.insert(pair<State, list<Event*>>(REGENERATE,NULL));
 	_mapStateEvent.insert(pair<State, list<Event*>>(PAUSE,NULL));
+	_mapStateEvent.insert(pair<State, list<Event*>>(NONE,NULL));
 }
 
 void Detector::createEvents(){
@@ -52,11 +53,15 @@ void Detector::createEvents(){
 	//Events for regenerate
 	_mapStateEvent[REGENERATE] = listInit;
 
+	//Events for NONE
+	_mapStateEvent[NONE] = listInit;
+
 	//Events for pause
 	list<Event*> listInit2;
 	listInit2.push_back(EventQuit::getInstance());
 	listInit2.push_back(EventP::getInstance());
 	_mapStateEvent[PAUSE] = listInit2;
+
 }
 
 
@@ -82,17 +87,42 @@ void Detector::handleEvents(SDL_Event* e){
 	SDL_PumpEvents();
 	if(e->type == SDL_KEYDOWN || e->type == SDL_QUIT){
 		excecute(e);
+
+		//SETEO EL ESTADO
+		EventS* elementS = EventS::getInstance();
+		EventP* elementP = EventP::getInstance();
+	
+		if(elementS->isBeginLife()){
+			_state = INITILIZE;
+		}
+		else if(elementS->isRegenerateWorld()){
+			_state = REGENERATE;
+		}
+
+		else if(elementP->isPause() && _state != PAUSE){
+			_previousState = _state;
+			_state = PAUSE;
+		}
+		else if(!elementP->isPause() && _state == PAUSE){
+			_state = _previousState;
+			//_previousState = PAUSE;
+		}
+		
+
+
 	}
 }
 
 bool Detector::isBeginLife(){
-	EventS* element = EventS::getInstance();
-	return element->isBeginLife();
+	return (_state == INITILIZE);
+	/*EventS* element = EventS::getInstance();
+	return element->isBeginLife();*/
 }
 
 bool Detector::isRegenerateWorld(){
-	EventS* element = EventS::getInstance();
-	return element->isRegenerateWorld();
+	return (_state == REGENERATE);
+	/*EventS* element = EventS::getInstance();
+	return element->isRegenerateWorld();*/
 }
 
 bool Detector::isPause(){
@@ -110,24 +140,24 @@ void Detector::updateStates(){
 	list<Event*>::iterator it;
 	if(isBeginLife()){
 		_previousState = _state;
-		_state = INITILIZE;
+		//_state = INITILIZE;
 	}
 	else if(isRegenerateWorld()){
 		_previousState = _state;
-		_state = REGENERATE;
+		//_state = REGENERATE;
 	}
 	else if(isQuit()){
 		_previousState = _state;
 		_state = QUIT;
 	}
-	else if(isPause() && _state != PAUSE){
+/*	else if(isPause() && _state != PAUSE){
 		_previousState = _state;
 		_state = PAUSE;
 	}
 	else if(!isPause() && _state == PAUSE){
 		_state = _previousState;
 		_previousState = PAUSE;
-	}
+	}*/
 	for(it = _mapStateEvent[_state].begin();
 		it != _mapStateEvent[_state].end(); 
 		it++){

@@ -26,7 +26,7 @@ public:
 
 
 private:
-	enum State{QUIT,INITILIZE,REGENERATE,PAUSE};
+	enum State{QUIT,INITILIZE,REGENERATE,PAUSE,NONE};
 	State _state;
 	State _previousState;
 	map<State, list<Event*>> _mapStateEvent;
