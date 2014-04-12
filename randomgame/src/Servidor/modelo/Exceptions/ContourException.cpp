@@ -17,6 +17,6 @@ ContourExp::~ContourExp(void)
 
 
 const char* ContourExp::what(){
-	return mError[idError].c_str();
+	return mError[HC_OFFSET + idError].c_str();
 }
 

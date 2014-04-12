@@ -253,9 +253,6 @@ void HandleContour::
 			contour->erase(itPoint);
 }
 
-string HandleContour::getErr(int valueErr){
-	 return "";//_error[HC_OFFSET + valueErr];
-}
 
 
 
