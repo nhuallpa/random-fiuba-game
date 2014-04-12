@@ -102,7 +102,7 @@ bool GameLevel::createLevel(GameLevel&){
 	//ToDo @aliguo: Agrego hardcoded un cuadrado
 	this->addEntity(new GameElement(1,SQUARE,100.0,200.0,0.0,20,20,60.0, false));
 	this->addEntity(new GameElement(2, 65.0, 150.0, 10.0, 1.0, 60.0, false));
-	this->addEntity(new GameElement(3, HEXAGON, 65.0, 150.0, 1.0, 15.0, 0.0, false));
+	//this->addEntity(new GameElement(3, HEXAGON, 65.0, 150.0, 1.0, 15.0, 0.0, false));
 
 	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
 	return true;
