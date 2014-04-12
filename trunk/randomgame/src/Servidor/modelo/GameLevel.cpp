@@ -28,8 +28,8 @@ int GameLevel::getWidth() {
 //}
 
 void GameLevel::addEntity(GameElement *entidad) {
-	this->entities.insert(std::make_pair(entidad->getId(), entidad ));
-	
+	//this->entities.insert(std::make_pair(entidad->getId(), entidad ));
+	this->entities[entidad->getId()] = entidad;
 
 
 }
@@ -113,7 +113,7 @@ bool GameLevel::createLevel(GameLevel&){
 			}
 			else if (tipo.compare("pent") == 0)
 			{
-				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+				 this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
 												PENTA,
 												Util::string2float(aParser->getElemX(j)),
 												Util::string2float(aParser->getElemY(j)),

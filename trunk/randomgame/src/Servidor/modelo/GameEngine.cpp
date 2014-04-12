@@ -21,8 +21,7 @@ bool GameEngine::initWorld(){
 	//Create terrain from BMP
 	ParserYaml* aParser=ParserYaml::getInstance();
 	string path = aParser->getEscenarioTierra();
-	char *pepe=(char*)path.c_str();
-	aTerrainProcessor=new TerrainProcessor(this->myWorld,pepe,1.5,100);
+	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)path.c_str(),1.5,100);
 	this->gameLevel.setTerrain(aTerrainProcessor);
 
 	//list<list<pair<float,float>>> *pepee = aTerrainProcessor->getListOfPolygons();
