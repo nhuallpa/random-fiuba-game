@@ -82,3 +82,42 @@ bool Util::string2bool(std::string sino)
 }
 
 
+bool Util::esUnsInt(std::string str) 
+{
+	for (unsigned int i=0;i<str.length();i++)
+		if (isdigit(str[i])==0) return false;
+	return true;
+
+}
+
+std::map<std::string, std::string> Util::loadProperteries(std::string str)
+{
+	std::ifstream configFile(str.c_str(), std::ios::in);
+	std::map<std::string, std::string> properties;
+	std::string l_property;
+	if (configFile.is_open())
+	{
+		configFile.seekg(std::ios::beg);
+		while (!configFile.eof()) 
+		{
+			std::getline(configFile, l_property);
+			if (configFile.good()) 
+			{
+				int posComentSymbol = l_property.find('#');
+				if (posComentSymbol == 0)
+				{
+					continue;
+				}
+				int posAssignSymbol = l_property.find('=');
+				if (posAssignSymbol > 0)
+				{
+					std::string key = l_property.substr(0, posAssignSymbol);
+					std::string value = l_property.substr(posAssignSymbol+1);
+					properties[key] = value;	
+				}
+			}
+		}
+		configFile.close();
+	}
+	return properties;
+}
