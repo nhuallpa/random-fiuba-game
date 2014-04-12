@@ -27,6 +27,8 @@ public:
 	TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale);
 	list< list< pair<float,float> > > * getListOfPolygons();
 	~TerrainProcessor(void);
+	vector<vector<b2Vec2>> 
+	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale);
 };
 
 #endif

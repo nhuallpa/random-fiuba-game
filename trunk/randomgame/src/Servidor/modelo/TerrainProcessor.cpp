@@ -16,22 +16,14 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 	{
 		vector<b2Vec2> lista;
 		vector<vector<b2Vec2>> result;
-		HandleContour hc;
 
 		list<Position*>::iterator itPosition = (*itComponente)->end();
 		while(itPosition != (*itComponente)->begin()){
 			--itPosition;
 			lista.push_back(b2Vec2((float)(*itPosition)->getX(), (float)(*itPosition)->getY()));
 		}
-		try
-		{
-			result = hc.getPolygonConvex(lista, epsilon, scale);
-		}
-		catch(ContourExp e)
-		{
-			Log::e(HANDLE_CONTOUR, e.what());
-			lista.clear();
-		}
+
+		result = this->getPolygonConvex(lista, epsilon, scale);
 
 		for(int nroDePoligono=0; nroDePoligono< result.size(); nroDePoligono++)
 		{
@@ -77,6 +69,34 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 	delete aContourBmp;
 
 }
+
+
+
+
+
+
+vector<vector<b2Vec2>> TerrainProcessor::	
+	getPolygonConvex(vector<b2Vec2> lista, float epsilon, int scale){
+		vector<vector<b2Vec2>> result;
+		HandleContour hc;
+		try
+		{
+			result = hc.getPolygonConvex(lista, epsilon, scale);
+		}
+		catch(ContourExp e)
+		{
+			Log::e(HANDLE_CONTOUR, e.what());
+			lista.clear();
+			//TODO: Bauti aca deberias llamar a la imagen por defecto
+			//      ya que la otra tiro error, asi cargas a result y 
+			//      todo sigue funcionando
+		}
+		return result;
+}
+
+
+
+
 
 
 
