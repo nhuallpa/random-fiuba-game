@@ -1,13 +1,14 @@
-﻿Build started 11/04/2014 09:08:40 p.m..
+﻿Build started 11/04/2014 09:19:49 p.m..
      1>Project "C:\random-fiuba-game\randomgame\randomgame\randomgame.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\randomgame.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\utils\Util.cpp
-         Util.cpp
-     1>c:\random-fiuba-game\randomgame\src\utils\util.cpp(45): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\random-fiuba-game\randomgame\src\utils\util.cpp(48): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\random-fiuba-game\randomgame\src\utils\util.cpp(61): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\Servidor\modelo\GameEngine.cpp
+         GameEngine.cpp
+     1>c:\random-fiuba-game\randomgame\src\servidor\modelo\physics\body.h(24): warning C4099: 'b2Vec2' : type name first seen using 'struct' now seen using 'class'
+                 c:\random-fiuba-game\randomgame\libs\box2d\common\b2math.h(65) : see declaration of 'b2Vec2'
+     1>c:\random-fiuba-game\randomgame\src\servidor\modelo\physics\bodies\circle.h(14): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\random-fiuba-game\randomgame\src\servidor\modelo\physics\bodies\circle.h(15): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\program files (x86)\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\xutility(2212) : see declaration of 'std::_Copy_impl'
                  c:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : see reference to function template instantiation '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' being compiled
@@ -92,4 +93,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.26
+Time Elapsed 00:00:05.32
