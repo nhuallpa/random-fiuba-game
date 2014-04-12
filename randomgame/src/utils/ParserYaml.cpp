@@ -919,7 +919,7 @@ bool ParserYaml::esHexaSdl(std::string str){
 
 
 bool ParserYaml::esTipoValido(std::string str){
-	if ((str.compare("rec")==0) || (str.compare("tri")==0) || (str.compare("pent")==0) || (str.compare("circ")==0)) return true;
+	if ((str.compare("rec")==0) || (str.compare("tri")==0) || (str.compare("pent")==0) || (str.compare("hexa")==0) || (str.compare("circ")==0)) return true;
 	return false;
 
 
@@ -932,6 +932,8 @@ bool ParserYaml::validarGuardar(std::string str,bool fNombre,bool fId,bool fEsca
 	if ((str.compare("tri")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor) return true;
 	if ((str.compare("pent")==0) && (fAlto || fAncho || fRadio)) return false;
 	if ((str.compare("pent")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor) return true;
+	if ((str.compare("hexa")==0) && (fAlto || fAncho || fRadio)) return false;
+	if ((str.compare("hexa")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor) return true;
 	if ((str.compare("circ")==0) && (fAlto || fAncho))return false;	
 	if ((str.compare("circ")==0) && fId && fNombre && fX && fY && fEscala && fRot && fMasa && fEstatico && fColor && fRadio) return true;	
 
@@ -986,6 +988,23 @@ void ParserYaml::loggearErrGuardar(std::string str,bool fNombre,bool fId,bool fE
 		if (fRadio) Log::d(PARSER,"Atributo RADIO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
 
 	}
+	else if (str.compare("hexa")==0){
+
+		if (!fId)Log::d(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::d(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
+		if (!fY) Log::d(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
+		if (!fRot) Log::d(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fMasa) Log::d(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEstatico) Log::d(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fEscala) Log::d(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fColor) Log::d(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+
+		if (fAlto) Log::d(PARSER,"Atributo ALTO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fAncho) Log::d(PARSER,"Atributo ANCHO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fRadio) Log::d(PARSER,"Atributo RADIO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+
+	}
 	else if (str.compare("circ")==0){
 		if (!fId)Log::d(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
 		if (!fNombre)Log::d(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
@@ -1019,6 +1038,17 @@ bool ParserYaml::esImagen(std::string str){
 	if (ext.compare(".bmp") == 0) return true;
 	if (ext.compare(".png") == 0) return true;
 	return false;
+}
+
+std::string ParserYaml::getColorById(std::string id){
+	  int i;
+      for (i = 0; i<this->getCantElem(); i++) 
+	  {
+        if (id.compare(this->getElemId(i)) == 0) 
+			return (this->getElemColor(i));	
+      }
+	  Log::d(PARSER,"Color del elemento id: %d no encontrado", i-1);
+	  return "";
 }
 
 ParserYaml* ParserYaml::pInstance = NULL;

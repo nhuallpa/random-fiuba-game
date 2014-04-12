@@ -9,45 +9,54 @@ escenario:
     ancho-px: 400
     nivel_agua: 50
     color_agua: "#0000FF99"
-    imagen_tierra: image/TIMv1.jpg
+    imagen_tierra: image/test2.bmp
     color_tierra: "#BC794FFF"
     imagen_cielo: image/cielo1.png
     objetos:
     - tipo:     rec
       id:               1
-      x:                43.44
-      y:                100
-      alto:     10
-      ancho:    10
+      x:        900
+      y:        400
+      alto:     50
+      ancho:    50
       color:    "#FF0000FF"
       estatico: no
       rot:              0
       masa:     1
     - tipo:     tri
-      id:               2
-      x:                50
-      y:                50
-      escala:   3.5
+      id:       2
+      x:        130
+      y:        600
+      escala:   50
       color:    "#00FF00FF"
       estatico: si
-      rot:              0
+      rot:      0
       masa:     1
     - tipo:     pent
-      id:               3
-      x:                150
-      y:                50
-      escala:   2
+      id:       3
+      x:        700
+      y:        700
+      escala:   30
       color:    "#0000FFFF"
       estatico: si
-      rot:              10
+      rot:      10
       masa:     4
     - tipo:     circ
-      id:               4
-      x:                150
-      y:                250
+      id:       4
+      x:        100
+      y:        600
       escala:   1.5
-      color:    "#00FFFFFF"
-      estatico: no
-      rot:              10
+      color:    "#FF0000FF"
+      estatico: si
+      rot:      20
       masa:     4
-      radio:    3
+      radio:    20
+    - tipo:     hexa
+      id:       5
+      x:        500
+      y:        900
+      escala:   30
+      color:    "#FF00FFFF"
+      estatico: si
+      rot:      10
+      masa:     4

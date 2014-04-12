@@ -240,6 +240,12 @@
     <ClCompile Include="..\src\Servidor\modelo\TerrainProcessor.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -430,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\TerrainProcessor.h">
       <Filter>Archivos de código fuente\server\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\PentagonView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\HexagonView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

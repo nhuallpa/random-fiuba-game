@@ -61,4 +61,24 @@ float Util::string2float(std::string number)
 	return atof(number.c_str());
 }
 
+std::string Util::int2string(int number)
+{
+	std::stringstream buffer;
+	buffer<<number;
+	return buffer.str();
+}
+
+bool Util::string2bool(std::string sino)
+{
+	if (sino.compare("si"))
+	{
+		return true;	
+	} 
+	else if (sino.compare("si")) 
+	{
+		return false;
+	}
+	return false;
+}
+
 

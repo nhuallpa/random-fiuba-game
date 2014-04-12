@@ -69,42 +69,71 @@ bool GameLevel::posicionOcupada(float x, float y){
 	//Chequear en base a radio/distancia del centro. Recibe pos central y tiene h, w
 
 
-
 	return false;
 }
 
 bool GameLevel::createLevel(GameLevel&){
-	//ToDo: crear nivel a partir de yaml persistido
-	//ParserYaml* aParser = ParserYaml::getInstance();
+	Log::i("MODELO: Toma valores del yaml");
+	ParserYaml* aParser = ParserYaml::getInstance();
+	for (unsigned j=0;j<aParser->getCantElem();j++){
+			std::string tipo = aParser->getElemTipo(j);
 
-	//if ( aParser->getDefault() == false ){
-	//for(int i=0;i<1;i++){
-	//	//std::cout<<"elementos:"<< aParser->getCantElem(i) << "\n\t\t";
-	//	for(int j=0;j<aParser->getCantElem(i);j++){
-	//		//std::cout<<"tipo: "<< aParser->getElemNombre(i,j)<<"\n\t\t";
-	//		//std::cout<<"x: "<< aParser->getElemX(i,j)<<"\n\t\t";
-	//		//std::cout<<"y: "<< aParser->getElemY(i,j)<<"\n\t\t";
-	//		//std::cout<<"angulo: "<< aParser->getElemAngulo(i,j)<<"\n\t\t";
-
-	//		this->addEntity(GameElement(
-	//							aParser->getElementPosition(aParser->getElemNombre(i,j)),
-	//							//nearest(boost::lexical_cast<float>( (aParser->getElemX(i,j)).c_str() )),
-	//							//nearest(boost::lexical_cast<float>( (aParser->getElemY(i,j)).c_str() )),
-	//							0.0,
-	//							0.0,
-	//							atoi( (aParser->getElemAngulo(i,j)).c_str()) ));
-
-	//		//std::cout<<"added one at " <<  nearest(boost::lexical_cast<float>((aParser->getElemX(i,j)).c_str()))  << ", " << nearest(boost::lexical_cast<float>(((aParser->getElemY(i,j)).c_str()))) << std::endl;
-	//	}
-	//}
-	//}
-	
-	//ToDo @aliguo: Agrego hardcoded un cuadrado
-	this->addEntity(new GameElement(1,SQUARE,100.0,200.0,0.0,20,20,60.0, false));
-	this->addEntity(new GameElement(2, 65.0, 150.0, 10.0, 1.0, 60.0, false));
-	//this->addEntity(new GameElement(3, HEXAGON, 65.0, 150.0, 1.0, 15.0, 0.0, false));
-
-	//ToDo @aliguo: aca podria vincularlo directamente con Box2D si se complica la separacion (idea)
+			if (tipo.compare("rec") == 0)
+			{
+				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+												SQUARE,
+												Util::string2float(aParser->getElemX(j)),
+												Util::string2float(aParser->getElemY(j)),
+												Util::string2float(aParser->getElemRot(j)),
+												Util::string2int(aParser->getElemAlto(j)),
+												Util::string2int(aParser->getElemAncho(j)),
+												Util::string2float(aParser->getElemMasa(j)), 
+												Util::string2bool(aParser->getElemEstatico(j))));
+			} 
+			else if (tipo.compare("circ") == 0)
+			{
+				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+												Util::string2float(aParser->getElemX(j)),
+												Util::string2float(aParser->getElemY(j)),
+												Util::string2float(aParser->getElemRadio(j)),
+												Util::string2float(aParser->getElemEscala(j)),
+												Util::string2float(aParser->getElemMasa(j)), 
+												Util::string2bool(aParser->getElemEstatico(j))));
+			}
+			else if (tipo.compare("tri") == 0)
+			{
+				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+												TRIANGLE,
+												Util::string2float(aParser->getElemX(j)),
+												Util::string2float(aParser->getElemY(j)),
+												Util::string2float(aParser->getElemEscala(j)),
+												Util::string2float(aParser->getElemRot(j)),
+												Util::string2float(aParser->getElemMasa(j)), 
+												Util::string2bool(aParser->getElemEstatico(j))));
+			}
+			else if (tipo.compare("pent") == 0)
+			{
+				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+												PENTA,
+												Util::string2float(aParser->getElemX(j)),
+												Util::string2float(aParser->getElemY(j)),
+												Util::string2float(aParser->getElemEscala(j)),
+												Util::string2float(aParser->getElemRot(j)),
+												Util::string2float(aParser->getElemMasa(j)), 
+												Util::string2bool(aParser->getElemEstatico(j))));
+			}
+			else if (tipo.compare("hexa") == 0)
+			{
+				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+												HEXAGON,
+												Util::string2float(aParser->getElemX(j)),
+												Util::string2float(aParser->getElemY(j)),
+												Util::string2float(aParser->getElemEscala(j)),
+												Util::string2float(aParser->getElemRot(j)),
+												Util::string2float(aParser->getElemMasa(j)), 
+												Util::string2bool(aParser->getElemEstatico(j))));
+			}
+	}
 	return true;
 }
 

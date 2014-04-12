@@ -1,67 +1,66 @@
-#include "RectangleView.h"
+#include "PentagonView.h"
 
 
-RectangleView::RectangleView(std::string  color): FigureView(0,0,color,0)
+PentagonView::PentagonView(std::string  color) : FigureView(0,0,color,0)
 {
 	init();
 }
-void RectangleView::init()
-{
-	vertexA.x = 0;
-	vertexA.y = 0;
-	vertexB.x = 0;
-	vertexB.y = 0;
-	vertexC.x = 0;
-	vertexC.x = 0;
-	vertexD.y = 0;
-	vertexD.y = 0;
-}
 
-/**DEPRECATED*/
-RectangleView::RectangleView(int x, int y, int width, int height, std::string  color, int rotation):
-								FigureView(x,y,color,rotation)
+
+PentagonView::PentagonView(int x, int y, std::string  color, int rotation)
+									: FigureView(x,y,color,rotation)
 {
-	this->setWidth(width);
-	this->setHeight(height);
 	init();
 }
 
+void PentagonView::init()
+{
+	this->setVertexA(0,0);
+	this->setVertexB(0,0);
+	this->setVertexC(0,0);
+	this->setVertexD(0,0);
+	this->setVertexE(0,0);
+}
 
-RectangleView::~RectangleView(void)
+PentagonView::~PentagonView(void)
 {
 }
 
-
-void RectangleView::draw(SDLScreen & screen)
+void PentagonView::draw(SDLScreen & screen)
 {
 	vertexX[0] = vertexA.x;
 	vertexX[1] = vertexB.x;
 	vertexX[2] = vertexC.x;
 	vertexX[3] = vertexD.x;
+	vertexX[4] = vertexE.x;
+
 	vertexY[0] = vertexA.y;
 	vertexY[1] = vertexB.y;
 	vertexY[2] = vertexC.y;
 	vertexY[3] = vertexD.y;
+	vertexY[4] = vertexE.y;
 	
 	filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
-				4,
+				countPoint,
 				this->getColorCod());
+
 	polygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
-				4,
+				countPoint,
 				this->getBorderColorCod());
-
 }
 
-void RectangleView::update(GameElement* domainElement)
+
+
+void PentagonView::update(GameElement* domainElement)
 {
 	this->updateVertex(domainElement->getVertex());
 }
 
-void RectangleView::updateVertex(std::list<std::pair<float,float>> & theVertex)
+void PentagonView::updateVertex(std::list<std::pair<float,float>> & theVertex)
 {
 	std::list<std::pair<float,float>>::iterator itVertex;
 	int vertexIndex = 1;
@@ -70,7 +69,8 @@ void RectangleView::updateVertex(std::list<std::pair<float,float>> & theVertex)
 		tPoint sdlPoint = Util::convertPointUL2PXSDL(itVertex->first, itVertex->second);
 		int x = sdlPoint.x;
 		int y = sdlPoint.y;
-		Log::t("Vertex Rectangulo id:%d pos:[%d, %d]", vertexIndex, x, y);
+
+		Log::t("Vertex Pentagono index:%d pos:[%d, %d]", vertexIndex, x, y);
  
 		switch (vertexIndex)
 		{
@@ -86,30 +86,43 @@ void RectangleView::updateVertex(std::list<std::pair<float,float>> & theVertex)
 			case 4:
 				this->setVertexD(x, y);
 				break;
+			case 5:
+				this->setVertexE(x, y);
+				break;
 		}
 		vertexIndex++;
 	}
 
 }
 
-void RectangleView::setVertexA(int x, int y)
+
+
+void PentagonView::setVertexA(int x, int y)
 {
 	this->vertexA.x = x;
 	this->vertexA.y = y;
 }
-void RectangleView::setVertexB(int x, int y)
+void PentagonView::setVertexB(int x, int y)
 {
 	this->vertexB.x = x;
 	this->vertexB.y = y;
 }
-void RectangleView::setVertexC(int x, int y)
+void PentagonView::setVertexC(int x, int y)
 {
 	this->vertexC.x = x;
 	this->vertexC.y = y;
 }
 
-void RectangleView::setVertexD(int x, int y)
+void PentagonView::setVertexD(int x, int y)
 {
 	this->vertexD.x = x;
 	this->vertexD.y = y;
 }
+
+void PentagonView::setVertexE(int x, int y)
+{
+	this->vertexE.x = x;
+	this->vertexE.y = y;
+}
+
+

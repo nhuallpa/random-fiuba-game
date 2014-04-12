@@ -40,6 +40,22 @@ public:
 	*/
 	static float string2float(std::string number);
 
+	/**
+	* Convert std::string witch value could be "no" or "si" to bool type
+	* @param  a string value "si" or "no"
+	* @return true if sino has a "si"
+	*/
+	static bool string2bool(std::string sino);
+
+
+	/**
+	* Convert std::string witch value could be "no" or "si" to bool type
+	* @param  a string value "si" or "no"
+	* @return true if sino has a "si"
+	*/
+	static std::string int2string(int number);
+	
+
 
 	/**
 	* Convert a coordinate x y to coordinate in SDL system reference

@@ -52,6 +52,8 @@ FigureView* FigureViewGroup::findById(int idElement)
 	} 
 	else 
 	{
-		throw GameException("FigureView not found by id");
+		std::stringstream msg;
+		msg<<"FigureView: not found view by id: "<<idElement;
+		throw GameException(msg.str());
 	}
 }

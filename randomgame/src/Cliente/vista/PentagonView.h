@@ -1,28 +1,33 @@
 #pragma once
 #include "FigureView.h"
-#ifndef __TRIANGLE_VIEW_H_
-#define __TRIANGLE_VIEW_H_
+#ifndef __PENTAGON_VIEW_H_
+#define __PENTAGON_VIEW_H_
 
-class TriangleView :
+class PentagonView :
 	public FigureView
 {
 private:
-
+	static const int countPoint = 5;
 	tPoint vertexA;
 	tPoint vertexB;
 	tPoint vertexC;
+	tPoint vertexD;
+	tPoint vertexE;
 
-	Sint16 vertexX[3];
-	Sint16 vertexY[3];
+	Sint16 vertexX[countPoint];
+	Sint16 vertexY[countPoint];
 
+	void init();
 public:
-	TriangleView(std::string  color);
-	TriangleView(int x, int y, std::string  color, int rotation);
+	PentagonView(std::string  color);
+	PentagonView(int x, int y, std::string  color, int rotation);
 	void draw(SDLScreen & screen);
 
 	void setVertexA(int x, int y);
 	void setVertexB(int x, int y);
 	void setVertexC(int x, int y);
+	void setVertexD(int x, int y);
+	void setVertexE(int x, int y);
 
 	tPoint getVertexA(){return this->vertexA;}
 
@@ -30,12 +35,16 @@ public:
 
 	tPoint getVertexC(){return this->vertexC;}
 
+	tPoint getVertexD(){return this->vertexD;}
+
+	tPoint getVertexE(){return this->vertexE;}
+
 	void update(GameElement* domainElement);
 
 	void updateVertex(std::list<std::pair<float,float>> & theVertex);
 
-	~TriangleView(void);
+	~PentagonView(void);
 
 };
 
-#endif /**__TRIANGLE_VIEW_H_*/
+#endif /**__PENTAGON_VIEW_H_*/
