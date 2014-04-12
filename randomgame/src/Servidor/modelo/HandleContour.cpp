@@ -15,29 +15,6 @@ HandleContour::HandleContour(){
 
 }
 HandleContour::~HandleContour(){}
-/*
-vector<vector<vector<b2Vec2>>> HandleContour::
-	getPolygonConvex(vector<vector<b2Vec2>> contour, float epsilon, int scale)
-	throw (ContourExp, exception){
-		vector<vector<b2Vec2>>::iterator it;
-		vector<vector<vector<b2Vec2>>> result;
-		vector<vector<b2Vec2>> aux;	
-		try{
-			for(it = contour.begin(); it != contour.end(); it++){
-				aux = this->getPolygonConvex((*it), epsilon, scale);
-				result.push_back(aux);
-			}
-		}
-		catch(ContourExp ce){
-			throw ce;
-		}
-		catch(exception e){
-			Log::e(HANDLE_CONTOUR, "Contour not invalid");
-			throw (-15,"Contour not invalid");
-		}
-		return result;
-}
-*/
 
 vector<vector<b2Vec2>> HandleContour::
 	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
@@ -61,9 +38,8 @@ vector<vector<b2Vec2>> HandleContour::
 		result = this->mulK(result, scale);
 		result = this->valSize(result);
 	}
-	catch(ContourExp e){
-		Log::e(HANDLE_CONTOUR, e.what());
-		throw e;
+	catch(ContourExp){
+		throw;
 	}
 	catch(...){
 		Log::e(HANDLE_CONTOUR, "Error desconocido");

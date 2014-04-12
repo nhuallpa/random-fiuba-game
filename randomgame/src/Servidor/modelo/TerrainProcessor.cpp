@@ -1,5 +1,6 @@
 #include "TerrainProcessor.h"
 #include "../../libs/Box2D/Box2D.h"
+#include "Exceptions\ContourException.h"
 
 TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale)
 {
@@ -26,8 +27,9 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 		{
 			result = hc.getPolygonConvex(lista, epsilon, scale);
 		}
-		catch(exception e)
+		catch(ContourExp e)
 		{
+			Log::e(HANDLE_CONTOUR, e.what());
 			lista.clear();
 		}
 
