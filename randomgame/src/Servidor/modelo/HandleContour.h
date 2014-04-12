@@ -8,21 +8,26 @@
 #include "b2Separator.h"
 #include <string>
 #include <map>
+#include "Exceptions\ContourException.h"
 
 using namespace std;
+using namespace server_model_exp;
 
 namespace server_model_handle{
 	class HandleContour{
 	public:
 		HandleContour();
 		~HandleContour();
-		vector<vector<b2Vec2>> getPolygonConvex(vector<b2Vec2> contour,
-			                                    float epsilon, 
-												int scale);
+		
+		vector<vector<b2Vec2>> 
+			getPolygonConvex(vector<b2Vec2> contour,
+			                 float epsilon, 
+							 int scale) throw (ContourExp);
+		/*
 		vector<vector<vector<b2Vec2>>> 
 			getPolygonConvex(vector<vector<b2Vec2>> contours,
 			                                    float epsilon, 
-												int scale);
+												int scale);*/
 		vector<b2Vec2> rdp(vector<b2Vec2> contour, float epsilon);
 	private:
 		map<int, string> _error;

@@ -7,8 +7,8 @@ ContourExp::ContourExp(int error) : exception(), idError(error) {
 	mError[HC_OFFSET + 1] = HC_ERROR_1;
 	mError[HC_OFFSET + 2] = HC_ERROR_2;
 	mError[HC_OFFSET + 3] = HC_ERROR_3;
+	mError[HC_OFFSET + 4] = HC_ERROR_4;
 }
-
 
 
 ContourExp::~ContourExp(void)

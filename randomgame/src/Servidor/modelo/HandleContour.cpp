@@ -1,12 +1,12 @@
 #include "HandleContour.h"
 #include <cmath>
-#include "Exceptions\ContourException.h"
 #include <utility>
 #include "..\..\utils\Log.h"
 #include <map>
 
 #define SEGMENT 2
 #define MAX_VERTEX 8
+#define UNKNOWN_ERROR 4
 
 using namespace server_model_handle;
 using namespace server_model_exp;
@@ -15,7 +15,7 @@ HandleContour::HandleContour(){
 
 }
 HandleContour::~HandleContour(){}
-
+/*
 vector<vector<vector<b2Vec2>>> HandleContour::
 	getPolygonConvex(vector<vector<b2Vec2>> contour, float epsilon, int scale)
 	throw (ContourExp, exception){
@@ -37,20 +37,20 @@ vector<vector<vector<b2Vec2>>> HandleContour::
 		}
 		return result;
 }
-
+*/
 
 vector<vector<b2Vec2>> HandleContour::
-	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale)
-	throw (ContourExp, exception){
+	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
 	vector<vector<b2Vec2>>::iterator it;
 	vector<vector<b2Vec2>> result;
 	vector<b2Vec2> contourAux;
 	b2Separator* sep = NULL;
+	int val = 0;
 	Log::i(HANDLE_CONTOUR, "============== INICIANDO HANDLE CONTOUR =============");
 	try{
-		if (sep->Validate(contour)) {
-			Log::e(HANDLE_CONTOUR, "Contour not invalid: "+this->getErr(sep->Validate(contour)));
-			//throw (new ContourExp(pair<int,string>(sep->Validate(contour),"Contour not invalid")));
+		val = sep->Validate(contour);
+		if (val) {
+			throw ContourExp(val);
 		}
 		contourAux = this->rdp(contour, epsilon);
 		contourAux = this->mulK(contourAux, scale);
@@ -61,13 +61,13 @@ vector<vector<b2Vec2>> HandleContour::
 		result = this->mulK(result, scale);
 		result = this->valSize(result);
 	}
-	catch(ContourExp ce){
-		throw ce;
+	catch(ContourExp e){
+		Log::e(HANDLE_CONTOUR, e.what());
+		throw e;
 	}
-	catch(exception e){
-		Log::e(HANDLE_CONTOUR, "Contour not invalid: %s",
-		this->getErr(sep->Validate(contour)));
-		throw (sep->Validate(contour),"Contour not invalid");
+	catch(...){
+		Log::e(HANDLE_CONTOUR, "Error desconocido");
+		throw ContourExp(UNKNOWN_ERROR);
 	}
 	return result;
 }
