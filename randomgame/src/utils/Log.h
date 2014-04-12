@@ -8,7 +8,8 @@
 	INFO  2
 	ERROR 3
 */
-#define LOG_LEVEL 0
+#define LOG_LEVEL 1
+#define LOG_CONFIG_FILE "./config/logForTaller.properties"
 
 #include <string>
 #include <iostream>
@@ -16,7 +17,9 @@
 #include <ctime>
 #include <cstdarg>
 #include <cstdio>
+#include <map>
 #include "./Constantes/Constantes.h"
+#include "../utils/Util.h"
 
 
 enum TipoLog{
@@ -39,9 +42,13 @@ enum LugarLog{
 
 class Log
 {
+private:
 
 	std::ofstream file;
+	
+	std::map<std::string, std::string> properties;
 
+	void retriveConfigFile();
 
 public:
 	Log(void);
@@ -51,6 +58,8 @@ public:
 			static Log logger;
 			return logger;
 	}
+
+
 
 	/**
 	* Logea con TRACE
@@ -187,7 +196,7 @@ public:
 
 private:
 
-	static std::string  Log::stringConFormato(char* form,va_list argumentos);
+	std::string  Log::stringConFormato(char* form,va_list argumentos);
 
 	/**
 	* Escribe en el archivo de logs

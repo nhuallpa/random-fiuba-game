@@ -4,6 +4,7 @@
 #define _UTIL_H_
 
 #include "ParserYaml.h"
+#include <map>
 #include <stdlib.h>
 
 
@@ -18,6 +19,14 @@ class Util
 public:
 	Util(void);
 	~Util(void);
+
+
+	/**
+	* Valid int
+	* @param number a string int
+	* @return true if str has a integer. 
+	*/
+	static bool esUnsInt(std::string str);
 
 	/**
 	* Convert std::string to int
@@ -64,6 +73,20 @@ public:
 	* @return aPoint in SLD system reference
 	*/
 	static tPoint convertPointUL2PXSDL(float x, float y);
+
+
+
+	/**
+	* Property loader
+	* @param file
+	* @return map that contains the properties retrived from file
+	*/
+	static std::map<std::string, std::string> Util::loadProperteries(std::string str);
+
+
+
+
+
 };
 
 

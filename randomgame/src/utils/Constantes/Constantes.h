@@ -43,7 +43,7 @@
 
 /**************************** Log ****************************/
 #define LOG_RUTA "./DI_Log.txt"
-#define LOG_MAX_LINE_SIZE 256
+#define LOG_MAX_LINE_SIZE 512
 
 // Para setear el uso del archivo de log
 #define LOG_ESCRITURA LOG_ON  // <<< Acá se setea, se puede poner LOG_OFF o LOG_ON
@@ -51,10 +51,6 @@
 #define LOG_ON 1
 
 /**************************** SDL ****************************/
-// Para el ejemplo SDL
-#define PANTALLA_ANCHO 640
-#define PANTALLA_ALTO 480
-#define TAMANIO_SPRITE 32
 
 
 /*********************CONTROLES EN PANTALLA ******************/

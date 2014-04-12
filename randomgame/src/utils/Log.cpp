@@ -3,7 +3,8 @@
 
 Log::Log(void)
 {
-	file.open(LOG_RUTA, std::ios::trunc);
+	retriveConfigFile();
+	file.open(this->properties["log.file"].c_str(), std::ios::trunc);
 }
 
 Log::~Log(void)
@@ -14,32 +15,43 @@ Log::~Log(void)
 	}
 }
 
+void Log::retriveConfigFile()
+{
+	properties = Util::loadProperteries(LOG_CONFIG_FILE);
+	if (this->properties.size() == 0)
+	{
+		this->properties["log.file"] = "./DI_Log.txt";	
+		this->properties["log.maxline"] = "256";	
+		this->properties["log.level"] = "2";	
+	}
+}
+
 void Log::t(char* form, ...)
 {
 	va_list argumentos;
 	va_start(argumentos,form);
-	Log::t(Log::stringConFormato(form,argumentos));
+	Log::t(Log::Instance().stringConFormato(form,argumentos));
 }
 
 void Log::d(char* form, ...)
 {
 	va_list argumentos;
 	va_start(argumentos,form);
-	Log::d(Log::stringConFormato(form,argumentos));
+	Log::d(Log::Instance().stringConFormato(form,argumentos));
 }
 
 void Log::i(char* form, ...)
 {
 	va_list argumentos;
 	va_start(argumentos,form);
-	Log::i(Log::stringConFormato(form,argumentos));
+	Log::i(Log::Instance().stringConFormato(form,argumentos));
 }
 
 void Log::e(char* form, ...)
 {
 	va_list argumentos;
 	va_start(argumentos,form);
-	Log::e(Log::stringConFormato(form,argumentos));
+	Log::e(Log::Instance().stringConFormato(form,argumentos));
 }
 
 /** ================================== */
@@ -73,7 +85,7 @@ void Log::t(LugarLog lugarLog,char* form, ...)
 	va_start(argumentos,form);
 	Log::Instance().log(TRACE,
 						lugarLog, 
-						Log::stringConFormato(form,argumentos));
+						Log::Instance().stringConFormato(form,argumentos));
 }
 
 
@@ -83,7 +95,7 @@ void Log::d(LugarLog lugarLog,char* form, ...)
 	va_start(argumentos,form);
 	Log::Instance().log(DEBUG,
 						lugarLog, 
-						Log::stringConFormato(form,argumentos));
+						Log::Instance().stringConFormato(form,argumentos));
 }
 
 
@@ -93,7 +105,7 @@ void Log::i(LugarLog lugarLog,char* form, ...)
 	va_start(argumentos,form);
 	Log::Instance().log(INFO,
 						lugarLog,
-						Log::stringConFormato(form,argumentos));
+						Log::Instance().stringConFormato(form,argumentos));
 }
 
 
@@ -103,7 +115,7 @@ void Log::e(LugarLog lugarLog,char* form, ...)
 	va_start(argumentos,form);
 	Log::Instance().log(ERROR,
 						lugarLog,
-						Log::stringConFormato(form,argumentos));
+						Log::Instance().stringConFormato(form,argumentos));
 }
 
 /** ================================== */
@@ -141,7 +153,11 @@ void Log::e(LugarLog lugarLog,std::string msj)
 
 void Log::log(TipoLog tipoLog, LugarLog lugarLog, std::string msj)
 {
-	if (file.is_open() && tipoLog >= LOG_LEVEL)
+	int level = (Util::esUnsInt(this->properties["log.level"]))? 
+								Util::string2int(this->properties["log.level"]):
+										LOG_LEVEL;
+
+	if (file.is_open() && tipoLog >= level)
 	{
 		file	<< Log::tiempoActual() << " " 
 				<< Log::logearTipoLog(tipoLog) << " "
@@ -202,13 +218,18 @@ const std::string Log::tiempoActual() {
 
 std::string Log::stringConFormato(char* form,va_list argumentos)
 {
-	char buffer[LOG_MAX_LINE_SIZE];
+	int max_line = (Util::esUnsInt(this->properties["log.maxline"]))? 
+								Util::string2int(this->properties["log.maxline"]):
+										LOG_MAX_LINE_SIZE;
+
+	char* buffer = new char[max_line];
 	std::string bufferString;
 
-    vsprintf_s(buffer,LOG_MAX_LINE_SIZE, form,argumentos);
+    vsprintf_s(buffer, max_line, form,argumentos);
     va_end(argumentos);
 
 	bufferString.assign(buffer);
+	delete buffer;
 	return bufferString;
 }
 
