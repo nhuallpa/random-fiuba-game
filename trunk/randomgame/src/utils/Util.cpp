@@ -16,7 +16,7 @@ std::pair<float, float> Util::getTransformFromU2PX(){
 	std::pair<float,float> vec;
 	float x;
 	float y;
-	Log::t("Dimensiones Escenario - h:%s  w:%s", 
+	Log::t("Dimensiones Escenario - h:%s ul w:%s ul" , 
 						aParser->getEscenarioAltoU().c_str() , 
 						aParser->getEscenarioAnchoU().c_str());
 
@@ -29,7 +29,7 @@ std::pair<float, float> Util::getTransformFromU2PX(){
 	x = Util::string2float(aParser->getEscenarioAnchoP())
 						/ Util::string2float(aParser->getEscenarioAnchoU());
 	vec = std::make_pair(x,y);
-		Log::t("Factor de escala %f , %f",x,y);
+		Log::t("Factor de escala x: %f px/ul    -     y: %f px/ul",x,y);
 	return vec;
 }
 

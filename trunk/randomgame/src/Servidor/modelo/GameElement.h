@@ -59,6 +59,7 @@ public:
 	float getScale();
 	bool isFixed();
 
+	float getRadiusScaled() {return radius * scale;}
 
 private:
 	int id;

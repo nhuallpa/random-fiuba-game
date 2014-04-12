@@ -25,11 +25,11 @@ escenario:
       masa:     1
     - tipo:     tri
       id:       2
-      x:        130
-      y:        600
-      escala:   50
+      x:        200
+      y:        700
+      escala:   30
       color:    "#00FF00FF"
-      estatico: si
+      estatico: no
       rot:      0
       masa:     1
     - tipo:     pent
@@ -45,18 +45,18 @@ escenario:
       id:       4
       x:        100
       y:        600
-      escala:   1.5
+      escala:   3
       color:    "#FF0000FF"
-      estatico: si
+      estatico: no
       rot:      20
       masa:     4
-      radio:    20
+      radio:    10
     - tipo:     hexa
       id:       5
       x:        500
       y:        900
       escala:   30
       color:    "#FF00FFFF"
-      estatico: si
+      estatico: no
       rot:      10
       masa:     4

@@ -44,7 +44,7 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 			Log::d("Creando CIRCULO");
 
 
-			float radius = domainElement->getRadius();
+			float radius = domainElement->getRadiusScaled();
 			Log::t("Radio: %f", radius);
 
 			EllipseView* aCircle = new EllipseView(color);
