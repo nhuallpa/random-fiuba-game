@@ -29,7 +29,7 @@ std::pair<float, float> Util::getTransformFromU2PX(){
 	x = Util::string2float(aParser->getEscenarioAnchoP())
 						/ Util::string2float(aParser->getEscenarioAnchoU());
 	vec = std::make_pair(x,y);
-
+		Log::t("Factor de escala %f , %f",x,y);
 	return vec;
 }
 
@@ -43,7 +43,10 @@ tPoint Util::convertPointUL2PXSDL(float x, float y)
 	int heightScreen = atoi(aParser->getEscenarioAltoP().c_str());
 
 	aPoint.x = x * scale_factor.first;
-	aPoint.y = (heightScreen - y) * scale_factor.second;	
+
+	Log::t("Punto x y original %f , %f",x,y);
+	aPoint.y = (heightScreen) - (y * scale_factor.second);	
+	Log::t("Punto x y escalado %d , %d",aPoint.x,aPoint.y);
 
 	return aPoint;
 }
