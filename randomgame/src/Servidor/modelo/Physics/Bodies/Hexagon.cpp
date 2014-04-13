@@ -42,6 +42,8 @@ Hexagon::Hexagon(ElementType type, float posX, float posY, float scale,
     myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
     body->CreateFixture(&myFixtureDef);
+
+	body->SetTransform( body->GetPosition(), angle*DEGTORAD );
 	
 	this->body = body;
 	this->body->SetUserData(modelElement);
