@@ -154,7 +154,7 @@ float GameEngine::getTimeStep () {
 bool GameEngine::step(){
 
 	//animateJoints();
-	float32 timeStep = (1.0f/20.0f);
+	float32 timeStep = (1.0f/10.0f);
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(timeStep,8,3);
 

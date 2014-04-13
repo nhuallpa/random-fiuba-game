@@ -35,6 +35,7 @@ class GameEngine {
 		virtual ~GameEngine();
 
 		bool step();
+
 		float getTimeStep ();
 		//bool iniciarEscenario(SocketServidor* pSocket);
 		//bool beginRcv(SocketServidor* pSocket);
@@ -46,12 +47,9 @@ class GameEngine {
 		// Create simple world
 		void animateWorld();
 
-		
 		void animateBodies();
 
 		void animateJoints();
-
-
 
 
 		// Le pasa el nivel completo al

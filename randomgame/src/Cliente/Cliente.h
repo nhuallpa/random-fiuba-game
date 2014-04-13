@@ -1,7 +1,21 @@
 #pragma once
+
+#ifndef __CLIENTE_H__
+#define __CLIENTE_H__
+
+
 #include "controlador/GameController.h"
 #include "../Servidor/Servidor.h"
 #include "vista/GameViewBuilder.h"
+
+
+// todo: cambiar TICK_INTERVAL por  DELAY_TIME y recuperar fps del yaml
+const int FPS = 60;
+const int DELAY_TIME = 1000.0f / FPS;
+
+#define TICK_INTERVAL    15
+
+static Uint32 next_time;
 
 class Cliente{
 
@@ -11,12 +25,12 @@ class Cliente{
 		bool begin();		// Inicia el VistaJuego y ControladorJuego
 		void loop(void);
 		GameLevel cLevel;
-		//GameView cView;
 		GameController cController;
 		bool connect2server(Servidor* server);
 		Servidor* server;
 
-		
+		Uint32 time_left(void);
+
 	public:
 		Cliente(Servidor* server);
 		virtual ~Cliente(void);
@@ -25,3 +39,5 @@ class Cliente{
 		void destroyWorld();
 
 };
+
+#endif

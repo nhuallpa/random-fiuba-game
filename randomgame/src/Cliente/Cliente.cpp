@@ -7,6 +7,8 @@
 #include "vista\Activity.h"
 #include "vista\GameActivity.h"
 
+
+
 Cliente::Cliente(Servidor* server){
 	this->server = server;
 }
@@ -21,18 +23,17 @@ bool Cliente::begin(){
 	return true;
 }
 
+
+
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
+	Uint32 start = 0;
 	bool quit = false;
 
 	Bootstrap bootstrap;
 	bootstrap.init();
-
-	/** Retrieve the domain element to create the view elements*/
-	this->cLevel.getModelElements();
-	std::map<int,GameElement*> map = this->cLevel.getEntities();
-	GameViewBuilder builder(map, &this->cLevel);
+	GameViewBuilder builder(&this->cLevel);
 
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), 
 													builder, &this->cLevel);
@@ -42,8 +43,9 @@ void Cliente::loop(void){
 	currentActivity->render();
 
 	int running = 0;
+	next_time = SDL_GetTicks() + TICK_INTERVAL;
 	while (!this->cController.isQuit()){
-		
+
 		this->cController.detectEvents();
 		this->cController.handleEvents();
 
@@ -65,9 +67,13 @@ void Cliente::loop(void){
 
 		if (running){
 			this->server->getGameEngine().step();
-			currentActivity->update();
-			currentActivity->render();
 		}
+
+		currentActivity->update();
+		currentActivity->render();
+
+		SDL_Delay(time_left());
+		next_time += TICK_INTERVAL;
 
 		this->cController.clearStates();
 	}
@@ -96,13 +102,20 @@ void Cliente::destroyWorld(void){
 
 bool Cliente::connect2server(Servidor* server){
 	this->cLevel = server->getLevel();
-	//this->cController = GameController(&this->cLevel,&this->cView);
 	this->cController = GameController(&this->cLevel);
 	return true;
 }
 
 
-
+Uint32 Cliente::time_left(void)
+{
+    Uint32 now;
+    now = SDL_GetTicks();
+    if (next_time <= now)
+        return 0;
+    else
+        return next_time - now;
+}
 
 
 
