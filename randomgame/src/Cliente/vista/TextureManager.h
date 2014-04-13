@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include <sstream>
 #include <map>
 #include "GameException.h"
 class TextureManager
