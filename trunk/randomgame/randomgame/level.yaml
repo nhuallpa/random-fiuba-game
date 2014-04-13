@@ -3,8 +3,8 @@ metadata:
     scale: 15
 escenario:
     fps: 60
-    ancho-un: 1000
-    alto-un: 1000
+    ancho-un: 200
+    alto-un: 200
     alto-px: 400
     ancho-px: 400
     nivel_agua: 50
@@ -15,47 +15,47 @@ escenario:
     objetos:
     - tipo:     rec
       id:               1
-      x:        900
-      y:        400
-      alto:     50
-      ancho:    50
+      x:        180
+      y:        80
+      alto:     10
+      ancho:    10
       color:    "#FF0000FF"
       estatico: no
       rot:              0
       masa:     1
     - tipo:     tri
       id:       2
-      x:        200
-      y:        700
-      escala:   30
+      x:        40
+      y:        140
+      escala:   10
       color:    "#00FF00FF"
       estatico: no
       rot:      0
       masa:     1
     - tipo:     pent
       id:       3
-      x:        700
-      y:        700
-      escala:   30
+      x:        140
+      y:        140
+      escala:   10
       color:    "#0000FFFF"
       estatico: si
       rot:      10
       masa:     4
     - tipo:     circ
       id:       4
-      x:        100
-      y:        600
-      escala:   3
-      color:    "#FF0000FF"
+      x:        10
+      y:        120
+      escala:   1
+      color:    "#FFFF00FF"
       estatico: no
       rot:      20
       masa:     4
-      radio:    10
+      radio:    5
     - tipo:     hexa
       id:       5
-      x:        500
-      y:        900
-      escala:   30
+      x:        100
+      y:        180
+      escala:   10
       color:    "#FF00FFFF"
       estatico: no
       rot:      10

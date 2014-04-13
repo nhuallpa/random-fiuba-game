@@ -1,8 +1,7 @@
 #include "GameViewBuilder.h"
 
 
-GameViewBuilder::GameViewBuilder(const std::map<int,GameElement*>& map, GameLevel * cLevel):
-						domainElements(map), cLevel(cLevel)
+GameViewBuilder::GameViewBuilder(GameLevel * cLevel):cLevel(cLevel)
 {
 }
 
@@ -29,6 +28,7 @@ void GameViewBuilder::buildSky(ViewGroup* container)
 
 void GameViewBuilder::buildFigures(FigureViewGroup* container)
 {
+	std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
 	std::map<int,GameElement*>::iterator it;
 	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", domainElements.size());
 
