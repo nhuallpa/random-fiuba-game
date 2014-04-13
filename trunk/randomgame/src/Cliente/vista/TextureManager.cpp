@@ -27,7 +27,9 @@ bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRe
 		return true;
 	} else 
 	{
-		throw GameException("Image not found");
+		std::stringstream msg;
+		msg<<"Image not found"<<fileName;
+		throw GameException(msg.str());
 	}
 	return false;
 }

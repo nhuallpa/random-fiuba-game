@@ -1,262 +1,1216 @@
-[ERROR] 2014-03-19.15:43:25 Archivo de nivel: 滧, invalido/corrupto o no encontrado
-[ERROR] 2014-03-19.15:43:25 No se puede abirir el archivo de configuracion
-[ERROR] 2014-03-19.15:43:34 Archivo de nivel: 滬-, invalido/corrupto o no encontrado
-[ERROR] 2014-03-19.15:43:34 No se puede abirir el archivo de configuracion
-[ERROR] 2014-03-19.15:43:56 Archivo de nivel: 祯, invalido/corrupto o no encontrado
-[ERROR] 2014-03-19.15:43:56 No se puede abirir el archivo de configuracion
-[ERROR] 2014-03-19.15:48:53 No se puede abirir el archivo de configuracion
-[ERROR] 2014-03-19.15:49:03 No se puede abirir el archivo de configuracion
-[ERROR] 2014-03-19.15:49:07 No se puede abirir el archivo de configuracion
-[DEBUG] 2014-03-19.15:50:49 Datos de los elementos encontrados correctamente
-[DEBUG] 2014-03-19.15:50:49 Se cargo el nivel correctamente
-[ERROR] 2014-03-19.15:50:58 SDL_image could not initialize! SDL_image Error: Failed loading libpng16-16.dll: No se encontr贸 el proceso especificado.
-
-
-[ERROR] 2014-03-19.15:50:59 Unable to load image image/circulo.png! SDL_image Error: Failed loading libpng16-16.dll: No se encontr贸 el proceso especificado.
-
-
-[ERROR] 2014-03-19.15:50:59 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:50:59 Unable to load image image/cuadrado.png! SDL_image Error: Failed loading libpng16-16.dll: No se encontr贸 el proceso especificado.
-
-
-[ERROR] 2014-03-19.15:50:59 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:05 Unable to load image image/triangulo.png! SDL_image Error: Failed loading libpng16-16.dll: No se encontr贸 el proceso especificado.
-
-
-[ERROR] 2014-03-19.15:51:05 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:06 Unable to load image image/pentagono.png! SDL_image Error: Failed loading libpng16-16.dll: No se encontr贸 el proceso especificado.
-
-
-[ERROR] 2014-03-19.15:51:06 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:06 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
-
-[ERROR] 2014-03-19.15:51:06 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:06 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
-
-[ERROR] 2014-03-19.15:51:06 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:06 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-19.15:51:06 Failed to load sprite texture!
-
-[DEBUG] 2014-03-19.15:51:55 Datos de los elementos encontrados correctamente
-[DEBUG] 2014-03-19.15:51:55 Se cargo el nivel correctamente
-[ERROR] 2014-03-19.15:51:55 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
-
-[ERROR] 2014-03-19.15:51:55 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:55 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
-
-[ERROR] 2014-03-19.15:51:55 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:55 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-19.15:51:55 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:56 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-19.15:51:56 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:51:56 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-19.15:51:56 Failed to load sprite texture!
-
-[DEBUG] 2014-03-19.15:52:09 Datos de los elementos encontrados correctamente
-[DEBUG] 2014-03-19.15:52:09 Se cargo el nivel correctamente
-[ERROR] 2014-03-19.15:52:10 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
-
-[ERROR] 2014-03-19.15:52:10 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:52:10 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
-
-[ERROR] 2014-03-19.15:52:10 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:52:10 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-19.15:52:10 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:52:10 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-19.15:52:10 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:52:10 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-19.15:52:10 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:52:11 Unable to load image image/! SDL_image Error: Couldn't open image/
-
-[ERROR] 2014-03-19.15:52:11 Failed to load sprite texture!
-
-[ERROR] 2014-03-19.15:52:12 Unable to load image image/! SDL_image Error: Couldn't open image/
-
-[ERROR] 2014-03-19.15:52:12 Failed to load sprite texture!
-
-[DEBUG] 2014-03-20.15:09:47 Datos de los elementos encontrados correctamente
-[DEBUG] 2014-03-20.15:09:47 Se cargo el nivel correctamente
-[ERROR] 2014-03-20.15:09:52 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
-
-[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:09:52 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
-
-[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:09:52 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:09:52 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:09:52 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-20.15:09:52 Failed to load sprite texture!
-
-[DEBUG] 2014-03-20.15:10:19 Datos de los elementos encontrados correctamente
-[DEBUG] 2014-03-20.15:10:20 Se cargo el nivel correctamente
-[ERROR] 2014-03-20.15:10:20 Unable to load image image/tennisball.png! SDL_image Error: Couldn't open image/tennisball.png
-
-[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:10:20 Unable to load image image/darktriangle.png! SDL_image Error: Couldn't open image/darktriangle.png
-
-[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:10:20 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:10:20 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
-
-[ERROR] 2014-03-20.15:10:20 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-20.15:10:20 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:41:18 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.10:41:18 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:41:18 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.10:41:18 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:41:18 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.10:41:18 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:41:40 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.10:41:40 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:41:40 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.10:41:40 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:41:40 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.10:41:40 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:49:53 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.10:49:53 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:49:53 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.10:49:53 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:49:53 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.10:49:53 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:55:22 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.10:55:22 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:55:22 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.10:55:22 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:55:22 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.10:55:22 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:57:45 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.10:57:45 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:57:45 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.10:57:45 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:57:45 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.10:57:45 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:58:02 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.10:58:02 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:58:02 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.10:58:02 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.10:58:02 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.10:58:02 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:10:59 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.11:10:59 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:11:00 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.11:11:00 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:11:00 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.11:11:00 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:13:51 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.11:13:51 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:13:51 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.11:13:51 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:13:51 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.11:13:51 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:53:30 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.11:53:30 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:53:30 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.11:53:30 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:53:30 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.11:53:30 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:59:17 Unable to load image image/bricks.jpg! SDL_image Error: Couldn't open image/bricks.jpg
-
-[ERROR] 2014-03-25.11:59:17 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:59:17 Unable to load image image/exit.png! SDL_image Error: Couldn't open image/exit.png
-
-[ERROR] 2014-03-25.11:59:17 Failed to load sprite texture!
-
-[ERROR] 2014-03-25.11:59:17 Unable to load image image/change.png! SDL_image Error: Couldn't open image/change.png
-
-[ERROR] 2014-03-25.11:59:17 Failed to load sprite texture!
-
+2014-04-13.22:33:36 [ERROR] [PARSER] Archivo de escenario: 堼, invalido/corrupto o no encontrado
+2014-04-13.22:33:36 [INFO]  [PARSER] Se carga informacion default
+2014-04-13.22:33:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:33:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:33:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:32 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:32 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:32 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:32 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:34:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:34:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:32 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:32 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:32 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:32 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:32 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:32 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:35:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:35:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:28 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:28 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:29 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:29 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:30 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:30 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:31 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:31 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:32 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:32 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:33 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:33 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:34 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:34 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:35 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:35 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:36 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:36 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:37 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:37 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:38 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:38 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:39 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:39 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:40 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:40 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:41 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:41 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:42 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:42 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:43 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:43 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:44 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:44 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:45 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:45 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:46 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:46 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:47 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:47 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:48 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:48 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:49 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:49 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:50 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:50 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:51 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:51 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:52 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:52 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:53 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:53 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:54 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:54 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:55 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:55 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:56 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:56 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:57 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:57 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:58 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:58 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:36:59 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:36:59 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:00 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:00 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:01 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:01 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:02 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:02 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:03 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:03 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:04 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:04 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:05 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:05 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:06 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:06 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:07 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:07 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:08 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:08 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:09 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:09 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:10 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:10 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:11 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:11 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:12 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:12 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:13 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:13 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:14 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:14 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:15 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:15 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:16 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:16 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:17 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:17 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:18 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:18 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:19 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:19 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:20 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:20 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:21 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:21 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:22 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:22 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:23 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:23 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:24 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:24 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:25 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:25 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:26 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:26 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
+2014-04-13.22:37:27 [INFO]  [PARSER] Se creo el archivo de Nivel Default
+2014-04-13.22:37:27 [ERROR] [PARSER] No se puede abrir el archivo de escenario
