@@ -1,3 +1,6 @@
+metadata:
+    epsilon: 10
+    scale: 15
 escenario:
 	fps:		60
     ancho-un: 	2500
@@ -5,13 +8,13 @@ escenario:
     alto-px: 	500
     ancho-px: 	500
     nivel_agua: 50
-	color_agua: #0000FF99
-	color_tierra: #BC794FFF
-    imagen_tierra: 	image/TIMv1.jpg
-    imagen_cielo: 	image/cielo1.png
+	color_agua: "#0000FF99"
+    imagen_tierra: 	res/images/test2.bmp
+	color_tierra: "#BC794FFF"
+    imagen_cielo: 	res/images/cielo1.png
     objetos:
     - tipo: 	rect
-	  id: 		rect_1
+	  id: 		1
       x: 		43.44
       y: 		100
       alto: 	10
@@ -21,7 +24,7 @@ escenario:
       rot: 		0
       masa: 	1
     - tipo: 	tri
-	  id:		tri_1
+	  id:		2
       x: 		50
       y: 		50
       escala:	3.5
@@ -30,7 +33,7 @@ escenario:
       rot: 		0
       masa: 	1
 	- tipo: 	pent
-	  id:		pent_1
+	  id:		3
       x: 		150
       y: 		50
       escala:	2
@@ -39,7 +42,7 @@ escenario:
       rot: 		10
       masa: 	4
 	- tipo: 	circ
-	  id:		circ_1
+	  id:		4
       x: 		150
       y: 		250
       escala:	1.5
