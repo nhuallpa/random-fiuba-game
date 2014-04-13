@@ -222,7 +222,11 @@ void HandleContour::
 			if(ft != mx.end()){
 				(*ft).second.push_back(it);
 				if((*ft).second.size() >= 3){
-					itPoint = (*ft).second[1];
+					itPoint = (*ft).second[
+					getIndex((*ft).second[0]->y,
+						(*ft).second[1]->y,
+						(*ft).second[2]->y)];
+					
 					isDelete = true;
 					break;
 				}
@@ -237,7 +241,10 @@ void HandleContour::
 			if(ft != my.end()){
 				(*ft).second.push_back(it);
 				if((*ft).second.size() >= 3){
-					itPoint = (*ft).second[1];
+					itPoint = (*ft).second[
+					getIndex((*ft).second[0]->x,
+						(*ft).second[1]->x,
+						(*ft).second[2]->x)];
 					isDelete = true;
 					break;
 				}
@@ -251,6 +258,22 @@ void HandleContour::
 		}
 		if(isDelete) 
 			contour->erase(itPoint);
+}
+
+
+int HandleContour::
+	getIndex(float NroA,float NroB,float NroC){
+vector<b2Vec2>::iterator result;
+	if( (NroA <= NroB && NroA >= NroC) || (NroA >= NroB && NroA <= NroC) ){
+		return 0;
+	}
+	else     
+		if( (NroB <= NroA && NroB >= NroC) || (NroB >= NroA && NroB <= NroC) ){
+		return 1;
+	}
+	else{
+		return 2;
+	}
 }
 
 
