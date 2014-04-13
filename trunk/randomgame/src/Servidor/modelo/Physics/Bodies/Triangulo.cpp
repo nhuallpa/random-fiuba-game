@@ -43,10 +43,11 @@ Triangle::Triangle(ElementType type, float posX, float posY, float scale,
 	b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 	body->CreateFixture(&myFixtureDef);
 
-
+	body->SetTransform( body->GetPosition(), angle*DEGTORAD );
 	
 	this->body = body;
 	this->body->SetUserData(modelElement);
+	
 
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
