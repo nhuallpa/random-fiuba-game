@@ -33,6 +33,7 @@ namespace server_model_handle{
 		vector<vector<b2Vec2>> mulK(vector<vector<b2Vec2>> contours, float scale);
 		vector<vector<b2Vec2>> valSize(vector<vector<b2Vec2>> contours);
 		void removeVertexThanMore(vector<b2Vec2>* contour);
+		int getIndex(float NroA,float NroB,float NroC);
 	};
 }
 #endif /*__HANDLECONTOUR__*/
