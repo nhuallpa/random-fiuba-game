@@ -14,10 +14,15 @@
 #include "Physics\Bodies\Pentagon.h"
 #include "Physics\Bodies\Water.h"
 #include "TerrainProcessor.h"
+#include <set>
+#include <utility>
+
+
 
 class GameEngine {
 
 	private:
+		/*std::set<fixturePair> m_fixturePairs;*/
 		GameLevel gameLevel;
 		float timeStep;      
 		int velocityIterations;   
@@ -26,15 +31,21 @@ class GameEngine {
 		TerrainProcessor* aTerrainProcessor;
 		std::list<Body*> bodies;
 		b2World* myWorld;
+		Water* water;
 
 		Body* lookForABody();
-		ContactListener* myContactListener;
+		ContactListener myContactListener;
 		std::list<Body*> gameBodies;
 		void floodWorld();
+		void animateContacts();
+		bool findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB);
+		bool intersectionWithWater(b2Fixture* fixtureA);
 
 	public:
 		GameEngine();
 		virtual ~GameEngine();
+
+
 
 		bool step();
 

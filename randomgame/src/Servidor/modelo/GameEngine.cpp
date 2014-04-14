@@ -1,5 +1,6 @@
 #include "GameEngine.h"
 #include <list>
+#include "Box2D/Collision/Shapes/b2Shape.h"
 
 GameEngine::GameEngine() {
 	
@@ -16,7 +17,7 @@ bool GameEngine::initWorld(){
 	//Carga nivel
 	this->gameLevel.createLevel(this->gameLevel);
 	
-
+	this->floodWorld();
 	//ToDo @aliguo
 	//Create terrain from BMP
 	ParserYaml* aParser=ParserYaml::getInstance();
@@ -38,8 +39,9 @@ bool GameEngine::initWorld(){
 
 void GameEngine::floodWorld(){
 
-	
-
+	Water* myWater = new Water( this->gameLevel.getWaterLevel(),
+								this->myWorld);
+	this->water = myWater;
 
 }
 
@@ -48,8 +50,9 @@ void GameEngine::floodWorld(){
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
 	this->myWorld = new b2World(b2Vec2(0,-10.0));
-	this->myContactListener = new ContactListener();
-	this->myWorld->SetContactListener(this->myContactListener);
+	//this->myContactListener = new ContactListener();
+	this->myContactListener = ContactListener();
+	this->myWorld->SetContactListener(&this->myContactListener);
 
 }
 
@@ -59,7 +62,7 @@ void GameEngine::animateBodies() {
 	// Recorro todos los elementos del nivel y por cada uno de ellos armo el cuerpo de box2d		
 	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
-	//Log::i("Creando cuerpos");
+	Log::i("Creando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
 		
 		switch ((*elems).second->getType()){
@@ -74,9 +77,10 @@ void GameEngine::animateBodies() {
 											(*elems).second->getMass(),
 											(*elems).second->getRotation(), 
 											this->myWorld, 
-											((*elems).second) );
-											(*elems).second->setBody(sq);
-					//Log::t("Puntero cuadrado: %p",sq); 
+											((*elems).second),
+											(*elems).second->isFixed());
+					(*elems).second->setBody(sq);
+					Log::t("Puntero cuadrado: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -94,7 +98,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					//Log::t("Puntero circulo: %p",sq); 
+					Log::t("Puntero circulo: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -112,7 +116,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					//Log::t("Puntero hexagono: %p",sq); 
+					Log::t("Puntero hexagono: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -130,7 +134,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					//Log::t("Puntero TRIANGULO: %p",sq); 
+					Log::t("Puntero TRIANGULO: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -148,7 +152,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					//Log::t("Puntero PENTAGONO: %p",sq); 
+					Log::t("Puntero PENTAGONO: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -179,15 +183,31 @@ bool GameEngine::step(){
 		aBody->animate();
 	}
 
-	//Check game Level Elements - Just TSHOOT
-	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
-	std::map<int, GameElement*>::iterator elems = mmap.begin();
-	//Log::d("TSHOOT - Listando cuerpos");
-	//for ( ; elems != mmap.end(); elems++) {
-	//	Log::t("Posicion Elemento en modelo: %.3f, %.3f",
-	//		(*elems).second->getPosition().first,
-	//		(*elems).second->getPosition().second);
-	//}
+
+	/* Logica del agua */
+	Log::d("Check on every step");
+	std::set<fixturePair>::iterator it = this->myContactListener.m_fixturePairs.begin();
+    std::set<fixturePair>::iterator end = this->myContactListener.m_fixturePairs.end();
+
+	while (it != end) {
+
+		Log::t("Checking against water");
+		//fixtureA = Agua
+		//fixtureB = Cualquier otro cuerpo
+		b2Fixture* fixtureA = it->first;
+		b2Fixture* fixtureB = it->second;
+
+		float density = fixtureA->GetDensity();
+		
+		std::vector<b2Vec2> intersectionPoints;
+		if ( intersectionWithWater(fixtureB) ) {
+			/* Velocidad que toma al caer */
+			b2Vec2 vel=b2Vec2(0,-15);
+			it->second->GetBody()->SetLinearVelocity(vel);
+		}
+		++it;
+	}
+
 
 
 	return true;
@@ -226,19 +246,57 @@ void GameEngine::reInitWorld(){
 void GameEngine::animateJoints() {
 	//recorro todos los contactos que existen en el m_mundo
 
-	for(b2Contact* contact = myWorld->GetContactList(); contact; contact = contact->GetNext()){
+}
 
-		void* data1 = contact->GetFixtureA()->GetBody()->GetUserData();
-		void* data2 = contact->GetFixtureB()->GetBody()->GetUserData();
+bool GameEngine::findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB){
 
-		if (data1 && data2){
-			Body* body1 = static_cast<Body*> (data1);
-			Body* body2 = static_cast<Body*> (data2);
+	
 
-			if(contact->IsTouching()){
-				body1->touch(body2, myWorld);
-			}
+	return false;
+}
 
+bool GameEngine::intersectionWithWater(b2Fixture* fixture){
+
+
+	if(fixture->GetShape()->GetType() == b2Shape::e_polygon){
+		//Log::t("Polygon");
+		b2PolygonShape* poly = (b2PolygonShape*)fixture->GetShape();
+		std::vector<b2Vec2> vertex;
+	
+		for (int i = 0; i < poly->GetVertexCount(); i++)
+			vertex.push_back( fixture->GetBody()->GetWorldPoint( poly->GetVertex(i) ) );
+		for (int j = 0; j < vertex.size() ; j++){
+			if ( vertex[j].y <= this->gameLevel.getWaterLevel() )
+				return true;
 		}
 	}
+	if(fixture->GetShape()->GetType() == b2Shape::e_circle){
+		//Log::t("Circle");
+		b2CircleShape* circ = (b2CircleShape*)fixture->GetShape();
+		
+		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y - circ->m_radius) <= this->gameLevel.getWaterLevel() )
+			return true;
+	}
+
+
+	return false;
+}
+
+void GameEngine::animateContacts(){
+
+	//for(b2Contact* contact = this->myWorld->GetContactList(); contact; contact = contact->GetNext()){
+
+	//	b2Fixture* fixtureA = contact->GetFixtureA();
+	//	b2Fixture* fixtureB = contact->GetFixtureB();
+	//	
+	//	if ( fixtureA->IsSensor() && fixtureB->GetBody()->GetType() == b2_dynamicBody )
+	//		m_fixturePairs.insert( std::make_pair(fixtureA, fixtureB) );
+	//	else if ( fixtureB->IsSensor() && fixtureA->GetBody()->GetType() == b2_dynamicBody )
+	//		m_fixturePairs.insert( std::make_pair(fixtureB, fixtureA) );
+
+	//}
+
+
+
+
 }

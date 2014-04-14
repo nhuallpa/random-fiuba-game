@@ -30,7 +30,7 @@ typedef std::pair<b2Fixture*, b2Fixture*> fixturePair;
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = b2_dynamicBody; //this will be a dynamic body
-			myBodyDef.position.Set(posX+w/2, posY+h/2); //set the starting position
+			myBodyDef.position.Set(150, 150); //set the starting position
 			myBodyDef.angle = (angle * DEGTORAD); //set the starting angle
 
 			b2Body* dynamicBody = m_world->CreateBody(&myBodyDef);
@@ -41,58 +41,103 @@ typedef std::pair<b2Fixture*, b2Fixture*> fixturePair;
 			boxFixtureDef.density = 1.0f;
 			dynamicBody->CreateFixture(&boxFixtureDef);
 			dynamicBody->SetUserData(&magicNumber);
-			std::cout << "Primero: " << dynamicBody->GetUserData() << std::endl;
+			//std::cout << "Primero: " << dynamicBody->GetUserData() << std::endl;
 
 
 			// Ahora creo el agua
 			
-			center = b2Vec2( posX, posY-200 );
+			//center = b2Vec2( posX, posY-200 );
 			
-			b2PolygonShape waterShape;
-			boxShape.SetAsBox(w*100,h*10,center,0);
-			b2FixtureDef waterFixtureDef;
-			waterFixtureDef.shape = &waterShape;
-			waterFixtureDef.isSensor = true;
+			//b2PolygonShape waterShape;
+			//boxShape.SetAsBox(w*100,h*10,center,0);
+			//b2FixtureDef waterFixtureDef;
+			//waterFixtureDef.shape = &waterShape;
+			//waterFixtureDef.isSensor = true;
+
+
+			//b2BodyDef bd;
+			//bd.type = b2BodyType(0);
+			//bd.position.Set(-1.112629318237305e+01f, 1.750797271728516e+00f);
+			//bd.angle = 0.000000000000000e+00f;
+			//bd.linearVelocity.Set(0.000000000000000e+00f, 0.000000000000000e+00f);
+			//bd.angularVelocity = 0.000000000000000e+00f;
+			//bd.linearDamping = 0.000000000000000e+00f;
+			//bd.angularDamping = 0.000000000000000e+00f;
+			//bd.allowSleep = bool(4);
+			//bd.awake = bool(2);
+			//bd.fixedRotation = bool(0);
+			//bd.bullet = bool(0);
+			//bd.active = bool(32);
+			//bd.gravityScale = 1.000000000000000e+00f;
+			//b2Body* waterBody = m_world->CreateBody(&bd);
+
+
+			//b2FixtureDef fd;
+			//fd.friction = 2.000000029802322e-01f;
+			//fd.restitution = 0.000000000000000e+00f;
+			//fd.density = 2.000000000000000e+00f;
+			//fd.isSensor = bool(1);
+			//fd.filter.categoryBits = uint16(1);
+			//fd.filter.maskBits = uint16(65535);
+			//fd.filter.groupIndex = int16(0);
+			//b2PolygonShape shape;
+			//b2Vec2 vs[8];
+			//shape.SetAsBox(w*100,h*10,center,0);
+			///*vs[0].Set(-5.544052124023438e-01f, -1.515119433403015e+00f);
+			//vs[1].Set(-5.544052124023438e-01f, 7.516476631164551e+00f);
+			//vs[2].Set(-4.341683959960938e+01f, 7.516476631164551e+00f);
+			//vs[3].Set(-4.341683959960938e+01f, -1.515119433403015e+00f);
+			//shape.Set(vs, 4);*/
+
+			//fd.shape = &shape;
+
+			//waterBody->CreateFixture(&fd);
+
+
+
+
+
 
 
 			b2BodyDef bd;
-			bd.type = b2BodyType(0);
-			bd.position.Set(-1.112629318237305e+01f, 1.750797271728516e+00f);
-			bd.angle = 0.000000000000000e+00f;
-			bd.linearVelocity.Set(0.000000000000000e+00f, 0.000000000000000e+00f);
-			bd.angularVelocity = 0.000000000000000e+00f;
-			bd.linearDamping = 0.000000000000000e+00f;
-			bd.angularDamping = 0.000000000000000e+00f;
-			bd.allowSleep = bool(4);
-			bd.awake = bool(2);
-			bd.fixedRotation = bool(0);
-			bd.bullet = bool(0);
-			bd.active = bool(32);
-			bd.gravityScale = 1.000000000000000e+00f;
-			b2Body* waterBody = m_world->CreateBody(&bd);
+	bd.type = b2BodyType(0);
+	bd.position.Set(0,0);
+	bd.angle = 0.000000000000000e+00f;
+	bd.linearVelocity.Set(0.000000000000000e+00f, 0.000000000000000e+00f);
+	bd.angularVelocity = 0.000000000000000e+00f;
+	bd.linearDamping = 0.000000000000000e+00f;
+	bd.angularDamping = 0.000000000000000e+00f;
+	bd.allowSleep = bool(4);
+	bd.awake = bool(2);
+	bd.fixedRotation = bool(0);
+	bd.bullet = bool(0);
+	bd.active = bool(32);
+	bd.gravityScale = 1.000000000000000e+00f;
+	b2Body* waterBody = m_world->CreateBody(&bd);
 
 
-			b2FixtureDef fd;
-			fd.friction = 2.000000029802322e-01f;
-			fd.restitution = 0.000000000000000e+00f;
-			fd.density = 2.000000000000000e+00f;
-			fd.isSensor = bool(1);
-			fd.filter.categoryBits = uint16(1);
-			fd.filter.maskBits = uint16(65535);
-			fd.filter.groupIndex = int16(0);
-			b2PolygonShape shape;
-			b2Vec2 vs[8];
-			shape.SetAsBox(w*100,h*10,center,0);
-			/*vs[0].Set(-5.544052124023438e-01f, -1.515119433403015e+00f);
-			vs[1].Set(-5.544052124023438e-01f, 7.516476631164551e+00f);
-			vs[2].Set(-4.341683959960938e+01f, 7.516476631164551e+00f);
-			vs[3].Set(-4.341683959960938e+01f, -1.515119433403015e+00f);
-			shape.Set(vs, 4);*/
+	b2FixtureDef waterFixtureDef;
 
-			fd.shape = &shape;
+	
+	waterFixtureDef.friction = 2.000000029802322e-01f;
+	waterFixtureDef.restitution = 0.000000000000000e+00f;
+	waterFixtureDef.density = 2.000000000000000e+00f;
+	waterFixtureDef.isSensor = bool(1);
+	waterFixtureDef.filter.categoryBits = uint16(1);
+	waterFixtureDef.filter.maskBits = uint16(65535);
+	waterFixtureDef.filter.groupIndex = int16(0);
+	
+	b2PolygonShape waterShape;
+	b2Vec2 vs[8];
 
-			waterBody->CreateFixture(&fd);
+	vs[0].Set(0.0,0.0);
+	vs[1].Set(500.0,0.0);
+	vs[2].Set(500.0, 100.0);
+	vs[3].Set(0.0, 100.0);
+	waterShape.Set(vs, 4);
 
+	waterFixtureDef.shape = &waterShape;
+	waterBody->CreateFixture(&waterFixtureDef);
 
 
 
@@ -152,7 +197,7 @@ typedef std::pair<b2Fixture*, b2Fixture*> fixturePair;
 			
             std::vector<b2Vec2> intersectionPoints;
 			if ( findIntersectionOfFixtures(fixtureA, fixtureB, intersectionPoints) ) {
-				b2Vec2 vel=b2Vec2(0,-15);
+				b2Vec2 vel=b2Vec2(0,1);
 				it->second->GetBody()->SetLinearVelocity(vel);
 
                 //find centroid

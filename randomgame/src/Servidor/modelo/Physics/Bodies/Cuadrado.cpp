@@ -4,7 +4,7 @@
 #include "../../../../utils/Log.h"
 
 Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h, 
-		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement)
+		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement, bool fixed)
 {
 
 	//ToDo: escalar
@@ -17,10 +17,16 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	this->height = h;
 
 	b2BodyDef myBodyDef;
-	myBodyDef.type = b2_dynamicBody;
 	myBodyDef.position.Set(posX+w/2, posY+h/2); //starting position (at center)
 	myBodyDef.angle = (angle * DEGTORAD); 
 
+
+	//body definition
+    if (!fixed){
+		myBodyDef.type = b2_dynamicBody;
+	}else{
+		myBodyDef.type = b2_staticBody;
+	}
 
 	b2Body* dynamicBody = this->myWorld->CreateBody(&myBodyDef);
 	this->body = dynamicBody;
