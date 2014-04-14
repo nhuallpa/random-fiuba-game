@@ -64,6 +64,7 @@ void DataBmp::loadMatrix(unsigned char* data,int row_padded, int height,int widt
 
 
             //carga de bits a la matriz
+			char a=data[j+(row_padded*i)];
             int red=(int)data[j+(row_padded*i)];
             int green=(int)data[j +row_padded*i + 1];
             int blue=(int)data[j +row_padded*i + 2];
