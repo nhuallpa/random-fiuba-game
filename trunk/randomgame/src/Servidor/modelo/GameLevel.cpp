@@ -134,6 +134,10 @@ bool GameLevel::createLevel(GameLevel&){
 												Util::string2bool(aParser->getElemEstatico(j))));
 			}
 	}
+
+	//this->setWaterLevel(Util::string2float(aParser->getEscenarioAgua() ) );
+	this->setWaterLevel(20.0);
+
 	return true;
 }
 

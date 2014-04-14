@@ -30,18 +30,26 @@ bool GameEngine::initWorld(){
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
 	animateBodies();
 
-	//Crea contactos de Box2d
-	animateJoints();
+
 
 	return true;
 }
 
 
+void GameEngine::floodWorld(){
+
+	
+
+
+}
+
+
+
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
 	this->myWorld = new b2World(b2Vec2(0,-10.0));
-	//this->myContactListener = new ContactListener();
-	//this->myWorld->SetContactListener(this->myContactListener);
+	this->myContactListener = new ContactListener();
+	this->myWorld->SetContactListener(this->myContactListener);
 
 }
 
@@ -51,9 +59,9 @@ void GameEngine::animateBodies() {
 	// Recorro todos los elementos del nivel y por cada uno de ellos armo el cuerpo de box2d		
 	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
-	Log::d("Creando cuerpos");
+	//Log::i("Creando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
-		Log::t("Encontre un elemento");
+		
 		switch ((*elems).second->getType()){
 			// Match de tipos y creacion de elementos en base a ello.
 			case SQUARE:
@@ -68,7 +76,7 @@ void GameEngine::animateBodies() {
 											this->myWorld, 
 											((*elems).second) );
 											(*elems).second->setBody(sq);
-					Log::t("Puntero cuadrado: %p",sq); 
+					//Log::t("Puntero cuadrado: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -86,7 +94,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					Log::t("Puntero circulo: %p",sq); 
+					//Log::t("Puntero circulo: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -104,7 +112,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					Log::t("Puntero hexagono: %p",sq); 
+					//Log::t("Puntero hexagono: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -122,7 +130,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					Log::t("Puntero hexagono: %p",sq); 
+					//Log::t("Puntero TRIANGULO: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -140,7 +148,7 @@ void GameEngine::animateBodies() {
 
 					(*elems).second->setBody(sq);
 
-					Log::t("Puntero hexagono: %p",sq); 
+					//Log::t("Puntero PENTAGONO: %p",sq); 
 					this->gameBodies.push_back(sq);
 				}
 				break;
@@ -174,12 +182,12 @@ bool GameEngine::step(){
 	//Check game Level Elements - Just TSHOOT
 	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
-	Log::d("TSHOOT - Listando cuerpos");
-	for ( ; elems != mmap.end(); elems++) {
-		Log::t("Posicion Elemento en modelo: %.3f, %.3f",
-			(*elems).second->getPosition().first,
-			(*elems).second->getPosition().second);
-	}
+	//Log::d("TSHOOT - Listando cuerpos");
+	//for ( ; elems != mmap.end(); elems++) {
+	//	Log::t("Posicion Elemento en modelo: %.3f, %.3f",
+	//		(*elems).second->getPosition().first,
+	//		(*elems).second->getPosition().second);
+	//}
 
 
 	return true;
@@ -204,7 +212,7 @@ GameLevel GameEngine::getLevel(){
 
 void GameEngine::reInitWorld(){
 
-	//Load from scratch from YAML, first delete all
+	//Load from scratch from YAML, AND UPDATE POSITIONS ON MODEL AND BOX2D
 	this->gameLevel.destroyEntities();
 	
 	//Carga nivel
