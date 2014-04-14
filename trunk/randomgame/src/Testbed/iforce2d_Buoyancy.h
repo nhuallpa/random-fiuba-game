@@ -22,6 +22,7 @@
 #define IFORCE2D_BUOYANCY_H
 
 #include "iforce2d_Buoyancy_functions.h"
+#include <iostream>
 
 class iforce2d_Buoyancy : public Test
 {
