@@ -99,3 +99,6 @@ Circle::~Circle() {
 	// ToDo @aliguo
 }
 
+void Circle::setPosition(float x, float y,float rot){
+	this->body->SetTransform(b2Vec2(x,y),0);
+}

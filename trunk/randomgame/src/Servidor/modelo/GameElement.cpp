@@ -100,6 +100,11 @@ void GameElement::setPosition(std::pair<float,float> p){
 	this->position = p;
 }
 
+void GameElement::setAngle(float angle){
+	this->degrees = angle;
+}
+
+
 bool GameElement::hasChanged(){
 	return this->changed;
 }

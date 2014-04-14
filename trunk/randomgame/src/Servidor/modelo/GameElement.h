@@ -48,6 +48,7 @@ public:
 	float getMass();
 	bool hasChanged();
 	void setBody(void* ab);
+	void setAngle(float angle);
 	std::list<std::pair<float,float>> & getVertex();
 	void setVertexList(std::list<std::pair<float,float>> l);
 	float getRadius();

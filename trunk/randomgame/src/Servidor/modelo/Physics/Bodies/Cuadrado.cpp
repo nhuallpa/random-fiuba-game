@@ -109,3 +109,9 @@ Cuadrado::~Cuadrado() {
 	// ToDo @aliguo
 }
 
+
+void Cuadrado::setPosition(float x, float y,float rot){
+	this->body->SetTransform(b2Vec2(x,y),angle*rot);
+	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
+	ge->setVertexList(this->GetVertex());
+}

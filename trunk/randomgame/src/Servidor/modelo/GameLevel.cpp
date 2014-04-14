@@ -30,6 +30,9 @@ int GameLevel::getWidth() {
 void GameLevel::addEntity(GameElement *entidad) {
 	//this->entities.insert(std::make_pair(entidad->getId(), entidad ));
 	this->entities[entidad->getId()] = entidad;
+	
+	// TODO reflect to modelEntities (the one used for pass data) //future
+	//this->modelElements[entidad->getId()] = *entidad;
 
 
 }
@@ -186,6 +189,13 @@ bool GameLevel::checkMapPosition(float x, float y){
 	return true;
 }
 
+void GameLevel::updateElementPosition(int id, float x, float y, float angle){
 
+	std::map<int,GameElement*>::iterator it;
+	it=this->entities.find(id);
+	it->second->setPosition(std::make_pair<float,float>(x,y));
+	it->second->setAngle(angle);
+
+}
 
 

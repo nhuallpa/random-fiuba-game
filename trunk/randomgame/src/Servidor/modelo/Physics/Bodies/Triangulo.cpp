@@ -60,7 +60,11 @@ Triangle::Triangle(ElementType type, float posX, float posY, float scale,
 
 }
 
-
+void Triangle::setPosition(float x, float y,float rot){
+	this->body->SetTransform(b2Vec2(x,y),angle*rot);
+	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
+	ge->setVertexList(this->GetVertex());
+}
 
 std::list<std::pair<float,float>> Triangle::GetVertex(){
 

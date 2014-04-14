@@ -51,17 +51,20 @@ void Cliente::loop(void){
 		this->cController.handleEvents();
 
 		if(this->cController.isBeginLife()){
+			Log::i("Inicio de secuencia");
 			running=1;
 			//TODO: Darle vida al mundo
 		}
 		if(this->cController.isRegenerateWorld()){
 			//TODO: Regenerar el mundo
+			Log::i("RE-Inicio de secuencia");
 			this->server->getGameEngine().reInitWorld();
 			currentActivity->update();
 			currentActivity->render();
 			running = 0;
 		}
 		if(this->cController.isPause()){
+			Log::i("Detencion de secuencia");
 			running=0;
 			//TODO: Parar el mundo en el estado en el que esta!!!
 		}

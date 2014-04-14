@@ -111,3 +111,9 @@ Pentagon::~Pentagon() {
 	// Destroy from model first
 	// ToDo @aliguo
 }
+
+void Pentagon::setPosition(float x, float y,float rot){
+	this->body->SetTransform(b2Vec2(x,y),angle*rot);
+	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
+	ge->setVertexList(this->GetVertex());
+}
