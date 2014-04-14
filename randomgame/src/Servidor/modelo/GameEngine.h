@@ -12,6 +12,7 @@
 #include "Physics\Bodies\Hexagon.h"
 #include "Physics\Bodies\Triangulo.h"
 #include "Physics\Bodies\Pentagon.h"
+#include "Physics\Bodies\Water.h"
 #include "TerrainProcessor.h"
 
 class GameEngine {
@@ -29,6 +30,7 @@ class GameEngine {
 		Body* lookForABody();
 		ContactListener* myContactListener;
 		std::list<Body*> gameBodies;
+		void floodWorld();
 
 	public:
 		GameEngine();

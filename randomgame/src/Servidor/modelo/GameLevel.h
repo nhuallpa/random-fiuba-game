@@ -63,6 +63,10 @@ class GameLevel {
 
 		void removeEntity(int id);
 
+		void setWaterLevel(float waterLevel){ this->waterLevel = waterLevel;};
+		float getWaterLevel(){ return this->waterLevel;};
+
+
 		//void entityUpdatePosition(int tileX, int tileY, int id);
 		bool posicionOcupada(float x, float y);
 
