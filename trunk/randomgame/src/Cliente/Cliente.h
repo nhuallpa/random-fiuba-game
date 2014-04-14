@@ -10,10 +10,10 @@
 
 
 // todo: cambiar TICK_INTERVAL por  DELAY_TIME y recuperar fps del yaml
-const int FPS = 60;
-const int DELAY_TIME = 1000.0f / FPS;
+//const int FPS = 60;
+//const int DELAY_TIME = 1000.0f / FPS;
 
-#define TICK_INTERVAL    15
+//#define TICK_INTERVAL    15
 
 static Uint32 next_time;
 
@@ -31,12 +31,18 @@ class Cliente{
 
 		Uint32 time_left(void);
 
+		Uint32 getTickInterval();
+
 	public:
 		Cliente(Servidor* server);
+
 		virtual ~Cliente(void);
 
 		bool run();
+
 		void destroyWorld();
+
+		
 
 };
 

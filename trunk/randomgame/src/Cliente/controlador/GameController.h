@@ -1,9 +1,4 @@
-/*
- * GameController.h
- *
- *  Created on: 09/09/2013
- *      Author: ALiguori
- */
+
 #pragma once
 
 #ifndef GAMECONTROLLER_H_
