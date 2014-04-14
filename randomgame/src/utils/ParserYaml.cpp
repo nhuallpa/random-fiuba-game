@@ -3,6 +3,19 @@
 #include <iostream>
 
 
+#define DEFAULT_EPSILON "1.5"
+#define DEFAULT_SCALE "100"
+#define DEFAULT_FSP "60"
+#define DEFAULT_ALTOU "600"
+#define DEFAULT_ANCHOU "2500"
+#define DEFAULT_ALTOP "400"
+#define DEFAULT_ANCHOP "1000"
+#define DEFAULT_NIVEL_AGUA "50"
+#define DEFAULT_COLOR_AGUA "#0000FF99"
+#define DEFAULT_IM_TIERRA "res/images/tierra1.bmp"
+#define DEFAULT_COLOR_TIERRA "#BC794FFF"
+#define DEFAULT_IM_CIELO "res/images/cielo1.png"
+
 ParserYaml::ParserYaml(){}
 
 ParserYaml::ParserYaml(std::string config, std::string level, bool aux){
@@ -60,44 +73,25 @@ void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
 
 
 void ParserYaml::startWithDefaultLevel(){
-	/*
-	this->levelFilePath = DEFAULT_YAML_LEVEL;
-	this->isDefault = true;
-	stMeta meta;
 	
-	meta.epsilon = "10";
-	meta.scale = "12";
+	std::ifstream fin(this->levelFilePath.c_str());
+	if( fin.good() == true) this->levelFilePath = "default_level.yaml";
 
-	stEscenario lvl;
-	lvl.fps = "60";
-	lvl.ancho = "400";
-	lvl.alto = "400";
-	lvl.agua = "20";
-	lvl.altoP = "400";
-	lvl.anchoP = "400";
-	lvl.colorAgua = "#0000FF44";
-	lvl.colorTierra = "#BC794FFF";
-	lvl.cielo = "image/default.png";
-	lvl.tierra = "tierra default";
 
-	this->startWithDefaultElem(lvl.elem);
 
-	this->todo.meta = meta;
-	this->todo.escenario= lvl;
-	*/
 	PersistYaml* aPersist=PersistYaml::getInstance();
-	aPersist->setMetaEps("1.5");
-	aPersist->setMetaSca("100");	
-	aPersist->setEscenarioFps("60");
-	aPersist->setEscenarioAltoU("600");
-	aPersist->setEscenarioAnchoU("2500");
-	aPersist->setEscenarioAltoP("400");
-	aPersist->setEscenarioAnchoP("1000");
-	aPersist->setEscenarioNivelAgua("50");
-	aPersist->setEscenarioColorAgua("#0000FF99");
-	aPersist->setEscenarioImTierra("image/tierra1.bmp");
-	aPersist->setEscenarioColorTierra("#BC794FFF");
-	aPersist->setEscenarioImCielo("image/cielo1.png");
+	aPersist->setMetaEps(DEFAULT_EPSILON);
+	aPersist->setMetaSca(DEFAULT_SCALE);	
+	aPersist->setEscenarioFps(DEFAULT_FSP);
+	aPersist->setEscenarioAltoU(DEFAULT_ALTOU);
+	aPersist->setEscenarioAnchoU(DEFAULT_ANCHOU);
+	aPersist->setEscenarioAltoP(DEFAULT_ALTOP);
+	aPersist->setEscenarioAnchoP(DEFAULT_ANCHOP);
+	aPersist->setEscenarioNivelAgua(DEFAULT_NIVEL_AGUA);
+	aPersist->setEscenarioColorAgua(DEFAULT_COLOR_AGUA);
+	aPersist->setEscenarioImTierra(DEFAULT_IM_TIERRA);
+	aPersist->setEscenarioColorTierra(DEFAULT_COLOR_TIERRA);
+	aPersist->setEscenarioImCielo(DEFAULT_IM_CIELO);
 	aPersist->setRec("1","43.44","100","0","1","10","10","no","#FF0000FF");
 	aPersist->setTri("2","50","50","0","1","si","#00FF00FF","3.5");
 	aPersist->setPent("3","150","50","10","4","2","si","#0000FFFF");
@@ -474,47 +468,47 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 		}
 		else{
 			if (!fElem){
-				Log::e(PARSER,"Elemento no encontrado, seteando default");
+				Log::i(PARSER,"Objetos no encontrado, escenario vacio");
 			}
 			if (!fFPS){
 				Log::e(PARSER,"FPS no encontrado, seteando default");
-				escenario.fps = "60";
+				escenario.fps = DEFAULT_FSP;
 			}
 			if (!fAncho){
 				Log::e(PARSER,"Ancho no encontrado, seteando default");
-				escenario.ancho = "640";
+				escenario.ancho = DEFAULT_ANCHOU;
 			}
 			if (!fAlto){
 				Log::e(PARSER,"Alto no encontrado, seteando default");
-				escenario.alto = "480";
+				escenario.alto = DEFAULT_ALTOU;
 			}
 			if (!fAnchoP){
-				Log::e(PARSER,"Ancho no encontrado, seteando default");
-				escenario.ancho = "640";
+				Log::e(PARSER,"Ancho Pantalla no encontrado, seteando default");
+				escenario.anchoP = DEFAULT_ANCHOP;
 			}
 			if (!fAltoP){
-				Log::e(PARSER,"Alto no encontrado, seteando default");
-				escenario.alto = "480";
+				Log::e(PARSER,"Alto Pantalla no encontrado, seteando default");
+				escenario.altoP = DEFAULT_ALTOP;
 			}
 			if (!fAgua){
-				Log::e(PARSER,"Wlvl no encontrado, seteando default");
-				escenario.agua="";
+				Log::e(PARSER,"Nivel agua no encontrado, seteando default");
+				escenario.agua = DEFAULT_NIVEL_AGUA;
 			}
 			if (!fCAgua){
 				Log::e(PARSER,"Color_agua no encontrado, seteando default");
-				escenario.colorAgua="";
+				escenario.colorAgua = DEFAULT_COLOR_AGUA;
 			}
 			if (!fTierra){
 				Log::e(PARSER,"Tierra no encontrado, seteando default");
-				escenario.tierra="";
+				escenario.tierra = DEFAULT_IM_TIERRA;
 			}
 			if (!fCTierra){
 				Log::e(PARSER,"Color_tierra no encontrado, seteando default");
-				escenario.colorTierra="";
+				escenario.colorTierra = DEFAULT_COLOR_TIERRA;
 			}
 			if (!fCielo){
 				Log::e(PARSER,"Cielo no encontrado, seteando default");
-				escenario.cielo="";
+				escenario.cielo=DEFAULT_IM_CIELO;
 			}
 			escenarioVect = escenario;
 		}
@@ -575,11 +569,11 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 		else{
 			if (!fEps){
 				Log::e(PARSER,"epsilon no encontrado, seteando default");
-				meta.epsilon = "10";
+				meta.epsilon = DEFAULT_EPSILON ;
 			}
 			if (!fSca){
 				Log::e(PARSER,"scale no encontrado, seteando default");
-				meta.scale = "10";
+				meta.scale = DEFAULT_SCALE ;
 			}
 		}
 		esMeta = meta;
@@ -669,9 +663,12 @@ void ParserYaml::cargarNivelYaml(std::string file){
 			else{
 				//LOG: La carga del nivel guardado es incorrecta
 				Log::e(PARSER,"La carga de la metadata guardado es incorrecta");
-				Log::e(PARSER,"Iniciando metadata con configuración default");
-				this->startWithDefaultLevel();
+				Log::i(PARSER,"Iniciando metadata con configuración default");
+				//this->startWithDefaultLevel();
 				//exit(1);
+				this->todo.meta.epsilon = "1.5";
+				this->todo.meta.scale = "100";
+				Log::i(PARSER,"Metadata default cargada correctamente");
 			}
 			fin.close();
 		
