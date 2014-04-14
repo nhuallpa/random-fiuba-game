@@ -101,7 +101,9 @@ void GameViewBuilder::buildWater(ViewGroup* container)
 	std::string color = aParser->getEscenarioColorAgua();
 	
 	/*** TODO: retrive from domain*/
-	int heigth = 20;
+	
+	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
+	int heigth = (int)(this->cLevel->getWaterLevel() * scale_factor.second);
 	
 	container->add(new WaterView(heigth, color)); 
 }
