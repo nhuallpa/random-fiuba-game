@@ -39,6 +39,7 @@ bool GameEngine::initWorld(){
 
 void GameEngine::floodWorld(){
 
+	Log::d("Creando nivel de agua");
 	Water* myWater = new Water( this->gameLevel.getWaterLevel(),
 								this->myWorld);
 	this->water = myWater;
@@ -62,7 +63,7 @@ void GameEngine::animateBodies() {
 	// Recorro todos los elementos del nivel y por cada uno de ellos armo el cuerpo de box2d		
 	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
-	Log::i("Creando cuerpos");
+	Log::d("Creando cuerpos");
 	for ( ; elems != mmap.end(); elems++) {
 		
 		switch ((*elems).second->getType()){
@@ -81,7 +82,7 @@ void GameEngine::animateBodies() {
 											(*elems).second->isFixed());
 					(*elems).second->setBody(sq);
 					Log::t("Puntero cuadrado: %p",sq); 
-					this->gameBodies.push_back(sq);
+					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case CIRCLE:
@@ -99,7 +100,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero circulo: %p",sq); 
-					this->gameBodies.push_back(sq);
+					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case HEXAGON:
@@ -117,7 +118,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero hexagono: %p",sq); 
-					this->gameBodies.push_back(sq);
+					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case TRIANGLE:
@@ -135,7 +136,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero TRIANGULO: %p",sq); 
-					this->gameBodies.push_back(sq);
+					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case PENTA:
@@ -153,7 +154,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero PENTAGONO: %p",sq); 
-					this->gameBodies.push_back(sq);
+					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 		}
@@ -177,21 +178,18 @@ bool GameEngine::step(){
 	this->myWorld->Step(timeStep,8,3);
 
 	//Reflect model
-	std::list<Body*>::const_iterator iterator;
+	std::map<int,Body*>::iterator iterator = this->gameBodies.begin();
 	for(iterator = this->gameBodies.begin();iterator != this->gameBodies.end(); ++iterator) {
-		Body* aBody = *iterator;
+		Body* aBody = (iterator->second);
 		aBody->animate();
 	}
 
 
 	/* Logica del agua */
-	Log::d("Check on every step");
 	std::set<fixturePair>::iterator it = this->myContactListener.m_fixturePairs.begin();
     std::set<fixturePair>::iterator end = this->myContactListener.m_fixturePairs.end();
 
 	while (it != end) {
-
-		Log::t("Checking against water");
 		//fixtureA = Agua
 		//fixtureB = Cualquier otro cuerpo
 		b2Fixture* fixtureA = it->first;
@@ -202,7 +200,7 @@ bool GameEngine::step(){
 		std::vector<b2Vec2> intersectionPoints;
 		if ( intersectionWithWater(fixtureB) ) {
 			/* Velocidad que toma al caer */
-			b2Vec2 vel=b2Vec2(0,-15);
+			b2Vec2 vel=b2Vec2(0,-2);
 			it->second->GetBody()->SetLinearVelocity(vel);
 		}
 		++it;
@@ -232,16 +230,30 @@ GameLevel GameEngine::getLevel(){
 
 void GameEngine::reInitWorld(){
 
-	//Load from scratch from YAML, AND UPDATE POSITIONS ON MODEL AND BOX2D
-	this->gameLevel.destroyEntities();
-	
-	//Carga nivel
-	this->gameLevel.createLevel(this->gameLevel);
-	
-	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
-	animateBodies();
+	ParserYaml* aParser = ParserYaml::getInstance();
+
+	for (unsigned j=0; j<aParser->getCantElem(); j++){
+		this->gameLevel.updateElementPosition(	Util::string2int(aParser->getElemId(j)),
+												Util::string2float(aParser->getElemX(j)),
+												Util::string2float(aParser->getElemY(j)),
+												Util::string2float(aParser->getElemRot(j)));
+
+		this->updateBodyPosition(	Util::string2int(aParser->getElemId(j)),
+									Util::string2float(aParser->getElemX(j)),
+									Util::string2float(aParser->getElemY(j)),
+									Util::string2float(aParser->getElemRot(j)));
+	}
+
 
 }
+
+void GameEngine::updateBodyPosition(int id, float x, float y, float angle){
+
+	std::map<int,Body*>::iterator it;
+	it=this->gameBodies.find(id);
+	it->second->setPosition(x,y,angle);
+}
+
 
 void GameEngine::animateJoints() {
 	//recorro todos los contactos que existen en el m_mundo

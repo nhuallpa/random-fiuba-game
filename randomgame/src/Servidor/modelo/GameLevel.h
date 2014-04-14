@@ -37,6 +37,7 @@ class GameLevel {
 		virtual ~GameLevel();
 
 		void destroyEntities();
+		void updateElementPosition(int id, float x, float y, float angle);
 
 		//Creates the level based on YAML parser data
 		bool createLevel(GameLevel&);

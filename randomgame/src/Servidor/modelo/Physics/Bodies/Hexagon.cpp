@@ -46,6 +46,7 @@ Hexagon::Hexagon(ElementType type, float posX, float posY, float scale,
 	body->SetTransform( body->GetPosition(), angle*DEGTORAD );
 	
 	this->body = body;
+	
 	this->body->SetUserData(modelElement);
 
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
@@ -112,3 +113,8 @@ Hexagon::~Hexagon() {
 	// ToDo @aliguo
 }
 
+void Hexagon::setPosition(float x, float y,float rot){
+	this->body->SetTransform(b2Vec2(x,y),angle*rot);
+	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
+	ge->setVertexList(this->GetVertex());
+}

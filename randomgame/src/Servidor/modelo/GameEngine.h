@@ -29,17 +29,18 @@ class GameEngine {
 		int positionIterations;
 		//ThreadRcv* pRcvThread;
 		TerrainProcessor* aTerrainProcessor;
-		std::list<Body*> bodies;
+
 		b2World* myWorld;
 		Water* water;
 
 		Body* lookForABody();
 		ContactListener myContactListener;
-		std::list<Body*> gameBodies;
+		std::map<int, Body*> gameBodies;
 		void floodWorld();
 		void animateContacts();
 		bool findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB);
 		bool intersectionWithWater(b2Fixture* fixtureA);
+		void updateBodyPosition(int id, float x, float y, float angle);
 
 	public:
 		GameEngine();

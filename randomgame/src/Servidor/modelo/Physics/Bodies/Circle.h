@@ -13,6 +13,7 @@ public:
 
 	int getRadio() {return radius;}
 	void setRadio(int radius) {this->radius = radius;}
+	void setPosition(float x, float y,float rot);
 
 private:
 	b2Body* createBody();
