@@ -7,7 +7,7 @@
 class Cuadrado: public Body{
 public:
 	Cuadrado(ElementType type, float posX, float posY, float h, 
-		float w, float masa, float angle, b2World *myWorld, GameElement* modelElement);
+		float w, float masa, float angle, b2World *myWorld, GameElement* modelElement, bool fixed);
 	virtual ~Cuadrado();
 	std::list<std::pair<float,float>> GetVertex();
 	void animate();

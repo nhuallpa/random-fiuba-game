@@ -4,6 +4,8 @@
 
 Water::Water(float level, b2World* myWorld){
 	this->waterLevel = level;
+	
+	Log::t("Water Level: %f", level);
 	this->myWorld = myWorld;
 	
 	ParserYaml* aParser = ParserYaml::getInstance();
@@ -27,10 +29,11 @@ Water::Water(float level, b2World* myWorld){
 
 	b2FixtureDef waterFixtureDef;
 
-	waterFixtureDef.isSensor = true;
+	
 	waterFixtureDef.friction = 2.000000029802322e-01f;
 	waterFixtureDef.restitution = 0.000000000000000e+00f;
 	waterFixtureDef.density = 2.000000000000000e+00f;
+	waterFixtureDef.isSensor = bool(1);
 	waterFixtureDef.filter.categoryBits = uint16(1);
 	waterFixtureDef.filter.maskBits = uint16(65535);
 	waterFixtureDef.filter.groupIndex = int16(0);
@@ -39,14 +42,15 @@ Water::Water(float level, b2World* myWorld){
 	b2Vec2 vs[8];
 
 	vs[0].Set(0.0,0.0);
-	vs[1].Set(0.0, level);
+	vs[1].Set(Util::string2float(aParser->getEscenarioAnchoU()), 0.0);
 	vs[2].Set(Util::string2float(aParser->getEscenarioAnchoU()), level);
-	vs[3].Set(Util::string2float(aParser->getEscenarioAnchoU()), 0.0);
+	vs[3].Set(0.0, level);
 	waterShape.Set(vs, 4);
 
 	waterFixtureDef.shape = &waterShape;
 	waterBody->CreateFixture(&waterFixtureDef);
-
+	std::string* desc = new std::string("water");
+	waterBody->SetUserData(desc);
 	this->body = waterBody;
 
 
