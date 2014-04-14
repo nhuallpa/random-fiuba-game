@@ -75,12 +75,35 @@ bool GameLevel::posicionOcupada(float x, float y){
 	return false;
 }
 
+bool GameLevel::validElementPosition(int j){
+
+	ParserYaml* aParser = ParserYaml::getInstance();
+	Log::t("Validando elemento: %d",j);
+	// Chequeo si esta mas alla del ancho/alto del sistema en UL
+	if ((Util::string2float(aParser->getElemX(j)) >
+		Util::string2float(aParser->getEscenarioAnchoU())) ||
+		(Util::string2float(aParser->getElemY(j)) >
+		Util::string2float(aParser->getEscenarioAltoU()))  ||
+		(Util::string2float(aParser->getElemX(j))<0) ||
+		(Util::string2float(aParser->getElemY(j))<0) ){
+			Log::i("Descartando elemento de id: %d por encontrarse fuera \
+					de los limites del escenario", 
+					Util::string2int(aParser->getElemId(j)) );
+			return false;
+	}
+	return true;
+}
+
 bool GameLevel::createLevel(GameLevel&){
-	Log::i("MODELO: Toma valores del yaml");
+
 	ParserYaml* aParser = ParserYaml::getInstance();
 	for (unsigned j=0;j<aParser->getCantElem();j++){
 			std::string tipo = aParser->getElemTipo(j);
 
+			if (!this->validElementPosition(j))
+					continue;
+
+			Log::i("Agregando: %d", Util::string2int(aParser->getElemId(j)));
 			if (tipo.compare("rec") == 0)
 			{
 				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
@@ -138,24 +161,15 @@ bool GameLevel::createLevel(GameLevel&){
 			}
 	}
 
+
+	//ToDo chequear el nivel de agua no mayor al alto
 	this->setWaterLevel(Util::string2float(aParser->getEscenarioAgua() ) );
-	//this->setWaterLevel(20.0);
+
 
 	return true;
 }
 
 std::map<int,GameElement> GameLevel::getModelElements(){
-	std::map<int, GameElement*>::iterator it = this->entities.begin();
-
-	//todo arreglar para que se actualicen los vertices
-	//for ( ; it != this->entities.end(); it++){
-	//	this->modelElements.insert(std::make_pair(it->second->getId(),
-	//	GameElement(it->second->getId(), it->second->getType(), it->second->getPosition().first,
-	//	it->second->getPosition().second, it->second->getRotation(), it->second->getHeight(), 
-	//	it->second->getWidth(), it->second->getMass() ) ) );
-
-	//}
-	
 	return this->modelElements;
 }
 
@@ -189,13 +203,16 @@ bool GameLevel::checkMapPosition(float x, float y){
 	return true;
 }
 
-void GameLevel::updateElementPosition(int id, float x, float y, float angle){
+void GameLevel::updateElementPosition(int pos, int id, float x, float y, float angle){
 
-	std::map<int,GameElement*>::iterator it;
-	it=this->entities.find(id);
-	it->second->setPosition(std::make_pair<float,float>(x,y));
-	it->second->setAngle(angle);
+	Log::t("Examinando elemento: %d", pos);
+	if ( this->validElementPosition(pos) ){
 
+		std::map<int,GameElement*>::iterator it;
+		it=	this->entities.find(id);
+		it->second->setPosition(std::make_pair<float,float>(x,y));
+		it->second->setAngle(angle);
+	}
 }
 
 

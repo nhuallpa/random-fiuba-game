@@ -40,7 +40,7 @@ class GameEngine {
 		void animateContacts();
 		bool findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB);
 		bool intersectionWithWater(b2Fixture* fixtureA);
-		void updateBodyPosition(int id, float x, float y, float angle);
+		void updateBodyPositions();
 
 	public:
 		GameEngine();

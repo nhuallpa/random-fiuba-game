@@ -233,25 +233,35 @@ void GameEngine::reInitWorld(){
 	ParserYaml* aParser = ParserYaml::getInstance();
 
 	for (unsigned j=0; j<aParser->getCantElem(); j++){
-		this->gameLevel.updateElementPosition(	Util::string2int(aParser->getElemId(j)),
+		Log::t("Elemento: %d",j);
+		this->gameLevel.updateElementPosition(	j,
+												Util::string2int(aParser->getElemId(j)),
 												Util::string2float(aParser->getElemX(j)),
 												Util::string2float(aParser->getElemY(j)),
 												Util::string2float(aParser->getElemRot(j)));
-
-		this->updateBodyPosition(	Util::string2int(aParser->getElemId(j)),
-									Util::string2float(aParser->getElemX(j)),
-									Util::string2float(aParser->getElemY(j)),
-									Util::string2float(aParser->getElemRot(j)));
 	}
-
+	this->updateBodyPositions();
 
 }
 
-void GameEngine::updateBodyPosition(int id, float x, float y, float angle){
+void GameEngine::updateBodyPositions(){
 
-	std::map<int,Body*>::iterator it;
-	it=this->gameBodies.find(id);
-	it->second->setPosition(x,y,angle);
+	//std::map<int,Body*>::iterator it;
+	//it=this->gameBodies.find(id);
+	//it->second->setPosition(x,y,angle);
+
+	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
+	std::map<int, GameElement*>::iterator elems = mmap.begin();
+
+	for ( ; elems != mmap.end(); elems++) {
+		std::map<int,Body*>::iterator it;
+		it=this->gameBodies.find(elems->second->getId());
+		it->second->setPosition(elems->second->getPosition().first,
+								elems->second->getPosition().second,
+								elems->second->getRotation()
+								);
+	}
+
 }
 
 
