@@ -304,21 +304,44 @@ bool GameEngine::intersectionWithWater(b2Fixture* fixture){
 	return false;
 }
 
+
+/* Initial contacts review, may impact on model Element but we will inform ;) */
 void GameEngine::animateContacts(){
 
-	//for(b2Contact* contact = this->myWorld->GetContactList(); contact; contact = contact->GetNext()){
 
-	//	b2Fixture* fixtureA = contact->GetFixtureA();
-	//	b2Fixture* fixtureB = contact->GetFixtureB();
-	//	
-	//	if ( fixtureA->IsSensor() && fixtureB->GetBody()->GetType() == b2_dynamicBody )
-	//		m_fixturePairs.insert( std::make_pair(fixtureA, fixtureB) );
-	//	else if ( fixtureB->IsSensor() && fixtureA->GetBody()->GetType() == b2_dynamicBody )
-	//		m_fixturePairs.insert( std::make_pair(fixtureB, fixtureA) );
 
-	//}
+	for(b2Contact* contact = this->myWorld->GetContactList(); contact; contact = contact->GetNext()){
 
+		b2Fixture* fixtureA = contact->GetFixtureA();
+		b2Fixture* fixtureB = contact->GetFixtureB();
+		
+		/* No matcheo contra el agua */
+		if ( fixtureA->IsSensor()  || fixtureB->IsSensor() )
+			continue;
 
 
 
-}
+		/* Polygon that belongs to terrain could overlap */
+		if ( fixtureA->GetBody()->GetType() == b2_staticBody &&
+			 fixtureB->GetBody()->GetType() == b2_staticBody )
+			 continue;
+		
+/*		void* modelElem1 = contact->GetFixtureA()->GetBody()->GetUserData();
+		void* modelElem2 = contact->GetFixtureB()->GetBody()->GetUserData();
+
+		if (data1 && data2){
+			GameElement* body1 = static_cast<Cuerpo*> (data1);
+			Cuerpo* body2 = static_cast<Cuerpo*> (data2);*/
+
+			//Si se tocan elimino uno de los dos e informo
+			if(contact->IsTouching()){
+				
+
+			}
+
+		}
+	}
+
+
+
+
