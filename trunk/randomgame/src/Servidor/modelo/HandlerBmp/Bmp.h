@@ -16,8 +16,9 @@ private:
 
     FILE* fileBmp;
 	DataBmp* aDataBmp;
-		void validarArchivo(char* path);
+		bool validarArchivo(char* path);
 		bool esUnBmp(char* path);
+		unsigned char* getDefaultBmp();
 
 public:
     Bmp(char* path);

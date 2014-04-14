@@ -2,12 +2,14 @@
 
 
 Bmp::Bmp(char* path)
-{
+{    int width;
+    int height;
+    int row_padded;
+    unsigned char* data;
 
-  validarArchivo(path);
-
-
-  // obtain file size:
+ if(false==true)//validarArchivo(path))
+ {
+	   // obtain file size:
   fseek (fileBmp , 0 , SEEK_END);
   long lSize = ftell (fileBmp);
   rewind (fileBmp);
@@ -17,18 +19,29 @@ Bmp::Bmp(char* path)
     fread(info, sizeof(unsigned char), 54, fileBmp); // read the 54-byte header
 
     // extract image height and width from header
-    int width = *(int*)&info[18];
-    int height = *(int*)&info[22];
-    int row_padded = (width*3 + 3) & (~3);
-    unsigned char* data = new unsigned char[width*3*row_padded];
+    width = *(int*)&info[18];
+    height = *(int*)&info[22];
+    row_padded = (width*3 + 3) & (~3);
+    data = new unsigned char[width*3*row_padded];
 
     fread(data, sizeof(unsigned char), row_padded*height, fileBmp);
     fclose(fileBmp);
+ }else
+ {
+	  width=10;
+	 height=10;
+     row_padded=10;
+	 data=getDefaultBmp();
+
+ }
+
+
+
 
     aDataBmp = new DataBmp(data,row_padded,height,width);
 }
 
-void Bmp::validarArchivo(char* path)
+bool Bmp::validarArchivo(char* path)
 {
 	fileBmp = fopen(path, "rb");
 	if (fileBmp==NULL)
@@ -45,9 +58,36 @@ void Bmp::validarArchivo(char* path)
 	}
 	if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
 	{
-		Log::e("Class Bmp.cpp: El archivo por default no existe");
-		exit (1);
+		Log::e("Class Bmp.cpp: El archivo por default no existe. Se programará uno por default de 10x10");
+		return false;
 	}
+	return true;
+}
+
+unsigned char* Bmp::getDefaultBmp()
+{
+	unsigned char* defaultBmp=new unsigned char[10*3*10];
+    for(int i = 0; i < 10; i++)
+    {
+        for(int j = 0; j < 10*3; j += 3)
+        {
+		if(i>=0 && i<4 && j<3 && j>=27)
+		{
+			defaultBmp[j+10*i]=0;
+			defaultBmp[j+10*i+1]=0;
+			defaultBmp[j+10*i+2]=0;
+
+		}else
+		{
+			defaultBmp[i]=(char)255;
+			defaultBmp[i+1]=(char)255;
+			defaultBmp[i+2]=(char)255;
+		}
+		}
+	}
+	return defaultBmp;
+
+
 }
 
 bool Bmp::esUnBmp(char* path)
