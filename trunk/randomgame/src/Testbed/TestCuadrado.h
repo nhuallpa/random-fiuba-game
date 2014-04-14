@@ -40,6 +40,29 @@
 			dynamicBody->SetTransform( dynamicBody->GetPosition(), angle );
 
 
+
+
+
+
+			b2BodyDef myBodyDef1;
+			myBodyDef1.type = b2_dynamicBody; //this will be a dynamic body
+			myBodyDef1.position.Set(posX+5+w/2, posY+2+h/2); //set the starting position
+			myBodyDef1.angle = (angle * DEGTORAD); //set the starting angle
+
+
+			b2Body* dynamicBody1 = m_world->CreateBody(&myBodyDef1);
+	
+			b2PolygonShape boxShape1;
+
+			boxShape1.SetAsBox(h,w,center,angle * DEGTORAD);
+  
+			b2FixtureDef boxFixtureDef1;
+			boxFixtureDef1.shape = &boxShape;
+			boxFixtureDef1.density = masa;
+			dynamicBody1->CreateFixture(&boxFixtureDef1);
+			dynamicBody1->SetTransform( dynamicBody1->GetPosition(), angle );
+
+
 		
 		} 
         
