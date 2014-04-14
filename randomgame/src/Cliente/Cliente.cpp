@@ -34,16 +34,17 @@ void Cliente::loop(void){
 	Bootstrap bootstrap;
 	bootstrap.init();
 	GameViewBuilder builder(&this->cLevel);
-
 	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), 
 													builder, &this->cLevel);
+	
 	this->cController.init();
 	
 	/** refresh the initial view*/
 	currentActivity->render();
 
 	int running = 0;
-	next_time = SDL_GetTicks() + TICK_INTERVAL;
+	Uint32 tick_inteval = this->getTickInterval();
+	next_time = SDL_GetTicks() + tick_inteval;
 	while (!this->cController.isQuit()){
 
 		this->cController.detectEvents();
@@ -73,7 +74,7 @@ void Cliente::loop(void){
 		currentActivity->render();
 
 		SDL_Delay(time_left());
-		next_time += TICK_INTERVAL;
+		next_time += tick_inteval;
 
 		this->cController.clearStates();
 	}
@@ -115,6 +116,15 @@ Uint32 Cliente::time_left(void)
         return 0;
     else
         return next_time - now;
+}
+
+Uint32 Cliente::getTickInterval()
+{
+	int fps = 60;
+	ParserYaml* aParser = ParserYaml::getInstance();
+	fps = Util::string2int(aParser->getInstance()->getEscenarioFps());
+	Uint32 tick_interval = 1000.0f / fps;
+	return tick_interval;
 }
 
 

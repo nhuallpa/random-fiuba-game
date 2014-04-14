@@ -1,9 +1,4 @@
-/*
- * GameElement.h
- *
- *  Created on: 09/09/2013
- *      Author: ALiguori
- */
+
 #pragma once
 
 #ifndef GAMEELEMENT_H_

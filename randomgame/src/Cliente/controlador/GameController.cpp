@@ -1,10 +1,3 @@
-/*
- * GameController.cpp
- *
- *  Created on: 09/09/2013
- *      Author: ALiguori
- */
-
 #include "GameController.h"
 //#include "../vista/Sprites.h"
 #include <math.h>
