@@ -18,18 +18,13 @@ bool GameEngine::initWorld(){
 	this->gameLevel.createLevel(this->gameLevel);
 	
 	this->floodWorld();
-	//ToDo @aliguo
+
 	//Create terrain from BMP
 	ParserYaml* aParser=ParserYaml::getInstance();
-	string path = aParser->getEscenarioTierra();
-	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)path.c_str(),1.5,100);
+	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()));
 	this->gameLevel.setTerrain(aTerrainProcessor);
 
-
-
-	//list<list<pair<float,float>>> *pepee = aTerrainProcessor->getListOfPolygons();
-
-
+	
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
 	this->animateBodies();
 
