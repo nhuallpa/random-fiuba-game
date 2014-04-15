@@ -1,0 +1,305 @@
+﻿metadata:
+    epsilon: 10
+    scale: 15
+escenario:
+    fps: 60
+    ancho-un: 200
+    alto-un: 200
+    alto-px: 400
+    ancho-px: 400
+    nivel_agua: 50
+    color_agua: "#0000FF99"
+    imagen_tierra: res/images/test2.bmp
+    color_tierra: "#BC794FFF"
+    imagen_cielo: res/images/cielo1.png
+    objetos:
+    - tipo:     rec
+      id:       1
+      x:        5
+      y:        190
+      alto:     10
+      ancho:    10
+      color:    "#FF0000FF"
+      estatico: no
+      rot:              0
+      masa:     1
+    - tipo:     tri
+      id:       2
+      x:        25
+      y:        190
+      escala:   10
+      color:    "#00FF00FF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     pent
+      id:       3
+      x:        45
+      y:        190
+      escala:   10
+      color:    "#0000FFFF"
+      estatico: si
+      rot:      10
+      masa:     4
+    - tipo:     circ
+      id:       4
+      x:        65
+      y:        190
+      escala:   1
+      color:    "#FFFF00FF"
+      estatico: no
+      rot:      20
+      masa:     4
+      radio:    5
+    - tipo:     hexa
+      id:       5
+      x:        85
+      y:        190
+      escala:   10
+      color:    "#FF00FFFF"
+      estatico: no
+      rot:      10
+      masa:     4
+    - tipo:     rec
+      id:       11
+      x:        105
+      y:        190
+      alto:     10
+      ancho:    10
+      color:    "#FF0120F3"
+      estatico: no
+      rot:              0
+      masa:     1
+    - tipo:     tri
+      id:       12
+      x:        125
+      y:        190
+      escala:   10
+      color:    "#00FF0ADF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     pent
+      id:       13
+      x:        145
+      y:        190
+      escala:   10
+      color:    "#9120FFFF"
+      estatico: si
+      rot:      10
+      masa:     4
+    - tipo:     circ
+      id:       14
+      x:        165
+      y:        190
+      escala:   1
+      color:    "#F32F001F"
+      estatico: no
+      rot:      20
+      masa:     4
+      radio:    5
+    - tipo:     hexa
+      id:       15
+      x:        185
+      y:        190
+      escala:   10
+      color:    "#8900FF12"
+      estatico: no
+      rot:      10
+      masa:     4
+    - tipo:     rec
+      id:       21
+      x:        5
+      y:        170
+      alto:     10
+      ancho:    10
+      color:    "#FF0000FF"
+      estatico: no
+      rot:              0
+      masa:     1
+    - tipo:     tri
+      id:       22
+      x:        25
+      y:        170
+      escala:   10
+      color:    "#00FF00FF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     pent
+      id:       23
+      x:        45
+      y:        170
+      escala:   10
+      color:    "#0000FFFF"
+      estatico: si
+      rot:      10
+      masa:     4
+    - tipo:     circ
+      id:       24
+      x:        65
+      y:        170
+      escala:   1
+      color:    "#FFFF00FF"
+      estatico: no
+      rot:      20
+      masa:     4
+      radio:    5
+    - tipo:     hexa
+      id:       25
+      x:        85
+      y:        170
+      escala:   10
+      color:    "#FF00FFFF"
+      estatico: no
+      rot:      10
+      masa:     4
+    - tipo:     rec
+      id:       211
+      x:        105
+      y:        170
+      alto:     10
+      ancho:    10
+      color:    "#FF0120F3"
+      estatico: no
+      rot:              0
+      masa:     1
+    - tipo:     tri
+      id:       212
+      x:        125
+      y:        170
+      escala:   10
+      color:    "#00FF0ADF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     pent
+      id:       213
+      x:        145
+      y:        170
+      escala:   10
+      color:    "#9120FFFF"
+      estatico: si
+      rot:      10
+      masa:     4
+    - tipo:     circ
+      id:       214
+      x:        165
+      y:        170
+      escala:   1
+      color:    "#F32F001F"
+      estatico: no
+      rot:      20
+      masa:     4
+      radio:    5
+    - tipo:     hexa
+      id:       215
+      x:        185
+      y:        170
+      escala:   10
+      color:    "#8900FF12"
+      estatico: no
+      rot:      10
+      masa:     4      
+    - tipo:     rec
+      id:       321
+      x:        5
+      y:        150
+      alto:     10
+      ancho:    10
+      color:    "#FF0000FF"
+      estatico: no
+      rot:              0
+      masa:     1
+    - tipo:     tri
+      id:       322
+      x:        25
+      y:        150
+      escala:   10
+      color:    "#00FF00FF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     pent
+      id:       323
+      x:        45
+      y:        150
+      escala:   10
+      color:    "#0000FFFF"
+      estatico: si
+      rot:      10
+      masa:     4
+    - tipo:     circ
+      id:       324
+      x:        65
+      y:        150
+      escala:   1
+      color:    "#FFFF00FF"
+      estatico: no
+      rot:      20
+      masa:     4
+      radio:    5
+    - tipo:     hexa
+      id:       325
+      x:        85
+      y:        150
+      escala:   10
+      color:    "#FF00FFFF"
+      estatico: no
+      rot:      10
+      masa:     4
+    - tipo:     rec
+      id:       3211
+      x:        105
+      y:        150
+      alto:     10
+      ancho:    10
+      color:    "#FF0120F3"
+      estatico: no
+      rot:              0
+      masa:     1
+    - tipo:     tri
+      id:       3212
+      x:        125
+      y:        150
+      escala:   10
+      color:    "#00FF0ADF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     pent
+      id:       3213
+      x:        145
+      y:        150
+      escala:   10
+      color:    "#9120FFFF"
+      estatico: si
+      rot:      10
+      masa:     4
+    - tipo:     circ
+      id:       3214
+      x:        165
+      y:        150
+      escala:   1
+      color:    "#F32F001F"
+      estatico: no
+      rot:      20
+      masa:     4
+      radio:    5
+    - tipo:     hexa
+      id:       3215
+      x:        185
+      y:        150
+      escala:   10
+      color:    "#8900FF12"
+      estatico: no
+      rot:      10
+      masa:     4
+      
+      
+      
+      
+      
+      
+      
+      
