@@ -406,6 +406,7 @@ void GameEngine::animateContacts(){
 	}
 
 	/* Now process all static bodies since they dont contact each other */
+	Log::i("Proceso estaticos");
 	b2Manifold* worldManifold = new b2Manifold();
 	for (b2Body* b=this->myWorld->GetBodyList(); b; b = b->GetNext() ){
 
@@ -433,10 +434,23 @@ void GameEngine::animateContacts(){
 											(b2PolygonShape*)f2->GetShape(),c->GetTransform() );
 					}
 
+
+
 					if (worldManifold->pointCount > 0 ){
-						Log::t("Solapamiento de estaticos: %d", 
-						static_cast<GameElement*>(c->GetUserData())->getId());
-						deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(c->GetUserData())->getId()),0 ));
+						/* Si B es el terreno */
+						if (static_cast<int*>(b->GetUserData()) == 0){
+							Log::t("Solapamiento de estaticos: %d", 
+									static_cast<GameElement*>(c->GetUserData())->getId());
+							deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(c->GetUserData())->getId()),0 ));
+						}
+
+						/* Si C es el terreno */
+						if (static_cast<int*>(c->GetUserData()) == 0){
+							Log::t("Solapamiento de estaticos: %d", 
+									static_cast<GameElement*>(b->GetUserData())->getId());
+							deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(b->GetUserData())->getId()),0 ));
+						}
+
 
 						worldManifold->pointCount = 0;
 					}
