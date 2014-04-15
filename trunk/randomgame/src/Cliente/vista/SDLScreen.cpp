@@ -9,7 +9,7 @@ SDLScreen::SDLScreen()
 bool SDLScreen::init(const char* title, int xpos, int ypos, int width,
 			int height, int flags)
 {
-
+	this->title.append(title);
 	// init the window
 	m_pWindow = SDL_CreateWindow(title, xpos, ypos,	width, height, flags);
 
@@ -50,6 +50,15 @@ void SDLScreen::terminate()
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 }
+
+void SDLScreen::setState(std::string string_state)
+{
+	std::stringstream caption;
+
+	caption<<this->title<<" - Estado: "<<string_state;
+	SDL_SetWindowTitle(m_pWindow, caption.str().c_str());
+}
+
 SDL_Renderer* SDLScreen::getRenderer()
 {
 	return renderer;
