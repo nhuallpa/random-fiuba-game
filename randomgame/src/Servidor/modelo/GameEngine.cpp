@@ -1,6 +1,10 @@
 #include "GameEngine.h"
 #include <list>
 #include "Box2D/Collision/Shapes/b2Shape.h"
+#include "Box2D/Collision/b2Collision.h"
+
+class b2Collision;
+
 
 GameEngine::GameEngine() {
 	
@@ -412,16 +416,42 @@ void GameEngine::animateContacts(){
 
 				if (!deletedFixtures.count(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId()) ){
 					deletedFixtures.insert(std::make_pair(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId(),0 ));
-	
-					
+		
+				}
+		}
+	}
+
+	/* Now process all static bodies since they dont contact each other */
+	b2Manifold* worldManifold = new b2Manifold();
+	for (b2Body* b=this->myWorld->GetBodyList(); b; b = b->GetNext() ){
+
+		/*Si hay uno mas contra quien chequear */
+		b2Body* c;
+		if (c=b->GetNext()){
+
+			if(b->GetMass() == 0 && c->GetMass() == 0){ /* Static Bodies Only*/
+				b2Fixture* f1 = b->GetFixtureList();
+				b2Fixture* f2 = c->GetFixtureList();
+				Log::i("Un par de estaticos");
+				if( f1->GetType() == b2Shape::e_polygon && f2->GetType() == b2Shape::e_polygon ){
+					b2CollidePolygons(	worldManifold,(b2PolygonShape*)f1->GetShape(),b->GetTransform(),
+										(b2PolygonShape*)f2->GetShape(),c->GetTransform() );
 				}
 
+				// many other cases
+
+
+				if (worldManifold->pointCount > 0 )
+					Log::i("Solapamiento de estaticos: %d", static_cast<GameElement*>(c->GetUserData())->getId());
+
+
+
+			}
 		}
 
-
-
-
 	}
+
+
 
 	std::map<int,int>::iterator iterator = deletedFixtures.begin();
 	for ( ; iterator != deletedFixtures.end(); iterator++) {
