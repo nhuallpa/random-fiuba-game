@@ -3,10 +3,10 @@ metadata:
     scale: 15
 escenario:
     fps: 60
-    ancho-un: 200
-    alto-un: 200
-    alto-px: 400
-    ancho-px: 400
+    ancho-un: 400
+    alto-un: 400
+    alto-px: 800
+    ancho-px: 800
     nivel_agua: 50
     color_agua: "#0000FF99"
     imagen_tierra: res/images/test2.bmp
@@ -16,7 +16,7 @@ escenario:
     - tipo:     rec
       id:               1
       x:        180
-      y:        250
+      y:        400
       alto:     50
       ancho:    10
       color:    "#FF0000FF"
@@ -54,9 +54,18 @@ escenario:
     - tipo:     hexa
       id:       5
       x:        80
-      y:        180
+      y:        400
       escala:   10
       color:    "#FF00FFFF"
       estatico: no
+      rot:      0
+      masa:     4
+    - tipo:     pent
+      id:       6
+      x:        145
+      y:        255
+      escala:   10
+      color:    "#0000FFAA"
+      estatico: si
       rot:      0
       masa:     4

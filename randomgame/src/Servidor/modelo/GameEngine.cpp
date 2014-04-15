@@ -451,6 +451,10 @@ void GameEngine::animateContacts(){
 							deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(b->GetUserData())->getId()),0 ));
 						}
 
+						/* Si ninguno de los dos es terreno quito el ultimo */
+						Log::t("Solapamiento de estaticos: %d", 
+								static_cast<GameElement*>(b->GetUserData())->getId());
+						deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(b->GetUserData())->getId()),0 ));
 
 						worldManifold->pointCount = 0;
 					}
