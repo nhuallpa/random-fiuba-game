@@ -1,5 +1,5 @@
 metadata:
-    epsilon: 10
+    epsilon: 1.0
     scale: 15
 escenario:
     fps: 60
