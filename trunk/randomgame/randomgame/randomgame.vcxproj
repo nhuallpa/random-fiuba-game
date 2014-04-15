@@ -44,7 +44,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>C:\random-fiuba-game\randomgame\libs\SDL2_gfx\include;C:\random-fiuba-game\randomgame\libs\;C:\random-fiuba-game\randomgame\libs\Box2D\;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\contrib;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\include;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\include;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\include;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\random-fiuba-game\randomgame\libs\SDL2_gfx\lib;C:\random-fiuba-game\randomgame\libs\Box2D;C:\random-fiuba-game\randomgame\libs\yaml-cpp\build\Debug;C:\random-fiuba-game\randomgame\libs\yaml-cpp\build;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\random-fiuba-game\randomgame\libs\release;C:\random-fiuba-game\randomgame\libs\SDL2_gfx\lib;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -68,7 +68,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;libyaml-cppmdd.lib;SDL2_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;libyaml-cppmd.lib;SDL2_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>

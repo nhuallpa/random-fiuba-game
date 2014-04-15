@@ -1,5 +1,5 @@
 metadata:
-    epsilon: 5
+    epsilon: 1.0
     scale: 15
 escenario:
     fps: 60
@@ -7,7 +7,7 @@ escenario:
     alto-un: 200
     alto-px: 400
     ancho-px: 400
-    nivel_agua: 50
+    nivel_agua: 100
     color_agua: "#0000FF99"
     imagen_tierra: res/images/test2.bmp
     color_tierra: "#BC794FFF"
@@ -15,18 +15,18 @@ escenario:
     objetos:
     - tipo:     rec
       id:               1
-      x:        180
-      y:        250
-      alto:     50
+      x:        400
+      y:        80
+      alto:     10
       ancho:    10
       color:    "#FF0000FF"
       estatico: no
-      rot:      0
+      rot:              0
       masa:     1
     - tipo:     tri
       id:       2
-      x:        20
-      y:        250
+      x:        40
+      y:        3000
       escala:   10
       color:    "#00FF00FF"
       estatico: no
@@ -35,28 +35,28 @@ escenario:
     - tipo:     pent
       id:       3
       x:        140
-      y:        250
+      y:        140
       escala:   10
       color:    "#0000FFFF"
-      estatico: si
-      rot:      0
+      estatico: no
+      rot:      10
       masa:     4
     - tipo:     circ
       id:       4
-      x:        15
-      y:        250
+      x:        10
+      y:        120
       escala:   1
       color:    "#FFFF00FF"
       estatico: no
-      rot:      0
+      rot:      20
       masa:     4
       radio:    5
     - tipo:     hexa
       id:       5
-      x:        80
+      x:        100
       y:        180
       escala:   10
       color:    "#FF00FFFF"
       estatico: no
-      rot:      0
+      rot:      10
       masa:     4
