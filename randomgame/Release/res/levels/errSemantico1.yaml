@@ -1,5 +1,5 @@
-metadata:
-    epsilon: 5
+﻿metadata:
+    epsilon: 10
     scale: 15
 escenario:
     fps: 60
@@ -8,55 +8,46 @@ escenario:
     alto-px: 400
     ancho-px: 400
     nivel_agua: 50
-    color_agua: "#0000FF99"
+    color_agua: "#0000FH99"
     imagen_tierra: res/images/test2.bmp
     color_tierra: "#BC794FFF"
-    imagen_cielo: res/images/cielo1.png
+    imagen_cielo: res/images/cielo1.doc
     objetos:
-    - tipo:     rec
-      id:               1
+    - tipo:     rect
+      id:       1
       x:        180
-      y:        250
-      alto:     50
+      y:        80
+      alto:     10.12
       ancho:    10
       color:    "#FF0000FF"
-      estatico: no
+      estatico: nose
       rot:      0
-      masa:     1
-    - tipo:     tri
-      id:       2
-      x:        20
-      y:        250
-      escala:   10
-      color:    "#00FF00FF"
-      estatico: no
-      rot:      0
-      masa:     1
+      masa:     mas
     - tipo:     pent
       id:       3
       x:        140
-      y:        250
+      y:        140
       escala:   10
       color:    "#0000FFFF"
-      estatico: si
-      rot:      0
+      estatico: no
+      rot:      10
       masa:     4
     - tipo:     circ
       id:       4
-      x:        15
-      y:        250
+      x:        55
+      y:        120
       escala:   1
-      color:    "#FFFF00FF"
+      color:    "#F1FF03F5"
       estatico: no
       rot:      0
       masa:     4
-      radio:    5
+      radio:    15
     - tipo:     hexa
       id:       5
-      x:        80
+      x:        10
       y:        180
       escala:   10
-      color:    "#FF00FFFF"
+      color:    "#7F0FF99F"
       estatico: no
-      rot:      0
+      rot:      10
       masa:     4
