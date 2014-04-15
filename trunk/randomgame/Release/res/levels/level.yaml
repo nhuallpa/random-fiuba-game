@@ -16,7 +16,7 @@ escenario:
     - tipo:     rec
       id:               1
       x:        180
-      y:        250
+      y:        600
       alto:     50
       ancho:    10
       color:    "#FF0000FF"
@@ -54,7 +54,7 @@ escenario:
     - tipo:     hexa
       id:       5
       x:        80
-      y:        180
+      y:        500
       escala:   10
       color:    "#FF00FFFF"
       estatico: no
