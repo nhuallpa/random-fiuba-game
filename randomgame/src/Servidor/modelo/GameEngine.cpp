@@ -307,7 +307,7 @@ void GameEngine::animateContacts(){
 	std::map<int,int> deletedFixtures;
 
 	for(b2Contact* contact = this->myWorld->GetContactList(); contact; contact = contact->GetNext()){
-		Log::t("recorriendo contactos");
+		
 		b2Fixture* fixtureA = contact->GetFixtureA();
 		b2Fixture* fixtureB = contact->GetFixtureB();
 		
@@ -316,12 +316,6 @@ void GameEngine::animateContacts(){
 		if ( fixtureA->IsSensor()  || fixtureB->IsSensor() )
 			continue;
 
-		///* Polygon that belongs to terrain could overlap so I ommit them */
-		//if ( (fixtureA->GetBody()->GetType() == b2_staticBody && (static_cast<int*>(fixtureA->GetBody()->GetUserData()) == 0 ) ) &&
-		//	 (fixtureB->GetBody()->GetType() == b2_staticBody && (static_cast<int*>(fixtureB->GetBody()->GetUserData()) == 0)) ){
-		//		 Log::i("terrain colliding");
-		//	 continue;
-		//}
 		/* If A is terrain and B a DYN element body*/
 		if ((fixtureA->GetBody()->GetType() == b2_staticBody &&
 			(static_cast<int*>(fixtureA->GetBody()->GetUserData()) == 0) ) &&
@@ -423,7 +417,7 @@ void GameEngine::animateContacts(){
 
 	/* Now process all static bodies since they dont contact each other */
 	b2Manifold* worldManifold = new b2Manifold();
-	Log::i("Cantidad de cuerpos: %d",this->myWorld->GetBodyCount());
+	
 	for (b2Body* b=this->myWorld->GetBodyList(); b; b = b->GetNext() ){
 
 		/*Chequeo uno contra todo el resto (estaticos), si hay resto */
@@ -452,13 +446,13 @@ void GameEngine::animateContacts(){
 
 					if (worldManifold->pointCount > 0 ){
 						
-						if (static_cast<int*>(b->GetUserData()) == 0)
-							Log::i("Cuerpo B = terreno");
+						//if (static_cast<int*>(b->GetUserData()) == 0)
+						//	Log::i("Cuerpo B = terreno");
 
-						if (static_cast<int*>(c->GetUserData()) == 0)
-							Log::i("Cuerpo C = terreno");
+						//if (static_cast<int*>(c->GetUserData()) == 0)
+						//	Log::i("Cuerpo C = terreno");
 
-						Log::i("Solapamiento de estaticos: %d", 
+						Log::t("Solapamiento de estaticos: %d", 
 						static_cast<GameElement*>(c->GetUserData())->getId());
 						deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(c->GetUserData())->getId()),0 ));
 
@@ -473,7 +467,8 @@ void GameEngine::animateContacts(){
 	
 	std::map<int,int>::iterator iterator = deletedFixtures.begin();
 	for ( ; iterator != deletedFixtures.end(); iterator++) {
-		Log::i("Deleting: %d",iterator->first);
+		Log::i("Eliminando objeto de id: %d, por encontrarse superpuesto",
+				iterator->first);
 		this->deleteBody(iterator->first);
 	}
 
