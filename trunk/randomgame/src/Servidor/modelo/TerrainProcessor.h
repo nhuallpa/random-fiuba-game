@@ -22,6 +22,7 @@ class TerrainProcessor
 private:
 	b2Vec2 transformBmpToBox2D(b2Vec2 vertex, int height, int width);
 	list< list< pair<float,float> > >* aListOfPolygons;
+	void makeDefaultTerrain(b2World* m_world);
 
 public:
 	TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale);

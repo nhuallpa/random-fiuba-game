@@ -7,7 +7,7 @@ Bmp::Bmp(char* path)
     int row_padded;
     unsigned char* data;
 
- if(false==true)//validarArchivo(path))
+ if(validarArchivo(path))
  {
 	   // obtain file size:
   fseek (fileBmp , 0 , SEEK_END);
@@ -26,19 +26,27 @@ Bmp::Bmp(char* path)
 
     fread(data, sizeof(unsigned char), row_padded*height, fileBmp);
     fclose(fileBmp);
+	    aDataBmp = new DataBmp(data,row_padded,height,width);
  }else
  {
-	  width=10;
-	 height=10;
-     row_padded=10;
-	 data=getDefaultBmp();
+	 aDataBmp=NULL;
+
+		 try
+  {
+    throw 20;
+  }
+  catch (int e)
+  {
+    throw 20;
+  }
+
 
  }
 
 
 
 
-    aDataBmp = new DataBmp(data,row_padded,height,width);
+
 }
 
 bool Bmp::validarArchivo(char* path)
@@ -46,49 +54,18 @@ bool Bmp::validarArchivo(char* path)
 	fileBmp = fopen(path, "rb");
 	if (fileBmp==NULL)
 	{ 
-		Log::e("Class Bmp.cpp: No existe el archivo. Se cargará el archivo bmp por default");
-		fileBmp = fopen("C:\\random-fiuba-game\\randomgame\\randomgame\\image\\testDefault.bmp", "rb");
+		Log::e("Class Bmp.cpp: No existe el archivo. Se cargará un bmp por default");
+		return false;
 	}
 	else if (!esUnBmp(path))
 	{
-		Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se cargará el archivo bmp por default");
-		//copiar archivo por default al path
-		//Cargar el archivo por default
-		fileBmp = fopen("C:\\random-fiuba-game\\randomgame\\randomgame\\image\\testDefault.bmp", "rb");
-	}
-	if (fileBmp==NULL) //Si el archivo por default tambien es erroneo, sale.
-	{
-		Log::e("Class Bmp.cpp: El archivo por default no existe. Se programará uno por default de 10x10");
+		Log::e("Class Bmp.cpp: La extensión del archivo no es válida. Se cargará un bmp por default");
 		return false;
+
 	}
 	return true;
 }
 
-unsigned char* Bmp::getDefaultBmp()
-{
-	unsigned char* defaultBmp=new unsigned char[10*3*10];
-    for(int i = 0; i < 10; i++)
-    {
-        for(int j = 0; j < 10*3; j += 3)
-        {
-		if(i>=0 && i<4 && j<3 && j>=27)
-		{
-			defaultBmp[j+10*i]=0;
-			defaultBmp[j+10*i+1]=0;
-			defaultBmp[j+10*i+2]=0;
-
-		}else
-		{
-			defaultBmp[i]=(char)255;
-			defaultBmp[i+1]=(char)255;
-			defaultBmp[i+2]=(char)255;
-		}
-		}
-	}
-	return defaultBmp;
-
-
-}
 
 bool Bmp::esUnBmp(char* path)
 {

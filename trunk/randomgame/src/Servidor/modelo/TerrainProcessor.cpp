@@ -5,9 +5,20 @@
 TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale)
 {
 	b2Body* m_attachment;
-	Bmp* aBmpFile = new Bmp(path);
+		Bmp* aBmpFile;
+		this->aListOfPolygons= new list< list< pair<float,float> > > ();
+	try
+	{
+		aBmpFile = new Bmp(path);
+	}
+	  catch (int e)
+	{
+		makeDefaultTerrain(m_world);
+		return;
+	}
+
 	ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
-	this->aListOfPolygons= new list< list< pair<float,float> > > ();
+	
 
 
 	list< list<Position* > *>* cc =aContourBmp->getContour();
@@ -62,10 +73,6 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 
 
 	ContourBmp::deleteListOfListPositions(cc);
-
-	cout << "Neo: \"I'm in\" " << endl;
-
-
 	delete aContourBmp;
 
 }
@@ -90,6 +97,7 @@ vector<vector<b2Vec2>> TerrainProcessor::
 			//TODO: Bauti aca deberias llamar a la imagen por defecto
 			//      ya que la otra tiro error, asi cargas a result y 
 			//      todo sigue funcionando
+			//Erik: que tal si no.
 		}
 		return result;
 }
@@ -109,6 +117,47 @@ b2Vec2 TerrainProcessor::transformBmpToBox2D(b2Vec2 vertex, int height, int widt
 		nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / width);
 		return nuevo;
 	}
+
+void TerrainProcessor::makeDefaultTerrain(b2World* m_world)
+{
+		b2Body* m_attachment;
+	b2Vec2 vertices[3];
+	list< pair<float,float> > aListOfPoints;
+	b2Vec2 unVerticeBase(9,3);
+	b2Vec2 otroVerticeBase(9,7);
+	b2Vec2 unVerticeCuspide(5,5);
+	
+	vertices[0] = this->transformBmpToBox2D(unVerticeBase, 10,10);
+	vertices[1] = this->transformBmpToBox2D(otroVerticeBase, 10,10);
+	vertices[2] = this->transformBmpToBox2D(unVerticeCuspide, 10,10);
+	
+	pair<float,float> aPosition93(vertices[0].x,vertices[0].y);
+	pair<float,float> aPosition97(vertices[1].x,vertices[1].y);
+	pair<float,float> aPosition55(vertices[2].x,vertices[2].y);
+
+	aListOfPoints.push_back(aPosition93);
+	aListOfPoints.push_back(aPosition97);
+	aListOfPoints.push_back(aPosition55);
+
+	aListOfPolygons->push_back(aListOfPoints);
+	//
+	// AGREGAR POLIGONO A BOX2D 
+
+	//Creo el poligono en Box2D
+	b2FixtureDef myFixtureDef;
+	b2BodyDef myBodyDef;
+	myBodyDef.type = b2_staticBody; //this will be a static body
+	myBodyDef.position.Set(0, 0); //in the middle
+	m_attachment = m_world->CreateBody(&myBodyDef);
+
+	b2PolygonShape polygonShape;
+	polygonShape.Set(vertices, 3); //pass array to the shape
+
+	myFixtureDef.shape = &polygonShape; //change the shape of the fixture
+	m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
+
+
+}
 
 list< list< pair<float,float> > > * TerrainProcessor::getListOfPolygons()
 {
