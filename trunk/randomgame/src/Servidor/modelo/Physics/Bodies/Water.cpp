@@ -49,8 +49,9 @@ Water::Water(float level, b2World* myWorld){
 
 	waterFixtureDef.shape = &waterShape;
 	waterBody->CreateFixture(&waterFixtureDef);
-	std::string* desc = new std::string("water");
-	waterBody->SetUserData(desc);
+	//std::string* desc = new std::string("water");
+	int* st= 0;
+	waterBody->SetUserData(st);
 	this->body = waterBody;
 
 

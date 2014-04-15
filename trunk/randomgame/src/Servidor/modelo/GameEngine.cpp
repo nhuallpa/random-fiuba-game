@@ -316,15 +316,15 @@ void GameEngine::animateContacts(){
 		if ( fixtureA->IsSensor()  || fixtureB->IsSensor() )
 			continue;
 
-		/* Polygon that belongs to terrain could overlap so I ommit them */
-		if ( (fixtureA->GetBody()->GetType() == b2_staticBody && !(static_cast<std::string*>(fixtureA->GetBody()->GetUserData())->compare("terrain")) ) &&
-			 (fixtureB->GetBody()->GetType() == b2_staticBody && !(static_cast<std::string*>(fixtureB->GetBody()->GetUserData())->compare("terrain"))) ){
-				 Log::i("terrain colliding");
-			 continue;
-		}
+		///* Polygon that belongs to terrain could overlap so I ommit them */
+		//if ( (fixtureA->GetBody()->GetType() == b2_staticBody && (static_cast<int*>(fixtureA->GetBody()->GetUserData()) == 0 ) ) &&
+		//	 (fixtureB->GetBody()->GetType() == b2_staticBody && (static_cast<int*>(fixtureB->GetBody()->GetUserData()) == 0)) ){
+		//		 Log::i("terrain colliding");
+		//	 continue;
+		//}
 		/* If A is terrain and B a DYN element body*/
 		if ((fixtureA->GetBody()->GetType() == b2_staticBody &&
-			!(static_cast<std::string*>(fixtureA->GetBody()->GetUserData())->compare("terrain")) ) &&
+			(static_cast<int*>(fixtureA->GetBody()->GetUserData()) == 0) ) &&
 			( (fixtureB->GetBody()->GetType() == b2_dynamicBody ) && contact->GetFixtureB()->GetBody()->GetUserData() ) )	
 		{
 			void* modelElementB = contact->GetFixtureB()->GetBody()->GetUserData();
@@ -342,7 +342,7 @@ void GameEngine::animateContacts(){
 
 		/* If B is terrain and A a DYN element */
 		if ((fixtureB->GetBody()->GetType() == b2_staticBody &&
-			!(static_cast<std::string*>(fixtureB->GetBody()->GetUserData())->compare("terrain")) ) &&
+			(static_cast<int*>(fixtureB->GetBody()->GetUserData()) == 0) ) &&
 			( (fixtureA->GetBody()->GetType() == b2_dynamicBody ) && contact->GetFixtureA()->GetBody()->GetUserData() ) )
 		{
 			void* modelElementA = contact->GetFixtureA()->GetBody()->GetUserData();
@@ -362,7 +362,7 @@ void GameEngine::animateContacts(){
 
 		/* If B is terrain and A a STATIC element */
 		if ((fixtureB->GetBody()->GetType() == b2_staticBody &&
-			!(static_cast<std::string*>(fixtureB->GetBody()->GetUserData())->compare("terrain")) ) &&
+			(static_cast<int*>(fixtureB->GetBody()->GetUserData()) == 0) ) &&
 			( (fixtureA->GetBody()->GetType() == b2_staticBody ) && contact->GetFixtureA()->GetBody()->GetUserData() ) )
 		{
 			if ( static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId() > 0 ){
@@ -382,7 +382,7 @@ void GameEngine::animateContacts(){
 
 		/* If A is terrain and B a STATIC element */
 		if ((fixtureA->GetBody()->GetType() == b2_staticBody &&
-			!(static_cast<std::string*>(fixtureA->GetBody()->GetUserData())->compare("terrain")) ) &&
+			(static_cast<int*>(fixtureA->GetBody()->GetUserData()) == 0) ) &&
 			( (fixtureB->GetBody()->GetType() == b2_staticBody ) && contact->GetFixtureB()->GetBody()->GetUserData() ) )
 		{
 			if ( static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId() > 0 ){
@@ -423,42 +423,59 @@ void GameEngine::animateContacts(){
 
 	/* Now process all static bodies since they dont contact each other */
 	b2Manifold* worldManifold = new b2Manifold();
+	Log::i("Cantidad de cuerpos: %d",this->myWorld->GetBodyCount());
 	for (b2Body* b=this->myWorld->GetBodyList(); b; b = b->GetNext() ){
 
-		/*Si hay uno mas contra quien chequear */
+		/*Chequeo uno contra todo el resto (estaticos), si hay resto */
 		b2Body* c;
-		if (c=b->GetNext()){
+		if ( (c=b->GetNext()) && !b->GetMass() ){
+			b2Fixture* f1 = b->GetFixtureList();
 
-			if(b->GetMass() == 0 && c->GetMass() == 0){ /* Static Bodies Only*/
-				b2Fixture* f1 = b->GetFixtureList();
-				b2Fixture* f2 = c->GetFixtureList();
-				Log::i("Un par de estaticos");
-				if( f1->GetType() == b2Shape::e_polygon && f2->GetType() == b2Shape::e_polygon ){
-					b2CollidePolygons(	worldManifold,(b2PolygonShape*)f1->GetShape(),b->GetTransform(),
-										(b2PolygonShape*)f2->GetShape(),c->GetTransform() );
+			for ( ; c ; c = c->GetNext()){
+				
+				/* If c is not static skip it */
+				if (c->GetMass())
+					continue;
+				/* If both are part of terrain skip them */
+				if ((static_cast<int*>(b->GetUserData()) == 0) &&
+					(static_cast<int*>(c->GetUserData()) == 0) )
+						continue;
+
+				if ( !c->GetMass()){
+					b2Fixture* f2 = c->GetFixtureList();
+					
+					/* poly vs poly */
+					if( f1->GetType() == b2Shape::e_polygon && f2->GetType() == b2Shape::e_polygon ){
+						b2CollidePolygons(	worldManifold,(b2PolygonShape*)f1->GetShape(),b->GetTransform(),
+											(b2PolygonShape*)f2->GetShape(),c->GetTransform() );
+					}
+
+					if (worldManifold->pointCount > 0 ){
+						
+						if (static_cast<int*>(b->GetUserData()) == 0)
+							Log::i("Cuerpo B = terreno");
+
+						if (static_cast<int*>(c->GetUserData()) == 0)
+							Log::i("Cuerpo C = terreno");
+
+						Log::i("Solapamiento de estaticos: %d", 
+						static_cast<GameElement*>(c->GetUserData())->getId());
+						deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(c->GetUserData())->getId()),0 ));
+
+						worldManifold->pointCount = 0;
+
+					}
 				}
-
-				// many other cases
-
-
-				if (worldManifold->pointCount > 0 )
-					Log::i("Solapamiento de estaticos: %d", static_cast<GameElement*>(c->GetUserData())->getId());
-
-
-
 			}
 		}
-
 	}
 
-
-
+	
 	std::map<int,int>::iterator iterator = deletedFixtures.begin();
 	for ( ; iterator != deletedFixtures.end(); iterator++) {
 		Log::i("Deleting: %d",iterator->first);
 		this->deleteBody(iterator->first);
 	}
-
 
 
 }

@@ -27,6 +27,8 @@ void b2Separator::Separate(b2Body* pBody, b2FixtureDef* pFixtureDef, vector<b2Ve
         delete[] vertices;
         pFixtureDef->shape=polyShape;
         pBody->CreateFixture(pFixtureDef);
+		int* st= 0;
+		pBody->SetUserData(st);
     }
 }
 /**
