@@ -61,7 +61,7 @@ Triangle::Triangle(ElementType type, float posX, float posY, float scale,
 }
 
 void Triangle::setPosition(float x, float y,float rot){
-	this->body->SetTransform(b2Vec2(x,y),angle*rot);
+	this->body->SetTransform(b2Vec2(x,y),rot*DEGTORAD);
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	ge->setVertexList(this->GetVertex());
 }

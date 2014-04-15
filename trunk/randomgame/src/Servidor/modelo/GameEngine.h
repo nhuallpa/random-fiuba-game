@@ -41,6 +41,8 @@ class GameEngine {
 		bool findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB);
 		bool intersectionWithWater(b2Fixture* fixtureA);
 		void updateBodyPositions();
+		void deleteBody(int id);
+
 
 	public:
 		GameEngine();
@@ -60,9 +62,7 @@ class GameEngine {
 
 		// Create simple world
 		void animateWorld();
-
 		void animateBodies();
-
 		void animateJoints();
 
 

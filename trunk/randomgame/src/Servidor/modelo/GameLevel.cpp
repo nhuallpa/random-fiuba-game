@@ -58,11 +58,11 @@ void GameLevel::removeEntity(int id) {
 		this->entities.erase(it);
 	}
 
-	std::map<int, GameElement>::iterator it2 = this->modelElements.begin();
-	it2 = this->modelElements.find(id);
-	if ( it2 != this->modelElements.end() ){
-		this->modelElements.erase(it2);
-	}
+	//std::map<int, GameElement>::iterator it2 = this->modelElements.begin();
+	//it2 = this->modelElements.find(id);
+	//if ( it2 != this->modelElements.end() ){
+	//	this->modelElements.erase(it2);
+	//}
 }
 
 
@@ -77,20 +77,20 @@ bool GameLevel::posicionOcupada(float x, float y){
 
 bool GameLevel::validElementPosition(int j){
 
-	ParserYaml* aParser = ParserYaml::getInstance();
-	Log::t("Validando elemento: %d",j);
-	// Chequeo si esta mas alla del ancho/alto del sistema en UL
-	if ((Util::string2float(aParser->getElemX(j)) >
-		Util::string2float(aParser->getEscenarioAnchoU())) ||
-		(Util::string2float(aParser->getElemY(j)) >
-		Util::string2float(aParser->getEscenarioAltoU()))  ||
-		(Util::string2float(aParser->getElemX(j))<0) ||
-		(Util::string2float(aParser->getElemY(j))<0) ){
-			Log::i("Descartando elemento de id: %d por encontrarse fuera \
-					de los limites del escenario", 
-					Util::string2int(aParser->getElemId(j)) );
-			return false;
-	}
+	//ParserYaml* aParser = ParserYaml::getInstance();
+	//Log::t("Validando elemento: %d",j);
+	//// Chequeo si esta mas alla del ancho/alto del sistema en UL
+	//if ((Util::string2float(aParser->getElemX(j)) >
+	//	Util::string2float(aParser->getEscenarioAnchoU())) ||
+	//	(Util::string2float(aParser->getElemY(j)) >
+	//	Util::string2float(aParser->getEscenarioAltoU()))  ||
+	//	(Util::string2float(aParser->getElemX(j))<0) ||
+	//	(Util::string2float(aParser->getElemY(j))<0) ){
+	//		Log::i("Descartando elemento de id: %d por encontrarse fuera \
+	//				de los limites del escenario", 
+	//				Util::string2int(aParser->getElemId(j)) );
+	//		return false;
+	//}
 	return true;
 }
 
@@ -206,7 +206,9 @@ bool GameLevel::checkMapPosition(float x, float y){
 void GameLevel::updateElementPosition(int pos, int id, float x, float y, float angle){
 
 	Log::t("Examinando elemento: %d", pos);
-	if ( this->validElementPosition(pos) ){
+
+
+	if ( this->validElementPosition(pos) && this->entities.count(id)){
 
 		std::map<int,GameElement*>::iterator it;
 		it=	this->entities.find(id);
