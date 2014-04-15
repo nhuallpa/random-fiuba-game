@@ -17,7 +17,7 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	this->height = h;
 
 	b2BodyDef myBodyDef;
-	myBodyDef.position.Set(posX+w/2, posY+h/2); //starting position (at center)
+	myBodyDef.position.Set(posX, posY); //starting position (at center)
 	myBodyDef.angle = (angle * DEGTORAD); 
 
 
@@ -35,7 +35,7 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 
 	b2PolygonShape boxShape;
 	
-	boxShape.SetAsBox(h/2,w/2);
+	boxShape.SetAsBox(w/2,h/2);
 	//boxShape.SetAsBox(1,1);
 
 	b2FixtureDef boxFixtureDef;
@@ -114,4 +114,6 @@ void Cuadrado::setPosition(float x, float y,float rot){
 	this->body->SetTransform(b2Vec2(x,y),rot*DEGTORAD);
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	ge->setVertexList(this->GetVertex());
+	this->body->SetLinearVelocity( b2Vec2( 0, 0 ) );
+	this->body->SetAngularVelocity( 0 );
 }
