@@ -66,7 +66,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 
 			myFixtureDef.shape = &polygonShape; //change the shape of the fixture
 			m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
-			std::string* st= new std::string ("terrain");
+			int* st= 0;
 			m_attachment->SetUserData(st);
 
 		}
@@ -157,7 +157,8 @@ void TerrainProcessor::makeDefaultTerrain(b2World* m_world)
 
 	myFixtureDef.shape = &polygonShape; //change the shape of the fixture
 	m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
-
+	int* st= 0;
+	m_attachment->SetUserData(st);
 
 }
 
