@@ -18,7 +18,8 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 	}
 
 	ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
-	
+	int height =aBmpFile->getHeight();
+	int width =aBmpFile->getWidth();
 
 
 	list< list<Position* > *>* cc =aContourBmp->getContour();
@@ -34,7 +35,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			lista.push_back(b2Vec2((float)(*itPosition)->getX(), (float)(*itPosition)->getY()));
 		}
 
-		result = this->getPolygonConvex(lista, epsilon, scale);
+		result = this->getPolygonConvex(lista, epsilon, scale, height, width);
 
 		for(int nroDePoligono=0; nroDePoligono< result.size(); nroDePoligono++)
 		{
@@ -45,7 +46,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			for(int nroVertice=0; nroVertice < cantDeVerticesDelPoligono; nroVertice++)
 			{
 				b2Vec2 unVertice = aPolygon[nroVertice];
-				vertices[nroVertice] = this->transformBmpToBox2D(unVertice, aBmpFile->getHeight(), aBmpFile->getWidth());
+				vertices[nroVertice] = this->transformBmpToBox2D(unVertice,height  ,width  );
 				pair<float,float> aPosition(vertices[nroVertice].x,vertices[nroVertice].y);
 				aListOfPoints.push_back(aPosition);
 			}
@@ -85,7 +86,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 
 
 vector<vector<b2Vec2>> TerrainProcessor::	
-	getPolygonConvex(vector<b2Vec2> lista, float epsilon, int scale){
+	getPolygonConvex(vector<b2Vec2> lista, float epsilon, int scale, int &height, int& width){
 		vector<vector<b2Vec2>> result;
 		HandleContour hc;
 		try
@@ -94,12 +95,21 @@ vector<vector<b2Vec2>> TerrainProcessor::
 		}
 		catch(ContourExp e)
 		{
-			Log::e(HANDLE_CONTOUR, e.what());
-			lista.clear();
-			//TODO: Bauti aca deberias llamar a la imagen por defecto
-			//      ya que la otra tiro error, asi cargas a result y 
-			//      todo sigue funcionando
-			//Erik: que tal si no.
+			b2Body* m_attachment;
+			b2Vec2 vertices[3];
+			height=10;
+			width=10;
+			vector< b2Vec2 > aListOfPoints;
+			b2Vec2 unVerticeBase(9,3);
+			b2Vec2 otroVerticeBase(9,7);
+			b2Vec2 unVerticeCuspide(5,5);
+
+			aListOfPoints.push_back(unVerticeBase);
+			aListOfPoints.push_back(otroVerticeBase);
+			aListOfPoints.push_back(unVerticeCuspide);
+
+			result.push_back(aListOfPoints);
+
 		}
 		return result;
 }
