@@ -7,9 +7,9 @@
 #define DEFAULT_SCALE "100"
 #define DEFAULT_FSP "60"
 #define DEFAULT_ALTOU "600"
-#define DEFAULT_ANCHOU "2500"
+#define DEFAULT_ANCHOU "600"
 #define DEFAULT_ALTOP "400"
-#define DEFAULT_ANCHOP "1000"
+#define DEFAULT_ANCHOP "400"
 #define DEFAULT_NIVEL_AGUA "50"
 #define DEFAULT_COLOR_AGUA "#0000FF99"
 #define DEFAULT_IM_TIERRA "res/images/tierra1.bmp"
@@ -92,8 +92,8 @@ void ParserYaml::startWithDefaultLevel(){
 	aPersist->setEscenarioImTierra(DEFAULT_IM_TIERRA);
 	aPersist->setEscenarioColorTierra(DEFAULT_COLOR_TIERRA);
 	aPersist->setEscenarioImCielo(DEFAULT_IM_CIELO);
-	aPersist->setRec("1","43.44","100","0","1","10","10","no","#FF0000FF");
-	aPersist->setTri("2","50","50","0","1","si","#00FF00FF","3.5");
+	aPersist->setRec("1","100","100","0","1","10","10","no","#FF0000FF");
+	aPersist->setTri("2","100","200","0","1","si","#00FF00FF","3.5");
 	aPersist->setPent("3","150","50","10","4","2","si","#0000FFFF");
 	aPersist->setCirc("4","150","250","10","4","1.5","no","#00FFFFFF","3");
 	aPersist->escribirYaml(this->levelFilePath);
