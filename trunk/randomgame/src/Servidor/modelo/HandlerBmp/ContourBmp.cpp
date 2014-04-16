@@ -225,10 +225,10 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
             {
                 if (this->aBmpFile->posValid(pX+1,pY+1) && aBmpFile->getBit(pX+1,pY+1) ==0)
                 {
-                posXcontour=pX;
+                                   posXcontour=pX;
                 posYcontour=pY;
                 stepX=1;
-                stepY=1;
+                stepY=0;
                 }else
                 {
                 posXcontour=pX;
@@ -252,39 +252,25 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
             	go Up, unless you come from Up, then you must go right
 
             	*/
-
-
-			if (this->aBmpFile->posValid(pX-1,pY+1) && aBmpFile->getBit(pX-1,pY+1) ==0)
-			{
-				if (prevX==1&&prevY==0)
-				{
-					posXcontour=pX;
-					posYcontour=pY;
-					stepX=0;
-					stepY=1;
-				}
-				else
-				{
-					posXcontour=pX;
-					posYcontour=pY;
-					stepX=-1;
-					stepY=0;
-				}
-
-			}
-			else//Si el sig no tiene nada, entonces se forma un pico y debe seguir corriendo el programa
-			{
-				posXcontour=pX;
-				posYcontour=pY;
-				stepX=0;
-				stepY=1;
-			}
-			            break;
-
-		}
+            if (prevX==1&&prevY==0)
+            {
+                posXcontour=pX;
+                posYcontour=pY;
+                stepX=0;
+                stepY=1;
+            }
+            else
+            {
+                posXcontour=pX;
+                posYcontour=pY;
+                stepX=-1;
+                stepY=0;
+            }
+            break;
+        }
 
         // saving contour point
-		if(squareValue==13&& !( (prevX ==1) &&(prevY ==0)) )//y viene de arriba
+		if(squareValue==13&& !( (prevX ==1) &&(prevY ==1)))
         {
             aContour->push_back(new Position(posXcontour, posYcontour-1));
         }
