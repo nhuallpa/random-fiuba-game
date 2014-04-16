@@ -77,18 +77,17 @@ bool GameLevel::posicionOcupada(float x, float y){
 
 bool GameLevel::validElementPosition(int j){
 
-	//ParserYaml* aParser = ParserYaml::getInstance();
+	ParserYaml* aParser = ParserYaml::getInstance();
 	//Log::t("Validando elemento: %d",j);
-	//// Chequeo si esta mas alla del ancho/alto del sistema en UL
-	//if ((Util::string2float(aParser->getElemX(j)) >
-	//	Util::string2float(aParser->getEscenarioAnchoU())) ||
-	//	(Util::string2float(aParser->getElemY(j)) >
-	//	Util::string2float(aParser->getEscenarioAltoU()))  ||
-	//	(Util::string2float(aParser->getElemX(j))<0) ||
-	//	(Util::string2float(aParser->getElemY(j))<0) ){
-	//		Log::i("Descartando elemento de id: %d por encontrarse fuera \
-	//				de los limites del escenario", 
-	//				Util::string2int(aParser->getElemId(j)) );
+	// Chequeo si esta mas alla del ancho/alto del sistema en UL
+	if ((Util::string2float(aParser->getElemX(j)) >
+		Util::string2float(aParser->getEscenarioAnchoU())) ||
+		(Util::string2float(aParser->getElemY(j)) >
+		Util::string2float(aParser->getEscenarioAltoU()))  ||
+		(Util::string2float(aParser->getElemX(j))<0) ||
+		(Util::string2float(aParser->getElemY(j))<0) )
+			Log::i("Elemento id: %d se encuentra fuera de los limites del escenario", 
+					Util::string2int(aParser->getElemId(j)) );
 	//		return false;
 	//}
 	return true;

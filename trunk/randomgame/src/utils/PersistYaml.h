@@ -50,6 +50,7 @@ private:
 	struct stMeta{
 		std::string epsilon ;
 		std::string scale ;
+		std::string timestep;
 	};
 
 	stElemento elem;
@@ -67,6 +68,7 @@ public:
 
 	void setMetaEps(std::string);
 	void setMetaSca(std::string);
+	void setMetaTime(std::string);
 
 	void setEscenarioFps(std::string);
 	void setEscenarioAltoU(std::string);

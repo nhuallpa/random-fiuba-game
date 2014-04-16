@@ -27,6 +27,10 @@ void PersistYaml::setMetaSca(std::string sca){
 	this->meta.scale = sca;
 }
 
+void PersistYaml::setMetaTime(std::string ts){
+	this->meta.timestep = ts;
+}
+
 void PersistYaml::setEscenarioFps(std::string fps){
 	this->escenario.fps = fps;
 }
