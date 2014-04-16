@@ -19,6 +19,7 @@ list< list<Position*>* >* ContourBmp::getConnectedComponents(list<Position*>* aP
     list<Position*>::iterator itPos=aPositionList->begin();
     while(itPos != aPositionList->end())
     {
+
         Position* aPosition=*itPos;
 
         //Si la posicion corresponde a la columna de la posicion anterior o a la siguiente columna
