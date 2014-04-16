@@ -95,6 +95,7 @@ vector<vector<b2Vec2>> TerrainProcessor::
 		}
 		catch(ContourExp e)
 		{
+			Log::i(HANDLE_CONTOUR,"Error al procesar el archivo BMP, se creara uno por defecto.");
 			b2Body* m_attachment;
 			b2Vec2 vertices[3];
 			height=10;
