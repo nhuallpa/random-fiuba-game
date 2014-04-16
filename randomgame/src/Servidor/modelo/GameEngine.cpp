@@ -420,7 +420,7 @@ void GameEngine::animateContacts(){
 			b2Fixture* f1 = b->GetFixtureList();
 
 			for ( ; c ; c = c->GetNext()){
-				
+				worldManifold->pointCount = 0;
 				/* If c is not static skip it */
 				if (c->GetMass())
 					continue;
@@ -438,6 +438,25 @@ void GameEngine::animateContacts(){
 											(b2PolygonShape*)f2->GetShape(),c->GetTransform() );
 					}
 
+					/* circle vs circle */
+					if( f1->GetType() == b2Shape::e_circle && f2->GetType() == b2Shape::e_circle){
+						b2CollideCircles(	worldManifold,(b2CircleShape*)f1->GetShape(),b->GetTransform(),
+											(b2CircleShape*)f2->GetShape(),c->GetTransform() );
+
+					}
+
+
+					/* poly vs circle */
+					if( (f1->GetType() == b2Shape::e_circle && f2->GetType() == b2Shape::e_polygon) ||
+						(f1->GetType() == b2Shape::e_polygon && f2->GetType() == b2Shape::e_circle)){
+							if ( f1->GetType() == b2Shape::e_circle )
+								b2CollidePolygonAndCircle(	worldManifold,(b2PolygonShape*)f2->GetShape(),c->GetTransform(),
+											(b2CircleShape*)f2->GetShape(),b->GetTransform() );
+							if ( f2->GetType() == b2Shape::e_circle )
+								b2CollidePolygonAndCircle(	worldManifold,(b2PolygonShape*)f1->GetShape(),b->GetTransform(),
+											(b2CircleShape*)f2->GetShape(),c->GetTransform() );
+
+					}
 
 
 					if (worldManifold->pointCount > 0 ){
