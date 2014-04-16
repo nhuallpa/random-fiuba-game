@@ -27,6 +27,10 @@ bool GameEngine::initWorld(){
 
 	//Create terrain from BMP
 	ParserYaml* aParser=ParserYaml::getInstance();
+
+	this->timeStep = 1.0 / Util::string2float(aParser->getMetaTime());
+	Log::i("TimeStep: %f",this->timeStep);
+
 	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()));
 	this->gameLevel.setTerrain(aTerrainProcessor);
 
@@ -175,10 +179,9 @@ float GameEngine::getTimeStep () {
 
 bool GameEngine::step(){
 
-	//animateJoints();
-	float32 timeStep = (1.0f/10.0f);
+
 	//Simulo (1 step) - default values Box2D
-	this->myWorld->Step(timeStep,8,3);
+	this->myWorld->Step(this->timeStep,8,3);
 
 	//Reflect model
 	std::map<int,Body*>::iterator iterator = this->gameBodies.begin();
@@ -444,7 +447,6 @@ void GameEngine::animateContacts(){
 											(b2CircleShape*)f2->GetShape(),c->GetTransform() );
 
 					}
-
 
 					/* poly vs circle */
 					if( (f1->GetType() == b2Shape::e_circle && f2->GetType() == b2Shape::e_polygon) ||

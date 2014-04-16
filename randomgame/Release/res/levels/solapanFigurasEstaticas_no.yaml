@@ -20,7 +20,7 @@ escenario:
       alto:     10
       ancho:    10
       color:    "#FF0000FF"
-      estatico: si
+      estatico: no
       rot:      0
       masa:     1
     - tipo:     tri
@@ -29,7 +29,7 @@ escenario:
       y:        200
       escala:   10
       color:    "#00FF00FF"
-      estatico: si
+      estatico: no
       rot:      0
       masa:     1
     - tipo:     pent
@@ -38,7 +38,7 @@ escenario:
       y:        200
       escala:   10
       color:    "#0000FFFF"
-      estatico: si
+      estatico: no
       rot:      0
       masa:     4
     - tipo:     circ
@@ -47,7 +47,7 @@ escenario:
       y:        200
       escala:   1
       color:    "#FFFF00FF"
-      estatico: si
+      estatico: no
       rot:      0
       masa:     4
       radio:    5
@@ -57,6 +57,6 @@ escenario:
       y:        200
       escala:   10
       color:    "#FF00FFFF"
-      estatico: si
+      estatico: no
       rot:      0
       masa:     4

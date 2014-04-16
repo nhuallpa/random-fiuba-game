@@ -51,6 +51,7 @@ private:
 	struct stMeta{
 		std::string epsilon ;
 		std::string scale ;
+		std::string timestep;
 	};
 
 	/*
@@ -133,7 +134,7 @@ public:
 	
 	std::string getMetaEps();
 	std::string getMetaSca();
-	
+	std::string getMetaTime();
 	
 	//para trabajar con un solo escenario
 	std::string getEscenarioFps();

@@ -1,6 +1,7 @@
 metadata:
     epsilon: 1.0
     scale: 15
+    timestep: 10
 escenario:
     fps: 60
     ancho-un: 200

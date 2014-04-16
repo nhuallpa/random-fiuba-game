@@ -15,6 +15,7 @@
 #define DEFAULT_IM_TIERRA "res/images/tierra1.bmp"
 #define DEFAULT_COLOR_TIERRA "#BC794FFF"
 #define DEFAULT_IM_CIELO "res/images/cielo1.png"
+#define DEFAULT_TIMESTEP "10"
 
 ParserYaml::ParserYaml(){}
 
@@ -81,6 +82,7 @@ void ParserYaml::startWithDefaultLevel(){
 
 	PersistYaml* aPersist=PersistYaml::getInstance();
 	aPersist->setMetaEps(DEFAULT_EPSILON);
+	aPersist->setMetaTime(DEFAULT_TIMESTEP);
 	aPersist->setMetaSca(DEFAULT_SCALE);	
 	aPersist->setEscenarioFps(DEFAULT_FSP);
 	aPersist->setEscenarioAltoU(DEFAULT_ALTOU);
@@ -494,6 +496,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 	//bool fNombre = false;
 	bool fEps = false;
 	bool fSca = false;
+	bool fTime = false;
 	
 	const YAML::Node& node = nodeVect;
 		 try{
@@ -525,6 +528,14 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo SCALE en nodo linea: %d.",(mark.line + 1));
 				}
+				else if (key.compare("timestep")==0){
+
+					meta.timestep = this->yamlNodeToString(it.second());
+					if (this->esUnsInt(meta.timestep)){
+						fTime = true;
+						} else
+							Log::e(PARSER,"Valor incorrecto para atributo TIMESTEP en nodo linea: %d.",(mark.line + 1));
+				}
 				else {
 					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
 					Log::e(PARSER,"Metadata key no es un identificador correcto de metadata. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
@@ -534,7 +545,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 			Log::e(PARSER,"%s",e.what());
 			exit(1);
 		 }
-		 if ( fEps && fSca){
+		 if ( fEps && fSca && fTime){
 			esMeta = meta;
 			//Log carga Nivel correctamente
 		}
@@ -546,6 +557,10 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 			if (!fSca){
 				Log::e(PARSER,"scale no encontrado, seteando default");
 				meta.scale = DEFAULT_SCALE ;
+			}
+			if (!fTime){
+				Log::e(PARSER,"timestep no encontrado, seteando default");
+				meta.timestep = DEFAULT_TIMESTEP ;
 			}
 		}
 		esMeta = meta;
@@ -640,6 +655,7 @@ void ParserYaml::cargarNivelYaml(std::string file){
 				//exit(1);
 				this->todo.meta.epsilon = "1.5";
 				this->todo.meta.scale = "100";
+				this->todo.meta.timestep = "10";
 				Log::i(PARSER,"Metadata default cargada correctamente");
 			}
 			fin.close();
@@ -667,6 +683,10 @@ void ParserYaml::cargarNivelYaml(std::string file){
 
 std::string ParserYaml::getMetaEps(){
 	return this->todo.meta.epsilon;
+}
+
+std::string ParserYaml::getMetaTime(){
+	return this->todo.meta.timestep;
 }
 
 std::string ParserYaml::getMetaSca(){
