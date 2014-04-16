@@ -121,7 +121,7 @@ ParserYaml* ParserYaml::getInstance(std::string file){
 		if( fin.good() == true){
 			pInstance = new ParserYaml(CONFIG_FILE,file,true);
 		}else{
-			Log::e(PARSER,"Archivo de escenario: %s, invalido/corrupto o no encontrado", file);
+			Log::e(PARSER,"Archivo de escenario: %s, invalido/corrupto o no encontrado", file.c_str());
 			Log::i(PARSER,"Se carga informacion default");
 			pInstance = new ParserYaml(CONFIG_FILE,file);
 		}

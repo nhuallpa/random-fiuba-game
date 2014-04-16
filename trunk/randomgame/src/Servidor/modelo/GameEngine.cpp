@@ -3,6 +3,8 @@
 #include "Box2D/Collision/Shapes/b2Shape.h"
 #include "Box2D/Collision/b2Collision.h"
 
+#define WATER_VELOCITY -4
+
 class b2Collision;
 
 
@@ -174,7 +176,7 @@ float GameEngine::getTimeStep () {
 bool GameEngine::step(){
 
 	//animateJoints();
-	float32 timeStep = (1.0f/10.0f);
+	float32 timeStep = (1.0f/60.0f);
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(timeStep,8,3);
 
@@ -201,7 +203,7 @@ bool GameEngine::step(){
 		std::vector<b2Vec2> intersectionPoints;
 		if ( intersectionWithWater(fixtureB) ) {
 			/* Velocidad que toma al caer */
-			b2Vec2 vel=b2Vec2(0,-2);
+			b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
 			it->second->GetBody()->SetLinearVelocity(vel);
 		}
 		++it;
@@ -407,6 +409,8 @@ void GameEngine::animateContacts(){
 
 	/* Now process all static bodies since they dont contact each other */
 	Log::i("Proceso estaticos");
+
+
 	b2Manifold* worldManifold = new b2Manifold();
 	for (b2Body* b=this->myWorld->GetBodyList(); b; b = b->GetNext() ){
 

@@ -66,6 +66,7 @@ void Triangle::setPosition(float x, float y,float rot){
 	ge->setVertexList(this->GetVertex());
 	this->body->SetLinearVelocity( b2Vec2( 0, 0 ) );
 	this->body->SetAngularVelocity( 0 );
+	this->body->SetAwake(true);
 }
 
 std::list<std::pair<float,float>> Triangle::GetVertex(){
