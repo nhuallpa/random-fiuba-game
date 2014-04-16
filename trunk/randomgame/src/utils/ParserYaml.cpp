@@ -168,23 +168,24 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 	for (unsigned i=0; i<nodeVect.size();i++){
 		stElemento elem;
 		const YAML::Node& node = nodeVect[i];
-		YAML::Mark mark = node.GetMark();
+		YAML::Mark mark1 = node.GetMark();
 
 		for(YAML::Iterator it=node.begin();it!=node.end();++it){			
 			std::string key = this->yamlNodeToString(it.first());
+			YAML::Mark mark = it.first().GetMark();
 			if (key.compare("tipo")==0){
 				elem.tipo = this->yamlNodeToString(it.second());
 				if (this->esTipoValido(elem.tipo)){
 					fNombre = true;
 				}else
-					Log::e(PARSER,"Valor incorrecto para atributo TIPO en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo TIPO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("id")==0){
 				elem.id = this->yamlNodeToString(it.second());
 				if (this->esUnsInt(elem.id)){
 					fId = true;
 				}else
-					Log::e(PARSER,"Valor incorrecto para atributo ID en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ID en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 
 			else if (key.compare("escala")==0){
@@ -192,82 +193,81 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 				if (this->esUnsFloat(elem.escala)){
 					fEscala = true;
 				}else
-					Log::e(PARSER,"Valor incorrecto para atributo ESCALA en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ESCALA en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 
 			else if (key.compare("x")==0){
 				elem.x = this->yamlNodeToString(it.second());
 				if (this->esSigFloat(elem.x)){
-					std::string aux = elem.x;
 					fX = true;
 				}else
-					Log::e(PARSER,"Valor incorrecto para atributo X en linea: %d, columna: %d",(mark.line + 2),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo X en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("y")==0){
 				elem.y = this->yamlNodeToString(it.second());
 				if (this->esSigFloat(elem.y)){
-					std::string aux = elem.y;
+					
 					fY = true;
 				}else
-					Log::e(PARSER,"Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 3),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("ancho")==0){
 				elem.ancho = this->yamlNodeToString(it.second());
 				if (this->esUnsFloat(elem.ancho)){
-					std::string aux = elem.ancho;
+					
 					fAncho = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("alto")==0){
 				elem.alto = this->yamlNodeToString(it.second());
 				if (this->esUnsFloat(elem.alto)){
-					std::string aux = elem.alto;
+					
 					fAlto = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("color")==0){
 				elem.color = this->yamlNodeToString(it.second());
 				if (this->esHexa(elem.color)){
-					std::string aux = elem.color;
+					
 					fColor = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("masa")==0){
 				elem.masa = this->yamlNodeToString(it.second());
 				if (this->esUnsFloat(elem.masa)){
-					std::string aux = elem.masa;
+					
 					fMasa = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("estatico")==0){
 				elem.estatico = this->yamlNodeToString(it.second());
 				if (this->estaticoValido(elem.estatico)){
-					std::string aux = elem.estatico;
+					
 					fEstatico = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("rot")==0){
 				elem.rot = this->yamlNodeToString(it.second());
 				if (this->esUnsFloat(elem.rot)){
-					std::string aux = elem.rot;
+					
 					fRot = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else if (key.compare("radio")==0){
 				elem.radio = this->yamlNodeToString(it.second());
 				if (this->esUnsFloat(elem.radio)){
 					fRadio = true;
 				} else
-					Log::e(PARSER,"Valor incorrecto para atributo RADIO en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+					Log::e(PARSER,"Valor incorrecto para atributo RADIO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
 			}
 			else {
-				Log::e(PARSER,"Atributo incorrecto en linea: %d, columna: %d",(mark.line + 4),(mark.column + 1));
+				Log::e(PARSER,"%s atributo incorrecto en linea: %d, columna: %d",key.c_str(),(mark.line + 1),(mark.column + 1));
 			}
 
 		}
@@ -279,7 +279,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 			//Log se carga el elemento correctamente
 		}
 		else{
-			loggearErrGuardar(elem.tipo,fNombre,fId,fEscala,fX,fY,fRot,fMasa,fAlto,fAncho,fEstatico,fColor,fRadio,mark);
+			loggearErrGuardar(elem.tipo,fNombre,fId,fEscala,fX,fY,fRot,fMasa,fAlto,fAncho,fEstatico,fColor,fRadio,mark1);
 		}
 		fNombre = false;
 		fX = false;
@@ -301,25 +301,21 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 
 void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenarioVect){
 	stEscenario escenario;
-	//bool fNombre = false;
+	
 	bool fElem = false;
 	bool fAncho = false;
 	bool fAlto = false;
 	bool fAnchoP = false;
 	bool fAltoP = false;
-	//bool fBackg = false;
 	bool fAgua = false;
 	bool fTierra = false;
 	bool fCielo = false;
 	bool fFPS = false;
 	bool fCAgua = false;
 	bool fCTierra = false;
-	//las dos lineas que estan comentadas, hacen que los escenarios sean un vector de escenarios
-	//for (unsigned i=0; i<nodeVect.size();i++){
-		
-		//const YAML::Node& node = nodeVect[i];
+	
 		const YAML::Node& node = nodeVect;
-		 YAML::Mark mark = node.GetMark();
+		
 		 try{
 			 YAML::Iterator it=node.begin();
 			 
@@ -328,125 +324,101 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				this->startWithDefaultLevel();
 				return;
 			 }
-
+			 
 			 for(;it!=node.end();++it){
-				
-				std::string key = this->yamlNodeToString(it.first());
-				
-				/*if (key.compare("nombre")==0){
-					fNombre = true;
-					nivel.nombre = this->yamlNodeToString(it.second());
-				}
-				else if(key.compare("background")==0){
-					fBackg = true;
-					nivel.fondo = this->yamlNodeToString(it.second());
-				}*/
-				if (key.compare("ancho-un")==0){
 
-					escenario.ancho = this->yamlNodeToString(it.second());
-					if (this->esUnsFloat(escenario.ancho)){
-						std::string aux = escenario.ancho;
-						//nivel.ancho = this->validaPantalla(nivel.ancho);
-						if (aux.compare(escenario.ancho) != 0)
-							Log::i(PARSER,"Truncado valor de atributo ANCHO en nodo linea: %d.",(mark.line + 1));
-							fAncho = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo ANCHO en nodo linea: %d.",(mark.line + 1));
+				std::string key = this->yamlNodeToString(it.first());
+				YAML::Mark mark = it.first().GetMark();
+				if (key.compare("ancho-un")==0){
+				
+						escenario.ancho = this->yamlNodeToString(it.second());
+						if (this->esUnsFloat(escenario.ancho)){
+								fAncho = true;
+							} else
+								Log::e(PARSER,"Valor incorrecto para atributo ANCHO en nodo linea: %d.",(mark.line + 1));
+					
 				}
 				else if (key.compare("alto-un")==0){
-
-					escenario.alto = this->yamlNodeToString(it.second());
-					if (this->esUnsFloat(escenario.alto)){
-						std::string aux = escenario.alto;
-						//nivel.alto = this->validaPantalla(nivel.alto);
-						if (aux.compare(escenario.alto) != 0)
-							Log::i(PARSER,"Truncado valor de atributo ALTO en nodo linea: %d.",(mark.line + 1));
-							fAlto = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo ALTO en nodo linea: %d.",(mark.line + 1));
-				}
+					
+						escenario.alto = this->yamlNodeToString(it.second());
+						if (this->esUnsFloat(escenario.alto)){
+								fAlto = true;
+							} else
+								Log::e(PARSER,"Valor incorrecto para atributo ALTO en nodo linea: %d.",(mark.line + 1));
+						}
 
 				else if (key.compare("ancho-px")==0){
-
+				
 					escenario.anchoP = this->yamlNodeToString(it.second());
 					if (this->esUnsInt(escenario.anchoP)){
-						std::string aux = escenario.anchoP;
-						//nivel.alto = this->validaPantalla(nivel.alto);
-						if (aux.compare(escenario.anchoP) != 0)
-							Log::i(PARSER,"Truncado valor de atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
+						
 							fAnchoP = true;
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 				
 				else if (key.compare("alto-px")==0){
-
+				
 					escenario.altoP = this->yamlNodeToString(it.second());
 					if (this->esUnsInt(escenario.altoP)){
-						std::string aux = escenario.altoP;
-						//nivel.alto = this->validaPantalla(nivel.alto);
-						if (aux.compare(escenario.altoP) != 0)
-							Log::i(PARSER,"Truncado valor de atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
+						
 							fAltoP = true;
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 				
 				else if (key.compare("nivel_agua")==0){
-
+					
 					escenario.agua = this->yamlNodeToString(it.second());
 					if (this->esUnsFloat(escenario.agua)){
-						std::string aux = escenario.agua;
-						//nivel.alto = this->validaPantalla(nivel.alto);
-						if (aux.compare(escenario.agua) != 0)
-							Log::i(PARSER,"Truncado valor de atributo AGUA en nodo linea: %d.",(mark.line + 1));
+						
 							fAgua = true;
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo AGUA en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 				
 				else if (key.compare("color_agua")==0){
-
+			
 					escenario.colorAgua = this->yamlNodeToString(it.second());
 					if (this->esHexa(escenario.colorAgua)){
 						fCAgua = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo COLOR_AGUA en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 
 				else if (key.compare("imagen_tierra")==0){
-
+					
 					escenario.tierra = this->yamlNodeToString(it.second());
 					if (this->esImagen(escenario.tierra)){
 						fTierra = true;
 					} else
 							Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 				else if (key.compare("color_tierra")==0){
-
+					
 					escenario.colorTierra = this->yamlNodeToString(it.second());
 					if (this->esHexa(escenario.colorTierra)){
 						fCTierra = true;
 					} else
 						Log::e(PARSER,"Valor incorrecto para atributo COLOR_TIERRA en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 
 				else if (key.compare("imagen_cielo")==0){
-
+					
 					escenario.cielo = this->yamlNodeToString(it.second());
 					if (this->esImagen(escenario.cielo)){					
 							fCielo = true;
 					} else
 							Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 				else if (key.compare("fps")==0){
-
+					
 					escenario.fps = this->yamlNodeToString(it.second());
 					if (this->esUnsInt(escenario.fps)){
 						fFPS = true;
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo FPS en nodo linea: %d.",(mark.line + 1));
-				}
+					}
 
 				else if (key.compare("objetos")==0){
 					fElem = true;
@@ -454,8 +426,9 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 				}
 				else {
 					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
-					Log::e(PARSER,"Element key no es un identificador correcto de elemento. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
+					Log::e(PARSER,"%s no es un identificador correcto de elemento. Linea: %d, Columna: %d",key.c_str(),(mark.line+1),(mark.column + 1));
 				}
+				
 			}
 		 }catch(YAML::Exception& e){ 
 			Log::e(PARSER,"%s",e.what());
@@ -523,7 +496,6 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 	bool fSca = false;
 	
 	const YAML::Node& node = nodeVect;
-		 YAML::Mark mark = node.GetMark();
 		 try{
 			 YAML::Iterator it=node.begin();
 			 
@@ -536,7 +508,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 			 for(;it!=node.end();++it){
 				
 				std::string key = this->yamlNodeToString(it.first());
-				
+				YAML::Mark mark = it.first().GetMark();
 				if (key.compare("epsilon")==0){
 
 					meta.epsilon = this->yamlNodeToString(it.second());
@@ -941,88 +913,88 @@ bool ParserYaml::validarGuardar(std::string str,bool fNombre,bool fId,bool fEsca
 
 void ParserYaml::loggearErrGuardar(std::string str,bool fNombre,bool fId,bool fEscala,bool fX,bool fY,bool fRot,bool fMasa,bool fAlto,bool fAncho,bool fEstatico,bool fColor,bool fRadio,YAML::Mark mark){
 	if (str.compare("rec")==0){
-		if (!fId)Log::i(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fX) Log::i(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-		if (!fY) Log::i(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fAlto) Log::i(PARSER,"Atributo ALTO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fAncho) Log::i(PARSER,"Atributo ANCHO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fId)Log::i(PARSER,"Atributo ID faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::i(PARSER,"Atributo X faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fY) Log::i(PARSER,"Atributo Y faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fAlto) Log::i(PARSER,"Atributo ALTO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fAncho) Log::i(PARSER,"Atributo ANCHO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 
-		if (fEscala) Log::i(PARSER,"Atributo ESCALA sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fEscala) Log::i(PARSER,"Atributo ESCALA sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 	}
 	else if (str.compare("tri")==0){
-		if (!fId)Log::i(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fX) Log::i(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-		if (!fY) Log::i(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fId)Log::i(PARSER,"Atributo ID faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::i(PARSER,"Atributo X faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fY) Log::i(PARSER,"Atributo Y faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 		
-		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 	}
 	else if (str.compare("pent")==0){
 
-		if (!fId)Log::i(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fX) Log::i(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-		if (!fY) Log::i(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fId)Log::i(PARSER,"Atributo ID faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::i(PARSER,"Atributo X faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fY) Log::i(PARSER,"Atributo Y faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 
-		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 
 	}
 	else if (str.compare("hexa")==0){
 
-		if (!fId)Log::i(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fX) Log::i(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-		if (!fY) Log::i(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fId)Log::i(PARSER,"Atributo ID faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::i(PARSER,"Atributo X faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fY) Log::i(PARSER,"Atributo Y faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 
-		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fRadio) Log::i(PARSER,"Atributo RADIO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 
 	}
 	else if (str.compare("circ")==0){
-		if (!fId)Log::i(PARSER,"Atributo ID faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (!fX) Log::i(PARSER,"Atributo X faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 2),(mark.column + 1));
-		if (!fY) Log::i(PARSER,"Atributo Y faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 3),(mark.column + 1));
-		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
-		if (!fRadio) Log::i(PARSER,"Atributo RADIO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 4),(mark.column + 1));
+		if (!fId)Log::i(PARSER,"Atributo ID faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fX) Log::i(PARSER,"Atributo X faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fY) Log::i(PARSER,"Atributo Y faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fRot) Log::i(PARSER,"Atributo ROT faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fMasa) Log::i(PARSER,"Atributo MASA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEstatico) Log::i(PARSER,"Atributo ESTATICO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fColor) Log::i(PARSER,"Atributo COLOR faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fEscala) Log::i(PARSER,"Atributo ESCALA faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (!fRadio) Log::i(PARSER,"Atributo RADIO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 
-		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
-		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (fAlto) Log::i(PARSER,"Atributo ALTO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
+		if (fAncho) Log::i(PARSER,"Atributo ANCHO sobrante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 	}
 	else if (str.compare("no init")==0){
-		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+		if (!fNombre)Log::i(PARSER,"Atributo TIPO faltante en objeto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 	}
-	else Log::i(PARSER,"Atributo TIPO incorrecto en linea: %d, columna: %d, descartando nodo.",(mark.line + 1),(mark.column + 1));
+	else Log::i(PARSER,"Atributo TIPO incorrecto en linea: %d, columna: %d, descartando objeto.",(mark.line + 1),(mark.column + 1));
 }
 
 bool ParserYaml::estaticoValido(std::string str){
