@@ -30,7 +30,7 @@ public:
 	list< list< pair<float,float> > > * getListOfPolygons();
 	~TerrainProcessor(void);
 	vector<vector<b2Vec2>> 
-	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale);
+	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, int& height, int& width);
 };
 
 #endif
