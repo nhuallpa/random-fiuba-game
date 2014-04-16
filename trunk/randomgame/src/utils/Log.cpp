@@ -198,6 +198,8 @@ std::string Log::logearLugarLog(LugarLog lugarLog)
 			return "[PARSER]";
 		case VIEW:
 			return "[VISTA]";
+		case HANDLE_CONTOUR:
+			return "[HANDLE_CONTOUR]";
 	}
 	return "";
 }
