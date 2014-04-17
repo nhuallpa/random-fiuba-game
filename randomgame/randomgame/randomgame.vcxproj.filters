@@ -81,9 +81,6 @@
     <ClCompile Include="..\src\Servidor\modelo\GameEngine.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\GameEntity.cpp">
-      <Filter>Archivos de código fuente\server\model</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\GameLevel.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
@@ -276,9 +273,6 @@
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\GameEngine.h">
-      <Filter>Archivos de código fuente\server\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\GameEntity.h">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\GameLevel.h">
