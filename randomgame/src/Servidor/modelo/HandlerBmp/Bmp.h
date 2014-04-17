@@ -3,6 +3,8 @@
 
 
 #include "DataBmp.h"
+#include "DataBmp24.h"
+#include "DataBmp32.h"
 #include "../../../utils/Log.h"
 #include <list>
 #include <stdio.h>
@@ -12,13 +14,12 @@ using namespace std;
 
 class Bmp
 {
-private:
-
-    FILE* fileBmp;
+protected:
+	FILE* fileBmp;
 	DataBmp* aDataBmp;
-		bool validarArchivo(char* path);
-		bool esUnBmp(char* path);
-		unsigned char* getDefaultBmp();
+	bool validarArchivo(char* path);
+	bool esUnBmp(char* path);
+	void cargaDeDatosBmp24();
 
 public:
     Bmp(char* path);
@@ -28,7 +29,6 @@ public:
 	int getWidth();
 	bool posValid(int posX, int posY);
 	list<Position*>* getBlackPositions();
-
-    ~Bmp();
+	~Bmp();
 };
 #endif

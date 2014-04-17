@@ -1,17 +1,18 @@
 #include "TerrainProcessor.h"
 #include "../../libs/Box2D/Box2D.h"
 #include "Exceptions\ContourException.h"
+#include "HandlerBmp\Bmp24.h"
 
 TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale)
 {
 	b2Body* m_attachment;
-		Bmp* aBmpFile;
-		this->aListOfPolygons= new list< list< pair<float,float> > > ();
+	Bmp24* aBmpFile;
+	this->aListOfPolygons= new list< list< pair<float,float> > > ();
 	try
 	{
-		aBmpFile = new Bmp(path);
+		aBmpFile = new Bmp24(path);
 	}
-	  catch (int e)
+	catch (int e)
 	{
 		makeDefaultTerrain(m_world);
 		return;
@@ -123,27 +124,27 @@ vector<vector<b2Vec2>> TerrainProcessor::
 
 //	swapea los valores del b2vec
 b2Vec2 TerrainProcessor::transformBmpToBox2D(b2Vec2 vertex, int height, int width)
-	{
-		ParserYaml* aParser = ParserYaml::getInstance();
-		b2Vec2 nuevo;
-		nuevo.y =((-1*vertex.x)+height-1)*(atoi((aParser->getEscenarioAltoU()).c_str() ) / (float)height);
-		nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / (float)width);
-		return nuevo;
-	}
+{
+	ParserYaml* aParser = ParserYaml::getInstance();
+	b2Vec2 nuevo;
+	nuevo.y =((-1*vertex.x)+height-1)*(atoi((aParser->getEscenarioAltoU()).c_str() ) / (float)height);
+	nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / (float)width);
+	return nuevo;
+}
 
 void TerrainProcessor::makeDefaultTerrain(b2World* m_world)
 {
-		b2Body* m_attachment;
+	b2Body* m_attachment;
 	b2Vec2 vertices[3];
 	list< pair<float,float> > aListOfPoints;
 	b2Vec2 unVerticeBase(9,3);
 	b2Vec2 otroVerticeBase(9,7);
 	b2Vec2 unVerticeCuspide(5,5);
-	
+
 	vertices[0] = this->transformBmpToBox2D(unVerticeBase, 10,10);
 	vertices[1] = this->transformBmpToBox2D(otroVerticeBase, 10,10);
 	vertices[2] = this->transformBmpToBox2D(unVerticeCuspide, 10,10);
-	
+
 	pair<float,float> aPosition93(vertices[0].x,vertices[0].y);
 	pair<float,float> aPosition97(vertices[1].x,vertices[1].y);
 	pair<float,float> aPosition55(vertices[2].x,vertices[2].y);
