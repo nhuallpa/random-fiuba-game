@@ -243,6 +243,12 @@
     <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp24.cpp">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.cpp">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -436,6 +442,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\HexagonView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp24.h">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.h">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

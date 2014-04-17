@@ -99,6 +99,8 @@
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorWhite.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ContourBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp24.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\PixelBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\Position.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Circle.cpp" />
@@ -165,6 +167,8 @@
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorWhite.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ContourBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp.h" />
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp24.h" />
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\PixelBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\Position.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Circle.h" />
