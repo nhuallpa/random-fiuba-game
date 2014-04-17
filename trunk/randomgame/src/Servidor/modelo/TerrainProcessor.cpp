@@ -1,16 +1,16 @@
 #include "TerrainProcessor.h"
 #include "../../libs/Box2D/Box2D.h"
 #include "Exceptions\ContourException.h"
-#include "HandlerBmp\Bmp24.h"
+#include "HandlerBmp\Bmp.h"
 
 TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale)
 {
 	b2Body* m_attachment;
-	Bmp24* aBmpFile;
+	Bmp* aBmpFile;
 	this->aListOfPolygons= new list< list< pair<float,float> > > ();
 	try
 	{
-		aBmpFile = new Bmp24(path);
+		aBmpFile = new Bmp(path);
 	}
 	catch (int e)
 	{
