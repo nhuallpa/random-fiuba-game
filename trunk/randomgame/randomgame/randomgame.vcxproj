@@ -126,7 +126,6 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameElement.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameEngine.cpp" />
-    <ClCompile Include="..\src\Servidor\modelo\GameEntity.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameLevel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameLoop.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp" />
@@ -192,7 +191,6 @@
     <ClInclude Include="..\src\Cliente\vista\WaterView.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameElement.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameEngine.h" />
-    <ClInclude Include="..\src\Servidor\modelo\GameEntity.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameLevel.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameLoop.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.h" />
