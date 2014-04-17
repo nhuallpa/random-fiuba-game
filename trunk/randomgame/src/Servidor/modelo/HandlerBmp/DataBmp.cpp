@@ -35,68 +35,32 @@ DataBmp::DataBmp(unsigned char* data,int row_padded, int height,int width)
         }*/
 
     }
-
-    this->loadMatrix(data,row_padded,height,width);
-
-
 }
 
-//Pre:el tamanio de DATA debe ser de minimo width*3*row_padded
-//Se lee la data con los bits de colores. Se sabe que la informacion esta organizada de la siguiente manera:
-//++++++++++++++++
-//+blue+green+red+ y esto ocupa 24 bits por píxel. y a su vez, cada fila tiene un tamanio de row_padded bytes
-//++++++++++++++++
-//Todo bit blanco o negro se ingresa al atributo 'bitmap', y a las listas de color según corresponda
-//Si el bit es de color, se lo agrega a la lista de pixeles invalidos. Al final de la lectura de DATA se corrigen estos
-//píxeles en el bitmap y en las listas de píxeles blancos y negros. (no se eliminan de la lista de invalidos)
-/***Chequear que no queden "cuevas"***/
-void DataBmp::loadMatrix(unsigned char* data,int row_padded, int height,int width)
+//Pos:
+// return 0:black
+// return 1:white
+// return 2:transparent
+// return 3:color
+unsigned int DataBmp::colorVal(int red, int green, int blue, int alpha)
 {
-    unsigned char tmp;
-    for(int i = 0; i < height; i++)
+	if(alpha==0)
+	{
+		return 2;
+	}
+
+    if(red==0 && green==0 && blue==0) //black
     {
-        for(int j = 0; j < width*3; j += 3)
-        {
-            // Convert (B, G, R) to (R, G, B)
-            tmp = data[j+(row_padded*i)];
-            data[j+(row_padded*i)] = data[j+(row_padded*i)+2];
-            data[j+(row_padded*i)+2] = tmp;
-
-
-            //carga de bits a la matriz
-			char a=data[j+(row_padded*i)];
-            int red=(int)data[j+(row_padded*i)];
-            int green=(int)data[j +row_padded*i + 1];
-            int blue=(int)data[j +row_padded*i + 2];
-            unsigned int val=colorVal(red,green,blue);
-            if(val==3) //tiene color
-            {
-                PixelBmp* aInvalidPixel = new PixelBmp(new Position(height-1-i,j/3), new ColorRgb(red,green,blue,255));
-                invalidPixels->push_back(aInvalidPixel);
-				(*bitmap)[height-1-i]->push_back(false);
-				///***********************
-				//Avisar en el log el color encontrado
-            }
-            else //blanco o negro
-            {
-					if( (val==1) || (posValid(height-i, j/3) && getBit(height-i,j/3)==true) )//Si el bit debajo es blanco, pongo un blanco
-					{
-					(*bitmap)[height-1-i]->push_back(true);
-                    setWhitePosition(height-1-i,j/3);
-
-					}else //negro
-					{
-					(*bitmap)[height-1-i]->push_back(false);
-                    setBlackPosition(height-1-i,j/3);
-
-					}
-	
-               //setBit(height-1-i,j/3,val);
-            }
-        }
+        return 0;
     }
-    //evaluar lista de bits invalidos
-    resetInvalidPixels();
+    else if(red==255 && green==255 && blue==255) //white
+    {
+        return 1;
+    }
+    else //color
+    {
+        return 3;
+    }
 }
 
 //Resuelve los píxels de color
@@ -138,25 +102,7 @@ void DataBmp::resetInvalidPixels()
 }
 
 
-//Pos:
-// return 0:black
-// return 1:white
-// return 3:color
-unsigned int DataBmp::colorVal(int red, int green, int blue)
-{
-    if(red==0 && green==0 && blue==0)
-    {
-        return 0;
-    }
-    else if(red==255 && green==255 && blue==255)
-    {
-        return 1;
-    }
-    else
-    {
-        return 3;
-    }
-}
+
 
 //Devuelve una copia de la lista de posiciones blancas ordenada por filas. Se debe liberar la memoria despues de utilizar la lista
 list<Position*>* DataBmp::getWhitePositions()
