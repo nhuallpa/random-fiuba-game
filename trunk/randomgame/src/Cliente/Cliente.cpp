@@ -37,7 +37,6 @@ void Cliente::loop(void){
 	currentActivity = new GameActivity(bootstrap.getScreen(), 
 													builder, &this->cLevel);
 	
-	//this->cController.init();
 	
 	/** refresh the initial view*/
 	currentActivity->render();
@@ -48,44 +47,10 @@ void Cliente::loop(void){
 	bootstrap.getScreen().setState("Juego Creado");
 	while (!this->cController.isQuit()){
 		cController.handleState(this);
-		/*
-		this->cController.detectEvents();
-		this->cController.handleEvents(); 
-		
-		if(this->cController.isBeginLife()){
-			Log::i("Inicio de secuencia");
-			running=1;
-			//TODO: Darle vida al mundo
-		}
-
-		if(this->cController.isRegenerateWorld()){
-			//TODO: Regenerar el mundo
-			Log::i("RE-Inicio de secuencia");
-			bootstrap.getScreen().setState("Juego Reiniciado");
-			this->server->getGameEngine().reInitWorld();
-			currentActivity->update();
-			currentActivity->render();
-			running = 0;
-		}
-
-		if(this->cController.isPause()){
-			Log::i("Detencion de secuencia");
-			bootstrap.getScreen().setState("Juego Pausado");
-			running=0;
-		}
-
-		if (running){
-			bootstrap.getScreen().setState("Juego corriendo");
-			this->server->getGameEngine().step();
-		}*/
-		
 		currentActivity->update();
 		currentActivity->render();
-
 		SDL_Delay(time_left());
 		next_time += tick_inteval;
-
-		//this->cController.clearStates();
 	}
 	bootstrap.getScreen().terminate();
 	delete currentActivity;
@@ -112,7 +77,8 @@ void Cliente::destroyWorld(void){
 
 bool Cliente::connect2server(Servidor* server){
 	this->cLevel = server->getLevel();
-	this->cController = GameController(&this->cLevel);
+	//this->cController = GameController(&this->cLevel);
+	
 	return true;
 }
 
@@ -147,7 +113,6 @@ void Cliente::runGame(){
 void Cliente::stopGame(){
 	Log::i("Detencion de secuencia");
 	bootstrap.getScreen().setState("Juego Pausado");
-	//running=0;
 }
 
 void Cliente::iniGame(){
@@ -157,7 +122,6 @@ void Cliente::iniGame(){
 	this->server->getGameEngine().reInitWorld();
 	currentActivity->update();
 	currentActivity->render();
-	//running = 0;
 }
 
 
