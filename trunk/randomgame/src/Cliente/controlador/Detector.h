@@ -7,6 +7,7 @@
 #include <map>
 #include <list>
 #include <SDL.h>
+#include "Context.h"
 
 using namespace std;
 using namespace client_controller_event;
@@ -26,6 +27,10 @@ public:
 
 
 private:
+
+
+
+
 	enum State{QUIT,INITILIZE,REGENERATE,PAUSE,NONE};
 	State _state;
 	State _previousState;

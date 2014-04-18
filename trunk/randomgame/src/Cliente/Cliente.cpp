@@ -8,7 +8,6 @@
 #include "vista\GameActivity.h"
 
 
-
 Cliente::Cliente(Servidor* server){
 	this->server = server;
 }
@@ -24,20 +23,21 @@ bool Cliente::begin(){
 }
 
 
-
+	Bootstrap bootstrap;
+	Activity* currentActivity;
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
 	Uint32 start = 0;
 	bool quit = false;
 
-	Bootstrap bootstrap;
+	bootstrap;
 	bootstrap.init();
 	GameViewBuilder builder(&this->cLevel);
-	Activity* currentActivity = new GameActivity(bootstrap.getScreen(), 
+	currentActivity = new GameActivity(bootstrap.getScreen(), 
 													builder, &this->cLevel);
 	
-	this->cController.init();
+	//this->cController.init();
 	
 	/** refresh the initial view*/
 	currentActivity->render();
@@ -47,10 +47,11 @@ void Cliente::loop(void){
 	next_time = SDL_GetTicks() + tick_inteval;
 	bootstrap.getScreen().setState("Juego Creado");
 	while (!this->cController.isQuit()){
-
+		cController.handleState(this);
+		/*
 		this->cController.detectEvents();
-		this->cController.handleEvents();
-
+		this->cController.handleEvents(); 
+		
 		if(this->cController.isBeginLife()){
 			Log::i("Inicio de secuencia");
 			running=1;
@@ -76,15 +77,15 @@ void Cliente::loop(void){
 		if (running){
 			bootstrap.getScreen().setState("Juego corriendo");
 			this->server->getGameEngine().step();
-		}
-
+		}*/
+		
 		currentActivity->update();
 		currentActivity->render();
 
 		SDL_Delay(time_left());
 		next_time += tick_inteval;
 
-		this->cController.clearStates();
+		//this->cController.clearStates();
 	}
 	bootstrap.getScreen().terminate();
 	delete currentActivity;
@@ -134,6 +135,31 @@ Uint32 Cliente::getTickInterval()
 	Uint32 tick_interval = 1000.0f / fps;
 	return tick_interval;
 }
+
+
+
+
+void Cliente::runGame(){
+	bootstrap.getScreen().setState("Juego corriendo");
+	this->server->getGameEngine().step();
+}
+
+void Cliente::stopGame(){
+	Log::i("Detencion de secuencia");
+	bootstrap.getScreen().setState("Juego Pausado");
+	//running=0;
+}
+
+void Cliente::iniGame(){
+	//TODO: Regenerar el mundo
+	Log::i("RE-Inicio de secuencia");
+	bootstrap.getScreen().setState("Juego Reiniciado");
+	this->server->getGameEngine().reInitWorld();
+	currentActivity->update();
+	currentActivity->render();
+	//running = 0;
+}
+
 
 
 

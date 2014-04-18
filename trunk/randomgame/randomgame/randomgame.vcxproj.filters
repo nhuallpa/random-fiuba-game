@@ -49,6 +49,9 @@
     <Filter Include="Archivos de código fuente\server\model\HandlerBmp">
       <UniqueIdentifier>{23d3e40b-22d8-4a9d-9a54-becd58e422ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\client\controller\Contracts">
+      <UniqueIdentifier>{f8fff63e-7a16-4846-9008-7ddce9ee3c5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -249,6 +252,21 @@
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.cpp">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Context.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\IniGame.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\StopGame.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\WithOutBehavior.cpp">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -448,6 +466,27 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.h">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\Contract.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\State.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Context.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\IniGame.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\RunGame.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\StopGame.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\WithOutBehavior.h">
+      <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

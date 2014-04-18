@@ -34,6 +34,11 @@ GameController::~GameController() {
 }
 
 
+void GameController::handleState(Contract* c){
+	ctx.request(c);
+}
+
+
 bool GameController::init(){
 	//lee elementos del mundo
 	// por cada uno de ellos agrega un ElementView en la vista
@@ -135,7 +140,8 @@ void GameController::clearStates(){
 
 
 bool GameController::isQuit(){
-	return cDetector.isQuit();
+	//return cDetector.isQuit();
+	return ctx.isQuit();
 }
 
 void GameController::handleEvents(){

@@ -84,6 +84,8 @@ void Detector::excecute(SDL_Event* e){
 }
 
 void Detector::handleEvents(SDL_Event* e){
+
+	
 	SDL_PumpEvents();
 	if(e->type == SDL_KEYDOWN || e->type == SDL_QUIT){
 		excecute(e);
@@ -111,6 +113,7 @@ void Detector::handleEvents(SDL_Event* e){
 
 
 	}
+
 }
 
 bool Detector::isBeginLife(){
