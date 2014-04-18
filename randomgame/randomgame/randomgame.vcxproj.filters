@@ -69,9 +69,6 @@
     <ClCompile Include="..\src\Cliente\Cliente.cpp">
       <Filter>Archivos de código fuente\client</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\Detector.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Cliente\controlador\GameController.cpp">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClCompile>
@@ -152,18 +149,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\Event.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\EventP.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\EventQuit.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\EventS.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
@@ -284,9 +269,6 @@
     <ClInclude Include="..\src\Cliente\Cliente.h">
       <Filter>Archivos de código fuente\client</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\Detector.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\GameController.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
@@ -367,18 +349,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\Event.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\EventP.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\EventQuit.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\EventS.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h">
       <Filter>Archivos de código fuente\client\view</Filter>
