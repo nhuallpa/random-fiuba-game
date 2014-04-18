@@ -73,10 +73,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Cliente\controlador\Context.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Event.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\EventP.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\EventQuit.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\EventS.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\IniGame.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\StopGame.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\WithOutBehavior.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp" />
@@ -141,10 +146,17 @@
     <ClCompile Include="..\src\utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Cliente\controlador\Context.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\Contract.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\State.h" />
     <ClInclude Include="..\src\Cliente\controlador\Event.h" />
     <ClInclude Include="..\src\Cliente\controlador\EventP.h" />
     <ClInclude Include="..\src\Cliente\controlador\EventQuit.h" />
     <ClInclude Include="..\src\Cliente\controlador\EventS.h" />
+    <ClInclude Include="..\src\Cliente\controlador\IniGame.h" />
+    <ClInclude Include="..\src\Cliente\controlador\RunGame.h" />
+    <ClInclude Include="..\src\Cliente\controlador\StopGame.h" />
+    <ClInclude Include="..\src\Cliente\controlador\WithOutBehavior.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />

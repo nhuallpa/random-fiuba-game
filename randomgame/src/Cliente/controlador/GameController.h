@@ -11,10 +11,18 @@
 //#include "../vista/GameView.h"
 #include "../../utils/PersistYaml.h"
 //#include "../../utils/utils.h"
-
+#include "Contracts\Contract.h"
+#include "Context.h"
 
 class GameController {
 public:
+
+
+	void handleState(Contract* c);
+	bool isQuit();
+
+
+
 	GameController();
 	GameController(GameLevel* gL);
 	virtual ~GameController();
@@ -24,7 +32,6 @@ public:
 	bool isBeginLife();
 	bool isRegenerateWorld();
 	bool isPause();
-	bool isQuit();
 
 	bool init();
 	//ElementView* checkInsideElements();
@@ -33,6 +40,9 @@ public:
 	void updateElements();
 
 private:
+		Context ctx;
+
+
 	Detector cDetector;
 
 
