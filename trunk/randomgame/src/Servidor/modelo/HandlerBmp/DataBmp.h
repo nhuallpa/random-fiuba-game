@@ -19,11 +19,11 @@ protected:
 	int height;
 	int width;
 	void resetInvalidPixels();
-	virtual void loadMatrix(unsigned char* data,int row_padded, int height, int width)=0;
+	virtual void loadMatrix(char* data,int row_padded=0, int height=0, int width=0)=0;
 	unsigned int colorVal(int red,int green,int blue, int alpha);
 
 public:
-	DataBmp(unsigned char* data,int row_padded, int height,int width);
+	DataBmp(char* data,int row_padded, int height,int width);
 	DataBmp();
 
 	list<Position*>* getWhitePositions();
