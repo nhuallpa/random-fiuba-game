@@ -1,6 +1,6 @@
 #include "ContourBmp.h"
 
-ContourBmp::ContourBmp(Bmp* aBmpFile)
+ContourBmp::ContourBmp(TerrainImg* aBmpFile)
 {
     this->aBmpFile=aBmpFile;
 }
@@ -43,13 +43,51 @@ list< list<Position*>* >* ContourBmp::getConnectedComponents(list<Position*>* aP
 }
 
 
+//Pre: Recibe el extremo inferior izquierdo de la matriz bmp
+//Pos1:Devuelve una lista dentro de la cual, cada elemento es una lista.
+//Esta última lista contiene posiciones adyacentes.(una vez usados deben ser liberados de memoria)
+list< list<Position*>* >* ContourBmp::getConnectedComponentsOptimized()
+{
+    //Se ordena por columna de menor a mayor, así se recorren las posiciones de arriba a abajo de izq a der
+    list< list<Position*>* >* aConnectedComponentsList = new list< list<Position*>* >();
+    
+	int width=this->aBmpFile->getWidth();
+	int height=this->aBmpFile->getHeight();
+    list<Position*>* aComponent;
+	int cabeza=0;
+	bool cabezaEncontrada=false;
+	bool colaEncontrada=false;
+	bool componenteEncontrada=false;
+
+	for(int column=0; column < width ; column++)
+	{
+		colaEncontrada=( (aBmpFile->getBit(height-1, column) == 1 || column == width-1 ) && cabezaEncontrada==true) ;//si encuentra el final de un terreno, agrega la posicion inicial
+		if(colaEncontrada)
+		{
+			cabezaEncontrada=false;
+            aComponent = new list<Position*>();
+            aComponent->push_back(new Position(height-1,cabeza));
+            aConnectedComponentsList->push_back(aComponent);
+		}
+		else if ( (aBmpFile->getBit(height-1,column) == 0 ) && cabezaEncontrada==false) //si encuentra el principio de un terreno, agrega la posicion inicial
+		{
+			cabeza=column;
+			cabezaEncontrada=true;
+		}
+	}
+    return aConnectedComponentsList;
+}
+
+
+
 //Pos1:Devuelve una lista dentro de la cual, cada elemento es una lista.(Liberar la memoria utilizada por este recurso)
 //Esta última lista contiene el contorno de una componente conexa.(una vez usados deben ser liberados de memoria)
 //Pos2: Realiza el 'delete' de la lista pasada por parámetro y las posiciones dentro de esta lista.
 list< list<Position*> *>* ContourBmp::getContour()
 {
     list< list<Position*>* >* contours = new list< list<Position*>* >();
-    list< list<Position*>* >* connectedComponents = this->getConnectedComponents(aBmpFile->getBlackPositions());
+	/*list< list<Position*>* >* connectedComponents = this->getConnectedComponents(aBmpFile->getBlackPositions());*/
+	  list< list<Position*>* >* connectedComponents = this->getConnectedComponentsOptimized();
     list< list<Position*> *>::iterator itComponent= connectedComponents->begin();
     while(itComponent != connectedComponents->end())
     {
@@ -225,10 +263,10 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
             {
                 if (this->aBmpFile->posValid(pX+1,pY+1) && aBmpFile->getBit(pX+1,pY+1) ==0)
                 {
-                                   posXcontour=pX;
+                posXcontour=pX;
                 posYcontour=pY;
                 stepX=1;
-                stepY=0;
+                stepY=1;
                 }else
                 {
                 posXcontour=pX;
@@ -252,7 +290,10 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
             	go Up, unless you come from Up, then you must go right
 
             	*/
-            if (prevX==1&&prevY==0)
+
+			if (this->aBmpFile->posValid(pX-1,pY+1) && aBmpFile->getBit(pX-1,pY+1) ==0)
+			{
+            if (prevX==1&&prevY==0) //viene de arriba
             {
                 posXcontour=pX;
                 posYcontour=pY;
@@ -266,11 +307,27 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
                 stepX=-1;
                 stepY=0;
             }
+			}else//Si el sig no tiene nada, entonces se forma un pico y debe seguir corriendo el programa
+			{
+				posXcontour=pX;
+                posYcontour=pY;
+				if(this->aBmpFile->posValid(pX,pY+1) && aBmpFile->getBit(pX,pY+1) ==0) //el siguiente no tiene nada, baja, asi no lo vuelve a agregar
+				{
+					stepX=1;
+                stepY=1;
+				}
+				else //sino, sigue
+				{
+				stepX=0;
+                stepY=1;
+				}
+                
+			}
             break;
         }
 
         // saving contour point
-		if(squareValue==13&& !( (prevX ==1) &&(prevY ==1)))
+		if(squareValue==13&& ( (prevX ==1) &&(prevY ==0)) )//y viene de arriba
         {
             aContour->push_back(new Position(posXcontour, posYcontour-1));
         }

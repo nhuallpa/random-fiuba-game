@@ -1,7 +1,7 @@
 #include "DataBmp24.h"
 
 
-DataBmp24::DataBmp24(unsigned char* data,int row_padded, int height,int width):DataBmp(data,row_padded,height,width)
+DataBmp24::DataBmp24(char* data,int row_padded, int height,int width):DataBmp(data,row_padded,height,width)
 {
 	    loadMatrix(data,row_padded,height,width);
 }
@@ -20,9 +20,9 @@ DataBmp24::~DataBmp24()
 //Si el bit es de color, se lo agrega a la lista de pixeles invalidos. Al final de la lectura de DATA se corrigen estos
 //píxeles en el bitmap y en las listas de píxeles blancos y negros. (no se eliminan de la lista de invalidos)
 /***Chequear que no queden "cuevas"***/
-void DataBmp24::loadMatrix(unsigned char* data,int row_padded, int height,int width)
+void DataBmp24::loadMatrix(char* data,int row_padded, int height,int width)
 {
-    unsigned char tmp;
+    char tmp;
     for(int i = 0; i < height; i++)
     {
         for(int j = 0; j < width*3; j += 3)

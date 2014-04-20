@@ -2,6 +2,13 @@
 #include <iostream>
 #include "Position.h"
 
+
+
+DataBmp::DataBmp()
+{
+}
+
+
 //El constructor de la clase recibe:
 //data: el bloque de datos del archivo bmp Pre:el tamanio debe ser de minimo width*3*row_padded
 //row_padded: el tamaño de las filas guardadas en el bloque
@@ -13,7 +20,7 @@
 //Pos2: Instancia una matriz de bool, con valores false y luego carga los datos del bitmap en ella:
 // -Pixels Blancos: bool=true=1
 // -Pixels Negros: bool=false=0
-DataBmp::DataBmp(unsigned char* data,int row_padded, int height,int width)
+DataBmp::DataBmp(char* data,int row_padded, int height,int width)
 {
     this->height=height;
     this->width=width;
@@ -28,12 +35,6 @@ DataBmp::DataBmp(unsigned char* data,int row_padded, int height,int width)
     for(int i=0; i<height; i++)
     {
         row->push_back(new vector<bool>());
-       /* column=(*row)[i];
-        for(int j=0; j<width; j++)
-        {
-            column->push_back(false);
-        }*/
-
     }
 }
 

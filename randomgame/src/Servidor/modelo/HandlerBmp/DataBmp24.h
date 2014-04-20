@@ -15,12 +15,12 @@ class DataBmp24 : public DataBmp
 
 
 public:
-    DataBmp24(unsigned char* data,int row_padded, int height,int width);
+    DataBmp24(char* data,int row_padded, int height,int width);
     DataBmp24();
 	virtual ~DataBmp24();
 
 protected:
-		void loadMatrix(unsigned char* data,int row_padded, int height,int width);
+		void loadMatrix(char* data,int row_padded=0, int height=0, int width=0);
 
 
 };
