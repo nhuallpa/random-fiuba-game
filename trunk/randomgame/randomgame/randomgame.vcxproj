@@ -93,7 +93,7 @@
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp" />
-    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\Bmp.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorBlack.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorRgb.cpp" />
@@ -102,6 +102,7 @@
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp24.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataImgSdl.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\PixelBmp.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\Position.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Circle.cpp" />
@@ -163,7 +164,7 @@
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h" />
-    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\Bmp.h" />
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorBlack.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorRgb.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp24.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.h" />
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataImgSdl.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\PixelBmp.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\Position.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Circle.h" />
