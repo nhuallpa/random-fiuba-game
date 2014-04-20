@@ -177,9 +177,6 @@
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp">
       <Filter>Archivos de código fuente\server\model\Exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\Bmp.cpp">
-      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorBlack.cpp">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClCompile>
@@ -251,6 +248,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Cliente\controlador\WithOutBehavior.cpp">
       <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataImgSdl.cpp">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.cpp">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,9 +380,6 @@
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h">
       <Filter>Archivos de código fuente\server\model\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\Bmp.h">
-      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorBlack.h">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClInclude>
@@ -457,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\WithOutBehavior.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataImgSdl.h">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.h">
+      <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
