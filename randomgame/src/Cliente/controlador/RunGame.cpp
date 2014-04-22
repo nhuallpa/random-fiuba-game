@@ -5,8 +5,13 @@
 
 RunGame* RunGame::runGame = NULL;
 
+RunGame::RunGame(void){}
+
+RunGame::~RunGame(void){}
+
 void RunGame::handle(Contract* c){
 	c->runGame();
+	this->updateMouse();
 }
 
 RunGame* RunGame::getInstance(){
@@ -15,9 +20,6 @@ RunGame* RunGame::getInstance(){
 	}
 	return runGame;
 }
-
-RunGame::RunGame(void){}
-RunGame::~RunGame(void){}
 
 
 State* RunGame::execute(SDL_Event* e, const Uint8* keys){
@@ -31,3 +33,27 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 	}
 	return st;
 }
+
+
+void RunGame::updateMouse(){
+	Uint32 button;
+	SDL_PumpEvents();
+	int x, y;
+	button = SDL_GetMouseState(&x, &y);
+	/*if((button & SDL_BUTTON(1)) == 1){
+		x = y;
+	}*/  //SDL_BUTTON_LEFT 1
+	if((button & SDL_BUTTON(2)) == 1) {
+		x = y;
+	}//SDL_BUTTON_MIDDLE 2
+	if((button & SDL_BUTTON(3)) == 1) {
+		x = y;
+	}//SDL_BUTTON_RIGHT 3
+	if((button & SDL_BUTTON(4)) == 1) {
+		x = y;
+	}//SDL_BUTTON_WHEELUP 4
+	if((button & SDL_BUTTON(5)) == 1) {
+		x = y;
+	}//SDL_BUTTON_WHEELDOWN 5
+}
+

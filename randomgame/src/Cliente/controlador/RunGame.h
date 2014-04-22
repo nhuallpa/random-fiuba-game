@@ -13,6 +13,7 @@ class RunGame : public State{
 		RunGame(void);
 		~RunGame(void);
 		static RunGame* runGame;
+		void updateMouse();
 };
 
 #endif

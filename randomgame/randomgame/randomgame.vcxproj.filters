@@ -52,6 +52,9 @@
     <Filter Include="Archivos de código fuente\client\controller\Contracts">
       <UniqueIdentifier>{f8fff63e-7a16-4846-9008-7ddce9ee3c5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\client\controller\Entity">
+      <UniqueIdentifier>{3a5d01fe-d467-4a6e-9ca5-f7a800901fcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -254,6 +257,18 @@
     </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.cpp">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\MovementEvent.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ScrollEvent.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ZoomEvent.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ClickEvent.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +478,30 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.h">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\MovementEvent.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ScrollEvent.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ZoomEvent.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ClickEvent.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnClickListener.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnMovementListener.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnScrollListener.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnZoomListener.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
