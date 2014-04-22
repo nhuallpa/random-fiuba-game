@@ -43,21 +43,6 @@ Target:
 
 
 */
-	
-	
-	// Updating thread -- clients and model (first)
-	//Thread("Envio de mensajes de update", [&] () {
-	//	while (true) {
-	//		//PlayableObject playable = deltas.pop();
-	//		//Si Hubo una actualizacion --> actualizo el modelo
-	//		//this->processCommands() //Updates modified data
-	//		//step() in the world
-	//		//Brodcastea delta a los clientes
-	//		//broadcastMsg(this->change);
-	//		//condicion.signal();
-	//	}
-	//	return 0;
-	//});
 
 	// Inicio el thread para recibir clientes nuevos
 	printf("Por crear thread");
@@ -65,9 +50,11 @@ Target:
 	//Start connection Loop, when a client connects I will trigger a new thread for him
 	this->wait4Connections();
 
+	//TODO: Loop reading changed elements, if I had one I will send it to the client
+	//IDEA: Usar SDL_Cond para avisar que hay un elemento :)
 
-	//Thread arrivalHandler("Arrival Handler", messageManager, this);
-	//arrivalHandler.wait();
+
+
 }
 
 void Servidor::wait4Connections(){
@@ -79,13 +66,22 @@ void Servidor::wait4Connections(){
 		sClientO.setRcvTimeout(5, 0);
 
 		Socket sClientI = this->output.aceptar();
-       
-		//pthread_create(&threadA[noThread], NULL, task1, NULL);
+		threadData data;
+		data.srv = this;
+		data.clientI = sClientI;
+		data.clientO = sClientO;
+
+		//ToDo: ocupar el map/list de clientes conectados
+
+		Thread clientThread("Client Thread",initClient,&data);
+
 		players++;
 	}
         
 
 }
+
+
 
 Servidor::~Servidor() {
 	//TODO
@@ -94,51 +90,52 @@ Servidor::~Servidor() {
 		// close(par.second.output);
 	// }
 }
-//
-//void Servidor::push (PlayableObject changes) {
-//	deltas.push(changes);
-//}
 
-int Servidor::messageManager(void* data){
 
-	Servidor* srv = (Servidor*)data; 
-	while (true) {
-		printf("Thread loopeando");
-		Socket sClientO = srv->input.aceptar();
-		sClientO.setRcvTimeout(5, 0);
-
-		Socket sClientI = srv->output.aceptar();
-
-		if (srv->allConnected()) {
-			// Ya estan todos los jugadores conectados, rechazo el que recien se conecto
-			notifyReject(sClientI);
-			//Log::e(SERVER,"Couldn't connect, all seats taken try again later");
-			return 0;
-		}
-
-		Player gamer;
+int Servidor::initClient(void* data){
 	
-		//Get a position on the players list
-		 //playerList.transform([&] (Players val) -> Players {
-			 //idCli = getSiguienteJugador(val);
-			//val[gamer.name] = std::make_pair<int,int>(sClientI,sClientO);
-		//	return val;
-		//});
+	Servidor* srv = (Servidor*)((threadData*)data)->srv;
 
-		//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
-	
-		// std::vector<uint8_t> vec = getCanonico().aRed();
-		// enviarMensaje(idCli, vec);
-		// this->sendWorld(id,data); //SendWorld() hace un getWorld2Playable() y deja en un playable vector el mundo
+	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
+	//Playable* playableWorld = srv->getPlayable();
 
-		//TODO: Esperar mensajes del cliente
-		//Thread("Wait messages from client", [&] () {
-		//	wait4Updates(idCli);
-		//	return 0;
-		//});
+	//TODO: Esperar mensajes del cliente, al recibir, bloquear elementsChanged 
+	//		y agregarlo a la cola. Luego (en otro loop) mirar los cambios y 
+	//		propagarlos
 
+	std::vector<uint8_t> datos;
+	Messages type = KEEPALIVE;
+		try {
+		while (true) {
+			if (! ((threadData*)data)->clientO.rcvmsg(type, datos)) {
+				
+				//srv->desconectar(playerId);
+				break;
+			}
+			switch (type) {
+			case UPDATE:
+				
+
+				
+				break;
+
+
+			case KEEPALIVE:
+				// Al pasar un tiempo, el cliente manda un paquete para mantener vivo el socket
+				// El servidor responde un vivo para mantener abierto el otro socket
+				//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
+				break;
+			}
 		}
-		return 0;
+	} catch (...) {
+		//srv->desconectar(playerId);
+	}
+
+
+
+
+
+	return 0;
 }
 
 bool Servidor::allConnected() const {
@@ -153,41 +150,7 @@ void Servidor::notifyReject(Socket& client) {
 }
 
 
-//void Servidor::esperarLlamadas() {
 
-//	Socket sClientO = input.aceptar();
-//	sClientO.setRcvTimeout(5, 0);
-//
-//	Socket sClientI = output.aceptar();
-//
-//	if (allConnected()) {
-//		// Ya estan todos los jugadores conectados, rechazo el que recien se conecto
-//		this->notifyReject(sClientI);
-//		//Log::e(SERVER,"Couldn't connect, all seats taken try again later");
-//		return;
-//	}
-//
-//	Player gamer;
-//	
-//	//Get a position on the players list
-//	 playerList.transform([&] (Players val) -> Players {
-//		 //idCli = getSiguienteJugador(val);
-//		//val[gamer.name] = std::make_pair<int,int>(sClientI,sClientO);
-//		return val;
-//	});
-//
-//	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
-//	// Envio el Objeto actual al cliente
-//	// std::vector<uint8_t> vec = getCanonico().aRed();
-//	// enviarMensaje(idCli, vec);
-//	// this->sendWorld(id,data); //SendWorld() hace un getWorld2Playable() y deja en un playable vector el mundo
-//
-//	Thread("Wait messages from client", [&] () {
-//		wait4Updates(idCli);
-//		return 0;
-//	});
-//}
-//
 //void Servidor::broadcastMsg(Playable change) {
 //
 //		//ToDo: Recorro lista de clientes y envio las actualizaciones

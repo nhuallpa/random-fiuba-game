@@ -14,10 +14,19 @@ typedef struct {
 	int action;
 } Playable;
 
+
+
+
 typedef struct {
-	int playerId;
-	std::string name;
+	std::string playerId;
 } Player;
+
+typedef struct{
+	Servidor* srv;
+	Socket clientO;
+	Socket clientI;
+	Player p;
+} threadData;
 
 class Servidor {
 public:
@@ -25,13 +34,12 @@ public:
 	Servidor(int nroPuerto, size_t cantJugadores);
 	~Servidor();
 
-	void push (Playable change);
-
-	void esperarLlamadas();
 	bool allConnected() const;
 	void esperarUserDelta ();
+	Mutex lock;
 
-	static int messageManager(void* data);
+	
+	static int initClient(void* data);
 	static void notifyReject(Socket& fdCli);
 
 private:

@@ -6,6 +6,7 @@
 enum Messages {
 	INIT=0,
 	PLAYER,
+	UPDATE,
 	CONF,
 	REJECT,
 	KEEPALIVE,
