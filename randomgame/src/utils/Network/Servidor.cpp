@@ -6,7 +6,9 @@ Servidor::Servidor()
 	: input ()
 	, output ()
 	, cantJugadores()
-	, deltas ()
+	, changes ()
+	, lock()
+	, canUpdate(lock)
 {
 }
 
@@ -17,8 +19,10 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	: input (nroPuerto + 1)
 	, output (nroPuerto)
 	, cantJugadores(cantJugadores)
-	, playerList()
-	, deltas ()
+	, pList()
+	, changes()
+	, lock()
+	, canUpdate(lock)
 {
 	output.setKeepAlive();
 	output.setListen(4);
@@ -43,22 +47,49 @@ Target:
 
 
 */
+	threadData data;
+	data.srv = this;
 
-	// Inicio el thread para recibir clientes nuevos
-	printf("Por crear thread");
+
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
+	//IDEA: Dispararlo en un thread
 	this->wait4Connections();
 
 	//TODO: Loop reading changed elements, if I had one I will send it to the client
 	//IDEA: Usar SDL_Cond para avisar que hay un elemento :)
 
 
+	//TODO: UpdatingThread()
+	//		Dispara el thread que ante un update modifica el mundo, simula un paso
+	//		y notifica a los clientes.
+
+	Thread clientThread("Updating Thread",updating,&data);
 
 }
 
+int Servidor::updating(void* data){
+	printf("Updating...");
+	Servidor* srv = ((threadData*)data)->srv;
+	Queue<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
+	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
+	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
+
+	while(true){
+		m->lock();
+		if ( changes->empty() ){
+			cond->wait();
+		}
+
+		//TODO: Do stuff
+
+		m->unlock();
+	}
+	return 0;
+}
+
 void Servidor::wait4Connections(){
-	//this is where client connects. svr will hang in this mode until client conn
+	//this is where client connects. srv will hang in this mode until client conn
 	printf("Listening");
 	int players = 0;
 	while (this->cantJugadores > players){
@@ -84,7 +115,7 @@ void Servidor::wait4Connections(){
 
 
 Servidor::~Servidor() {
-	//TODO
+	//TODO: Close every socket pair
 	// for (auto& par : clientes.get()) {
 		// close(par.second.input);
 		// close(par.second.output);
@@ -93,7 +124,7 @@ Servidor::~Servidor() {
 
 
 int Servidor::initClient(void* data){
-	
+	printf("Disparado cliente");
 	Servidor* srv = (Servidor*)((threadData*)data)->srv;
 
 	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
@@ -108,10 +139,11 @@ int Servidor::initClient(void* data){
 		try {
 		while (true) {
 			if (! ((threadData*)data)->clientO.rcvmsg(type, datos)) {
-				
+				printf("nada");
 				//srv->desconectar(playerId);
 				break;
 			}
+			printf("algo");
 			switch (type) {
 			case UPDATE:
 				
@@ -238,7 +270,7 @@ void Servidor::notifyReject(Socket& client) {
 
 int main (){
 
-	Servidor mySrv(10025,4);
+	Servidor mySrv(10025,1);
 	while(true){
 
 	}
