@@ -38,7 +38,7 @@ T Queue<T>::pop () {
 		while (valores.empty()) {
 			noVacio.wait();
 		}
-		T retval = std::move(valores.front());
+		T retval = svalores.front();
 		valores.pop_front();
 		return retval;
 	});
@@ -47,7 +47,7 @@ T Queue<T>::pop () {
 template <class T>
 void Queue<T>::push (T valor) {
 	mutex.saferun([&] {
-		valores.push_back(std::move(valor));
+		valores.push_back(valor);
 		noVacio.signal();
 	});
 }

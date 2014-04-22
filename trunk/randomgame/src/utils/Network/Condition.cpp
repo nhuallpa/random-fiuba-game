@@ -19,11 +19,6 @@ void Condition::wait ()
 	SDL_CondWait(cond, mutex->mutex);
 }
 
-void Condition::wait (int timeout_ms)
-{
-	SDL_CondWaitTimeout(cond, mutex->mutex, timeout_ms);
-}
-
 void Condition::signal ()
 {
 	SDL_CondSignal(cond);

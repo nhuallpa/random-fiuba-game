@@ -21,12 +21,7 @@ typedef struct {
 	std::string playerId;
 } Player;
 
-typedef struct{
-	Servidor* srv;
-	Socket clientO;
-	Socket clientI;
-	Player p;
-} threadData;
+
 
 class Servidor {
 public:
@@ -36,9 +31,11 @@ public:
 
 	bool allConnected() const;
 	void esperarUserDelta ();
-	Mutex lock;
-
 	
+	Mutex lock;
+	Condition canUpdate;
+
+	static int updating(void* data);
 	static int initClient(void* data);
 	static void notifyReject(Socket& fdCli);
 
@@ -49,8 +46,8 @@ private:
 
 	// Lista de clientes conectados y sus file descriptors asociados
 	typedef std::map<std::string, std::pair<int,int>> Players;
-	Atomic<Players> playerList;
-	Queue<Playable> deltas;
+	Players pList;
+	Queue<Playable> changes;
 
 	
 	void wait4Connections();
@@ -62,5 +59,12 @@ private:
 	void wait4Updates(Player playerId);
 	void desconectar(Player playerId);
 };
+
+typedef struct{
+	Servidor* srv;
+	Socket clientO;
+	Socket clientI;
+	Player p;
+} threadData;
 
 #endif /* SERVIDOR_H_ */
