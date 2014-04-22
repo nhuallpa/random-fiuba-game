@@ -74,6 +74,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Cliente\controlador\Context.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ClickEvent.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\MovementEvent.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ScrollEvent.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ZoomEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\IniGame.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\StopGame.cpp" />
@@ -144,7 +148,15 @@
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\controlador\Context.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\Contract.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnClickListener.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnMovementListener.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnScrollListener.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnZoomListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\State.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ClickEvent.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\MovementEvent.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ScrollEvent.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ZoomEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\IniGame.h" />
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h" />
     <ClInclude Include="..\src\Cliente\controlador\StopGame.h" />
