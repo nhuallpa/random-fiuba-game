@@ -49,12 +49,15 @@ Target:
 */
 	threadData data;
 	data.srv = this;
+	printf("Data inicial: %p, server: %p",data,data.srv);
 
 
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
-	//IDEA: Dispararlo en un thread
-	this->wait4Connections();
+	//TODO: Dispararlo en un thread
+
+	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
+	//this->waitConnections();
 
 	//TODO: Loop reading changed elements, if I had one I will send it to the client
 	//IDEA: Usar SDL_Cond para avisar que hay un elemento :)
@@ -65,7 +68,8 @@ Target:
 	//		y notifica a los clientes.
 
 	Thread clientThread("Updating Thread",updating,&data);
-
+	Sleep(100000);
+	this->canUpdate.signal();
 }
 
 int Servidor::updating(void* data){
@@ -78,9 +82,10 @@ int Servidor::updating(void* data){
 	while(true){
 		m->lock();
 		if ( changes->empty() ){
+			printf("waiting.. is empty :(");
 			cond->wait();
 		}
-
+		printf("doing stuff");
 		//TODO: Do stuff
 
 		m->unlock();
@@ -88,30 +93,61 @@ int Servidor::updating(void* data){
 	return 0;
 }
 
-void Servidor::wait4Connections(){
+int Servidor::wait4Connections(void* data){
 	//this is where client connects. srv will hang in this mode until client conn
 	printf("Listening");
+	Servidor* srv = (Servidor*)((threadData*)data)->srv;
+	printf("Data Wait 4 conn: %p, server: %p",data,srv);
+	Queue<Playable>* changes = (Queue<Playable>*)&((Servidor*)((threadData*)data)->srv)->changes;
+	Condition* cond = (Condition*)&((Servidor*)((threadData*)data)->srv)->canUpdate;
+	Mutex* m = (Mutex*)&((Servidor*)((threadData*)data)->srv)->lock;
+
 	int players = 0;
-	while (this->cantJugadores > players){
-		Socket sClientO = this->input.aceptar();
+	while (srv->cantJugadores > players){
+		Socket sClientO = srv->input.aceptar();
 		sClientO.setRcvTimeout(5, 0);
+		Socket sClientI = srv->output.aceptar();
 
-		Socket sClientI = this->output.aceptar();
-		threadData data;
-		data.srv = this;
-		data.clientI = sClientI;
-		data.clientO = sClientO;
-
+		threadData* dataCliente = new threadData();
+		dataCliente->srv = srv;
+		dataCliente->clientI = sClientI;
+		dataCliente->clientO = sClientO;
+		
 		//ToDo: ocupar el map/list de clientes conectados
 
-		Thread clientThread("Client Thread",initClient,&data);
+		Thread clientThread("Client Thread",initClient,dataCliente);
 
 		players++;
 	}
-        
+
+	return 0;
 
 }
 
+
+void Servidor::waitConnections(){
+	//this is where client connects. srv will hang in this mode until client conn
+	printf("Listening");
+	
+	int players = 0;
+	while (this->cantJugadores > players){
+		
+		Socket sClientO = this->input.aceptar();
+		sClientO.setRcvTimeout(5, 0);
+		
+		Socket sClientI = this->output.aceptar();
+		
+		threadData* dataCliente = new threadData();
+
+		dataCliente->srv = this;
+		dataCliente->clientI = sClientI;
+		dataCliente->clientO = sClientO;
+		//ToDo: ocupar el map/list de clientes conectados
+
+		Thread clientThread("Client Thread",initClient,dataCliente);
+		players++;
+	}
+}
 
 
 Servidor::~Servidor() {
@@ -125,7 +161,10 @@ Servidor::~Servidor() {
 
 int Servidor::initClient(void* data){
 	printf("Disparado cliente");
-	Servidor* srv = (Servidor*)((threadData*)data)->srv;
+	Servidor* srv = ((threadData*)data)->srv;
+	Queue<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
+	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
+	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
 
 	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
 	//Playable* playableWorld = srv->getPlayable();

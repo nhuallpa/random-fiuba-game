@@ -20,6 +20,12 @@ Thread::Thread (std::string nombre,  int (*fn)(void*), void* data )
 }
 
 
+void Thread::detach(){
+	//Require SDL 2.0.2!
+	//SDL_DetachThread(this->myThread);
+}
+
+
 int Thread::wait ()
 {
 	SDL_WaitThread(this->myThread, &this->retval);

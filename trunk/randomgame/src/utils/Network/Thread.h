@@ -10,6 +10,7 @@ public:
 	Thread (std::string nombre, int (*)(void*));
 	Thread (std::string nombre, int (*)(void*), void* data);
 
+	void detach();
 	int wait();  // Bloquea hasta que el thread termine, y luego pasa el retorno/excepcion del thread.
 
 private:
