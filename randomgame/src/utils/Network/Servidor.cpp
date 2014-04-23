@@ -49,45 +49,35 @@ Target:
 */
 	threadData data;
 	data.srv = this;
-	printf("Data inicial: %p, server: %p",data,data.srv);
-
 
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
-	//TODO: Dispararlo en un thread
-
 	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
 	//this->waitConnections();
-
-	//TODO: Loop reading changed elements, if I had one I will send it to the client
-	//IDEA: Usar SDL_Cond para avisar que hay un elemento :)
 
 
 	//TODO: UpdatingThread()
 	//		Dispara el thread que ante un update modifica el mundo, simula un paso
 	//		y notifica a los clientes.
-
 	Thread clientThread("Updating Thread",updating,&data);
-	Sleep(100000);
-	this->canUpdate.signal();
+
 }
 
 int Servidor::updating(void* data){
 	printf("Updating...");
 	Servidor* srv = ((threadData*)data)->srv;
-	Queue<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
+	std::list<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
 
 	while(true){
 		m->lock();
 		if ( changes->empty() ){
-			printf("waiting.. is empty :(");
+			printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		printf("doing stuff");
-		//TODO: Do stuff
-
+		printf("\nUpdating: doing stuff");
+		
 		m->unlock();
 	}
 	return 0;
@@ -97,8 +87,7 @@ int Servidor::wait4Connections(void* data){
 	//this is where client connects. srv will hang in this mode until client conn
 	printf("Listening");
 	Servidor* srv = (Servidor*)((threadData*)data)->srv;
-	printf("Data Wait 4 conn: %p, server: %p",data,srv);
-	Queue<Playable>* changes = (Queue<Playable>*)&((Servidor*)((threadData*)data)->srv)->changes;
+	std::list<Playable>* changes = (std::list<Playable>*)&((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = (Condition*)&((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = (Mutex*)&((Servidor*)((threadData*)data)->srv)->lock;
 
@@ -128,7 +117,6 @@ int Servidor::wait4Connections(void* data){
 void Servidor::waitConnections(){
 	//this is where client connects. srv will hang in this mode until client conn
 	printf("Listening");
-	
 	int players = 0;
 	while (this->cantJugadores > players){
 		
@@ -162,7 +150,7 @@ Servidor::~Servidor() {
 int Servidor::initClient(void* data){
 	printf("Disparado cliente");
 	Servidor* srv = ((threadData*)data)->srv;
-	Queue<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
+	std::list<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
 
@@ -178,11 +166,22 @@ int Servidor::initClient(void* data){
 		try {
 		while (true) {
 			if (! ((threadData*)data)->clientO.rcvmsg(type, datos)) {
-				printf("nada");
+				printf("\nnada");
 				//srv->desconectar(playerId);
 				break;
 			}
-			printf("algo");
+			
+			// Got something ;)
+			m->lock();
+			try{
+				printf("\nGot something ;)");
+			}catch(...){
+				m->unlock();
+				throw std::current_exception();
+			}
+			m->unlock();
+			cond->signal();
+
 			switch (type) {
 			case UPDATE:
 				
