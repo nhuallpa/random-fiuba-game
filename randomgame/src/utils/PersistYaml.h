@@ -51,6 +51,10 @@ private:
 		std::string epsilon ;
 		std::string scale ;
 		std::string timestep;
+		std::string serverPort;
+		std::string connTimeOut;
+		std::string maxPlay;
+		std::string MaxPj;
 	};
 
 	stElemento elem;
@@ -69,6 +73,10 @@ public:
 	void setMetaEps(std::string);
 	void setMetaSca(std::string);
 	void setMetaTime(std::string);
+	void setMetaPort(std::string);
+	void setMetaTO(std::string);
+	void setMetaMaxPlay(std::string);
+	void setMetaMaxPj(std::string);
 
 	void setEscenarioFps(std::string);
 	void setEscenarioAltoU(std::string);
