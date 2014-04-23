@@ -52,6 +52,11 @@ private:
 		std::string epsilon ;
 		std::string scale ;
 		std::string timestep;
+		std::string serverPort;
+		std::string connTimeOut;
+		std::string maxPlay;
+		std::string MaxPj;
+
 	};
 
 	/*
@@ -135,6 +140,11 @@ public:
 	std::string getMetaEps();
 	std::string getMetaSca();
 	std::string getMetaTime();
+	std::string getMetaPort();
+	std::string getMetaTO();
+	std::string getMetaMaxPlay();
+	std::string getMetaMaxPj();
+
 	
 	//para trabajar con un solo escenario
 	std::string getEscenarioFps();

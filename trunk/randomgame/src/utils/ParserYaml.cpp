@@ -16,6 +16,10 @@
 #define DEFAULT_COLOR_TIERRA "#BC794FFF"
 #define DEFAULT_IM_CIELO "res/images/cielo1.png"
 #define DEFAULT_TIMESTEP "10"
+#define DEFAULT_SERVER_PORT "8080"
+#define DEFAULT_CONNEX_TIME_OUT "60"
+#define DEFAULT_MAX_PLAY "4"
+#define DEFAULT_MAX_PJ_PLAY "5"
 
 ParserYaml::ParserYaml(){}
 
@@ -84,6 +88,10 @@ void ParserYaml::startWithDefaultLevel(){
 	aPersist->setMetaEps(DEFAULT_EPSILON);
 	aPersist->setMetaTime(DEFAULT_TIMESTEP);
 	aPersist->setMetaSca(DEFAULT_SCALE);	
+	aPersist->setMetaPort(DEFAULT_SERVER_PORT);	
+	aPersist->setMetaTO(DEFAULT_CONNEX_TIME_OUT);	
+	aPersist->setMetaMaxPlay(DEFAULT_MAX_PLAY);	
+	aPersist->setMetaMaxPj(DEFAULT_MAX_PJ_PLAY);	
 	aPersist->setEscenarioFps(DEFAULT_FSP);
 	aPersist->setEscenarioAltoU(DEFAULT_ALTOU);
 	aPersist->setEscenarioAnchoU(DEFAULT_ANCHOU);
@@ -497,6 +505,10 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 	bool fEps = false;
 	bool fSca = false;
 	bool fTime = false;
+	bool fPort = false;
+	bool fTimeOut = false;
+	bool fMaxPlay = false;
+	bool fMaxPj = false;
 	
 	const YAML::Node& node = nodeVect;
 		 try{
@@ -536,6 +548,39 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo TIMESTEP en nodo linea: %d.",(mark.line + 1));
 				}
+				else if (key.compare("server_port")==0){
+
+					meta.serverPort = this->yamlNodeToString(it.second());
+					if (this->esUnsInt(meta.serverPort)){
+						fPort = true;
+						} else
+							Log::e(PARSER,"Valor incorrecto para atributo SERVER PORT en nodo linea: %d.",(mark.line + 1));
+				}
+				else if (key.compare("connectionTimeout")==0){
+
+					meta.connTimeOut = this->yamlNodeToString(it.second());
+					if (this->esUnsInt(meta.connTimeOut)){
+						fTimeOut = true;
+						} else
+							Log::e(PARSER,"Valor incorrecto para atributo CONNECTION TIMEOUT en nodo linea: %d.",(mark.line + 1));
+				}
+				else if (key.compare("max_player")==0){
+
+					meta.maxPlay = this->yamlNodeToString(it.second());
+					if (this->esUnsInt(meta.maxPlay)){
+						fMaxPlay = true;
+						} else
+							Log::e(PARSER,"Valor incorrecto para atributo MAX PLAYER en nodo linea: %d.",(mark.line + 1));
+				}
+				else if (key.compare("max_per_team")==0){
+
+					meta.MaxPj = this->yamlNodeToString(it.second());
+					if (this->esUnsInt(meta.MaxPj)){
+						fMaxPj = true;
+						} else
+							Log::e(PARSER,"Valor incorrecto para atributo MAX PJ PLAYER en nodo linea: %d.",(mark.line + 1));
+				}
+
 				else {
 					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
 					Log::e(PARSER,"Metadata key no es un identificador correcto de metadata. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));
@@ -545,7 +590,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 			Log::e(PARSER,"%s",e.what());
 			exit(1);
 		 }
-		 if ( fEps && fSca && fTime){
+		 if ( fEps && fSca && fTime && fPort && fTimeOut && fMaxPlay && fMaxPj){
 			esMeta = meta;
 			//Log carga Nivel correctamente
 		}
@@ -562,6 +607,23 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 				Log::e(PARSER,"timestep no encontrado, seteando default");
 				meta.timestep = DEFAULT_TIMESTEP ;
 			}
+			if (!fPort){
+				Log::e(PARSER,"server_port no encontrado, seteando default");
+				meta.serverPort = DEFAULT_SERVER_PORT ;
+			}
+			if (!fTimeOut){
+				Log::e(PARSER,"connectionTimeout no encontrado, seteando default");
+				meta.connTimeOut = DEFAULT_CONNEX_TIME_OUT ;
+			}
+			if (!fMaxPlay){
+				Log::e(PARSER,"max_player no encontrado, seteando default");
+				meta.maxPlay = DEFAULT_MAX_PLAY ;
+			}
+			if (!fMaxPj){
+				Log::e(PARSER,"max_per_team no encontrado, seteando default");
+				meta.MaxPj = DEFAULT_MAX_PJ_PLAY ;
+			}
+
 		}
 		esMeta = meta;
 
@@ -653,9 +715,13 @@ void ParserYaml::cargarNivelYaml(std::string file){
 				Log::i(PARSER,"Iniciando metadata con configuración default");
 				//this->startWithDefaultLevel();
 				//exit(1);
-				this->todo.meta.epsilon = "1.5";
-				this->todo.meta.scale = "100";
-				this->todo.meta.timestep = "10";
+				this->todo.meta.epsilon = DEFAULT_EPSILON;
+				this->todo.meta.scale = DEFAULT_SCALE;
+				this->todo.meta.timestep = DEFAULT_TIMESTEP;
+				this->todo.meta.serverPort = DEFAULT_SERVER_PORT;
+				this->todo.meta.connTimeOut = DEFAULT_CONNEX_TIME_OUT;
+				this->todo.meta.maxPlay = DEFAULT_MAX_PLAY;
+				this->todo.meta.MaxPj = DEFAULT_MAX_PJ_PLAY;
 				Log::i(PARSER,"Metadata default cargada correctamente");
 			}
 			fin.close();
@@ -693,6 +759,18 @@ std::string ParserYaml::getMetaSca(){
 	return this->todo.meta.scale;
 }
 
+std::string ParserYaml::getMetaPort(){
+	return this->todo.meta.serverPort;
+}
+std::string ParserYaml::getMetaTO(){
+	return this->todo.meta.connTimeOut;
+}
+std::string ParserYaml::getMetaMaxPlay(){
+	return this->todo.meta.maxPlay;
+}
+std::string ParserYaml::getMetaMaxPj(){
+	return this->todo.meta.MaxPj;
+}
 
 
 std::string ParserYaml::getEscenarioFps(){
