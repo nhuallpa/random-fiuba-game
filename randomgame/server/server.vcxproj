@@ -80,20 +80,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\utils\Network\Atomic.h" />
-    <ClInclude Include="..\src\utils\Network\Atomic_Int.h" />
-    <ClInclude Include="..\src\utils\Network\Cliente.h" />
     <ClInclude Include="..\src\utils\Network\Condition.h" />
     <ClInclude Include="..\src\utils\Network\Messages.h" />
     <ClInclude Include="..\src\utils\Network\Mutex.h" />
-    <ClInclude Include="..\src\utils\Network\Queue.h" />
     <ClInclude Include="..\src\utils\Network\Servidor.h" />
     <ClInclude Include="..\src\utils\Network\Socket.h" />
     <ClInclude Include="..\src\utils\Network\Thread.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\utils\Network\Atomic_Int.cpp" />
-    <ClCompile Include="..\src\utils\Network\Cliente.cpp" />
     <ClCompile Include="..\src\utils\Network\Condition.cpp" />
     <ClCompile Include="..\src\utils\Network\Mutex.cpp" />
     <ClCompile Include="..\src\utils\Network\Servidor.cpp" />
