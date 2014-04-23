@@ -35,9 +35,12 @@ public:
 	Mutex lock;
 	Condition canUpdate;
 
+	void waitConnections();
+
 	static int updating(void* data);
 	static int initClient(void* data);
 	static void notifyReject(Socket& fdCli);
+	static int wait4Connections(void* data);
 
 private:
 	Socket input;
@@ -50,7 +53,7 @@ private:
 	Queue<Playable> changes;
 
 	
-	void wait4Connections();
+	
 
 	void sendHeartBeat(Player playerId, Messages type);
 	
