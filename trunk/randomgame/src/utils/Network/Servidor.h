@@ -3,11 +3,11 @@
 
 #include <map>
 #include <vector>
+#include <list>
 
 #include "Socket.h"
 #include "Thread.h"
-#include "Atomic.h"
-#include "Queue.h"
+#include "Condition.h"
 
 typedef struct {
 	int wormid;
@@ -50,7 +50,7 @@ private:
 	// Lista de clientes conectados y sus file descriptors asociados
 	typedef std::map<std::string, std::pair<int,int>> Players;
 	Players pList;
-	Queue<Playable> changes;
+	std::list<Playable> changes;
 
 	
 	

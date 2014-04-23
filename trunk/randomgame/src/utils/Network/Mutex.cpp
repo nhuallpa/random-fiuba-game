@@ -29,15 +29,3 @@ void Mutex::unlock ()
 	blocked = false;
 	SDL_UnlockMutex(mutex);
 }
-
-void Mutex::saferun (std::function<void()> fn)
-{
-	lock();
-	try {
-		fn();
-	} catch (...) {
-		unlock();
-		throw std::current_exception();
-	}
-	unlock();
-}

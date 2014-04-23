@@ -2,6 +2,7 @@
 #define THREAD_H_
 #include <string>
 #include <SDL_thread.h>
+#include "Mutex.h"
 
 class Thread
 {

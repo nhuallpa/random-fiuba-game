@@ -178,7 +178,6 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 	size_t base = 0;
 	size_t aRecibir = tamEsperado;
 	while (aRecibir != 0) {
-		printf("\npor recibir en: %d\n", fd);
 		int bytes = recv(fd, (char*)(&datosRetorno[base]), aRecibir, 0);
 		if (bytes == -1) {
 			if (errno == EINTR) {
