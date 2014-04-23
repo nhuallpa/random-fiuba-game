@@ -15,15 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\utils\Network\Atomic.h">
-      <Filter>Archivos de código fuente</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\utils\Network\Atomic_Int.h">
-      <Filter>Archivos de código fuente</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\utils\Network\Cliente.h">
-      <Filter>Archivos de código fuente</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\utils\Network\Condition.h">
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
@@ -31,9 +22,6 @@
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
     <ClInclude Include="..\src\utils\Network\Mutex.h">
-      <Filter>Archivos de código fuente</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\utils\Network\Queue.h">
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
     <ClInclude Include="..\src\utils\Network\Servidor.h">
@@ -47,12 +35,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\utils\Network\Atomic_Int.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\utils\Network\Cliente.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\utils\Network\Condition.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>

@@ -116,7 +116,10 @@ void Socket::connect2(std::string hostname, uint16_t port)
 	struct hostent *server = gethostbyname(hostname.c_str());
 	if (server == NULL) {
 		//Log::e("Couldn't find host: %s",hostname);
+		printf("Couldn't find host: %s",hostname.c_str());
 	}
+
+	this->init();
 
 	//Init server struct and its data
 	struct sockaddr_in server_addr;
@@ -129,8 +132,9 @@ void Socket::connect2(std::string hostname, uint16_t port)
 		);
 	
 	//Connect server
-	if (connect(fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1 ) {
+	if (connect(this->fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR ) {
 		//Log::e("Couldn't connect to specified address/port: %s : %d",hostname,port);
+		printf("Couldn't connect to specified address/port: %s : %d",hostname,port);
 	}
 }
 

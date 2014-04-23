@@ -38,10 +38,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\random-fiuba-game\randomgame\libs\SDL2_gfx\include;C:\random-fiuba-game\randomgame\libs\;C:\random-fiuba-game\randomgame\libs\Box2D\;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\contrib;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\include;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\include;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\include;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\include;</IncludePath>
+    <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\random-fiuba-game\randomgame\libs\SDL2_gfx\lib;C:\random-fiuba-game\randomgame\libs\release;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\random-fiuba-game\randomgame\libs\SDL2_gfx\include;C:\random-fiuba-game\randomgame\libs\;C:\random-fiuba-game\randomgame\libs\Box2D\;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp\contrib;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include\yaml-cpp;C:\random-fiuba-game\randomgame\libs\yaml-cpp\include;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\include;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\include;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\include;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\include;</IncludePath>
+    <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\random-fiuba-game\randomgame\libs\SDL2_gfx\lib;C:\random-fiuba-game\randomgame\libs\release;C:\random-fiuba-game\randomgame\libs\SDL2-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs\SDL2_image-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -54,6 +58,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;libyaml-cppmd.lib;SDL2_gfx.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -71,9 +76,23 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;libyaml-cppmd.lib;SDL2_gfx.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\utils\Network\Cliente.cpp" />
+    <ClCompile Include="..\src\utils\Network\Condition.cpp" />
+    <ClCompile Include="..\src\utils\Network\Mutex.cpp" />
+    <ClCompile Include="..\src\utils\Network\Socket.cpp" />
+    <ClCompile Include="..\src\utils\Network\Thread.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\utils\Network\Cliente.h" />
+    <ClInclude Include="..\src\utils\Network\Condition.h" />
+    <ClInclude Include="..\src\utils\Network\Messages.h" />
+    <ClInclude Include="..\src\utils\Network\Mutex.h" />
+    <ClInclude Include="..\src\utils\Network\Socket.h" />
+    <ClInclude Include="..\src\utils\Network\Thread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
