@@ -13,9 +13,7 @@ typedef struct {
 	int action;
 } Playable;
 
-typedef struct {
-	std::string playerId;
-} Player;
+typedef std::string Player;
 
 class Cliente {
 public:
@@ -23,7 +21,9 @@ public:
 	Cliente(char* ip, int port);
 	~Cliente();
 
-	bool alive();
+	bool serverAlive();
+
+	static int keepalive(void* data);
 
 
 private:
@@ -34,13 +34,17 @@ private:
 
 	// Se usa para controlar el timeout de los sockets
 	time_t timeInicial;
+	bool srvStatus;
 
+	Mutex m;
 
 	std::list<Playable> localChanges;
 	std::list<Playable> networkChanges;
 
-	void esperarMensaje();
+	void getRemoteWorld();
 	void sendMsg(Messages type, std::vector<uint8_t> buffer);
+
+
 };
 
 typedef struct{

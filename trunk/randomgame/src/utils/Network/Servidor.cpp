@@ -16,8 +16,8 @@ Servidor::Servidor()
 
 
 Servidor::Servidor(int nroPuerto, size_t cantJugadores)
-	: input (nroPuerto + 1)
-	, output (nroPuerto)
+	: input (nroPuerto) // En este port se recibe data del cliente
+	, output (nroPuerto + 1) // Por aca realizamos updates a los clientes
 	, cantJugadores(cantJugadores)
 	, pList()
 	, changes()
@@ -28,7 +28,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	output.setListen(4);
 	input.setKeepAlive();
 	input.setListen(4);
-
+	jugadoresConectados = 0;
 /* Eventos que puede recibir el modelo
 
 - Seleccion de worm
@@ -64,7 +64,7 @@ Target:
 }
 
 int Servidor::updating(void* data){
-	printf("Updating...");
+	printf("\n\n\nUpdating...\n");
 	Servidor* srv = ((threadData*)data)->srv;
 	std::list<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
@@ -92,21 +92,24 @@ int Servidor::wait4Connections(void* data){
 	Mutex* m = (Mutex*)&((Servidor*)((threadData*)data)->srv)->lock;
 
 	int players = 0;
-	while (srv->cantJugadores > players){
-		Socket sClientO = srv->input.aceptar();
-		sClientO.setRcvTimeout(5, 0);
-		Socket sClientI = srv->output.aceptar();
-
-		threadData* dataCliente = new threadData();
-		dataCliente->srv = srv;
-		dataCliente->clientI = sClientI;
-		dataCliente->clientO = sClientO;
+	while (true){
 		
-		//ToDo: ocupar el map/list de clientes conectados
+		while(srv->cantJugadores > srv->jugadoresConectados){
+			Socket sClientO = srv->input.aceptar();
+			sClientO.setRcvTimeout(5, 0);
+			Socket sClientI = srv->output.aceptar();
 
-		Thread clientThread("Client Thread",initClient,dataCliente);
+			threadData* dataCliente = new threadData();
+			dataCliente->srv = srv;
+			dataCliente->clientI = sClientI;
+			dataCliente->clientO = sClientO;
+		
+			//ToDo: ocupar el map/list de clientes conectados
 
-		players++;
+			Thread clientThread("Client Thread",initClient,dataCliente);
+
+			srv->jugadoresConectados++;
+		}
 	}
 
 	return 0;
@@ -116,25 +119,26 @@ int Servidor::wait4Connections(void* data){
 
 void Servidor::waitConnections(){
 	//this is where client connects. srv will hang in this mode until client conn
-	printf("Listening");
-	int players = 0;
-	while (this->cantJugadores > players){
-		
-		Socket sClientO = this->input.aceptar();
-		sClientO.setRcvTimeout(5, 0);
-		
-		Socket sClientI = this->output.aceptar();
-		
-		threadData* dataCliente = new threadData();
+	//printf("Listening");
+	//int players = 0;
+	//while (this->cantJugadores > players){
+	//	
+	//	Socket sClientO = this->input.aceptar();
+	//	sClientO.setRcvTimeout(5, 0);
+	//	
+	//	Socket sClientI = this->output.aceptar();
+	//	
+	//	threadData* dataCliente = new threadData();
 
-		dataCliente->srv = this;
-		dataCliente->clientI = sClientI;
-		dataCliente->clientO = sClientO;
-		//ToDo: ocupar el map/list de clientes conectados
+	//	dataCliente->srv = this;
+	//	dataCliente->clientI = sClientI;
+	//	dataCliente->clientO = sClientO;
+	//	//ToDo: ocupar el map/list de clientes conectados
 
-		Thread clientThread("Client Thread",initClient,dataCliente);
-		players++;
-	}
+
+	//	Thread clientThread("Client Thread",initClient,dataCliente);
+	//	players++;
+	//}
 }
 
 
@@ -153,6 +157,7 @@ int Servidor::initClient(void* data){
 	std::list<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
+	std::string* playerId = &((threadData*)data)->p;
 
 	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
 	//Playable* playableWorld = srv->getPlayable();
@@ -161,13 +166,26 @@ int Servidor::initClient(void* data){
 	//		y agregarlo a la cola. Luego (en otro loop) mirar los cambios y 
 	//		propagarlos
 
-	std::vector<uint8_t> datos;
-	Messages type = KEEPALIVE;
+	std::vector<uint8_t> datos(10);
+	std::vector<uint8_t> keepaliveData(10);
+	Messages keepaliveMsg = KEEPALIVE;
+	Messages type = UPDATE;
+
+	((threadData*)data)->clientI.sendmsg(type,datos);
+	printf("\nEnviando data al cliente");
+
+	srv->pList.insert(std::make_pair("1",
+		std::make_pair( ((threadData*)data)->clientO.getFD(),
+		((threadData*)data)->clientI.getFD()))
+					 );
+
+	int activeClient=1;
 		try {
-		while (true) {
+		while (activeClient) {
 			if (! ((threadData*)data)->clientO.rcvmsg(type, datos)) {
-				printf("\nnada");
-				//srv->desconectar(playerId);
+				printf("\nDesconectando cliente");
+				srv->disconnect(*playerId);
+				activeClient=0;
 				break;
 			}
 			
@@ -184,7 +202,7 @@ int Servidor::initClient(void* data){
 
 			switch (type) {
 			case UPDATE:
-				
+				//printf("\nGot update");
 
 				
 				break;
@@ -194,12 +212,16 @@ int Servidor::initClient(void* data){
 				// Al pasar un tiempo, el cliente manda un paquete para mantener vivo el socket
 				// El servidor responde un vivo para mantener abierto el otro socket
 				//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
+				//printf("\nGot keepalive");
+				((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
+
 				break;
 			}
 		}
 	} catch (...) {
 		//srv->desconectar(playerId);
 	}
+	printf("\nAbandonando cliente\n");
 
 
 
@@ -289,21 +311,17 @@ void Servidor::notifyReject(Socket& client) {
 //	}
 //}
 //
-//void Servidor::desconectar(Player playerId) {
-//	std::pair<int,int> deleted;
-//
-//	playerList.transform([&] (Players val) -> Players {
-//		if (val.count(playerId) != 0) {
-//			deleted = val[playerId.name];
-//			val.erase(idCli);
-//		}
-//		return val;
-//	});
-//
-//	close(deleted.first);
-//	close(deleted.second);
-//
-//}
+
+
+void Servidor::disconnect(Player playerId) {
+	
+	printf("\nReleasing player: %s\n",playerId.c_str());
+	closesocket(this->pList[playerId].first);
+	closesocket(this->pList[playerId].second);
+	this->pList.erase(playerId);
+	this->jugadoresConectados--;
+
+}
 
 
 int main (){

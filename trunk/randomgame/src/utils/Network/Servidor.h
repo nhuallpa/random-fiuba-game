@@ -17,9 +17,7 @@ typedef struct {
 
 
 
-typedef struct {
-	std::string playerId;
-} Player;
+typedef std::string Player;
 
 
 
@@ -46,6 +44,7 @@ private:
 	Socket input;
 	Socket output;
 	size_t cantJugadores;
+	size_t jugadoresConectados;
 
 	// Lista de clientes conectados y sus file descriptors asociados
 	typedef std::map<std::string, std::pair<int,int>> Players;
@@ -60,14 +59,14 @@ private:
 	void broadcastMsg(Playable change);
 	void enviarMensaje(Player playerId, std::vector<uint8_t> buffer);
 	void wait4Updates(Player playerId);
-	void desconectar(Player playerId);
+	void disconnect(std::string playerId);
 };
 
 typedef struct{
 	Servidor* srv;
 	Socket clientO;
 	Socket clientI;
-	Player p;
+	std::string p;
 } threadData;
 
 #endif /* SERVIDOR_H_ */

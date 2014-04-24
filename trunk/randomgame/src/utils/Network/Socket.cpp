@@ -173,12 +173,15 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 	
 	if (datos.empty()) {
 		//Log::e("Sending empty message");
+		printf("Sending empty message");
+
 	}
 	
 	while (aEnviar != 0) {
 		int bytes = send(fd, (char*)(&datos[base]), aEnviar, 0);
 		if (bytes == -1) {
 			if (errno == EINTR) {
+
 				continue;
 			} else if (errno == EAGAIN || errno == EWOULDBLOCK) {
 				if (intentos < 3) {
@@ -188,6 +191,7 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 				}
 			}
 			//Log::e("Failed to send msg");
+			printf("\nFailed to send msg");
 		} else if (bytes == 0) {
 			return false;
 		} else {
@@ -220,6 +224,8 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 				}
 			}
 			//Log::e("Failed to get data from remote host");
+			//printf("Failed to get data from remote host");
+			return false;
 		} else if (bytes == 0) {
 			return false;
 		} else {
@@ -238,6 +244,10 @@ void Socket::setListen (int tamCola)
 	if (::listen(fd, 4) == -1) {
 		// throw Log::Suceso(Log::FATAL, "No se pudo setear el tamanio maximo de la cola de conexiones pendientes en el port.");
 	}
+}
+
+int Socket::getFD(){
+	return this->fd;
 }
 
 void Socket::setRcvTimeout (long sec, long usec)

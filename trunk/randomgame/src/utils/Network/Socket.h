@@ -42,6 +42,7 @@ public:
 
 	Socket aceptar ();
 	int extraerFd ();
+	int getFD();
 
 private:
 	bool usable;
