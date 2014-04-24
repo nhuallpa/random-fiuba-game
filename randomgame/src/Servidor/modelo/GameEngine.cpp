@@ -3,7 +3,7 @@
 #include "Box2D/Collision/Shapes/b2Shape.h"
 #include "Box2D/Collision/b2Collision.h"
 
-#define WATER_VELOCITY -4
+#define WATER_VELOCITY -1
 
 class b2Collision;
 
