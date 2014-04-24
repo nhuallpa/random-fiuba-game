@@ -1,0 +1,35 @@
+metadata:
+    epsilon: 2
+    scale: 15
+    timestep: 5
+escenario:
+    fps: 60
+    ancho-un: 300
+    alto-un: 300
+    alto-px: 600
+    ancho-px: 600
+    nivel_agua: 120
+    color_agua: "#0000FF99"
+    imagen_tierra: CKYTWDCFASTFAYUSDTVCKYU
+    color_tierra: "#BC794FFF"
+    imagen_cielo: KRFSFYDFSYUYDFSYUDFSYUDFSYUDFSYUDFSYUS
+    objetos:
+    - tipo:     rec
+      id:               1
+      x:        20
+      y:        250
+      alto:     50
+      ancho:    10
+      color:    "#FF0000FF"
+      estatico: no
+      rot:      0
+      masa:     1
+    - tipo:     tri
+      id:       2
+      x:        20
+      y:        250
+      escala:   10
+      color:    "#00FF00FF"
+      estatico: no
+      rot:      0
+      masa:     1

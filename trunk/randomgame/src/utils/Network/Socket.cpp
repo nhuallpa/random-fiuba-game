@@ -86,7 +86,9 @@ Socket Socket::init()
 
 	if (retval.fd == -1) {
 		//Log::e("Couldn't open socket connection");
+		printf("Couldn't open socket connection");
 	}
+	this->fd = retval.fd;
 	return retval;
 }
 
@@ -113,13 +115,37 @@ Socket::~Socket(){
 
 void Socket::connect2(std::string hostname, uint16_t port)
 {
-	struct hostent *server = gethostbyname(hostname.c_str());
+	
+	//this->init();
+		WSAData wsaData;
+
+    int error = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (error == SOCKET_ERROR)
+    {
+        std::cout << "Server: Winsock Failed to begin!\n";
+        return;
+    }
+	std::cout << "Server: WinSocket Started Correctly!\n";
+
+	this->usable = true;
+	
+	this->fd = socket(AF_INET, SOCK_STREAM, 0);
+
+	if (this->fd == -1) {
+		//Log::e("Couldn't open socket connection");
+	}
+	
+
+
+	char server_name[40] = "localhost";
+	struct hostent *server = gethostbyname(server_name);
 	if (server == NULL) {
 		//Log::e("Couldn't find host: %s",hostname);
-		printf("Couldn't find host: %s",hostname.c_str());
+		printf("Couldn't find host: %s",server_name);
+		//return;
 	}
 
-	this->init();
+	
 
 	//Init server struct and its data
 	struct sockaddr_in server_addr;

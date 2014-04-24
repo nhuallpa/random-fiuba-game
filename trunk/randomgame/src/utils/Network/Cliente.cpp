@@ -24,6 +24,7 @@ Cliente::Cliente(char* ip, int port)
 	input.connect2(ip, port);
 	printf("first connected");
 	output.connect2(ip, port + 1);
+	printf("second connected");
 
 	//esperarMensaje(); // recibo el mundo o un codigo de reject
 
@@ -89,8 +90,9 @@ void Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 int main(){
 
 	Cliente myClient("localhost",10025);
-
-
+	//Cliente myClient2("localhost",10026);
+	while(true){
+	}
 
 	return 0;
 }
