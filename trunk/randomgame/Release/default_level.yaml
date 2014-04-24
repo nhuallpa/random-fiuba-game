@@ -3,9 +3,9 @@ metadata:
   scale: 100
 escenario:
   fps: 60
-  ancho-un: 2500
+  ancho-un: 600
   alto-un: 600
-  ancho-px: 1000
+  ancho-px: 400
   alto-px: 400
   nivel_agua: 50
   imagen_tierra: res/images/tierra1.bmp
@@ -15,7 +15,7 @@ escenario:
   objetos:
     - tipo: rec
       id: 1
-      x: 43.44
+      x: 100
       y: 100
       alto: 10
       ancho: 10
@@ -25,8 +25,8 @@ escenario:
       masa: 1
     - tipo: tri
       id: 2
-      x: 50
-      y: 50
+      x: 100
+      y: 200
       color: "#00FF00FF"
       estatico: si
       rot: 0
