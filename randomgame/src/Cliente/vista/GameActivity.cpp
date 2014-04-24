@@ -16,7 +16,8 @@ ViewGroup* GameActivity::buildView( ViewBuilder & builder)
 	builder.buildFigures(figureContainer);
 
 	container->add(this->figureContainer);
-	
+	builder.buildCharacters(container);
+
 	builder.buildTerrain(container);
 	builder.buildWater(container);
 	return container;
@@ -39,8 +40,8 @@ void GameActivity::update()
 		catch (GameException e) {
 			Log::e(e.what());
 		}
-
 	}
+	this->aView->update();
 }
 
 GameActivity::~GameActivity(void)

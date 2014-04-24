@@ -8,6 +8,8 @@
 #include <iostream>
 #include "SDLScreen.h"
 #include "TextureManager.h"
+#include "SpriteConfigurator.h"
+
 #include "../../utils/ParserYaml.h"
 class Bootstrap
 {
@@ -19,6 +21,9 @@ public:
 
 	/**Inicialize enviroment*/
 	void init();
+
+	/**Load sprites*/
+	void loadSprites();
 
 	SDLScreen & getScreen();
 	

@@ -31,6 +31,8 @@ public:
 	void buildWater(ViewGroup* container);
 
 	void buildTerrain(ViewGroup* container);
+
+	void buildCharacters(ViewGroup* container) {}
 };
 
 #endif /**__DEFAULT_VIEW_BUILDER_H__*/

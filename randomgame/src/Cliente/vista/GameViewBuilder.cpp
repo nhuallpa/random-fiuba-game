@@ -152,3 +152,21 @@ void GameViewBuilder::buildTerrain(ViewGroup* container)
 
 	container->add(aTerrain); 
 }
+
+void GameViewBuilder::buildCharacters(ViewGroup* container)
+{
+	WormView* aWorm = new WormView(90, 50, 50);
+
+	// todo: obtener los id de sprite del yaml
+	try 
+	{
+		aWorm->setSpriteWalkLeft(SpriteConfigurator::Instance().get("wwalk_left"));
+		aWorm->setSpriteWalkRight(SpriteConfigurator::Instance().get("wwalk_right"));
+	} 
+	catch (std::exception & e) 
+	{
+		Log::e(e.what());
+	}
+
+	container->add(aWorm);
+}
