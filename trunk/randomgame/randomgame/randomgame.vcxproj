@@ -91,9 +91,12 @@
     <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\Sprite.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\WormView.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp" />
@@ -170,9 +173,12 @@
     <ClInclude Include="..\src\Cliente\vista\PentagonView.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
+    <ClInclude Include="..\src\Cliente\vista\Sprite.h" />
+    <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
+    <ClInclude Include="..\src\Cliente\vista\WormView.h" />
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h" />

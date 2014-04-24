@@ -270,6 +270,15 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\ClickEvent.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\Sprite.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\WormView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -502,6 +511,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnZoomListener.h">
       <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\Sprite.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\WormView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

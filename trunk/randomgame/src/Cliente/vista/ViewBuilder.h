@@ -34,6 +34,13 @@ public:
 	virtual void buildFigures(FigureViewGroup* container) = 0;
 
 	/**
+	* Build many figures of view and add it to container
+	* @param ViewGroup a container
+	*/
+	virtual void buildCharacters(ViewGroup* container) = 0;
+
+
+	/**
 	* Build a water view and add it to container
 	* @param ViewGroup a container
 	*/

@@ -13,7 +13,9 @@
 #include "EllipseView.h"
 #include "TriangleView.h"
 #include "TerrainView.h"
+#include "WormView.h"
 #include "ViewBuilder.h"
+#include "SpriteConfigurator.h"
 #include "../../utils/Util.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../../Servidor/modelo/GameLevel.h"
@@ -41,6 +43,8 @@ public:
 	void buildWater(ViewGroup* container);
 
 	void buildTerrain(ViewGroup* container);
+
+	void buildCharacters(ViewGroup* container);
 };
 
 #endif /**__GAME_VIEW_BUILDER_H__*/

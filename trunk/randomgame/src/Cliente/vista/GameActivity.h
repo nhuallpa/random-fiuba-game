@@ -14,6 +14,8 @@ private:
 
 	FigureViewGroup* figureContainer;
 
+
+
 public:
 	GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel);
 
