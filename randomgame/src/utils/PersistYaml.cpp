@@ -27,16 +27,6 @@ void PersistYaml::setMetaSca(std::string sca){
 	this->meta.scale = sca;
 }
 
-void PersistYaml::setMetaTime(std::string ts){
-	this->meta.timestep = ts;
-}
-
-void PersistYaml::setMetaPort(std::string port){
-	this->meta.serverPort = port;
-}
-void PersistYaml::setMetaTO(std::string to){
-	this->meta.connTimeOut = to;
-}
 void PersistYaml::setMetaMaxPlay(std::string play){
 	this->meta.maxPlay = play;
 }
@@ -215,12 +205,6 @@ void PersistYaml::escribirYaml(std::string fileOut){
 	out << YAML::Value << this->meta.epsilon;
 	out << YAML::Key << "scale";
 	out << YAML::Value << this->meta.scale;
-	out << YAML::Key << "timestep";
-	out << YAML::Value << this->meta.timestep;
-	out << YAML::Key << "server_port";
-	out << YAML::Value << this->meta.serverPort;
-	out << YAML::Key << "connectionTimeout";
-	out << YAML::Value << this->meta.connTimeOut;
 	out << YAML::Key << "max_player";
 	out << YAML::Value << this->meta.maxPlay;
 	out << YAML::Key << "max_per_team";
