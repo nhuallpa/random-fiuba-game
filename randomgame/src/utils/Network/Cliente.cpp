@@ -44,6 +44,8 @@ Cliente::Cliente(char* ip, int port)
 }
 
 Cliente::~Cliente() {
+
+
 }
 
 int Cliente::keepalive(void* data){
@@ -59,6 +61,7 @@ int Cliente::keepalive(void* data){
 		if ( cli->sendMsg(keepaliveMsg,keepaliveData) ){
 			//Server disconnected
 			printf("Server died");
+
 			break;
 		}
 	}
@@ -66,13 +69,30 @@ int Cliente::keepalive(void* data){
 	return 0;
 }
 
+int Cliente::login(){
+
+	Datagram msg;
+
+	msg.type = LOGIN;
+	std::strcpy((char*)&msg.pId,this->pl.c_str()); // works?
+	printf("player id: %s",msg.pId.c_str());
+
+	//Send login datagram
+
+
+}
+
 void Cliente::getRemoteWorld() {
 	Messages type;
 	std::vector<uint8_t> datos;
 	
+	//Login to server
+
+
 	if (!this->input.rcvmsg(type, datos)) {
 		//Log::e("connection error");
 		printf("\nClient: connection error - Server disconnected/not responding");
+		return;
 	}
 	printf("\nRetrieving data from server");
 
