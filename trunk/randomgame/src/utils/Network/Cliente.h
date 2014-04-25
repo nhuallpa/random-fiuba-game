@@ -42,7 +42,7 @@ private:
 	std::list<Playable> networkChanges;
 
 	void getRemoteWorld();
-	void sendMsg(Messages type, std::vector<uint8_t> buffer);
+	int sendMsg(Messages type, std::vector<uint8_t> buffer);
 
 
 };

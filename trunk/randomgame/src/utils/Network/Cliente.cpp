@@ -56,8 +56,11 @@ int Cliente::keepalive(void* data){
 	Messages keepaliveMsg = KEEPALIVE;
 
 	while(true){
-		cli->sendMsg(keepaliveMsg,keepaliveData);
-
+		if ( cli->sendMsg(keepaliveMsg,keepaliveData) ){
+			//Server disconnected
+			printf("Server died");
+			break;
+		}
 	}
 
 	return 0;
@@ -102,11 +105,13 @@ bool Cliente::serverAlive () {
 
 
 
-void Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
+int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	if ( !this->output.sendmsg(type, buffer) ) {
 		//Log::e("connection error");
 		printf("Client: connection error");
+		return 1;
 	}
+	return 0;
 
 }
 

@@ -192,6 +192,7 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 			}
 			//Log::e("Failed to send msg");
 			printf("\nFailed to send msg");
+			return false;
 		} else if (bytes == 0) {
 			return false;
 		} else {
