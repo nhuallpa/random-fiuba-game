@@ -15,9 +15,6 @@
 #define DEFAULT_IM_TIERRA "res/images/tierra1.bmp"
 #define DEFAULT_COLOR_TIERRA "#BC794FFF"
 #define DEFAULT_IM_CIELO "res/images/cielo1.png"
-#define DEFAULT_TIMESTEP "10"
-#define DEFAULT_SERVER_PORT "8080"
-#define DEFAULT_CONNEX_TIME_OUT "60"
 #define DEFAULT_MAX_PLAY "4"
 #define DEFAULT_MAX_PJ_PLAY "5"
 
@@ -86,10 +83,7 @@ void ParserYaml::startWithDefaultLevel(){
 
 	PersistYaml* aPersist=PersistYaml::getInstance();
 	aPersist->setMetaEps(DEFAULT_EPSILON);
-	aPersist->setMetaTime(DEFAULT_TIMESTEP);
 	aPersist->setMetaSca(DEFAULT_SCALE);	
-	aPersist->setMetaPort(DEFAULT_SERVER_PORT);	
-	aPersist->setMetaTO(DEFAULT_CONNEX_TIME_OUT);	
 	aPersist->setMetaMaxPlay(DEFAULT_MAX_PLAY);	
 	aPersist->setMetaMaxPj(DEFAULT_MAX_PJ_PLAY);	
 	aPersist->setEscenarioFps(DEFAULT_FSP);
@@ -504,9 +498,6 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 	//bool fNombre = false;
 	bool fEps = false;
 	bool fSca = false;
-	bool fTime = false;
-	bool fPort = false;
-	bool fTimeOut = false;
 	bool fMaxPlay = false;
 	bool fMaxPj = false;
 	
@@ -540,30 +531,6 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 						} else
 							Log::e(PARSER,"Valor incorrecto para atributo SCALE en nodo linea: %d.",(mark.line + 1));
 				}
-				else if (key.compare("timestep")==0){
-
-					meta.timestep = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(meta.timestep)){
-						fTime = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo TIMESTEP en nodo linea: %d.",(mark.line + 1));
-				}
-				else if (key.compare("server_port")==0){
-
-					meta.serverPort = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(meta.serverPort)){
-						fPort = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo SERVER PORT en nodo linea: %d.",(mark.line + 1));
-				}
-				else if (key.compare("connectionTimeout")==0){
-
-					meta.connTimeOut = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(meta.connTimeOut)){
-						fTimeOut = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo CONNECTION TIMEOUT en nodo linea: %d.",(mark.line + 1));
-				}
 				else if (key.compare("max_player")==0){
 
 					meta.maxPlay = this->yamlNodeToString(it.second());
@@ -590,7 +557,7 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 			Log::e(PARSER,"%s",e.what());
 			exit(1);
 		 }
-		 if ( fEps && fSca && fTime && fPort && fTimeOut && fMaxPlay && fMaxPj){
+		 if ( fEps && fSca && fMaxPlay && fMaxPj){
 			esMeta = meta;
 			//Log carga Nivel correctamente
 		}
@@ -602,18 +569,6 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 			if (!fSca){
 				Log::e(PARSER,"scale no encontrado, seteando default");
 				meta.scale = DEFAULT_SCALE ;
-			}
-			if (!fTime){
-				Log::e(PARSER,"timestep no encontrado, seteando default");
-				meta.timestep = DEFAULT_TIMESTEP ;
-			}
-			if (!fPort){
-				Log::e(PARSER,"server_port no encontrado, seteando default");
-				meta.serverPort = DEFAULT_SERVER_PORT ;
-			}
-			if (!fTimeOut){
-				Log::e(PARSER,"connectionTimeout no encontrado, seteando default");
-				meta.connTimeOut = DEFAULT_CONNEX_TIME_OUT ;
 			}
 			if (!fMaxPlay){
 				Log::e(PARSER,"max_player no encontrado, seteando default");
@@ -717,9 +672,6 @@ void ParserYaml::cargarNivelYaml(std::string file){
 				//exit(1);
 				this->todo.meta.epsilon = DEFAULT_EPSILON;
 				this->todo.meta.scale = DEFAULT_SCALE;
-				this->todo.meta.timestep = DEFAULT_TIMESTEP;
-				this->todo.meta.serverPort = DEFAULT_SERVER_PORT;
-				this->todo.meta.connTimeOut = DEFAULT_CONNEX_TIME_OUT;
 				this->todo.meta.maxPlay = DEFAULT_MAX_PLAY;
 				this->todo.meta.MaxPj = DEFAULT_MAX_PJ_PLAY;
 				Log::i(PARSER,"Metadata default cargada correctamente");
@@ -751,20 +703,11 @@ std::string ParserYaml::getMetaEps(){
 	return this->todo.meta.epsilon;
 }
 
-std::string ParserYaml::getMetaTime(){
-	return this->todo.meta.timestep;
-}
-
 std::string ParserYaml::getMetaSca(){
 	return this->todo.meta.scale;
 }
 
-std::string ParserYaml::getMetaPort(){
-	return this->todo.meta.serverPort;
-}
-std::string ParserYaml::getMetaTO(){
-	return this->todo.meta.connTimeOut;
-}
+
 std::string ParserYaml::getMetaMaxPlay(){
 	return this->todo.meta.maxPlay;
 }
