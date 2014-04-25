@@ -5,6 +5,7 @@
 
 enum Messages {
 	INIT=0,
+	LOGIN,
 	PLAYER,
 	UPDATE,
 	CONF,

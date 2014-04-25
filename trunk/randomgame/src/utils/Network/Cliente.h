@@ -8,12 +8,22 @@
 #include <vector>
 #include <list>
 
-typedef struct {
-	int wormid;
-	int action;
-} Playable;
 
 typedef std::string Player;
+
+typedef struct {
+	int wormid;
+	int action; //
+	int x; // X,Y alreaded passed to view coords.
+	int y; //
+} Playable;
+
+typedef struct{
+	Playable play;
+	Player pId;
+	Messages type;
+} Datagram;
+
 
 class Cliente {
 public:
@@ -43,6 +53,7 @@ private:
 
 	void getRemoteWorld();
 	int sendMsg(Messages type, std::vector<uint8_t> buffer);
+	int login();
 
 
 };
