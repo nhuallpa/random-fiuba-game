@@ -77,10 +77,26 @@ int Cliente::login(){
 	std::strcpy((char*)&msg.pId,this->pl.c_str()); // works?
 	printf("player id: %s",msg.pId.c_str());
 
+	this->sendDatagram(msg);
 	//Send login datagram
 
 	return 0;
 }
+
+
+int Cliente::sendDatagram(Datagram msg){
+
+	if ( !this->output.sendmsg(msg) ) {
+		//Log::e("connection error");
+		printf("Client: connection error");
+		return 1;
+	}
+	return 0;
+
+
+}
+
+
 
 void Cliente::getRemoteWorld() {
 	Messages type;

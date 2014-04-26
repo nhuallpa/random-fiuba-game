@@ -92,25 +92,89 @@ Socket Socket::init()
 	return retval;
 }
 
-// Socket::Socket (Socket&& origen) noexcept
-	// : usable(origen.usable)
-	// , fd(origen.fd)
-// {
-	// origen.usable = false;
-// }
-
-// Socket& Socket::operator= (Socket&& origen) noexcept
-// {
-	// using std::swap;
-	// swap(origen.usable, usable);
-	// swap(origen.fd, fd);
-	// return *this;
-// }
 
 Socket::~Socket(){
 	if (usable) {
 		closesocket(fd);
 	}
+}
+
+
+bool Socket::rcvmsg (Datagram &msg){
+
+	char buffer[MAX_MESSAGE_SIZE];
+	size_t retries = 0;
+	unsigned long messageSize;
+    
+	int nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
+
+	if (nBytes == SOCKET_ERROR){
+		return false;
+	}
+	
+	while(retries < 3){
+		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
+		if (nBytes == SOCKET_ERROR) {
+			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
+				retries++;
+				Sleep(10);
+				continue;
+			}
+			return false;
+		}
+
+	}
+	
+	memcpy(&msg,buffer,messageSize);
+
+	return true;
+	
+}
+
+
+bool Socket::sendmsg(Datagram msg){
+
+	size_t retries = 0;
+	char buffer[MAX_MESSAGE_SIZE];
+	size_t messageSize = sizeof(msg);
+	size_t datagramSize = htonl(messageSize); 
+	int nBytes;
+
+	nBytes = send(fd, (char*)&messageSize, sizeof(messageSize), 0);
+
+
+    if (nBytes == SOCKET_ERROR)
+    {
+        printf( "Client: Eh.. Send Failed\n");
+    }
+
+
+	if (!messageSize) {
+		
+		printf("Sending empty message");
+		return true;
+
+	}
+	printf("Send Bytes:  %d",messageSize);
+
+	memcpy(buffer,&msg,messageSize);
+
+	while(retries < 3){
+		nBytes = send(fd, buffer, messageSize, 0);
+	
+		if (nBytes == SOCKET_ERROR)
+		{
+			printf("Client: Too lazy to send it boss, sorry.\n");
+
+			if (errno == EAGAIN || errno == EWOULDBLOCK){
+				Sleep(10);
+				continue;
+			}
+			return false;
+		}
+		return true;
+	}
+
 }
 
 void Socket::connect2(std::string hostname, uint16_t port)
@@ -239,6 +303,10 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 	return true;
 	
 }
+
+
+
+
 
 void Socket::setListen (int tamCola)
 {
