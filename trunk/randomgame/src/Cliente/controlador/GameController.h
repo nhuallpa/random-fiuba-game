@@ -13,6 +13,14 @@ public:
 	bool isQuit();
 	GameController();
 	~GameController();
+	void addListener(OnClickListener* c);
+	void addListener(OnMovementListener* m);
+	void addListener(OnScrollListener* s);
+	void addListener(OnZoomListener* z);
+	void remuveListener(OnClickListener* c);
+	void remuveListener(OnMovementListener* m);
+	void remuveListener(OnScrollListener* s);
+	void remuveListener(OnZoomListener* z);
 private:
 	Context ctx;
 
