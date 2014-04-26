@@ -24,7 +24,7 @@ void Context::detect(){
 
 void Context::handleEvents(SDL_Event* e){
 	SDL_PumpEvents();
-	if(e->type == SDL_KEYDOWN){
+	if(this->isValidKey(e)){
 		state = state->execute(e, m_keys);
 	}
 	else if(e->type == SDL_QUIT){
@@ -34,5 +34,11 @@ void Context::handleEvents(SDL_Event* e){
 
 bool Context::isQuit(){
 	return quit;
+}
+
+
+bool Context::isValidKey(SDL_Event* e){
+	return ((e->type == SDL_KEYDOWN) 
+		||  (e->type == SDL_KEYUP));
 }
 

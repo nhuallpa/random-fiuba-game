@@ -3,9 +3,10 @@
 
 #include "..\Entity\ClickEvent.h"
 
-class Contract{
+class OnClickListener{
 	public:
-		void OnClick(ClickEvent e) = 0;
+		virtual ~OnClickListener() {}
+		virtual void OnClick(ClickEvent e) = 0;
 };
 
 #endif

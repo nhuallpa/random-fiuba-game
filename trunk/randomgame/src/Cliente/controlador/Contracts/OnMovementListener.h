@@ -3,9 +3,10 @@
 
 #include "..\Entity\MovementEvent.h"
 
-class Contract{
+class OnMovementListener{
 	public:
-		void OnMovement(MovementEvent e) = 0;
+		virtual ~OnMovementListener() {}
+		virtual void OnMovement(MovementEvent e) = 0;
 };
 
 #endif

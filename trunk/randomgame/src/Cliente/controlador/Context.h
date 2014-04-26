@@ -19,6 +19,7 @@ class Context{
 		State* state;
 		void handleEvents(SDL_Event* e);
 		void detect();
+		bool isValidKey(SDL_Event* e);
 };
 
 #endif /*__CONTEXT__*/
