@@ -11,9 +11,26 @@
 #include <string>
 #include <vector>
 
+#define MAX_MESSAGE_SIZE 4096
 
 // Link with ws2_32.lib
 #pragma comment(lib, "Ws2_32.lib")
+
+
+typedef std::string Player;
+
+typedef struct {
+	int wormid;
+	int action; //
+	int x; // X,Y alreaded passed to view coords.
+	int y; //
+} Playable;
+
+typedef struct{
+	Playable play;
+	Player pId;
+	Messages type;
+} Datagram;
 
 
 class Socket
@@ -33,6 +50,8 @@ public:
 	Socket init();
 	void connect2 (std::string hostname, uint16_t port);
 	bool sendmsg(Messages type, std::vector<uint8_t> datos);
+	bool sendmsg(Datagram msg);
+	bool rcvmsg(Datagram &msg);
 	bool rcvmsg(Messages &type, std::vector<uint8_t> &datos);
 
 	void setListen (int tamCola);

@@ -9,15 +9,7 @@
 #include "Thread.h"
 #include "Condition.h"
 
-typedef struct {
-	int wormid;
-	int action;
-} Playable;
 
-
-
-
-typedef std::string Player;
 
 
 
