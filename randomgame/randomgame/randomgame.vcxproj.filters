@@ -521,5 +521,8 @@
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Event.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

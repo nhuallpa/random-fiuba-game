@@ -1,7 +1,6 @@
 #ifndef __MOVEMENTEVENT__
 #define __MOVEMENTEVENT__
 
-
 enum Move {M_LEFT, 
 	       M_RIGHT, 
 		   M_UP,

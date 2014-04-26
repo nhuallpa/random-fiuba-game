@@ -11,6 +11,8 @@
 #include "Contracts\OnZoomListener.h"
 #include <SDL.h>
 #include <list>
+#include <map>
+#include "Entity\Event.h"
 
 using namespace std;
 
@@ -39,6 +41,17 @@ class Context{
 		void handleEvents(SDL_Event* e);
 		void detect();
 		bool isValidKey(SDL_Event* e);
+		enum LISTENER{CL, ML, SL, ZL};
+		map<LISTENER, Event> items;
+
+
+		
+		void notifier(pair<LISTENER, Event> item);
+		void notifierC(Event e);
+		void notifierM(Event e);
+		void notifierS(Event e);
+		void notifierZ(Event e);
+
 };
 
 #endif /*__CONTEXT__*/

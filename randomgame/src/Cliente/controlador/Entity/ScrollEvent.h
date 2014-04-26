@@ -30,6 +30,7 @@ class ScrollEvent{
 	public:
 		ScrollEvent(void);
 		~ScrollEvent(void);
+	Scroll scroll;
 };
 
 #endif
