@@ -25,6 +25,7 @@ void Context::detect(){
 void Context::handleEvents(SDL_Event* e){
 	SDL_PumpEvents();
 	if(this->isValidKey(e)){
+		//TODO: SEGUIR MANANA, TENGO QUE AGREGAR EL items
 		state = state->execute(e, m_keys);
 	}
 	else if(e->type == SDL_QUIT){
@@ -39,7 +40,9 @@ bool Context::isQuit(){
 
 bool Context::isValidKey(SDL_Event* e){
 	return ((e->type == SDL_KEYDOWN) 
-		||  (e->type == SDL_KEYUP));
+		||  (e->type == SDL_KEYUP)
+		||  (e->type == SDL_MOUSEWHEEL)
+		||  (e->type == SDL_MOUSEMOTION)	);
 }
 
 
