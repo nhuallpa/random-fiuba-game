@@ -117,3 +117,56 @@ void Context::remuveListener(OnZoomListener* z){
 	}
 }
 
+
+void Context::notifier(pair<LISTENER, Event> item){
+	switch(item.first){
+	case CL: this->notifierC(item.second);
+		break;
+	case ML: this->notifierM(item.second);
+		break;
+	case SL: this->notifierS(item.second);
+		break;
+	case ZL: this->notifierZ(item.second);
+		break;
+	default: ;
+	};
+}
+
+
+void Context::notifierC(Event e){
+	list<OnClickListener*>::iterator it;
+	ClickEvent c;
+	c.x = e.x;
+	c.y = e.y;
+	it = lClistener.begin();
+	for(; it != lClistener.end(); it++){
+		(*it)->OnClick(c);
+	}
+}
+void Context::notifierM(Event e){
+	list<OnMovementListener*>::iterator it;
+	MovementEvent m;
+	m.move = (Move)e.value;
+	it = lMlistener.begin();
+	for(; it != lMlistener.end(); it++){
+		(*it)->OnMovement(m);
+	}
+}
+void Context::notifierS(Event e){
+	list<OnScrollListener*>::iterator it;
+	ScrollEvent s;
+	s.scroll = (Scroll)e.value;
+	it = lSlistener.begin();
+	for(; it != lSlistener.end(); it++){
+		(*it)->OnScroll(s);
+	}
+}
+void Context::notifierZ(Event e){
+	list<OnZoomListener*>::iterator it;
+	ZoomEvent z;
+	z.zoom = (Zoom)e.value;
+	it = lZlistener.begin();
+	for(; it != lZlistener.end(); it++){
+		(*it)->OnZoom(z);
+	}
+}
