@@ -3,9 +3,10 @@
 
 #include "..\Entity\ScrollEvent.h"
 
-class Contract{
+class OnScrollListener{
 	public:
-		void OnScroll(ScrollEvent e) = 0;
+		virtual ~OnScrollListener() {}
+		virtual void OnScroll(ScrollEvent e) = 0;
 };
 
 #endif

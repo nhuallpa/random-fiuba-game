@@ -79,7 +79,7 @@ int Cliente::login(){
 
 	//Send login datagram
 
-
+	return 0;
 }
 
 void Cliente::getRemoteWorld() {

@@ -3,9 +3,10 @@
 
 #include "..\Entity\ZoomEvent.h"
 
-class Contract{
+class OnZoomListener{
 	public:
-		void OnZoom(ZoomEvent e) = 0;
+		virtual ~OnZoomListener() {}
+		virtual void OnZoom(ZoomEvent e) = 0;
 };
 
 #endif

@@ -6,6 +6,7 @@ class ClickEvent{
 	public:
 		ClickEvent(void);
 		~ClickEvent(void);
+		int x, y;
 };
 
 #endif
