@@ -42,3 +42,78 @@ bool Context::isValidKey(SDL_Event* e){
 		||  (e->type == SDL_KEYUP));
 }
 
+
+
+void Context::addListener(OnClickListener* c){
+	lClistener.push_back(c);
+}
+void Context::addListener(OnMovementListener* m){
+	lMlistener.push_back(m);
+}
+void Context::addListener(OnScrollListener* s){
+	lSlistener.push_back(s);
+}
+void Context::addListener(OnZoomListener* z){
+	lZlistener.push_back(z);
+}
+void Context::remuveListener(OnClickListener* c){
+	list<OnClickListener*>::iterator it;
+	list<OnClickListener*>::iterator itDrop;
+	it = lClistener.begin();
+	itDrop = lClistener.end();
+	for(; it != lClistener.end(); it++){
+		if((*it) == c){
+			itDrop = it;
+			break;
+		}
+	}
+	if(itDrop != lClistener.end()){
+		lClistener.erase(itDrop);
+	}
+}
+void Context::remuveListener(OnMovementListener* m){
+	list<OnMovementListener*>::iterator it;
+	list<OnMovementListener*>::iterator itDrop;
+	it = lMlistener.begin();
+	itDrop = lMlistener.end();
+	for(; it != lMlistener.end(); it++){
+		if((*it) == m){
+			itDrop = it;
+			break;
+		}
+	}
+	if(itDrop != lMlistener.end()){
+		lMlistener.erase(itDrop);
+	}
+}
+void Context::remuveListener(OnScrollListener* s){
+	list<OnScrollListener*>::iterator it;
+	list<OnScrollListener*>::iterator itDrop;
+	it = lSlistener.begin();
+	itDrop = lSlistener.end();
+	for(; it != lSlistener.end(); it++){
+		if((*it) == s){
+			itDrop = it;
+			break;
+		}
+	}
+	if(itDrop != lSlistener.end()){
+		lSlistener.erase(itDrop);
+	}
+}
+void Context::remuveListener(OnZoomListener* z){
+	list<OnZoomListener*>::iterator it;
+	list<OnZoomListener*>::iterator itDrop;
+	it = lZlistener.begin();
+	itDrop = lZlistener.end();
+	for(; it != lZlistener.end(); it++){
+		if((*it) == z){
+			itDrop = it;
+			break;
+		}
+	}
+	if(itDrop != lZlistener.end()){
+		lZlistener.erase(itDrop);
+	}
+}
+
