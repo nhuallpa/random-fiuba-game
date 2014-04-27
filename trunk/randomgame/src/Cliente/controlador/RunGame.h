@@ -15,7 +15,7 @@ class RunGame : public State{
 	public:
 		void handle(Contract* c);
 		static RunGame* getInstance();
-		State* execute(SDL_Event* e, const Uint8* keys);
+		State* execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec);
 
 	private:
 		RunGame(void);
@@ -25,6 +25,7 @@ class RunGame : public State{
 		void iniEvent();
 
 		//handle scroll
+		map<LISTENER,Event> *items;
 		Screen lastScreen;
 		PartialScreen* callScreen;
 		void detectMouse();

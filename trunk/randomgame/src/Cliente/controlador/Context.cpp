@@ -10,6 +10,19 @@ Context::~Context(){}
 void Context::request(Contract* c){
 	detect();
 	state->handle(c);
+	call();
+}
+
+void Context::call(){
+	map<LISTENER,Event>::iterator it;
+	
+	it = items.find(SL);
+	if(it != items.end()){
+		this->notifierS((*it).second);
+		//luego de notificar remuevo al item
+		items.erase(it);
+	}
+
 }
 
 void Context::detect(){
@@ -26,7 +39,7 @@ void Context::handleEvents(SDL_Event* e){
 	SDL_PumpEvents();
 	if(this->isValidKey(e)){
 		//TODO: SEGUIR MANANA, TENGO QUE AGREGAR EL items
-		state = state->execute(e, m_keys);
+		state = state->execute(e, m_keys, &items);
 	}
 	else if(e->type == SDL_QUIT){
 		quit = true;
