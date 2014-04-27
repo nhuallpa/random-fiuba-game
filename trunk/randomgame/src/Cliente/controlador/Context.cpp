@@ -22,6 +22,18 @@ void Context::call(){
 		//luego de notificar remuevo al item
 		items.erase(it);
 	}
+	it = items.find(ZL);
+	if(it != items.end()){
+		this->notifierZ((*it).second);
+		//luego de notificar remuevo al item
+		items.erase(it);
+	}
+	it = items.find(CL);
+	if(it != items.end()){
+		this->notifierC((*it).second);
+		//luego de notificar remuevo al item
+		items.erase(it);
+	}
 
 }
 
@@ -55,7 +67,8 @@ bool Context::isValidKey(SDL_Event* e){
 	return ((e->type == SDL_KEYDOWN) 
 		||  (e->type == SDL_KEYUP)
 		||  (e->type == SDL_MOUSEWHEEL)
-		||  (e->type == SDL_MOUSEMOTION)	);
+		||  (e->type == SDL_MOUSEMOTION)	
+		||  (e->type == SDL_MOUSEBUTTONDOWN)	);
 }
 
 
@@ -152,8 +165,7 @@ void Context::notifier(pair<LISTENER, Event> item){
 void Context::notifierC(Event e){
 	list<OnClickListener*>::iterator it;
 	ClickEvent c;
-	c.x = e.x;
-	c.y = e.y;
+	c.x = e.x, c.y = e.y, c.click = (Click) e.value;
 	it = lClistener.begin();
 	for(; it != lClistener.end(); it++){
 		(*it)->OnClick(c);

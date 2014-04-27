@@ -21,13 +21,11 @@ RunGame::~RunGame(void){}
 void RunGame::handle(Contract* c){
 	c->runGame();
 	SDL_PumpEvents();
-	//this->updateMouse();
 	this->detectMouse();
 	this->iniEvent();
 }
 
 void RunGame::iniEvent(){
-	map<LISTENER,Event>::iterator it;
 	Event e;
 	//scroll
 	if(lastScreen != callScreen->id){
@@ -49,7 +47,12 @@ RunGame* RunGame::getInstance(){
 
 State* RunGame::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec){
 	State* st = RunGame::getInstance();
-	items = vec;
+	this->items = vec;
+
+	wheel = e->wheel;
+	this->detectWheel();
+	this->detectClick();
+
 	if(keys[SDL_SCANCODE_S]){
 		st = IniGame::getInstance();
 	}
@@ -60,29 +63,6 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *ve
 	return st;
 }
 
-
-void RunGame::updateMouse(){
-	Uint32 button;
-	int x, y;
-	button = SDL_GetMouseState(&x, &y);
-	/*if((button & SDL_BUTTON(1)) == 1){
-		x = y;
-	}*/  //SDL_BUTTON_LEFT 1
-	if((button & SDL_BUTTON(2)) == 1) {
-		x = y;
-	}//SDL_BUTTON_MIDDLE 2
-	if((button & SDL_BUTTON(3)) == 1) {
-		x = y;
-	}//SDL_BUTTON_RIGHT 3
-	if((button & SDL_BUTTON(4)) == 1) {
-		x = y;
-	}//SDL_BUTTON_WHEELUP 4
-	if((button & SDL_BUTTON(5)) == 1) {
-		x = y;
-	}//SDL_BUTTON_WHEELDOWN 5
-}
-
-
 Side RunGame::GetCursorLook(int xr, int yr){
 	if(xr >= 0)
 		return S_RIGHT;
@@ -92,6 +72,44 @@ Side RunGame::GetCursorLook(int xr, int yr){
 		return S_DOWN;
 	else
 		return S_UP;
+}
+
+void RunGame::detectWheel(){
+	map<LISTENER,Event>::iterator it;
+	Event e;
+
+	it = items->find(ZL);
+	if(it == items->end()){
+		if(this->wheel.type == SDL_MOUSEWHEEL){
+			e.y = this->wheel.y;
+			if(this->wheel.y > 0){
+				e.value = 0;
+				items->insert(pair<LISTENER, Event>(ZL, e));
+			}
+			else{
+				e.value = 1;
+				items->insert(pair<LISTENER, Event>(ZL, e));
+			}
+		}
+	}
+
+}
+
+void RunGame::detectClick(){
+	map<LISTENER,Event>::iterator it;
+	Event e;
+
+	it = items->find(CL);
+	if(it == items->end()){
+		int x, y = 0;
+		Uint32 button = SDL_GetMouseState(&x, &y);
+		if(button & SDL_BUTTON(1)){
+			e.x = x, e.y = y, e.value = 0;
+			items->insert(pair<LISTENER,Event>(CL, e));
+		} 
+
+	}
+
 }
 
 void RunGame::detectMouse(){
