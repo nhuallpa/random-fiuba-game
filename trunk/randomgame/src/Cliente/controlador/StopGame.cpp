@@ -20,7 +20,7 @@ StopGame::StopGame(void){}
 StopGame::~StopGame(void){}
 
 
-State* StopGame::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec){
+State* StopGame::execute(SDL_Event* e, const Uint8* keys){
 	State* st = StopGame::getInstance();
 	if(keys[SDL_SCANCODE_S]){
 		State* stAux = RunGame::getInstance();

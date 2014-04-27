@@ -15,7 +15,8 @@ class RunGame : public State{
 	public:
 		void handle(Contract* c);
 		static RunGame* getInstance();
-		State* execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec);
+		State* execute(SDL_Event* e, const Uint8* keys);
+		void setBind(map<LISTENER, Event>* items);
 
 	private:
 		RunGame(void);
