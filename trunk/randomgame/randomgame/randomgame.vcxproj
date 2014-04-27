@@ -99,6 +99,7 @@
     <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WormView.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.cpp" />
@@ -117,6 +118,8 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\TerrainProcessor.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
@@ -183,6 +186,7 @@
     <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\WormView.h" />
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\TerrainImg.h" />
@@ -201,6 +205,8 @@
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h" />
     <ClInclude Include="..\src\Servidor\modelo\TerrainProcessor.h" />
     <ClInclude Include="..\src\SystemManager.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />

@@ -55,6 +55,12 @@
     <Filter Include="Archivos de código fuente\client\controller\Entity">
       <UniqueIdentifier>{3a5d01fe-d467-4a6e-9ca5-f7a800901fcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\server\model\Entities">
+      <UniqueIdentifier>{50955b6c-4925-4655-9c63-6477957027fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\server\model\physics\Bodies\Worm">
+      <UniqueIdentifier>{c8acbf93-244e-4259-a7be-571f5fea9130}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -281,6 +287,15 @@
     </ClCompile>
     <ClCompile Include="..\src\Cliente\controlador\Entity\PartialScreen.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +544,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\PartialScreen.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
