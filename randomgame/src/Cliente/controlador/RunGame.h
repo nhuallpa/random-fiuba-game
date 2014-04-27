@@ -32,6 +32,14 @@ class RunGame : public State{
 		void loadQuadrantFactory();
 		vector<PartialScreen*> screems;
 		Side GetCursorLook(int xr, int yr);
+
+
+		//handle wheel
+		SDL_MouseWheelEvent wheel;
+		void detectWheel();
+
+		//handle click
+		void detectClick();
 };
 
 #endif
