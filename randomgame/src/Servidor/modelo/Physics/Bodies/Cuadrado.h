@@ -1,8 +1,10 @@
 #ifndef CUADRADO_H_
 #define CUADRADO_H_
 
-
+#include <math.h>
+#include "../../../../utils/Log.h"
 #include "../Body.h"
+
 
 class Cuadrado: public Body{
 public:

@@ -15,20 +15,29 @@ bool movingRight;
 bool movingLeft;
 bool selected;
 
+
 public:
 Worm(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
 int getLife();
 void setLife(int newLife);
 void addLife(int moreLife);
 void subLife(int lessLife);
+
 void jump();
 void moveLeft();
 void moveRight();
 void stopMoving();
+
 bool isSelected();
+bool isJumping();
+bool isMovingRight();
+bool isMovingLeft();
+
 void select();
 void deselect();
 virtual ~Worm();
+
+
 
 };
 

@@ -61,6 +61,22 @@ bool Worm::isSelected()
 	return this->selected;
 }
 
+bool Worm::isJumping()
+{
+	return this->jumping;
+}
+
+bool Worm::isMovingLeft()
+{
+	return this->movingLeft;
+}
+
+bool Worm::isMovingRight()
+{
+	return this->movingRight;
+}
+
+
 void Worm::select()
 {
 	this->selected=true;

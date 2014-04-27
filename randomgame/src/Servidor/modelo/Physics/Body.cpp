@@ -18,5 +18,10 @@ Body::Body(ElementType type, b2Body *body, int posX, int posY, float h,
 	this->myWorld = myWorld;
 }
 
+float Body::getMass()
+{
+	return this->masa;
+}
+
 Body::~Body() {
 }

@@ -1,5 +1,6 @@
 #ifndef WORM2D_H_
 #define WORM2D_H_
+#include "../../../Entities/Worm.h"
 #include "../Cuadrado.h"
 #include "WormActions.h"
 

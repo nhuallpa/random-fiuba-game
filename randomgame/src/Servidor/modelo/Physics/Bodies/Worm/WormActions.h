@@ -1,6 +1,6 @@
 #ifndef WORMACTIONS_H_
 #define WORMACTIONS_H_
-
+#include "Worm2d.h"
 
 using namespace std;
 
