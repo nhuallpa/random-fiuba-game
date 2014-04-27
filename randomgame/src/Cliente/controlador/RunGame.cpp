@@ -45,13 +45,17 @@ RunGame* RunGame::getInstance(){
 }
 
 
-State* RunGame::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec){
+void RunGame::setBind(map<LISTENER, Event>* items){
+	this->items = items;
+}
+
+State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 	State* st = RunGame::getInstance();
-	this->items = vec;
+	
 
 	wheel = e->wheel;
 	this->detectWheel();
-	/*this->detectClick();*/
+	this->detectClick();
 
 	if(keys[SDL_SCANCODE_S]){
 		st = IniGame::getInstance();

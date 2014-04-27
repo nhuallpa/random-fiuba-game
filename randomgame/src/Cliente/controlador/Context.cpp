@@ -9,6 +9,7 @@ Context::Context(){
 Context::~Context(){}
 void Context::request(Contract* c){
 	detect();
+	state->setBind(&items);
 	state->handle(c);
 	call();
 }
@@ -19,19 +20,16 @@ void Context::call(){
 	it = items.find(SL);
 	if(it != items.end()){
 		this->notifierS((*it).second);
-		//luego de notificar remuevo al item
 		items.erase(it);
 	}
 	it = items.find(ZL);
 	if(it != items.end()){
 		this->notifierZ((*it).second);
-		//luego de notificar remuevo al item
 		items.erase(it);
 	}
 	it = items.find(CL);
 	if(it != items.end()){
 		this->notifierC((*it).second);
-		//luego de notificar remuevo al item
 		items.erase(it);
 	}
 
@@ -50,8 +48,7 @@ void Context::detect(){
 void Context::handleEvents(SDL_Event* e){
 	SDL_PumpEvents();
 	if(this->isValidKey(e)){
-		//TODO: SEGUIR MANANA, TENGO QUE AGREGAR EL items
-		state = state->execute(e, m_keys, &items);
+		state = state->execute(e, m_keys);
 	}
 	else if(e->type == SDL_QUIT){
 		quit = true;
@@ -67,7 +64,6 @@ bool Context::isValidKey(SDL_Event* e){
 	return ((e->type == SDL_KEYDOWN) 
 		||  (e->type == SDL_KEYUP)
 		||  (e->type == SDL_MOUSEWHEEL)
-		||  (e->type == SDL_MOUSEMOTION)	
 		||  (e->type == SDL_MOUSEBUTTONDOWN)	);
 }
 
