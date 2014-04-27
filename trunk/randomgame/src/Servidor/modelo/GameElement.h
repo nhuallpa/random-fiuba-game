@@ -20,6 +20,7 @@ enum ElementType{
 	TRIANGLE=2,
 	PENTA=3,
 	HEXAGON=4,
+	WORM=5,
 };
 
 
@@ -57,7 +58,7 @@ public:
 
 	float getRadiusScaled() {return radius * scale;}
 
-private:
+protected:
 	int id;
 	bool changed;
 	float ratio;

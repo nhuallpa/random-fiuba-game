@@ -10,7 +10,7 @@ public:
 		float w, float masa, float angle, b2World *myWorld, GameElement* modelElement, bool fixed);
 	virtual ~Cuadrado();
 	std::list<std::pair<float,float>> GetVertex();
-	void animate();
+	virtual void animate();
 	void touch(Body* touchingWith, b2World* mundo);
 	void setPosition(float x, float y,float rot);
 
