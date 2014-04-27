@@ -3,8 +3,9 @@
 
 //#include "../../../utils/Vec2.h"
 #include "../GameElement.h"
-#include <Box2D/Common/b2Math.h>
 
+#include <Box2D/Common/b2Math.h>
+#include <Box2D/Box2D.h>
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
@@ -35,7 +36,7 @@ public:
 	virtual void animate(){};
 
 	virtual void setPosition(float x, float y,float rot){};
-	
+	float getMass();
 	float width;
 	float height;
 	ElementType type;

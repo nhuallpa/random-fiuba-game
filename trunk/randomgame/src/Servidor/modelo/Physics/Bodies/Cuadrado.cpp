@@ -1,7 +1,5 @@
-#include <Box2D/Box2D.h>
-#include <math.h>
 #include "Cuadrado.h"
-#include "../../../../utils/Log.h"
+
 
 Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h, 
 		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement, bool fixed)
@@ -51,6 +49,7 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	ge->setVertexList(this->GetVertex());
+	this->masa=this->body->GetMass(); //extenderlo a los otros bodies o ARREGLARLO: (ToDo ARIEL)
 
 }
 
