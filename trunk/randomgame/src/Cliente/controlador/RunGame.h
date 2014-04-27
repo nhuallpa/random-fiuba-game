@@ -22,8 +22,11 @@ class RunGame : public State{
 		~RunGame(void);
 		static RunGame* runGame;
 		void updateMouse();
+		void iniEvent();
 
 		//handle scroll
+		Screen lastScreen;
+		PartialScreen* callScreen;
 		void detectMouse();
 		void loadQuadrantFactory();
 		vector<PartialScreen*> screems;
