@@ -9,13 +9,31 @@
 
 RunGame* RunGame::runGame = NULL;
 
-RunGame::RunGame(void){}
+RunGame::RunGame(void){
+	this->lastScreen = QUADRANT_9;
+	this->loadQuadrantFactory();
+	callScreen = new PartialScreen();
+	callScreen->id = QUADRANT_9;
+}
 
 RunGame::~RunGame(void){}
 
 void RunGame::handle(Contract* c){
 	c->runGame();
-	this->updateMouse();
+	SDL_PumpEvents();
+	//this->updateMouse();
+	this->detectMouse();
+	this->iniEvent();
+}
+
+void RunGame::iniEvent(){
+
+	//scroll
+	if(lastScreen != callScreen->id){
+		//cambio a otro evento
+		lastScreen = (Screen) callScreen->id;
+	}
+
 }
 
 RunGame* RunGame::getInstance(){
@@ -41,7 +59,6 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 
 void RunGame::updateMouse(){
 	Uint32 button;
-	SDL_PumpEvents();
 	int x, y;
 	button = SDL_GetMouseState(&x, &y);
 	/*if((button & SDL_BUTTON(1)) == 1){
@@ -86,12 +103,12 @@ void RunGame::detectMouse(){
 		it++){
 			result = (*it)->Inside(x, y, s);
 			if(result != NULL){
-			//	cout << "evento: " << result->id << endl;
+				callScreen = result;
 				break;
 			}
 	}
 	if(result == NULL){
-		//cout << "no hay evento" << endl;
+		//callScreen = result;
 	}
 }
 
