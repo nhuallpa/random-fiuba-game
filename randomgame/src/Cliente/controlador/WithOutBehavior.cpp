@@ -19,7 +19,7 @@ WithOutBeHavior::WithOutBeHavior(void){}
 WithOutBeHavior::~WithOutBeHavior(void){}
 
 
-State* WithOutBeHavior::execute(SDL_Event* e, const Uint8* keys){
+State* WithOutBeHavior::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec){
 	State* st = WithOutBeHavior::getInstance();
 	if(keys[SDL_SCANCODE_S]){
 		st = RunGame::getInstance();

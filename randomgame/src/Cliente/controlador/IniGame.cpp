@@ -19,7 +19,7 @@ IniGame* IniGame::getInstance(){
 IniGame::IniGame(void){}
 IniGame::~IniGame(void){}
 
-State* IniGame::execute(SDL_Event* e, const Uint8* keys){
+State* IniGame::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec){
 	State* st = IniGame::getInstance();
 	if(keys[SDL_SCANCODE_S]){
 		st = RunGame::getInstance();

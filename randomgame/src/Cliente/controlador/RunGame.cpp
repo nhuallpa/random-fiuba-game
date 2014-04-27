@@ -4,7 +4,7 @@
 #include "StopGame.h"
 
 #define DELTA 40
-#define WIDTH 600
+#define WIDTH 400
 #define HIGHT 400
 
 RunGame* RunGame::runGame = NULL;
@@ -27,11 +27,14 @@ void RunGame::handle(Contract* c){
 }
 
 void RunGame::iniEvent(){
-
+	map<LISTENER,Event>::iterator it;
+	Event e;
 	//scroll
 	if(lastScreen != callScreen->id){
 		//cambio a otro evento
 		lastScreen = (Screen) callScreen->id;
+		e.value = lastScreen;
+		items->insert(pair<LISTENER, Event>(SL, e));
 	}
 
 }
@@ -44,8 +47,9 @@ RunGame* RunGame::getInstance(){
 }
 
 
-State* RunGame::execute(SDL_Event* e, const Uint8* keys){
+State* RunGame::execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec){
 	State* st = RunGame::getInstance();
+	items = vec;
 	if(keys[SDL_SCANCODE_S]){
 		st = IniGame::getInstance();
 	}
@@ -121,12 +125,14 @@ void RunGame::loadQuadrantFactory(){
 	PartialScreen* s6 = new PartialScreen();
 	PartialScreen* s7 = new PartialScreen();
 	PartialScreen* s8 = new PartialScreen();
+	PartialScreen* s9 = new PartialScreen();
 
 	//seteo id
 	s1->id = QUADRANT_1, s2->id = QUADRANT_2;
 	s3->id = QUADRANT_3, s4->id = QUADRANT_4;
 	s5->id = QUADRANT_5, s6->id = QUADRANT_6;
 	s7->id = QUADRANT_7, s8->id = QUADRANT_8;
+	s9->id = QUADRANT_9;
 
 	//seteo rangos
 	s1->xFrom = 0, s1->xTo = DELTA, s1->yFrom = 0, s1->yTo = DELTA;
@@ -137,6 +143,7 @@ void RunGame::loadQuadrantFactory(){
 	s6->xFrom = DELTA, s6->xTo = WIDTH - DELTA, s6->yFrom = HIGHT - DELTA, s6->yTo = HIGHT;
 	s7->xFrom = 0, s7->xTo = DELTA, s7->yFrom = DELTA, s7->yTo = HIGHT - DELTA;
 	s8->xFrom = WIDTH - DELTA, s8->xTo = WIDTH, s8->yFrom = DELTA, s8->yTo = HIGHT - DELTA;
+	s9->xFrom = DELTA, s9->xTo = WIDTH - DELTA, s9->yFrom = DELTA, s9->yTo = HIGHT - DELTA;
 
 	//Seteo relaciones
 	s1->dir.insert(pair<int, Side>(QUADRANT_5, S_RIGHT));
@@ -171,11 +178,19 @@ void RunGame::loadQuadrantFactory(){
 	s8->dir.insert(pair<int, Side>(QUADRANT_4, S_DOWN));
 	s8->addRelationScreen(s2), s8->addRelationScreen(s4);
 
+	s9->dir.insert(pair<int, Side>(QUADRANT_5, S_UP));
+	s9->dir.insert(pair<int, Side>(QUADRANT_6, S_DOWN));
+	s9->dir.insert(pair<int, Side>(QUADRANT_7, S_LEFT));
+	s9->dir.insert(pair<int, Side>(QUADRANT_8, S_RIGHT));
+	s9->addRelationScreen(s5), s9->addRelationScreen(s6);
+	s9->addRelationScreen(s7), s9->addRelationScreen(s8);
+
 	//Los agrego para luego recorrerlos
 	screems.push_back(s1), screems.push_back(s2);
 	screems.push_back(s3), screems.push_back(s4);
 	screems.push_back(s5), screems.push_back(s6);
 	screems.push_back(s7), screems.push_back(s8);
+	screems.push_back(s9);
 }
 
 

@@ -7,7 +7,7 @@ class WithOutBeHavior : public State{
 	public:
 		void handle(Contract* c);
 		static WithOutBeHavior* getInstance();
-		State* execute(SDL_Event* e, const Uint8* keys);
+		State* execute(SDL_Event* e, const Uint8* keys, map<LISTENER,Event> *vec);
 	private:
 		WithOutBeHavior(void);
 		~WithOutBeHavior(void);

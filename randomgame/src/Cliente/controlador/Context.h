@@ -41,11 +41,10 @@ class Context{
 		void handleEvents(SDL_Event* e);
 		void detect();
 		bool isValidKey(SDL_Event* e);
-		enum LISTENER{CL, ML, SL, ZL};
 		map<LISTENER, Event> items;
-
-
 		
+
+		void call();
 		void notifier(pair<LISTENER, Event> item);
 		void notifierC(Event e);
 		void notifierM(Event e);
