@@ -1,5 +1,7 @@
 #pragma once
 
+#define TIME_STEP 5
+
 #define MENU_WIDTH  140
 #define USER_BAR_HEIGHT 80
 

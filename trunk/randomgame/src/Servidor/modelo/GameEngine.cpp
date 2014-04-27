@@ -28,7 +28,7 @@ bool GameEngine::initWorld(){
 	//Create terrain from BMP
 	ParserYaml* aParser=ParserYaml::getInstance();
 
-//	this->timeStep = 1.0 / Util::string2float(aParser->getMetaTime());
+	this->timeStep = 1.0 / TIME_STEP;//Util::string2float(aParser->getMetaTime());
 	Log::i("TimeStep: %f",this->timeStep);
 
 	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()));
