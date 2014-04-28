@@ -105,6 +105,10 @@ int Servidor::wait4Connections(void* data){
 			dataCliente->clientO = sClientO;
 		
 			//ToDo: ocupar el map/list de clientes conectados
+			
+			
+
+
 
 			Thread clientThread("Client Thread",initClient,dataCliente);
 
@@ -170,19 +174,27 @@ int Servidor::initClient(void* data){
 	std::vector<uint8_t> keepaliveData(10);
 	Messages keepaliveMsg = KEEPALIVE;
 	Messages type = UPDATE;
+	Datagram* datagram = new Datagram();
 
+
+	// Receive LOGIN info
+	if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
+		printf("\nDesconectando cliente at login");
+		srv->disconnect(*playerId);
+		return 1;
+	}
+
+	//Send World info to client
 	((threadData*)data)->clientI.sendmsg(type,datos);
 	printf("\nEnviando data al cliente");
 
-	srv->pList.insert(std::make_pair("1",
-		std::make_pair( ((threadData*)data)->clientO.getFD(),
-		((threadData*)data)->clientI.getFD()))
-					 );
+
+
 
 	int activeClient=1;
 		try {
 		while (activeClient) {
-			if (! ((threadData*)data)->clientO.rcvmsg(type, datos)) {
+			if (! ((threadData*)data)->clientO.rcvmsg(type,datos)) {
 				printf("\nDesconectando cliente");
 				srv->disconnect(*playerId);
 				activeClient=0;
@@ -192,7 +204,7 @@ int Servidor::initClient(void* data){
 			// Got something ;)
 			m->lock();
 			try{
-				printf("\nGot something ;)");
+				//printf("\nGot something ;)");
 			}catch(...){
 				m->unlock();
 				throw std::current_exception();
@@ -216,10 +228,16 @@ int Servidor::initClient(void* data){
 				((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
 
 				break;
+			case LOGIN:
+				((threadData*)data)->clientI.sendmsg(type,datos);
+				printf("\nEnviando data al cliente");
+
+				break;
 			}
 		}
 	} catch (...) {
 		//srv->desconectar(playerId);
+		throw std::current_exception();
 	}
 	printf("\nAbandonando cliente\n");
 
@@ -315,10 +333,10 @@ void Servidor::notifyReject(Socket& client) {
 
 void Servidor::disconnect(Player playerId) {
 	
-	printf("\nReleasing player: %s\n",playerId.c_str());
-	closesocket(this->pList[playerId].first);
-	closesocket(this->pList[playerId].second);
-	this->pList.erase(playerId);
+	//printf("\nReleasing player: %s\n",playerId.c_str());
+	//closesocket(this->pList[playerId].first);
+	//closesocket(this->pList[playerId].second);
+	//this->pList.erase(playerId);
 	this->jugadoresConectados--;
 
 }
