@@ -28,7 +28,7 @@ typedef struct {
 
 typedef struct{
 	Playable play;
-	Player pId;
+	Player playerID;
 	Messages type;
 } Datagram;
 

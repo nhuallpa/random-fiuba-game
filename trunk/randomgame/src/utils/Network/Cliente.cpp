@@ -49,7 +49,7 @@ Cliente::~Cliente() {
 }
 
 int Cliente::keepalive(void* data){
-	printf("Disparado cliente");
+	printf("Disparado keepalive thread");
 	Cliente* cli = ((threadData*)data)->cli;
 	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
 	std::string* playerId = &((threadData*)data)->p;
@@ -74,8 +74,8 @@ int Cliente::login(){
 	Datagram msg;
 
 	msg.type = LOGIN;
-	std::strcpy((char*)&msg.pId,this->pl.c_str()); // works?
-	printf("player id: %s",msg.pId.c_str());
+	std::strcpy((char*)&msg.playerID,this->pl.c_str()); // works?
+	printf("\nplayer id: %s",msg.playerID.c_str());
 
 	this->sendDatagram(msg);
 	//Send login datagram
@@ -88,7 +88,7 @@ int Cliente::sendDatagram(Datagram msg){
 
 	if ( !this->output.sendmsg(msg) ) {
 		//Log::e("connection error");
-		printf("Client: connection error");
+		printf("\nClient: connection error");
 		return 1;
 	}
 	return 0;
@@ -99,18 +99,38 @@ int Cliente::sendDatagram(Datagram msg){
 
 
 void Cliente::getRemoteWorld() {
-	Messages type;
+	Messages type = LOGIN;
 	std::vector<uint8_t> datos;
+	std::vector<uint8_t> buffer;
+
 	
+	printf("\nClient: Getting world");
+
 	//Login to server
+	/*buffer.push_back(uint8_t(pl));*/
 
+	Datagram msg;
 
+	msg.type = LOGIN;
+	msg.playerID = "PL1"; // works?
+	printf("\nLogin player id: %s",msg.playerID.c_str());
+
+	if ( !this->output.sendmsg(msg) ) {
+		//Log::e("connection error");
+		printf("\nClient: connection error");
+		return;
+	}
+
+		printf("\nSTART - Retrieving data from server");
 	if (!this->input.rcvmsg(type, datos)) {
 		//Log::e("connection error");
 		printf("\nClient: connection error - Server disconnected/not responding");
 		return;
 	}
-	printf("\nRetrieving data from server");
+		printf("\nDONE - Retrieving data from server");
+
+
+
 
 	switch (type) {
 	case Messages::PLAYER:
@@ -129,6 +149,8 @@ void Cliente::getRemoteWorld() {
 
 		break;
 	}
+
+
 }
 
 bool Cliente::serverAlive () {
