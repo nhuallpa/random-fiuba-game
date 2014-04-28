@@ -81,6 +81,20 @@ public:
 	void drawBackground(std::string id, SDL_Renderer* pRenderer, 
 						SDL_RendererFlip flip = SDL_FLIP_NONE) ;
 
+	/**
+	*
+	*/
+	void drawImageOffset(std::string id,
+								int x, int y, int widthCamera, int heightCamera,
+								SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+	/*
+	* Gets the dimension of an image
+	* @param imageId The image id
+	* @return Dimension width and height
+	**/
+	std::pair<int, int> getDimension(std::string imageId);
+
 	~TextureManager(void);
 };
 

@@ -21,7 +21,10 @@ ViewGroup::~ViewGroup(void)
 
 void ViewGroup::add(View* aView)
 {
-	this->views.push_back(aView);
+	if (aView!=NULL) {
+		this->views.push_back(aView);
+		aView->setParent(this);
+	}
 }
 
 void ViewGroup::clean()

@@ -20,7 +20,7 @@ public:
 	
 	SDLScreen(void);
 
-	bool init(const char* title, int xpos, int ypos, int width,
+	void init(const char* title, int xpos, int ypos, int width,
 			int height, int flags);
 	
 	void clear();

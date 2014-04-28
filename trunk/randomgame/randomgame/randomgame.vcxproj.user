@@ -6,7 +6,7 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>res/levels/modeloVistaSinEstirar.yaml</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>res/levels/level.yaml</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

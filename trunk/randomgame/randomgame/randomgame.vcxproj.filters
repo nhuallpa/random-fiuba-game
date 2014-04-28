@@ -297,6 +297,9 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp">
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\EartView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -553,6 +556,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h">
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\EartView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

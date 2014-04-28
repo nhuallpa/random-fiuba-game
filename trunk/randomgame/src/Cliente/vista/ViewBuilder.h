@@ -52,6 +52,9 @@ public:
 	*/
 	virtual void buildTerrain(ViewGroup* container) = 0;
 
+
+	virtual void buildEart(ViewGroup* container)=0;
+
 	~ViewBuilder(void);
 };
 

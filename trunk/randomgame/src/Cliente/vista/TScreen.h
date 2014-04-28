@@ -15,7 +15,7 @@ public:
 	TScreen(void);
 
 	/*** Inicialize the screen*/
-	virtual bool init(const char* title, int xpos, int ypos, int width,
+	virtual void init(const char* title, int xpos, int ypos, int width,
 			int height, int flags) = 0;
 	/*** Clear the screen*/
 	virtual void clear() = 0;

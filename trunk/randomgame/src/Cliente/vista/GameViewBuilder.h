@@ -15,8 +15,10 @@
 #include "TerrainView.h"
 #include "WormView.h"
 #include "ViewBuilder.h"
+#include "EartView.h"
 #include "SpriteConfigurator.h"
 #include "../../utils/Util.h"
+#include "../../utils/Constantes/Constantes.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../../Servidor/modelo/GameLevel.h"
 
@@ -45,6 +47,8 @@ public:
 	void buildTerrain(ViewGroup* container);
 
 	void buildCharacters(ViewGroup* container);
+
+	void buildEart(ViewGroup* container);
 };
 
 #endif /**__GAME_VIEW_BUILDER_H__*/

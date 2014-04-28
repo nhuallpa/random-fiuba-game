@@ -20,9 +20,7 @@ void Bootstrap::init()
 
 	std::map<std::string, std::string> map_images;
 	map_images["sky"] = aParser->getEscenarioCielo();
-	
-
-	
+	map_images["eart"] = aParser->getEscenarioTierra();
 
 	std::map<std::string, std::string>::iterator it;
 	for (it=map_images.begin(); it!=map_images.end(); ++it) {
@@ -45,11 +43,8 @@ void Bootstrap::loadSprites()
 	try 
 		{
 			
-			TextureManager::Instance().load("res/images/wwalk_left.png", "wwalk_left", this->getScreen().getRenderer());
-			TextureManager::Instance().load("res/images/wwalk_right.png", "wwalk_right", this->getScreen().getRenderer());
-
-			SpriteConfigurator::Instance().add("wwalk_left", 60, 60, 15, 2);
-			SpriteConfigurator::Instance().add("wwalk_right", 60, 60, 15, 2);
+			TextureManager::Instance().load("res/images/wwalk.png", "wwalk", this->getScreen().getRenderer());
+			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 1);
 
 		} catch (GameException & e) 
 		{
