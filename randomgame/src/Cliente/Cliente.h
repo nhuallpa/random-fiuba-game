@@ -7,6 +7,7 @@
 #include "controlador/GameController.h"
 #include "../Servidor/Servidor.h"
 #include "vista/GameViewBuilder.h"
+#include <SDL2_framerate.h>
 
 
 

@@ -6,7 +6,7 @@ SDLScreen::SDLScreen()
 {
 }
 
-bool SDLScreen::init(const char* title, int xpos, int ypos, int width,
+void SDLScreen::init(const char* title, int xpos, int ypos, int width,
 			int height, int flags)
 {
 	this->title.append(title);
@@ -17,22 +17,24 @@ bool SDLScreen::init(const char* title, int xpos, int ypos, int width,
 	{
 		this->height = height;
 		this->width = width;
-		renderer = SDL_CreateRenderer(m_pWindow, -1, 0);
+		renderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_SOFTWARE);
 		if(renderer != 0) // renderer init success
 		{
 
 			SDL_SetRenderDrawColor(renderer,
 			0,0,0,0);
+
+			SDL_RenderSetScale(renderer, 0.8, 0.8);
 		}
 		else
 		{
 
-			return false; // renderer init fail
+			//return false; // renderer init fail
 		}
 	}
 	else
 	{
-		return false; // window init fail
+		//return false; // window init fail
 	}
 }	
 

@@ -85,6 +85,7 @@
     <ClCompile Include="..\src\Cliente\controlador\WithOutBehavior.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\EartView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\src\Cliente\controlador\WithOutBehavior.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
+    <ClInclude Include="..\src\Cliente\vista\EartView.h" />
     <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />

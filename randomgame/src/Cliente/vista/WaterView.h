@@ -3,10 +3,10 @@
 #define __WATERVIEW_H__
 #include "TextureManager.h"
 #include "View.h"
+#include "ViewGroup.h"
 class WaterView : public View
 {
 private:
-
 	int height;
 public:
 	

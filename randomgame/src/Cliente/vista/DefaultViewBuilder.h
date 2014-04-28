@@ -10,6 +10,7 @@
 #include "CircleView.h"
 #include "TriangleView.h"
 #include "TerrainView.h"
+
 #include "ViewBuilder.h"
 
 class DefaultViewBuilder :	public ViewBuilder

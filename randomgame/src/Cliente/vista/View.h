@@ -10,7 +10,7 @@
 #include "GameException.h"
 #include "../../utils/Util.h"
 
-
+class ViewGroup;
 class View
 {
 	int x;
@@ -18,11 +18,18 @@ class View
 	std::string color;
 	std::string borderColor;
 	
+	ViewGroup* parent;
+
 	Uint32 convertToInt(std::string aColor);
 	
 public:
 	View(int x, int y, std::string color = DEFAULT_COLOR);
+
 	virtual ~View(void);
+
+	void setParent(ViewGroup* parent) { this->parent = parent; }
+
+	ViewGroup* getParent() { return this->parent; }
 
 	/** Set the view to initial state */
 	virtual void clean();

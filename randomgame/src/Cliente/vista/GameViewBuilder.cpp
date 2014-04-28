@@ -13,7 +13,9 @@ GameViewBuilder::~GameViewBuilder(void)
 
 ViewGroup* GameViewBuilder::buildContainer()
 {
-	return new ViewGroup(0,0,0,0);
+
+	std::pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
+	return new ViewGroup(0,0,dimension.first, dimension.second);
 }
 
 FigureViewGroup* GameViewBuilder::buildFigureContainer()
@@ -24,6 +26,11 @@ FigureViewGroup* GameViewBuilder::buildFigureContainer()
 void GameViewBuilder::buildSky(ViewGroup* container)
 {
 	container->add(new SkyView("sky"));
+}
+
+void GameViewBuilder::buildEart(ViewGroup* container)
+{
+	container->add(new EartView("eart"));
 }
 
 void GameViewBuilder::buildFigures(FigureViewGroup* container)
@@ -39,7 +46,7 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 		GameElement* domainElement = it->second;
 		FigureView* aFigure = 0;
 		std::string color= aParser->getColorById(Util::int2string(domainElement->getId()));
-		if (domainElement->getType() == ElementType::CIRCLE) 
+		if (domainElement->getType() == CIRCLE) 
 		{
 			Log::d("Creando CIRCULO");
 
@@ -54,7 +61,7 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 			aFigure = aCircle;
 
 		} 
-		else if (domainElement->getType() == ElementType::SQUARE) 
+		else if (domainElement->getType() == SQUARE) 
 		{
 			Log::d("Creando RECTANGULO");
 			RectangleView* aRectangle = new RectangleView(color);
@@ -62,7 +69,7 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 			aRectangle->setId(domainElement->getId());
 			aFigure = aRectangle;
 		}
-		else if (domainElement->getType() == ElementType::TRIANGLE) 
+		else if (domainElement->getType() == TRIANGLE) 
 		{
 			Log::d("Creando TRIANGULO");
 			TriangleView* aTriangle = new TriangleView(color);
@@ -70,7 +77,7 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 			aTriangle->setId(domainElement->getId());
 			aFigure = aTriangle;
 		}
-		else if (domainElement->getType() == ElementType::PENTA) 
+		else if (domainElement->getType() == PENTA) 
 		{
 			Log::d("Creando PENTAGONO");
 			PentagonView* aPentagon = new PentagonView(color);
@@ -78,7 +85,7 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 			aPentagon->setId(domainElement->getId());
 			aFigure = aPentagon;
 		}
-		else if (domainElement->getType() == ElementType::HEXAGON) 
+		else if (domainElement->getType() == HEXAGON) 
 		{
 			Log::d("Creando HEXAGONO");
 			HexagonView* aHexagon = new HexagonView(color);
@@ -100,10 +107,8 @@ void GameViewBuilder::buildWater(ViewGroup* container)
 	ParserYaml* aParser = ParserYaml::getInstance();
 	std::string color = aParser->getEscenarioColorAgua();
 	
-	/*** TODO: retrive from domain*/
-	
-	std::pair<float, float> scale_factor = Util::getTransformFromU2PX();
-	int heigth = (int)(this->cLevel->getWaterLevel() * scale_factor.second);
+	int scale = ESCALA_UL2PX;
+	int heigth = (int)(this->cLevel->getWaterLevel() * scale);
 	
 	container->add(new WaterView(heigth, color)); 
 }
@@ -155,13 +160,12 @@ void GameViewBuilder::buildTerrain(ViewGroup* container)
 
 void GameViewBuilder::buildCharacters(ViewGroup* container)
 {
-	WormView* aWorm = new WormView(90, 50, 50);
+	WormView* aWorm = new WormView(90, 30, 50);
 
 	// todo: obtener los id de sprite del yaml
 	try 
 	{
-		aWorm->setSpriteWalkLeft(SpriteConfigurator::Instance().get("wwalk_left"));
-		aWorm->setSpriteWalkRight(SpriteConfigurator::Instance().get("wwalk_right"));
+		aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
 	} 
 	catch (std::exception & e) 
 	{

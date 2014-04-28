@@ -11,8 +11,7 @@ class WormView: public View
 	
 	Sprite* currentSprite;
 
-	Sprite spriteWalkRight;
-	Sprite spriteWalkLeft;
+	Sprite spriteWalk;
 	Sprite spriteJump;
 
 public:
@@ -25,8 +24,7 @@ public:
 	void draw(SDLScreen & screen);
 
 
-	void setSpriteWalkLeft(Sprite spriteWalkLeft) {this->spriteWalkLeft = spriteWalkLeft;}
-	void setSpriteWalkRight(Sprite spriteWalkRight) {this->spriteWalkRight = spriteWalkRight;}
+	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
 
 	~WormView(void);

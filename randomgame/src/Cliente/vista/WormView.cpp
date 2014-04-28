@@ -4,7 +4,7 @@
 WormView::WormView(int id, int x, int y)
 	: View(x, y), id(id)
 {
-	currentSprite = &this->spriteWalkRight;
+	currentSprite = &this->spriteWalk;
 }
 
 
@@ -32,6 +32,6 @@ void WormView::draw(SDLScreen & screen)
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
 										currentSprite->getCurrentFrame(), 
-										screen.getRenderer());
+										screen.getRenderer(), SDL_FLIP_HORIZONTAL);
 
 }

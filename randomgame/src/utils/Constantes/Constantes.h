@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __COSNTANTES__H_
+#define __COSNTANTES__H_
+
 #define TIME_STEP 30.0
 
 #define MENU_WIDTH  140
@@ -39,9 +42,8 @@
 /** Archivo de configuracion que reune todos los valores constantes que se utilizan en el proyecto **/
 /****************************************************************************************************/
 
-/**************************** Directorios ****************************/
-#define DIRECTORIO_IMG "image/"
-#define DIRECTORIO_CONFIG "config/"
+/** 1 Unidad logica equivale a 10 pixels*/
+#define ESCALA_UL2PX  10
 
 /**************************** Log ****************************/
 #define LOG_RUTA "./DI_Log.txt"
@@ -121,3 +123,5 @@
 
 
 #define LOG_PATH "./LOG"
+
+#endif /*__COSNTANTES__H_*/
