@@ -113,16 +113,16 @@ bool Socket::rcvmsg (Datagram &msg){
 	}
 	
 	messageSize = ntohl(messageSize); 
-	printf("\nGet %d bytes",messageSize);
+	//printf("\nGet %d bytes",messageSize);
 
 	while(retries < 3){
 		int nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
-		printf("\nGetted %d bytes of 4096",nBytes);
+		//printf("\nGetted %d bytes of 4096",nBytes);
 		if (nBytes == SOCKET_ERROR) {
 			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
 				retries++;
 				Sleep(10);
-				printf("\nRe-trying");
+				//printf("\nRe-trying");
 				continue;
 			}
 			printf("\nError getting message body");
@@ -131,8 +131,10 @@ bool Socket::rcvmsg (Datagram &msg){
 		break;
 
 	}
-	printf("\nOK");
+	//printf("\nOK");
 	memcpy(&msg,buffer,messageSize);
+	
+	//printf("\nbuffer player: %s",msg.playerID.c_str() );
 
 	return true;
 	
@@ -162,14 +164,14 @@ bool Socket::sendmsg(Datagram msg){
 		return false;
 
 	}
-	printf("Send Bytes:  %d",messageSize);
+	//printf("Send Bytes:  %d",messageSize);
 
 
 	memcpy(&buffer,&msg,messageSize);
 
 	while(retries < 3){
 		nBytes = send(fd, buffer, messageSize, 0);
-		printf("\n Client send %d bytes",nBytes);
+		//printf("\n Client send %d bytes",nBytes);
 		if (nBytes == SOCKET_ERROR)
 		{
 			printf("Client: Too lazy to send it boss, sorry.\n");
@@ -181,7 +183,7 @@ bool Socket::sendmsg(Datagram msg){
 			}
 			return false;
 		}
-		printf("Client: Sended OK.\n");
+		//printf("Client: Sended OK.\n");
 		return true;
 	}
 	printf("Client: Failed to send after several retries.\n");
@@ -252,7 +254,7 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 		printf("Sending empty message");
 
 	}
-	printf("\nSending bytes: %d",datos.size() );
+	//printf("\nSending bytes: %d",datos.size() );
 	while (aEnviar != 0) {
 		int bytes = send(fd, (char*)(&datos[base]), aEnviar, 0);
 		if (bytes == -1) {
@@ -266,7 +268,7 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 					continue;
 				}
 			}
-			//Log::e("Failed to send msg");
+			
 			printf("\nFailed to send msg");
 			return false;
 		} else if (bytes == 0) {
@@ -291,6 +293,7 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 	int bytes;
 	while (aRecibir != 0) {
 		bytes = recv(fd, (char*)(&datosRetorno[base]), aRecibir, 0);
+		
 		if (bytes == -1) {
 			if (errno == EINTR) {
 				continue;
@@ -313,7 +316,7 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 	}
 	using std::swap;
 	swap(datos, datosRetorno);
-	printf("\nGet %d bytes",bytes);
+	//printf("\nGet %d bytes",bytes);
 	return true;
 	
 }

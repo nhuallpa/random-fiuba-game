@@ -4,6 +4,8 @@
 #include "Socket.h"
 #include "Messages.h"
 #include "Thread.h"
+#include "Condition.h"
+
 #include <string>
 #include <vector>
 #include <list>
@@ -20,7 +22,8 @@ public:
 	bool serverAlive();
 
 	static int keepalive(void* data);
-
+	static int notifyLocalUpdates(void* data);
+	static int applyNetworkChanges(void* data);
 
 private:
 	Socket input;
@@ -33,9 +36,11 @@ private:
 	bool srvStatus;
 
 	Mutex m;
+	Condition somethingToTell;
 
-	std::list<Playable> localChanges;
-	std::list<Playable> networkChanges;
+	size_t revision;
+	std::vector<Playable> localChanges;
+	std::vector<Playable> networkChanges;
 
 	void getRemoteWorld();
 	int sendMsg(Messages type, std::vector<uint8_t> buffer);
@@ -49,7 +54,7 @@ typedef struct{
 	Cliente* cli;
 	Socket clientO;
 	Socket clientI;
-	Player p;
+	char p[15];
 } threadData;
 
 #endif /* CLIENTE_H_ */
