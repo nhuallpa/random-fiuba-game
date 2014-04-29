@@ -1,6 +1,5 @@
 #include "PartialScreen.h"
 
-
 PartialScreen::PartialScreen()
 {
 }
@@ -8,6 +7,10 @@ PartialScreen::PartialScreen()
 
 PartialScreen::~PartialScreen(void)
 {
+}
+void PartialScreen::getSpeed(int* x, int* y){
+	(*x) = (this->xlimit - this->x)*this->xDir;
+	(*y) = (this->ylimit - this->y)*this->yDir;
 }
 
 PartialScreen* PartialScreen::Inside(int x, int y, Side s){

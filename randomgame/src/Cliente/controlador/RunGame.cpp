@@ -22,20 +22,21 @@ void RunGame::handle(Contract* c){
 	c->runGame();
 	SDL_PumpEvents();
 	this->detectMouse();
-	this->iniEvent();
+	//this->iniEvent();
 }
-
+/*
 void RunGame::iniEvent(){
 	Event e;
 	//scroll
-	if(lastScreen != callScreen->id){
+	//if(lastScreen != callScreen->id){
 		//cambio a otro evento
-		lastScreen = (Screen) callScreen->id;
-		e.value = lastScreen;
+		//lastScreen = (Screen) callScreen->id;
+		callScreen->getSpeed(&e.x,&e.y);
+		
 		items->insert(pair<LISTENER, Event>(SL, e));
-	}
+	//}
 
-}
+}*/
 
 RunGame* RunGame::getInstance(){
 	if(!runGame){
@@ -56,6 +57,7 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 	wheel = e->wheel;
 	this->detectWheel();
 	this->detectClick();
+	//this->detectMovem(e);
 
 	if(keys[SDL_SCANCODE_S]){
 		st = IniGame::getInstance();
@@ -110,13 +112,47 @@ void RunGame::detectClick(){
 		if(button & SDL_BUTTON(1)){
 			e.x = x, e.y = y, e.value = 0;
 			items->insert(pair<LISTENER,Event>(CL, e));
-		} 
-
+		}
 	}
+}
+void RunGame::detectMovem(SDL_Event* e){
+	map<LISTENER,Event>::iterator it;
+	Event ee;
+	SDL_Scancode sc;
+	it = items->find(ML);
+	if(it == items->end()){
+		switch(e->type){
+			sc = e->key.keysym.scancode;
+		case SDL_KEYDOWN:
+			switch(sc){
+				case SDL_SCANCODE_LEFT:
+				
+					break;
+				case SDL_SCANCODE_RIGHT:
+				
+					break;
+				default:;
+			}
+			switch(sc){
+				case SDL_SCANCODE_UP:
+				
+					break;
+				case SDL_SCANCODE_DOWN:
+				
+					break;
+				default:;
+			}
+			break;
+		case SDL_KEYUP:
 
+			break;
+		default:;
+		}
+	}
 }
 
 void RunGame::detectMouse(){
+	Event e;
 	vector<PartialScreen*>::iterator it;
 	PartialScreen* result = NULL;
 	Side s;
@@ -130,12 +166,13 @@ void RunGame::detectMouse(){
 			result = (*it)->Inside(x, y, s);
 			if(result != NULL){
 				callScreen = result;
+				callScreen->x = x;
+				callScreen->y = y;
 				break;
 			}
 	}
-	if(result == NULL){
-		//callScreen = result;
-	}
+	callScreen->getSpeed(&e.x,&e.y);
+	items->insert(pair<LISTENER, Event>(SL, e));
 }
 
 void RunGame::loadQuadrantFactory(){
@@ -205,14 +242,38 @@ void RunGame::loadQuadrantFactory(){
 	s9->dir.insert(pair<int, Side>(QUADRANT_7, S_LEFT));
 	s9->dir.insert(pair<int, Side>(QUADRANT_8, S_RIGHT));
 	s9->addRelationScreen(s5), s9->addRelationScreen(s6);
-	s9->addRelationScreen(s7), s9->addRelationScreen(s8);
-
-	//Los agrego para luego recorrerlos
-	screems.push_back(s1), screems.push_back(s2);
-	screems.push_back(s3), screems.push_back(s4);
-	screems.push_back(s5), screems.push_back(s6);
-	screems.push_back(s7), screems.push_back(s8);
-	screems.push_back(s9);
+	s9->addRelationScreen(s7), s9->addRelationScreen(s8);      
+									//QUADRANT						   
+	//seteo las direcciones		    //+-+----------------------------------+-+ 
+	s1->xDir	 = -1, s1->yDir = -1,   //|1|                5                 |2| 
+	s2->xDir = -1, s2->yDir = -1,   //+-+----------------------------------+-+ 
+	s3->xDir = -1, s3->yDir = -1,   //| |                                  | | 
+	s4->xDir = -1, s4->yDir = -1,   //| |                                  | | 
+	s5->xDir =  0, s5->yDir = -1,   //|7|                9                 |8| 
+	s6->xDir =  0, s6->yDir = -1,   //| |                                  | | 
+	s7->xDir = -1, s7->yDir =  0,   //| |                                  | | 
+	s8->xDir = -1, s8->yDir =  0,   //+-+----------------------------------+-+ 
+	s9->xDir =  0, s9->yDir =  0;   //|3|                6                 |4| 
+								    //+-+----------------------------------+-+ 
+	                                 
+	//seteo el limite                                 
+	s1->xlimit = s1->xTo,   s1->ylimit = s1->yTo,	
+	s2->xlimit = s2->xFrom, s2->ylimit = s2->yTo,
+	s3->xlimit = s3->xTo, 	s3->ylimit = s3->yFrom,	
+	s4->xlimit = s4->xFrom, s4->ylimit = s4->yFrom,
+	s5->xlimit = s5->xTo,   s5->ylimit = s5->yTo,
+	s6->xlimit = s6->xFrom, s6->ylimit = s6->yFrom,
+	s7->xlimit = s7->xTo,   s7->ylimit = s7->xTo,
+	s8->xlimit = s8->xFrom, s8->ylimit = s8->xFrom,
+	s9->xlimit =  0,        s9->ylimit =  0;
+	
+//Los agrego para luego recorrerlos			
+screems.push_back(s1), screems.push_back(s2);
+screems.push_back(s3), screems.push_back(s4);
+screems.push_back(s5), screems.push_back(s6);
+screems.push_back(s7), screems.push_back(s8);
+screems.push_back(s9);
+	                                              
 }
 
 
