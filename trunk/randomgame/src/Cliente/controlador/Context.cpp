@@ -1,5 +1,6 @@
 #include "Context.h"
 #include "WithOutBehavior.h"
+#include "..\..\utils\Log.h"
 
 Context::Context(){
 	m_keys = SDL_GetKeyboardState(NULL);
@@ -179,7 +180,7 @@ void Context::notifierM(Event e){
 void Context::notifierS(Event e){
 	list<OnScrollListener*>::iterator it;
 	ScrollEvent s;
-	s.scroll = (Scroll)e.value;
+	s.xSpeed = e.x, s.ySpeed = e.y;
 	it = lSlistener.begin();
 	for(; it != lSlistener.end(); it++){
 		(*it)->OnScroll(s);

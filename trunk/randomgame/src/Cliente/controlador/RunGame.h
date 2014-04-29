@@ -41,6 +41,9 @@ class RunGame : public State{
 
 		//handle click
 		void detectClick();
+
+		//handle Movement
+		void detectMovem(SDL_Event* e);
 };
 
 #endif

@@ -20,9 +20,11 @@ public:
 	PartialScreen* Inside(int x, int y, Side s);
 	PartialScreen* Inside(int x, int y);
 	void addRelationScreen(PartialScreen *s);
+	void getSpeed(int* x, int* y);
 	int xFrom, xTo,
-		yFrom, yTo;
-	int id;
+		yFrom, yTo,
+		xDir, yDir,
+	    id, x, y, xlimit, ylimit;
 	map<int, Side> dir;
 private:
 	list<PartialScreen*> screens;
