@@ -19,7 +19,7 @@ ViewGroup* GameActivity::buildView( ViewBuilder & builder)
 	builder.buildCharacters(container);
 
 	//builder.buildTerrain(container);
-	//builder.buildEart(container);
+	builder.buildEart(container);
 	builder.buildWater(container);
 	return container;
 }

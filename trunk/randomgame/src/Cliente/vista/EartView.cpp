@@ -13,7 +13,5 @@ EartView::~EartView(void)
 
 void EartView::draw(SDLScreen & screen)
 {
-	TextureManager::Instance().drawImageOffset(imageId, 0,0,
-												screen.getWidth(), screen.getHeight(),
-												screen.getRenderer());
+	TextureManager::Instance().drawScrollableBackground(imageId, screen.getRenderer());
 }

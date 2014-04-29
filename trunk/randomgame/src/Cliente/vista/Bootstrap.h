@@ -25,6 +25,8 @@ public:
 	/**Load sprites*/
 	void loadSprites();
 
+	void initCamera(int w, int h);
+
 	SDLScreen & getScreen();
 	
 	~Bootstrap(void);

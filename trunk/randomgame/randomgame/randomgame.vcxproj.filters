@@ -300,6 +300,9 @@
     <ClCompile Include="..\src\Cliente\vista\EartView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\Camera.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -558,6 +561,9 @@
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Worm</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\EartView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\Camera.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
