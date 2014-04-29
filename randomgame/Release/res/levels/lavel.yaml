@@ -8,7 +8,7 @@ escenario:
   alto-un: 600
   ancho-px: 400
   alto-px: 400
-  nivel_agua: 50
+  nivel_agua: 10
   imagen_tierra: res/images/tierra1.bmp
   imagen_cielo: res/images/cielo1.png
   color_tierra: "#BC794FFF"

@@ -8,7 +8,7 @@ Bootstrap::Bootstrap(void)
 
 void Bootstrap::init() 
 {
-	// attempt to initialize SDL
+	
 	ParserYaml* aParser = ParserYaml::getInstance();
 
 	int w = atoi(aParser->getEscenarioAnchoP().c_str());
@@ -34,8 +34,19 @@ void Bootstrap::init()
 	}
 
 	loadSprites();
+	initCamera(w, h);
 }
 
+
+void Bootstrap::initCamera(int w, int h) 
+{
+	std::pair<int, int> dimensionScenario = TextureManager::Instance().getDimension("eart");
+	Camera & cam = TextureManager::Instance().getCamera();
+	cam.setPosition(100, 0);
+	cam.setDimension(w, h);
+	cam.setWidthScenario(dimensionScenario.first);
+	cam.setHeightScenario(dimensionScenario.second);
+}
 
 void Bootstrap::loadSprites()
 {

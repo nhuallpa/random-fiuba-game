@@ -8,7 +8,9 @@
 #include "../Servidor/Servidor.h"
 #include "vista/GameViewBuilder.h"
 #include <SDL2_framerate.h>
-
+#include "vista\Bootstrap.h"
+#include "vista\Activity.h"
+#include "vista\GameActivity.h"
 
 
 #include "controlador\Contracts\Contract.h"
@@ -26,11 +28,18 @@ class Cliente : public Contract{
 
 	private:
 		//TODO @future: Going to need a socket conn;
-
-		bool begin();		// Inicia el VistaJuego y ControladorJuego
-		void loop(void);
+		
 		GameLevel cLevel;
+		
+		/**Inicializador de componentes de la vista*/
+		Bootstrap bootstrap;
+
+		/**Activity que manerja la pantalla actual de la vista*/
+		Activity* currentActivity;
+
+		/**Controlador de eventos y estados*/
 		GameController cController;
+		
 		bool connect2server(Servidor* server);
 		Servidor* server;
 
@@ -38,6 +47,9 @@ class Cliente : public Contract{
 
 		Uint32 getTickInterval();
 
+		/**Inicia el VistaJuego y ControladorJuegon*/
+		bool begin();		
+		void loop(void);
 
 		void runGame();
 		void stopGame();

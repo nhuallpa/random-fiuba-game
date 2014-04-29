@@ -8,17 +8,15 @@
 #include <sstream>
 #include <map>
 #include "GameException.h"
+#include "Camera.h"
 #include "../../utils/Log.h"
 
-enum ImgOper 
-{
-	NONE,
-	REVERT
-};
 
 class TextureManager
 {
 private:
+
+	Camera cam;
 	
 	// Contains all texture
 	std::map<std::string, SDL_Texture*> texture_map;
@@ -49,7 +47,7 @@ public:
 	* @param pRenderer	The renderer which is used to load image
 	* @param oper		The aditional operation on image
 	*/
-	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer, ImgOper oper = NONE);
+	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer);
 
 
 	void draw(std::string id, int x, int y, 
@@ -77,6 +75,7 @@ public:
 					height, int currentRow, int currentFrame, SDL_Renderer*
 					pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+	void drawScrollableBackground(std::string imageId, SDL_Renderer* pRenderer);
 
 	void drawBackground(std::string id, SDL_Renderer* pRenderer, 
 						SDL_RendererFlip flip = SDL_FLIP_NONE) ;
@@ -94,6 +93,9 @@ public:
 	* @return Dimension width and height
 	**/
 	std::pair<int, int> getDimension(std::string imageId);
+
+	
+	Camera & getCamera() {return cam;}
 
 	~TextureManager(void);
 };

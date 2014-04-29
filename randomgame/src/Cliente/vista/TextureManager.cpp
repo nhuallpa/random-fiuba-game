@@ -15,7 +15,7 @@ TextureManager::~TextureManager(void)
 }
 
 
-bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRenderer, ImgOper oper)
+bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRenderer)
 {
 	SDL_Surface* tmpSurface = IMG_Load(fileName.c_str());
 
@@ -26,7 +26,8 @@ bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRe
 	{
 		this->texture_map[id]=newTexture;
 		return true;
-	} else 
+	} 
+	else 
 	{
 		std::stringstream msg;
 		msg<<"TextureManager: Imagen NO encontrada: "<<fileName;
@@ -76,26 +77,21 @@ void TextureManager::draw(std::string id, int x, int y, int width, int
 
 }
 
-void TextureManager::drawImageOffset(std::string id,
-								int x, int y, int widthCamera, int heightCamera,
-								SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
+void TextureManager::drawScrollableBackground(std::string imageId, SDL_Renderer* pRenderer) 
 {
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
 
-	srcRect.x = x;
-	srcRect.y = y;
-	
-	SDL_QueryTexture(this->texture_map[id], NULL, NULL,
-	&srcRect.w, &srcRect.h);
+	srcRect.x = this->cam.getX();
+	srcRect.y = this->cam.getY();
 
-	destRect.w = srcRect.w;
-	destRect.h = srcRect.h;
+	destRect.w = srcRect.w = this->cam.getW();
+	destRect.h = srcRect.h = this->cam.getH();
 
 	destRect.x = 0;
 	destRect.y = 0;
 
-	SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	SDL_RenderCopyEx(pRenderer, this->texture_map[imageId], &srcRect,&destRect, 0, 0, SDL_FLIP_NONE);
 }
 
 void TextureManager::drawBackground(std::string id, SDL_Renderer* pRenderer, SDL_RendererFlip flip) 

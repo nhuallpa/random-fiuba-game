@@ -5,7 +5,7 @@
 
 class OnScrollListener{
 	public:
-		void OnScroll(ScrollEvent e){}
+		virtual void OnScroll(ScrollEvent e){}
 };
 
 #endif

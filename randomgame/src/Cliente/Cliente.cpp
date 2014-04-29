@@ -3,9 +3,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
-#include "vista\Bootstrap.h"
-#include "vista\Activity.h"
-#include "vista\GameActivity.h"
+
 
 
 Cliente::Cliente(Servidor* server){
@@ -23,23 +21,23 @@ bool Cliente::begin(){
 }
 
 
-	Bootstrap bootstrap;
-	Activity* currentActivity;
+
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
 	Uint32 start = 0;
 	bool quit = false;
 
-	bootstrap;
 	bootstrap.init();
+	
+	this->cController.addListener(&TextureManager::Instance().getCamera());
+
 	GameViewBuilder builder(&this->cLevel);
-	currentActivity = new GameActivity(bootstrap.getScreen(), 
-													builder, &this->cLevel);
+	currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel);
 	
 	
 	/** refresh the initial view*/
-	currentActivity->render();
+	this->currentActivity->render();
 
 	int running = 0;
 	Uint32 tick_inteval = this->getTickInterval();
