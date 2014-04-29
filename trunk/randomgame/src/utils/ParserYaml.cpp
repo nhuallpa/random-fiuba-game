@@ -74,6 +74,43 @@ void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
 }
 
 
+void ParserYaml::label(std::string &campo,bool &flag,TipoDato tipo,std::string key,const YAML::Node& node,int line,int col){
+	campo = this->yamlNodeToString(node);
+	switch (tipo)
+	{
+		case UnsInt:
+				if (this->esUnsInt(campo)) flag = true;
+			break;
+		case UnsFloat:
+			if (this->esUnsFloat(campo)) flag = true;
+			break;
+		case SigFloat:
+			if (this->esSigFloat(campo)) flag = true;
+			break;
+		case Hexa:
+			if (this->esHexa(campo)) flag = true;
+			break;
+		case HexaSdl:
+			if (this->esHexaSdl(campo)) flag = true;
+			break;
+		case Estatico:
+			if (this->estaticoValido(campo)) flag = true;
+			break;
+		case Imagen:
+			if (this->esImagen(campo)) flag = true;
+			break;
+		case TipoValido:
+			if (this->esTipoValido(campo)) flag = true;
+			break;
+		case Str:
+			flag = true;
+			break;
+	}
+	if (!flag)Log::e(PARSER,"Valor incorrecto para atributo %s en linea: %d, columna: %d",key.c_str(),(line + 1),(col + 1));
+
+
+}
+
 void ParserYaml::startWithDefaultLevel(){
 	
 	std::ifstream fin(this->levelFilePath.c_str());
@@ -177,99 +214,30 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 		for(YAML::Iterator it=node.begin();it!=node.end();++it){			
 			std::string key = this->yamlNodeToString(it.first());
 			YAML::Mark mark = it.first().GetMark();
-			if (key.compare("tipo")==0){
-				elem.tipo = this->yamlNodeToString(it.second());
-				if (this->esTipoValido(elem.tipo)){
-					fNombre = true;
-				}else
-					Log::e(PARSER,"Valor incorrecto para atributo TIPO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("id")==0){
-				elem.id = this->yamlNodeToString(it.second());
-				if (this->esUnsInt(elem.id)){
-					fId = true;
-				}else
-					Log::e(PARSER,"Valor incorrecto para atributo ID en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-
-			else if (key.compare("escala")==0){
-				elem.escala = this->yamlNodeToString(it.second());
-				if (this->esUnsFloat(elem.escala)){
-					fEscala = true;
-				}else
-					Log::e(PARSER,"Valor incorrecto para atributo ESCALA en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-
-			else if (key.compare("x")==0){
-				elem.x = this->yamlNodeToString(it.second());
-				if (this->esSigFloat(elem.x)){
-					fX = true;
-				}else
-					Log::e(PARSER,"Valor incorrecto para atributo X en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("y")==0){
-				elem.y = this->yamlNodeToString(it.second());
-				if (this->esSigFloat(elem.y)){
-					
-					fY = true;
-				}else
-					Log::e(PARSER,"Valor incorrecto para atributo Y en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("ancho")==0){
-				elem.ancho = this->yamlNodeToString(it.second());
-				if (this->esUnsFloat(elem.ancho)){
-					
-					fAncho = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ANCHO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("alto")==0){
-				elem.alto = this->yamlNodeToString(it.second());
-				if (this->esUnsFloat(elem.alto)){
-					
-					fAlto = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ALTO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("color")==0){
-				elem.color = this->yamlNodeToString(it.second());
-				if (this->esHexa(elem.color)){
-					
-					fColor = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo COLOR en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("masa")==0){
-				elem.masa = this->yamlNodeToString(it.second());
-				if (this->esUnsFloat(elem.masa)){
-					
-					fMasa = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo MASA en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("estatico")==0){
-				elem.estatico = this->yamlNodeToString(it.second());
-				if (this->estaticoValido(elem.estatico)){
-					
-					fEstatico = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ESTATICO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("rot")==0){
-				elem.rot = this->yamlNodeToString(it.second());
-				if (this->esUnsFloat(elem.rot)){
-					
-					fRot = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo ROT en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
-			else if (key.compare("radio")==0){
-				elem.radio = this->yamlNodeToString(it.second());
-				if (this->esUnsFloat(elem.radio)){
-					fRadio = true;
-				} else
-					Log::e(PARSER,"Valor incorrecto para atributo RADIO en linea: %d, columna: %d",(mark.line + 1),(mark.column + 1));
-			}
+			if (key.compare("tipo")==0)
+				label(elem.tipo,fNombre,TipoValido,key,it.second(),mark.line,mark.column);
+			else if (key.compare("id")==0)
+				label(elem.id,fId,UnsInt,key,it.second(),mark.line,mark.column);
+			else if (key.compare("escala")==0)
+				label(elem.escala,fEscala,UnsFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("x")==0)
+				label(elem.x,fX,SigFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("y")==0)
+				label(elem.y,fY,SigFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("ancho")==0)
+				label(elem.ancho,fAncho,UnsFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("alto")==0)
+				label(elem.alto,fAlto,UnsFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("color")==0)
+				label(elem.color,fColor,Hexa,key,it.second(),mark.line,mark.column);
+			else if (key.compare("masa")==0)
+				label(elem.masa,fMasa,UnsFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("estatico")==0)
+				label(elem.estatico,fEstatico,Estatico,key,it.second(),mark.line,mark.column);
+			else if (key.compare("rot")==0)
+				label(elem.rot,fRot,UnsFloat,key,it.second(),mark.line,mark.column);
+			else if (key.compare("radio")==0)
+				label(elem.radio,fRadio,UnsFloat,key,it.second(),mark.line,mark.column);
 			else {
 				Log::e(PARSER,"%s atributo incorrecto en linea: %d, columna: %d",key.c_str(),(mark.line + 1),(mark.column + 1));
 			}
@@ -333,97 +301,26 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 
 				std::string key = this->yamlNodeToString(it.first());
 				YAML::Mark mark = it.first().GetMark();
-				if (key.compare("ancho-un")==0){
-				
-						escenario.ancho = this->yamlNodeToString(it.second());
-						if (this->esUnsFloat(escenario.ancho)){
-								fAncho = true;
-							} else
-								Log::e(PARSER,"Valor incorrecto para atributo ANCHO en nodo linea: %d.",(mark.line + 1));
-					
-				}
-				else if (key.compare("alto-un")==0){
-					
-						escenario.alto = this->yamlNodeToString(it.second());
-						if (this->esUnsFloat(escenario.alto)){
-								fAlto = true;
-							} else
-								Log::e(PARSER,"Valor incorrecto para atributo ALTO en nodo linea: %d.",(mark.line + 1));
-						}
-
-				else if (key.compare("ancho-px")==0){
-				
-					escenario.anchoP = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(escenario.anchoP)){
-						
-							fAnchoP = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo ANCHO PANTALLA en nodo linea: %d.",(mark.line + 1));
-					}
-				
-				else if (key.compare("alto-px")==0){
-				
-					escenario.altoP = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(escenario.altoP)){
-						
-							fAltoP = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo ALTO PANTALLA en nodo linea: %d.",(mark.line + 1));
-					}
-				
-				else if (key.compare("nivel_agua")==0){
-					
-					escenario.agua = this->yamlNodeToString(it.second());
-					if (this->esUnsFloat(escenario.agua)){
-						
-							fAgua = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo AGUA en nodo linea: %d.",(mark.line + 1));
-					}
-				
-				else if (key.compare("color_agua")==0){
-			
-					escenario.colorAgua = this->yamlNodeToString(it.second());
-					if (this->esHexa(escenario.colorAgua)){
-						fCAgua = true;
-					} else
-						Log::e(PARSER,"Valor incorrecto para atributo COLOR_AGUA en nodo linea: %d.",(mark.line + 1));
-					}
-
-				else if (key.compare("imagen_tierra")==0){
-					
-					escenario.tierra = this->yamlNodeToString(it.second());
-					if (this->esImagen(escenario.tierra)){
-						fTierra = true;
-					} else
-							Log::e(PARSER,"Valor incorrecto para atributo TIERRA en nodo linea: %d.",(mark.line + 1));
-					}
-				else if (key.compare("color_tierra")==0){
-					
-					escenario.colorTierra = this->yamlNodeToString(it.second());
-					if (this->esHexa(escenario.colorTierra)){
-						fCTierra = true;
-					} else
-						Log::e(PARSER,"Valor incorrecto para atributo COLOR_TIERRA en nodo linea: %d.",(mark.line + 1));
-					}
-
-				else if (key.compare("imagen_cielo")==0){
-					
-					escenario.cielo = this->yamlNodeToString(it.second());
-					if (this->esImagen(escenario.cielo)){					
-							fCielo = true;
-					} else
-							Log::e(PARSER,"Valor incorrecto para atributo CIELO en nodo linea: %d.",(mark.line + 1));
-					}
-				else if (key.compare("fps")==0){
-					
-					escenario.fps = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(escenario.fps)){
-						fFPS = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo FPS en nodo linea: %d.",(mark.line + 1));
-					}
-
+				if (key.compare("ancho-un")==0)
+					label(escenario.ancho,fAncho,UnsFloat,key,it.second(),mark.line,mark.column);
+				else if (key.compare("alto-un")==0)
+					label(escenario.alto,fAlto,UnsFloat,key,it.second(),mark.line,mark.column);
+				else if (key.compare("ancho-px")==0)
+					label(escenario.anchoP,fAnchoP,UnsInt,key,it.second(),mark.line,mark.column);				
+				else if (key.compare("alto-px")==0)
+					label(escenario.altoP,fAltoP,UnsInt,key,it.second(),mark.line,mark.column);				
+				else if (key.compare("nivel_agua")==0)
+					label(escenario.agua,fAgua,UnsFloat,key,it.second(),mark.line,mark.column);				
+				else if (key.compare("color_agua")==0)
+					label(escenario.colorAgua,fCAgua,Hexa,key,it.second(),mark.line,mark.column);
+				else if (key.compare("imagen_tierra")==0)
+					label(escenario.tierra,fTierra,Imagen,key,it.second(),mark.line,mark.column);
+				else if (key.compare("color_tierra")==0)
+					label(escenario.colorTierra,fCTierra,Hexa,key,it.second(),mark.line,mark.column);
+				else if (key.compare("imagen_cielo")==0)
+					label(escenario.cielo,fCielo,Imagen,key,it.second(),mark.line,mark.column);
+				else if (key.compare("fps")==0)
+					label(escenario.fps,fFPS,UnsInt,key,it.second(),mark.line,mark.column);
 				else if (key.compare("objetos")==0){
 					fElem = true;
 					this->cargarElementos(it.second(),escenario.elem);
@@ -515,39 +412,14 @@ void ParserYaml::cargarMeta(const YAML::Node& nodeVect,stMeta& esMeta){
 				
 				std::string key = this->yamlNodeToString(it.first());
 				YAML::Mark mark = it.first().GetMark();
-				if (key.compare("epsilon")==0){
-
-					meta.epsilon = this->yamlNodeToString(it.second());
-					if (this->esUnsFloat(meta.epsilon)){
-					fEps = true;
-					} else
-						Log::e(PARSER,"Valor incorrecto para atributo EPSILON en nodo linea: %d.",(mark.line + 1));
-				}
-				else if (key.compare("scale")==0){
-
-					meta.scale = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(meta.scale)){
-						fSca = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo SCALE en nodo linea: %d.",(mark.line + 1));
-				}
-				else if (key.compare("max_player")==0){
-
-					meta.maxPlay = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(meta.maxPlay)){
-						fMaxPlay = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo MAX PLAYER en nodo linea: %d.",(mark.line + 1));
-				}
-				else if (key.compare("max_per_team")==0){
-
-					meta.MaxPj = this->yamlNodeToString(it.second());
-					if (this->esUnsInt(meta.MaxPj)){
-						fMaxPj = true;
-						} else
-							Log::e(PARSER,"Valor incorrecto para atributo MAX PJ PLAYER en nodo linea: %d.",(mark.line + 1));
-				}
-
+				if (key.compare("epsilon")==0)
+					label(meta.epsilon,fEps,UnsFloat,key,it.second(),mark.line,mark.column);
+				else if (key.compare("scale")==0)
+					label(meta.scale,fSca,UnsInt,key,it.second(),mark.line,mark.column);
+				else if (key.compare("max_player")==0)
+					label(meta.maxPlay,fMaxPlay,UnsInt,key,it.second(),mark.line,mark.column);
+				else if (key.compare("max_per_team")==0)
+					label(meta.MaxPj,fMaxPj,UnsInt,key,it.second(),mark.line,mark.column);
 				else {
 					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
 					Log::e(PARSER,"Metadata key no es un identificador correcto de metadata. Linea: %d, Columna: %d",(mark.line + 1),(mark.column + 1));

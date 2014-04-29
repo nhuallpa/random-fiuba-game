@@ -14,6 +14,19 @@
 //#include <boost/math/special_functions/round.hpp>
 
 
+enum TipoDato{
+	UnsInt,
+	SigInt,
+	UnsFloat,
+	SigFloat,
+	Hexa,
+	HexaSdl,
+	Estatico,
+	TipoValido,
+	Str,
+	Imagen
+};
+
 class ParserYaml{
 private:
 	
@@ -95,6 +108,9 @@ private:
 	bool esHexaSdl(std::string);
 	bool esUnsInt(std::string str);
 	bool esImagen(std::string str);
+
+	void label(std::string &campo,bool &flag,TipoDato tipo,std::string key,const YAML::Node& node,int line,int col);
+
 
 	bool isDefault;
 
