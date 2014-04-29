@@ -76,6 +76,7 @@ void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
 
 void ParserYaml::label(std::string &campo,bool &flag,TipoDato tipo,std::string key,const YAML::Node& node,int line,int col){
 	campo = this->yamlNodeToString(node);
+	
 	switch (tipo)
 	{
 		case UnsInt:
@@ -214,6 +215,7 @@ void ParserYaml::cargarElementos(const YAML::Node& nodeVect,std::vector <stEleme
 		for(YAML::Iterator it=node.begin();it!=node.end();++it){			
 			std::string key = this->yamlNodeToString(it.first());
 			YAML::Mark mark = it.first().GetMark();
+
 			if (key.compare("tipo")==0)
 				label(elem.tipo,fNombre,TipoValido,key,it.second(),mark.line,mark.column);
 			else if (key.compare("id")==0)
