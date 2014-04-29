@@ -41,7 +41,7 @@ private:
 	// Lista de clientes conectados y sus file descriptors asociados
 	typedef std::map<std::string, std::pair<int,int>> Players;
 	Players pList;
-	std::list<Playable> changes;
+	std::vector<Playable> changes;
 
 	
 	
@@ -58,7 +58,7 @@ typedef struct{
 	Servidor* srv;
 	Socket clientO;
 	Socket clientI;
-	std::string p;
+	char p[15];
 } threadData;
 
 #endif /* SERVIDOR_H_ */

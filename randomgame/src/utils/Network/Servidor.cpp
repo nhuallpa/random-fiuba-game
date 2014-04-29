@@ -24,10 +24,13 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, lock()
 	, canUpdate(lock)
 {
-	output.setKeepAlive();
-	output.setListen(4);
-	input.setKeepAlive();
-	input.setListen(4);
+	//output.setKeepAlive();
+	//output.setListen(4);
+	//input.setKeepAlive();
+	//input.setListen(4);
+	//input.setRcvTimeout(5, 0);
+	//output.setKeepAlive();
+	//output.setSendTimeout(5, 0);
 	jugadoresConectados = 0;
 /* Eventos que puede recibir el modelo
 
@@ -66,17 +69,18 @@ Target:
 int Servidor::updating(void* data){
 	printf("\n\n\nUpdating...\n");
 	Servidor* srv = ((threadData*)data)->srv;
-	std::list<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
+	std::vector<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
 
 	while(true){
 		m->lock();
 		if ( changes->empty() ){
-			printf("\nwaiting.. is empty :(");
+			//printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		printf("\nUpdating: doing stuff");
+		//printf("\nUpdating: doing stuff");
+
 		
 		m->unlock();
 	}
@@ -96,19 +100,16 @@ int Servidor::wait4Connections(void* data){
 		
 		while(srv->cantJugadores > srv->jugadoresConectados){
 			Socket sClientO = srv->input.aceptar();
-			sClientO.setRcvTimeout(5, 0);
+			//sClientO.setRcvTimeout(5, 0);
+			//sClientO.setSendTimeout(5,0);
 			Socket sClientI = srv->output.aceptar();
+			//sClientI.setRcvTimeout(5, 0);
+			//sClientI.setSendTimeout(5,0);
 
 			threadData* dataCliente = new threadData();
 			dataCliente->srv = srv;
 			dataCliente->clientI = sClientI;
 			dataCliente->clientO = sClientO;
-		
-			//ToDo: ocupar el map/list de clientes conectados
-			
-			
-
-
 
 			Thread clientThread("Client Thread",initClient,dataCliente);
 
@@ -158,10 +159,10 @@ Servidor::~Servidor() {
 int Servidor::initClient(void* data){
 	printf("Disparado cliente");
 	Servidor* srv = ((threadData*)data)->srv;
-	std::list<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
+	std::vector<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
-	std::string* playerId = &((threadData*)data)->p;
+	char* playerId = ((threadData*)data)->p;
 
 	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
 	//Playable* playableWorld = srv->getPlayable();
@@ -173,30 +174,57 @@ int Servidor::initClient(void* data){
 	std::vector<uint8_t> datos(10);
 	std::vector<uint8_t> keepaliveData(10);
 	Messages keepaliveMsg = KEEPALIVE;
-	Messages type = UPDATE;
 	Datagram* datagram = new Datagram();
 
 
 	// Receive LOGIN info
 	if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
 		printf("\nDesconectando cliente at login");
-		srv->disconnect(*playerId);
+		srv->disconnect(playerId);
 		return 1;
 	}
 
-	//Send World info to client
-	((threadData*)data)->clientI.sendmsg(type,datos);
-	printf("\nEnviando data al cliente");
 
+	srv->pList.insert(	std::make_pair<std::string,std::pair<int,int>>(datagram->playerID,
+						std::make_pair(((threadData*)data)->clientO.getFD(),
+						((threadData*)data)->clientI.getFD())
+						)
+					);
 
+	std::strcpy((char*)playerId,datagram->playerID.c_str() );
+
+	datagram->type = CONF;
+	std::strcpy(datagram->play.level,"level.yaml");
+
+	//Send World info to client (LEVEL)
+	((threadData*)data)->clientI.sendmsg(*datagram);
+	printf("\nEnviando data (level) al cliente");
+
+	//Send World info to client (entire world)
+	//Elements
+	datagram->type = INIT;
+	datagram->elements = 2;
+	((threadData*)data)->clientI.sendmsg(*datagram);
+	printf("\nEnviando data (elements) al cliente");
+
+	//Start sending elements
+	datagram->type = INIT;
+	datagram->play.wormid = 21;
+	((threadData*)data)->clientI.sendmsg(*datagram);
+	printf("\nEnviando data (worm 21) al cliente");
+
+	datagram->play.wormid = 45;
+	((threadData*)data)->clientI.sendmsg(*datagram);
+	printf("\nEnviando data (worm 45) al cliente");
 
 
 	int activeClient=1;
 		try {
 		while (activeClient) {
-			if (! ((threadData*)data)->clientO.rcvmsg(type,datos)) {
-				printf("\nDesconectando cliente");
-				srv->disconnect(*playerId);
+			//Sleep(1);
+			if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
+				printf("\nDesconectando cliente: %s",playerId );
+				srv->disconnect(playerId);
 				activeClient=0;
 				break;
 			}
@@ -204,7 +232,7 @@ int Servidor::initClient(void* data){
 			// Got something ;)
 			m->lock();
 			try{
-				//printf("\nGot something ;)");
+				printf("\nGot something from client %s ;)",playerId );
 			}catch(...){
 				m->unlock();
 				throw std::current_exception();
@@ -212,9 +240,9 @@ int Servidor::initClient(void* data){
 			m->unlock();
 			cond->signal();
 
-			switch (type) {
+			switch (datagram->type) {
 			case UPDATE:
-				//printf("\nGot update");
+				printf("\nGot update");
 
 				
 				break;
@@ -225,12 +253,13 @@ int Servidor::initClient(void* data){
 				// El servidor responde un vivo para mantener abierto el otro socket
 				//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
 				//printf("\nGot keepalive");
-				((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
+				printf("\nGot keepalive");
+				//((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
 
 				break;
 			case LOGIN:
-				((threadData*)data)->clientI.sendmsg(type,datos);
-				printf("\nEnviando data al cliente");
+				//((threadData*)data)->clientI.sendmsg(type,datos);
+				printf("\nEnviando data al cliente - switch");
 
 				break;
 			}
@@ -333,10 +362,10 @@ void Servidor::notifyReject(Socket& client) {
 
 void Servidor::disconnect(Player playerId) {
 	
-	//printf("\nReleasing player: %s\n",playerId.c_str());
-	//closesocket(this->pList[playerId].first);
-	//closesocket(this->pList[playerId].second);
-	//this->pList.erase(playerId);
+	printf("\nReleasing player: %s\n",playerId.c_str());
+	closesocket(this->pList[playerId].first);
+	closesocket(this->pList[playerId].second);
+	this->pList.erase(playerId);
 	this->jugadoresConectados--;
 
 }
