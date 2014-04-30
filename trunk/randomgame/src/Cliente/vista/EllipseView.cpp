@@ -15,8 +15,14 @@ EllipseView::~EllipseView(void)
 
 void EllipseView::draw(SDLScreen & screen) 
 {
-	
-	filledEllipseColor(screen.getRenderer(),
+	TextureManager::Instance().drawEllipse(screen.getRenderer(),
+						this->getX(),
+						this->getY(),
+						this->getRadioX(),
+						this->getRadioY(),
+						this->getColorCod(),
+						this->getBorderColorCod());
+	/*filledEllipseColor(screen.getRenderer(),
 						this->getX(),
 						this->getY(),
 						this->getRadioX(),
@@ -28,7 +34,7 @@ void EllipseView::draw(SDLScreen & screen)
 						this->getY(),
 						this->getRadioX(),
 						this->getRadioY(),
-						this->getBorderColorCod());
+						this->getBorderColorCod());*/
 
 }
 

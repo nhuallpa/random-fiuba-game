@@ -10,7 +10,7 @@
 #include "GameException.h"
 #include "Camera.h"
 #include "../../utils/Log.h"
-
+#include <SDL2_gfxPrimitives.h>
 
 class TextureManager
 {
@@ -96,6 +96,15 @@ public:
 
 	
 	Camera & getCamera() {return cam;}
+
+	/** Draw circle on renderer*/
+	void drawCircle(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 r, Uint32 color, Uint32 borderColor);
+	/** Draw ellipse on renderer*/
+	void drawEllipse(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 rx, Sint16 ry, Uint32 color, Uint32 borderColor);
+	/** Draw polygon on renderer*/
+	void drawPolygon(SDL_Renderer * renderer, Sint16 * vx, Sint16 * vy, int n, Uint32 color, Uint32 borderColor);
+
+
 
 	~TextureManager(void);
 };

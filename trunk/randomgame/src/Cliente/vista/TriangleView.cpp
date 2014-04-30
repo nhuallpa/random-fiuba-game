@@ -31,6 +31,13 @@ void TriangleView::draw(SDLScreen & screen)
 	vertexY[1] = vertexB.y;
 	vertexY[2] = vertexC.y;
 	
+	TextureManager::Instance().drawPolygon(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				3,
+				this->getColorCod(),
+				this->getBorderColorCod());
+	/*
 	filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
@@ -42,6 +49,7 @@ void TriangleView::draw(SDLScreen & screen)
 				vertexY,
 				3,
 				this->getBorderColorCod());
+	*/
 }
 
 

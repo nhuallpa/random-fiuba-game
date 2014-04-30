@@ -42,8 +42,14 @@ void PolygonView::addPoint(int x, int y)
 
 void PolygonView::draw(SDLScreen & screen) 
 {
+	TextureManager::Instance().drawPolygon(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				m_points.size(),
+				this->getColorCod(),
+				this->getBorderColorCod());
 
-	filledPolygonColor(screen.getRenderer(),
+	/*filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
 				m_points.size(),
@@ -53,7 +59,7 @@ void PolygonView::draw(SDLScreen & screen)
 				vertexX,
 				vertexY,
 				m_points.size(),
-				this->getBorderColorCod());
+				this->getBorderColorCod());*/
 }
 
 PolygonView::~PolygonView(void)

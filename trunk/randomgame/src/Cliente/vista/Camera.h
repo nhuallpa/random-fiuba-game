@@ -3,6 +3,7 @@
 #define __CAMERA_H__
 #include <SDL.h>
 #include "../controlador/Contracts/OnScrollListener.h"
+#include "../../utils/Log.h"
 class Camera : public OnScrollListener
 {
 	SDL_Rect box;

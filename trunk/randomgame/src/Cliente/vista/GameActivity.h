@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Activity.h"
 #include "ViewBuilder.h"
+#include "../controlador/GameController.h"
 #include "../../Servidor/modelo/GameLevel.h"
 
 class GameActivity : public Activity
@@ -14,16 +15,19 @@ private:
 
 	FigureViewGroup* figureContainer;
 
+	GameController* cController;
 
 
 public:
-	GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel);
+	GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel, GameController* cController);
 
 	ViewGroup* buildView( ViewBuilder & builder);
 
 	void update();
 
 	void onCreate();
+
+	void setListeners();
 
 	~GameActivity(void);
 };

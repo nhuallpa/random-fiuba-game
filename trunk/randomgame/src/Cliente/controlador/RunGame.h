@@ -3,6 +3,7 @@
 
 #include "Contracts\State.h"
 #include "Entity\PartialScreen.h"
+#include "../../utils/Log.h"
 #include <vector>
 
 using namespace std;

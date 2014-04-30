@@ -43,7 +43,13 @@ void HexagonView::draw(SDLScreen & screen)
 	vertexY[4] = vertexE.y;
 	vertexY[5] = vertexF.y;
 	
-	filledPolygonColor(screen.getRenderer(),
+	TextureManager::Instance().drawPolygon(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				countPoint,
+				this->getColorCod(),
+				this->getBorderColorCod());
+	/*filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
 				countPoint,
@@ -53,7 +59,7 @@ void HexagonView::draw(SDLScreen & screen)
 				vertexX,
 				vertexY,
 				countPoint,
-				this->getBorderColorCod());
+				this->getBorderColorCod());*/
 }
 
 

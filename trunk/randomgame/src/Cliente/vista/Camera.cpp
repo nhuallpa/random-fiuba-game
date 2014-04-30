@@ -22,12 +22,13 @@ void Camera::setPosition(int x, int y)
 
 void Camera::OnScroll(ScrollEvent e) {
 	if ( (this->box.x + e.xSpeed) > 0 && 
-		 (this->box.x + e.xSpeed) < this->getWidthScenario()) 
+		 (this->box.x + this->box.w + e.xSpeed) < this->getWidthScenario()) 
 	{
 		this->box.x += e.xSpeed;
 	}
+	
 	if ( (this->box.y + e.ySpeed) > 0 &&
-		(this->box.y + e.ySpeed) < this->getHeightScenario())
+		(this->box.y + this->box.h + e.ySpeed) < this->getHeightScenario())
 	{
 		this->box.y += e.ySpeed;
 	}
