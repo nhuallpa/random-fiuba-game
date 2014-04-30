@@ -114,8 +114,10 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 
 	destRect.x = x - this->cam.getX();
 	destRect.y = y - this->cam.getY();
+	
 
 	SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	
 }
 
 std::pair<int, int> TextureManager::getDimension(std::string imageId)
@@ -172,6 +174,13 @@ void TextureManager::drawEllipse(SDL_Renderer * renderer,
 						ry,
 						borderColor);
 }
+
+void TextureManager::drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,char* s , Uint32 color){
+	x = x - this->cam.getX();
+	y = y - this->cam.getY();
+	stringColor(renderer,x,y,s,color);
+}
+
 
 void TextureManager::drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
 {
