@@ -180,6 +180,7 @@ void Context::notifierM(Event e){
 void Context::notifierS(Event e){
 	list<OnScrollListener*>::iterator it;
 	ScrollEvent s;
+	Log::t("Contex:%d %d", e.x, e.y);
 	s.xSpeed = e.x, s.ySpeed = e.y;
 	it = lSlistener.begin();
 	for(; it != lSlistener.end(); it++){

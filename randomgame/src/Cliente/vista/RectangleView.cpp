@@ -42,8 +42,13 @@ void RectangleView::draw(SDLScreen & screen)
 	vertexY[1] = vertexB.y;
 	vertexY[2] = vertexC.y;
 	vertexY[3] = vertexD.y;
-	
-	filledPolygonColor(screen.getRenderer(),
+	TextureManager::Instance().drawPolygon(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				4,
+				this->getColorCod(),
+				this->getBorderColorCod());
+	/*filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
 				4,
@@ -53,7 +58,7 @@ void RectangleView::draw(SDLScreen & screen)
 				vertexY,
 				4,
 				this->getBorderColorCod());
-
+				*/
 }
 
 void RectangleView::update(GameElement* domainElement)

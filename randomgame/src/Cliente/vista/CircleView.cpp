@@ -14,8 +14,13 @@ CircleView::~CircleView(void)
 
 void CircleView::draw(SDLScreen & screen) 
 {
-	
-	filledCircleColor(screen.getRenderer(),
+	TextureManager::Instance().drawCircle(screen.getRenderer(),
+						this->getX(),
+						this->getY(),
+						this->getRadio(),
+						this->getColorCod(),
+						this->getBorderColorCod());
+	/*filledCircleColor(screen.getRenderer(),
 						this->getX(),
 						this->getY(),
 						this->getRadio(),
@@ -25,7 +30,7 @@ void CircleView::draw(SDLScreen & screen)
 						this->getX(),
 						this->getY(),
 						this->getRadio(),
-						this->getBorderColorCod());
+						this->getBorderColorCod());*/
 
 }
 

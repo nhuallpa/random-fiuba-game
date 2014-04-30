@@ -112,8 +112,8 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 	srcRect.w = destRect.w = width;
 	srcRect.h = destRect.h = height;
 
-	destRect.x = x;
-	destRect.y = y;
+	destRect.x = x - this->cam.getX();
+	destRect.y = y - this->cam.getY();
 
 	SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
 }
@@ -124,4 +124,78 @@ std::pair<int, int> TextureManager::getDimension(std::string imageId)
 	SDL_QueryTexture(this->texture_map[imageId], NULL, NULL,	&rect.w, &rect.h);
 	std::pair<int, int> dimension = std::make_pair(rect.w, rect.h);
 	return dimension;
+}
+
+
+void TextureManager::drawCircle(SDL_Renderer * renderer, 
+								Sint16 x, 
+								Sint16 y, 
+								Sint16 r, 
+								Uint32 color, 
+								Uint32 borderColor)
+{
+	filledCircleColor(renderer,
+						y,
+						y,
+						r,
+						color);
+
+	aacircleColor(renderer,
+						y,
+						y,
+						r,
+						borderColor);
+}
+
+void TextureManager::drawEllipse(SDL_Renderer * renderer, 
+								Sint16 x, 
+								Sint16 y, 
+								Sint16 rx, 
+								Sint16 ry, 
+								Uint32 color, 
+								Uint32 borderColor)
+{
+	x = x - this->cam.getX();
+	y = y - this->cam.getY();
+
+	filledEllipseColor(renderer,
+						x,
+						y,
+						rx,
+						ry,
+						color);
+
+	aaellipseColor(renderer,
+						x,
+						y,
+						rx,
+						ry,
+						borderColor);
+}
+
+void TextureManager::drawPolygon(SDL_Renderer * renderer, 
+								Sint16 * vx, 
+								Sint16 * vy, 
+								int n, 
+								Uint32 color, 
+								Uint32 borderColor)
+{
+	int i = 0;
+	for (i=0; i<n; i++) 
+	{
+		vx[i] = vx[i] - this->cam.getX();
+		vy[i] = vy[i] - this->cam.getY();
+	}
+
+	filledPolygonColor(renderer,
+				vx,
+				vy,
+				n,
+				color);
+
+	polygonColor(renderer,
+				vx,
+				vy,
+				n,
+				borderColor);
 }

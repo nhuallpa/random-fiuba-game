@@ -39,8 +39,14 @@ void PentagonView::draw(SDLScreen & screen)
 	vertexY[2] = vertexC.y;
 	vertexY[3] = vertexD.y;
 	vertexY[4] = vertexE.y;
-	
-	filledPolygonColor(screen.getRenderer(),
+
+	TextureManager::Instance().drawPolygon(screen.getRenderer(),
+				vertexX,
+				vertexY,
+				countPoint,
+				this->getColorCod(),
+				this->getBorderColorCod());
+	/*filledPolygonColor(screen.getRenderer(),
 				vertexX,
 				vertexY,
 				countPoint,
@@ -50,7 +56,7 @@ void PentagonView::draw(SDLScreen & screen)
 				vertexX,
 				vertexY,
 				countPoint,
-				this->getBorderColorCod());
+				this->getBorderColorCod());*/
 }
 
 

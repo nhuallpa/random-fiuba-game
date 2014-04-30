@@ -29,11 +29,9 @@ void Cliente::loop(void){
 	bool quit = false;
 
 	bootstrap.init();
-	
-	this->cController.addListener(&TextureManager::Instance().getCamera());
 
 	GameViewBuilder builder(&this->cLevel);
-	currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel);
+	currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel, &this->cController);
 	
 	
 	/** refresh the initial view*/

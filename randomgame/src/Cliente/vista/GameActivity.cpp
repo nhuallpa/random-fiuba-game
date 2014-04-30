@@ -1,11 +1,15 @@
 #include "GameActivity.h"
 
 
-GameActivity::GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel)
-							:Activity(screen),cLevel(cLevel)
+GameActivity::GameActivity(const SDLScreen & screen, 
+							ViewBuilder & builder, 
+							GameLevel * cLevel,
+							GameController* cController)
+							:Activity(screen), cLevel(cLevel), cController(cController)
 {
 	ViewGroup*  viewContainer = this->buildView(builder);
 	this->setContentView(viewContainer);
+	this->setListeners();
 }
 
 ViewGroup* GameActivity::buildView( ViewBuilder & builder)
@@ -49,4 +53,11 @@ GameActivity::~GameActivity(void)
 {
 	if (aView) delete aView;
 	aView = 0;
+}
+
+void GameActivity::setListeners() 
+{
+	this->cController->addListener(&TextureManager::Instance().getCamera());
+
+	// todo: set listener onClick para los worms
 }
