@@ -20,18 +20,6 @@ void CircleView::draw(SDLScreen & screen)
 						this->getRadio(),
 						this->getColorCod(),
 						this->getBorderColorCod());
-	/*filledCircleColor(screen.getRenderer(),
-						this->getX(),
-						this->getY(),
-						this->getRadio(),
-						this->getColorCod());
-
-	aacircleColor(screen.getRenderer(),
-						this->getX(),
-						this->getY(),
-						this->getRadio(),
-						this->getBorderColorCod());*/
-
 }
 
 void CircleView::update(GameElement* domainElement)

@@ -75,7 +75,6 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 }
 
 Side RunGame::GetCursorLook(int xr, int yr){
-	Log::t("RunGame xr:%d yr:%d", xr, yr);
 	if(xr >= 0)
 		return S_RIGHT;
 	else if(xr < 0)

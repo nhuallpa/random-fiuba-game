@@ -103,6 +103,8 @@ public:
 	void drawEllipse(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 rx, Sint16 ry, Uint32 color, Uint32 borderColor);
 	/** Draw polygon on renderer*/
 	void drawPolygon(SDL_Renderer * renderer, Sint16 * vx, Sint16 * vy, int n, Uint32 color, Uint32 borderColor);
+	/** Draw Box on renderer*/
+	void drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
 
 
 

@@ -49,17 +49,6 @@ void PolygonView::draw(SDLScreen & screen)
 				this->getColorCod(),
 				this->getBorderColorCod());
 
-	/*filledPolygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				m_points.size(),
-				this->getColorCod());
-
-	polygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				m_points.size(),
-				this->getBorderColorCod());*/
 }
 
 PolygonView::~PolygonView(void)

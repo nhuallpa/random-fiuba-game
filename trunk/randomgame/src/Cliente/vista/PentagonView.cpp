@@ -46,17 +46,7 @@ void PentagonView::draw(SDLScreen & screen)
 				countPoint,
 				this->getColorCod(),
 				this->getBorderColorCod());
-	/*filledPolygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				countPoint,
-				this->getColorCod());
-
-	polygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				countPoint,
-				this->getBorderColorCod());*/
+	
 }
 
 
