@@ -2,11 +2,12 @@
 #include "RunGame.h"
 #include "IniGame.h"
 #include "StopGame.h"
-
-#define DELTA 40
+#include "..\..\utils\ParserYaml.h"
+#include "..\..\utils\Constantes\Constantes.h"
+/*
 #define WIDTH 400
 #define HIGHT 400
-
+*/
 RunGame* RunGame::runGame = NULL;
 
 RunGame::RunGame(void){
@@ -14,6 +15,7 @@ RunGame::RunGame(void){
 	this->loadQuadrantFactory();
 	callScreen = new PartialScreen();
 	callScreen->id = QUADRANT_9;
+	this->items = NULL;
 }
 
 RunGame::~RunGame(void){}
@@ -55,8 +57,11 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 	
 
 	wheel = e->wheel;
-	this->detectWheel();
-	this->detectClick();
+	if(this->items != NULL){
+		this->detectWheel();
+		this->detectClick();
+	}
+
 	//this->detectMovem(e);
 
 	if(keys[SDL_SCANCODE_S]){
@@ -194,6 +199,10 @@ void RunGame::loadQuadrantFactory(){
 	s9->id = QUADRANT_9;
 
 	//seteo rangos
+	ParserYaml* aParser = ParserYaml::getInstance();
+	this->WIDTH = atoi(aParser->getEscenarioAnchoP().c_str());
+	this->HIGHT = atoi(aParser->getEscenarioAltoP().c_str());
+
 	s1->xFrom = 0, s1->xTo = DELTA, s1->yFrom = 0, s1->yTo = DELTA;
 	s2->xFrom = WIDTH - DELTA, s2->xTo = WIDTH, s2->yFrom = 0, s2->yTo = DELTA;
 	s3->xFrom = 0, s3->xTo = DELTA, s3->yFrom = HIGHT - DELTA, s3->yTo = HIGHT;

@@ -44,6 +44,8 @@ class RunGame : public State{
 
 		//handle Movement
 		void detectMovem(SDL_Event* e);
+
+		int WIDTH, HIGHT;
 };
 
 #endif

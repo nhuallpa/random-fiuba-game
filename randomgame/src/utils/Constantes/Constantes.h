@@ -18,7 +18,7 @@
 
 #define LOGIC_UNITS 100
 
-
+#define DELTA 40 // delta del scroll
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
