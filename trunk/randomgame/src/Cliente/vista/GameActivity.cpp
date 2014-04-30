@@ -20,10 +20,11 @@ ViewGroup* GameActivity::buildView( ViewBuilder & builder)
 	builder.buildFigures(figureContainer);
 
 	container->add(this->figureContainer);
-	builder.buildCharacters(container);
+	
 
 	//builder.buildTerrain(container);
 	builder.buildEart(container);
+	builder.buildCharacters(container);
 	builder.buildWater(container);
 	return container;
 }
