@@ -16,14 +16,12 @@ WaterView::~WaterView(void)
 
 void WaterView::draw(SDLScreen & screen)
 {
-
 	int x1 = 0;
 	int y1 = this->getParent()->getHeight() - this->getHeight();
 	int x2 = this->getParent()->getWidth();
 	int y2 = this->getParent()->getHeight();
-	boxColor(screen.getRenderer(),
-				x1, y1,
-				x2, y2, this->getColorCod());
-			
+	TextureManager::Instance().drawBox(screen.getRenderer(),
+								x1, y1,
+								x2, y2, this->getColorCod());
 }
 

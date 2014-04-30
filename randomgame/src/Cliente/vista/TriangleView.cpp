@@ -37,19 +37,6 @@ void TriangleView::draw(SDLScreen & screen)
 				3,
 				this->getColorCod(),
 				this->getBorderColorCod());
-	/*
-	filledPolygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				3,
-				this->getColorCod());
-
-	polygonColor(screen.getRenderer(),
-				vertexX,
-				vertexY,
-				3,
-				this->getBorderColorCod());
-	*/
 }
 
 

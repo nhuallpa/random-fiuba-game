@@ -22,19 +22,6 @@ void EllipseView::draw(SDLScreen & screen)
 						this->getRadioY(),
 						this->getColorCod(),
 						this->getBorderColorCod());
-	/*filledEllipseColor(screen.getRenderer(),
-						this->getX(),
-						this->getY(),
-						this->getRadioX(),
-						this->getRadioY(),
-						this->getColorCod());
-
-	aaellipseColor(screen.getRenderer(),
-						this->getX(),
-						this->getY(),
-						this->getRadioX(),
-						this->getRadioY(),
-						this->getBorderColorCod());*/
 
 }
 

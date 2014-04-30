@@ -173,6 +173,17 @@ void TextureManager::drawEllipse(SDL_Renderer * renderer,
 						borderColor);
 }
 
+void TextureManager::drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
+{
+	x1 = x1 - this->cam.getX();
+	y1 = y1 - this->cam.getY();
+	x2 = x2 - this->cam.getX();
+	y2 = y2 - this->cam.getY();
+	boxColor(renderer,
+				x1, y1,
+				x2, y2, color);
+}
+
 void TextureManager::drawPolygon(SDL_Renderer * renderer, 
 								Sint16 * vx, 
 								Sint16 * vy, 
