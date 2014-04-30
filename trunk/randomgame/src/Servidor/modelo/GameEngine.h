@@ -43,10 +43,40 @@ class GameEngine {
 		void updateBodyPositions();
 		void deleteBody(int id);
 
+		//TODO
+		//Agarra los worms de un jugador y los pone como activos
+		//Para mi lo mejor es armar una clase GamePlayer que tenga la lista de wormsID que posee.
+		bool setWormsFromPlayerAsActive(std::string playerID);
 
 	public:
 		GameEngine();
 		virtual ~GameEngine();
+
+		
+		//TODO: @BAUTI
+		// Pone los worms en el mapa y se los guarda al player id (persiste en el yaml)
+		bool placeInitialWorms(std::string playerID);
+
+		//Si el jugador no existe lo crea sino lo marca como activo y activa sus worms
+		bool registerPlayer(std::string playerID);
+
+		//carga los worms del jugador
+		void loadWormsFromPlayer(std::string playerID);
+
+		//pone el jugador como desconectado y detiene sus worms
+		bool disconnectPlayer(std::string playerID);
+
+		//La nueva struct del yaml debe terner player y sus worms.
+
+
+
+		//TODO @aliguo
+		// Devuelve todos los elementos "Playable" del mundo
+		void getPlayableWorld();
+
+		//receives a Playable element and appl it to the model
+		bool applyPlayable2Model();
+
 
 
 
