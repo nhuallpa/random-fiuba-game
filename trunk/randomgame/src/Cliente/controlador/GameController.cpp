@@ -2,47 +2,23 @@
 #include "..\..\utils\Log.h"
 
 GameController::GameController(){
-	m_keys = SDL_GetKeyboardState(NULL);
-	quit = false;
 	rg = RunGame::getInstance();
 }
 GameController::~GameController(){}
 
 void GameController::handlerEvent(){
-	addListFromSDL();
-	rg->handle();
+	rg->addCallFromSDL();
+	rg->addCallFromOver();
 	rg->call();
 }
 
-void GameController::addListFromSDL(){
-	SDL_Event* ev = new SDL_Event();
-	SDL_StartTextInput();
-	while(SDL_PollEvent( ev ))
-	{
-		this->handleEvents(ev);
-	}
-	delete ev;
-}
-
-void GameController::handleEvents(SDL_Event* e){
-	SDL_PumpEvents();
-	if(this->isValidKey(e)){
-		rg->execute(e, m_keys);
-	}
-	else if(e->type == SDL_QUIT){
-		quit = true;
-	}
-}
-
 bool GameController::isQuit(){
-	return quit;
+	return rg->isQuit();
 }
 
-bool GameController::isValidKey(SDL_Event* e){
-	return ((e->type == SDL_KEYDOWN) 
-		||  (e->type == SDL_KEYUP)
-		||  (e->type == SDL_MOUSEWHEEL)
-		||  (e->type == SDL_MOUSEBUTTONDOWN)	);
+
+void GameController::destroy(){
+	rg->destroy();
 }
 
 void GameController::addListener(OnClickListener* c){

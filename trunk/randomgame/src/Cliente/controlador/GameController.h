@@ -16,6 +16,7 @@ class GameController{
 		~GameController(void);
 		void handlerEvent();
 		bool isQuit();
+		void destroy();
 		void addListener(OnClickListener* c);
 		void addListener(OnMovementListener* m);
 		void addListener(OnScrollListener* s);
@@ -25,12 +26,7 @@ class GameController{
 		void remuveListener(OnScrollListener* s);
 		void remuveListener(OnZoomListener* z);
 	private:
-		const Uint8* m_keys;
-		bool quit;
 		RunGame* rg;
-		void handleEvents(SDL_Event* e);
-		void addListFromSDL();
-		bool isValidKey(SDL_Event* e);
 };
 
 #endif 

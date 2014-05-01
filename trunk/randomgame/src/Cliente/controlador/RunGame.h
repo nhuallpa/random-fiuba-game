@@ -1,14 +1,15 @@
 #ifndef __RUNGAME__
 #define __RUNGAME__
 #include <SDL.h>
-#include "Entity\PartialScreen.h"
+#include "Entity/PartialScreen.h"
 #include "../../utils/Log.h"
 #include <vector>
-#include "Entity\Over.h"
-#include "Entity\Click.h"
-#include "Entity\Zoom.h"
-#include "Entity\Move.h"
-#include "Contracts\Notifiable.h"
+#include "Entity/Over.h"
+#include "Entity/Click.h"
+#include "Entity/Zoom.h"
+#include "Entity/Move.h"
+#include "Contracts/Notifiable.h"
+#include "Entity/CollectionEvent.h"
 
 using namespace std;
 
@@ -18,18 +19,25 @@ enum Screen {QUADRANT_1, QUADRANT_2, QUADRANT_3, QUADRANT_4,
 
 class RunGame{
 	public:
-		void handle();
-		static RunGame* getInstance();
-		void execute(SDL_Event* e, const Uint8* keys);
 		void call();
+		bool isQuit();
+		void destroy();
+		void addCallFromSDL();
+		void addCallFromOver();
+		static RunGame* getInstance();
 
 	private:
 		RunGame(void);
 		~RunGame(void);
+		bool quit;
+		const Uint8* m_keys;
+		void handleEvents(SDL_Event* e);
+		bool isValidKey(SDL_Event* e);
+		void execute(SDL_Event* e, const Uint8* keys);
 		static RunGame* runGame;
 		void updateMouse();
 		void iniEvent();
-
+		
 		//handle scroll
 		PartialScreen* callScreen;
 		void detectMouse();
@@ -38,9 +46,7 @@ class RunGame{
 		Side GetCursorLook(int xr, int yr);
 
 
-		//handle wheel
-		SDL_MouseWheelEvent wheel;
-		void detectWheel();
+		void detectWheel(SDL_Event* e);
 
 		//handle click
 		void detectClick();
@@ -50,7 +56,8 @@ class RunGame{
 
 		int WIDTH, HIGHT;
 		
-		list<Notifiable*> l;
+		//list<Notifiable*> l;
+		CollectionEvent listEvent;
 };
 
 #endif

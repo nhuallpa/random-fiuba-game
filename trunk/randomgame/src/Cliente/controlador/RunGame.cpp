@@ -6,27 +6,22 @@
 RunGame* RunGame::runGame = NULL;
 
 RunGame::RunGame(void){
+	quit = false;
 	this->loadQuadrantFactory();
-	callScreen = new PartialScreen();
-	callScreen->id = QUADRANT_9;
+	m_keys = SDL_GetKeyboardState(NULL);
 }
 
 RunGame::~RunGame(void){}
 
-void RunGame::handle(){
-	//c->runGame();
+void RunGame::addCallFromOver(){
 	SDL_PumpEvents();
 	this->detectMouse();
 }
 
 
 void RunGame::call(){
-	list<Notifiable*>::iterator it;
-	it = l.begin();
-	for(; it != l.end(); it++){
-		(*it)->notify();
-	}
-	l.clear();
+	listEvent.notify();
+	listEvent.clear();
 }
 
 RunGame* RunGame::getInstance(){
@@ -36,9 +31,40 @@ RunGame* RunGame::getInstance(){
 	return runGame;
 }
 
+void RunGame::addCallFromSDL(){
+	SDL_Event* ev = new SDL_Event();
+	SDL_StartTextInput();
+	while(SDL_PollEvent( ev ))
+	{
+		handleEvents(ev);
+	}
+	delete ev;
+}
+
+void RunGame::handleEvents(SDL_Event* e){
+	SDL_PumpEvents();
+	if(this->isValidKey(e)){
+		execute(e, m_keys);
+	}
+	else if(e->type == SDL_QUIT){
+		quit = true;
+	}
+}
+
+bool RunGame::isQuit(){
+	return quit;
+}
+
+bool RunGame::isValidKey(SDL_Event* e){
+	return ((e->type == SDL_KEYDOWN) 
+		||  (e->type == SDL_KEYUP)
+		||  (e->type == SDL_MOUSEWHEEL)
+		||  (e->type == SDL_MOUSEBUTTONDOWN)	);
+}
+
+
 void RunGame::execute(SDL_Event* e, const Uint8* keys){
-	wheel = e->wheel;
-	this->detectWheel();
+	this->detectWheel(e);
 	this->detectClick();
 }
 
@@ -53,11 +79,11 @@ Side RunGame::GetCursorLook(int xr, int yr){
 		return S_UP;
 }
 
-void RunGame::detectWheel(){
+void RunGame::detectWheel(SDL_Event* e){
 	Zoom* z = Zoom::getInstance();
-	if(this->wheel.type == SDL_MOUSEWHEEL){
-		z->setEvent(this->wheel.y);
-		l.push_back(z);
+	if(e->wheel.type == SDL_MOUSEWHEEL){
+		z->setEvent(e->wheel.y);
+		listEvent.add(z);
 	}
 }
 
@@ -67,7 +93,7 @@ void RunGame::detectClick(){
 	Uint32 button = SDL_GetMouseState(&x, &y);
 	if(button & SDL_BUTTON(1)){
 		c->setEvent(x, y);
-		l.push_back(c);
+		listEvent.add(c);
 	}
 }
 void RunGame::detectMovem(SDL_Event* e){
@@ -123,7 +149,16 @@ void RunGame::detectMouse(){
 	}
 	callScreen->getSpeed(&x,&y);
 	ov->setEvent(x,y);
-	l.push_back(ov);
+	listEvent.add(ov);
+}
+
+void RunGame::destroy(){
+	vector<PartialScreen*>::iterator it;
+	for(it = this->screems.begin();
+	it != this->screems.end();
+	it++){
+		delete (*it);
+	}
 }
 
 void RunGame::loadQuadrantFactory(){
