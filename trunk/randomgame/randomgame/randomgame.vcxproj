@@ -79,10 +79,7 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\PartialScreen.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ScrollEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ZoomEvent.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\IniGame.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\StopGame.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\WithOutBehavior.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Camera.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
@@ -168,10 +165,7 @@
     <ClInclude Include="..\src\Cliente\controlador\Entity\PartialScreen.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ScrollEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ZoomEvent.h" />
-    <ClInclude Include="..\src\Cliente\controlador\IniGame.h" />
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h" />
-    <ClInclude Include="..\src\Cliente\controlador\StopGame.h" />
-    <ClInclude Include="..\src\Cliente\controlador\WithOutBehavior.h" />
     <ClInclude Include="..\src\Cliente\vista\Camera.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />

@@ -246,16 +246,7 @@
     <ClCompile Include="..\src\Cliente\controlador\Context.cpp">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\IniGame.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\StopGame.cpp">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\WithOutBehavior.cpp">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\DataImgSdl.cpp">
@@ -494,16 +485,7 @@
     <ClInclude Include="..\src\Cliente\controlador\Context.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\IniGame.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\StopGame.h">
-      <Filter>Archivos de código fuente\client\controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\WithOutBehavior.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataImgSdl.h">
