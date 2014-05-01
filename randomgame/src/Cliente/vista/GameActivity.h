@@ -3,7 +3,7 @@
 #define __GAME_ACTIVITY_H_
 #include <iostream>
 #include "Activity.h"
-#include "ViewBuilder.h"
+#include "GameViewBuilder.h"
 #include "../controlador/GameController.h"
 #include "../../Servidor/modelo/GameLevel.h"
 
@@ -13,15 +13,12 @@ private:
 	
 	GameLevel* cLevel;
 
-	FigureViewGroup* figureContainer;
-
 	GameController* cController;
 
-
 public:
-	GameActivity(const SDLScreen & screen, ViewBuilder & builder, GameLevel * cLevel, GameController* cController);
+	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
 
-	ViewGroup* buildView( ViewBuilder & builder);
+	void buildView( GameViewBuilder & builder);
 
 	void update();
 

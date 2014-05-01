@@ -86,10 +86,10 @@
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Camera.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EartView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\GameView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp" />
@@ -99,7 +99,6 @@
     <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WormView.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp" />
@@ -174,10 +173,10 @@
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h" />
     <ClInclude Include="..\src\Cliente\vista\Camera.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
-    <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\EartView.h" />
     <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
+    <ClInclude Include="..\src\Cliente\vista\GameView.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\HexagonView.h" />
     <ClInclude Include="..\src\Cliente\vista\PentagonView.h" />
@@ -187,7 +186,6 @@
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
-    <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\WormView.h" />
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h" />

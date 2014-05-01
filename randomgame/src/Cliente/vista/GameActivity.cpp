@@ -2,35 +2,29 @@
 
 
 GameActivity::GameActivity(const SDLScreen & screen, 
-							ViewBuilder & builder, 
+							GameViewBuilder & builder, 
 							GameLevel * cLevel,
 							GameController* cController)
 							:Activity(screen), cLevel(cLevel), cController(cController)
 {
-	ViewGroup*  viewContainer = this->buildView(builder);
-	this->setContentView(viewContainer);
+	this->buildView(builder);
+	this->setContentView(builder.getGameView());
 	this->setListeners();
 }
 
-ViewGroup* GameActivity::buildView( ViewBuilder & builder)
+void GameActivity::buildView( GameViewBuilder & builder)
 {
-	ViewGroup* container = builder.buildContainer();
-	this->figureContainer = builder.buildFigureContainer();
-	builder.buildSky(container);
-	builder.buildFigures(figureContainer);
-
-	container->add(this->figureContainer);
-	
-
-	//builder.buildTerrain(container);
-	builder.buildEart(container);
-	builder.buildCharacters(container);
-	builder.buildWater(container);
-	return container;
+	builder.buildContainer();
+	builder.buildSky();
+	builder.buildFigures();
+	builder.buildEart();
+	builder.buildCharacters();
+	builder.buildWater();
 }
 
 void GameActivity::update() 
 {
+	GameView* gameView = static_cast<GameView*>(this->aView);
 	std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
 	std::map<int,GameElement*>::iterator it;
 	Log::d(VIEW,"Actualizando %d en elemento", domainElements.size());
@@ -40,7 +34,7 @@ void GameActivity::update()
 		GameElement* domainElement = it->second;
 		try
 		{
-			FigureView* aFigure = this->figureContainer->findById(domainElement->getId());
+			FigureView* aFigure = gameView->findFigureById(domainElement->getId());
 			aFigure->update(domainElement);
 		}
 		catch (GameException e) {
@@ -52,13 +46,9 @@ void GameActivity::update()
 
 GameActivity::~GameActivity(void)
 {
-	if (aView) delete aView;
-	aView = 0;
 }
 
 void GameActivity::setListeners() 
 {
 	this->cController->addListener(&TextureManager::Instance().getCamera());
-
-	// todo: set listener onClick para los worms
 }

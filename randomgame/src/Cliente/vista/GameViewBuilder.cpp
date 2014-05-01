@@ -3,37 +3,34 @@
 
 GameViewBuilder::GameViewBuilder(GameLevel * cLevel):cLevel(cLevel)
 {
+	gameView = NULL;
 }
 
 
 GameViewBuilder::~GameViewBuilder(void)
 {
+	if (gameView) delete gameView;
 }
 
 
-ViewGroup* GameViewBuilder::buildContainer()
+void GameViewBuilder::buildContainer()
 {
 
 	std::pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
-	return new ViewGroup(0,0,dimension.first, dimension.second);
+	gameView = new GameView(0,0,dimension.first, dimension.second);
 }
 
-FigureViewGroup* GameViewBuilder::buildFigureContainer()
+void GameViewBuilder::buildSky()
 {
-	return new FigureViewGroup(0,0,0,0);
+	gameView->setSky(new SkyView("sky"));
 }
 
-void GameViewBuilder::buildSky(ViewGroup* container)
+void GameViewBuilder::buildEart()
 {
-	container->add(new SkyView("sky"));
+	gameView->setEart(new EartView("eart"));
 }
 
-void GameViewBuilder::buildEart(ViewGroup* container)
-{
-	container->add(new EartView("eart"));
-}
-
-void GameViewBuilder::buildFigures(FigureViewGroup* container)
+void GameViewBuilder::buildFigures()
 {
 	std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
 	std::map<int,GameElement*>::iterator it;
@@ -95,14 +92,14 @@ void GameViewBuilder::buildFigures(FigureViewGroup* container)
 		}
 		if (aFigure) 
 		{
-			container->add(aFigure);
+			this->gameView->putFigure(aFigure->getId(), aFigure);
 			aFigure = 0;
 		}
 
 	}
 }
 
-void GameViewBuilder::buildWater(ViewGroup* container)
+void GameViewBuilder::buildWater()
 {
 	ParserYaml* aParser = ParserYaml::getInstance();
 	std::string color = aParser->getEscenarioColorAgua();
@@ -110,10 +107,10 @@ void GameViewBuilder::buildWater(ViewGroup* container)
 	int scale = ESCALA_UL2PX;
 	int heigth = (int)(this->cLevel->getWaterLevel() * scale);
 	
-	container->add(new WaterView(heigth, color)); 
+	gameView->setWater(new WaterView(heigth, color));
 }
 
-void GameViewBuilder::buildTerrain(ViewGroup* container)
+void GameViewBuilder::buildTerrain()
 {
 	Log::d("Creando TERRENO en vista");
 	ParserYaml* aParser = ParserYaml::getInstance();
@@ -155,22 +152,27 @@ void GameViewBuilder::buildTerrain(ViewGroup* container)
 		aTerrain->buildPart((*it));
 	}
 
-	container->add(aTerrain); 
+	this->gameView->setTerrain(aTerrain);
 }
 
-void GameViewBuilder::buildCharacters(ViewGroup* container)
+void GameViewBuilder::buildCharacters()
 {
 	WormView* aWorm = new WormView(90, 30, 50);
+	WormView* aWorm2 = new WormView(91, 200, 60);
+	WormView* aWorm3 = new WormView(92, 500, 100);
 
 	// todo: obtener los id de sprite del yaml
 	try 
 	{
 		aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
+		aWorm2->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
+		aWorm3->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
 	} 
 	catch (std::exception & e) 
 	{
 		Log::e(e.what());
 	}
-
-	container->add(aWorm);
+	this->gameView->putWorm(aWorm->getId(), aWorm);
+	this->gameView->putWorm(aWorm->getId(), aWorm2);
+	this->gameView->putWorm(aWorm->getId(), aWorm3);
 }

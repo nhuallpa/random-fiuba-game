@@ -23,6 +23,7 @@ public:
 
 	void draw(SDLScreen & screen);
 
+	int getId() {return this->id;}
 
 	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
