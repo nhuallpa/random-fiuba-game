@@ -9,7 +9,6 @@ RunGame::RunGame(void){
 	this->loadQuadrantFactory();
 	callScreen = new PartialScreen();
 	callScreen->id = QUADRANT_9;
-	//this->items = NULL;
 }
 
 RunGame::~RunGame(void){}
@@ -37,24 +36,10 @@ RunGame* RunGame::getInstance(){
 	return runGame;
 }
 
-/*
-void RunGame::setBind(map<LISTENER, Event>* items){
-	this->items = items;
-}*/
-
 void RunGame::execute(SDL_Event* e, const Uint8* keys){
-	//State* st = RunGame::getInstance();
-	
-
 	wheel = e->wheel;
-	//if(this->items != NULL){
-		this->detectWheel();
-		this->detectClick();
-	//}
-
-	//this->detectMovem(e);
-
-	//return st;
+	this->detectWheel();
+	this->detectClick();
 }
 
 Side RunGame::GetCursorLook(int xr, int yr){
@@ -69,50 +54,24 @@ Side RunGame::GetCursorLook(int xr, int yr){
 }
 
 void RunGame::detectWheel(){
-	map<LISTENER,Event>::iterator it;
-	Event e;
 	Zoom* z = Zoom::getInstance();
-	//it = items->find(ZL);
-	//if(it == items->end()){
-		if(this->wheel.type == SDL_MOUSEWHEEL){
-			z->setEvent(this->wheel.y);
-			l.push_back(z);
-			/*e.y = this->wheel.y;
-			if(this->wheel.y > 0){
-				e.value = 0;
-				items->insert(pair<LISTENER, Event>(ZL, e));
-			}
-			else{
-				e.value = 1;
-				items->insert(pair<LISTENER, Event>(ZL, e));
-			}*/
-		}
-	//}
-
+	if(this->wheel.type == SDL_MOUSEWHEEL){
+		z->setEvent(this->wheel.y);
+		l.push_back(z);
+	}
 }
 
 void RunGame::detectClick(){
-	map<LISTENER,Event>::iterator it;
-	Event e;
 	Click* c = Click::getInstance();
-	//it = items->find(CL);
-	//if(it == items->end()){
 	int x, y = 0;
 	Uint32 button = SDL_GetMouseState(&x, &y);
 	if(button & SDL_BUTTON(1)){
-		e.x = x, e.y = y, e.value = 0;
-		//items->insert(pair<LISTENER,Event>(CL, e));
 		c->setEvent(x, y);
 		l.push_back(c);
 	}
-	//}
 }
 void RunGame::detectMovem(SDL_Event* e){
-	map<LISTENER,Event>::iterator it;
-	Event ee;
 	SDL_Scancode sc;
-	//it = items->find(ML);
-	//if(it == items->end()){
 		switch(e->type){
 			sc = e->key.keysym.scancode;
 		case SDL_KEYDOWN:
@@ -140,11 +99,9 @@ void RunGame::detectMovem(SDL_Event* e){
 			break;
 		default:;
 		}
-	//}
 }
 
 void RunGame::detectMouse(){
-	Event e;
 	Over* ov = Over::getInstance();
 	vector<PartialScreen*>::iterator it;
 	PartialScreen* result = NULL;
@@ -164,9 +121,8 @@ void RunGame::detectMouse(){
 				break;
 			}
 	}
-	callScreen->getSpeed(&e.x,&e.y);
-	//items->insert(pair<LISTENER, Event>(SL, e));
-	ov->setEvent(e.x,e.y);
+	callScreen->getSpeed(&x,&y);
+	ov->setEvent(x,y);
 	l.push_back(ov);
 }
 
