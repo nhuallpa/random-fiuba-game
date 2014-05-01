@@ -64,13 +64,13 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 
 	//this->detectMovem(e);
 
-	if(keys[SDL_SCANCODE_S]){
+	/*if(keys[SDL_SCANCODE_S]){
 		st = IniGame::getInstance();
 	}
 	else if(keys[SDL_SCANCODE_P]){
 		st = StopGame::getInstance();
 		st->statePrevious = RunGame::getInstance();
-	}
+	}*/
 	return st;
 }
 
