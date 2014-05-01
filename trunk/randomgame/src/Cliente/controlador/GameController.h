@@ -37,7 +37,7 @@ class GameController{
 		//list<OnClickListener*> lClistener;
 		list<OnMovementListener*> lMlistener;
 		//list<OnScrollListener*> lSlistener;
-		list<OnZoomListener*> lZlistener;
+		//list<OnZoomListener*> lZlistener;
 		const Uint8* m_keys;
 		bool quit;
 		RunGame* rg;
@@ -52,7 +52,7 @@ class GameController{
 		//void notifierC(Event e);
 		void notifierM(Event e);
 		//void notifierS(Event e);
-		void notifierZ(Event e);
+		//void notifierZ(Event e);
 
 };
 

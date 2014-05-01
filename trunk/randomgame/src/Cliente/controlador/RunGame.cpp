@@ -47,10 +47,10 @@ void RunGame::execute(SDL_Event* e, const Uint8* keys){
 	
 
 	wheel = e->wheel;
-	if(this->items != NULL){
+	//if(this->items != NULL){
 		this->detectWheel();
 		this->detectClick();
-	}
+	//}
 
 	//this->detectMovem(e);
 
@@ -71,11 +71,13 @@ Side RunGame::GetCursorLook(int xr, int yr){
 void RunGame::detectWheel(){
 	map<LISTENER,Event>::iterator it;
 	Event e;
-
-	it = items->find(ZL);
-	if(it == items->end()){
+	Zoom* z = Zoom::getInstance();
+	//it = items->find(ZL);
+	//if(it == items->end()){
 		if(this->wheel.type == SDL_MOUSEWHEEL){
-			e.y = this->wheel.y;
+			z->setEvent(this->wheel.y);
+			l.push_back(z);
+			/*e.y = this->wheel.y;
 			if(this->wheel.y > 0){
 				e.value = 0;
 				items->insert(pair<LISTENER, Event>(ZL, e));
@@ -83,9 +85,9 @@ void RunGame::detectWheel(){
 			else{
 				e.value = 1;
 				items->insert(pair<LISTENER, Event>(ZL, e));
-			}
+			}*/
 		}
-	}
+	//}
 
 }
 
