@@ -303,6 +303,9 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Zoom.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Move.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -564,6 +567,9 @@
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\Zoom.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Move.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
   </ItemGroup>

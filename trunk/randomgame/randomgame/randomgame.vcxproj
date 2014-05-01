@@ -76,6 +76,7 @@
     <ClCompile Include="..\src\Cliente\controlador\Context.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\Click.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ClickEvent.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Move.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\MovementEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\Over.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\PartialScreen.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="..\src\Cliente\controlador\Entity\Click.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ClickEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\Event.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Move.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\MovementEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\Over.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\PartialScreen.h" />
