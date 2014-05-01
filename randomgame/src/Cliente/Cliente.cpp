@@ -49,6 +49,7 @@ void Cliente::loop(void){
 		SDL_Delay(time_left());
 		next_time += tick_inteval;
 	}
+	cController.destroy();
 	bootstrap.getScreen().terminate();
 	delete currentActivity;
 
