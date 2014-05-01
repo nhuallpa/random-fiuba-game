@@ -1,11 +1,13 @@
 #include "Context.h"
-#include "WithOutBehavior.h"
+//#include "WithOutBehavior.h"
 #include "..\..\utils\Log.h"
+#include "RunGame.h"
 
 Context::Context(){
 	m_keys = SDL_GetKeyboardState(NULL);
 	quit = false;
-	state = WithOutBeHavior::getInstance();
+	//state = WithOutBeHavior::getInstance();
+	state = RunGame::getInstance();
 }
 Context::~Context(){}
 void Context::request(Contract* c){
