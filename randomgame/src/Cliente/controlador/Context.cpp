@@ -1,17 +1,16 @@
-#include "Context.h"
+/*#include "Context.h"
 #include "..\..\utils\Log.h"
-#include "RunGame.h"
 
 Context::Context(){
 	m_keys = SDL_GetKeyboardState(NULL);
 	quit = false;
-	state = RunGame::getInstance();
+	rg = RunGame::getInstance();
 }
 Context::~Context(){}
 void Context::request(Contract* c){
 	detect();
-	state->setBind(&items);
-	state->handle(c);
+	rg->setBind(&items);
+	rg->handle(c);
 	call();
 }
 
@@ -49,7 +48,7 @@ void Context::detect(){
 void Context::handleEvents(SDL_Event* e){
 	SDL_PumpEvents();
 	if(this->isValidKey(e)){
-		state = state->execute(e, m_keys);
+		rg->execute(e, m_keys);
 	}
 	else if(e->type == SDL_QUIT){
 		quit = true;
@@ -195,3 +194,4 @@ void Context::notifierZ(Event e){
 		(*it)->OnZoom(z);
 	}
 }
+*/
