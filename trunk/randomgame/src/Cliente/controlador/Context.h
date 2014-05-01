@@ -1,9 +1,10 @@
-#pragma once
+/*#pragma once
 
 #ifndef __CONTEXT__
 #define __CONTEXT__
 
-#include "Contracts\State.h"
+//#include "Contracts\State.h"
+#include "RunGame.h"
 #include "Contracts\Contract.h"
 #include "Contracts\OnClickListener.h"
 #include "Contracts\OnMovementListener.h"
@@ -37,7 +38,7 @@ class Context{
 		list<OnZoomListener*> lZlistener;
 		const Uint8* m_keys;
 		bool quit;
-		State* state;
+		RunGame* rg;
 		void handleEvents(SDL_Event* e);
 		void detect();
 		bool isValidKey(SDL_Event* e);
@@ -53,6 +54,6 @@ class Context{
 
 };
 
-#endif /*__CONTEXT__*/
+#endif //__CONTEXT__
 
-	
+	*/
