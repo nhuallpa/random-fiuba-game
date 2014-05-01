@@ -2,7 +2,10 @@
 
 Move* Move::move = NULL;
 
-Move::Move(void){}
+Move::Move(void){
+	x  = 0, y  = 0,
+	xp = 0, yp = 0;
+}
 
 Move::~Move(void){}
 
@@ -33,10 +36,22 @@ void Move::remuve(OnMovementListener* obj){
 	}
 }
 
+bool Move::newEvent(){
+	bool result = true;
+	if((x == xp) && (y == yp)){
+		result = false;
+	}
+	else{
+		xp = x, yp = y;
+	}
+	return result;
+}
+
 void Move::notify(){
 	list<OnMovementListener*>::iterator it;
 	MovementEvent m;
-	//TODO: ver que le paso
+	//Log::d("(%d,%d)\n", this->x, this->y);
+	m.x = this->x, m.y = this->y;
 	it = objects.begin();
 	for(; it != objects.end(); it++){
 		(*it)->OnMovement(m);

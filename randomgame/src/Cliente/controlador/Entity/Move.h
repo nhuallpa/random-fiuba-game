@@ -4,6 +4,7 @@
 #include "../Contracts/OnMovementListener.h"
 #include "MovementEvent.h"
 #include "../Contracts/Notifiable.h"
+#include "../../../utils/Log.h"
 
 using namespace std;
 
@@ -14,14 +15,15 @@ class Move : public Notifiable{
 		void add(OnMovementListener* obj);
 		void remuve(OnMovementListener* obj);
 		void notify();
-		//void setEvent(int y);
+		int x, y;
+		bool newEvent();
 
 	private:
 		Move(void);
 		~Move(void);
 		static Move* move;
 		list<OnMovementListener*> objects;
-		//int y;
+		int xp, yp;
 };
 
 #endif

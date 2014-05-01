@@ -11,7 +11,7 @@ class MovementEvent{
 	public:
 		MovementEvent(void);
 		~MovementEvent(void);
-		/*Move move;*/
+		int x, y;
 };
 
 #endif
