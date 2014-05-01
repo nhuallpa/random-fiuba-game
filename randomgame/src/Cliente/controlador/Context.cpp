@@ -1,12 +1,10 @@
 #include "Context.h"
-//#include "WithOutBehavior.h"
 #include "..\..\utils\Log.h"
 #include "RunGame.h"
 
 Context::Context(){
 	m_keys = SDL_GetKeyboardState(NULL);
 	quit = false;
-	//state = WithOutBeHavior::getInstance();
 	state = RunGame::getInstance();
 }
 Context::~Context(){}
@@ -182,7 +180,6 @@ void Context::notifierM(Event e){
 void Context::notifierS(Event e){
 	list<OnScrollListener*>::iterator it;
 	ScrollEvent s;
-	Log::t("Contex:%d %d", e.x, e.y);
 	s.xSpeed = e.x, s.ySpeed = e.y;
 	it = lSlistener.begin();
 	for(; it != lSlistener.end(); it++){
