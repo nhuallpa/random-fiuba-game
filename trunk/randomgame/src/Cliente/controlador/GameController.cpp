@@ -11,7 +11,8 @@ void GameController::request(Contract* c){
 	detect();
 	rg->setBind(&items);
 	rg->handle(c);
-	call();
+	//call();
+	rg->call();
 }
 
 void GameController::handleState(Contract* c){
@@ -20,22 +21,22 @@ void GameController::handleState(Contract* c){
 
 void GameController::call(){
 	map<LISTENER,Event>::iterator it;
-	
+	/*
 	it = items.find(SL);
 	if(it != items.end()){
 		this->notifierS((*it).second);
 		items.erase(it);
-	}
+	}*/
 	it = items.find(ZL);
 	if(it != items.end()){
 		this->notifierZ((*it).second);
 		items.erase(it);
-	}
+	}/*
 	it = items.find(CL);
 	if(it != items.end()){
 		this->notifierC((*it).second);
 		items.erase(it);
-	}
+	}*/
 
 }
 
@@ -74,31 +75,24 @@ bool GameController::isValidKey(SDL_Event* e){
 
 
 void GameController::addListener(OnClickListener* c){
-	lClistener.push_back(c);
+	//lClistener.push_back(c);
+	Click* ck = Click::getInstance();
+	ck->add(c);
 }
 void GameController::addListener(OnMovementListener* m){
 	lMlistener.push_back(m);
 }
 void GameController::addListener(OnScrollListener* s){
-	lSlistener.push_back(s);
+	Over* o = Over::getInstance();
+	//lSlistener.push_back(s);
+	o->add(s);
 }
 void GameController::addListener(OnZoomListener* z){
 	lZlistener.push_back(z);
 }
 void GameController::remuveListener(OnClickListener* c){
-	list<OnClickListener*>::iterator it;
-	list<OnClickListener*>::iterator itDrop;
-	it = lClistener.begin();
-	itDrop = lClistener.end();
-	for(; it != lClistener.end(); it++){
-		if((*it) == c){
-			itDrop = it;
-			break;
-		}
-	}
-	if(itDrop != lClistener.end()){
-		lClistener.erase(itDrop);
-	}
+	Click* ck = Click::getInstance();
+	ck->remuve(c);
 }
 void GameController::remuveListener(OnMovementListener* m){
 	list<OnMovementListener*>::iterator it;
@@ -116,19 +110,8 @@ void GameController::remuveListener(OnMovementListener* m){
 	}
 }
 void GameController::remuveListener(OnScrollListener* s){
-	list<OnScrollListener*>::iterator it;
-	list<OnScrollListener*>::iterator itDrop;
-	it = lSlistener.begin();
-	itDrop = lSlistener.end();
-	for(; it != lSlistener.end(); it++){
-		if((*it) == s){
-			itDrop = it;
-			break;
-		}
-	}
-	if(itDrop != lSlistener.end()){
-		lSlistener.erase(itDrop);
-	}
+	Over* o = Over::getInstance();
+	o->remuve(s);
 }
 void GameController::remuveListener(OnZoomListener* z){
 	list<OnZoomListener*>::iterator it;
@@ -149,28 +132,28 @@ void GameController::remuveListener(OnZoomListener* z){
 
 void GameController::notifier(pair<LISTENER, Event> item){
 	switch(item.first){
-	case CL: this->notifierC(item.second);
-		break;
+	/*case CL: this->notifierC(item.second);
+		break;*/
 	case ML: this->notifierM(item.second);
 		break;
-	case SL: this->notifierS(item.second);
-		break;
+	/*case SL: this->notifierS(item.second);
+		break;*/
 	case ZL: this->notifierZ(item.second);
 		break;
 	default: ;
 	};
 }
 
-
+/*
 void GameController::notifierC(Event e){
 	list<OnClickListener*>::iterator it;
 	ClickEvent c;
-	c.x = e.x, c.y = e.y, c.click = (Click) e.value;
+	c.x = e.x, c.y = e.y;//, c.click = (Click) e.value;
 	it = lClistener.begin();
 	for(; it != lClistener.end(); it++){
 		(*it)->OnClick(c);
 	}
-}
+}*/
 void GameController::notifierM(Event e){
 	list<OnMovementListener*>::iterator it;
 	MovementEvent m;
@@ -179,7 +162,7 @@ void GameController::notifierM(Event e){
 	for(; it != lMlistener.end(); it++){
 		(*it)->OnMovement(m);
 	}
-}
+}/*
 void GameController::notifierS(Event e){
 	list<OnScrollListener*>::iterator it;
 	ScrollEvent s;
@@ -188,7 +171,7 @@ void GameController::notifierS(Event e){
 	for(; it != lSlistener.end(); it++){
 		(*it)->OnScroll(s);
 	}
-}
+}*/
 void GameController::notifierZ(Event e){
 	list<OnZoomListener*>::iterator it;
 	ZoomEvent z;

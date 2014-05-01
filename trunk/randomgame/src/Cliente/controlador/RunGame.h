@@ -6,6 +6,9 @@
 #include <vector>
 #include "Entity\Event.h"
 #include "Contracts\Contract.h"
+#include "Entity\Over.h"
+#include "Entity\Click.h"
+#include "Contracts\Notifiable.h"
 
 using namespace std;
 
@@ -22,6 +25,7 @@ class RunGame{
 		static RunGame* getInstance();
 		void execute(SDL_Event* e, const Uint8* keys);
 		void setBind(map<LISTENER, Event>* items);
+		void call();
 
 	private:
 		RunGame(void);
@@ -50,6 +54,8 @@ class RunGame{
 		void detectMovem(SDL_Event* e);
 
 		int WIDTH, HIGHT;
+		
+		list<Notifiable*> l;
 };
 
 #endif

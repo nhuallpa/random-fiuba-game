@@ -5,7 +5,7 @@
 
 class OnZoomListener{
 	public:
-		void OnZoom(ZoomEvent e){}
+		virtual void OnZoom(ZoomEvent e){}
 };
 
 #endif

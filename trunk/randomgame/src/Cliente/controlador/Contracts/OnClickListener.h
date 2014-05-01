@@ -5,7 +5,7 @@
 
 class OnClickListener{
 	public:
-		void OnClick(ClickEvent e){}
+		virtual void OnClick(ClickEvent e){}
 };
 
 #endif

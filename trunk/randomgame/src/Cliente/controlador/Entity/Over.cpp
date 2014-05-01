@@ -6,11 +6,44 @@ Over::Over(void){}
 
 Over::~Over(void){}
 
-
-
 Over* Over::getInstance(){
 	if(!over){
 		over = new Over();
 	}
 	return over;
+}
+
+void Over::add(OnScrollListener * obj){
+	objects.push_back(obj);
+}
+
+void Over::remuve(OnScrollListener * obj){
+	list<OnScrollListener*>::iterator it;
+	list<OnScrollListener*>::iterator itDrop;
+	it = objects.begin();
+	itDrop = objects.end();
+	for(; it != objects.end(); it++){
+		if((*it) == obj){
+			itDrop = it;
+			break;
+		}
+	}
+	if(itDrop != objects.end()){
+		objects.erase(itDrop);
+	}
+}
+
+void Over::notify(){
+	list<OnScrollListener*>::iterator it;
+	ScrollEvent s;
+	s.xSpeed = x, s.ySpeed = y;
+	it = objects.begin();
+	for(; it != objects.end(); it++){
+		(*it)->OnScroll(s);
+	}
+}
+
+
+void Over::setEvent(int x, int y){
+	this->x = x, this->y = y;
 }

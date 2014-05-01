@@ -297,6 +297,9 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Over.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Click.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -549,6 +552,12 @@
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\Over.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\Notifiable.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Click.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
   </ItemGroup>
