@@ -33,8 +33,8 @@ void RunGame::setBind(map<LISTENER, Event>* items){
 	this->items = items;
 }
 
-State* RunGame::execute(SDL_Event* e, const Uint8* keys){
-	State* st = RunGame::getInstance();
+void RunGame::execute(SDL_Event* e, const Uint8* keys){
+	//State* st = RunGame::getInstance();
 	
 
 	wheel = e->wheel;
@@ -45,7 +45,7 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 
 	//this->detectMovem(e);
 
-	return st;
+	//return st;
 }
 
 Side RunGame::GetCursorLook(int xr, int yr){

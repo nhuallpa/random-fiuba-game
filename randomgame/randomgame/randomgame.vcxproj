@@ -158,7 +158,6 @@
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnMovementListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnScrollListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnZoomListener.h" />
-    <ClInclude Include="..\src\Cliente\controlador\Contracts\State.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ClickEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\Event.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\MovementEvent.h" />

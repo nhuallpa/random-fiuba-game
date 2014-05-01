@@ -3,9 +3,7 @@
 #ifndef GAMECONTROLLER_H_
 #define GAMECONTROLLER_H_
 
-//#include "Contracts\State.h"
 #include "RunGame.h"
-#include "Contracts\Contract.h"
 #include "Contracts\OnClickListener.h"
 #include "Contracts\OnMovementListener.h"
 #include "Contracts\OnScrollListener.h"
@@ -15,7 +13,10 @@
 #include <map>
 #include "Entity\Event.h"
 
+
 using namespace std;
+
+
 
 class GameController{
 	public:
