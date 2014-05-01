@@ -8,6 +8,7 @@
 #include "Contracts\Contract.h"
 #include "Entity\Over.h"
 #include "Entity\Click.h"
+#include "Entity\Zoom.h"
 #include "Contracts\Notifiable.h"
 
 using namespace std;
