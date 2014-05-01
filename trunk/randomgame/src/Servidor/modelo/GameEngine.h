@@ -74,7 +74,9 @@ class GameEngine {
 		// Devuelve todos los elementos "Playable" del mundo
 		void getPlayableWorld();
 
-		//receives a Playable element and appl it to the model
+		//receives a Playable element and apply it to the model
+		// First get the worm ID from the player, then apply the movement
+		// and lately step into the world and broadcast
 		bool applyPlayable2Model();
 
 

@@ -16,14 +16,21 @@
 class Cliente {
 public:
 	Cliente();
-	Cliente(char* ip, int port);
+	Cliente(std::string playerID, char* ip, int port);
 	~Cliente();
 
 	bool serverAlive();
+	
+	//Listen changes in the network
+	static int netListener(void* data);
 
-	static int keepalive(void* data);
+	//notify over the network for a local change on the client
 	static int notifyLocalUpdates(void* data);
+
+	//Apply the changes that we receive on listen state
 	static int applyNetworkChanges(void* data);
+
+	//
 
 private:
 	Socket input;
@@ -36,7 +43,9 @@ private:
 	bool srvStatus;
 
 	Mutex m;
+	Mutex n;
 	Condition somethingToTell;
+	Condition somethingToUpdate;
 
 	size_t revision;
 	std::vector<Playable> localChanges;

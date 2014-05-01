@@ -7,18 +7,22 @@ Cliente::Cliente()
 	, localChanges()
 	, networkChanges()
 	, m()
+	, n()
 	, somethingToTell(m)
+	, somethingToUpdate(n)
 {
 }
 
-Cliente::Cliente(char* ip, int port)
+Cliente::Cliente(std::string playerID, char* ip, int port)
 	: input(Socket())
 	, output(Socket())
-	, pl()
+	, pl(playerID)
 	, localChanges()
 	, networkChanges()
 	, m()
+	, n()
 	, somethingToTell(m)
+	, somethingToUpdate(n)
 
 {
 	//input.setKeepAlive();
@@ -38,13 +42,13 @@ Cliente::Cliente(char* ip, int port)
 	getRemoteWorld(); // recibo el mundo o un codigo de reject
 
 	//Thread de escucha de mensajes en la red
-	//Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
+	Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
 
 	//Thread de escucha de actualizaciones locales
 	Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
 
-	//Thread de keepalive (Send dummies over network)
-	Thread keepaliveThread("KeepAlive",keepalive,&data);
+	//Thread de keepalive (Listen for disconnect)
+	Thread keepaliveThread("Listening",netListener,&data);
 
 }
 
@@ -52,6 +56,61 @@ Cliente::~Cliente() {
 
 
 }
+
+
+int Cliente::applyNetworkChanges(void *data){
+
+	printf("\nDisparado apply Network Changes thread");
+	Cliente* cli = ((threadData*)data)->cli;
+	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
+	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
+	
+	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
+	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
+	
+	char* playerId = ((threadData*)data)->p;
+	Datagram* msg = new Datagram();
+	msg->type = KEEPALIVE;
+
+
+	while(true){
+		//copy and uncomment this to mock local changes
+		//Sleep(10);
+		//i++;
+
+		////Esto es lo que se va disparar al haber una accion del lado del cliente
+		//if ( i == 200 || i == 2000 ){
+		//	m->lock();
+		//	try{
+		//		//printf("\nGot something from client %s at i: %d ;)",playerId,i );
+		//		Playable p;
+		//		p.wormid=37;
+		//		cli->localChanges.push_back(p);
+		//	}catch(...){
+		//		m->unlock();
+		//		throw std::current_exception();
+		//	}
+		//	m->unlock();
+		//	cond->signal();
+		//}
+
+
+		// Wait for network updates from server
+		n->lock();
+		if ( cli->networkChanges.empty() ){
+			netcond->wait();
+		}
+		printf("\nGot a network change");
+
+		cli->networkChanges.pop_back();
+		n->unlock();
+	}
+
+	return 0;
+
+
+}
+
 
 
 int Cliente::notifyLocalUpdates(void *data){
@@ -75,6 +134,8 @@ int Cliente::notifyLocalUpdates(void *data){
 		msg->play.weaponid = cli->localChanges.back().weaponid;
 		msg->play.state = cli->localChanges.back().state;
 		msg->play.action = cli->localChanges.back().action;
+		msg->playerID = cli->pl.c_str();
+
 		msg->type = UPDATE;
 
 		if ( !cli->output.sendmsg(*msg) ) {
@@ -91,45 +152,45 @@ int Cliente::notifyLocalUpdates(void *data){
 }
 
 
-int Cliente::keepalive(void* data){
-	printf("\nDisparado keepalive thread");
+int Cliente::netListener(void* data){
+	printf("\nDisparado net listen thread");
 	Cliente* cli = ((threadData*)data)->cli;
 	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
 	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
 	char* playerId = ((threadData*)data)->p;
 	Datagram* msg = new Datagram();
-	msg->type = KEEPALIVE;
-	int i=0;
+
+	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
+	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
+
 	while(true){
-		Sleep(10);
-		i++;
-		//if ( !cli->output.sendmsg(*msg) ){
-		//	//Server disconnected
-		//	printf("Server died");
 
-		//	break;
-		//}
 
-		if ( !cli->output.rcvmsg(*msg) ) {
-			printf("\nDesconectando cliente at login");
-			break;
+		if ( !cli->input.rcvmsg(*msg) ) {
+			printf("\nDesconectando cliente at listening state");
+			return 1;
 		}
 		
-		//Esto es lo que se va disparar al haber una accion del lado del cliente
-		if ( i == 20 ){
-			m->lock();
+		switch(msg->type){
+		case UPDATE:
+			n->lock();
 			try{
 				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
 				Playable p;
 				p.wormid=37;
-				cli->localChanges.push_back(p);
+				cli->networkChanges.push_back(p);
 			}catch(...){
-				m->unlock();
+				n->unlock();
 				throw std::current_exception();
 			}
-			m->unlock();
-			cond->signal();
+			n->unlock();
+			netcond->signal();
+
+			break;
+		
+
 		}
+	
 
 
 
@@ -207,6 +268,10 @@ void Cliente::getRemoteWorld() {
 			return;
 		}
 		printf("\nGetted worm id: %d",msg->play.wormid);
+		//TODO @aliguo
+		//Trigger changes into game elements of the client
+
+
 	}
 
 	
@@ -236,7 +301,7 @@ int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 
 int main(){
 
-	Cliente myClient("localhost",10025);
+	Cliente myClient("aliguori","localhost",10025);
 	//Cliente myClient2("localhost",10026);
 	while(true){
 	}
