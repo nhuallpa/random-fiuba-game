@@ -34,9 +34,9 @@ class GameController{
 		void remuveListener(OnScrollListener* s);
 		void remuveListener(OnZoomListener* z);
 	private:
-		list<OnClickListener*> lClistener;
+		//list<OnClickListener*> lClistener;
 		list<OnMovementListener*> lMlistener;
-		list<OnScrollListener*> lSlistener;
+		//list<OnScrollListener*> lSlistener;
 		list<OnZoomListener*> lZlistener;
 		const Uint8* m_keys;
 		bool quit;
@@ -49,9 +49,9 @@ class GameController{
 
 		void call();
 		void notifier(pair<LISTENER, Event> item);
-		void notifierC(Event e);
+		//void notifierC(Event e);
 		void notifierM(Event e);
-		void notifierS(Event e);
+		//void notifierS(Event e);
 		void notifierZ(Event e);
 
 };

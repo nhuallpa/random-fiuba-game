@@ -5,7 +5,7 @@
 
 class OnMovementListener{
 	public:
-		void OnMovement(MovementEvent e){}
+		virtual void OnMovement(MovementEvent e){}
 };
 
 #endif
