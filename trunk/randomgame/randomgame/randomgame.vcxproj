@@ -155,7 +155,6 @@
     <ClCompile Include="..\src\utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Cliente\controlador\Contracts\Contract.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\Notifiable.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnClickListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnMovementListener.h" />

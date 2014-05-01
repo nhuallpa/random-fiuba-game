@@ -13,7 +13,6 @@
 #include "vista\GameActivity.h"
 
 
-#include "controlador\Contracts\Contract.h"
 
 
 // todo: cambiar TICK_INTERVAL por  DELAY_TIME y recuperar fps del yaml
@@ -24,7 +23,7 @@
 
 static Uint32 next_time;
 
-class Cliente : public Contract{
+class Cliente{
 
 	private:
 		//TODO @future: Going to need a socket conn;
@@ -52,8 +51,6 @@ class Cliente : public Contract{
 		void loop(void);
 
 		void runGame();
-		void stopGame();
-		void iniGame();
 
 	public:
 		Cliente(Servidor* server);

@@ -7,17 +7,14 @@ GameController::GameController(){
 	rg = RunGame::getInstance();
 }
 GameController::~GameController(){}
-void GameController::request(Contract* c){
-	detect();
-	rg->handle(c);
+
+void GameController::handlerEvent(){
+	addListFromSDL();
+	rg->handle();
 	rg->call();
 }
 
-void GameController::handleState(Contract* c){
-	this->request(c);
-}
-
-void GameController::detect(){
+void GameController::addListFromSDL(){
 	SDL_Event* ev = new SDL_Event();
 	SDL_StartTextInput();
 	while(SDL_PollEvent( ev ))
