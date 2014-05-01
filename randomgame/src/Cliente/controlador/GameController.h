@@ -35,7 +35,7 @@ class GameController{
 		void remuveListener(OnZoomListener* z);
 	private:
 		//list<OnClickListener*> lClistener;
-		list<OnMovementListener*> lMlistener;
+		//list<OnMovementListener*> lMlistener;
 		//list<OnScrollListener*> lSlistener;
 		//list<OnZoomListener*> lZlistener;
 		const Uint8* m_keys;
@@ -44,13 +44,13 @@ class GameController{
 		void handleEvents(SDL_Event* e);
 		void detect();
 		bool isValidKey(SDL_Event* e);
-		map<LISTENER, Event> items;
+		//map<LISTENER, Event> items;
 		
 
-		void call();
-		void notifier(pair<LISTENER, Event> item);
+		//void call();
+		//void notifier(pair<LISTENER, Event> item);
 		//void notifierC(Event e);
-		void notifierM(Event e);
+		//void notifierM(Event e);
 		//void notifierS(Event e);
 		//void notifierZ(Event e);
 

@@ -9,7 +9,7 @@ RunGame::RunGame(void){
 	this->loadQuadrantFactory();
 	callScreen = new PartialScreen();
 	callScreen->id = QUADRANT_9;
-	this->items = NULL;
+	//this->items = NULL;
 }
 
 RunGame::~RunGame(void){}
@@ -37,10 +37,10 @@ RunGame* RunGame::getInstance(){
 	return runGame;
 }
 
-
+/*
 void RunGame::setBind(map<LISTENER, Event>* items){
 	this->items = items;
-}
+}*/
 
 void RunGame::execute(SDL_Event* e, const Uint8* keys){
 	//State* st = RunGame::getInstance();
@@ -111,8 +111,8 @@ void RunGame::detectMovem(SDL_Event* e){
 	map<LISTENER,Event>::iterator it;
 	Event ee;
 	SDL_Scancode sc;
-	it = items->find(ML);
-	if(it == items->end()){
+	//it = items->find(ML);
+	//if(it == items->end()){
 		switch(e->type){
 			sc = e->key.keysym.scancode;
 		case SDL_KEYDOWN:
@@ -140,7 +140,7 @@ void RunGame::detectMovem(SDL_Event* e){
 			break;
 		default:;
 		}
-	}
+	//}
 }
 
 void RunGame::detectMouse(){
