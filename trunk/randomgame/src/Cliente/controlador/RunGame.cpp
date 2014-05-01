@@ -66,6 +66,7 @@ bool RunGame::isValidKey(SDL_Event* e){
 void RunGame::execute(SDL_Event* e, const Uint8* keys){
 	this->detectWheel(e);
 	this->detectClick();
+	this->detectMovem(e);
 }
 
 Side RunGame::GetCursorLook(int xr, int yr){
@@ -97,35 +98,48 @@ void RunGame::detectClick(){
 	}
 }
 void RunGame::detectMovem(SDL_Event* e){
-	SDL_Scancode sc;
-		switch(e->type){
-			sc = e->key.keysym.scancode;
-		case SDL_KEYDOWN:
-			switch(sc){
-				case SDL_SCANCODE_LEFT:
-				
-					break;
-				case SDL_SCANCODE_RIGHT:
-				
-					break;
-				default:;
-			}
-			switch(sc){
-				case SDL_SCANCODE_UP:
-				
-					break;
-				case SDL_SCANCODE_DOWN:
-				
-					break;
-				default:;
-			}
-			break;
-		case SDL_KEYUP:
+	Move* mv = Move::getInstance();
+	if(e->type == SDL_KEYDOWN){
+		detectMovem(mv, 1, e);
+		if(mv->newEvent()){
+			listEvent.add(mv);
+		}
+	}
+	else if(e->type == SDL_KEYUP){
+		detectMovem(mv, 0, e);
+		if(mv->newEvent()){
+			listEvent.add(mv);
+		}
+	}
+}
 
+
+void RunGame::detectMovem(Move* mv, int value, SDL_Event* e){
+	SDL_Scancode sc = e->key.keysym.scancode;
+	switch(sc){
+		case SDL_SCANCODE_LEFT:
+				mv->x = (-1)*value;
+			break;
+		case SDL_SCANCODE_RIGHT:
+				mv->x = value;
 			break;
 		default:;
-		}
+	}
+	switch(sc){
+		case SDL_SCANCODE_UP:
+			mv->y = (-1)*value;
+			break;
+		case SDL_SCANCODE_DOWN:
+			mv->y = value;
+			break;
+		case SDL_SCANCODE_SPACE:
+			mv->y = (-1)*value;
+			break;
+		default:;
+	}
 }
+
+
 
 void RunGame::detectMouse(){
 	Over* ov = Over::getInstance();

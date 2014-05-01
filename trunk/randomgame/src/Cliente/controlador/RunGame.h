@@ -37,26 +37,16 @@ class RunGame{
 		static RunGame* runGame;
 		void updateMouse();
 		void iniEvent();
-		
-		//handle scroll
 		PartialScreen* callScreen;
 		void detectMouse();
 		void loadQuadrantFactory();
 		vector<PartialScreen*> screems;
 		Side GetCursorLook(int xr, int yr);
-
-
 		void detectWheel(SDL_Event* e);
-
-		//handle click
 		void detectClick();
-
-		//handle Movement
 		void detectMovem(SDL_Event* e);
-
+		void detectMovem(Move* mv, int value, SDL_Event* e);
 		int WIDTH, HIGHT;
-		
-		//list<Notifiable*> l;
 		CollectionEvent listEvent;
 };
 
