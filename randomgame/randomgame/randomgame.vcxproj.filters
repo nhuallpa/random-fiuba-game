@@ -294,6 +294,9 @@
     <ClCompile Include="..\src\Cliente\vista\Camera.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Over.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -544,6 +547,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\Camera.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Over.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
