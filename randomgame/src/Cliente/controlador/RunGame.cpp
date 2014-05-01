@@ -1,7 +1,7 @@
 
 #include "RunGame.h"
-#include "IniGame.h"
-#include "StopGame.h"
+//#include "IniGame.h"
+//#include "StopGame.h"
 #include "..\..\utils\ParserYaml.h"
 #include "..\..\utils\Constantes\Constantes.h"
 /*
