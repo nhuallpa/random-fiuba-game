@@ -3,6 +3,7 @@
 #define __GAME_VIEW_BUILDER_H__
 #include "SkyView.h"
 #include "ViewGroup.h"
+#include "GameView.h"
 #include "FigureViewGroup.h"
 #include "WaterView.h"
 #include "RectangleView.h"
@@ -14,7 +15,6 @@
 #include "TriangleView.h"
 #include "TerrainView.h"
 #include "WormView.h"
-#include "ViewBuilder.h"
 #include "EartView.h"
 #include "SpriteConfigurator.h"
 #include "../../utils/Util.h"
@@ -22,11 +22,11 @@
 #include "../../Servidor/modelo/GameElement.h"
 #include "../../Servidor/modelo/GameLevel.h"
 
-class GameViewBuilder :
-	public ViewBuilder
+class GameViewBuilder 
 {
 	
 	GameLevel* cLevel;
+	GameView* gameView;
 
 public:
 
@@ -34,21 +34,21 @@ public:
 	~GameViewBuilder(void);
 
 	
-	ViewGroup* buildContainer();
+	void buildContainer();
 
-	FigureViewGroup* buildFigureContainer();
+	void buildSky();
 
-	void buildSky(ViewGroup* container);
+	void buildFigures();
 
-	void buildFigures(FigureViewGroup* container);
+	void buildWater();
 
-	void buildWater(ViewGroup* container);
+	void buildTerrain();
 
-	void buildTerrain(ViewGroup* container);
+	void buildCharacters();
 
-	void buildCharacters(ViewGroup* container);
+	void buildEart();
 
-	void buildEart(ViewGroup* container);
+	GameView* getGameView() { return this->gameView;} 
 };
 
 #endif /**__GAME_VIEW_BUILDER_H__*/

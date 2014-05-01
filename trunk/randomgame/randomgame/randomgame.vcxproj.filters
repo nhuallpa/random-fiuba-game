@@ -159,12 +159,6 @@
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\ViewBuilder.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\DefaultViewBuilder.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
@@ -306,6 +300,9 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\CollectionEvent.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\GameView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -402,12 +399,6 @@
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\ViewBuilder.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\DefaultViewBuilder.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h">
@@ -565,6 +556,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\CollectionEvent.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\GameView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
