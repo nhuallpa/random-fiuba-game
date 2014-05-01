@@ -28,7 +28,6 @@ class RunGame : public State{
 
 		//handle scroll
 		map<LISTENER,Event> *items;
-		Screen lastScreen;
 		PartialScreen* callScreen;
 		void detectMouse();
 		void loadQuadrantFactory();

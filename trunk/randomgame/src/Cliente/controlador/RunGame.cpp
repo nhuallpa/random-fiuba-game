@@ -1,17 +1,11 @@
 
 #include "RunGame.h"
-//#include "IniGame.h"
-//#include "StopGame.h"
 #include "..\..\utils\ParserYaml.h"
 #include "..\..\utils\Constantes\Constantes.h"
-/*
-#define WIDTH 400
-#define HIGHT 400
-*/
+
 RunGame* RunGame::runGame = NULL;
 
 RunGame::RunGame(void){
-	this->lastScreen = QUADRANT_9;
 	this->loadQuadrantFactory();
 	callScreen = new PartialScreen();
 	callScreen->id = QUADRANT_9;
@@ -24,21 +18,8 @@ void RunGame::handle(Contract* c){
 	c->runGame();
 	SDL_PumpEvents();
 	this->detectMouse();
-	//this->iniEvent();
 }
-/*
-void RunGame::iniEvent(){
-	Event e;
-	//scroll
-	//if(lastScreen != callScreen->id){
-		//cambio a otro evento
-		//lastScreen = (Screen) callScreen->id;
-		callScreen->getSpeed(&e.x,&e.y);
-		
-		items->insert(pair<LISTENER, Event>(SL, e));
-	//}
 
-}*/
 
 RunGame* RunGame::getInstance(){
 	if(!runGame){
@@ -64,13 +45,6 @@ State* RunGame::execute(SDL_Event* e, const Uint8* keys){
 
 	//this->detectMovem(e);
 
-	/*if(keys[SDL_SCANCODE_S]){
-		st = IniGame::getInstance();
-	}
-	else if(keys[SDL_SCANCODE_P]){
-		st = StopGame::getInstance();
-		st->statePrevious = RunGame::getInstance();
-	}*/
 	return st;
 }
 
@@ -276,12 +250,12 @@ void RunGame::loadQuadrantFactory(){
 	s8->xlimit = s8->xFrom, s8->ylimit = s8->xFrom,
 	s9->xlimit =  0,        s9->ylimit =  0;
 	
-//Los agrego para luego recorrerlos			
-screems.push_back(s1), screems.push_back(s2);
-screems.push_back(s3), screems.push_back(s4);
-screems.push_back(s5), screems.push_back(s6);
-screems.push_back(s7), screems.push_back(s8);
-screems.push_back(s9);
+	//Los agrego para luego recorrerlos			
+	screems.push_back(s1), screems.push_back(s2);
+	screems.push_back(s3), screems.push_back(s4);
+	screems.push_back(s5), screems.push_back(s6);
+	screems.push_back(s7), screems.push_back(s8);
+	screems.push_back(s9);
 	                                              
 }
 
