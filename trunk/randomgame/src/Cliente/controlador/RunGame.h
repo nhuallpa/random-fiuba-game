@@ -1,22 +1,26 @@
 #ifndef __RUNGAME__
 #define __RUNGAME__
-
-#include "Contracts\State.h"
+#include <SDL.h>
 #include "Entity\PartialScreen.h"
 #include "../../utils/Log.h"
 #include <vector>
+#include "Entity\Event.h"
+#include "Contracts\Contract.h"
 
 using namespace std;
+
+
+enum LISTENER{CL, ML, SL, ZL};
 
 enum Screen {QUADRANT_1, QUADRANT_2, QUADRANT_3, QUADRANT_4,
 			 QUADRANT_5, QUADRANT_6, QUADRANT_7, QUADRANT_8,
 			 QUADRANT_9};
 
-class RunGame : public State{
+class RunGame{
 	public:
 		void handle(Contract* c);
 		static RunGame* getInstance();
-		State* execute(SDL_Event* e, const Uint8* keys);
+		void execute(SDL_Event* e, const Uint8* keys);
 		void setBind(map<LISTENER, Event>* items);
 
 	private:

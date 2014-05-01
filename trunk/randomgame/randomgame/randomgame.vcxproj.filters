@@ -479,9 +479,6 @@
     <ClInclude Include="..\src\Cliente\controlador\Contracts\Contract.h">
       <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\Contracts\State.h">
-      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Context.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>
