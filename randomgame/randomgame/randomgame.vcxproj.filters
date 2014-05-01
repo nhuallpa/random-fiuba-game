@@ -485,9 +485,6 @@
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\DataBmp32.h">
       <Filter>Archivos de código fuente\server\model\HandlerBmp</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\Contracts\Contract.h">
-      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h">
       <Filter>Archivos de código fuente\client\controller</Filter>
     </ClInclude>

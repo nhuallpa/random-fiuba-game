@@ -4,7 +4,6 @@
 #include "Entity\PartialScreen.h"
 #include "../../utils/Log.h"
 #include <vector>
-#include "Contracts\Contract.h"
 #include "Entity\Over.h"
 #include "Entity\Click.h"
 #include "Entity\Zoom.h"
@@ -19,7 +18,7 @@ enum Screen {QUADRANT_1, QUADRANT_2, QUADRANT_3, QUADRANT_4,
 
 class RunGame{
 	public:
-		void handle(Contract* c);
+		void handle();
 		static RunGame* getInstance();
 		void execute(SDL_Event* e, const Uint8* keys);
 		void call();

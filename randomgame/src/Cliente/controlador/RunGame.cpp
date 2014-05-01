@@ -13,8 +13,8 @@ RunGame::RunGame(void){
 
 RunGame::~RunGame(void){}
 
-void RunGame::handle(Contract* c){
-	c->runGame();
+void RunGame::handle(){
+	//c->runGame();
 	SDL_PumpEvents();
 	this->detectMouse();
 }

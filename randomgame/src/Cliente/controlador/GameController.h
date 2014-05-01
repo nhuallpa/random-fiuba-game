@@ -14,8 +14,7 @@ class GameController{
 	public:
 		GameController(void);
 		~GameController(void);
-		void handleState(Contract* c);
-		void request(Contract* c);
+		void handlerEvent();
 		bool isQuit();
 		void addListener(OnClickListener* c);
 		void addListener(OnMovementListener* m);
@@ -30,7 +29,7 @@ class GameController{
 		bool quit;
 		RunGame* rg;
 		void handleEvents(SDL_Event* e);
-		void detect();
+		void addListFromSDL();
 		bool isValidKey(SDL_Event* e);
 };
 

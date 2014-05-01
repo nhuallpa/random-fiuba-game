@@ -42,7 +42,8 @@ void Cliente::loop(void){
 	next_time = SDL_GetTicks() + tick_inteval;
 	bootstrap.getScreen().setState("Juego Creado");
 	while (!this->cController.isQuit()){
-		cController.handleState(this);
+		cController.handlerEvent();
+		this->runGame();
 		currentActivity->update();
 		currentActivity->render();
 		SDL_Delay(time_left());
@@ -105,12 +106,12 @@ void Cliente::runGame(){
 	bootstrap.getScreen().setState("Juego corriendo");
 	this->server->getGameEngine().step();
 }
-
+/*
 void Cliente::stopGame(){
 	Log::i("Detencion de secuencia");
 	bootstrap.getScreen().setState("Juego Pausado");
-}
-
+}*/
+/*
 void Cliente::iniGame(){
 	//TODO: Regenerar el mundo
 	Log::i("RE-Inicio de secuencia");
@@ -119,7 +120,7 @@ void Cliente::iniGame(){
 	currentActivity->update();
 	currentActivity->render();
 }
-
+*/
 
 
 
