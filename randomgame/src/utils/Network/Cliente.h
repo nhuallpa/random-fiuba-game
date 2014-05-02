@@ -30,6 +30,22 @@ public:
 	//Apply the changes that we receive on listen state
 	static int applyNetworkChanges(void* data);
 
+	static int clientSideEmulation(void* data);
+
+	void lockLocalMutex();
+
+	void unlockLocalMutex();
+
+	void lockNetworkMutex();
+
+	void unlockNetworkMutex();
+
+	void addLocalChange(Playable p);
+
+	void signalLocalChange();
+
+	void signalNetworkChange();
+
 	//
 
 private:

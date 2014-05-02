@@ -50,7 +50,53 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 	//Thread de keepalive (Listen for disconnect)
 	Thread keepaliveThread("Listening",netListener,&data);
 
+	//Thread de simulacion de cambios locales
+	Thread clientSideThread("Emulation",clientSideEmulation,&data);
+
 }
+
+
+int Cliente::clientSideEmulation(void *data){
+
+	printf("\nDisparado apply Network Changes thread");
+	Cliente* cli = ((threadData*)data)->cli;
+	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
+	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
+	
+	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
+	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
+	
+	char* playerId = ((threadData*)data)->p;
+	Datagram* msg = new Datagram();
+	msg->type = KEEPALIVE;
+	size_t i = 0;
+
+	while(true){
+		//copy and (un)comment this to mock local changes
+		Sleep(10);
+		i++;
+
+		//Esto es lo que se va disparar al haber una accion del lado del cliente
+		if ( i == 500 || i == 2000 ){
+			m->lock();
+			try{
+				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
+				Playable p;
+				p.wormid=37;
+				cli->localChanges.push_back(p);
+			}catch(...){
+				m->unlock();
+				throw std::current_exception();
+			}
+			m->unlock();
+			cond->signal();
+		}
+
+	}
+
+	return 0;
+}
+
 
 Cliente::~Cliente() {
 
@@ -72,27 +118,8 @@ int Cliente::applyNetworkChanges(void *data){
 	Datagram* msg = new Datagram();
 	msg->type = KEEPALIVE;
 
-
 	while(true){
-		//copy and uncomment this to mock local changes
-		//Sleep(10);
-		//i++;
 
-		////Esto es lo que se va disparar al haber una accion del lado del cliente
-		//if ( i == 200 || i == 2000 ){
-		//	m->lock();
-		//	try{
-		//		//printf("\nGot something from client %s at i: %d ;)",playerId,i );
-		//		Playable p;
-		//		p.wormid=37;
-		//		cli->localChanges.push_back(p);
-		//	}catch(...){
-		//		m->unlock();
-		//		throw std::current_exception();
-		//	}
-		//	m->unlock();
-		//	cond->signal();
-		//}
 
 
 		// Wait for network updates from server
@@ -102,7 +129,11 @@ int Cliente::applyNetworkChanges(void *data){
 		}
 		printf("\nGot a network change");
 
+		// TODO: Apply playable to the gameEntities at client side
+
 		cli->networkChanges.pop_back();
+
+
 		n->unlock();
 	}
 
@@ -112,7 +143,7 @@ int Cliente::applyNetworkChanges(void *data){
 }
 
 
-
+//
 int Cliente::notifyLocalUpdates(void *data){
 
 	printf("\nDisparado notify local updates thread");
@@ -164,7 +195,6 @@ int Cliente::netListener(void* data){
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 
 	while(true){
-
 
 		if ( !cli->input.rcvmsg(*msg) ) {
 			printf("\nDesconectando cliente at listening state");
@@ -283,11 +313,36 @@ bool Cliente::serverAlive () {
 	return this->srvStatus;
 }
 
-//void Cliente::push (Playable localChange) {
-//	
-//}
 
 
+
+void Cliente::lockLocalMutex(){
+	this->m.lock();
+}
+
+void Cliente::unlockLocalMutex(){
+	this->m.unlock();
+}
+
+void Cliente::lockNetworkMutex(){
+	this->n.lock();
+}
+
+void Cliente::unlockNetworkMutex(){
+	this->n.unlock();
+}
+
+void Cliente::addLocalChange(Playable p){
+	this->localChanges.push_back(p);
+}
+
+void Cliente::signalLocalChange(){
+	this->somethingToTell.signal();
+}
+
+void Cliente::signalNetworkChange(){
+	this->somethingToUpdate.signal();
+}
 
 int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	if ( !this->output.sendmsg(type, buffer) ) {
@@ -303,7 +358,29 @@ int main(){
 
 	Cliente myClient("aliguori","localhost",10025);
 	//Cliente myClient2("localhost",10026);
+	size_t i = 0;
+
 	while(true){
+	//	Sleep(10);
+	//	i++;
+
+	//	//Esto es lo que se va disparar al haber una accion del lado del cliente
+	//	if ( i == 500 || i == 2000 ){
+	//		myClient.lockLocalMutex();
+	//		try{
+	//			printf("\nGot something from client at i: %d ;)",i );
+	//			Playable p;
+	//			p.wormid=37;
+	//			myClient.addLocalChange(p);
+	//		}catch(...){
+	//			myClient.unlockLocalMutex();
+	//			throw std::current_exception();
+	//		}
+	//		myClient.unlockLocalMutex();
+	//		myClient.signalLocalChange();
+	//	}
+
+
 	}
 
 	return 0;
