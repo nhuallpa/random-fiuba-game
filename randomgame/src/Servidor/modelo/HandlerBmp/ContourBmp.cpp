@@ -112,6 +112,7 @@ list< pair<int,int> >* ContourBmp::getConnectedComponentsOptimized(int waterLeve
 	//	}
 	//}
  //   return aConnectedComponentsList;
+	return NULL;
 }
 
 
