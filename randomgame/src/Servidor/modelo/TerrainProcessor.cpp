@@ -186,6 +186,19 @@ TerrainProcessor::~TerrainProcessor(void)
 }
 
 
-void TerrainProcessor::getRandomPosition(int* x,int* y){
-	int random = Util::getRandom(0,10);
+void TerrainProcessor::getRandomPosition(int* x,int* y){// int waterLevel){
+	//list<pair<int,int> > *listaDeIslas= this->getContourTerrainOverWater(waterLevel);
+	//iterator::pair<int,int> it = listaDeIslas->begin();
+	//int random = Util::getRandom(0,listaDeIslas->size());
+	//
+	//it=it+random;
+
+	//int x1 = Util::getRandom((*it).first,(*it).second)
+	//
+	//do{	
+	//int y1= Util::getRandom(0, this->getHeight()-waterLevel);
+
+
+	////recorrer la lista de poligonos y fijarte si toco tierra
+
 }

@@ -9,6 +9,7 @@ class ContourBmp
         ContourBmp(TerrainImg* aBmpFile);
         list< list<Position*> *>* getConnectedComponents(list<Position*>* aPositionList);
 		list< list<Position*>* >* getConnectedComponentsOptimized();
+		list< pair<int,int> >* getConnectedComponentsOptimized(int waterLevel);
         list< list<Position*> *>* getContour();
         static void deleteListOfListPositions(list< list<Position*>* >* aListOfListToDelete);
         virtual ~ContourBmp();
