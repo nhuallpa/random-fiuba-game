@@ -17,11 +17,11 @@ GamePlayer* GamePlayer::NewPlayerFactory(int prefId, int amountWorms){
 						 WORM,
 						 x,
 						 y,
-						 0, //PREGUNTAR A BAUTI QUE SETEAR
-						 10,//PREGUNTAR A BAUTI QUE SETEAR
-						 10,//PREGUNTAR A BAUTI QUE SETEAR
-						 20,//PREGUNTAR A BAUTI QUE SETEAR
-						 true));//PREGUNTAR A BAUTI QUE SETEAR
+						 0, //PREGUNTAR A ARI QUE SETEAR
+						 10,//PREGUNTAR A ARI QUE SETEAR
+						 10,//PREGUNTAR A ARI QUE SETEAR
+						 20,//PREGUNTAR A ARI QUE SETEAR
+						 true));//PREGUNTAR A ARI QUE SETEAR
 	}
 	return gp;
 }
