@@ -79,6 +79,44 @@ list< list<Position*>* >* ContourBmp::getConnectedComponentsOptimized()
 }
 
 
+//Pre: Recibe el extremo inferior izquierdo de la matriz bmp
+//Pos1:Devuelve una lista dentro de la cual, cada elemento es una lista.
+//Esta última lista contiene posiciones adyacentes.(una vez usados deben ser liberados de memoria)
+list< pair<int,int> >* ContourBmp::getConnectedComponentsOptimized(int waterLevel)
+{
+ //   //Se ordena por columna de menor a mayor, así se recorren las posiciones de arriba a abajo de izq a der
+ //   list< list<Position*>* >* aConnectedComponentsList = new list< list<Position*>* >();
+ //   
+	//int width=this->aBmpFile->getWidth();
+	//int height=this->aBmpFile->getHeight();
+ //   list<Position*>* aComponent;
+	//int cabeza=0;
+	//bool cabezaEncontrada=false;
+	//bool colaEncontrada=false;
+	//bool componenteEncontrada=false;
+
+	//for(int column=0; column < width ; column++)
+	//{
+	//	colaEncontrada=( (aBmpFile->getBit(height-1, column) == 1 || column == width-1 ) && cabezaEncontrada==true) ;//si encuentra el final de un terreno, agrega la posicion inicial
+	//	if(colaEncontrada)
+	//	{
+	//		cabezaEncontrada=false;
+ //           aComponent = new list<Position*>();
+ //           aComponent->push_back(new Position(height-1,cabeza));
+ //           aConnectedComponentsList->push_back(aComponent);
+	//	}
+	//	else if ( (aBmpFile->getBit(height-1,column) == 0 ) && cabezaEncontrada==false) //si encuentra el principio de un terreno, agrega la posicion inicial
+	//	{
+	//		cabeza=column;
+	//		cabezaEncontrada=true;
+	//	}
+	//}
+ //   return aConnectedComponentsList;
+}
+
+
+
+
 
 //Pos1:Devuelve una lista dentro de la cual, cada elemento es una lista.(Liberar la memoria utilizada por este recurso)
 //Esta última lista contiene el contorno de una componente conexa.(una vez usados deben ser liberados de memoria)
