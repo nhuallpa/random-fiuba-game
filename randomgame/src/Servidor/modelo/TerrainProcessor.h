@@ -30,6 +30,7 @@ public:
 	~TerrainProcessor(void);
 	vector<vector<b2Vec2>> 
 	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, int& height, int& width);
+	static void getRandomPosition(int* x,int* y);
 };
 
 #endif

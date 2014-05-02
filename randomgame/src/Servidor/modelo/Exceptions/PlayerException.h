@@ -1,6 +1,5 @@
-
-#ifndef __CONTOUREXCEPTION__
-#define __CONTOUREXCEPTION__
+#ifndef __PLAYEREXCEPTION__
+#define __PLAYEREXCEPTION__
 
 #include <exception>
 #include <map>
@@ -8,10 +7,10 @@ using namespace std;
 
 namespace server_model_exp{
 	
-	class ContourExp : public exception{
+	class PlayerExp : public exception{
 		public:
-			~ContourExp(void);
-			ContourExp(int error);
+			~PlayerExp(void);
+			PlayerExp(int error);
 			const char* what() throw(); 
 		private:
 			int idError;
@@ -19,4 +18,4 @@ namespace server_model_exp{
 	};
 }
 
-#endif /*__CONTOUREXCEPTION__*/
+#endif /*__PLAYEREXCEPTION__*/

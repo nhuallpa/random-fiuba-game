@@ -303,6 +303,12 @@
     <ClCompile Include="..\src\Cliente\vista\GameView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Exceptions\PlayerException.cpp">
+      <Filter>Archivos de código fuente\server\model\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\GamePlayer.cpp">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\utils\Log.h">
@@ -559,6 +565,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\GameView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Exceptions\PlayerException.h">
+      <Filter>Archivos de código fuente\server\model\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\GamePlayer.h">
+      <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

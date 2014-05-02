@@ -10,13 +10,23 @@
 #include "../../utils/Util.h"
 #include "TerrainProcessor.h"
 //#include "../../utils/utils.h"
+#include "GamePlayer.h"
+#include "Exceptions\PlayerException.h"
 
+using namespace server_model_exp;
 
 class GameLevel {
 	private:
 
-		//TODO @future - std::list<GamePlayer*> players;
-		//TODO @future - Mutex jugadores;
+		std::map<string, GamePlayer*> players;//TODO @future - std::list<GamePlayer*> players;
+		int amountUser;//TODO @future - Mutex jugadores;
+		int amountWorms;
+		int idUnique;
+		
+
+		void addUserIntoLevel(string user)
+			throw(PlayerExp);
+		
 		//TODO @future - Mutex game elements;
 
 		int levelHeight;
@@ -54,8 +64,8 @@ class GameLevel {
 		void setTerrain(TerrainProcessor* aTerrainProcessor);
 
 		//TODO @future - void removePlayer(GamePlayer *jugador);
-		//TODO @future - void addPlayer(GamePlayer *jugador);
-
+		void addPlayer(string user, GamePlayer *pg);//TODO @future - void addPlayer(GamePlayer *jugador);
+		GamePlayer *getPlayer(string user);
 		// ESTE NO VA 
 		std::map<int,GameElement> getModelElements();
 
