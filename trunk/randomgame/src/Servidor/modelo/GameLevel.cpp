@@ -1,6 +1,8 @@
 #include "GameLevel.h"
 #include "../../utils/Log.h"
 
+#define MAXPLAYER 1
+#define ERRPLAYER 2
 
 using namespace std;
 
@@ -9,6 +11,8 @@ using namespace std;
 GameLevel::GameLevel() {
 	this->levelHeight = 100;
 	this->levelWidth = 100;
+	this->amountUser = 4; //TODO: LEVANTAR PARAMETRO DEL YAML
+	this->idUnique = 1;
 }
 
 GameLevel::~GameLevel() {
@@ -22,6 +26,46 @@ int GameLevel::getHeight() {
 int GameLevel::getWidth() {
 	return this->levelWidth;
 }
+
+void GameLevel::addUserIntoLevel(string user){
+	GamePlayer* player = NULL;
+	try{
+		player = getPlayer(user);
+		if(player == NULL){
+			this->addPlayer(user, 
+				GamePlayer::NewPlayerFactory(this->idUnique,
+				                             this->amountWorms));
+			(this->idUnique)++;
+		}
+		else{
+			player->setStateConn(CONNECTED);
+		}
+	}
+	catch(PlayerExp pe){
+		throw pe;
+	}
+	catch(...){
+		throw PlayerExp(ERRPLAYER);
+	}
+}
+
+GamePlayer* GameLevel::getPlayer(string user){
+	map<string, GamePlayer*>::iterator it;
+	it = players.find(user);
+	if(it != players.end())
+		return (*it).second;
+	else
+		return NULL;
+}
+
+void GameLevel::addPlayer(string user, GamePlayer *pg){
+	if(players.size() == this->amountUser){
+		throw PlayerExp(MAXPLAYER);
+	}
+	this->players.insert(
+		pair<string, GamePlayer*>(user,pg));
+}
+
 
 //float nearest(float f){
 //	return floorf(f * 100 + 0.5) / 100; 

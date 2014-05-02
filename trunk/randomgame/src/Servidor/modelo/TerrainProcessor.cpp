@@ -2,6 +2,7 @@
 #include "../../libs/Box2D/Box2D.h"
 #include "Exceptions\ContourException.h"
 #include "HandlerBmp\TerrainImg.h"
+#include "..\..\utils\Util.h"
 
 TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale)
 {
@@ -182,4 +183,9 @@ list< list< pair<float,float> > > * TerrainProcessor::getListOfPolygons()
 TerrainProcessor::~TerrainProcessor(void)
 {
 
+}
+
+
+void TerrainProcessor::getRandomPosition(int* x,int* y){
+	int random = Util::getRandom(0,10);
 }

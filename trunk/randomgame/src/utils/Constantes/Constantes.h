@@ -119,7 +119,11 @@
 
 /**************************** HANDLE CONTOUR ***************************/
 
-
+/**************************** HANDLE PLAYER ***************************/
+#define HP_OFFSET 2000
+#define HP_ERROR_1 /*2001*/ "El nivel no admite mas jugadores"
+#define HP_ERROR_2 /*2002*/ "Ocurrio un error al intentar agregar un jugador"
+/**************************** HANDLE PLAYER ***************************/
 
 
 #define LOG_PATH "./LOG"

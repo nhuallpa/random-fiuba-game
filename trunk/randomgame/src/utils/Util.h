@@ -7,7 +7,6 @@
 #include <map>
 #include <stdlib.h>
 
-
 struct s_point{
 	int x;
 	int y;
@@ -85,8 +84,7 @@ public:
 
 
 
-
-
+	static int getRandom(int min, int max);
 };
 
 

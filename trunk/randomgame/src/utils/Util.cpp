@@ -121,3 +121,8 @@ std::map<std::string, std::string> Util::loadProperteries(std::string str)
 	}
 	return properties;
 }
+
+
+int Util::getRandom(int min, int max){
+	return rand() % min + max;
+}
