@@ -123,36 +123,13 @@ int Servidor::wait4Connections(void* data){
 
 
 void Servidor::waitConnections(){
-	//this is where client connects. srv will hang in this mode until client conn
-	//printf("Listening");
-	//int players = 0;
-	//while (this->cantJugadores > players){
-	//	
-	//	Socket sClientO = this->input.aceptar();
-	//	sClientO.setRcvTimeout(5, 0);
-	//	
-	//	Socket sClientI = this->output.aceptar();
-	//	
-	//	threadData* dataCliente = new threadData();
 
-	//	dataCliente->srv = this;
-	//	dataCliente->clientI = sClientI;
-	//	dataCliente->clientO = sClientO;
-	//	//ToDo: ocupar el map/list de clientes conectados
-
-
-	//	Thread clientThread("Client Thread",initClient,dataCliente);
-	//	players++;
-	//}
 }
 
 
 Servidor::~Servidor() {
 	//TODO: Close every socket pair
-	// for (auto& par : clientes.get()) {
-		// close(par.second.input);
-		// close(par.second.output);
-	// }
+
 }
 
 
