@@ -186,7 +186,7 @@ TerrainProcessor::~TerrainProcessor(void)
 }
 
 
-void TerrainProcessor::getRandomPosition(int* x,int* y){// int waterLevel){
+void TerrainProcessor::getRandomPosition(int* x,int* y){
 	//list<pair<int,int> > *listaDeIslas= this->getContourTerrainOverWater(waterLevel);
 	//iterator::pair<int,int> it = listaDeIslas->begin();
 	//int random = Util::getRandom(0,listaDeIslas->size());
