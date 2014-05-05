@@ -42,6 +42,8 @@ public:
 
 	void addLocalChange(Playable p);
 
+	bool updateModel(Playable p);
+
 	void signalLocalChange();
 
 	void signalNetworkChange();

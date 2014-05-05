@@ -10,6 +10,7 @@ enum Messages {
 	CONF,
 	REJECT,
 	KEEPALIVE,
+	DISCONNECT,
 };
 
 

@@ -41,10 +41,13 @@ private:
 	// Lista de clientes conectados y sus file descriptors asociados
 	typedef std::map<std::string, std::pair<int,int>> Players;
 	Players pList;
+
+	//This really is client side requested changes/actions
 	std::vector<Playable> changes;
 
-	
-	
+	// This is all the changes after apply all client side actions, THIS
+	// MUST be propagated to all the clients.
+	std::vector<Playable> worldChanges;	
 
 	void sendHeartBeat(Player playerId, Messages type);
 	

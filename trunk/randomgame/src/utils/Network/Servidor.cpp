@@ -24,40 +24,14 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, lock()
 	, canUpdate(lock)
 {
-	//output.setKeepAlive();
-	//output.setListen(4);
-	//input.setKeepAlive();
-	//input.setListen(4);
-	//input.setRcvTimeout(5, 0);
-	//output.setKeepAlive();
-	//output.setSendTimeout(5, 0);
+
 	jugadoresConectados = 0;
-/* Eventos que puede recibir el modelo
-
-- Seleccion de worm
-- Movimiento de worm
-
-Estructura del mensaje:
-
-PLAYABLE
-Worm ID, Worm position: X,Y
-Worm action: STEP RIGHT, STEP LEFT, JUMP, INITIAL PLACEMENT
-Weapon: ?
-Target:
-
-- Conexion de jugador   ------> Va en mensajes INIT
-- Desconexion de jugador -----> Va en mensajes INIT
-
-
-*/
 	threadData data;
 	data.srv = this;
 
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
 	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
-	//this->waitConnections();
-
 
 	//TODO: UpdatingThread()
 	//		Dispara el thread que ante un update modifica el mundo, simula un paso
@@ -67,7 +41,7 @@ Target:
 }
 
 int Servidor::updating(void* data){
-	printf("\n\n\nUpdating...\n");
+	printf("\n\n\nUpdating Thread running\n");
 	Servidor* srv = ((threadData*)data)->srv;
 	std::vector<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
@@ -79,7 +53,11 @@ int Servidor::updating(void* data){
 			//printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		//printf("\nUpdating: doing stuff");
+		printf("\nUpdating: doing stuff at server side");
+		Playable p;
+		p = srv->changes.back();
+		//srv->updateModel(p);
+
 
 		
 		m->unlock();
@@ -100,11 +78,7 @@ int Servidor::wait4Connections(void* data){
 		
 		while(srv->cantJugadores > srv->jugadoresConectados){
 			Socket sClientO = srv->input.aceptar();
-			//sClientO.setRcvTimeout(5, 0);
-			//sClientO.setSendTimeout(5,0);
 			Socket sClientI = srv->output.aceptar();
-			//sClientI.setRcvTimeout(5, 0);
-			//sClientI.setSendTimeout(5,0);
 
 			threadData* dataCliente = new threadData();
 			dataCliente->srv = srv;
@@ -178,13 +152,14 @@ int Servidor::initClient(void* data){
 	printf("\nEnviando data (level) al cliente");
 
 	//Send World info to client (entire world)
-	//Elements
+	//TODO: Elements
 	datagram->type = INIT;
 	datagram->elements = 2;
 	((threadData*)data)->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (elements) al cliente");
 
 	//Start sending elements
+	//TODO for loop
 	datagram->type = INIT;
 	datagram->play.wormid = 21;
 	((threadData*)data)->clientI.sendmsg(*datagram);
@@ -214,13 +189,16 @@ int Servidor::initClient(void* data){
 				m->unlock();
 				throw std::current_exception();
 			}
-			m->unlock();
-			cond->signal();
+
 
 			switch (datagram->type) {
 			case UPDATE:
 				printf("\nGot update");
 
+				srv->changes.push_back(datagram->play);
+
+				m->unlock();
+				cond->signal();
 				
 				break;
 
@@ -230,6 +208,7 @@ int Servidor::initClient(void* data){
 				// El servidor responde un vivo para mantener abierto el otro socket
 				//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
 				//printf("\nGot keepalive");
+				// DEPRECATED - Handling connections in other way now
 				printf("\nGot keepalive");
 				//((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
 

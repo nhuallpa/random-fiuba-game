@@ -25,10 +25,6 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 	, somethingToUpdate(n)
 
 {
-	//input.setKeepAlive();
-	//input.setRcvTimeout(5, 0);
-	//output.setKeepAlive();
-	//output.setSendTimeout(5, 0);
 
 	input.connect2(ip, port+1);
 	printf("Connected to data port: %d", port);
@@ -130,6 +126,10 @@ int Cliente::applyNetworkChanges(void *data){
 		printf("\nGot a network change");
 
 		// TODO: Apply playable to the gameEntities at client side
+		Playable p;
+		p = cli->networkChanges.back();
+
+		cli->updateModel(p);
 
 		cli->networkChanges.pop_back();
 
@@ -142,6 +142,18 @@ int Cliente::applyNetworkChanges(void *data){
 
 }
 
+
+bool Cliente::updateModel(Playable p){
+
+	//Search worm id
+	//p.wormid
+
+	//Update his position to new x,y
+	//p.x;
+	//p.y;
+
+	return true;
+}
 
 //
 int Cliente::notifyLocalUpdates(void *data){
@@ -198,17 +210,26 @@ int Cliente::netListener(void* data){
 
 		if ( !cli->input.rcvmsg(*msg) ) {
 			printf("\nDesconectando cliente at listening state");
+			//TODO: metodo de desconexion del server, mensaje y grisar pantalla o retry
+
 			return 1;
 		}
-		
+		printf("\nGot network change");
 		switch(msg->type){
 		case UPDATE:
 			n->lock();
 			try{
 				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
 				Playable p;
-				p.wormid=37;
+				/*p.wormid=37;*/
+				
+				p.wormid = msg->play.wormid;
+				p.weaponid = msg->play.weaponid;
+				p.x = msg->play.x;
+				p.y = msg->play.y;
+
 				cli->networkChanges.push_back(p);
+
 			}catch(...){
 				n->unlock();
 				throw std::current_exception();
@@ -217,13 +238,8 @@ int Cliente::netListener(void* data){
 			netcond->signal();
 
 			break;
-		
-
 		}
 	
-
-
-
 	}
 
 	return 0;
@@ -312,6 +328,7 @@ void Cliente::getRemoteWorld() {
 bool Cliente::serverAlive () {
 	return this->srvStatus;
 }
+
 
 
 
