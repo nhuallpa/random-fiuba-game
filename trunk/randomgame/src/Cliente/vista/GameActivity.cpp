@@ -45,7 +45,7 @@ void GameActivity::update()
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::d(VIEW,"elemento %s",domainElement->getType());
+		Log::d(VIEW,"elemento %d",domainElement.getType());
 		try
 		{
 			FigureView* aFigure = gameView->findFigureById(domainElement.getId());
