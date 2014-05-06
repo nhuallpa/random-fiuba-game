@@ -1,10 +1,15 @@
 #include "GameViewBuilder.h"
 
+//Ya no se crea mas en base al nivel
+//GameViewBuilder::GameViewBuilder(GameLevel * cLevel):cLevel(cLevel)
+//{
+//	gameView = NULL;
+//}
 
-GameViewBuilder::GameViewBuilder(GameLevel * cLevel):cLevel(cLevel)
-{
+GameViewBuilder::GameViewBuilder(){
 	gameView = NULL;
 }
+
 
 
 GameViewBuilder::~GameViewBuilder(void)
@@ -32,7 +37,7 @@ void GameViewBuilder::buildEart()
 
 void GameViewBuilder::buildFigures()
 {
-	std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
+	//std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
 	std::map<int,GameElement*>::iterator it;
 	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", domainElements.size());
 
@@ -105,54 +110,57 @@ void GameViewBuilder::buildWater()
 	std::string color = aParser->getEscenarioColorAgua();
 	
 	int scale = ESCALA_UL2PX;
-	int heigth = (int)(this->cLevel->getWaterLevel() * scale);
+	
+
+	//ARIEL: Aca meti mano y cambie el valor del agua para que lo saque del YAML
+	int heigth = (int)( Util::string2float( aParser->getEscenarioAgua() ) * scale);
 	
 	gameView->setWater(new WaterView(heigth, color));
 }
 
 void GameViewBuilder::buildTerrain()
-{
-	Log::d("Creando TERRENO en vista");
-	ParserYaml* aParser = ParserYaml::getInstance();
-	std::string color = aParser->getEscenarioColorTierra();
+{	//ARIEL: Comento porque esto dibujaba en base a poligonos
+	//Log::d("Creando TERRENO en vista");
+	//ParserYaml* aParser = ParserYaml::getInstance();
+	//std::string color = aParser->getEscenarioColorTierra();
 
-	TerrainView* aTerrain = new TerrainView(color);
+	//TerrainView* aTerrain = new TerrainView(color);
 
-	list< list< pair<float,float> > > * polygonsPoint = this->cLevel->getTerrain()->getListOfPolygons();
-	list< list< pair<float,float> > >::iterator itPolygons;
+	//list< list< pair<float,float> > > * polygonsPoint = this->cLevel->getTerrain()->getListOfPolygons();
+	//list< list< pair<float,float> > >::iterator itPolygons;
 
-	int countPolygons = 0;
+	//int countPolygons = 0;
 
-	std::list<std::list<tPoint>> polygonsToView;
-	for (itPolygons = polygonsPoint->begin(); itPolygons!=polygonsPoint->end(); ++itPolygons) 
-	{
-		countPolygons++;
-		Log::t("Creando polygono nro: %d", countPolygons);
-		list< pair< float, float> > ::iterator itPoints;	
-		list< pair<float,float> > points = (*itPolygons);
+	//std::list<std::list<tPoint>> polygonsToView;
+	//for (itPolygons = polygonsPoint->begin(); itPolygons!=polygonsPoint->end(); ++itPolygons) 
+	//{
+	//	countPolygons++;
+	//	Log::t("Creando polygono nro: %d", countPolygons);
+	//	list< pair< float, float> > ::iterator itPoints;	
+	//	list< pair<float,float> > points = (*itPolygons);
 
 
-		std::list<tPoint> pointsToView;
-		for (itPoints = points.begin(); itPoints!=points.end(); ++itPoints) 
-		{
-			Log::t("----> Punto: %f %f", itPoints->first, itPoints->second);
-			tPoint aPoint = Util::convertPointUL2PXSDL(itPoints->first, itPoints->second);
-			
-			pointsToView.push_back(aPoint);
-		}
-		polygonsToView.push_back(pointsToView);
-	}
+	//	std::list<tPoint> pointsToView;
+	//	for (itPoints = points.begin(); itPoints!=points.end(); ++itPoints) 
+	//	{
+	//		Log::t("----> Punto: %f %f", itPoints->first, itPoints->second);
+	//		tPoint aPoint = Util::convertPointUL2PXSDL(itPoints->first, itPoints->second);
+	//		
+	//		pointsToView.push_back(aPoint);
+	//	}
+	//	polygonsToView.push_back(pointsToView);
+	//}
 
-	delete polygonsPoint;
-	
-	std::list<std::list<tPoint>>::iterator it;
+	//delete polygonsPoint;
+	//
+	//std::list<std::list<tPoint>>::iterator it;
 
-	for (it = polygonsToView.begin(); it != polygonsToView.end(); ++it)
-	{
-		aTerrain->buildPart((*it));
-	}
+	//for (it = polygonsToView.begin(); it != polygonsToView.end(); ++it)
+	//{
+	//	aTerrain->buildPart((*it));
+	//}
 
-	this->gameView->setTerrain(aTerrain);
+	//this->gameView->setTerrain(aTerrain);
 }
 
 void GameViewBuilder::buildCharacters()

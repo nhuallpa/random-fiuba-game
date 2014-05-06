@@ -73,7 +73,7 @@ void Log::i(std::string msj)
 
 void Log::e(std::string msj)
 {
-	Log::Instance().log(ERROR, NO_DEFINIDO, msj);
+	Log::Instance().log(ERRORLOG, NO_DEFINIDO, msj);
 }
 
 /** ================================== */
@@ -113,7 +113,7 @@ void Log::e(LugarLog lugarLog,char* form, ...)
 {
 	va_list argumentos;
 	va_start(argumentos,form);
-	Log::Instance().log(ERROR,
+	Log::Instance().log(ERRORLOG,
 						lugarLog,
 						Log::Instance().stringConFormato(form,argumentos));
 }
@@ -143,7 +143,7 @@ void Log::i(LugarLog lugarLog,std::string msj)
 
 void Log::e(LugarLog lugarLog,std::string msj)
 {
-	Log::Instance().log(ERROR,
+	Log::Instance().log(ERRORLOG,
 						lugarLog, 
 						msj);
 }
@@ -181,7 +181,7 @@ std::string Log::logearTipoLog(TipoLog tipoLog)
 		case INFO :
 			return "[INFO] ";
 			break;
-		case ERROR :
+		case ERRORLOG :
 			return "[ERROR]";
 	}
 	return "";

@@ -1,6 +1,6 @@
 
 #include "Servidor.h"
-#include <string>
+
 
 Servidor::Servidor()
 	: input ()
