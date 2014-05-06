@@ -11,12 +11,14 @@ class GameActivity : public Activity
 {
 private:
 	
-	GameLevel* cLevel;
-
+	//GameLevel* cLevel;
+	std::map<int,GameElement*> domainElements;
 	GameController* cController;
 
 public:
-	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
+//	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
+
+	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameController* cController);
 
 	void buildView( GameViewBuilder & builder);
 

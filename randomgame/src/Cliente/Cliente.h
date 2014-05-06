@@ -5,13 +5,21 @@
 
 
 #include "controlador/GameController.h"
-#include "../Servidor/Servidor.h"
 #include "vista/GameViewBuilder.h"
 #include <SDL2_framerate.h>
 #include "vista\Bootstrap.h"
 #include "vista\Activity.h"
 #include "vista\GameActivity.h"
 #include "controlador\Contracts\OnClickListener.h"
+
+#include "Socket.h"
+#include "Messages.h"
+#include "Thread.h"
+#include "Condition.h"
+
+#include <string>
+#include <vector>
+#include <list>
 
 
 
@@ -28,7 +36,7 @@ class Cliente : public OnClickListener{
 	private:
 		//TODO @future: Going to need a socket conn;
 		
-		GameLevel cLevel;
+		//GameLevel cLevel;
 		
 		/**Inicializador de componentes de la vista*/
 		Bootstrap bootstrap;
@@ -39,8 +47,8 @@ class Cliente : public OnClickListener{
 		/**Controlador de eventos y estados*/
 		GameController cController;
 		
-		bool connect2server(Servidor* server);
-		Servidor* server;
+		//bool connect2server(Servidor* server);
+		//Servidor* server;
 
 		Uint32 time_left(void);
 
@@ -52,9 +60,33 @@ class Cliente : public OnClickListener{
 
 		void runGame();
 
-	public:
-		Cliente(Servidor* server);
+		Socket input;
+		Socket output;
 
+		Player pl;
+
+		// Se usa para controlar el timeout de los sockets
+
+		bool srvStatus;
+
+		Mutex m;
+		Mutex n;
+		Condition somethingToTell;
+		Condition somethingToUpdate;
+
+		size_t revision;
+		std::vector<Playable> localChanges;
+		std::vector<Playable> networkChanges;
+
+		void getRemoteWorld();
+		int sendMsg(Messages type, std::vector<uint8_t> buffer);
+		int sendDatagram(Datagram msg);
+		int login();
+
+	public:
+		//Cliente(Servidor* server);
+		Cliente(std::string playerID, char* ip, int port);
+		
 		virtual ~Cliente(void);
 
 		bool run();
@@ -63,6 +95,42 @@ class Cliente : public OnClickListener{
 
 		void OnClick(ClickEvent e);
 
+		bool serverAlive();
+	
+		//Listen changes in the network
+		static int netListener(void* data);
+
+		//notify over the network for a local change on the client
+		static int notifyLocalUpdates(void* data);
+
+		//Apply the changes that we receive on listen state
+		static int applyNetworkChanges(void* data);
+
+		static int clientSideEmulation(void* data);
+
+		void lockLocalMutex();
+
+		void unlockLocalMutex();
+
+		void lockNetworkMutex();
+
+		void unlockNetworkMutex();
+
+		void addLocalChange(Playable p);
+
+		bool updateModel(Playable p);
+
+		void signalLocalChange();
+
+		void signalNetworkChange();
+
 };
+
+typedef struct{
+	Cliente* cli;
+	Socket clientO;
+	Socket clientI;
+	char p[15];
+} threadData;
 
 #endif

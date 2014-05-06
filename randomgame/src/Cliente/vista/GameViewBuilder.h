@@ -25,12 +25,14 @@
 class GameViewBuilder 
 {
 	
-	GameLevel* cLevel;
+	//GameLevel* cLevel;
 	GameView* gameView;
+	std::map<int,GameElement*> domainElements;
 
 public:
 
-	GameViewBuilder(GameLevel * cLevel);
+	//GameViewBuilder(GameLevel * cLevel);
+	GameViewBuilder();
 	~GameViewBuilder(void);
 
 	

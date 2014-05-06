@@ -18,15 +18,15 @@
 #include <cstdarg>
 #include <cstdio>
 #include <map>
-#include "./Constantes/Constantes.h"
+//#include "Constantes\Constantes.h"
 #include "../utils/Util.h"
 
 
 enum TipoLog{
-	TRACE,
+	TRACE=0,
 	DEBUG,
 	INFO,
-	ERROR,
+	ERRORLOG
 };
 
 enum LugarLog{
