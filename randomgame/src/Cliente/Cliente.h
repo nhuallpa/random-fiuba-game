@@ -12,10 +12,10 @@
 #include "vista\GameActivity.h"
 #include "controlador\Contracts\OnClickListener.h"
 
-#include "Socket.h"
-#include "Messages.h"
-#include "Thread.h"
-#include "Condition.h"
+#include "../utils/Network/Socket.h"
+#include "../utils/Network/Messages.h"
+#include "../utils/Network/Thread.h"
+#include "../utils/Network/Condition.h"
 
 #include <string>
 #include <vector>
