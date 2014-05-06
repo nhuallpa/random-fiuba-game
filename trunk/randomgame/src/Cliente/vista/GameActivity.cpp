@@ -44,6 +44,7 @@ void GameActivity::update()
 	for (it = domainElements.begin(); it != domainElements.end(); ++it)
 	{
 		GameElement* domainElement = it->second;
+		Log::d(VIEW,"elemento %s",domainElement->getType());
 		try
 		{
 			FigureView* aFigure = gameView->findFigureById(domainElement->getId());
@@ -60,7 +61,13 @@ GameActivity::~GameActivity(void)
 {
 }
 
+void GameActivity::OnClick(ClickEvent e){
+	Log::d("CLICK");
+}
+
+
 void GameActivity::setListeners() 
 {
 	this->cController->addListener(&TextureManager::Instance().getCamera());
+	this->cController->addListener(this);
 }

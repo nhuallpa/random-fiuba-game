@@ -7,7 +7,7 @@
 #include "../controlador/GameController.h"
 #include "../../Servidor/modelo/GameLevel.h"
 
-class GameActivity : public Activity
+class GameActivity : public Activity, public OnClickListener
 {
 private:
 	
@@ -27,6 +27,8 @@ public:
 	void onCreate();
 
 	void setListeners();
+
+	void OnClick(ClickEvent e);
 
 	~GameActivity(void);
 };
