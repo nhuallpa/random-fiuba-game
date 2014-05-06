@@ -45,5 +45,5 @@ void Click::notify(){
 
 void Click::setEvent(int x, int y){
 	this->x = x;
-	this->x = y;
+	this->y = y;
 }
