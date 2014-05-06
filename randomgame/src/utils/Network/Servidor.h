@@ -24,13 +24,17 @@ public:
 	
 	Mutex lock;
 	Condition canUpdate;
+	Mutex netlock;
+	Condition canBroadcast;
 
 	void waitConnections();
-
+	
+	static int broadcastMessages(void* data);
 	static int updating(void* data);
 	static int initClient(void* data);
 	static void notifyReject(Socket& fdCli);
 	static int wait4Connections(void* data);
+	
 
 private:
 	Socket input;

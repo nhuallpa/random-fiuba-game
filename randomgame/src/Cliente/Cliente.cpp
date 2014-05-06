@@ -14,6 +14,11 @@ Cliente::~Cliente(void){
 
 }
 
+void Cliente::OnClick(ClickEvent e){
+	Log::d("Prueba debug click/n");
+
+}
+
 bool Cliente::begin(){
 	// TODO @future: Initialize sockets
 	this->connect2server(this->server);
@@ -36,6 +41,9 @@ void Cliente::loop(void){
 	
 	/** refresh the initial view*/
 	this->currentActivity->render();
+
+	this->cController.addListener(this);
+
 
 	int running = 0;
 	Uint32 tick_inteval = this->getTickInterval();

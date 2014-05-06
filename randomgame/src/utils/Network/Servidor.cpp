@@ -8,7 +8,9 @@ Servidor::Servidor()
 	, cantJugadores()
 	, changes ()
 	, lock()
+	, netlock()
 	, canUpdate(lock)
+	, canBroadcast(netlock)
 {
 }
 
@@ -22,7 +24,9 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, pList()
 	, changes()
 	, lock()
+	, netlock()
 	, canUpdate(lock)
+	, canBroadcast(netlock)
 {
 
 	jugadoresConectados = 0;
@@ -38,6 +42,8 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	//		y notifica a los clientes.
 	Thread clientThread("Updating Thread",updating,&data);
 
+	Thread netUpdaterThread("Updater",broadcastMessages,&data);
+
 }
 
 int Servidor::updating(void* data){
@@ -46,6 +52,8 @@ int Servidor::updating(void* data){
 	std::vector<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
 	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
 	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
+	Condition* netcond = &((Servidor*)((threadData*)data)->srv)->canBroadcast;
+	Mutex* n = &((Servidor*)((threadData*)data)->srv)->netlock;
 
 	while(true){
 		m->lock();
@@ -57,13 +65,54 @@ int Servidor::updating(void* data){
 		Playable p;
 		p = srv->changes.back();
 		//srv->updateModel(p);
-
-
+		//if necessary signal condition to start broadcasting, if not wait
+		n->lock();
+		srv->worldChanges.push_back(p);
+		n->unlock();
+		netcond->signal();
 		
+		
+
+
+		srv->changes.pop_back();
 		m->unlock();
 	}
 	return 0;
 }
+
+
+int Servidor::broadcastMessages(void* data){
+	printf("\n\n\Broadcast Thread running\n");
+	Servidor* srv = ((threadData*)data)->srv;
+	std::vector<Playable>* worldChanges = &((Servidor*)((threadData*)data)->srv)->worldChanges;
+	Condition* netcond = &((Servidor*)((threadData*)data)->srv)->canBroadcast;
+	Mutex* n = &((Servidor*)((threadData*)data)->srv)->netlock;
+
+	while(true){
+		n->lock();
+		if ( worldChanges->empty() ){
+			//printf("\nwaiting.. is empty :(");
+			netcond->wait();
+		}
+		printf("\nUpdating all the clients");
+
+		Playable p = worldChanges->back();
+
+		for ( int i = 0 ; i < srv->jugadoresConectados ; i++){
+			printf("Sending data to client: %d",i);
+		}
+
+
+		worldChanges->pop_back();
+		n->unlock();
+
+	}
+
+	
+	return 0;	
+}
+
+
 
 int Servidor::wait4Connections(void* data){
 	//this is where client connects. srv will hang in this mode until client conn
@@ -194,12 +243,12 @@ int Servidor::initClient(void* data){
 			switch (datagram->type) {
 			case UPDATE:
 				printf("\nGot update");
-
 				srv->changes.push_back(datagram->play);
 
 				m->unlock();
 				cond->signal();
-				
+
+
 				break;
 
 
@@ -211,12 +260,16 @@ int Servidor::initClient(void* data){
 				// DEPRECATED - Handling connections in other way now
 				printf("\nGot keepalive");
 				//((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
-
+				
+				m->unlock();
+				cond->signal();
 				break;
 			case LOGIN:
 				//((threadData*)data)->clientI.sendmsg(type,datos);
 				printf("\nEnviando data al cliente - switch");
-
+				
+				m->unlock();
+				cond->signal();
 				break;
 			}
 		}
