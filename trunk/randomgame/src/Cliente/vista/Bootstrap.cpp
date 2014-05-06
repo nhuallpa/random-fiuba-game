@@ -15,7 +15,7 @@ void Bootstrap::init()
 	int h = atoi(aParser->getEscenarioAltoP().c_str());
 	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
-		this->getScreen().init("Taller Tp1", 50, 50, w, h, 0);
+		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
 	} 
 
 	std::map<std::string, std::string> map_images;

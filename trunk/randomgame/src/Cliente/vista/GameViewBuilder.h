@@ -27,7 +27,9 @@ class GameViewBuilder
 	
 	//GameLevel* cLevel;
 	GameView* gameView;
-	std::map<int,GameElement*> domainElements;
+	
+	// Worm ID, (X,Y)
+	std::map<int,GameElement> domainElements;
 
 public:
 
@@ -49,6 +51,10 @@ public:
 	void buildCharacters();
 
 	void buildEart();
+
+	void addElementToDomain(GameElement worm);
+
+	std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
 
 	GameView* getGameView() { return this->gameView;} 
 };

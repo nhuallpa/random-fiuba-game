@@ -24,6 +24,7 @@ GameActivity::GameActivity(const SDLScreen & screen,
 
 void GameActivity::buildView( GameViewBuilder & builder)
 {
+	this->builder = &builder;
 	builder.buildContainer();
 	builder.buildSky();
 	builder.buildFigures();
@@ -35,20 +36,20 @@ void GameActivity::buildView( GameViewBuilder & builder)
 void GameActivity::update() 
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	//ARIEL: Refactor
-	//std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
+	//ARIEL: Refactor grande, ver si no rompi :)
+	std::map<int,GameElement>* domainElements = this->builder->getDomainElements();
 	
-	std::map<int,GameElement*>::iterator it;
-	Log::d(VIEW,"Actualizando %d en elemento", domainElements.size());
+	std::map<int,GameElement>::iterator it;
+	Log::d(VIEW,"Actualizando %d en elemento", domainElements->size());
 
-	for (it = domainElements.begin(); it != domainElements.end(); ++it)
+	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
-		GameElement* domainElement = it->second;
+		GameElement domainElement = it->second;
 		Log::d(VIEW,"elemento %s",domainElement->getType());
 		try
 		{
-			FigureView* aFigure = gameView->findFigureById(domainElement->getId());
-			aFigure->update(domainElement);
+			FigureView* aFigure = gameView->findFigureById(domainElement.getId());
+			aFigure->update(&domainElement);
 		}
 		catch (GameException e) {
 			Log::e(e.what());

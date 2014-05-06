@@ -8,6 +8,14 @@
 
 GameViewBuilder::GameViewBuilder(){
 	gameView = NULL;
+
+	
+	GameElement aWorm(1,WORM,30,50,1,0,15,false);
+	GameElement aWorm1(2,WORM,70,80,1,0,15,false);
+	GameElement aWorm2(3,WORM,150,95,1,0,15,false);
+	this->addElementToDomain(aWorm);
+	this->addElementToDomain(aWorm1);
+	this->addElementToDomain(aWorm2);
 }
 
 
@@ -38,61 +46,61 @@ void GameViewBuilder::buildEart()
 void GameViewBuilder::buildFigures()
 {
 	//std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
-	std::map<int,GameElement*>::iterator it;
+	std::map<int,GameElement>::iterator it;
 	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", domainElements.size());
 
 	ParserYaml* aParser = ParserYaml::getInstance();
 
 	for (it = domainElements.begin(); it != domainElements.end(); ++it)
 	{
-		GameElement* domainElement = it->second;
+		GameElement domainElement = it->second;
 		FigureView* aFigure = 0;
-		std::string color= aParser->getColorById(Util::int2string(domainElement->getId()));
-		if (domainElement->getType() == CIRCLE) 
+		std::string color= aParser->getColorById(Util::int2string(domainElement.getId()));
+		if (domainElement.getType() == CIRCLE) 
 		{
 			Log::d("Creando CIRCULO");
 
 
-			float radius = domainElement->getRadiusScaled();
+			float radius = domainElement.getRadiusScaled();
 			Log::t("Radio: %f", radius);
 
 			EllipseView* aCircle = new EllipseView(color);
 			aCircle->updateRadius(radius);
-			aCircle->updatePositions(domainElement->getPosition());
-			aCircle->setId(domainElement->getId());
+			aCircle->updatePositions(domainElement.getPosition());
+			aCircle->setId(domainElement.getId());
 			aFigure = aCircle;
 
 		} 
-		else if (domainElement->getType() == SQUARE) 
+		else if (domainElement.getType() == SQUARE) 
 		{
 			Log::d("Creando RECTANGULO");
 			RectangleView* aRectangle = new RectangleView(color);
-			aRectangle->updateVertex(domainElement->getVertex());
-			aRectangle->setId(domainElement->getId());
+			aRectangle->updateVertex(domainElement.getVertex());
+			aRectangle->setId(domainElement.getId());
 			aFigure = aRectangle;
 		}
-		else if (domainElement->getType() == TRIANGLE) 
+		else if (domainElement.getType() == TRIANGLE) 
 		{
 			Log::d("Creando TRIANGULO");
 			TriangleView* aTriangle = new TriangleView(color);
-			aTriangle->updateVertex(domainElement->getVertex());
-			aTriangle->setId(domainElement->getId());
+			aTriangle->updateVertex(domainElement.getVertex());
+			aTriangle->setId(domainElement.getId());
 			aFigure = aTriangle;
 		}
-		else if (domainElement->getType() == PENTA) 
+		else if (domainElement.getType() == PENTA) 
 		{
 			Log::d("Creando PENTAGONO");
 			PentagonView* aPentagon = new PentagonView(color);
-			aPentagon->updateVertex(domainElement->getVertex());
-			aPentagon->setId(domainElement->getId());
+			aPentagon->updateVertex(domainElement.getVertex());
+			aPentagon->setId(domainElement.getId());
 			aFigure = aPentagon;
 		}
-		else if (domainElement->getType() == HEXAGON) 
+		else if (domainElement.getType() == HEXAGON) 
 		{
 			Log::d("Creando HEXAGONO");
 			HexagonView* aHexagon = new HexagonView(color);
-			aHexagon->updateVertex(domainElement->getVertex());
-			aHexagon->setId(domainElement->getId());
+			aHexagon->updateVertex(domainElement.getVertex());
+			aHexagon->setId(domainElement.getId());
 			aFigure = aHexagon;
 		}
 		if (aFigure) 
@@ -163,24 +171,46 @@ void GameViewBuilder::buildTerrain()
 	//this->gameView->setTerrain(aTerrain);
 }
 
+void GameViewBuilder::addElementToDomain(GameElement element){
+
+	this->domainElements.insert( std::make_pair(element.getId(),element) );
+
+}
+
+
+
+
 void GameViewBuilder::buildCharacters()
 {
-	WormView* aWorm = new WormView(90, 30, 50);
-	WormView* aWorm2 = new WormView(91, 200, 60);
-	WormView* aWorm3 = new WormView(92, 500, 100);
 
-	// todo: obtener los id de sprite del yaml
-	try 
+
+
+	std::map<int,GameElement>::iterator it;
+
+	for (it = domainElements.begin(); it != domainElements.end(); ++it)
 	{
-		aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
-		aWorm2->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
-		aWorm3->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
-	} 
-	catch (std::exception & e) 
-	{
-		Log::e(e.what());
+		GameElement domainElement = it->second;
+
+		if (domainElement.getType() == WORM) 
+		{
+			WormView* aWorm = new WormView(	it->first, 
+											domainElement.getPosition().first, 
+											domainElement.getPosition().second);
+
+			try 
+			{
+				aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
+			} 
+			catch (std::exception & e) 
+			{
+				Log::e(e.what());
+			}
+			this->gameView->putWorm(aWorm->getId(), aWorm);
+
+		} 
+
 	}
-	this->gameView->putWorm(aWorm->getId(), aWorm);
-	this->gameView->putWorm(aWorm->getId(), aWorm2);
-	this->gameView->putWorm(aWorm->getId(), aWorm3);
+	
+	// todo: obtener los id de sprite del yaml
+	
 }
