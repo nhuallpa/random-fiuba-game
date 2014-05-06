@@ -11,7 +11,7 @@
 #include "vista\Bootstrap.h"
 #include "vista\Activity.h"
 #include "vista\GameActivity.h"
-
+#include "controlador\Contracts\OnClickListener.h"
 
 
 
@@ -23,7 +23,7 @@
 
 static Uint32 next_time;
 
-class Cliente{
+class Cliente : public OnClickListener{
 
 	private:
 		//TODO @future: Going to need a socket conn;
@@ -61,7 +61,7 @@ class Cliente{
 
 		void destroyWorld();
 
-		
+		void OnClick(ClickEvent e);
 
 };
 
