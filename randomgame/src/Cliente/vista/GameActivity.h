@@ -14,6 +14,7 @@ private:
 	//GameLevel* cLevel;
 	std::map<int,GameElement*> domainElements;
 	GameController* cController;
+	GameViewBuilder* builder;
 
 public:
 //	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);

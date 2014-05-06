@@ -72,6 +72,7 @@ void Cliente::loop(void){
 	cController.destroy();
 	bootstrap.getScreen().terminate();
 	delete currentActivity;
+	delete builder;
 
 }
 
@@ -243,7 +244,7 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true){
 
-
+		Sleep(10);
 
 		// Wait for network updates from server
 		n->lock();
@@ -334,6 +335,8 @@ int Cliente::netListener(void* data){
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 
 	while(true){
+
+		Sleep(10);
 
 		if ( !cli->input.rcvmsg(*msg) ) {
 			printf("\nDesconectando cliente at listening state");
