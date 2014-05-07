@@ -31,6 +31,9 @@ void GameActivity::buildView( GameViewBuilder & builder)
 	builder.buildEart();
 	builder.buildCharacters();
 	builder.buildWater();
+
+
+
 }
 
 void GameActivity::update() 
@@ -82,8 +85,18 @@ void GameActivity::OnClick(ClickEvent e){
 				SDL_Point clickPoint;
 				clickPoint.x = e.x;
 				clickPoint.y = e.y;
-				if ( (!aWorm->isSelected()) &&(SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))) aWorm->select();
-				else if (aWorm->isSelected()) aWorm->deselect();
+				if ( (!aWorm->isSelected()) &&(SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))){
+					aWorm->select();
+					// Si el worm es del jugador lo registro/des-registro como listener.
+					if ( !domainElement.getPlayerID().compare(this->builder->getPlayerID()) ){
+						this->cController->addListener(aWorm);
+						
+					}
+				}
+				else if (aWorm->isSelected()){
+					aWorm->deselect();
+					this->cController->remuveListener(aWorm);
+				}
 			}
 		}
 	

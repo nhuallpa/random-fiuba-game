@@ -57,3 +57,10 @@ void WormView::select(){
 void WormView::deselect(){
 	this->selected = false;
 }
+
+void WormView::OnMovement(MovementEvent e){
+
+	//aca tienen que llamar al metodo del cliente addLocalMovementFromView() pasandome 
+	//el wormID y el Move que hacen (izq,der,salto,..etc)
+
+}

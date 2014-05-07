@@ -46,7 +46,8 @@ void Cliente::loop(void){
 	bootstrap.init();
 	//ARIEL : REFACTOR
 	//GameViewBuilder builder(&this->cLevel);
-	GameViewBuilder* builder = new GameViewBuilder();
+	GameViewBuilder* builder = new GameViewBuilder(&this->cController);
+	builder->setPlayerID("PLAYER 1");
 	//currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel, &this->cController);
 	currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
 	

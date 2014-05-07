@@ -29,6 +29,8 @@ public:
 
 	/* Constructor for Rectangule */
 	GameElement(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
+	GameElement(int id, std::string playerID, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
+
 
 	/* Constructor for Circle */
 	GameElement(int id, float posX, float posY, float radius, float scale, float mass, bool isFixed);
@@ -57,6 +59,12 @@ public:
 	bool isFixed();
 
 	float getRadiusScaled() {return radius * scale;}
+
+	std::string playerID;
+
+	std::string getPlayerID() {return this->playerID; }
+
+
 
 protected:
 	int id;
