@@ -19,7 +19,7 @@ private:
 public:
 //	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
 
-	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameController* cController);
+	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController);
 
 	void buildView( GameViewBuilder & builder);
 
@@ -27,7 +27,7 @@ public:
 
 	void onCreate();
 
-	void setListeners();
+	void setListeners(SDLScreen & screen);
 
 	void OnClick(ClickEvent e);
 

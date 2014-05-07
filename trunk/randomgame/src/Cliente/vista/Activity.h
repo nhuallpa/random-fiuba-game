@@ -22,7 +22,7 @@ protected:
 
 public:
 
-	Activity(const SDLScreen & screen);
+	Activity(SDLScreen & screen);
 
 	virtual ~Activity(void);
 

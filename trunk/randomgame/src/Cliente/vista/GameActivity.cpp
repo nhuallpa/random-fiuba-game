@@ -12,14 +12,14 @@
 //	this->setListeners();
 //}
 
-GameActivity::GameActivity(const SDLScreen & screen, 
+GameActivity::GameActivity(SDLScreen & screen, 
 							GameViewBuilder & builder, 
 							GameController* cController)
 							:Activity(screen), cController(cController)
 {
 	this->buildView(builder);
 	this->setContentView(builder.getGameView());
-	this->setListeners();
+	this->setListeners(screen);
 }
 
 void GameActivity::buildView( GameViewBuilder & builder)
@@ -67,8 +67,9 @@ void GameActivity::OnClick(ClickEvent e){
 }
 
 
-void GameActivity::setListeners() 
+void GameActivity::setListeners(SDLScreen &  screen) 
 {
 	this->cController->addListener(&TextureManager::Instance().getCamera());
 	this->cController->addListener(this);
+	this->cController->addListener(&screen);
 }

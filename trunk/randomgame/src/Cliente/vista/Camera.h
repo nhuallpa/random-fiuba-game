@@ -19,6 +19,8 @@ public:
 	int getY() { return this->box.y;}
 	int getW() { return this->box.w;}
 	int getH() { return this->box.h;}
+	void setW(int w) { this->box.w = w;}
+	void setH(int h) { this->box.h = h;}
 	int getWidthScenario() {return this->widthScenario;}
 	int getHeightScenario() {return this->heightScenario;}
 	void setWidthScenario(int w) { this->widthScenario = w;}

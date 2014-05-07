@@ -1,7 +1,7 @@
 #include "Activity.h"
 
 
-Activity::Activity(const SDLScreen & screen): m_screen(screen)
+Activity::Activity(SDLScreen & screen): m_screen(screen)
 {
 	this->aView = 0;
 }
