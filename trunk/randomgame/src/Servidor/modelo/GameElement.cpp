@@ -14,6 +14,19 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, float
 			this->fixed = isFixed;
 }
 
+GameElement::GameElement(int id, std::string playerID, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed){
+			this->playerID.assign(playerID.c_str());
+			this->id = id;
+			this->changed = false;
+			this->type = type;
+			this->degrees = degrees;
+			this->position = std::make_pair(posX,posY);
+			this->height = h;
+			this->width = w;
+			this->mass = mass;
+			this->fixed = isFixed;
+}
+
 /* Circle constructor */
 GameElement::GameElement(int id, float posX, float posY, float radius, float scale, float mass, bool fixed)
 {
@@ -44,7 +57,7 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, float
 
 
 GameElement::GameElement(const GameElement & aGameElement):
-					id(aGameElement.id), changed(aGameElement.changed), 
+					id(aGameElement.id), playerID(aGameElement.playerID), changed(aGameElement.changed), 
 					ratio(aGameElement.ratio), type(aGameElement.type),
 					position(aGameElement.position), height(aGameElement.type), 
 					mass(aGameElement.type), myBody(aGameElement.myBody),

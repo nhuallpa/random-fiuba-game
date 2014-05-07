@@ -5,7 +5,9 @@
 #include "TextureManager.h"
 #include "View.h"
 #include "Sprite.h"
-class WormView: public View
+#include "../controlador/Contracts/OnMovementListener.h"
+
+class WormView: public View, public OnMovementListener
 {
 	int id;
 
@@ -30,6 +32,7 @@ public:
 	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
 
+	void OnMovement(MovementEvent e);
 
 	bool isSelected();
 	void select();

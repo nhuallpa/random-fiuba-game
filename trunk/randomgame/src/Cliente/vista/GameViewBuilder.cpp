@@ -6,13 +6,15 @@
 //	gameView = NULL;
 //}
 
-GameViewBuilder::GameViewBuilder(){
+GameViewBuilder::GameViewBuilder(GameController* cController)
+	: cController(cController)
+{
 	gameView = NULL;
 
 	
-	GameElement aWorm(1,WORM,30,50,1,0,15,false);
-	GameElement aWorm1(2,WORM,70,80,1,0,15,false);
-	GameElement aWorm2(3,WORM,150,95,1,0,15,false);
+	GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
+	GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
+	GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
 	this->addElementToDomain(aWorm);
 	this->addElementToDomain(aWorm1);
 	this->addElementToDomain(aWorm2);
@@ -206,6 +208,15 @@ void GameViewBuilder::buildCharacters()
 				Log::e(e.what());
 			}
 			this->gameView->putWorm(aWorm->getId(), aWorm);
+
+			//// Si el worm es del jugador lo registro como listener.
+			//if ( !domainElement.getPlayerID().compare(this->playerID) ){
+
+			//	WormView* aWorm = gameView->findWormById(domainElement.getId());
+			//	this->cController->addListener(aWorm);
+
+			//}
+
 
 		} 
 

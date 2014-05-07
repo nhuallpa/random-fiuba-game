@@ -21,6 +21,7 @@
 #include "../../utils/Constantes/Constantes.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../../Servidor/modelo/GameLevel.h"
+#include "../controlador/GameController.h"
 
 class GameViewBuilder 
 {
@@ -31,12 +32,18 @@ class GameViewBuilder
 	// Worm ID, (X,Y)
 	std::map<int,GameElement> domainElements;
 
+	std::string playerID;
+
+	GameController* cController;
+
 public:
 
 	//GameViewBuilder(GameLevel * cLevel);
-	GameViewBuilder();
+	GameViewBuilder(GameController* cController);
 	~GameViewBuilder(void);
 
+	std::string getPlayerID() { return this->playerID; }
+	void setPlayerID(std::string  playerID){ this->playerID = playerID; }
 	
 	void buildContainer();
 
