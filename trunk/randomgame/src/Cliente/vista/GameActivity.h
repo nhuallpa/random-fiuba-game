@@ -6,11 +6,13 @@
 #include "GameViewBuilder.h"
 #include "../controlador/GameController.h"
 #include "../../Servidor/modelo/GameLevel.h"
+#include <SDL_rect.h>
+#include "../../utils/Util.h"
+#include "Camera.h"
 
 class GameActivity : public Activity, public OnClickListener
 {
 private:
-	
 	//GameLevel* cLevel;
 	std::map<int,GameElement*> domainElements;
 	GameController* cController;
