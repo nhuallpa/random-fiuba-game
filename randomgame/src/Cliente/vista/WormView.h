@@ -8,6 +8,8 @@
 class WormView: public View
 {
 	int id;
+
+	bool selected;
 	
 	Sprite* currentSprite;
 
@@ -24,9 +26,14 @@ public:
 	void draw(SDLScreen & screen);
 
 	int getId() {return this->id;}
-
+	
 	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
+
+
+	bool isSelected();
+	void select();
+	void deselect();
 
 	~WormView(void);
 };

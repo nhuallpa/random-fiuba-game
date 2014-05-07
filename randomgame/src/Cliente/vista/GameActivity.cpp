@@ -63,7 +63,32 @@ GameActivity::~GameActivity(void)
 }
 
 void GameActivity::OnClick(ClickEvent e){
-	Log::d("CLICK");
+	Log::d("**************CLICK*****************");
+
+	std::map<int,GameElement>* domainElements = this->builder->getDomainElements();
+	std::map<int,GameElement>::iterator it;
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	for (it = domainElements->begin(); it != domainElements->end(); ++it)
+	{
+		GameElement domainElement = it->second;
+		if (domainElement.getType() == WORM){
+			WormView* aWorm = gameView->findWormById(domainElement.getId());
+			if (aWorm != NULL){
+				SDL_Rect wormRect;
+				wormRect.x = aWorm->getX();
+				wormRect.y = aWorm->getY();
+				wormRect.w = aWorm->getX()+10;
+				wormRect.h = aWorm->getY()+10;
+				SDL_Point clickPoint;
+				clickPoint.x = e.x;
+				clickPoint.y = e.y;
+				if ( (!aWorm->isSelected()) &&(SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))) aWorm->select();
+				else if (aWorm->isSelected()) aWorm->deselect();
+			}
+		}
+	
+	}
+	Log::d("*********** FIN CLICK***************");
 }
 
 
