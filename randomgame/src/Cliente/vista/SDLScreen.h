@@ -7,7 +7,10 @@
 #include <sstream>
 #include <SDL.h>
 #include <SDL_image.h>
-class SDLScreen : public TScreen
+#include "../../utils/Log.h"
+#include "Camera.h"
+#include "../controlador/Contracts/OnZoomListener.h"
+class SDLScreen : public TScreen, public OnZoomListener
 {
 private:
 	SDL_Window* m_pWindow;
@@ -16,6 +19,10 @@ private:
 	
 	std::string title;
 
+	float scale;
+
+	Camera * refCam;
+
 public:
 	
 	SDLScreen(void);
@@ -23,6 +30,7 @@ public:
 	void init(const char* title, int xpos, int ypos, int width,
 			int height, int flags);
 	
+	void setCamera(Camera * camera) { refCam = camera;}
 	void clear();
 	
 	void render();
@@ -30,6 +38,8 @@ public:
 	void terminate();
 
 	void setState(std::string string_state);
+
+	void OnZoom(ZoomEvent e);
 
 	SDL_Renderer* getRenderer();
 

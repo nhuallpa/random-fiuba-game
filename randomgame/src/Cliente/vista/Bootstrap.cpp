@@ -35,6 +35,7 @@ void Bootstrap::init()
 
 	loadSprites();
 	initCamera(w, h);
+	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
 
 }
 

@@ -4,6 +4,7 @@
 
 SDLScreen::SDLScreen() 
 {
+	this->scale = 1;
 }
 
 void SDLScreen::init(const char* title, int xpos, int ypos, int width,
@@ -18,13 +19,13 @@ void SDLScreen::init(const char* title, int xpos, int ypos, int width,
 		this->height = height;
 		this->width = width;
 		renderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-		if(renderer != 0) // renderer init success
+			if(renderer != 0) // renderer init success
 		{
 
 			SDL_SetRenderDrawColor(renderer,
 			0,0,0,0);
 
-			SDL_RenderSetScale(renderer, 1, 1);
+			SDL_RenderSetScale(renderer, this->scale, this->scale);
 		}
 		else
 		{
@@ -68,4 +69,28 @@ SDL_Renderer* SDLScreen::getRenderer()
 
 SDLScreen::~SDLScreen(void)
 {
+}
+
+void SDLScreen::OnZoom(ZoomEvent e)
+{
+	SDL_Rect newViewPort;
+	float nextScale = this->scale + (0.01 * e.y);
+	if (nextScale > 0.5 && nextScale <= 3) 
+	{
+		SDL_RenderSetScale(renderer, nextScale, nextScale);
+		SDL_RenderGetViewport(renderer, &newViewPort);
+		if ((newViewPort.h + this->refCam->getY()) <= this->refCam->getHeightScenario() &&
+			(newViewPort.w + this->refCam->getX()) <= this->refCam->getWidthScenario())
+		{
+			this->refCam->setH(newViewPort.h);
+			this->refCam->setW(newViewPort.w);
+			this->scale = nextScale;
+		}
+		else
+		{
+			SDL_RenderSetScale(renderer, this->scale, this->scale);
+		}
+		
+	}
+	
 }
