@@ -36,6 +36,11 @@
 #define DEFAULT_YAML_LEVEL "default_level.yaml"
 #define CONFIG_FILE "config/config.yaml"
 
+#define VERDE 0xFF3ADF00
+#define AMARILLO 0xFF00BFFF
+#define CELESTE 0xFFD7DF01
+#define VIOLETA 0xFFDF01D7
+
 
 
 /****************************************************************************************************/

@@ -15,9 +15,18 @@ GameViewBuilder::GameViewBuilder(GameController* cController)
 	GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
 	GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
 	GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
+	GameElement aWorm3(4,"PLAYER 2",WORM,30,95,0,45,45,15,false);
+	GameElement aWorm4(5,"PLAYER 3",WORM,150,50,0,45,45,15,false);
+	GameElement aWorm5(6,"PLAYER 4",WORM,70,110,0,45,45,15,false);
+	
+	
+	
 	this->addElementToDomain(aWorm);
 	this->addElementToDomain(aWorm1);
 	this->addElementToDomain(aWorm2);
+	this->addElementToDomain(aWorm3);
+	this->addElementToDomain(aWorm4);
+	this->addElementToDomain(aWorm5);
 }
 
 
@@ -197,7 +206,8 @@ void GameViewBuilder::buildCharacters()
 		{
 			WormView* aWorm = new WormView(	it->first, 
 											domainElement.getPosition().first, 
-											domainElement.getPosition().second);
+											domainElement.getPosition().second,
+											domainElement.getPlayerID());
 
 			try 
 			{

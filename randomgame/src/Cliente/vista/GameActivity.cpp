@@ -74,6 +74,7 @@ void GameActivity::OnClick(ClickEvent e){
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
+		Log::d("playerId: %s",domainElement.getPlayerID().c_str());
 		if (domainElement.getType() == WORM){
 			WormView* aWorm = gameView->findWormById(domainElement.getId());
 			if (aWorm != NULL){
