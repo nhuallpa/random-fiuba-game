@@ -1,6 +1,6 @@
 #ifndef MUTEX_H_
 #define MUTEX_H_
-
+#include "../Log.h"
 class SDL_mutex;
 
 class Mutex

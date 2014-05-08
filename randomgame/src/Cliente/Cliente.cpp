@@ -168,8 +168,8 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 	printf("Connected to update port: %d", port+1);
 	this->srvStatus = true;
 
-	threadData data;
-	data.cli = this;
+	
+	this->data.cli = this;
 
 	this->domain.setPlayerID(this->pl);
 	
@@ -290,10 +290,11 @@ bool Cliente::updateModel(Playable p){
 //
 int Cliente::notifyLocalUpdates(void *data){
 	printf("\nDisparado notify local updates thread");
-	Cliente* cli = ((threadData*)data)->cli;
-	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
-	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
-	char* playerId = ((threadData*)data)->p;
+	threadData* aThreadData = (threadData*)data;
+	Cliente* cli = aThreadData->cli;
+	Mutex* m = &cli->m;
+	Condition* cond = &(cli->somethingToTell);
+	char* playerId = aThreadData->p;
 	Datagram* msg = new Datagram();
 
 	while(true){

@@ -5,8 +5,8 @@ Mutex::Mutex()
 	: mutex(SDL_CreateMutex())
 	, blocked(false)
 {
-	if (mutex == nullptr) {
-		//Log::e("Couldn't create MUTEX");
+	if (!mutex) {
+		Log::e("Mutex::Couldn't create MUTEX");
 	}
 }
 

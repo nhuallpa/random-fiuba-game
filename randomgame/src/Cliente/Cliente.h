@@ -32,6 +32,14 @@
 //#define TICK_INTERVAL    15
 
 static Uint32 next_time;
+class Cliente;
+typedef struct {
+	Cliente * cli;
+	Socket clientO;
+	Socket clientI;
+	char p[15];
+} threadData;
+
 
 class Cliente : public OnClickListener{
 
@@ -87,8 +95,8 @@ class Cliente : public OnClickListener{
 		int sendDatagram(Datagram msg);
 		int login();
 
-		
-		
+		/* Data for threading**/
+		threadData data;
 
 
 	public:
@@ -140,11 +148,5 @@ class Cliente : public OnClickListener{
 
 };
 
-typedef struct{
-	Cliente* cli;
-	Socket clientO;
-	Socket clientI;
-	char p[15];
-} threadData;
 
 #endif
