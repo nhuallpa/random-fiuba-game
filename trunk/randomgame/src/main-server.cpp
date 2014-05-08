@@ -21,8 +21,9 @@ int main(int argc, char* argv[]) {
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 
 	Servidor mySrv(10025,1);
+	
 	while(true){
-
+		Sleep(200);
 	}
 	return 0;
 

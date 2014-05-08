@@ -14,7 +14,14 @@
 
 #include ".\modelo\GameEngine.h"
 
+class Servidor;
 
+typedef struct{
+	Servidor* srv;
+	Socket clientO;
+	Socket clientI;
+	char p[15];
+} threadData;
 
 class Servidor{
 
@@ -48,6 +55,8 @@ class Servidor{
 		void wait4Updates(Player playerId);
 		void disconnect(std::string playerId);
 
+		/* Data for threading**/
+		threadData data;
 
 	public:
 		Servidor();
@@ -81,11 +90,6 @@ class Servidor{
 
 };
 
-typedef struct{
-	Servidor* srv;
-	Socket clientO;
-	Socket clientI;
-	char p[15];
-} threadData;
+
 
 #endif /* SERVIDOR_H_ */

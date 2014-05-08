@@ -74,8 +74,8 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 {
 
 	jugadoresConectados = 0;
-	threadData data;
-	data.srv = this;
+
+	this->data.srv = this;
 
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
@@ -92,12 +92,17 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 int Servidor::updating(void* data){
 	printf("\n\n\nUpdating Thread running\n");
-	Servidor* srv = ((threadData*)data)->srv;
-	std::vector<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
-	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
-	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
-	Condition* netcond = &((Servidor*)((threadData*)data)->srv)->canBroadcast;
-	Mutex* n = &((Servidor*)((threadData*)data)->srv)->netlock;
+
+	threadData* aThreadData = (threadData*)data;
+
+	Servidor* srv = aThreadData->srv;
+	std::vector<Playable>* changes =  &srv->changes;
+	
+	Condition* cond =  &srv->canUpdate;
+	Mutex* m = &srv->lock;
+
+	Condition* netcond =  &srv->canBroadcast;
+	Mutex* n =  &srv->netlock;
 
 	while(true){
 		m->lock();
@@ -127,10 +132,15 @@ int Servidor::updating(void* data){
 
 int Servidor::broadcastMessages(void* data){
 	printf("\n\n\Broadcast Thread running\n");
-	Servidor* srv = ((threadData*)data)->srv;
-	std::vector<Playable>* worldChanges = &((Servidor*)((threadData*)data)->srv)->worldChanges;
-	Condition* netcond = &((Servidor*)((threadData*)data)->srv)->canBroadcast;
-	Mutex* n = &((Servidor*)((threadData*)data)->srv)->netlock;
+
+	threadData* aThreadData = (threadData*)data;
+
+	Servidor* srv = aThreadData->srv;
+
+	std::vector<Playable>* worldChanges = &srv->worldChanges;
+	
+	Condition* netcond = &srv->canBroadcast;
+	Mutex* n = &srv->netlock;
 
 	while(true){
 		n->lock();
@@ -161,10 +171,15 @@ int Servidor::broadcastMessages(void* data){
 int Servidor::wait4Connections(void* data){
 	//this is where client connects. srv will hang in this mode until client conn
 	printf("Listening");
-	Servidor* srv = (Servidor*)((threadData*)data)->srv;
-	std::list<Playable>* changes = (std::list<Playable>*)&((Servidor*)((threadData*)data)->srv)->changes;
-	Condition* cond = (Condition*)&((Servidor*)((threadData*)data)->srv)->canUpdate;
-	Mutex* m = (Mutex*)&((Servidor*)((threadData*)data)->srv)->lock;
+
+	threadData* aThreadData = (threadData*)data;
+
+	Servidor* srv = aThreadData->srv;
+
+	std::vector<Playable>* changes = &srv->changes;
+
+	Condition* cond = &srv->canUpdate;
+	Mutex* m = &srv->lock;
 
 	int players = 0;
 	while (true){
@@ -196,11 +211,15 @@ void Servidor::waitConnections(){
 
 int Servidor::initClient(void* data){
 	printf("Disparado cliente");
-	Servidor* srv = ((threadData*)data)->srv;
-	std::vector<Playable>* changes = &((Servidor*)((threadData*)data)->srv)->changes;
-	Condition* cond = &((Servidor*)((threadData*)data)->srv)->canUpdate;
-	Mutex* m = &((Servidor*)((threadData*)data)->srv)->lock;
-	char* playerId = ((threadData*)data)->p;
+
+	threadData* aThreadData = (threadData*)data;
+
+	Servidor* srv = aThreadData->srv;
+
+	std::vector<Playable>* changes = &srv->changes;
+	Condition* cond = &srv->canUpdate;
+	Mutex* m = &srv->lock;
+	char* playerId = aThreadData->p;
 
 	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
 	//Playable* playableWorld = srv->getPlayable();
@@ -248,7 +267,7 @@ int Servidor::initClient(void* data){
 	//Start sending elements
 	//TODO for loop
 
-		//GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
+	//GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
 	//GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
 	//GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
 
@@ -258,13 +277,13 @@ int Servidor::initClient(void* data){
 	datagram->play.y = 51;
 
 
-	((threadData*)data)->clientI.sendmsg(*datagram);
+	aThreadData->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (worm 21) al cliente");
 
 	datagram->play.wormid = 45;
 	datagram->play.x = 70;
 	datagram->play.y = 80;
-	((threadData*)data)->clientI.sendmsg(*datagram);
+	aThreadData->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (worm 45) al cliente");
 
 
@@ -272,7 +291,7 @@ int Servidor::initClient(void* data){
 		try {
 		while (activeClient) {
 			//Sleep(1);
-			if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
+			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
 				srv->disconnect(playerId);
 				activeClient=0;

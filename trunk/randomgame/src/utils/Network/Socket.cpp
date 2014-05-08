@@ -125,7 +125,7 @@ bool Socket::rcvmsg (Datagram &msg){
 				//printf("\nRe-trying");
 				continue;
 			}
-			printf("\nError getting message body");
+			Log::e("\nError getting message body");
 			return false;
 		}
 		break;
@@ -134,7 +134,7 @@ bool Socket::rcvmsg (Datagram &msg){
 	//printf("\nOK");
 	memcpy(&msg,buffer,messageSize);
 	
-	//printf("\nbuffer player: %s",msg.playerID.c_str() );
+	//Log::i("\nbuffer player: %s, at pos: %d, %d",msg.playerID.c_str(),msg.play.x, msg.play.y );
 
 	return true;
 	
@@ -174,7 +174,7 @@ bool Socket::sendmsg(Datagram msg){
 		//printf("\n Client send %d bytes",nBytes);
 		if (nBytes == SOCKET_ERROR)
 		{
-			printf("Client: Too lazy to send it boss, sorry.\n");
+			printf("Client: failed to send it at first attempt.\n");
 
 			if (errno == EAGAIN || errno == EWOULDBLOCK){
 				Sleep(10);
@@ -183,7 +183,7 @@ bool Socket::sendmsg(Datagram msg){
 			}
 			return false;
 		}
-		//printf("Client: Sended OK.\n");
+		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
 		return true;
 	}
 	printf("Client: Failed to send after several retries.\n");
