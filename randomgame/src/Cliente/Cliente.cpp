@@ -453,6 +453,7 @@ void Cliente::getRemoteWorld() {
 		//Trigger changes into game elements of the client
 		
 		GameElement elem = getElementFromPlayable(msg->play);
+		elem.playerID = msg->playerID;
 
 		this->domain.addElementToDomain(elem);
 

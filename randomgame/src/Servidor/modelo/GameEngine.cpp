@@ -20,9 +20,11 @@ bool GameEngine::initWorld(){
 	//Crea mundo en base a defaults (Gravity y otros coeficientes)
 	animateWorld();
 
-	//Carga nivel
-	this->gameLevel.createLevel(this->gameLevel);
+	//Carga nivel (desde el YAML)
+	//this->gameLevel.createLevel(this->gameLevel);
 	
+
+
 	this->floodWorld();
 
 	//Create terrain from BMP
