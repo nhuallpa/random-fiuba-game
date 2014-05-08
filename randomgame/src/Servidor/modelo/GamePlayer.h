@@ -15,8 +15,10 @@ public:
 	static GamePlayer* NewPlayerFactory(int prefId, int amountWorms);
 	void setStateConn(StateConn sc);
 	void add(Worm* w);
+	std::vector<Worm*> getWorms(){ return this->worms;}
+	void initPlayer(int prefId, int amountWorms);
 private:
-	list<Worm*> worms;
+	std::vector<Worm*> worms;
 	StateConn state;
 };
 

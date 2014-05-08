@@ -23,7 +23,7 @@ class GameEngine {
 
 	private:
 		/*std::set<fixturePair> m_fixturePairs;*/
-		GameLevel gameLevel;
+		GameLevel* gameLevel;
 		float timeStep;      
 		int velocityIterations;   
 		int positionIterations;
@@ -68,7 +68,7 @@ class GameEngine {
 
 		//La nueva struct del yaml debe terner player y sus worms.
 
-
+		void animateWormsFromPlayer(std::string playerID);
 
 		//TODO @aliguo
 		// Devuelve todos los elementos "Playable" del mundo
@@ -99,8 +99,10 @@ class GameEngine {
 
 
 		// Le pasa el nivel completo al
-		GameLevel getLevel();
+		GameLevel* getLevel();
 		int howManyPlayers(void);
+
+		
 };
 
 

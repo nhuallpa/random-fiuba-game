@@ -86,7 +86,7 @@ class Servidor{
 		bool run(void);
 		void destroyWorld();
 		GameEngine getGameEngine();
-		GameLevel getLevel();
+		GameLevel* getLevel();
 
 };
 
