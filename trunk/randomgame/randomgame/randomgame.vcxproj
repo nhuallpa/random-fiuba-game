@@ -85,6 +85,7 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Zoom.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ZoomEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp" />
+    <ClCompile Include="..\src\Cliente\modelo\GameDomain.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Camera.cpp" />
     <ClCompile Include="..\src\Cliente\vista\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EartView.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="..\src\Cliente\controlador\Entity\Zoom.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ZoomEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h" />
+    <ClInclude Include="..\src\Cliente\modelo\GameDomain.h" />
     <ClInclude Include="..\src\Cliente\vista\Camera.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\EartView.h" />

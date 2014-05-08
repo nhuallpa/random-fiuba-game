@@ -204,6 +204,9 @@
     <ClCompile Include="..\src\Servidor\modelo\GameElement.cpp">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\modelo\GameDomain.cpp">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -378,6 +381,9 @@
       <Filter>Archivos de código fuente\utils\Network</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\GameElement.h">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\modelo\GameDomain.h">
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
   </ItemGroup>

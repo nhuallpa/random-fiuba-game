@@ -255,7 +255,8 @@ int Servidor::initClient(void* data){
 	datagram->type = INIT;
 	datagram->play.wormid = 21;
 	datagram->play.x = 30;
-	datagram->play.y = 50;
+	datagram->play.y = 51;
+
 
 	((threadData*)data)->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (worm 21) al cliente");
