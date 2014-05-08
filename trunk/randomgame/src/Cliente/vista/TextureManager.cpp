@@ -105,7 +105,7 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 {	
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
-
+	SDL_Rect viewPort;
 	srcRect.x = width * currentFrame;
 	srcRect.y = height * currentRow;
 	
@@ -115,9 +115,13 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 	destRect.x = x - this->cam.getX();
 	destRect.y = y - this->cam.getY();
 	
-
-	SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
-	
+	viewPort.x = 0;
+	viewPort.y = 0;
+	viewPort.w = this->cam.getW();
+	viewPort.h = this->cam.getH();
+	if (intersectRects(destRect, viewPort)) {
+		SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	}
 }
 
 std::pair<int, int> TextureManager::getDimension(std::string imageId)
@@ -218,4 +222,18 @@ void TextureManager::drawPolygon(SDL_Renderer * renderer,
 				vy,
 				n,
 				borderColor);
+}
+
+
+bool TextureManager::intersectRects(SDL_Rect one, SDL_Rect two)
+{
+	SDL_bool hasIntersec = SDL_HasIntersection(&one, &two);
+	if (hasIntersec == SDL_TRUE) 
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

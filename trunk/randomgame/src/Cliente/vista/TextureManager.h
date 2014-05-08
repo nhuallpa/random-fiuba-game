@@ -31,6 +31,8 @@ private:
 
 	void putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
 
+	bool intersectRects(SDL_Rect one, SDL_Rect two);
+
 public:
 	
 	TextureManager(void);
@@ -107,6 +109,8 @@ public:
 	void drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
 
 	void drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,char* s , Uint32 color);
+
+	
 
 	~TextureManager(void);
 };

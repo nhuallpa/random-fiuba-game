@@ -27,12 +27,10 @@ void GameActivity::buildView( GameViewBuilder & builder)
 	this->builder = &builder;
 	builder.buildContainer();
 	builder.buildSky();
-	builder.buildFigures();
+	//builder.buildFigures();
 	builder.buildEart();
 	builder.buildCharacters();
 	builder.buildWater();
-
-
 
 }
 
@@ -40,7 +38,8 @@ void GameActivity::update()
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	//ARIEL: Refactor grande, ver si no rompi :)
-	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
+	//NESTOR: Quito las figuras por ahora. Hay que actualiza la vista.
+	/*std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	
 	std::map<int,GameElement>::iterator it;
 	Log::d(VIEW,"Actualizando %d en elemento", domainElements->size());
@@ -57,7 +56,7 @@ void GameActivity::update()
 		catch (GameException e) {
 			Log::e(e.what());
 		}
-	}
+	}*/
 	this->aView->update();
 }
 
