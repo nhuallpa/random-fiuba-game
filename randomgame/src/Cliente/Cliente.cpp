@@ -448,7 +448,7 @@ void Cliente::getRemoteWorld() {
 			//printf("\nClient: connection error - Server disconnected/not responding");
 			return;
 		}
-		Log::i("\nGetted worm id: %d",msg->play.wormid);
+		Log::i("\nGetted worm id: %d at pos: %d, %d",msg->play.wormid, msg->play.x, msg->play.y);
 
 		//Trigger changes into game elements of the client
 		
