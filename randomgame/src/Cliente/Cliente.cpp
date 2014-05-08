@@ -1,8 +1,5 @@
 #include "./Cliente.h"
-#include "../utils/Log.h"
-#include <string>
-#include <iostream>
-#include <ctime>
+
 
 
 //
@@ -60,16 +57,20 @@ void Cliente::loop(void){
 
 
 	int running = 0;
-	Uint32 tick_inteval = this->getTickInterval();
-	next_time = SDL_GetTicks() + tick_inteval;
+	//Uint32 tick_inteval = this->getTickInterval();
+	//next_time = SDL_GetTicks() + tick_inteval;
 	bootstrap.getScreen().setState("Juego Creado");
+	FPSmanager fpsManager;
+	fpsManager.rate = 60;
+	SDL_initFramerate(&fpsManager);
 	while (!this->cController.isQuit()){
 		cController.handlerEvent();
 		this->runGame();
 		currentActivity->update();
 		currentActivity->render();
-		SDL_Delay(time_left());
-		next_time += tick_inteval;
+		//SDL_Delay(time_left());
+		//next_time += tick_inteval;
+		SDL_framerateDelay(&fpsManager);
 	}
 	cController.destroy();
 	bootstrap.getScreen().terminate();

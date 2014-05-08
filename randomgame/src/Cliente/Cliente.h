@@ -11,12 +11,16 @@
 #include "vista\Activity.h"
 #include "vista\GameActivity.h"
 #include "controlador\Contracts\OnClickListener.h"
-
+#include <SDL2_framerate.h>
 #include "../utils/Network/Socket.h"
 #include "../utils/Network/Messages.h"
 #include "../utils/Network/Thread.h"
 #include "../utils/Network/Condition.h"
 
+#include "../utils/Log.h"
+#include <string>
+#include <iostream>
+#include <ctime>
 
 
 #include <string>
