@@ -176,14 +176,15 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 
 	getRemoteWorld(); // recibo el mundo o un codigo de reject
 
+
 	//Thread de escucha de mensajes en la red
 	Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
 
-	//Thread de escucha de actualizaciones locales
-	Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
-
 	//Thread de keepalive (Listen for disconnect)
 	Thread keepaliveThread("Listening",netListener,&data);
+
+	//Thread de escucha de actualizaciones locales
+	Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
 
 	//Thread de simulacion de cambios locales
 	//Thread clientSideThread("Emulation",clientSideEmulation,&data);
@@ -234,11 +235,9 @@ int Cliente::clientSideEmulation(void *data){
 
 
 int Cliente::applyNetworkChanges(void *data){
-
+	Sleep(10);
 	printf("\nDisparado apply Network Changes thread");
 	Cliente* cli = ((threadData*)data)->cli;
-	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
-	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
 	
 	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
@@ -290,7 +289,6 @@ bool Cliente::updateModel(Playable p){
 
 //
 int Cliente::notifyLocalUpdates(void *data){
-
 	printf("\nDisparado notify local updates thread");
 	Cliente* cli = ((threadData*)data)->cli;
 	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
@@ -329,10 +327,10 @@ int Cliente::notifyLocalUpdates(void *data){
 
 
 int Cliente::netListener(void* data){
+	Sleep(10);
 	printf("\nDisparado net listen thread");
 	Cliente* cli = ((threadData*)data)->cli;
-	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
-	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
+
 	char* playerId = ((threadData*)data)->p;
 	Datagram* msg = new Datagram();
 
