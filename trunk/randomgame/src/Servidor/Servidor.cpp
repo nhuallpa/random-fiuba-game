@@ -50,7 +50,7 @@ void Servidor::destroyWorld(void){
 	//TODO @future -  this->gameEngine.destroyWorld();
 }
 
-GameLevel Servidor::getLevel(){
+GameLevel* Servidor::getLevel(){
 
 	return this->gameEngine.getLevel();
 }
@@ -75,8 +75,14 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 	jugadoresConectados = 0;
 
-	this->data.srv = this;
+	//Carga el servidor con un nivel, ese nivel tiene el terreno y su fisica y los jugadores que han
+	// sido registrados en el
+	this->gameEngine.initWorld();
 
+
+	/* Start threading stuff */
+
+	this->data.srv = this;
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
 	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
@@ -185,6 +191,7 @@ int Servidor::wait4Connections(void* data){
 	while (true){
 		
 		while(srv->cantJugadores > srv->jugadoresConectados){
+			
 			Socket sClientO = srv->input.aceptar();
 			Socket sClientI = srv->output.aceptar();
 
@@ -243,10 +250,18 @@ int Servidor::initClient(void* data){
 
 
 	srv->pList.insert(	std::make_pair<std::string,std::pair<int,int>>(datagram->playerID,
-						std::make_pair(((threadData*)data)->clientO.getFD(),
-						((threadData*)data)->clientI.getFD())
+						std::make_pair(aThreadData->clientO.getFD(),
+						aThreadData->clientI.getFD())
 						)
 					);
+
+
+	//Valido si puede estar en el nivel antes de avanzar
+	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
+		printf("\Cliente no permitido en el server");
+		srv->disconnect(playerId);
+	}
+	printf("\nCliente registrado satisfactoriamente en el servidor");
 
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
@@ -254,14 +269,14 @@ int Servidor::initClient(void* data){
 	std::strcpy(datagram->play.level,"level.yaml");
 
 	//Send World info to client (LEVEL)
-	((threadData*)data)->clientI.sendmsg(*datagram);
+	aThreadData->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (level) al cliente");
 
 	//Send World info to client (entire world)
 	//TODO: Elements
 	datagram->type = INIT;
 	datagram->elements = 2;
-	((threadData*)data)->clientI.sendmsg(*datagram);
+	aThreadData->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (elements) al cliente");
 
 	//Start sending elements
@@ -272,19 +287,36 @@ int Servidor::initClient(void* data){
 	//GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
 
 	datagram->type = INIT;
-	datagram->play.wormid = 21;
-	datagram->play.x = 30;
-	datagram->play.y = 51;
+	//datagram->play.wormid = 21;
+	//datagram->play.x = 30;
+	//datagram->play.y = 51;
 
 
-	aThreadData->clientI.sendmsg(*datagram);
-	printf("\nEnviando data (worm 21) al cliente");
+	//aThreadData->clientI.sendmsg(*datagram);
+	//printf("\nEnviando data (worm 21) al cliente");
 
-	datagram->play.wormid = 45;
-	datagram->play.x = 70;
-	datagram->play.y = 80;
-	aThreadData->clientI.sendmsg(*datagram);
-	printf("\nEnviando data (worm 45) al cliente");
+	//datagram->play.wormid = 45;
+	//datagram->play.x = 70;
+	//datagram->play.y = 80;
+	//aThreadData->clientI.sendmsg(*datagram);
+	//printf("\nEnviando data (worm 45) al cliente");
+
+	printf("\nElements at model: %d", srv->getGameEngine().getLevel()->getEntities().size() );
+
+	std::map<int, GameElement*> copyWorld = srv->getGameEngine().getLevel()->getEntities();
+	std::map<int, GameElement*>::iterator itC = copyWorld.begin();
+	for ( ; itC != copyWorld.end(); itC++){
+		
+		datagram->play.wormid = itC->second->getId();
+		datagram->play.x = itC->second->getPosition().first;
+		datagram->play.y = itC->second->getPosition().second;
+		datagram->playerID = itC->second->getPlayerID();
+		
+		aThreadData->clientI.sendmsg(*datagram);
+
+		printf("\nEnviando worm: %d del jugador %s at %d, %d", datagram->play.wormid, datagram->playerID.c_str(), datagram->play.x, datagram->play.y );
+	}
+	
 
 
 	int activeClient=1;

@@ -9,7 +9,7 @@ class b2Collision;
 
 
 GameEngine::GameEngine() {
-	
+	this->gameLevel = new GameLevel();
 }
 
 GameEngine::~GameEngine() {
@@ -20,8 +20,8 @@ bool GameEngine::initWorld(){
 	//Crea mundo en base a defaults (Gravity y otros coeficientes)
 	animateWorld();
 
-	//Carga nivel (desde el YAML)
-	//this->gameLevel.createLevel(this->gameLevel);
+	//Carga nivel (desde el YAML) -- deprecated at TP2
+	this->gameLevel->createLevel(this->gameLevel);
 	
 
 
@@ -34,7 +34,7 @@ bool GameEngine::initWorld(){
 	Log::i("TimeStep: %f",this->timeStep);
 
 	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()));
-	this->gameLevel.setTerrain(aTerrainProcessor);
+	this->gameLevel->setTerrain(aTerrainProcessor);
 
 	
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)
@@ -49,7 +49,7 @@ bool GameEngine::initWorld(){
 void GameEngine::floodWorld(){
 
 	Log::d("Creando nivel de agua");
-	Water* myWater = new Water( this->gameLevel.getWaterLevel(),
+	Water* myWater = new Water( this->gameLevel->getWaterLevel(),
 								this->myWorld);
 	this->water = myWater;
 
@@ -70,9 +70,9 @@ void GameEngine::animateWorld() {
 void GameEngine::animateBodies() {
 
 	// Recorro todos los elementos del nivel y por cada uno de ellos armo el cuerpo de box2d		
-	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
+	std::map<int, GameElement*> mmap = this->gameLevel->getEntities();
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
-	Log::d("Creando cuerpos");
+	Log::d("Creando %d cuerpos",mmap.size());
 	for ( ; elems != mmap.end(); elems++) {
 		
 		switch ((*elems).second->getType()){
@@ -173,6 +173,48 @@ void GameEngine::animateBodies() {
 
 }
 
+void GameEngine::animateWormsFromPlayer(std::string playerID){
+
+	std::map<int, GameElement*> mmap = this->gameLevel->getEntities();
+	std::map<int, GameElement*>::iterator elems = mmap.begin();
+	//Log::d("Creando cuerpos del player %s",playerID.c_str() );
+	printf("\nCreando cuerpos del player %s",playerID.c_str() );
+	for ( ; elems != mmap.end(); elems++) {
+		if ( !elems->second->getPlayerID().compare(playerID) ){
+			Worm2d* gus = new Worm2d(WORM,
+								elems->second->getPosition().first,
+								elems->second->getPosition().second,
+								40,
+								40,
+								15,
+								0,
+								this->myWorld,
+								elems->second,
+								false
+								);
+
+			(*elems).second->setBody(gus);
+			Log::t("Puntero Gusano: %p",gus); 
+			this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),gus) );
+		}
+	}
+}
+
+bool GameEngine::registerPlayer(std::string playerID){
+
+	bool retval = this->gameLevel->acceptPlayer(playerID);
+	
+	if (retval){
+		//Now animate new worms into the world
+		animateWormsFromPlayer(playerID);
+
+		
+	}
+	return retval;
+}
+
+
+
 
 
 float GameEngine::getTimeStep () {
@@ -227,11 +269,11 @@ bool GameEngine::loop() {
 }
 
 int GameEngine::howManyPlayers(void){
-	//TODO @future - return this->gameLevel.cantidadJugadores();
+	//TODO @future - return this->gameLevel->cantidadJugadores();
 	return 1;
 }
 
-GameLevel GameEngine::getLevel(){
+GameLevel* GameEngine::getLevel(){
 	return this->gameLevel;
 }
 
@@ -242,7 +284,7 @@ void GameEngine::reInitWorld(){
 
 	for (unsigned j=0; j<aParser->getCantElem(); j++){
 		Log::t("Elemento: %d",j);
-		this->gameLevel.updateElementPosition(	j,
+		this->gameLevel->updateElementPosition(	j,
 												Util::string2int(aParser->getElemId(j)),
 												Util::string2float(aParser->getElemX(j)),
 												Util::string2float(aParser->getElemY(j)),
@@ -254,7 +296,7 @@ void GameEngine::reInitWorld(){
 
 void GameEngine::updateBodyPositions(){
 
-	std::map<int, GameElement*> mmap = this->gameLevel.getEntities();
+	std::map<int, GameElement*> mmap = this->gameLevel->getEntities();
 	std::map<int, GameElement*>::iterator elems = mmap.begin();
 
 	for ( ; elems != mmap.end(); elems++) {
@@ -292,7 +334,7 @@ bool GameEngine::intersectionWithWater(b2Fixture* fixture){
 		for (int i = 0; i < poly->GetVertexCount(); i++)
 			vertex.push_back( fixture->GetBody()->GetWorldPoint( poly->GetVertex(i) ) );
 		for (int j = 0; j < vertex.size() ; j++){
-			if ( vertex[j].y <= this->gameLevel.getWaterLevel() )
+			if ( vertex[j].y <= this->gameLevel->getWaterLevel() )
 				return true;
 		}
 	}
@@ -300,7 +342,7 @@ bool GameEngine::intersectionWithWater(b2Fixture* fixture){
 		//Log::t("Circle");
 		b2CircleShape* circ = (b2CircleShape*)fixture->GetShape();
 		
-		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y - circ->m_radius) <= this->gameLevel.getWaterLevel() )
+		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y - circ->m_radius) <= this->gameLevel->getWaterLevel() )
 			return true;
 	}
 
@@ -505,7 +547,7 @@ void GameEngine::deleteBody(int id){
 	iterator = this->gameBodies.find(id);
 	this->myWorld->DestroyBody(iterator->second->body);
 	this->gameBodies.erase(iterator);
-	this->gameLevel.removeEntity(id);
+	this->gameLevel->removeEntity(id);
 
 }
 

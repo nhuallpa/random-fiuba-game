@@ -12,6 +12,7 @@ GameLevel::GameLevel() {
 	this->levelHeight = 100;
 	this->levelWidth = 100;
 	this->amountUser = 4; //TODO: LEVANTAR PARAMETRO DEL YAML
+	this->amountWorms = 5;
 	this->idUnique = 1;
 }
 
@@ -137,76 +138,77 @@ bool GameLevel::validElementPosition(int j){
 	return true;
 }
 
-bool GameLevel::createLevel(GameLevel&){
+bool GameLevel::createLevel(GameLevel* gl){
 
 	ParserYaml* aParser = ParserYaml::getInstance();
-	for (unsigned j=0;j<aParser->getCantElem();j++){
-			std::string tipo = aParser->getElemTipo(j);
+	//Deprecated at TP2
+	//for (unsigned j=0;j<aParser->getCantElem();j++){
+	//		std::string tipo = aParser->getElemTipo(j);
 
-			if (!this->validElementPosition(j))
-					continue;
+	//		if (!this->validElementPosition(j))
+	//				continue;
 
-			Log::i("Agregando: %d", Util::string2int(aParser->getElemId(j)));
-			if (tipo.compare("rec") == 0)
-			{
-				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
-												SQUARE,
-												Util::string2float(aParser->getElemX(j)),
-												Util::string2float(aParser->getElemY(j)),
-												Util::string2float(aParser->getElemRot(j)),
-												Util::string2int(aParser->getElemAlto(j)),
-												Util::string2int(aParser->getElemAncho(j)),
-												Util::string2float(aParser->getElemMasa(j)), 
-												Util::string2bool(aParser->getElemEstatico(j))));
-			} 
-			else if (tipo.compare("circ") == 0)
-			{
-				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
-												Util::string2float(aParser->getElemX(j)),
-												Util::string2float(aParser->getElemY(j)),
-												Util::string2float(aParser->getElemRadio(j)),
-												Util::string2float(aParser->getElemEscala(j)),
-												Util::string2float(aParser->getElemMasa(j)), 
-												Util::string2bool(aParser->getElemEstatico(j))));
-			}
-			else if (tipo.compare("tri") == 0)
-			{
-				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
-												TRIANGLE,
-												Util::string2float(aParser->getElemX(j)),
-												Util::string2float(aParser->getElemY(j)),
-												Util::string2float(aParser->getElemEscala(j)),
-												Util::string2float(aParser->getElemRot(j)),
-												Util::string2float(aParser->getElemMasa(j)), 
-												Util::string2bool(aParser->getElemEstatico(j))));
-			}
-			else if (tipo.compare("pent") == 0)
-			{
-				 this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
-												PENTA,
-												Util::string2float(aParser->getElemX(j)),
-												Util::string2float(aParser->getElemY(j)),
-												Util::string2float(aParser->getElemEscala(j)),
-												Util::string2float(aParser->getElemRot(j)),
-												Util::string2float(aParser->getElemMasa(j)), 
-												Util::string2bool(aParser->getElemEstatico(j))));
-			}
-			else if (tipo.compare("hexa") == 0)
-			{
-				this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
-												HEXAGON,
-												Util::string2float(aParser->getElemX(j)),
-												Util::string2float(aParser->getElemY(j)),
-												Util::string2float(aParser->getElemEscala(j)),
-												Util::string2float(aParser->getElemRot(j)),
-												Util::string2float(aParser->getElemMasa(j)), 
-												Util::string2bool(aParser->getElemEstatico(j))));
-			}
-	}
+	//		Log::i("Agregando: %d", Util::string2int(aParser->getElemId(j)));
+	//		if (tipo.compare("rec") == 0)
+	//		{
+	//			this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+	//											SQUARE,
+	//											Util::string2float(aParser->getElemX(j)),
+	//											Util::string2float(aParser->getElemY(j)),
+	//											Util::string2float(aParser->getElemRot(j)),
+	//											Util::string2int(aParser->getElemAlto(j)),
+	//											Util::string2int(aParser->getElemAncho(j)),
+	//											Util::string2float(aParser->getElemMasa(j)), 
+	//											Util::string2bool(aParser->getElemEstatico(j))));
+	//		} 
+	//		else if (tipo.compare("circ") == 0)
+	//		{
+	//			this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+	//											Util::string2float(aParser->getElemX(j)),
+	//											Util::string2float(aParser->getElemY(j)),
+	//											Util::string2float(aParser->getElemRadio(j)),
+	//											Util::string2float(aParser->getElemEscala(j)),
+	//											Util::string2float(aParser->getElemMasa(j)), 
+	//											Util::string2bool(aParser->getElemEstatico(j))));
+	//		}
+	//		else if (tipo.compare("tri") == 0)
+	//		{
+	//			this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+	//											TRIANGLE,
+	//											Util::string2float(aParser->getElemX(j)),
+	//											Util::string2float(aParser->getElemY(j)),
+	//											Util::string2float(aParser->getElemEscala(j)),
+	//											Util::string2float(aParser->getElemRot(j)),
+	//											Util::string2float(aParser->getElemMasa(j)), 
+	//											Util::string2bool(aParser->getElemEstatico(j))));
+	//		}
+	//		else if (tipo.compare("pent") == 0)
+	//		{
+	//			 this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+	//											PENTA,
+	//											Util::string2float(aParser->getElemX(j)),
+	//											Util::string2float(aParser->getElemY(j)),
+	//											Util::string2float(aParser->getElemEscala(j)),
+	//											Util::string2float(aParser->getElemRot(j)),
+	//											Util::string2float(aParser->getElemMasa(j)), 
+	//											Util::string2bool(aParser->getElemEstatico(j))));
+	//		}
+	//		else if (tipo.compare("hexa") == 0)
+	//		{
+	//			this->addEntity(new GameElement(Util::string2int(aParser->getElemId(j)),
+	//											HEXAGON,
+	//											Util::string2float(aParser->getElemX(j)),
+	//											Util::string2float(aParser->getElemY(j)),
+	//											Util::string2float(aParser->getElemEscala(j)),
+	//											Util::string2float(aParser->getElemRot(j)),
+	//											Util::string2float(aParser->getElemMasa(j)), 
+	//											Util::string2bool(aParser->getElemEstatico(j))));
+	//		}
+	//}
 
 
 	//ToDo chequear el nivel de agua no mayor al alto
-	this->setWaterLevel(Util::string2float(aParser->getEscenarioAgua() ) );
+	gl->setWaterLevel(Util::string2float(aParser->getEscenarioAgua() ) );
 
 
 	return true;
@@ -261,3 +263,46 @@ void GameLevel::updateElementPosition(int pos, int id, float x, float y, float a
 }
 
 
+bool GameLevel::acceptPlayer(std::string playerID){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerID);
+
+	if ( it != this->players.end() ){
+		// Esta en la lista de jugadores del nivel, lo seteo como conectado y lo acepto
+		it->second->setStateConn(CONNECTED);
+		return true;
+	}
+
+	if ( this->players.size() < this->amountUser ){
+		// No esta en la lista pero lo acepto porque entra
+	
+		GamePlayer* gp = new GamePlayer();
+		gp->initPlayer(this->idUnique,4);
+		this->idUnique =+ 4;
+
+		this->players.insert(std::make_pair(playerID,gp));
+
+		//Agrego los worms del jugador al nivel
+		std::vector<Worm*> copy = gp->getWorms();
+		for (std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
+			this->addEntity( (*itW) );
+		}
+		return true;
+	}
+
+	return false;
+
+}
+
+void GameLevel::disconnectPlayer(std::string playerID){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerID);
+
+	if ( it != this->players.end() ){
+		
+		it->second->setStateConn(DISCONNECTED);
+	}
+
+}

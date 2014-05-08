@@ -51,7 +51,7 @@ class GameLevel {
 		void updateElementPosition(int pos, int id, float x, float y, float angle);
 
 		//Creates the level based on YAML parser data
-		bool createLevel(GameLevel&);
+		bool createLevel(GameLevel*);
 
 		// Getters
 		int getHeight();
@@ -83,5 +83,9 @@ class GameLevel {
 		bool posicionOcupada(float x, float y);
 
 		bool checkMapPosition(float x, float y);
+
+		bool acceptPlayer(std::string playerID);
+
+		void disconnectPlayer(std::string playerID);
 
 };

@@ -183,7 +183,7 @@ bool Socket::sendmsg(Datagram msg){
 			}
 			return false;
 		}
-		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
+		printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
 		return true;
 	}
 	printf("Client: Failed to send after several retries.\n");
