@@ -14,7 +14,7 @@ class GameActivity : public Activity, public OnClickListener
 {
 private:
 	//GameLevel* cLevel;
-	std::map<int,GameElement*> domainElements;
+	//std::map<int,GameElement*> domainElements;
 	GameController* cController;
 	GameViewBuilder* builder;
 

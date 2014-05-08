@@ -19,9 +19,8 @@
 #include "SpriteConfigurator.h"
 #include "../../utils/Util.h"
 #include "../../utils/Constantes/Constantes.h"
-#include "../../Servidor/modelo/GameElement.h"
-#include "../../Servidor/modelo/GameLevel.h"
 #include "../controlador/GameController.h"
+#include "../modelo/GameDomain.h"
 
 class GameViewBuilder 
 {
@@ -30,16 +29,20 @@ class GameViewBuilder
 	GameView* gameView;
 	
 	// Worm ID, (X,Y)
-	std::map<int,GameElement> domainElements;
+	//std::map<int,GameElement> domainElements;
 
 	std::string playerID;
 
 	GameController* cController;
 
+	GameDomain* domain;
+
 public:
 
+	GameDomain* getDomain(){ return this->domain;}
+
 	//GameViewBuilder(GameLevel * cLevel);
-	GameViewBuilder(GameController* cController);
+	GameViewBuilder(GameController* cController, GameDomain* domain);
 	~GameViewBuilder(void);
 
 	std::string getPlayerID() { return this->playerID; }
@@ -59,9 +62,9 @@ public:
 
 	void buildEart();
 
-	void addElementToDomain(GameElement worm);
+	//void addElementToDomain(GameElement worm);
 
-	std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
+//	std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
 
 	GameView* getGameView() { return this->gameView;} 
 };

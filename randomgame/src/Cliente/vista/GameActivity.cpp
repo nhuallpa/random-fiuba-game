@@ -40,7 +40,7 @@ void GameActivity::update()
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	//ARIEL: Refactor grande, ver si no rompi :)
-	std::map<int,GameElement>* domainElements = this->builder->getDomainElements();
+	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	
 	std::map<int,GameElement>::iterator it;
 	Log::d(VIEW,"Actualizando %d en elemento", domainElements->size());
@@ -68,13 +68,12 @@ GameActivity::~GameActivity(void)
 void GameActivity::OnClick(ClickEvent e){
 	Log::d("**************CLICK*****************");
 
-	std::map<int,GameElement>* domainElements = this->builder->getDomainElements();
+	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	std::map<int,GameElement>::iterator it;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::d("playerId: %s",domainElement.getPlayerID().c_str());
 		if (domainElement.getType() == WORM){
 			WormView* aWorm = gameView->findWormById(domainElement.getId());
 			if (aWorm != NULL){

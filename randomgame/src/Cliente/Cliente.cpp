@@ -25,7 +25,7 @@ Cliente::~Cliente(void){
 }
 
 void Cliente::OnClick(ClickEvent e){
-	Log::d("Prueba debug click/n");
+	//Log::d("Prueba debug click/n");
 
 }
 
@@ -46,8 +46,9 @@ void Cliente::loop(void){
 	bootstrap.init();
 	//ARIEL : REFACTOR
 	//GameViewBuilder builder(&this->cLevel);
-	GameViewBuilder* builder = new GameViewBuilder(&this->cController);
-	builder->setPlayerID("PLAYER 1");
+	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain);
+
+	builder->setPlayerID(this->pl);
 	//currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel, &this->cController);
 	currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
 	
@@ -158,7 +159,7 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 	, n()
 	, somethingToTell(m)
 	, somethingToUpdate(n)
-
+	, domain()
 {
 
 	input.connect2(ip, port+1);
@@ -169,6 +170,9 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 
 	threadData data;
 	data.cli = this;
+
+	this->domain.setPlayerID(this->pl);
+	
 
 	getRemoteWorld(); // recibo el mundo o un codigo de reject
 
@@ -182,7 +186,7 @@ Cliente::Cliente(std::string playerID, char* ip, int port)
 	Thread keepaliveThread("Listening",netListener,&data);
 
 	//Thread de simulacion de cambios locales
-	Thread clientSideThread("Emulation",clientSideEmulation,&data);
+	//Thread clientSideThread("Emulation",clientSideEmulation,&data);
 
 }
 
@@ -300,7 +304,7 @@ int Cliente::notifyLocalUpdates(void *data){
 			//printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		printf("\nGot a local change");
+		//printf("\nGot a local change");
 
 		msg->play.wormid = cli->localChanges.back().wormid;
 		msg->play.weaponid = cli->localChanges.back().weaponid;
@@ -311,8 +315,8 @@ int Cliente::notifyLocalUpdates(void *data){
 		msg->type = UPDATE;
 
 		if ( !cli->output.sendmsg(*msg) ) {
-			//Log::e("connection error");
-			printf("\nClient: connection error");
+			Log::e("Client connection error");
+			//printf("\nClient: connection error");
 			m->unlock();
 			return 1;
 		}
@@ -412,8 +416,8 @@ void Cliente::getRemoteWorld() {
 	
 	//Login to server
 	msg->type = LOGIN;
-	msg->playerID = "PLAYER1"; 
-	printf("\nLogin player id: %s",msg->playerID.c_str());
+	msg->playerID = this->pl; 
+	//printf("\nLogin player id: %s",msg->playerID.c_str());
 
 	if ( !this->output.sendmsg(*msg) ) {
 		//Log::e("connection error");
@@ -421,32 +425,39 @@ void Cliente::getRemoteWorld() {
 		return;
 	}
 
-	printf("\nSTART - Retrieving data from server");
+	//printf("\nSTART - Retrieving data from server");
 	if (!this->input.rcvmsg(*msg)) {
 		//Log::e("connection error");
 		printf("\nClient: connection error - Server disconnected/not responding");
 		return;
 	}
-	printf("\nDONE - Retrieving data from server, level: %s", msg->play.level);
+	//printf("\nDONE - Retrieving data from server, level: %s", msg->play.level);
 	//TODO SET LEVEL ON CLIENT
 
 
 	if (!this->input.rcvmsg(*msg)) {
-		//Log::e("connection error");
-		printf("\nClient: connection error - Server disconnected/not responding");
+		Log::e("Client: connection error - Server disconnected/not responding");
+		//printf("\nClient: connection error - Server disconnected/not responding");
 		return;
 	}
-	printf("\nDONE - Retrieving data from server, world elements: %d", msg->elements);
+	//printf("\nDONE - Retrieving data from server, world elements: %d", msg->elements);
 	int count = msg->elements;
 	for ( int i=0; i < count; i++){
 		if (!this->input.rcvmsg(*msg)) {
-			//Log::e("connection error");
-			printf("\nClient: connection error - Server disconnected/not responding");
+			Log::e("Client: connection error - Server disconnected/not responding");
+			//printf("\nClient: connection error - Server disconnected/not responding");
 			return;
 		}
-		printf("\nGetted worm id: %d",msg->play.wormid);
-		//TODO @aliguo
+		Log::i("\nGetted worm id: %d",msg->play.wormid);
+
 		//Trigger changes into game elements of the client
+		
+		GameElement elem = getElementFromPlayable(msg->play);
+
+		this->domain.addElementToDomain(elem);
+
+
+
 
 
 	}
@@ -460,6 +471,14 @@ bool Cliente::serverAlive () {
 	return this->srvStatus;
 }
 
+
+GameElement Cliente::getElementFromPlayable(Playable p){
+
+	GameElement g(p.wormid,"PLAYER 1",WORM,p.x,p.y,0.0,40,40,15,false);
+
+	return g;
+
+}
 
 
 
@@ -494,47 +513,25 @@ void Cliente::signalNetworkChange(){
 
 int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	if ( !this->output.sendmsg(type, buffer) ) {
-		//Log::e("connection error");
-		printf("Client: connection error");
+		Log::e("connection error");
+		//printf("Client: connection error");
 		return 1;
 	}
 	return 0;
 
 }
 
-/* //Mock Main
-int main(){
+void Cliente::addLocalMovementFromView(Playable p){
 
-	Cliente myClient("aliguori","localhost",10025);
-	//Cliente myClient2("localhost",10026);
-	size_t i = 0;
-
-	while(true){
-	//	Sleep(10);
-	//	i++;
-
-	//	//Esto es lo que se va disparar al haber una accion del lado del cliente
-	//	if ( i == 500 || i == 2000 ){
-	//		myClient.lockLocalMutex();
-	//		try{
-	//			printf("\nGot something from client at i: %d ;)",i );
-	//			Playable p;
-	//			p.wormid=37;
-	//			myClient.addLocalChange(p);
-	//		}catch(...){
-	//			myClient.unlockLocalMutex();
-	//			throw std::current_exception();
-	//		}
-	//		myClient.unlockLocalMutex();
-	//		myClient.signalLocalChange();
-	//	}
-
-
+	this->m.lock();
+	try{
+		this->localChanges.push_back(p);
+	}catch(...){
+		this->m.unlock();
+		throw std::current_exception();
 	}
+	this->m.unlock();
+	this->somethingToTell.signal();
 
-	return 0;
 }
-*/
-
-
 
