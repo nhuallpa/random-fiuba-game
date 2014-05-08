@@ -11,8 +11,6 @@ class WormView: public View, public OnMovementListener
 {
 	int id;
 
-	std::string playerID;
-
 	bool selected;
 	
 	Sprite* currentSprite;
@@ -22,7 +20,6 @@ class WormView: public View, public OnMovementListener
 
 public:
 	WormView(int id, int x, int y);
-	WormView(int id, int x, int y,std::string playerID);
 									
 	void clean();
 	
@@ -40,8 +37,6 @@ public:
 	bool isSelected();
 	void select();
 	void deselect();
-
-
 
 	~WormView(void);
 };

@@ -6,27 +6,18 @@
 //	gameView = NULL;
 //}
 
-GameViewBuilder::GameViewBuilder(GameController* cController)
-	: cController(cController)
+GameViewBuilder::GameViewBuilder(GameController* cController, GameDomain* domain)
+	: cController(cController), domain(domain)
 {
 	gameView = NULL;
 
 	
-	GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
-	GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
-	GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
-	GameElement aWorm3(4,"PLAYER 2",WORM,30,95,0,45,45,15,false);
-	GameElement aWorm4(5,"PLAYER 3",WORM,150,50,0,45,45,15,false);
-	GameElement aWorm5(6,"PLAYER 4",WORM,70,110,0,45,45,15,false);
-	
-	
-	
-	this->addElementToDomain(aWorm);
-	this->addElementToDomain(aWorm1);
-	this->addElementToDomain(aWorm2);
-	this->addElementToDomain(aWorm3);
-	this->addElementToDomain(aWorm4);
-	this->addElementToDomain(aWorm5);
+	//GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
+	//GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
+	//GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
+	//this->addElementToDomain(aWorm);
+	//this->addElementToDomain(aWorm1);
+	//this->addElementToDomain(aWorm2);
 }
 
 
@@ -58,11 +49,11 @@ void GameViewBuilder::buildFigures()
 {
 	//std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
 	std::map<int,GameElement>::iterator it;
-	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", domainElements.size());
+	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", this->domain->getDomainElements()->size() );
 
 	ParserYaml* aParser = ParserYaml::getInstance();
 
-	for (it = domainElements.begin(); it != domainElements.end(); ++it)
+	for (it = this->domain->getDomainElements()->begin(); it != this->domain->getDomainElements()->end(); ++it)
 	{
 		GameElement domainElement = it->second;
 		FigureView* aFigure = 0;
@@ -182,11 +173,11 @@ void GameViewBuilder::buildTerrain()
 	//this->gameView->setTerrain(aTerrain);
 }
 
-void GameViewBuilder::addElementToDomain(GameElement element){
-
-	this->domainElements.insert( std::make_pair(element.getId(),element) );
-
-}
+//void GameViewBuilder::addElementToDomain(GameElement element){
+//
+//	this->domainElements.insert( std::make_pair(element.getId(),element) );
+//
+//}
 
 
 
@@ -198,7 +189,7 @@ void GameViewBuilder::buildCharacters()
 
 	std::map<int,GameElement>::iterator it;
 
-	for (it = domainElements.begin(); it != domainElements.end(); ++it)
+	for (it = this->domain->getDomainElements()->begin(); it != this->domain->getDomainElements()->end(); ++it)
 	{
 		GameElement domainElement = it->second;
 
@@ -206,8 +197,7 @@ void GameViewBuilder::buildCharacters()
 		{
 			WormView* aWorm = new WormView(	it->first, 
 											domainElement.getPosition().first, 
-											domainElement.getPosition().second,
-											domainElement.getPlayerID());
+											domainElement.getPosition().second);
 
 			try 
 			{

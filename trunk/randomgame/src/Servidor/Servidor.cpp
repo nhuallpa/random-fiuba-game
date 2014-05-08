@@ -247,12 +247,22 @@ int Servidor::initClient(void* data){
 
 	//Start sending elements
 	//TODO for loop
+
+		//GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
+	//GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
+	//GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
+
 	datagram->type = INIT;
 	datagram->play.wormid = 21;
+	datagram->play.x = 30;
+	datagram->play.y = 50;
+
 	((threadData*)data)->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (worm 21) al cliente");
 
 	datagram->play.wormid = 45;
+	datagram->play.x = 70;
+	datagram->play.y = 80;
 	((threadData*)data)->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (worm 45) al cliente");
 

@@ -11,32 +11,15 @@
 #include <string>
 #include <vector>
 
+#include "../Util.h"
+
 #define MAX_MESSAGE_SIZE 4096
 
 // Link with ws2_32.lib
 #pragma comment(lib, "Ws2_32.lib")
 
 
-typedef std::string Player;
 
-typedef enum{
-	MOVE_RIGHT=0,
-	MOVE_LEFT,
-	JUMP,
-	INIT_PLACEMENT
-} Movement;
-
-
-typedef struct {
-		int wormid;			// Worm identifier, unique
-		Movement action;	// der, izq, salt
-		int state;			//selected or not
-		int weaponid;		
-		int x;				// X,Y alreaded passed to view coords.
-		int y;				//
-		char level[15];		// YAML level (filename), path must be specified
-
-} Playable;
 
 
 

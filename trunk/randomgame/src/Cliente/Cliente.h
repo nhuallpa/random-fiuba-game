@@ -17,6 +17,8 @@
 #include "../utils/Network/Thread.h"
 #include "../utils/Network/Condition.h"
 
+
+
 #include <string>
 #include <vector>
 #include <list>
@@ -47,6 +49,8 @@ class Cliente : public OnClickListener{
 		/**Controlador de eventos y estados*/
 		GameController cController;
 		
+		GameDomain domain;
+
 		//bool connect2server(Servidor* server);
 		//Servidor* server;
 
@@ -83,6 +87,10 @@ class Cliente : public OnClickListener{
 		int sendDatagram(Datagram msg);
 		int login();
 
+		
+		
+
+
 	public:
 		//Cliente(Servidor* server);
 		Cliente(std::string playerID, char* ip, int port);
@@ -108,6 +116,9 @@ class Cliente : public OnClickListener{
 
 		static int clientSideEmulation(void* data);
 
+		void addLocalMovementFromView(Playable p);
+
+
 		void lockLocalMutex();
 
 		void unlockLocalMutex();
@@ -123,6 +134,9 @@ class Cliente : public OnClickListener{
 		void signalLocalChange();
 
 		void signalNetworkChange();
+
+		GameElement getElementFromPlayable(Playable p);
+
 
 };
 
