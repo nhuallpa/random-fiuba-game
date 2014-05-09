@@ -33,7 +33,7 @@ void Sprite::clean()
 {
 	this->currentFrame=0;
 	this->currentRow=0;
-	this->sleepFrame=0;
+	//this->sleepFrame=0;
 }
 	
 void Sprite::update() 
