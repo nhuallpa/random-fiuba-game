@@ -20,6 +20,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->buildView(builder);
 	this->setContentView(builder.getGameView());
 	this->setListeners(screen);
+	this->wormIdSelected = -1;
 }
 
 void GameActivity::buildView( GameViewBuilder & builder)
@@ -64,9 +65,28 @@ GameActivity::~GameActivity(void)
 {
 }
 
-void GameActivity::OnClick(ClickEvent e){
-	Log::d("**************CLICK*****************");
+void GameActivity::deselectPreviewsWorm()
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	if (this->wormIdSelected > 0) {
+		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
+		aWorm->deselect();
+		this->cController->remuveListener(aWorm);
+		this->wormIdSelected = -1;
+	}
+	
+}
 
+void GameActivity::selectWorm(WormView* aWorm)
+{
+	this->wormIdSelected = aWorm->getId();
+	aWorm->select();
+	this->cController->addListener(aWorm);
+}
+
+bool GameActivity::hasClickedWorm(SDL_Point clickPoint)
+{
+	bool wormClicked = false;
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	std::map<int,GameElement>::iterator it;
 	GameView* gameView = static_cast<GameView*>(this->aView);
@@ -76,31 +96,69 @@ void GameActivity::OnClick(ClickEvent e){
 		if (domainElement.getType() == WORM){
 			WormView* aWorm = gameView->findWormById(domainElement.getId());
 			if (aWorm != NULL){
+
+				// todo: corregir este RECT usando el 
 				SDL_Rect wormRect;
-				wormRect.x = aWorm->getX();
-				wormRect.y = aWorm->getY();
-				wormRect.w = aWorm->getX()+10;
-				wormRect.h = aWorm->getY()+10;
-				SDL_Point clickPoint;
-				clickPoint.x = e.x;
-				clickPoint.y = e.y;
-				if ( (!aWorm->isSelected()) &&(SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))){
-					aWorm->select();
-					// Si el worm es del jugador lo registro/des-registro como listener.
-					if ( !domainElement.getPlayerID().compare(this->builder->getPlayerID()) ){
-						this->cController->addListener(aWorm);
-						
-					}
-				}
-				else if (aWorm->isSelected()){
-					aWorm->deselect();
-					this->cController->remuveListener(aWorm);
+				wormRect.x = aWorm->getX();  // deberia se el centroide
+				wormRect.y = aWorm->getY();  // deberia se el centroide
+				wormRect.w = aWorm->getX()+60;   // tomar alto de constant y usar centroide
+				wormRect.h = aWorm->getY()+60;  // tomar ancho de constant y usar centroide
+
+				if ( (!aWorm->isSelected()) && (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL)))
+				{
+					wormClicked =  true;
+					break;
 				}
 			}
 		}
-	
 	}
-	Log::d("*********** FIN CLICK***************");
+	return wormClicked;
+}
+
+WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
+{
+	WormView* aWormClicked = NULL;
+	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
+	std::map<int,GameElement>::iterator it;
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	for (it = domainElements->begin(); it != domainElements->end(); ++it)
+	{
+		GameElement domainElement = it->second;
+		if (domainElement.getType() == WORM){
+			WormView* aWorm = gameView->findWormById(domainElement.getId());
+			if (aWorm != NULL){
+
+				// todo: corregir este RECT usando el 
+				SDL_Rect wormRect;
+				wormRect.x = aWorm->getX();  // deberia se el centroide
+				wormRect.y = aWorm->getY();  // deberia se el centroide
+				wormRect.w = aWorm->getX()+60;   // tomar alto de constant
+				wormRect.h = aWorm->getY()+60;  // tomar ancho de constant
+
+				if ( (!aWorm->isSelected()) && (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL)))
+				{
+					aWormClicked = aWorm;
+					break;
+				}
+			}
+		}
+	}
+	return aWormClicked;
+}
+
+
+void GameActivity::OnClick(ClickEvent e){
+	WormView* aWorm = NULL;
+	SDL_Point clickPoint;
+	clickPoint.x = e.x;
+	clickPoint.y = e.y;
+	if (hasClickedWorm(clickPoint)) {
+		aWorm = retrieveWormClicked(clickPoint);
+		if (!aWorm->isSelected()) {
+			deselectPreviewsWorm();
+			selectWorm(aWorm);
+		}
+	}
 }
 
 

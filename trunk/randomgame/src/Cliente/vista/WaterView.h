@@ -8,6 +8,7 @@ class WaterView : public View
 {
 private:
 	int height;
+	
 public:
 	
 	~WaterView(void);

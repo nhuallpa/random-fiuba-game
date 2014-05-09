@@ -57,15 +57,12 @@ void Bootstrap::loadSprites()
 		{
 			
 			TextureManager::Instance().load("res/images/wwalk.png", "wwalk", this->getScreen().getRenderer());
-			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 1);
+			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 0);
 
 		} catch (GameException & e) 
 		{
 			Log::e(BOOT, e.what());		
 		}
-	
-
-
 }
 
 SDLScreen & Bootstrap::getScreen() 

@@ -7,11 +7,19 @@
 #include "Sprite.h"
 #include "../controlador/Contracts/OnMovementListener.h"
 
+enum WormState {
+	WORM_VIEW_DOING,
+	WORM_VIEW_MOTIONLESS
+};
+
 class WormView: public View, public OnMovementListener
 {
 	int id;
+	SDL_RendererFlip direction;
 
 	bool selected;
+
+	WormState state;
 	
 	Sprite* currentSprite;
 

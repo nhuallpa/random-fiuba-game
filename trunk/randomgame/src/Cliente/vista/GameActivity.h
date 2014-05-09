@@ -18,6 +18,8 @@ private:
 	GameController* cController;
 	GameViewBuilder* builder;
 
+	int wormIdSelected;
+
 public:
 //	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
 
@@ -32,6 +34,14 @@ public:
 	void setListeners(SDLScreen & screen);
 
 	void OnClick(ClickEvent e);
+
+	void deselectPreviewsWorm();
+
+	void selectWorm(WormView* aWorm);
+
+	bool hasClickedWorm(SDL_Point clickPoint);
+
+	WormView* retrieveWormClicked(SDL_Point clickPoint);
 
 	~GameActivity(void);
 };
