@@ -1,4 +1,6 @@
 #include "GameActivity.h"
+#define WORM_W 60
+#define WORM_H 60
 
 
 //GameActivity::GameActivity(const SDLScreen & screen, 
@@ -98,13 +100,14 @@ bool GameActivity::hasClickedWorm(SDL_Point clickPoint)
 			if (aWorm != NULL){
 
 				// todo: corregir este RECT usando el 
+				Camera cam = TextureManager::Instance().getCamera();
 				SDL_Rect wormRect;
-				wormRect.x = aWorm->getX();  // deberia se el centroide
-				wormRect.y = aWorm->getY();  // deberia se el centroide
-				wormRect.w = aWorm->getX()+60;   // tomar alto de constant y usar centroide
-				wormRect.h = aWorm->getY()+60;  // tomar ancho de constant y usar centroide
+				wormRect.x = aWorm->getX()-cam.getX(); // deberia se el centroide
+				wormRect.y = aWorm->getY()-cam.getY();  // deberia se el centroide
+				wormRect.w = WORM_W;   // tomar alto de constant y usar centroide
+				wormRect.h = WORM_H;  // tomar ancho de constant y usar centroide
 
-				if ( (!aWorm->isSelected()) && (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL)))
+				if (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))
 				{
 					wormClicked =  true;
 					break;
@@ -129,13 +132,14 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 			if (aWorm != NULL){
 
 				// todo: corregir este RECT usando el 
+				Camera cam = TextureManager::Instance().getCamera();
 				SDL_Rect wormRect;
-				wormRect.x = aWorm->getX();  // deberia se el centroide
-				wormRect.y = aWorm->getY();  // deberia se el centroide
-				wormRect.w = aWorm->getX()+60;   // tomar alto de constant
-				wormRect.h = aWorm->getY()+60;  // tomar ancho de constant
+				wormRect.x = aWorm->getX()-cam.getX();  // deberia se el centroide
+				wormRect.y = aWorm->getY()-cam.getY();  // deberia se el centroide
+				wormRect.w = WORM_W;   // tomar alto de constant
+				wormRect.h = WORM_H;  // tomar ancho de constant
 
-				if ( (!aWorm->isSelected()) && (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL)))
+				if (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))
 				{
 					aWormClicked = aWorm;
 					break;
@@ -159,6 +163,7 @@ void GameActivity::OnClick(ClickEvent e){
 			selectWorm(aWorm);
 		}
 	}
+	else deselectPreviewsWorm();
 }
 
 
