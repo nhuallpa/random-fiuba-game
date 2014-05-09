@@ -10,7 +10,7 @@
 #include "vista\Bootstrap.h"
 #include "vista\Activity.h"
 #include "vista\GameActivity.h"
-#include "controlador\Contracts\OnClickListener.h"
+#include "controlador\Contracts\OnMovementListener.h"
 #include <SDL2_framerate.h>
 #include "../utils/Network/Socket.h"
 #include "../utils/Network/Messages.h"
@@ -45,7 +45,7 @@ typedef struct {
 } threadData;
 
 
-class Cliente : public OnClickListener{
+class Cliente : public OnMovementListener{
 
 	private:
 		//TODO @future: Going to need a socket conn;
@@ -57,6 +57,9 @@ class Cliente : public OnClickListener{
 
 		/**Activity que manerja la pantalla actual de la vista*/
 		Activity* currentActivity;
+
+		
+		GameActivity* gameActivity;
 
 		/**Controlador de eventos y estados*/
 		GameController cController;
@@ -113,7 +116,7 @@ class Cliente : public OnClickListener{
 
 		void destroyWorld();
 
-		void OnClick(ClickEvent e);
+		void OnMovement(MovementEvent e);
 
 		bool serverAlive();
 	

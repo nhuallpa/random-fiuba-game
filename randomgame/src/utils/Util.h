@@ -14,7 +14,8 @@ typedef enum{
 	MOVE_RIGHT=0,
 	MOVE_LEFT,
 	JUMP,
-	INIT_PLACEMENT
+	INIT_PLACEMENT,
+	MOVE_STOP
 } Movement;
 
 
