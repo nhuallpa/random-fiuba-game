@@ -21,11 +21,6 @@ Cliente::~Cliente(void){
 
 }
 
-void Cliente::OnClick(ClickEvent e){
-	//Log::d("Prueba debug click/n");
-
-}
-
 bool Cliente::begin(){
 	// TODO @future: Initialize sockets
 	//this->connect2server(this->server);
@@ -47,7 +42,8 @@ void Cliente::loop(void){
 
 	builder->setPlayerID(this->pl);
 	//currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel, &this->cController);
-	currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
+	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
+	this->gameActivity = static_cast<GameActivity*> (currentActivity);
 	
 	
 	/** refresh the initial view*/
@@ -536,3 +532,25 @@ void Cliente::addLocalMovementFromView(Playable p){
 
 }
 
+void Cliente::OnMovement(MovementEvent e){
+
+	Playable p;
+	int wormIdSelected = this->gameActivity->getWormIdSelected();
+	if (wormIdSelected > 0)
+	{
+		p.wormid = wormIdSelected;
+		if (e.x == 1) // derecha
+		{
+			p.action = 	MOVE_RIGHT;
+		}
+		else if (e.x == -1) // izquierda
+		{
+			p.action = 	MOVE_LEFT;
+		} 
+		else if (e.x == 0) // quieto
+		{
+			p.action = 	MOVE_STOP;
+		}
+		this->addLocalMovementFromView(p);
+	}
+}
