@@ -8,7 +8,8 @@
 #define MENU_WIDTH  140
 #define USER_BAR_HEIGHT 80
 
-
+#define WORM_WIDTH 30
+#define WORM_HEIGHT 30
 
 #define SPRITES_WIDTH 48
 #define SPRITES_HEIGHT 48
