@@ -12,14 +12,23 @@ public:
 	void generate(int supreme);
 	void validPosition(list<pair<int,int>>* terrain);
 	void getRandomPosition(int* x, int* y);
+	bool isCompleted();
 private:
-	GamePosition();
-	~GamePosition();
 	int getX(list<int>* listX);
 	int supreme, deltaX, deltaY;
+	bool completed;
 	list<pair<int, int>> terrain;
 	map<int, list<int>> positions;
 	static GamePosition* gp;
+
+	GamePosition();
+	~GamePosition();
+	void fillPostion(int countWidth, int countHight);
+	void findPosEmpty(list<map<int, list<int>>::iterator>* remove);
+	void findPosInvalid(list<map<int, list<int>>::iterator>* remove,
+	list<pair<int,int>>* terrain);
+	map<int, list<int>>::iterator getItemMap(int index);
+	list<int>::iterator getItemList(int index, list<int>* alist);
 
 };
 #endif

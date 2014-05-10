@@ -5,146 +5,9 @@
 GamePosition* GamePosition::gp = NULL;
 
 GamePosition::GamePosition(){
-	//TODO: Aca trasformar a WORM_WIDTH = 30, WORM_HEIGHT = 30
 	deltaY = WORM_WIDTH;
 	deltaX = WORM_HEIGHT;
-	supreme = -1;
-}
-
-void GamePosition::generate(int supreme){
-	ParserYaml* py = ParserYaml::getInstance();
-	list<int> listX;
-	int value = 0;
-	int size = positions.size();
-
-	if(size)
-		return;
-
-	int countWidth = (int)(Util::string2int(py->getEscenarioAnchoP()) / 
-		deltaX);
-	int countHight =(int)(supreme / deltaY);
-
-	for(int i = 0; i < countHight; i++){
-		listX.push_back(value);
-		value += deltaX;
-	}
-	value = 0;
-	for(int i = 0; i < countWidth; i++){
-		positions.insert(pair<int, list<int>>(value, listX));
-		value += deltaY;
-	}
-
-}
-
-void GamePosition::validPosition(list<pair<int,int>>* terrain){
-	list<map<int, list<int>>::iterator> remuve;
-	list<map<int, list<int>>::iterator>::iterator rt;
-	map<int, list<int>>::iterator it;
-	map<int, list<int>>::iterator itAux;
-	list<pair<int,int>>::iterator iit;
-	itAux = positions.begin();
-	iit = terrain->begin();
-	int yMin = 0, yMax = 0, size = 0;
-	
-	
-	for(; iit != terrain->end(); iit++){
-		yMin = iit->first;
-		yMax = iit->second;
-		for(it = itAux; it != positions.end(); it++){
-			if( it->first < yMin	){
-				remuve.push_back(it);
-			}
-			else if(it->first > yMax	){
-				itAux = it;
-				break;
-			}
-		}
-	}
-
-	for(it = itAux; it != positions.end(); it++){
-		if(it->first > yMax	){
-			remuve.push_back(it);
-		}
-	}
-
-
-	//elimino los que estan sobre el agua
-	for(rt = remuve.begin() ; 
-		rt != remuve.end(); 
-		rt++){
-			positions.erase((*rt));
-	}
-
-	//elimino los que tienen 0 epacios
-	remuve.clear();
-	for(it = positions.begin(); 
-		it != positions.end(); 
-		it++){
-		size = it->second.size();
-		if(!size){
-			remuve.push_back(it);
-		}
-	}
-
-	//elimino los que no tiene casilleros
-	for(rt = remuve.begin() ; 
-		rt != remuve.end(); 
-		rt++){
-			positions.erase((*rt));
-	}
-}
-
-
-void GamePosition::getRandomPosition(int* x, int* y){
-	map<int, list<int>>::iterator it;
-	pair<int, list<int>> result;
-
-	int size = positions.size();
-	int index = 0;
-	if(size){
-		index = Util::getRandom(1, size);
-		for(it = positions.begin();
-			it != positions.end();
-			it++){
-			--index;
-			if(!index){
-				break;
-			}
-		}
-		*y = it->first;
-		*x = getX(&it->second);
-		size = it->second.size();
-		if(!size){
-			positions.erase(it);
-		}
-	}else{
-		*x = -1;
-		*y = -1;	
-	}
-}
-
-int GamePosition::getX(list<int>* listX){
-	list<int>::iterator it;
-	int size = listX->size();
-	int index = 0, result = 0;
-	if(size){
-		index = Util::getRandom(1, size);
-		for(it = listX->begin();
-			it != listX->end();
-			it++){
-			--index;
-			if(!index){
-				break;
-			}
-		}
-		result = *it;
-		listX->erase(it);
-	}
-	else{
-		//Para que esto no ocurra necesito chequearlo antes
-	
-	}
-	return result;
+	completed = false;
 }
 
 GamePosition::~GamePosition(){
@@ -155,5 +18,157 @@ GamePosition* GamePosition::getInstance(){
 		gp = new GamePosition();
 	}
 	return gp;
+}
+
+bool GamePosition::isCompleted(){
+	return completed;
+}
+
+void GamePosition::generate(int supreme){
+	ParserYaml* py = ParserYaml::getInstance();
+	int countHight,	countWidth;
+	countWidth = (int)(Util::string2int(py->getEscenarioAnchoP()) / deltaY);
+	countHight = (int)(supreme / deltaX);
+	this->fillPostion(countWidth, countHight);
+}
+
+void GamePosition::validPosition(list<pair<int,int>>* terrain){
+	list<map<int, list<int>>::iterator> remove;
+	list<map<int, list<int>>::iterator>::iterator itRemove;
+
+	this->findPosInvalid(&remove,terrain);
+	for(itRemove = remove.begin() ; 
+		itRemove != remove.end(); 
+		itRemove++){
+			positions.erase((*itRemove));
+	}
+
+	remove.clear();
+	this->findPosEmpty(&remove);
+
+	for(itRemove = remove.begin() ; 
+		itRemove != remove.end(); 
+		itRemove++){
+			positions.erase((*itRemove));
+	}
+	this->completed = true;
+}
+
+
+void GamePosition::getRandomPosition(int* x, int* y){
+	map<int, list<int>>::iterator it;
+	int size = positions.size();
+	int index = 0;
+	if(size){
+		it = this->getItemMap(Util::getRandom(1, size));
+		*y = it->first;
+		*x = getX(&it->second);
+		if(!it->second.size()){
+			positions.erase(it);
+		}
+	}else{
+		*x = -1;
+		*y = -1;	
+	}
+}
+
+int GamePosition::getX(list<int>* listX){
+	list<int>::iterator it;
+	int index = 0, result = 0;
+	int size = listX->size();
+	it = this->getItemList(Util::getRandom(1, size), listX);
+	result = *it;
+	listX->erase(it);
+	return result;
+}
+
+void GamePosition::fillPostion(int countWidth, int countHight){
+	list<int> listValues;
+	int value = 0;
+	for(int i = 0; i < countHight; i++){
+		listValues.push_back(value);
+		value += deltaX;
+	}
+	value = 0;
+	for(int i = 0; i < countWidth; i++){
+		positions.insert(pair<int, list<int>>(value, listValues));
+		value += deltaY;
+	}
+}
+
+
+void GamePosition::findPosEmpty(
+	list<map<int, list<int>>::iterator>* remove){
+	map<int, list<int>>::iterator it;
+	for(it = positions.begin(); 
+		it != positions.end(); 
+		it++){
+		if(!it->second.size()){
+			remove->push_back(it);
+		}
+	}
+}
+
+void GamePosition::findPosInvalid(
+	list<map<int, list<int>>::iterator>* remove,
+	list<pair<int,int>>* terrain){
+	map<int, list<int>>::iterator itPosition;
+	map<int, list<int>>::iterator itAuxPosition;
+	list<pair<int,int>>::iterator itTerrain;
+	itAuxPosition = positions.begin();
+	itTerrain = terrain->begin();
+	int rankMin = 0, rankMax = 0;
+
+	for(; 
+		itTerrain != terrain->end(); 
+		itTerrain++){
+		rankMin = itTerrain->first;
+		rankMax = itTerrain->second;
+		for(itPosition = itAuxPosition; 
+			itPosition != positions.end(); 
+			itPosition++){
+			if( itPosition->first < rankMin	){
+				remove->push_back(itPosition);
+			}
+			else if(itPosition->first > rankMax){
+				itAuxPosition = itPosition;
+				break;
+			}
+		}
+	}
+
+	for(itPosition = itAuxPosition; 
+		itPosition != positions.end(); 
+		itPosition++){
+		if(itPosition->first > rankMax){
+			remove->push_back(itPosition);
+		}
+	}
+}
+
+map<int, list<int>>::iterator GamePosition::getItemMap(int index){
+	map<int, list<int>>::iterator it;
+	for(it = positions.begin();
+		it != positions.end();
+		it++){
+		--index;
+		if(!index){
+			break;
+		}
+	}
+	return it;
+}
+
+list<int>::iterator GamePosition::getItemList(int index, list<int>* alist){
+	list<int>::iterator it;
+	for(it = alist->begin();
+		it != alist->end();
+		it++){
+		--index;
+		if(!index){
+			break;
+		}
+	}
+	return it;
 }
 

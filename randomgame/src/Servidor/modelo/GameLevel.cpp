@@ -17,10 +17,12 @@ GameLevel::GameLevel() {
 	this->idUnique = 1;
 
 	GamePosition * gp = GamePosition::getInstance();
-	list<pair<int,int>> l;
-	l.push_back(pair<int,int>(100,500));
-	gp->generate(200);
-	gp->validPosition(&l);
+	if(!gp->isCompleted()){
+		list<pair<int,int>> l;
+		l.push_back(pair<int,int>(100,700));
+		gp->generate(250);
+		gp->validPosition(&l);
+	}
 }
 
 GameLevel::~GameLevel() {

@@ -14,15 +14,17 @@ void GamePlayer::initPlayer(int prefId, int amountWorms){
 		gp->getRandomPosition(&x, &y);
 
 		//AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
-		this->add(new Worm(prefId + i, 
-						 WORM,
-						 x,
-						 y,
-						 0, //PREGUNTAR A ARI QUE SETEAR
-						 10,//PREGUNTAR A ARI QUE SETEAR
-						 10,//PREGUNTAR A ARI QUE SETEAR
-						 20,//PREGUNTAR A ARI QUE SETEAR
-						 true));//PREGUNTAR A ARI QUE SETEAR
+		if((x != -1) && (y != -1)){
+			this->add(new Worm(prefId + i, 
+							 WORM,
+							 x,
+							 y,
+							 0, //PREGUNTAR A ARI QUE SETEAR
+							 10,//PREGUNTAR A ARI QUE SETEAR
+							 10,//PREGUNTAR A ARI QUE SETEAR
+							 20,//PREGUNTAR A ARI QUE SETEAR
+							 true));//PREGUNTAR A ARI QUE SETEAR
+		}
 						 
 	}
 
