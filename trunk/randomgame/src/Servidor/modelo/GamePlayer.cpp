@@ -1,19 +1,18 @@
 #include "GamePlayer.h"
 #include "..\..\utils\Util.h"
 #include "TerrainProcessor.h"
+#include "GamePosition.h"
 
 GamePlayer::GamePlayer(){}
 
 GamePlayer::~GamePlayer(){}
 
 void GamePlayer::initPlayer(int prefId, int amountWorms){
-
+	GamePosition * gp = GamePosition::getInstance();
 	int x, y;
 	for(int i = 0; i < amountWorms; i++){
-		TerrainProcessor::getRandomPosition(&x, &y);
-		
-		x = rand()%500;
-		y = (rand()%150) + 100; 
+		gp->getRandomPosition(&x, &y);
+
 		//AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
 		this->add(new Worm(prefId + i, 
 						 WORM,
@@ -24,6 +23,7 @@ void GamePlayer::initPlayer(int prefId, int amountWorms){
 						 10,//PREGUNTAR A ARI QUE SETEAR
 						 20,//PREGUNTAR A ARI QUE SETEAR
 						 true));//PREGUNTAR A ARI QUE SETEAR
+						 
 	}
 
 }

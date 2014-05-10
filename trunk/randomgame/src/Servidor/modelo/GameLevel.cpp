@@ -1,5 +1,6 @@
 #include "GameLevel.h"
 #include "../../utils/Log.h"
+#include "GamePosition.h"
 
 #define MAXPLAYER 1
 #define ERRPLAYER 2
@@ -14,6 +15,12 @@ GameLevel::GameLevel() {
 	this->amountUser = 4; //TODO: LEVANTAR PARAMETRO DEL YAML
 	this->amountWorms = 5;
 	this->idUnique = 1;
+
+	GamePosition * gp = GamePosition::getInstance();
+	list<pair<int,int>> l;
+	l.push_back(pair<int,int>(100,500));
+	gp->generate(200);
+	gp->validPosition(&l);
 }
 
 GameLevel::~GameLevel() {

@@ -15,7 +15,11 @@ void GamePosition::generate(int supreme){
 	ParserYaml* py = ParserYaml::getInstance();
 	list<int> listX;
 	int value = 0;
-	
+	int size = positions.size();
+
+	if(size)
+		return;
+
 	int countWidth = (int)(Util::string2int(py->getEscenarioAnchoP()) / 
 		deltaX);
 	int countHight =(int)(supreme / deltaY);
@@ -56,6 +60,13 @@ void GamePosition::validPosition(list<pair<int,int>>* terrain){
 			}
 		}
 	}
+
+	for(it = itAux; it != positions.end(); it++){
+		if(it->first > yMax	){
+			remuve.push_back(it);
+		}
+	}
+
 
 	//elimino los que estan sobre el agua
 	for(rt = remuve.begin() ; 
