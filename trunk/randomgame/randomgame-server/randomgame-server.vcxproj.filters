@@ -183,6 +183,9 @@
     <ClCompile Include="..\src\main-server.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\GamePosition.cpp">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\Servidor.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="..\src\utils\Network\Thread.h">
       <Filter>Archivos de código fuente\utils\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\GamePosition.h">
+      <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
