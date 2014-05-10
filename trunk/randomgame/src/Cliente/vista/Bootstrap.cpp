@@ -17,6 +17,7 @@ void Bootstrap::init()
 	{
 		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
 	} 
+	TextureManager::Instance().setScreenSize(w, h);
 
 	std::map<std::string, std::string> map_images;
 	map_images["sky"] = aParser->getEscenarioCielo();

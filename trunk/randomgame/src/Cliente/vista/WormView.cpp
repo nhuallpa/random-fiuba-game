@@ -86,15 +86,4 @@ void WormView::OnMovement(MovementEvent e){
 		this->state = WORM_VIEW_MOTIONLESS;
 	}
 
-
-	//aca tienen que llamar al metodo del cliente addLocalMovementFromView() pasandome 
-	//el wormID y el Move que hacen (izq,der,salto,..etc)
-
-	//Playable p;
-
-	//p.action = 	MOVE_RIGHT - MOVE_LEFT -  JUMP - 
-	//p.wormid = this->id;
-
-	// aca llaman al cliente: Cliente -> addLocalMovementFromView(p);
-
 }
