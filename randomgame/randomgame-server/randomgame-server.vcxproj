@@ -90,6 +90,7 @@
     <ClCompile Include="..\src\Servidor\modelo\GameLevel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameLoop.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GamePlayer.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\GamePosition.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandleContour.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorBlack.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\HandlerBmp\ColorBmp.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="..\src\Servidor\modelo\GameLevel.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameLoop.h" />
     <ClInclude Include="..\src\Servidor\modelo\GamePlayer.h" />
+    <ClInclude Include="..\src\Servidor\modelo\GamePosition.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandleContour.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorBlack.h" />
     <ClInclude Include="..\src\Servidor\modelo\HandlerBmp\ColorBmp.h" />
