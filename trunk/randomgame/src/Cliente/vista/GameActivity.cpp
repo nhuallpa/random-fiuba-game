@@ -23,6 +23,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->setContentView(builder.getGameView());
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
+	
 }
 
 void GameActivity::buildView( GameViewBuilder & builder)
@@ -86,6 +87,18 @@ void GameActivity::selectWorm(WormView* aWorm)
 	this->cController->addListener(aWorm);
 }
 
+
+void GameActivity::calcRectPosition(SDL_Rect& wormRect,WormView *aWorm){
+	
+	Camera cam = TextureManager::Instance().getCamera();
+	wormRect.x = (aWorm->getX()-(WORM_W/2)-cam.getX());
+	wormRect.y = (aWorm->getY()-(WORM_H/2)-cam.getY());
+	
+	wormRect.w = WORM_W;  
+	wormRect.h = WORM_H;  
+
+}
+
 bool GameActivity::hasClickedWorm(SDL_Point clickPoint)
 {
 	bool wormClicked = false;
@@ -98,15 +111,17 @@ bool GameActivity::hasClickedWorm(SDL_Point clickPoint)
 		if (domainElement.getType() == WORM){
 			WormView* aWorm = gameView->findWormById(domainElement.getId());
 			if (aWorm != NULL){
-
+				/*
 				// todo: corregir este RECT usando el 
 				Camera cam = TextureManager::Instance().getCamera();
 				SDL_Rect wormRect;
-				wormRect.x = aWorm->getX()-cam.getX(); // deberia se el centroide
-				wormRect.y = aWorm->getY()-cam.getY();  // deberia se el centroide
+				wormRect.x = aWorm->getX()-(WORM_W/2)-cam.getX(); // deberia se el centroide
+				wormRect.y = aWorm->getY()-(WORM_H/2)-cam.getY();  // deberia se el centroide
 				wormRect.w = WORM_W;   // tomar alto de constant y usar centroide
 				wormRect.h = WORM_H;  // tomar ancho de constant y usar centroide
-
+				*/
+				SDL_Rect wormRect;
+				this->calcRectPosition(wormRect,aWorm);
 				if (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))
 				{
 					wormClicked =  true;
@@ -131,14 +146,8 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 			WormView* aWorm = gameView->findWormById(domainElement.getId());
 			if (aWorm != NULL){
 
-				// todo: corregir este RECT usando el 
-				Camera cam = TextureManager::Instance().getCamera();
 				SDL_Rect wormRect;
-				wormRect.x = aWorm->getX()-cam.getX();  // deberia se el centroide
-				wormRect.y = aWorm->getY()-cam.getY();  // deberia se el centroide
-				wormRect.w = WORM_W;   // tomar alto de constant
-				wormRect.h = WORM_H;  // tomar ancho de constant
-
+				this->calcRectPosition(wormRect,aWorm);
 				if (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))
 				{
 					aWormClicked = aWorm;
