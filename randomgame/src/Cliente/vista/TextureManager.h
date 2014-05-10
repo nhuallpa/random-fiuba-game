@@ -9,6 +9,7 @@
 #include <map>
 #include "GameException.h"
 #include "Camera.h"
+#include <SDL_rect.h>
 #include "../../utils/Log.h"
 #include <SDL2_gfxPrimitives.h>
 
@@ -16,10 +17,15 @@ class TextureManager
 {
 private:
 
+	
+
 	Camera cam;
 	
 	// Contains all texture
 	std::map<std::string, SDL_Texture*> texture_map;
+
+	int screenWidth;
+	int screenHeight;
 
 	/**
 	* @param  surface A SDL_Surface to flip. Only works with image with channel alpha (32 bits)
@@ -41,6 +47,11 @@ public:
 			static TextureManager theTextureManager;
 			return theTextureManager;
 	}
+
+	void setScreenSize(int w, int h);
+
+	int getScreenWidth() { return this->screenWidth;}
+	int getScreenHeight() { return this->screenHeight;}
 
 	/**
 	* Load image. Allow png, jpg, gif, bmp
@@ -110,7 +121,17 @@ public:
 
 	void drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,char* s , Uint32 color);
 
-	
+	SDL_Point convertPointScreen2SDL(int x, int y)
+	{
+		SDL_Point clickPoint;
+		float kX = (float)this->getCamera().getW() / this->getScreenWidth();
+		float kY = (float)this->getCamera().getH() / this->getScreenHeight();
+
+		clickPoint.x = x * kX;
+		clickPoint.y = y * kY;
+
+		return clickPoint;
+	}
 
 	~TextureManager(void);
 };

@@ -162,9 +162,9 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 
 void GameActivity::OnClick(ClickEvent e){
 	WormView* aWorm = NULL;
-	SDL_Point clickPoint;
-	clickPoint.x = e.x;
-	clickPoint.y = e.y;
+	// nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
+	SDL_Point clickPoint = TextureManager::Instance().convertPointScreen2SDL(e.x,e.y);
+
 	if (hasClickedWorm(clickPoint)) {
 		aWorm = retrieveWormClicked(clickPoint);
 		if (!aWorm->isSelected()) {

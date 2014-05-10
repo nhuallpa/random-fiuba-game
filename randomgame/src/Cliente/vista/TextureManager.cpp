@@ -2,6 +2,8 @@
 
 
 TextureManager::TextureManager(void) {
+	this->screenWidth = 0;
+	this->screenHeight = 0;
 }
 
 TextureManager::~TextureManager(void)
@@ -14,6 +16,11 @@ TextureManager::~TextureManager(void)
 	texture_map.clear();
 }
 
+void TextureManager::setScreenSize(int w, int h)
+{
+	this->screenWidth = w;
+	this->screenHeight = h;
+}
 
 bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRenderer)
 {
@@ -237,3 +244,6 @@ bool TextureManager::intersectRects(SDL_Rect one, SDL_Rect two)
 		return false;
 	}
 }
+
+
+
