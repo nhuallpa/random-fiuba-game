@@ -26,6 +26,7 @@ class WormView: public View, public OnMovementListener
 	Sprite spriteWalk;
 	Sprite spriteJump;
 
+	
 public:
 	WormView(int id, int x, int y);
 									
@@ -47,6 +48,7 @@ public:
 	void deselect();
 
 	~WormView(void);
+
 };
 
 #endif /** __WORMVIEW_H__ **/
