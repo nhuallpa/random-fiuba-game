@@ -194,7 +194,7 @@ void GameEngine::animateWormsFromPlayer(std::string playerID){
 								);
 
 			(*elems).second->setBody(gus);
-			Log::t("Puntero Gusano: %p",gus); 
+			printf("Puntero Gusano: %p",gus); 
 			this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),gus) );
 		}
 	}
@@ -551,4 +551,21 @@ void GameEngine::deleteBody(int id){
 
 }
 
+void GameEngine::applyAction2Element(int id, Movement action){
+
+
+	switch (action){
+		case MOVE_RIGHT:
+			dynamic_cast<Worm2d*>(this->gameBodies[id])->moveRight();
+			break;
+		case MOVE_LEFT:
+			dynamic_cast<Worm2d*>(this->gameBodies[id])->moveLeft();
+			break;
+		case JUMP:
+			dynamic_cast<Worm2d*>(this->gameBodies[id])->jump();
+			break;
+	}
+
+
+}
 

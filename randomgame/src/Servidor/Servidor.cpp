@@ -119,16 +119,16 @@ int Servidor::updating(void* data){
 		printf("\nUpdating: doing stuff at server side");
 		Playable p;
 		p = srv->changes.back();
-		//srv->updateModel(p);
+		printf("\nGot message from user requesting to move worm %d to %d",p.wormid,p.action);
+		
+		srv->updateModel(p); // This will update worldChanges queue
+		
 		//if necessary signal condition to start broadcasting, if not wait
 		n->lock();
 		srv->worldChanges.push_back(p);
 		n->unlock();
 		netcond->signal();
 		
-		
-
-
 		srv->changes.pop_back();
 		m->unlock();
 	}
@@ -171,6 +171,28 @@ int Servidor::broadcastMessages(void* data){
 	
 	return 0;	
 }
+
+
+
+bool Servidor::updateModel(Playable p){
+
+	//Apply playable to the world, locate wormid and apply the action
+	this->gameEngine.applyAction2Element(p.wormid,p.action);
+
+	//Make a step into the world
+	this->gameEngine.step();
+
+	//Look for changes in the world, if something change 
+	//somethingChange()
+
+	return true;
+
+
+}
+
+
+
+
 
 
 
@@ -275,31 +297,15 @@ int Servidor::initClient(void* data){
 	//Send World info to client (entire world)
 	//TODO: Elements
 	datagram->type = INIT;
-	datagram->elements = 2;
+	datagram->elements = srv->getGameEngine().getLevel()->getEntities().size();
 	aThreadData->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (elements) al cliente");
 
 	//Start sending elements
 	//TODO for loop
 
-	//GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
-	//GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
-	//GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
 
 	datagram->type = INIT;
-	//datagram->play.wormid = 21;
-	//datagram->play.x = 30;
-	//datagram->play.y = 51;
-
-
-	//aThreadData->clientI.sendmsg(*datagram);
-	//printf("\nEnviando data (worm 21) al cliente");
-
-	//datagram->play.wormid = 45;
-	//datagram->play.x = 70;
-	//datagram->play.y = 80;
-	//aThreadData->clientI.sendmsg(*datagram);
-	//printf("\nEnviando data (worm 45) al cliente");
 
 	printf("\nElements at model: %d", srv->getGameEngine().getLevel()->getEntities().size() );
 
