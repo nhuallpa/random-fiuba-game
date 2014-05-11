@@ -1,6 +1,6 @@
 #include "GameActivity.h"
-#define WORM_W 60
-#define WORM_H 60
+#define WORM_W 30
+#define WORM_H 30
 
 
 //GameActivity::GameActivity(const SDLScreen & screen, 
