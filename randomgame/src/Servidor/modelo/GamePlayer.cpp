@@ -20,8 +20,8 @@ void GamePlayer::initPlayer(int prefId, int amountWorms){
 			this->add(new Worm(prefId + i,
 							this->playerID,
 							 WORM,
-							 y,
 							 x,
+							 y,
 							 0, //PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR

@@ -1,5 +1,6 @@
 #include "Util.h"
-
+#include <time.h>
+#include <conio.h>
 
 Util::Util(void)
 {
@@ -124,5 +125,6 @@ std::map<std::string, std::string> Util::loadProperteries(std::string str)
 
 
 int Util::getRandom(int min, int max){
+	srand(time(NULL));
 	return rand() % max + min;
 }
