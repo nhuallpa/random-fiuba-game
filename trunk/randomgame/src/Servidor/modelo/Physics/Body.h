@@ -31,7 +31,7 @@ public:
 		float w, float masa, float angle, b2World *myWorld);
 
 	virtual ~Body();
-	virtual b2Body* getBody(){ return this->getBody(); };
+	virtual b2Body* getBody(){ return this->body; };
 	virtual void touch(Body* touchingWith, b2World* mundo){};
 	virtual void animate(){};
 

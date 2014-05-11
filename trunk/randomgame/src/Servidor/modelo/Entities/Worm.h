@@ -17,7 +17,9 @@ bool selected;
 
 
 public:
-Worm(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
+	Worm();
+//Worm(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
+Worm(int id, std::string playerID, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed);
 int getLife();
 void setLife(int newLife);
 void addLife(int moreLife);

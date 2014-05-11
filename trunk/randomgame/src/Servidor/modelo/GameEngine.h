@@ -35,7 +35,7 @@ class GameEngine {
 
 		Body* lookForABody();
 		ContactListener myContactListener;
-		std::map<int, Body*> gameBodies;
+		std::map<int, Body*>* gameBodies;
 		void floodWorld();
 		void animateContacts();
 		bool findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB);
@@ -97,6 +97,8 @@ class GameEngine {
 		void animateWorld();
 		void animateBodies();
 		void animateJoints();
+
+		std::map<int,Body*>* getGameBodies(){ return this->gameBodies;}
 
 
 		// Le pasa el nivel completo al

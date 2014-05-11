@@ -25,22 +25,27 @@ void Worm2d::moveRight()
 void Worm2d::animate(){
 
 	//Use userdata to reflect changes in physics to model
-	Worm* myWorm = static_cast<Worm*>(this->body->GetUserData());
+	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
+	//memcpy(myWorm,(this->body->GetUserData()),sizeof(Worm));
+
+	printf("\n animating worm %d",static_cast<GameElement*>(this->body->GetUserData())->getId() );
+
+	printf("\n animating worm %d",myWorm->getId() );
 
 	//si el Worm esta saltando, saltar
-	if(myWorm->isJumping())
+	if(static_cast<Worm*>(myWorm)->isJumping())
 	{
 		this->jump();
 	}
 
 	//si el Worm se esta moviendo a la izquierda, moverlo a izquierda
-	if(myWorm->isMovingLeft())
+	if(static_cast<Worm*>(myWorm)->isMovingLeft())
 	{
 		this->moveLeft();
 	}
 
 	//si el Worm se esta moviendo a la derecha, moverlo a derecha
-	if(myWorm->isMovingRight())
+	if(static_cast<Worm*>(myWorm)->isMovingRight())
 	{
 		this->moveRight();
 	}

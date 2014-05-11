@@ -17,6 +17,8 @@ GameEngine::~GameEngine() {
 }
 
 bool GameEngine::initWorld(){
+
+	this->gameBodies = new map<int,Body*>;
 	//Crea mundo en base a defaults (Gravity y otros coeficientes)
 	animateWorld();
 
@@ -91,7 +93,7 @@ void GameEngine::animateBodies() {
 											(*elems).second->isFixed());
 					(*elems).second->setBody(sq);
 					Log::t("Puntero cuadrado: %p",sq); 
-					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
+					this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case CIRCLE:
@@ -109,7 +111,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero circulo: %p",sq); 
-					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
+					this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case HEXAGON:
@@ -127,7 +129,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero hexagono: %p",sq); 
-					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
+					this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case TRIANGLE:
@@ -145,7 +147,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero TRIANGULO: %p",sq); 
-					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
+					this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 			case PENTA:
@@ -163,7 +165,7 @@ void GameEngine::animateBodies() {
 					(*elems).second->setBody(sq);
 
 					Log::t("Puntero PENTAGONO: %p",sq); 
-					this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
+					this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),sq) );
 				}
 				break;
 		}
@@ -189,13 +191,13 @@ void GameEngine::animateWormsFromPlayer(std::string playerID){
 								15,
 								0,
 								this->myWorld,
-								elems->second,
+								((*elems).second),
 								false
 								);
 
 			(*elems).second->setBody(gus);
 			printf("Puntero Gusano: %p",gus); 
-			this->gameBodies.insert(std::pair<int,Body*>((*elems).second->getId(),gus) );
+			this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),gus) );
 		}
 	}
 }
@@ -228,9 +230,10 @@ bool GameEngine::step(){
 	this->myWorld->Step(this->timeStep,8,3);
 
 	//Reflect model
-	std::map<int,Body*>::iterator iterator = this->gameBodies.begin();
-	for(iterator = this->gameBodies.begin();iterator != this->gameBodies.end(); ++iterator) {
+	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
+	for(iterator = this->gameBodies->begin();iterator != this->gameBodies->end(); ++iterator) {
 		Body* aBody = (iterator->second);
+		printf("\nStep: now animating womrid %d",static_cast<GameElement*>(aBody->getBody()->GetUserData())->getId() );
 		aBody->animate();
 	}
 
@@ -301,7 +304,7 @@ void GameEngine::updateBodyPositions(){
 
 	for ( ; elems != mmap.end(); elems++) {
 		std::map<int,Body*>::iterator it;
-		it=this->gameBodies.find(elems->second->getId());
+		it=this->gameBodies->find(elems->second->getId());
 		it->second->setPosition(elems->second->getPosition().first,
 								elems->second->getPosition().second,
 								elems->second->getRotation()
@@ -544,28 +547,32 @@ void GameEngine::animateContacts(){
 void GameEngine::deleteBody(int id){
 
 	std::map<int,Body*>::iterator iterator;
-	iterator = this->gameBodies.find(id);
+	iterator = this->gameBodies->find(id);
 	this->myWorld->DestroyBody(iterator->second->body);
-	this->gameBodies.erase(iterator);
+	this->gameBodies->erase(iterator);
 	this->gameLevel->removeEntity(id);
 
 }
 
 void GameEngine::applyAction2Element(int id, Movement action){
 
+	printf("\n applying action");
+	std::map<int,Body*>* copy = this->getGameBodies();
 
-	switch (action){
+
+	printf("\n looking for worm %d and located worm: %d", id, static_cast<GameElement*>((*copy)[id]->getBody()->GetUserData())->getId() );
+	/*switch (action){
 		case MOVE_RIGHT:
-			dynamic_cast<Worm2d*>(this->gameBodies[id])->moveRight();
+			dynamic_cast<Worm2d*>(it->second)->moveRight();
 			break;
 		case MOVE_LEFT:
-			dynamic_cast<Worm2d*>(this->gameBodies[id])->moveLeft();
+			dynamic_cast<Worm2d*>(it->second)->moveLeft();
 			break;
 		case JUMP:
-			dynamic_cast<Worm2d*>(this->gameBodies[id])->jump();
+			dynamic_cast<Worm2d*>(it->second)->jump();
 			break;
-	}
-
+	}*/
+	return;
 
 }
 
