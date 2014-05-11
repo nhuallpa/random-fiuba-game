@@ -125,6 +125,7 @@ std::map<std::string, std::string> Util::loadProperteries(std::string str)
 
 
 int Util::getRandom(int min, int max){
-	srand(time(NULL));
+	static unsigned int i = time(NULL);
+	srand(i++);
 	return rand() % max + min;
 }
