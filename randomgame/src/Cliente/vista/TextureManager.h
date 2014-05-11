@@ -27,6 +27,8 @@ private:
 	int screenWidth;
 	int screenHeight;
 
+	bool firstTime;
+
 	/**
 	* @param  surface A SDL_Surface to flip. Only works with image with channel alpha (32 bits)
 	* @return flipped A copy of surface flipped horizontaly
@@ -43,6 +45,7 @@ public:
 	
 	TextureManager(void);
 
+	
 	static TextureManager & Instance(){
 			static TextureManager theTextureManager;
 			return theTextureManager;
@@ -86,7 +89,7 @@ public:
 	**/
 	void drawFrame(std::string id, int x, int y, int width, int
 					height, int currentRow, int currentFrame, SDL_Renderer*
-					pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+					pRenderer,bool grey, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	void drawScrollableBackground(std::string imageId, SDL_Renderer* pRenderer);
 

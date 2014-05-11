@@ -26,6 +26,8 @@ class WormView: public View, public OnMovementListener
 	Sprite spriteWalk;
 	Sprite spriteJump;
 
+	bool gray;
+
 	
 public:
 	WormView(int id, int x, int y);
@@ -46,6 +48,11 @@ public:
 	bool isSelected();
 	void select();
 	void deselect();
+
+	bool isGrey();
+	void putGrey();
+	void quitGrey();
+
 
 	~WormView(void);
 

@@ -6,6 +6,7 @@ WormView::WormView(int id, int x, int y)
 {
 	currentSprite = &this->spriteWalk;
 	this->selected = false;
+	this->gray = false;
 }
 
 
@@ -39,6 +40,8 @@ void WormView::draw(SDLScreen & screen)
 	
 	char buffer[50];
 	char buffer2[50];
+	if (this->isSelected()) this->putGrey();
+	else this->quitGrey();
 	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
 										this->getX()-(currentSprite->getWidth()/2), 
 										this->getY()-(currentSprite->getHeight()/2), 
@@ -46,12 +49,11 @@ void WormView::draw(SDLScreen & screen)
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
 										currentSprite->getCurrentFrame(), 
-										screen.getRenderer(), this->direction);
+										screen.getRenderer(),this->gray, this->direction);
 	strcpy(buffer,"Worm ");
 	itoa(this->id,buffer2,10);
 	strcat(buffer,buffer2);
 	
-	TextureManager::Instance().drawText(screen.getRenderer(),this->getX(),this->getY(),"+",0xFF00FF00);
 	if (this->isSelected())
 		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,0xFFFFFFFF);
 
@@ -67,6 +69,11 @@ void WormView::select(){
 void WormView::deselect(){
 	this->selected = false;
 }
+
+bool WormView::isGrey(){ return this->gray;}
+void WormView::putGrey(){ this->gray = true;}
+void WormView::quitGrey(){this->gray = false;}
+
 
 void WormView::OnMovement(MovementEvent e){
 
