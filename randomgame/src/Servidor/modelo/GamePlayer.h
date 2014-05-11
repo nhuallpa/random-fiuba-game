@@ -10,13 +10,14 @@ enum StateConn {CONNECTED, DISCONNECTED};
 
 class GamePlayer{
 public:
-	GamePlayer();
+	GamePlayer(std::string playerID);
 	~GamePlayer();
 	static GamePlayer* NewPlayerFactory(int prefId, int amountWorms);
 	void setStateConn(StateConn sc);
 	void add(Worm* w);
 	std::vector<Worm*> getWorms(){ return this->worms;}
 	void initPlayer(int prefId, int amountWorms);
+	std::string playerID;
 private:
 	std::vector<Worm*> worms;
 	StateConn state;

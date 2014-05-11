@@ -286,7 +286,7 @@ bool GameLevel::acceptPlayer(std::string playerID){
 	if ( this->players.size() < this->amountUser ){
 		// No esta en la lista pero lo acepto porque entra
 	
-		GamePlayer* gp = new GamePlayer();
+		GamePlayer* gp = new GamePlayer(playerID);
 		gp->initPlayer(this->idUnique,4);
 		this->idUnique =+ 4;
 

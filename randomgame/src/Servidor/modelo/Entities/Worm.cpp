@@ -1,7 +1,15 @@
 #include "Worm.h"
 
-Worm::Worm(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed) : GameElement(id, type, posX,  posY,  degrees,  h,  w,  mass,  isFixed)
-{
+Worm::Worm(){
+}
+//Worm::Worm(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed) : GameElement(id, type, posX,  posY,  degrees,  h,  w,  mass,  isFixed)
+//{
+//	this->stopMoving();
+//}
+
+Worm::Worm(int id, std::string playerID, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed)
+:  GameElement(id, playerID, type, posX,  posY,  degrees,  h,  w,  mass,  isFixed) {
+
 	this->stopMoving();
 }
 

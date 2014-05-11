@@ -1,5 +1,8 @@
 #include "GameElement.h"
 
+GameElement::GameElement(){
+}
+
 /* Rectangle constructor */
 GameElement::GameElement(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed){
 	

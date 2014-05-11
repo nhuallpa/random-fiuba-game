@@ -294,20 +294,12 @@ int Servidor::initClient(void* data){
 	aThreadData->clientI.sendmsg(*datagram);
 	printf("\nEnviando data (level) al cliente");
 
-	//Send World info to client (entire world)
-	//TODO: Elements
+
 	datagram->type = INIT;
 	datagram->elements = srv->getGameEngine().getLevel()->getEntities().size();
 	aThreadData->clientI.sendmsg(*datagram);
-	printf("\nEnviando data (elements) al cliente");
-
-	//Start sending elements
-	//TODO for loop
-
-
 	datagram->type = INIT;
-
-	printf("\nElements at model: %d", srv->getGameEngine().getLevel()->getEntities().size() );
+	printf("\nElements at model: %d, already sended to the client", srv->getGameEngine().getLevel()->getEntities().size() );
 
 	std::map<int, GameElement*> copyWorld = srv->getGameEngine().getLevel()->getEntities();
 	std::map<int, GameElement*>::iterator itC = copyWorld.begin();
