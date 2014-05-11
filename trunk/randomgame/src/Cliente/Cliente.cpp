@@ -300,7 +300,7 @@ int Cliente::notifyLocalUpdates(void *data){
 			//printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		//printf("\nGot a local change");
+		Log::t("\nGot a local change");
 
 		msg->play.wormid = cli->localChanges.back().wormid;
 		msg->play.weaponid = cli->localChanges.back().weaponid;
@@ -311,8 +311,7 @@ int Cliente::notifyLocalUpdates(void *data){
 		msg->type = UPDATE;
 
 		if ( !cli->output.sendmsg(*msg) ) {
-			Log::e("Client connection error");
-			//printf("\nClient: connection error");
+			Log::t("Local Update - Client connection with server error");
 			m->unlock();
 			return 1;
 		}
@@ -438,6 +437,7 @@ void Cliente::getRemoteWorld() {
 	}
 	//printf("\nDONE - Retrieving data from server, world elements: %d", msg->elements);
 	int count = msg->elements;
+	Log::i("\nGoing to load %d elements",count);
 	for ( int i=0; i < count; i++){
 		if (!this->input.rcvmsg(*msg)) {
 			Log::e("Client: connection error - Server disconnected/not responding");

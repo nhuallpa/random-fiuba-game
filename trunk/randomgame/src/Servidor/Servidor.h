@@ -55,6 +55,8 @@ class Servidor{
 		void wait4Updates(Player playerId);
 		void disconnect(std::string playerId);
 
+		bool updateModel(Playable p);
+
 		/* Data for threading**/
 		threadData data;
 

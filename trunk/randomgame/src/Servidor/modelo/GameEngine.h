@@ -80,6 +80,7 @@ class GameEngine {
 		bool applyPlayable2Model();
 
 
+		void applyAction2Element(int id, Movement action);
 
 
 		bool step();
