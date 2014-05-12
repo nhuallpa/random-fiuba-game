@@ -76,6 +76,10 @@ void GameActivity::deselectPreviewsWorm()
 		aWorm->deselect();
 		this->cController->remuveListener(aWorm);
 		this->wormIdSelected = -1;
+		MovementEvent m;
+		m.x = 0;
+		m.y = 0;
+		aWorm->OnMovement(m);
 	}
 	
 }
