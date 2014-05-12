@@ -38,6 +38,10 @@
 #define CONFIG_FILE "config/config.yaml"
 
 
+#define COLOR_AMARILLO 0xFFFFFF00
+#define COLOR_ROJO 0xFFFF0000
+#define COLOR_VERDE 0xFF01DF3A
+#define COLOR_AZUL 0xFF0040FF
 
 /****************************************************************************************************/
 /** Archivo de configuracion que reune todos los valores constantes que se utilizan en el proyecto **/
