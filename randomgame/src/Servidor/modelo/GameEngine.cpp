@@ -35,7 +35,7 @@ bool GameEngine::initWorld(){
 	this->timeStep = 1.0 / TIME_STEP;//Util::string2float(aParser->getMetaTime());
 	Log::i("TimeStep: %f",this->timeStep);
 
-	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()));
+	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
 	this->gameLevel->setTerrain(aTerrainProcessor);
 
 	

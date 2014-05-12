@@ -4,8 +4,9 @@
 #include "HandlerBmp\TerrainImg.h"
 #include "..\..\utils\Util.h"
 
-TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale)
+TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale,int waterLevel)
 {
+	this->rangeTerrainOverWater= new list<pair<int,int>>();
 	b2Body* m_attachment;
 	TerrainImg* aBmpFile;
 	this->aListOfPolygons= new list< list< pair<float,float> > > ();
@@ -15,16 +16,19 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 	}
 	catch (int e)
 	{
-		makeDefaultTerrain(m_world);
+		makeDefaultTerrain(m_world,waterLevel);
 		return;
 	}
 
 	ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
+
 	int height =aBmpFile->getHeight();
 	int width =aBmpFile->getWidth();
 
 
 	list< list<Position* > *>* cc =aContourBmp->getContour();
+					this->maxPointTerrain=aContourBmp->getMaxPointTerrain();
+		rangeTerrainOverWater =aContourBmp->getConnectedComponentsOptimized(waterLevel);
 	list< list<Position* >* >::iterator itComponente = cc->begin();
 	while(itComponente != cc->end() )
 	{
@@ -37,7 +41,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			lista.push_back(b2Vec2((float)(*itPosition)->getX(), (float)(*itPosition)->getY()));
 		}
 
-		result = this->getPolygonConvex(lista, epsilon, scale, height, width);
+		result = this->getPolygonConvex(lista, epsilon, scale, height, width,waterLevel);
 
 		for(int nroDePoligono=0; nroDePoligono< result.size(); nroDePoligono++)
 		{
@@ -88,7 +92,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 
 
 vector<vector<b2Vec2>> TerrainProcessor::	
-	getPolygonConvex(vector<b2Vec2> lista, float epsilon, int scale, int &height, int& width){
+	getPolygonConvex(vector<b2Vec2> lista, float epsilon, int scale, int &height, int& width, int waterLevel){
 		vector<vector<b2Vec2>> result;
 		HandleContour hc;
 		try
@@ -112,6 +116,10 @@ vector<vector<b2Vec2>> TerrainProcessor::
 			aListOfPoints.push_back(unVerticeCuspide);
 
 			result.push_back(aListOfPoints);
+			delete this->rangeTerrainOverWater;
+			this->rangeTerrainOverWater= new list<pair<int,int>>();
+			this->rangeTerrainOverWater->push_back(pair<int,int>(10-waterLevel,10-waterLevel));
+				this->maxPointTerrain=pair<int,int>(6,5);
 
 		}
 		return result;
@@ -133,14 +141,14 @@ b2Vec2 TerrainProcessor::transformBmpToBox2D(b2Vec2 vertex, int height, int widt
 	return nuevo;
 }
 
-void TerrainProcessor::makeDefaultTerrain(b2World* m_world)
+void TerrainProcessor::makeDefaultTerrain(b2World* m_world,int waterLevel)
 {
 	b2Body* m_attachment;
 	b2Vec2 vertices[3];
 	list< pair<float,float> > aListOfPoints;
-	b2Vec2 unVerticeBase(9,3);
-	b2Vec2 otroVerticeBase(9,7);
-	b2Vec2 unVerticeCuspide(5,5);
+	b2Vec2 unVerticeBase(9,2);
+	b2Vec2 otroVerticeBase(9,8);
+	b2Vec2 unVerticeCuspide(6,5);
 
 	vertices[0] = this->transformBmpToBox2D(unVerticeBase, 10,10);
 	vertices[1] = this->transformBmpToBox2D(otroVerticeBase, 10,10);
@@ -172,6 +180,8 @@ void TerrainProcessor::makeDefaultTerrain(b2World* m_world)
 	m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
 	int* st= 0;
 	m_attachment->SetUserData(st);
+	this->rangeTerrainOverWater->push_back(pair<int,int>(10-waterLevel,10-waterLevel));
+	this->maxPointTerrain=pair<int,int>(6,5);
 
 }
 
@@ -185,6 +195,15 @@ TerrainProcessor::~TerrainProcessor(void)
 
 }
 
+pair<int,int> TerrainProcessor::getMaxPointTerrain()
+		{
+			return this->maxPointTerrain;
+		}
+
+list<pair<int,int>> * TerrainProcessor::getRangeTerrainOverWater()
+		{
+			return this->rangeTerrainOverWater;
+		}
 
 void TerrainProcessor::getRandomPosition(int* x,int* y){
 	//list<pair<int,int> > *listaDeIslas= this->getContourTerrainOverWater(waterLevel);
