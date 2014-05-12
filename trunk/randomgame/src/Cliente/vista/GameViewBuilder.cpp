@@ -121,8 +121,6 @@ void GameViewBuilder::buildWater()
 	
 	int scale = ESCALA_UL2PX;
 	
-
-	//ARIEL: Aca meti mano y cambie el valor del agua para que lo saque del YAML
 	int heigth = (int)( Util::string2float( aParser->getEscenarioAgua() ) * scale);
 	
 	gameView->setWater(new WaterView(heigth, color));
@@ -185,8 +183,6 @@ void GameViewBuilder::buildTerrain()
 void GameViewBuilder::buildCharacters()
 {
 
-
-
 	std::map<int,GameElement>::iterator it;
 
 	for (it = this->domain->getDomainElements()->begin(); it != this->domain->getDomainElements()->end(); ++it)
@@ -195,10 +191,8 @@ void GameViewBuilder::buildCharacters()
 
 		if (domainElement.getType() == WORM) 
 		{
-			WormView* aWorm = new WormView(	it->first, 
-											domainElement.getPosition().first, 
-											domainElement.getPosition().second);
-
+			WormView* aWorm = new WormView(	it->first);
+			aWorm->update(&domainElement);
 			try 
 			{
 				aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));

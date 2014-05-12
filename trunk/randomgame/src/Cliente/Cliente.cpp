@@ -146,7 +146,7 @@ void Cliente::iniGame(){
 
 
 /************************ Start Network Client Side code *************************/
-Cliente::Cliente(std::string playerID, char* ip, int port)
+Cliente::Cliente(std::string playerID, const char* ip, int port)
 	: input(Socket())
 	, output(Socket())
 	, pl(playerID)

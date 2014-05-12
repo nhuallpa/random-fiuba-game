@@ -124,17 +124,9 @@ public:
 
 	void drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,char* s , Uint32 color);
 
-	SDL_Point convertPointScreen2SDL(int x, int y)
-	{
-		SDL_Point clickPoint;
-		float kX = (float)this->getCamera().getW() / this->getScreenWidth();
-		float kY = (float)this->getCamera().getH() / this->getScreenHeight();
+	SDL_Point convertPointScreen2SDL(int x, int y);
 
-		clickPoint.x = x * kX;
-		clickPoint.y = y * kY;
-
-		return clickPoint;
-	}
+	tPoint convertPointUL2PXSDL(float x, float y);
 
 	~TextureManager(void);
 };

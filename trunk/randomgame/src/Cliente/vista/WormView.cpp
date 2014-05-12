@@ -1,8 +1,8 @@
 #include "WormView.h"
 
 
-WormView::WormView(int id, int x, int y)
-	: View(x, y), id(id), direction(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
+WormView::WormView(int id)
+	: View(0, 0), id(id), direction(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
 {
 	currentSprite = &this->spriteWalk;
 	this->selected = false;
@@ -18,6 +18,14 @@ WormView::~WormView(void)
 void WormView::clean()
 {
 
+}
+
+void WormView::update(GameElement* domainElement)
+{
+	std::pair<float, float> pointUL = domainElement->getPosition();
+	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
+	this->setX(pointSDL.x);
+	this->setY(pointSDL.y);
 }
 	
 void WormView::update() 
