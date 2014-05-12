@@ -15,19 +15,26 @@ private:
 
 	std::vector <state> stateV;
 
-	int msjs;
+	
 
 	void cutVect();
 	
 public:
 	
+	int i;
+
 	~StateBarView(void);
 
-	StateBarView(int msjs);
+	StateBarView();
 				
 	void setMsj(std::string msj);
 
 	void draw(SDLScreen & screen);
+
+	static StateBarView & Instance(){
+			static StateBarView theStateBarView;
+			return theStateBarView;
+	}
 };
 
 #endif /** __STATEBARVIEW_H__*/

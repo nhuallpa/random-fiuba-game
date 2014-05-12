@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../controlador/Contracts/OnMovementListener.h"
+#include "StateBarView.h"
+
 
 enum WormState {
 	WORM_VIEW_DOING,

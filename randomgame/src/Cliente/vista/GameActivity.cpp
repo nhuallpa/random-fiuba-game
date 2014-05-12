@@ -63,6 +63,7 @@ void GameActivity::update()
 		}
 	}
 	this->aView->update();
+
 }
 
 GameActivity::~GameActivity(void)
