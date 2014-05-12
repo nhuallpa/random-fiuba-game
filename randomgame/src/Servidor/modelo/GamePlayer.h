@@ -2,11 +2,10 @@
 #define __GAMEPLAYER__
 
 #include "Entities\Worm.h"
+#include "..\..\utils\Util.h"
 #include <list>
 
 using namespace std;
-
-enum StateConn {CONNECTED, DISCONNECTED};
 
 class GamePlayer{
 public:

@@ -16,7 +16,7 @@
 #include "../utils/Network/Messages.h"
 #include "../utils/Network/Thread.h"
 #include "../utils/Network/Condition.h"
-
+#include "../utils/Util.h"
 #include "../utils/Log.h"
 #include <string>
 #include <iostream>
@@ -83,6 +83,7 @@ class Cliente : public OnMovementListener{
 		Socket output;
 
 		Player pl;
+		
 
 		// Se usa para controlar el timeout de los sockets
 
@@ -151,6 +152,8 @@ class Cliente : public OnMovementListener{
 		void signalNetworkChange();
 
 		GameElement getElementFromPlayable(Playable p);
+
+
 
 
 };
