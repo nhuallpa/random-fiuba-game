@@ -61,7 +61,22 @@ void WormView::draw(SDLScreen & screen)
 	strcpy(buffer,"Worm ");
 	itoa(this->id,buffer2,10);
 	strcat(buffer,buffer2);
+
+	/*borrar esto por dios*/
+	/* 
 	
+	*********ACA SE PUEDE PROBAR EL STATE BAR************
+	
+	
+	if (this->isSelected()){
+		char buff[50];
+		itoa(StateBarView::Instance().i++,buff,10);
+		StateBarView::Instance().setMsj(buff);
+			
+	}
+	StateBarView::Instance().draw(screen);
+	*/
+
 	if (this->isSelected())
 		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,0xFFFFFFFF);
 

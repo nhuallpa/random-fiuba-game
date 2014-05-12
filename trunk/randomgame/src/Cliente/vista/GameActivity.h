@@ -11,6 +11,7 @@
 #include "../../utils/Util.h"
 #include "Camera.h"
 
+
 class GameActivity : public Activity, public OnClickListener
 {
 private:
