@@ -306,8 +306,10 @@ int Servidor::initClient(void* data){
 	for ( ; itC != copyWorld.end(); itC++){
 		
 		datagram->play.wormid = itC->second->getId();
-		datagram->play.x = itC->second->getPosition().first;
-		datagram->play.y = itC->second->getPosition().second;
+
+		//todo hardcoded scale
+		datagram->play.x = itC->second->getPosition().first/ESCALA_UL2PX;
+		datagram->play.y = itC->second->getPosition().second/ESCALA_UL2PX;
 		datagram->playerID = itC->second->getPlayerID();
 		
 		aThreadData->clientI.sendmsg(*datagram);

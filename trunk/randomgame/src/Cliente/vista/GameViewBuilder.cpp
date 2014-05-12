@@ -192,6 +192,7 @@ void GameViewBuilder::buildCharacters()
 		if (domainElement.getType() == WORM) 
 		{
 			WormView* aWorm = new WormView(	it->first);
+			Log::i("Adding worm: %d, at position: %f, %f",it->first, it->second.getPosition().first, it->second.getPosition().second);
 			aWorm->update(&domainElement);
 			try 
 			{

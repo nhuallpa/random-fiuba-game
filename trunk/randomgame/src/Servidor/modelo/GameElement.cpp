@@ -18,6 +18,7 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, float
 }
 
 GameElement::GameElement(int id, std::string playerID, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed){
+			
 			this->playerID.assign(playerID.c_str());
 			this->id = id;
 			this->changed = false;

@@ -437,21 +437,26 @@ void Cliente::getRemoteWorld() {
 	}
 	//printf("\nDONE - Retrieving data from server, world elements: %d", msg->elements);
 	int count = msg->elements;
-	Log::i("\nGoing to load %d elements",count);
+	Log::i("Going to load %d elements",count);
 	for ( int i=0; i < count; i++){
 		if (!this->input.rcvmsg(*msg)) {
 			Log::e("Client: connection error - Server disconnected/not responding");
 			//printf("\nClient: connection error - Server disconnected/not responding");
 			return;
 		}
-		Log::i("\nGetted worm id: %d at pos: %d, %d",msg->play.wormid, msg->play.x, msg->play.y);
+		Log::i("Getted worm id: %d at pos: %d, %d",msg->play.wormid, msg->play.x, msg->play.y);
 
 		//Trigger changes into game elements of the client
 		
-		GameElement elem = getElementFromPlayable(msg->play);
-		elem.playerID = msg->playerID;
+		GameElement* elem = 
+			getElementFromPlayable(msg->play);
 
-		this->domain.addElementToDomain(elem);
+		elem->playerID = msg->playerID;
+
+		Log::i("Inserting worm id: %d at pos: %f, %f",elem->getId(), elem->getPosition().first,
+			elem->getPosition().second);
+
+		this->domain.addElementToDomain(*elem);
 
 
 
@@ -469,9 +474,9 @@ bool Cliente::serverAlive () {
 }
 
 
-GameElement Cliente::getElementFromPlayable(Playable p){
+GameElement* Cliente::getElementFromPlayable(Playable p){
 
-	GameElement g(p.wormid,"PLAYER 1",WORM,p.x,p.y,0.0,40,40,15,false);
+	GameElement* g = new GameElement(p.wormid,"PLAYER 1",WORM,p.x,p.y,0.0,40,40,15,false);
 
 	return g;
 
