@@ -151,7 +151,7 @@ class Cliente : public OnMovementListener{
 
 		void signalNetworkChange();
 
-		GameElement getElementFromPlayable(Playable p);
+		GameElement* getElementFromPlayable(Playable p);
 
 
 

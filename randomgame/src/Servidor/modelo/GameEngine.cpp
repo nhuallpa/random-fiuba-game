@@ -561,17 +561,17 @@ void GameEngine::applyAction2Element(int id, Movement action){
 
 
 	printf("\n looking for worm %d and located worm: %d", id, static_cast<GameElement*>((*copy)[id]->getBody()->GetUserData())->getId() );
-	/*switch (action){
+	switch (action){
 		case MOVE_RIGHT:
-			dynamic_cast<Worm2d*>(it->second)->moveRight();
+			static_cast<Worm*>((*copy)[id]->getBody()->GetUserData())->moveRight();
 			break;
 		case MOVE_LEFT:
-			dynamic_cast<Worm2d*>(it->second)->moveLeft();
+			static_cast<Worm*>((*copy)[id]->getBody()->GetUserData())->moveLeft();
 			break;
 		case JUMP:
-			dynamic_cast<Worm2d*>(it->second)->jump();
+			static_cast<Worm*>((*copy)[id]->getBody()->GetUserData())->jump();
 			break;
-	}*/
+	}
 	return;
 
 }
