@@ -554,3 +554,4 @@ void Cliente::OnMovement(MovementEvent e){
 		this->addLocalMovementFromView(p);
 	}
 }
+

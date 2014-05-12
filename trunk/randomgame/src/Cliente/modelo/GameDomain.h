@@ -19,6 +19,9 @@ class GameDomain{
 
 	std::string playerID;
 	std::map<int,GameElement> domainElements;
+	
+	// Key: PlayerID, Elem: Pair<State,Color>
+	std::map<Player,std::pair<StateConn,unsigned long>> playersPlaying;
 
 public:
 
@@ -35,7 +38,9 @@ public:
 
 	 void updateElement(int id);
 
-
+	 StateConn getPlayerState(Player p){ return this->playersPlaying[p].first; }
+	 unsigned long getPlayerColor(Player p){ return this->playersPlaying[p].second; }
+	 void setPlayerState(Player p, StateConn c, unsigned long color);
 
 };
 
