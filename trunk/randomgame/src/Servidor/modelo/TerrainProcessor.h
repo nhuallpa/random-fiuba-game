@@ -22,16 +22,20 @@ class TerrainProcessor
 private:
 	b2Vec2 transformBmpToBox2D(b2Vec2 vertex, int height, int width);
 	list< list< pair<float,float> > >* aListOfPolygons;
-	void makeDefaultTerrain(b2World* m_world);
-	list< pair<int,int> >* getConnectedComponentsOptimized(int waterLevel);
+	void makeDefaultTerrain(b2World* m_world,int waterLevel);
+	list<pair<int,int>> * rangeTerrainOverWater;
+	pair<int,int> maxPointTerrain;
+	
 
 public:
-	TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale);
+	TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale, int waterLevel);
 	list< list< pair<float,float> > > * getListOfPolygons();
 	~TerrainProcessor(void);
 	vector<vector<b2Vec2>> 
-	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, int& height, int& width);
+	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, int& height, int& width,int waterLevel);
 	static void getRandomPosition(int* x,int* y);
+	list<pair<int,int>> * getRangeTerrainOverWater();
+	pair<int,int> getMaxPointTerrain();
 };
 
 #endif

@@ -2,6 +2,7 @@
 
 ContourBmp::ContourBmp(TerrainImg* aBmpFile)
 {
+	maxPointTerrain=pair<int,int>(3600,3600);
     this->aBmpFile=aBmpFile;
 }
 
@@ -84,35 +85,36 @@ list< list<Position*>* >* ContourBmp::getConnectedComponentsOptimized()
 //Esta última lista contiene posiciones adyacentes.(una vez usados deben ser liberados de memoria)
 list< pair<int,int> >* ContourBmp::getConnectedComponentsOptimized(int waterLevel)
 {
- //   //Se ordena por columna de menor a mayor, así se recorren las posiciones de arriba a abajo de izq a der
- //   list< list<Position*>* >* aConnectedComponentsList = new list< list<Position*>* >();
- //   
-	//int width=this->aBmpFile->getWidth();
-	//int height=this->aBmpFile->getHeight();
- //   list<Position*>* aComponent;
-	//int cabeza=0;
-	//bool cabezaEncontrada=false;
-	//bool colaEncontrada=false;
-	//bool componenteEncontrada=false;
+    //Se ordena por columna de menor a mayor, así se recorren las posiciones de arriba a abajo de izq a der
+    list< pair<int,int> >* aConnectedComponentsList = new list< pair<int,int> >();
+    
+	int width=this->aBmpFile->getWidth();
+	int height=this->aBmpFile->getHeight()-waterLevel;
 
-	//for(int column=0; column < width ; column++)
-	//{
-	//	colaEncontrada=( (aBmpFile->getBit(height-1, column) == 1 || column == width-1 ) && cabezaEncontrada==true) ;//si encuentra el final de un terreno, agrega la posicion inicial
-	//	if(colaEncontrada)
-	//	{
-	//		cabezaEncontrada=false;
- //           aComponent = new list<Position*>();
- //           aComponent->push_back(new Position(height-1,cabeza));
- //           aConnectedComponentsList->push_back(aComponent);
-	//	}
-	//	else if ( (aBmpFile->getBit(height-1,column) == 0 ) && cabezaEncontrada==false) //si encuentra el principio de un terreno, agrega la posicion inicial
-	//	{
-	//		cabeza=column;
-	//		cabezaEncontrada=true;
-	//	}
-	//}
- //   return aConnectedComponentsList;
-	return NULL;
+	int cabeza=0;
+	int cola=0;
+	bool cabezaEncontrada=false;
+	bool colaEncontrada=false;
+	bool componenteEncontrada=false;
+
+	for(int column=0; column < width ; column++)
+	{
+		colaEncontrada=( (aBmpFile->getBit(height-1, column) == 1 || column == width-1 ) && cabezaEncontrada==true) ;//si encuentra el final de un terreno, agrega la posicion inicial
+		if(colaEncontrada)
+		{
+			cola=column;
+			cabezaEncontrada=false;
+            pair<int,int> aComponent = pair<int,int>(cabeza,cola);
+            aConnectedComponentsList->push_back(aComponent);
+		}
+		else if ( (aBmpFile->getBit(height-1,column) == 0 ) && cabezaEncontrada==false) //si encuentra el principio de un terreno, agrega la posicion inicial
+		{
+			cabeza=column;
+			cabezaEncontrada=true;
+		}
+	}
+    return aConnectedComponentsList;
+
 }
 
 
@@ -368,11 +370,13 @@ list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
         // saving contour point
 		if(squareValue==13&& ( (prevX ==1) &&(prevY ==0)) )//y viene de arriba
         {
+			updateMaxPosition(posXcontour, posYcontour-1);
             aContour->push_back(new Position(posXcontour, posYcontour-1));
         }
         if( (posPrevXcontour != posXcontour) || (posPrevYcontour != posYcontour))
         {
 
+			updateMaxPosition(posXcontour,posYcontour);
             aContour->push_back(new Position(posXcontour, posYcontour));
         }
 
@@ -442,6 +446,20 @@ void ContourBmp::deleteListOfListPositions(list< list<Position*>* >* aListOfList
     }
     delete aListOfListToDelete;
 }
+
+
+		pair<int,int> ContourBmp::getMaxPointTerrain()
+		{
+			return this->maxPointTerrain;
+		}
+
+void ContourBmp::updateMaxPosition(int posX,int posY)
+		{
+			if(posY < this->maxPointTerrain.second)
+			{
+				maxPointTerrain=pair<int,int>(posX,posY);
+			}
+		}
 
 ContourBmp::~ContourBmp()
 {
