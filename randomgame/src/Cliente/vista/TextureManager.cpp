@@ -249,4 +249,27 @@ bool TextureManager::intersectRects(SDL_Rect one, SDL_Rect two)
 }
 
 
+SDL_Point TextureManager::convertPointScreen2SDL(int x, int y)
+{
+	SDL_Point clickPoint;
+	float kX = (float)this->getCamera().getW() / this->getScreenWidth();
+	float kY = (float)this->getCamera().getH() / this->getScreenHeight();
+
+	clickPoint.x = x * kX;
+	clickPoint.y = y * kY;
+
+	return clickPoint;
+}
+
+
+tPoint TextureManager::convertPointUL2PXSDL(float x, float y)
+{
+	tPoint aPoint;
+	int heightScreen = this->getCamera().getHeightScenario();
+
+	aPoint.x = (int)(x * (float)ESCALA_UL2PX);
+	aPoint.y = (int)(heightScreen - (y * (float)ESCALA_UL2PX));	
+
+	return aPoint;
+}
 

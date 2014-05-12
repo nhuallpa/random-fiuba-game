@@ -61,10 +61,12 @@ public:
 
 
 	/**
+	* @DEPRECATE !!!!!!!!!!!!!!!!!!!!!!!!!
 	* Get the scale factor in both axis x and y
 	* @return std::pair<float,float> a pair of scale factor
 	*/
 	static std::pair<float,float> getTransformFromU2PX();
+
 
 	/**
 	* Convert std::string to float
@@ -91,6 +93,7 @@ public:
 
 
 	/**
+	* * @DEPRECATE !!!!!!!!!!!!!!!!!!!!!!!!! or change
 	* Convert a coordinate x y to coordinate in SDL system reference
 	* @param x Value of axis x in domain
 	* @param y Value of axis y in domain

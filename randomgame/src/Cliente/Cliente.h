@@ -108,7 +108,7 @@ class Cliente : public OnMovementListener{
 
 	public:
 		//Cliente(Servidor* server);
-		Cliente(std::string playerID, char* ip, int port);
+		Cliente(std::string playerID, const char* ip, int port);
 		
 		virtual ~Cliente(void);
 

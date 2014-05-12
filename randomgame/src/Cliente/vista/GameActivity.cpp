@@ -42,25 +42,26 @@ void GameActivity::update()
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	//ARIEL: Refactor grande, ver si no rompi :)
-	//NESTOR: Quito las figuras por ahora. Hay que actualiza la vista.
-	/*std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
+	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	
 	std::map<int,GameElement>::iterator it;
-	Log::d(VIEW,"Actualizando %d en elemento", domainElements->size());
-
+	Log::t(VIEW,"Actualizando %d en elemento", domainElements->size());
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::d(VIEW,"elemento %d",domainElement.getType());
+		Log::t(VIEW,"elemento %d",domainElement.getType());
 		try
 		{
-			FigureView* aFigure = gameView->findFigureById(domainElement.getId());
-			aFigure->update(&domainElement);
+			if (domainElement.getType() == WORM) 
+			{
+				WormView* aWorm = gameView->findWormById(domainElement.getId());
+				aWorm->update(&domainElement);
+			}
 		}
 		catch (GameException e) {
 			Log::e(e.what());
 		}
-	}*/
+	}
 	this->aView->update();
 }
 

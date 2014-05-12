@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "View.h"
 #include "Sprite.h"
+#include "../../Servidor/modelo/GameElement.h"
 #include "../controlador/Contracts/OnMovementListener.h"
 
 enum WormState {
@@ -30,10 +31,12 @@ class WormView: public View, public OnMovementListener
 
 	
 public:
-	WormView(int id, int x, int y);
+	WormView(int id);
 									
 	void clean();
 	
+	void update(GameElement* domainElement);
+
 	void update();
 
 	void draw(SDLScreen & screen);

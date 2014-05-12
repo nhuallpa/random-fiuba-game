@@ -34,7 +34,7 @@
 #define EXIT_BUTTON "exit"
 #define LOAD_BACK_BUTTON "loadButton"
 
-#define DEFAULT_YAML_LEVEL "default_level.yaml"
+#define DEFAULT_YAML_LEVEL "res/levels/level.yaml"
 #define CONFIG_FILE "config/config.yaml"
 
 
