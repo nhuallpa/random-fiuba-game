@@ -297,7 +297,7 @@ bool GameLevel::acceptPlayer(std::string playerID){
 		int height = aTerrainProcessor->getHeight();
 		int width = aTerrainProcessor->getWidth();
 		gp->initPlayer(this->idUnique,4,height,width);
-		this->idUnique =+ 4;
+		this->idUnique += 4;
 
 		this->players.insert(std::make_pair(playerID,gp));
 
