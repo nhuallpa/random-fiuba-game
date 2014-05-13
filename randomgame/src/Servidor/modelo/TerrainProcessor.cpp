@@ -58,6 +58,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			}
 
 			aListOfPolygons->push_back(aListOfPoints);
+
 			//
 			// AGREGAR POLIGONO A BOX2D 
 
@@ -66,6 +67,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			b2BodyDef myBodyDef;
 			myBodyDef.type = b2_staticBody; //this will be a static body
 			myBodyDef.position.Set(0, 0); //in the middle
+			myFixtureDef.friction=2;
 			m_attachment = m_world->CreateBody(&myBodyDef);
 
 			b2PolygonShape polygonShape;

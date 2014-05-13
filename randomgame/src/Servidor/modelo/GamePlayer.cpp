@@ -53,7 +53,7 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 							 0, //PREGUNTAR A ARI QUE SETEAR
 							 3,//PREGUNTAR A ARI QUE SETEAR
 							 3,//PREGUNTAR A ARI QUE SETEAR
-							 20,//PREGUNTAR A ARI QUE SETEAR
+							 10,//PREGUNTAR A ARI QUE SETEAR
 							 true));//PREGUNTAR A ARI QUE SETEAR
 		}
 		
