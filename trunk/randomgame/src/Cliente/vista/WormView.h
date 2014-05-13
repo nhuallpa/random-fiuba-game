@@ -31,6 +31,9 @@ class WormView: public View, public OnMovementListener
 
 	bool gray;
 
+	std::string player;
+	unsigned long color;
+
 	
 public:
 	WormView(int id);
@@ -57,6 +60,9 @@ public:
 	bool isGrey();
 	void putGrey();
 	void quitGrey();
+
+	void setColor(unsigned long color);
+	void setPlayer(std::string player);
 
 
 	~WormView(void);

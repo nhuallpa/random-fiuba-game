@@ -10,18 +10,18 @@ class StateBarView : public View
 private:
 	struct state{
 		std::string msj;
-		time_t ttime;	
+		int j;
 	};
 
 	std::vector <state> stateV;
 
-	
+	int i;
 
 	void cutVect();
+
 	
 public:
-	
-	int i;
+	int j;
 
 	~StateBarView(void);
 
