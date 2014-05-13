@@ -1,5 +1,5 @@
 #include "StateBarView.h"
-
+#define DELAY 10
 
 StateBarView::StateBarView():View(0, 0){
 	this->i = 0;
@@ -15,7 +15,7 @@ void StateBarView::cutVect(){
 	int lon = this->stateV.size();
 	time_t ttime = time(NULL);
 	if (lon>0){
-		if (difftime(this->stateV[lon-1].ttime,ttime)>5) this->stateV.pop_back();		
+		if ((this->i - this->stateV[lon-1].j ) > (DELAY * 100)) this->stateV.pop_back();		
 	}
 	if (lon == 6) this->stateV.pop_back();
 	
@@ -25,7 +25,7 @@ void StateBarView::setMsj(std::string msj){
 	state aState;
 	std::vector<state>::iterator it;
 	aState.msj = msj;
-	aState.ttime = time(NULL);
+	aState.j = this->i;
 	it = this->stateV.begin();
 	this->stateV.insert(it,aState);
 }
@@ -34,6 +34,7 @@ void StateBarView::draw(SDLScreen & screen){
 	std::vector<state>::iterator it;
 	this->cutVect();
 	int i=0;
+	this->i++;
 	for (it=this->stateV.begin(); it<this->stateV.end(); it++){
 		char *cstr = new char[it->msj.size() +1];
 		strcpy(cstr, it->msj.c_str());	
