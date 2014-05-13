@@ -13,14 +13,14 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 	GamePosition * gp = GamePosition::getInstance();
 	int x, y;
 	int i = 0;
+	/*height*=10;
+	width*=10;*/
 	for(int i = 0; i < amountWorms; i++){
-	
 		gp->getRandomPosition(&x, &y);
-		auto puntoTransformado=transformBmpToBox2D(pair<int,int>(x,y),height,width);
-		x=puntoTransformado.first;
-		y=puntoTransformado.second;
-		//AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
 		if((x != -1) && (y != -1)){
+			auto puntoTransformado=transformBmpToBox2D(pair<int,int>(x,y),height,width);
+			x=puntoTransformado.first;
+			y=puntoTransformado.second;
 			this->add(new Worm(prefId + i,
 							this->playerID,
 							 WORM,
@@ -31,22 +31,23 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 							 10,//PREGUNTAR A ARI QUE SETEAR
 							 20,//PREGUNTAR A ARI QUE SETEAR
 							 true));//PREGUNTAR A ARI QUE SETEAR
-		}else{
-			printf("\nSuper codigo de posicionamiento: NO FUNCA!, asi que hago esto\n");       
-            x = rand()%500;
-            y = (rand()%150) + 100; 
-            //AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
-            this->add(new Worm(prefId + i, 
-								this->playerID,
-                                WORM,
-                                x,
-                                y,
-                                0, //PREGUNTAR A ARI QUE SETEAR
-                                10,//PREGUNTAR A ARI QUE SETEAR
-                                10,//PREGUNTAR A ARI QUE SETEAR
-                                20,//PREGUNTAR A ARI QUE SETEAR
-                                true));//PREGUNTAR A ARI QUE SETEAR
 		}
+		
+		//else{     
+  //          x = rand()%500;
+  //          y = (rand()%150) + 100; 
+  //          //AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
+  //          this->add(new Worm(prefId + i, 
+		//						this->playerID,
+  //                              WORM,
+  //                              x,
+  //                              y,
+  //                              0, //PREGUNTAR A ARI QUE SETEAR
+  //                              10,//PREGUNTAR A ARI QUE SETEAR
+  //                              10,//PREGUNTAR A ARI QUE SETEAR
+  //                              20,//PREGUNTAR A ARI QUE SETEAR
+  //                              true));//PREGUNTAR A ARI QUE SETEAR
+		//}
 
 						 
 	}
@@ -87,7 +88,7 @@ pair<int,int> GamePlayer::transformBmpToBox2D(pair<int,int> vertex, int height, 
 {
 	ParserYaml* aParser = ParserYaml::getInstance();
 	pair<int,int> nuevo;
-	nuevo.second =vertex.first;
-	nuevo.first = (height-vertex.second);
+	nuevo.second =vertex.first/10;
+	nuevo.first = (height-vertex.second)/10;
 	return nuevo;
 }
