@@ -190,8 +190,8 @@ int Servidor::stepOver(void* data){
 						datagram->play.wormid = itw->second.wormid;
 						datagram->type = UPDATE;
 						//todo hardcoded scale
-						datagram->play.x = itw->second.x/ESCALA_UL2PX;
-						datagram->play.y = itw->second.y/ESCALA_UL2PX;
+						datagram->play.x = itw->second.x;//ESCALA_UL2PX;
+						datagram->play.y = itw->second.y;//ESCALA_UL2PX;
 						it->second.second.sendmsg(*datagram);
 
 					}
@@ -421,8 +421,8 @@ int Servidor::initClient(void* data){
 		datagram->play.wormid = itC->second->getId();
 
 		//todo hardcoded scale
-		datagram->play.x = itC->second->getPosition().first/ESCALA_UL2PX;
-		datagram->play.y = itC->second->getPosition().second/ESCALA_UL2PX;
+		datagram->play.x = itC->second->getPosition().first;//ESCALA_UL2PX;
+		datagram->play.y = itC->second->getPosition().second;//ESCALA_UL2PX;
 		datagram->playerID = itC->second->getPlayerID();
 		
 		aThreadData->clientI.sendmsg(*datagram);

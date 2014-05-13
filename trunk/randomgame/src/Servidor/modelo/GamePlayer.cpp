@@ -28,8 +28,15 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 	puntoTransformado = transformBmpToBox2D(pair<int,int>(width,0),height,width);
 	printf("\n Transformo el WIDTH,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
 
-	puntoTransformado = transformBmpToBox2D(pair<int,int>(width/2,height/2),height,width);
+	puntoTransformado = transformBmpToBox2D(pair<int,int>(30,960),height,width);
 	printf("\n Transformo el WIDTH/2,HEIGHT/2: %d,%d",puntoTransformado.first, puntoTransformado.second);
+	//for ( int z; i < 200 ; i++){
+	//	gp->getRandomPosition(&x, &y);
+	//	printf("\nPosicion libre: %d,%d",x,y);
+	//}
+
+	
+
 
 	for(int i = 0; i < amountWorms; i++){
 		gp->getRandomPosition(&x, &y);
@@ -41,8 +48,8 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 			this->add(new Worm(prefId + i,
 							this->playerID,
 							 WORM,
-							 x,
-							 y,
+							 x/10.0,
+							 y/10.0,
 							 0, //PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
@@ -58,8 +65,8 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
             this->add(new Worm(prefId + i, 
 								this->playerID,
                                 WORM,
-                                x,
-                                y,
+                                x/ESCALA_UL2PX,
+                                y/ESCALA_UL2PX,
                                 0, //PREGUNTAR A ARI QUE SETEAR
                                 10,//PREGUNTAR A ARI QUE SETEAR
                                 10,//PREGUNTAR A ARI QUE SETEAR
@@ -108,8 +115,8 @@ pair<int,int> GamePlayer::transformBmpToBox2D(pair<int,int> vertex, int height, 
 	pair<int,int> nuevo;
 	//nuevo.second =vertex.first;
 	//nuevo.first = (height-vertex.second);
-	nuevo.second = height-vertex.second;
-	nuevo.first = vertex.first;
+	nuevo.second = height-vertex.first;
+	nuevo.first = vertex.second;
 
 	/*nuevo.y =((-1*vertex.x)+height-1)*(atoi((aParser->getEscenarioAltoU()).c_str() ) / (float)height);
 	nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / (float)width);*/
