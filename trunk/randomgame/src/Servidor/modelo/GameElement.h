@@ -42,6 +42,8 @@ public:
 	GameElement(const GameElement & aGameElement);
 	
 	ElementType getType();
+	bool changed;
+	void setChanged(bool b){ this->changed = b;}
 	int getId();
 	float getRotation();
 	std::pair<float,float> getPosition();
@@ -68,7 +70,7 @@ public:
 
 protected:
 	int id;
-	bool changed;
+	
 	float ratio;
 	ElementType type;
 	float degrees;

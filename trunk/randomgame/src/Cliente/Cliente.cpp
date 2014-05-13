@@ -269,7 +269,7 @@ bool Cliente::updateModel(Playable p){
 
 	//Search worm id
 	//p.wormid
-
+	this->domain.updateElement(p.wormid, p.x, p.y );
 	//Update his position to new x,y
 	//p.x;
 	//p.y;

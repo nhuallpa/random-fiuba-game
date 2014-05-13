@@ -28,9 +28,12 @@ void Worm2d::animate(){
 	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
 	//memcpy(myWorm,(this->body->GetUserData()),sizeof(Worm));
 
-	printf("\n animating worm %d",static_cast<GameElement*>(this->body->GetUserData())->getId() );
+	float ox = myWorm->getPosition().first;
+	float oy = myWorm->getPosition().second;
 
-	printf("\n animating worm %d",myWorm->getId() );
+	//printf("\n animating worm %d",static_cast<GameElement*>(this->body->GetUserData())->getId() );
+
+	//printf("\n animating worm %d",myWorm->getId() );
 
 	//si el Worm esta saltando, saltar
 	if(static_cast<Worm*>(myWorm)->isJumping())
@@ -54,13 +57,17 @@ void Worm2d::animate(){
 	b2Vec2 f = this->body->GetPosition();
 	//Log::d("Nueva posicion (Physics): %.3f, %.3f", f.x, f.y);
 
-	ParserYaml* aParser = ParserYaml::getInstance();
-	float x = f.x;
-	float y = (-1*f.y)+atoi((aParser->getEscenarioAltoU()).c_str() );
+	//ParserYaml* aParser = ParserYaml::getInstance();
+
 	//float y = f.y;
-	myWorm->setPosition(std::make_pair( x,y) );
+	if ( ox != f.x || oy != f.y){
+		myWorm->setPosition(std::make_pair( f.x,f.y) );
+		myWorm->changed = true;
+	}else{
+		myWorm->changed = false;
+	}
 	//Log::d("Nueva posicion (Modelo): %.3f, %.3f", x,y);
-	myWorm->setVertexList(this->GetVertex());
+	//myWorm->setVertexList(this->GetVertex());
 
 }
 

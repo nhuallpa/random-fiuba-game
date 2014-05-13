@@ -233,7 +233,7 @@ bool GameEngine::step(){
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();iterator != this->gameBodies->end(); ++iterator) {
 		Body* aBody = (iterator->second);
-		printf("\nStep: now animating womrid %d",static_cast<GameElement*>(aBody->getBody()->GetUserData())->getId() );
+		//printf("\nStep: now animating womrid %d",static_cast<GameElement*>(aBody->getBody()->GetUserData())->getId() );
 		aBody->animate();
 	}
 
@@ -557,19 +557,19 @@ void GameEngine::deleteBody(int id){
 void GameEngine::applyAction2Element(int id, Movement action){
 
 	printf("\n applying action");
-	std::map<int,Body*>* copy = this->getGameBodies();
+	std::map<int,GameElement*> copy = this->gameLevel->getEntities();
+	GameElement* myWorm = copy[id];
 
-
-	printf("\n looking for worm %d and located worm: %d", id, static_cast<GameElement*>((*copy)[id]->getBody()->GetUserData())->getId() );
+	printf("\n looking for worm %d and located worm: %d", id, myWorm->getId() );
 	switch (action){
 		case MOVE_RIGHT:
-			static_cast<Worm*>((*copy)[id]->getBody()->GetUserData())->moveRight();
+			static_cast<Worm*>(myWorm)->moveRight();
 			break;
 		case MOVE_LEFT:
-			static_cast<Worm*>((*copy)[id]->getBody()->GetUserData())->moveLeft();
+			static_cast<Worm*>(myWorm)->moveLeft();
 			break;
 		case JUMP:
-			static_cast<Worm*>((*copy)[id]->getBody()->GetUserData())->jump();
+			static_cast<Worm*>(myWorm)->jump();
 			break;
 	}
 	return;
