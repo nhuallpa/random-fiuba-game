@@ -398,6 +398,7 @@ int Servidor::initClient(void* data){
 	}
 	w->unlock();
 	printf("\nCliente registrado satisfactoriamente en el servidor");
+	
 
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
@@ -431,7 +432,8 @@ int Servidor::initClient(void* data){
 		printf("\nEnviando worm: %d del jugador %s at %f, %f", datagram->play.wormid, datagram->playerID.c_str(), datagram->play.x, datagram->play.y );
 	}
 	
-
+	//Tell everybody that a new player has arrived!
+	srv->notifyUsersAboutPlayer(playerId);
 
 	int activeClient=1;
 		try {
@@ -517,10 +519,34 @@ void Servidor::notifyReject(Socket& client) {
 void Servidor::disconnect(Player playerId) {
 	
 	printf("\nReleasing player: %s\n",playerId.c_str());
+	this->gameEngine.getLevel()->disconnectPlayer(playerId);
 	closesocket(this->pList[playerId].first.getFD());
 	closesocket(this->pList[playerId].second.getFD());
 	this->pList.erase(playerId);
 	this->jugadoresConectados--;
+	this->notifyUsersAboutPlayer(playerId);
+
+}
+
+void Servidor::notifyUsersAboutPlayer(std::string playerId){
+
+	//send message to all the users telling abut the news of the player
+	
+	Datagram* datagram = new Datagram();
+
+	datagram->type = PLAYER_UPDATE;
+	datagram->playerID = playerId;
+	datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
+
+	//Por cada cliente le envio los cambios
+	std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
+	std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
+
+	for ( ; it != copy.end() ; ++it){
+		//send over the network
+		it->second.second.sendmsg(*datagram);
+
+	}
 
 }
 

@@ -87,5 +87,6 @@ class GameLevel {
 		bool acceptPlayer(std::string playerID);
 
 		void disconnectPlayer(std::string playerID);
+		StateConn getPlayerStatus(std::string playerId);
 
 };
