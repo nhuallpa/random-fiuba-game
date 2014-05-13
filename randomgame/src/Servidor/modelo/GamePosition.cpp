@@ -24,10 +24,9 @@ bool GamePosition::isCompleted(){
 	return completed;
 }
 
-void GamePosition::generate(int supreme){
-	ParserYaml* py = ParserYaml::getInstance();
+void GamePosition::generate(int supreme, int width){
 	int countHight,	countWidth;
-	countWidth = (int)(Util::string2int(py->getEscenarioAnchoP()) / deltaY);
+	countWidth = (int)(width / deltaY);
 	countHight = (int)(supreme / deltaX);
 	this->fillPostion(countWidth, countHight);
 }

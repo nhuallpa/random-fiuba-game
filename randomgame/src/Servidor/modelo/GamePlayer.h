@@ -15,11 +15,12 @@ public:
 	void setStateConn(StateConn sc);
 	void add(Worm* w);
 	std::vector<Worm*> getWorms(){ return this->worms;}
-	void initPlayer(int prefId, int amountWorms);
+	void initPlayer(int prefId, int amountWorms, int height, int width);
 	std::string playerID;
 private:
 	std::vector<Worm*> worms;
 	StateConn state;
+	pair<int,int> transformBmpToBox2D(pair<int,int> vertex, int height, int width);
 };
 
 #endif /*__GAMEPLAYER__*/

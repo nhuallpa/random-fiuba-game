@@ -22,8 +22,8 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 
 	ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
 
-	int height =aBmpFile->getHeight();
-	int width =aBmpFile->getWidth();
+	this->height =aBmpFile->getHeight();
+	this->width =aBmpFile->getWidth();
 
 
 	list< list<Position* > *>* cc =aContourBmp->getContour();
@@ -182,6 +182,8 @@ void TerrainProcessor::makeDefaultTerrain(b2World* m_world,int waterLevel)
 	m_attachment->SetUserData(st);
 	this->rangeTerrainOverWater->push_back(pair<int,int>(10-waterLevel,10-waterLevel));
 	this->maxPointTerrain=pair<int,int>(6,5);
+	this->height=10;
+	this->width=10;
 
 }
 
@@ -220,4 +222,14 @@ void TerrainProcessor::getRandomPosition(int* x,int* y){
 
 	////recorrer la lista de poligonos y fijarte si toco tierra
 
+}
+
+int TerrainProcessor::getHeight()
+{
+	return this->height;
+}
+
+int TerrainProcessor::getWidth()
+{
+	return this->width;
 }
