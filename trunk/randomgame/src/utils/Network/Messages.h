@@ -11,6 +11,7 @@ enum Messages {
 	REJECT,
 	KEEPALIVE,
 	DISCONNECT,
+	PLAYER_UPDATE
 };
 
 

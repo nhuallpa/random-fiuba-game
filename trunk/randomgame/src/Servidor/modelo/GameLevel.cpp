@@ -324,3 +324,18 @@ void GameLevel::disconnectPlayer(std::string playerID){
 	}
 
 }
+
+StateConn GameLevel::getPlayerStatus(std::string playerID){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerID);
+
+	if ( it != this->players.end() ){
+		
+		return it->second->getStatus();
+	}
+
+	return DISCONNECTED;
+		
+}
+

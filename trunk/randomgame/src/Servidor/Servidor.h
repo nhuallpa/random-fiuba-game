@@ -69,6 +69,7 @@ class Servidor{
 
 		Servidor(int nroPuerto, size_t cantJugadores);
 
+		void notifyUsersAboutPlayer(std::string playerID);
 
 		bool allConnected() const;
 		void esperarUserDelta ();

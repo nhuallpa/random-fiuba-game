@@ -22,10 +22,18 @@
 
 
 
-
+/*
+Aprox Size:68 bytes per datagram ( So I can send 15 Playable on same datagram and still under half of MTU)
+40 bytes per Playable
+16 bytes Player
+4 bytes state
+4 bytes type
+4 bytes elements
+*/
 typedef struct{
 	Playable play;
 	Player playerID;
+	StateConn playerState;
 	Messages type;
 	int elements;
 } Datagram;
