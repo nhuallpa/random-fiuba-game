@@ -13,6 +13,8 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 	GamePosition * gp = GamePosition::getInstance();
 	int x, y;
 	int i = 0;
+	height*=10;
+	width*=10;
 	for(int i = 0; i < amountWorms; i++){
 	
 		gp->getRandomPosition(&x, &y);
@@ -31,7 +33,23 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 							 10,//PREGUNTAR A ARI QUE SETEAR
 							 20,//PREGUNTAR A ARI QUE SETEAR
 							 true));//PREGUNTAR A ARI QUE SETEAR
+		}else{
+			printf("\nSuper codigo de posicionamiento: NO FUNCA!, asi que hago esto\n");       
+            x = rand()%500;
+            y = (rand()%150) + 100; 
+            //AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
+            this->add(new Worm(prefId + i, 
+								this->playerID,
+                                WORM,
+                                x,
+                                y,
+                                0, //PREGUNTAR A ARI QUE SETEAR
+                                10,//PREGUNTAR A ARI QUE SETEAR
+                                10,//PREGUNTAR A ARI QUE SETEAR
+                                20,//PREGUNTAR A ARI QUE SETEAR
+                                true));//PREGUNTAR A ARI QUE SETEAR
 		}
+
 						 
 	}
 
