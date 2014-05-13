@@ -195,6 +195,8 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 													   domainElement->getPosition().first, 
 													   domainElement->getPosition().second);
 		aWorm->update(domainElement);
+		//aWorm->setColor(domainElement);
+		//aWorm->setPlayer();
 		try 
 		{
 			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
