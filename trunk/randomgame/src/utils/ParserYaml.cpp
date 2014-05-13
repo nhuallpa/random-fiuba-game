@@ -12,7 +12,7 @@
 #define DEFAULT_ANCHOP "400"
 #define DEFAULT_NIVEL_AGUA "50"
 #define DEFAULT_COLOR_AGUA "#0000FF99"
-#define DEFAULT_IM_TIERRA "res/images/tierra1.bmp"
+#define DEFAULT_IM_TIERRA "res/images/terrain3.png"
 #define DEFAULT_COLOR_TIERRA "#BC794FFF"
 #define DEFAULT_IM_CIELO "res/images/cielo1.png"
 #define DEFAULT_MAX_PLAY "4"
