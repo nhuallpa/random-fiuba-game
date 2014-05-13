@@ -13,19 +13,36 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 	GamePosition * gp = GamePosition::getInstance();
 	int x, y;
 	int i = 0;
-	/*height*=10;
-	width*=10;*/
+    std::pair<int,int> puntoTransformado;
+	printf("\n Height %d, width %d ",height,width);
+
+	puntoTransformado = transformBmpToBox2D(pair<int,int>(0,0),height,width);
+	printf("\n Transformo el 0,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
+
+	puntoTransformado = transformBmpToBox2D(pair<int,int>(0,height),height,width);
+	printf("\n Transformo el 0,HEIGHT: %d,%d",puntoTransformado.first, puntoTransformado.second);
+
+	puntoTransformado = transformBmpToBox2D(pair<int,int>(width,height),height,width);
+	printf("\n Transformo el WIDTH,HEIGHT: %d,%d",puntoTransformado.first, puntoTransformado.second);
+
+	puntoTransformado = transformBmpToBox2D(pair<int,int>(width,0),height,width);
+	printf("\n Transformo el WIDTH,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
+
+	puntoTransformado = transformBmpToBox2D(pair<int,int>(width/2,height/2),height,width);
+	printf("\n Transformo el WIDTH/2,HEIGHT/2: %d,%d",puntoTransformado.first, puntoTransformado.second);
+
 	for(int i = 0; i < amountWorms; i++){
 		gp->getRandomPosition(&x, &y);
 		if((x != -1) && (y != -1)){
-			auto puntoTransformado=transformBmpToBox2D(pair<int,int>(x,y),height,width);
+			printf("Posicion libre a transformar %d,%d",x,y);
+			puntoTransformado = transformBmpToBox2D(pair<int,int>(x,y),height,width);
 			x=puntoTransformado.first;
 			y=puntoTransformado.second;
 			this->add(new Worm(prefId + i,
 							this->playerID,
 							 WORM,
 							 x,
-							 height - y,
+							 y,
 							 0, //PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
@@ -88,7 +105,12 @@ pair<int,int> GamePlayer::transformBmpToBox2D(pair<int,int> vertex, int height, 
 {
 	ParserYaml* aParser = ParserYaml::getInstance();
 	pair<int,int> nuevo;
-	nuevo.second =vertex.first/10;
-	nuevo.first = (height-vertex.second)/10;
+	//nuevo.second =vertex.first;
+	//nuevo.first = (height-vertex.second);
+	nuevo.second = height-vertex.second;
+	nuevo.first = vertex.first;
+
+	/*nuevo.y =((-1*vertex.x)+height-1)*(atoi((aParser->getEscenarioAltoU()).c_str() ) / (float)height);
+	nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / (float)width);*/
 	return nuevo;
 }

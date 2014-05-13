@@ -155,6 +155,8 @@ int Servidor::stepOver(void* data){
 	Condition* netcond =  &srv->canBroadcast;
 	Mutex* n =  &srv->netlock;
 
+	
+
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
 
@@ -169,7 +171,26 @@ int Servidor::stepOver(void* data){
 			//netcond->signal();
 			//si algo cambio actualizo a los clientes
 
+			//chequeo si hay clientes
+			if ( srv->pList.size() ){
 
+				//Por cada cliente le envio los cambios
+				std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
+				std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
+
+				for ( ; it != copy.end() ; ++it){
+					std::map<int,Playable> worldModifications = srv->worldModifications;
+					std::map<int,Playable>::iterator itw = worldModifications.begin();
+
+					for ( ; itw != worldModifications.end() ; ++itw){
+
+						//send over the network
+
+
+					}
+
+				}
+			}
 
 		}
 		n->unlock();
@@ -353,9 +374,9 @@ int Servidor::initClient(void* data){
 	}
 
 
-	srv->pList.insert(	std::make_pair<std::string,std::pair<int,int>>(datagram->playerID,
-						std::make_pair(aThreadData->clientO.getFD(),
-						aThreadData->clientI.getFD())
+	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
+						std::make_pair(aThreadData->clientO,
+						aThreadData->clientI)
 						)
 					);
 
@@ -398,7 +419,7 @@ int Servidor::initClient(void* data){
 		
 		aThreadData->clientI.sendmsg(*datagram);
 
-		printf("\nEnviando worm: %d del jugador %s at %d, %d", datagram->play.wormid, datagram->playerID.c_str(), datagram->play.x, datagram->play.y );
+		printf("\nEnviando worm: %d del jugador %s at %f, %f", datagram->play.wormid, datagram->playerID.c_str(), datagram->play.x, datagram->play.y );
 	}
 	
 
@@ -487,8 +508,8 @@ void Servidor::notifyReject(Socket& client) {
 void Servidor::disconnect(Player playerId) {
 	
 	printf("\nReleasing player: %s\n",playerId.c_str());
-	closesocket(this->pList[playerId].first);
-	closesocket(this->pList[playerId].second);
+	closesocket(this->pList[playerId].first.getFD());
+	closesocket(this->pList[playerId].second.getFD());
 	this->pList.erase(playerId);
 	this->jugadoresConectados--;
 
