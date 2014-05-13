@@ -25,6 +25,7 @@ void setLife(int newLife);
 void addLife(int moreLife);
 void subLife(int lessLife);
 
+void stop();
 void jump();
 void moveLeft();
 void moveRight();

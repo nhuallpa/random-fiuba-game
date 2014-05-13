@@ -115,6 +115,7 @@ int Servidor::updating(void* data){
 	Mutex* n =  &srv->netlock;
 
 	while(true){
+		Sleep(30);
 		m->lock();
 		if ( changes->empty() ){
 			//printf("\nwaiting.. is empty :(");
@@ -161,7 +162,7 @@ int Servidor::stepOver(void* data){
 	Datagram* datagram = new Datagram();
 
 	while(true){
-		Sleep(30);
+		Sleep(60);
 		//One step into the world
 		w->lock();
 		srv->getGameEngine().step();
@@ -318,7 +319,7 @@ int Servidor::wait4Connections(void* data){
 
 	int players = 0;
 	while (true){
-		
+		Sleep(30);
 		while(srv->cantJugadores > srv->jugadoresConectados){
 			
 			Socket sClientO = srv->input.aceptar();
@@ -435,7 +436,7 @@ int Servidor::initClient(void* data){
 	int activeClient=1;
 		try {
 		while (activeClient) {
-			//Sleep(1);
+			Sleep(30);
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
 				srv->disconnect(playerId);

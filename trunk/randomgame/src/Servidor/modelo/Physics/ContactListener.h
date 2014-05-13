@@ -14,6 +14,12 @@ public:
 	std::set<fixturePair> m_fixturePairs;
 	virtual void BeginContact(b2Contact* contact);
     virtual void EndContact(b2Contact* contact);
+	 void PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+   { 
+	   contact->SetEnabled(false);
+	   contact->SetFriction(10.0);
+	   contact->SetEnabled(true);
+        }
 	virtual ~ContactListener();
 private:
 
