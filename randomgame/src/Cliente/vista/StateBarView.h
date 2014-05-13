@@ -19,6 +19,7 @@ private:
 
 	void cutVect();
 
+	std::string msj;
 	
 public:
 	int j;

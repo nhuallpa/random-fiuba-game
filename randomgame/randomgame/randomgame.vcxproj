@@ -99,6 +99,7 @@
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Sprite.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\StateBarView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WormView.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\Sprite.h" />
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />
+    <ClInclude Include="..\src\Cliente\vista\StateBarView.h" />
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\WormView.h" />

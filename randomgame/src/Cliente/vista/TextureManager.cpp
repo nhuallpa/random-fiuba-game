@@ -189,7 +189,7 @@ void TextureManager::drawEllipse(SDL_Renderer * renderer,
 						borderColor);
 }
 
-void TextureManager::drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,char* s , Uint32 color){
+void TextureManager::drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,const char* s , Uint32 color){
 	x = x - this->cam.getX();
 	y = y - this->cam.getY();
 	stringColor(renderer,x,y,s,color);

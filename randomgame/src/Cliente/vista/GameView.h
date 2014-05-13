@@ -9,6 +9,7 @@
 #include "SkyView.h"
 #include "WaterView.h"
 #include "TerrainView.h"
+#include "StateBarView.h"
 #include "WormView.h"
 #include <map>
 #include <string>
@@ -23,6 +24,7 @@ private:
 	SkyView* sky;
 	WaterView* water;
 	TerrainView* terrain;
+	StateBarView* stateBar;
 
 public:
 	GameView(int x, int y, int width, int height);
@@ -33,6 +35,9 @@ public:
 	void setSky(SkyView* sky);
 	void setWater(WaterView* water);
 	void setTerrain(TerrainView* terrain);
+	void setStateBar(StateBarView* stateBar);
+
+	StateBarView* getStateBar() { return this->stateBar;}
 
 	FigureView* findFigureById(int idElement);
 	WormView* findWormById(int idElement);

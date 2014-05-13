@@ -188,6 +188,12 @@ void GameViewBuilder::buildCharacters()
 	
 }
 
+void GameViewBuilder::buildStateBar()
+{
+	StateBarView* stateBar = new StateBarView();
+	this->gameView->setStateBar(stateBar);
+}
+
 WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 {
 		WormView* aWorm = new WormView(	domainElement->getId());
