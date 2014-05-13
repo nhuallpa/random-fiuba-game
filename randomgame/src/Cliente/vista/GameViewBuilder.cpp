@@ -1,23 +1,12 @@
 #include "GameViewBuilder.h"
 
-//Ya no se crea mas en base al nivel
-//GameViewBuilder::GameViewBuilder(GameLevel * cLevel):cLevel(cLevel)
-//{
-//	gameView = NULL;
-//}
+
+
 
 GameViewBuilder::GameViewBuilder(GameController* cController, GameDomain* domain)
 	: cController(cController), domain(domain)
 {
 	gameView = NULL;
-
-	
-	//GameElement aWorm(1,"PLAYER 1",WORM,30,50,0,45,45,15,false);
-	//GameElement aWorm1(2,"PLAYER 1",WORM,70,80,0,45,45,15,false);
-	//GameElement aWorm2(3,"PLAYER 1",WORM,150,95,0,45,45,15,false);
-	//this->addElementToDomain(aWorm);
-	//this->addElementToDomain(aWorm1);
-	//this->addElementToDomain(aWorm2);
 }
 
 
@@ -47,7 +36,6 @@ void GameViewBuilder::buildEart()
 
 void GameViewBuilder::buildFigures()
 {
-	//std::map<int,GameElement*> domainElements = this->cLevel->getEntities();
 	std::map<int,GameElement>::iterator it;
 	Log::d(VIEW_BUILDER,"Construyendo Figuras. Cantidad = %d", this->domain->getDomainElements()->size() );
 
@@ -191,32 +179,31 @@ void GameViewBuilder::buildCharacters()
 
 		if (domainElement.getType() == WORM) 
 		{
-			WormView* aWorm = new WormView(	it->first);
-			Log::i("Adding worm: %d, at position: %f, %f",it->first, it->second.getPosition().first, it->second.getPosition().second);
-			aWorm->update(&domainElement);
-			try 
-			{
-				aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
-			} 
-			catch (std::exception & e) 
-			{
-				Log::e(e.what());
-			}
+			WormView* aWorm = createWorm(&domainElement);
 			this->gameView->putWorm(aWorm->getId(), aWorm);
-
-			//// Si el worm es del jugador lo registro como listener.
-			//if ( !domainElement.getPlayerID().compare(this->playerID) ){
-
-			//	WormView* aWorm = gameView->findWormById(domainElement.getId());
-			//	this->cController->addListener(aWorm);
-
-			//}
-
-
 		} 
-
 	}
 	
 	// todo: obtener los id de sprite del yaml
 	
 }
+
+WormView* GameViewBuilder::createWorm(GameElement * domainElement)
+{
+		WormView* aWorm = new WormView(	domainElement->getId());
+		Log::i("Adding worm: %d, at position: %f, %f", domainElement->getId(), 
+													   domainElement->getPosition().first, 
+													   domainElement->getPosition().second);
+		aWorm->update(domainElement);
+		try 
+		{
+			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
+		} 
+		catch (std::exception & e) 
+		{
+			Log::e(e.what());
+			return NULL;
+		}
+		return aWorm;
+}
+

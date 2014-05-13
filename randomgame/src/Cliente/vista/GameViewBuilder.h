@@ -37,6 +37,9 @@ class GameViewBuilder
 
 	GameDomain* domain;
 
+
+	WormView* createWorm(GameElement * domainElement);
+
 public:
 
 	GameDomain* getDomain(){ return this->domain;}
@@ -62,11 +65,14 @@ public:
 
 	void buildEart();
 
+	
+
 	//void addElementToDomain(GameElement worm);
 
 //	std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
 
 	GameView* getGameView() { return this->gameView;} 
+
 };
 
 #endif /**__GAME_VIEW_BUILDER_H__*/
