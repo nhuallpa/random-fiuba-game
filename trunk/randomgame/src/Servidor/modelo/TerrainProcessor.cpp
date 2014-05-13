@@ -138,8 +138,8 @@ b2Vec2 TerrainProcessor::transformBmpToBox2D(b2Vec2 vertex, int height, int widt
 	b2Vec2 nuevo;
 	/*nuevo.y =((-1*vertex.x)+height-1)*(atoi((aParser->getEscenarioAltoU()).c_str() ) / (float)height);
 	nuevo.x = (vertex.y)*(atoi((aParser->getEscenarioAnchoU()).c_str() ) / (float)width);*/
-	nuevo.y =((-1*vertex.x)+height-1)/ESCALA_UL2PX;
-	nuevo.x = (vertex.y)/ESCALA_UL2PX;
+	nuevo.y =((-1*vertex.x)+height-1)/(float)ESCALA_UL2PX/1;
+	nuevo.x = (vertex.y)/(float)ESCALA_UL2PX/1;
 	return nuevo;
 }
 
