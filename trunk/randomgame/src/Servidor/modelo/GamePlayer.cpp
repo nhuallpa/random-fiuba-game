@@ -9,19 +9,23 @@ GamePlayer::GamePlayer(std::string playerID){
 
 GamePlayer::~GamePlayer(){}
 
-void GamePlayer::initPlayer(int prefId, int amountWorms){
+void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 	GamePosition * gp = GamePosition::getInstance();
 	int x, y;
+	int i = 0;
 	for(int i = 0; i < amountWorms; i++){
+	
 		gp->getRandomPosition(&x, &y);
-
+		auto puntoTransformado=transformBmpToBox2D(pair<int,int>(x,y),height,width);
+		x=puntoTransformado.first;
+		y=puntoTransformado.second;
 		//AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
 		if((x != -1) && (y != -1)){
 			this->add(new Worm(prefId + i,
 							this->playerID,
 							 WORM,
 							 x,
-							 y,
+							 height - y,
 							 0, //PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
 							 10,//PREGUNTAR A ARI QUE SETEAR
@@ -60,4 +64,14 @@ void GamePlayer::setStateConn(StateConn sc){
 
 void GamePlayer::add(Worm* w){
 	worms.push_back(w);
+}
+
+//	swapea los valores del b2vec
+pair<int,int> GamePlayer::transformBmpToBox2D(pair<int,int> vertex, int height, int width)
+{
+	ParserYaml* aParser = ParserYaml::getInstance();
+	pair<int,int> nuevo;
+	nuevo.second =vertex.first;
+	nuevo.first = (height-vertex.second);
+	return nuevo;
 }

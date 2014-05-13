@@ -25,6 +25,8 @@ private:
 	void makeDefaultTerrain(b2World* m_world,int waterLevel);
 	list<pair<int,int>> * rangeTerrainOverWater;
 	pair<int,int> maxPointTerrain;
+	int height;
+	int width;
 	
 
 public:
@@ -36,6 +38,8 @@ public:
 	static void getRandomPosition(int* x,int* y);
 	list<pair<int,int>> * getRangeTerrainOverWater();
 	pair<int,int> getMaxPointTerrain();
+	int getHeight();
+	int getWidth();
 };
 
 #endif

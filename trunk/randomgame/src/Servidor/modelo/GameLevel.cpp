@@ -16,13 +16,13 @@ GameLevel::GameLevel() {
 	this->amountWorms = 5;
 	this->idUnique = 1;
 
-	GamePosition * gp = GamePosition::getInstance();
-	if(!gp->isCompleted()){
-		list<pair<int,int>> l;
-		l.push_back(pair<int,int>(100,700));
-		gp->generate(250);
-		gp->validPosition(&l);
-	}
+	//GamePosition * gp = GamePosition::getInstance();
+	//if(!gp->isCompleted()){
+	//	list<pair<int,int>> l;
+	//	l.push_back(pair<int,int>(100,700));
+	//	gp->generate(250);
+	//	gp->validPosition(&l);
+	//}
 }
 
 GameLevel::~GameLevel() {
@@ -101,13 +101,13 @@ void GameLevel::setWidth(int w){
 
 void GameLevel::setTerrain(TerrainProcessor* aNewTerrain)
 {
-	//GamePosition * gp = GamePosition::getInstance();
-	//if(!gp->isCompleted()){
-	//	list<pair<int,int>> *l =aNewTerrain->getRangeTerrainOverWater();
-	//	
-	//	gp->generate(aNewTerrain->getMaxPointTerrain().second);
-	//	gp->validPosition(l);
-	//}
+	GamePosition * gp = GamePosition::getInstance();
+	if(!gp->isCompleted()){
+		list<pair<int,int>> *l =aNewTerrain->getRangeTerrainOverWater();
+		
+		gp->generate(aNewTerrain->getMaxPointTerrain().first, aNewTerrain->getWidth());
+		gp->validPosition(l);
+	}
 	this->aTerrainProcessor=aNewTerrain;
 }
 
@@ -294,7 +294,9 @@ bool GameLevel::acceptPlayer(std::string playerID){
 		// No esta en la lista pero lo acepto porque entra
 	
 		GamePlayer* gp = new GamePlayer(playerID);
-		gp->initPlayer(this->idUnique,4);
+		int height = aTerrainProcessor->getHeight();
+		int width = aTerrainProcessor->getWidth();
+		gp->initPlayer(this->idUnique,4,height,width);
 		this->idUnique =+ 4;
 
 		this->players.insert(std::make_pair(playerID,gp));

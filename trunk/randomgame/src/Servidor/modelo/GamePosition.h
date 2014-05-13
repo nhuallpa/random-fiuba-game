@@ -9,7 +9,7 @@ using namespace std;
 class GamePosition{
 public:
 	static GamePosition* getInstance();
-	void generate(int supreme);
+	void generate(int supreme, int width);
 	void validPosition(list<pair<int,int>>* terrain);
 	void getRandomPosition(int* x, int* y);
 	bool isCompleted();
