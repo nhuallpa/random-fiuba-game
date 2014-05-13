@@ -50,8 +50,8 @@ void WormView::draw(SDLScreen & screen)
 	
 	char buffer[50];
 	char buffer2[50];
-	if (this->isSelected()) this->putGrey();
-	else this->quitGrey();
+	//if (this->isSelected()) this->putGrey();
+	//else this->quitGrey();
 	
 	strcpy(buffer,"Worm ");
 	itoa(this->id,buffer2,10);

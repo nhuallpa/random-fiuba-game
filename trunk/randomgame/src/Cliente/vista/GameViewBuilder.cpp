@@ -195,8 +195,14 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 													   domainElement->getPosition().first, 
 													   domainElement->getPosition().second);
 		aWorm->update(domainElement);
-		//aWorm->setColor(domainElement);
-		//aWorm->setPlayer();
+
+		/*esta linea hay que borrarla, es caca*/
+		//this->domain->setPlayerState("usuario",DISCONNECTED,COLOR_AMARILLO);
+		/**************************************/
+
+
+		aWorm->setColor(this->getDomain()->getPlayerColor(domainElement->getPlayerID()));
+		aWorm->setPlayer(domainElement->getPlayerID());
 		try 
 		{
 			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));

@@ -59,6 +59,10 @@ void GameActivity::update()
 			{
 				WormView* aWorm = gameView->findWormById(domainElement.getId());
 
+				if (this->builder->getDomain()->getPlayerState(domainElement.getPlayerID()) == DISCONNECTED)
+					aWorm->putGrey();
+				if (this->builder->getDomain()->getPlayerState(domainElement.getPlayerID()) == CONNECTED)
+					aWorm->quitGrey();
 
 
 				aWorm->update(&domainElement);
