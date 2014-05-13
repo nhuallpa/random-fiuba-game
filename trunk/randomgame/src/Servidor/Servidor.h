@@ -38,7 +38,7 @@ class Servidor{
 		size_t jugadoresConectados;
 
 		// Lista de clientes conectados y sus file descriptors asociados
-		typedef std::map<std::string, std::pair<int,int>> Players;
+		typedef std::map<std::string, std::pair<Socket,Socket>> Players;
 		Players pList;
 
 		//This really is client side requested changes/actions
