@@ -13,8 +13,6 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 	GamePosition * gp = GamePosition::getInstance();
 	int x, y;
 	int i = 0;
-	height*=10;
-	width*=10;
 	for(int i = 0; i < amountWorms; i++){
 	
 		gp->getRandomPosition(&x, &y);
