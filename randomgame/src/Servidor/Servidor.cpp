@@ -1,16 +1,16 @@
 #include "Servidor.h"
-
-Servidor::Servidor()
-	: input ()
-	, output ()
-	, cantJugadores()
-	, changes ()
-	, lock()
-	, netlock()
-	, canUpdate(lock)
-	, canBroadcast(netlock)
-{
-}
+//
+//Servidor::Servidor()
+//	: input ()
+//	, output ()
+//	, cantJugadores()
+//	, changes ()
+//	, lock()
+//	, netlock()
+//	, canUpdate(lock)
+//	, canBroadcast(netlock)
+//{
+//}
 
 Servidor::~Servidor(void){
 
@@ -69,8 +69,10 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, changes()
 	, lock()
 	, netlock()
+	, worldlock()
 	, canUpdate(lock)
 	, canBroadcast(netlock)
+	, canCreate(worldlock)
 {
 
 	jugadoresConectados = 0;
@@ -92,7 +94,9 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	//		y notifica a los clientes.
 	Thread clientThread("Updating Thread",updating,&data);
 
-	Thread netUpdaterThread("Updater",broadcastMessages,&data);
+	//Thread netUpdaterThread("Updater",broadcastMessages,&data);
+
+	Thread stepOverThread("step",stepOver,&data);
 
 }
 
@@ -124,15 +128,76 @@ int Servidor::updating(void* data){
 		srv->updateModel(p); // This will update worldChanges queue
 		
 		//if necessary signal condition to start broadcasting, if not wait
-		n->lock();
+		/*n->lock();
 		srv->worldChanges.push_back(p);
 		n->unlock();
-		netcond->signal();
+		netcond->signal();*/
 		
 		srv->changes.pop_back();
 		m->unlock();
 	}
 	return 0;
+}
+
+
+
+int Servidor::stepOver(void* data){
+	printf("\n\n\StepOver Thread running\n");
+
+	threadData* aThreadData = (threadData*)data;
+
+	Servidor* srv = aThreadData->srv;
+	std::vector<Playable>* changes =  &srv->changes;
+	
+	Condition* cond =  &srv->canUpdate;
+	Mutex* m = &srv->lock;
+
+	Condition* netcond =  &srv->canBroadcast;
+	Mutex* n =  &srv->netlock;
+
+	Condition* worldcond =  &srv->canCreate;
+	Mutex* w =  &srv->worldlock;
+
+	while(true){
+		Sleep(30);
+		//One step into the world
+		w->lock();
+		srv->getGameEngine().step();
+		w->unlock();
+		n->lock();
+		if (srv->somethingChange() ){
+			//netcond->signal();
+			//si algo cambio actualizo a los clientes
+
+
+
+		}
+		n->unlock();
+
+
+
+
+	}
+	return 0;
+}
+
+bool Servidor::somethingChange(){
+
+	std::map<int,GameElement*> copy = this->gameEngine.getLevel()->getEntities();
+	std::map<int,GameElement*>::iterator it = copy.begin();
+	Playable* p = new Playable();
+	bool flag = false;
+	for ( ; it != copy.end() ; ++it){
+		if( it->second->changed){
+			p->wormid = it->second->getId();
+			p->x = it->second->getPosition().first;
+			p->y = it->second->getPosition().second;
+			this->worldModifications[it->second->getId()] = *p;
+			flag = true;
+		}
+
+	}
+	return flag;
 }
 
 
@@ -144,27 +209,41 @@ int Servidor::broadcastMessages(void* data){
 	Servidor* srv = aThreadData->srv;
 
 	std::vector<Playable>* worldChanges = &srv->worldChanges;
-	
+	std::map<int,Playable>* worldModifications = &srv->worldModifications;
+
 	Condition* netcond = &srv->canBroadcast;
 	Mutex* n = &srv->netlock;
 
-	while(true){
-		n->lock();
-		if ( worldChanges->empty() ){
-			//printf("\nwaiting.. is empty :(");
-			netcond->wait();
-		}
-		printf("\nUpdating all the clients");
+	Condition* worldcond =  &srv->canCreate;
+	Mutex* w =  &srv->worldlock;
 
-		Playable p = worldChanges->back();
+	while(true){
+		//n->lock();
+		//if ( worldModifications->empty() ){
+		//	//printf("\nwaiting.. is empty :(");
+		//	netcond->wait();
+		//}
+		//printf("\nUpdating all the clients");
+
+		//Sleep(30);
+		//One step into the world
+		//w->lock();
+		//srv->getGameEngine().step();
+		//w->unlock();
+		//n->lock();
+		//if (srv->somethingChange() )
+		//	netcond->signal();
+		//n->unlock();
+
+		//Playable p = worldChanges->back();
 
 		for ( int i = 0 ; i < srv->jugadoresConectados ; i++){
 			printf("Sending data to client: %d",i);
 		}
 
 
-		worldChanges->pop_back();
-		n->unlock();
+		//worldChanges->pop_back();
+		//n->unlock();
 
 	}
 
@@ -180,7 +259,7 @@ bool Servidor::updateModel(Playable p){
 	this->gameEngine.applyAction2Element(p.wormid,p.action);
 
 	//Make a step into the world
-	this->gameEngine.step();
+	//this->gameEngine.step();
 
 	//Look for changes in the world, if something change 
 	//somethingChange()
@@ -250,6 +329,9 @@ int Servidor::initClient(void* data){
 	Mutex* m = &srv->lock;
 	char* playerId = aThreadData->p;
 
+	Condition* worldcond =  &srv->canCreate;
+	Mutex* w =  &srv->worldlock;
+
 	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
 	//Playable* playableWorld = srv->getPlayable();
 
@@ -278,11 +360,13 @@ int Servidor::initClient(void* data){
 					);
 
 
+	w->lock();
 	//Valido si puede estar en el nivel antes de avanzar
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		printf("\Cliente no permitido en el server");
 		srv->disconnect(playerId);
 	}
+	w->unlock();
 	printf("\nCliente registrado satisfactoriamente en el servidor");
 
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );

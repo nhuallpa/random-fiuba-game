@@ -48,6 +48,8 @@ class Servidor{
 		// MUST be propagated to all the clients.
 		std::vector<Playable> worldChanges;	
 
+		std::map<int,Playable> worldModifications;
+
 		void sendHeartBeat(Player playerId, Messages type);
 	
 		void broadcastMsg(Playable change);
@@ -61,7 +63,7 @@ class Servidor{
 		threadData data;
 
 	public:
-		Servidor();
+
 		~Servidor();
 
 
@@ -76,6 +78,9 @@ class Servidor{
 		Mutex netlock;
 		Condition canBroadcast;
 
+		Mutex worldlock;
+		Condition canCreate;
+
 		void waitConnections();
 	
 		static int broadcastMessages(void* data);
@@ -83,7 +88,9 @@ class Servidor{
 		static int initClient(void* data);
 		static void notifyReject(Socket& fdCli);
 		static int wait4Connections(void* data);
+		static int stepOver(void* data);
 
+		bool somethingChange();
 
 		bool run(void);
 		void destroyWorld();

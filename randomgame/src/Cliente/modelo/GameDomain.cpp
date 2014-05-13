@@ -7,8 +7,8 @@ GameDomain::~GameDomain(void){
 	
 }
 
-void GameDomain::updateElement(int id){
-
+void GameDomain::updateElement(int id, float posX, float posY){
+	this->domainElements[id].setPosition(std::make_pair(posX,posY));
 }
 
 void GameDomain::setPlayerState(Player p, StateConn c, unsigned long color){

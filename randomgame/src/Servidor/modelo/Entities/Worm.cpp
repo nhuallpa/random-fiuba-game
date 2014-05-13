@@ -49,7 +49,7 @@ void Worm::moveLeft()
 
 void Worm::moveRight()
 {
-	movingRight=true;
+	this->movingRight=true;
 	Worm2d* aWorm2d = (Worm2d*)this->myBody;
 	aWorm2d->moveRight();
 }
