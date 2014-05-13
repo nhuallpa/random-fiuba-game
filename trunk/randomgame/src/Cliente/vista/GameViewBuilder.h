@@ -65,7 +65,7 @@ public:
 
 	void buildEart();
 
-	
+	void buildStateBar();
 
 	//void addElementToDomain(GameElement worm);
 

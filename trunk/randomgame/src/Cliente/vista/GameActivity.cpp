@@ -23,7 +23,8 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->setContentView(builder.getGameView());
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
-	
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->getStateBar()->setMsj("Ingreso al juego");
 }
 
 void GameActivity::buildView( GameViewBuilder & builder)
@@ -35,6 +36,7 @@ void GameActivity::buildView( GameViewBuilder & builder)
 	builder.buildEart();
 	builder.buildCharacters();
 	builder.buildWater();
+	builder.buildStateBar();
 
 }
 
@@ -49,9 +51,6 @@ void GameActivity::update()
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-
-
-
 		Log::t(VIEW,"elemento %d",domainElement.getType());
 		try
 		{

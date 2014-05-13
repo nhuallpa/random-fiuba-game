@@ -47,6 +47,14 @@ void GameView::setTerrain(TerrainView* terrain)
 	this->add(water);
 }
 
+void GameView::setStateBar(StateBarView* stateBar)
+{
+	this->stateBar = stateBar;
+	this->add(stateBar);
+}
+
+
+
 FigureView* GameView::findFigureById(int idElement)
 	
 {
@@ -74,3 +82,5 @@ WormView* GameView::findWormById(int idElement)
 		throw GameException(msg.str());
 	}
 }
+
+

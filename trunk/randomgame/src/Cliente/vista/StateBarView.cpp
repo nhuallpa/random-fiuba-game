@@ -23,16 +23,19 @@ void StateBarView::cutVect(){
 }
 
 void StateBarView::setMsj(std::string msj){
-	state aState;
+	/*state aState;
 	std::vector<state>::iterator it;
 	aState.msj = msj;
 	aState.j = this->i;
 	it = this->stateV.begin();
 	this->stateV.insert(it,aState);
+	*/
+	this->msj.assign(msj);
+	i=0;
 }
 
 void StateBarView::draw(SDLScreen & screen){
-	std::vector<state>::iterator it;
+	/*std::vector<state>::iterator it;
 	this->cutVect();
 	int i=0;
 	this->i++;
@@ -42,7 +45,17 @@ void StateBarView::draw(SDLScreen & screen){
 		TextureManager::Instance().drawText(screen.getRenderer(),0+TextureManager::Instance().getCamera().getX(),0+(i*10)+TextureManager::Instance().getCamera().getY(),cstr,0xFFFFFFFF);
 		i++;
 	}
-	/*for (int i=0;i<5;i++){
-		TextureManager::Instance().drawText(screen.getRenderer(),0+TextureManager::Instance().getCamera().getX(),0+(i*10)+TextureManager::Instance().getCamera().getY(),"hola",0xFFFFFFFF);
-	}*/
+	
+	*/
+	if (i<=300) 
+	{
+		i++;
+		TextureManager::Instance().drawText(screen.getRenderer(), 
+										TextureManager::Instance().getCamera().getX(),
+										10 + TextureManager::Instance().getCamera().getY(), 
+										msj.c_str(),
+										0xFFFFFFFF);
+	}
+	
+
 }

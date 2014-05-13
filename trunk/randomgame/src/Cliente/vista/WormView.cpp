@@ -50,14 +50,16 @@ void WormView::draw(SDLScreen & screen)
 	
 	char buffer[50];
 	char buffer2[50];
-	//if (this->isSelected()) this->putGrey();
-	//else this->quitGrey();
+	if (this->isSelected()) 
+		this->putGrey();
+	else 
+		this->quitGrey();
 	
 	strcpy(buffer,"Worm ");
 	itoa(this->id,buffer2,10);
 	strcat(buffer,buffer2);
 
-	TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,this->color);
+	
 	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
 										this->getX()-(currentSprite->getWidth()/2), 
 										this->getY()-(currentSprite->getHeight()/2), 
@@ -68,27 +70,10 @@ void WormView::draw(SDLScreen & screen)
 										screen.getRenderer(),this->gray, this->direction);
 	
 	 
-	/*           borrar esto por dios*/
-	
-	/*
-	*********ACA SE PUEDE PROBAR EL STATE BAR************/
-	
-	/*
-	if (this->isSelected()){
-		char buff[50];
-		itoa(StateBarView::Instance().j++,buff,10);
-		StateBarView::Instance().setMsj(buff);
-			
-	}
-	StateBarView::Instance().draw(screen);
-	*/
-
-
-
-
 	if (this->isSelected())
 		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,0xFFFFFFFF);
-
+	else
+		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,this->color);
 }
 
 bool WormView::isSelected(){
