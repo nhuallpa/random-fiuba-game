@@ -3,6 +3,7 @@
 
 StateBarView::StateBarView():View(0, 0){
 	this->i = 0;
+	this->j = 0;
 }
 
 StateBarView::~StateBarView(void)

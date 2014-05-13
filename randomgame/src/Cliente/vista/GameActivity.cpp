@@ -49,13 +49,18 @@ void GameActivity::update()
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::i(VIEW,"estado: %s",this->builder->getDomain()->getPlayerState(domainElement.getPlayerID()));
+
+
+
 		Log::t(VIEW,"elemento %d",domainElement.getType());
 		try
 		{
 			if (domainElement.getType() == WORM) 
 			{
 				WormView* aWorm = gameView->findWormById(domainElement.getId());
+
+
+
 				aWorm->update(&domainElement);
 			}
 		}

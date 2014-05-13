@@ -1,7 +1,6 @@
 #include "GameDomain.h"
 
 GameDomain::GameDomain(){
-	
 }
 		
 GameDomain::~GameDomain(void){
