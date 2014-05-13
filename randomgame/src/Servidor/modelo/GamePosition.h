@@ -13,6 +13,11 @@ public:
 	void validPosition(list<pair<int,int>>* terrain);
 	void getRandomPosition(int* x, int* y);
 	bool isCompleted();
+
+	//std::map<int, std::pair<int,int>> validPos;
+	//std::map<int,bool> usedPos;
+	//std::pair<int,int> getValidPos();
+
 private:
 	int getX(list<int>* listX);
 	int supreme, deltaX, deltaY;

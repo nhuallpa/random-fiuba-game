@@ -17,6 +17,8 @@ public:
 	std::vector<Worm*> getWorms(){ return this->worms;}
 	void initPlayer(int prefId, int amountWorms, int height, int width);
 	std::string playerID;
+	
+
 private:
 	std::vector<Worm*> worms;
 	StateConn state;
