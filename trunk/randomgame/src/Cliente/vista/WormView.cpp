@@ -67,8 +67,8 @@ void WormView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),this->gray, this->direction);
 	
-
-	/*borrar esto por dios*/
+	 
+	/*           borrar esto por dios*/
 	
 	/*
 	*********ACA SE PUEDE PROBAR EL STATE BAR************/

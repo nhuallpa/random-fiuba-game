@@ -36,25 +36,20 @@ void Cliente::loop(void){
 	bool quit = false;
 
 	bootstrap.init();
-	//ARIEL : REFACTOR
-	//GameViewBuilder builder(&this->cLevel);
 	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain);
 
 	builder->setPlayerID(this->pl);
-	//currentActivity = new GameActivity(bootstrap.getScreen(), builder, &this->cLevel, &this->cController);
 	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
 	this->gameActivity = static_cast<GameActivity*> (currentActivity);
 	
 	
 	/** refresh the initial view*/
 	this->currentActivity->render();
-
 	this->cController.addListener(this);
 
 
 	int running = 0;
-	//Uint32 tick_inteval = this->getTickInterval();
-	//next_time = SDL_GetTicks() + tick_inteval;
+	
 	bootstrap.getScreen().setState("Juego Creado");
 	FPSmanager fpsManager;
 	fpsManager.rate = 60;
@@ -64,8 +59,6 @@ void Cliente::loop(void){
 		this->runGame();
 		currentActivity->update();
 		currentActivity->render();
-		//SDL_Delay(time_left());
-		//next_time += tick_inteval;
 		SDL_framerateDelay(&fpsManager);
 	}
 	cController.destroy();
