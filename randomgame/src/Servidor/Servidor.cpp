@@ -155,10 +155,10 @@ int Servidor::stepOver(void* data){
 	Condition* netcond =  &srv->canBroadcast;
 	Mutex* n =  &srv->netlock;
 
-	
-
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
+
+	Datagram* datagram = new Datagram();
 
 	while(true){
 		Sleep(30);
@@ -185,7 +185,14 @@ int Servidor::stepOver(void* data){
 					for ( ; itw != worldModifications.end() ; ++itw){
 
 						//send over the network
+						//printf("\nSending data to client: %s",it->first.c_str() );
 
+						datagram->play.wormid = itw->second.wormid;
+						datagram->type = UPDATE;
+						//todo hardcoded scale
+						datagram->play.x = itw->second.x/ESCALA_UL2PX;
+						datagram->play.y = itw->second.y/ESCALA_UL2PX;
+						it->second.second.sendmsg(*datagram);
 
 					}
 
@@ -386,6 +393,7 @@ int Servidor::initClient(void* data){
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		printf("\Cliente no permitido en el server");
 		srv->disconnect(playerId);
+		return 1;
 	}
 	w->unlock();
 	printf("\nCliente registrado satisfactoriamente en el servidor");

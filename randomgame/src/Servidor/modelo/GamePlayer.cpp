@@ -50,21 +50,22 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 							 true));//PREGUNTAR A ARI QUE SETEAR
 		}
 		
-		//else{     
-  //          x = rand()%500;
-  //          y = (rand()%150) + 100; 
-  //          //AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
-  //          this->add(new Worm(prefId + i, 
-		//						this->playerID,
-  //                              WORM,
-  //                              x,
-  //                              y,
-  //                              0, //PREGUNTAR A ARI QUE SETEAR
-  //                              10,//PREGUNTAR A ARI QUE SETEAR
-  //                              10,//PREGUNTAR A ARI QUE SETEAR
-  //                              20,//PREGUNTAR A ARI QUE SETEAR
-  //                              true));//PREGUNTAR A ARI QUE SETEAR
-		//}
+		else{     
+			printf("\n Como no confio en Erik creo a mano esto\n");
+            x = rand()%500;
+            y = (rand()%150) + 100; 
+            //AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
+            this->add(new Worm(prefId + i, 
+								this->playerID,
+                                WORM,
+                                x,
+                                y,
+                                0, //PREGUNTAR A ARI QUE SETEAR
+                                10,//PREGUNTAR A ARI QUE SETEAR
+                                10,//PREGUNTAR A ARI QUE SETEAR
+                                20,//PREGUNTAR A ARI QUE SETEAR
+                                true));//PREGUNTAR A ARI QUE SETEAR
+		}
 
 						 
 	}
