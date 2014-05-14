@@ -13,13 +13,16 @@ void WormActions::jump()
 {	
 	//si está en el suelo = cuando la velocidad en el eje y es igual a 0
 	//this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x,this->aWorm2d->getBody()->GetPosition().y - deltaMovement,this->aWorm2d->getBody()->GetAngle());
-	
-	if(this->aWorm2d->body->GetLinearVelocity().y ==0.0)// && jumpMovement != 0)
-        {
+	//this->aWorm2d->body->SetLinearVelocity(b2Vec2(0,0));
+	//if(this->aWorm2d->body->GetLinearVelocity().y ==0.0)// && jumpMovement != 0)
+	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
+	{
 			//jumpMovement--;
-                float impulse = this->aWorm2d->getMass() * 10;
+                float impulse = this->aWorm2d->getMass() * 80;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
+				
         }
+
 
 	/*if(jumpMovement == 0)
 		jumpMovement=10;
