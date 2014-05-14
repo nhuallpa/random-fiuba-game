@@ -3,6 +3,7 @@
 
 WormActions::WormActions(Worm2d* worm2d)
 {
+	this->deltaMovement=1/(float)ESCALA_UL2PX; //desplazamiento
 	this->aWorm2d=worm2d;
 
 }
@@ -21,16 +22,13 @@ void WormActions::jump()
 void WormActions::moveLeft()
 {
 	//aplicar fuerza hacia la izquierda
-	float impulse = this->aWorm2d->getMass() * 10;
-	this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(-impulse,0), this->aWorm2d->body->GetWorldCenter() );
-
+	this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x - deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
 }
 
 void WormActions::moveRight()
 {
 	//aplicar fuerza hacia la derecha
-	float impulse = this->aWorm2d->getMass() * 10;
-	this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(impulse,0), this->aWorm2d->body->GetWorldCenter() );
+	this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x + deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
 
 }
 
