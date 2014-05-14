@@ -9,6 +9,7 @@ class WormActions{
 
 protected:
 Worm2d* aWorm2d;
+float deltaMovement;
 
 public:
 WormActions(Worm2d* worm2d);
