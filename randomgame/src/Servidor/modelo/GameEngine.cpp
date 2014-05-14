@@ -188,7 +188,7 @@ void GameEngine::animateWormsFromPlayer(std::string playerID){
 								elems->second->getPosition().second,
 								3,
 								3,
-								15,
+								elems->second->getMass(),
 								0,
 								this->myWorld,
 								((*elems).second),
