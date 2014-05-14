@@ -50,28 +50,27 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 							 WORM,
 							 x/10.0,
 							 y/10.0,
-							 0, //PREGUNTAR A ARI QUE SETEAR
-							 3,//PREGUNTAR A ARI QUE SETEAR
-							 3,//PREGUNTAR A ARI QUE SETEAR
-							 10,//PREGUNTAR A ARI QUE SETEAR
-							 true));//PREGUNTAR A ARI QUE SETEAR
+							 0,
+							 3,
+							 3,
+							 10,
+							 true));
 		}
 		
 		else{     
-			printf("\n Como no confio en Erik creo a mano esto\n");
+			printf("\n default de ARIEL\n");
             x = rand()%500;
-            y = (rand()%150) + 100; 
-            //AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
+            y = (rand()%150) + 100;
             this->add(new Worm(prefId + i, 
 								this->playerID,
                                 WORM,
                                 x/ESCALA_UL2PX,
                                 y/ESCALA_UL2PX,
-                                0, //PREGUNTAR A ARI QUE SETEAR
-                                10,//PREGUNTAR A ARI QUE SETEAR
-                                10,//PREGUNTAR A ARI QUE SETEAR
-                                20,//PREGUNTAR A ARI QUE SETEAR
-                                true));//PREGUNTAR A ARI QUE SETEAR
+                                0, 
+                                10,
+                                10,
+                                20,
+                                true));
 		}
 
 						 
@@ -82,21 +81,7 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
 GamePlayer* GamePlayer::NewPlayerFactory(int prefId, int amountWorms){
 	//deprecated
 	GamePlayer* gp = new GamePlayer("player");
-	//gp->state = CONNECTED;
-	//int x, y;
-	//for(int i = 0; i < amountWorms; i++){
-	//	TerrainProcessor::getRandomPosition(&x, &y);
-	//	//AL WORM LE FALTA EL ESTADO {0:MUERTO, 1:VIVO}
-	//	gp->add(new Worm(prefId + i, 
-	//					 WORM,
-	//					 x,
-	//					 y,
-	//					 0, //PREGUNTAR A ARI QUE SETEAR
-	//					 10,//PREGUNTAR A ARI QUE SETEAR
-	//					 10,//PREGUNTAR A ARI QUE SETEAR
-	//					 20,//PREGUNTAR A ARI QUE SETEAR
-	//					 true));//PREGUNTAR A ARI QUE SETEAR
-	//}
+
 	return gp;
 }
 
