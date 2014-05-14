@@ -53,7 +53,7 @@ void StateBarView::draw(SDLScreen & screen){
 		TextureManager::Instance().drawText(screen.getRenderer(), 
 										TextureManager::Instance().getCamera().getX(),
 										10 + TextureManager::Instance().getCamera().getY(), 
-										msj.c_str(),
+										msj,
 										0xFFFFFFFF);
 	}
 	
