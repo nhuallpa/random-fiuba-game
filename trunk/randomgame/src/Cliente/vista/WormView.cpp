@@ -54,12 +54,16 @@ void WormView::draw(SDLScreen & screen)
 		this->putGrey();
 	else 
 		this->quitGrey();*/
-	
+	/*
 	strcpy(buffer,"Worm ");
 	itoa(this->id,buffer2,10);
 	strcat(buffer,buffer2);
-
+	**/
 	
+	std::stringstream name;
+	name<<"Worm ";
+	name<<this->getId();
+
 	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
 										this->getX()-(currentSprite->getWidth()/2), 
 										this->getY()-(currentSprite->getHeight()/2), 
@@ -71,9 +75,9 @@ void WormView::draw(SDLScreen & screen)
 	
 	 
 	if (this->isSelected())
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,0xFFFFFFFF);
+		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),name.str(),0xFFFFFFFF);
 	else
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,this->color);
+		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),name.str(),this->color);
 }
 
 bool WormView::isSelected(){

@@ -122,7 +122,7 @@ public:
 	/** Draw Box on renderer*/
 	void drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
 
-	void drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,const char* s , Uint32 color);
+	void drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y, std::string text , Uint32 color);
 
 	SDL_Point convertPointScreen2SDL(int x, int y);
 

@@ -541,7 +541,12 @@ void Cliente::OnMovement(MovementEvent e){
 	if (wormIdSelected > 0)
 	{
 		p.wormid = wormIdSelected;
-		if (e.x == 1) // derecha
+		if (e.y == -1)
+		{
+			p.action = 	JUMP;
+			Log::i("Jump");
+		}
+		else if (e.x == 1) // derecha
 		{
 			p.action = 	MOVE_RIGHT;
 		}
