@@ -363,7 +363,11 @@ int Cliente::netListener(void* data){
 
 			break;
 		case PLAYER_UPDATE:
-			//cli->domain.
+
+			//Add the user to the players that are playing list
+			cli->domain.addPlayer(msg->playerID,msg->playerState,0);
+
+			//Aca metes el mensaje de player logged in/logged out
 			break;
 		}
 	

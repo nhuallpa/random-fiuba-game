@@ -96,6 +96,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 	//Thread netUpdaterThread("Updater",broadcastMessages,&data);
 
+	//TODO Refactor para que corra en el hilo principal 
 	Thread stepOverThread("step",stepOver,&data);
 
 }
@@ -125,6 +126,7 @@ int Servidor::updating(void* data){
 		Playable p;
 		p = srv->changes.back();
 		printf("\nGot message from user requesting to move worm %d to %d",p.wormid,p.action);
+		
 		
 		srv->updateModel(p); // This will update worldChanges queue
 		
@@ -224,7 +226,10 @@ bool Servidor::somethingChange(){
 			this->worldModifications[it->second->getId()] = *p;
 			flag = true;
 		}
-
+		if ( !static_cast<Worm*>(it->second)->isAlive() ){
+			//Lo elimino del mundo!
+			this->gameEngine.getLevel()->removeEntity(it->second->getId());
+		}
 	}
 	return flag;
 }

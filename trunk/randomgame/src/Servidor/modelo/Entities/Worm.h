@@ -14,6 +14,8 @@ bool jumping;
 bool movingRight;
 bool movingLeft;
 bool selected;
+bool stopped;
+bool alive;
 
 
 public:
@@ -24,6 +26,7 @@ int getLife();
 void setLife(int newLife);
 void addLife(int moreLife);
 void subLife(int lessLife);
+void setAlive(bool b){ this->alive = b;}
 
 void stop();
 void jump();
@@ -35,6 +38,8 @@ bool isSelected();
 bool isJumping();
 bool isMovingRight();
 bool isMovingLeft();
+bool isStopped();
+bool isAlive() { return this->alive;}
 
 void select();
 void deselect();

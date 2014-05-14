@@ -17,10 +17,10 @@ void WormActions::jump()
 	//if(this->aWorm2d->body->GetLinearVelocity().y ==0.0)// && jumpMovement != 0)
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
 	{
-			//jumpMovement--;
+				
                 float impulse = this->aWorm2d->getMass() * 80;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
-				
+				printf("\nQuiero saltar, can I?");
         }
 
 
@@ -32,13 +32,19 @@ void WormActions::jump()
 void WormActions::moveLeft()
 {
 	//aplicar fuerza hacia la izquierda
-	this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x - deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
+	//if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
+	//{
+		this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x - deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
+	//}
 }
 
 void WormActions::moveRight()
 {
 	//aplicar fuerza hacia la derecha
-	this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x + deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
+	//if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
+	//{
+		this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x + deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
+	//}
 
 }
 
