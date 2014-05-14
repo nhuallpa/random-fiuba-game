@@ -15,6 +15,7 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, float
 			this->width = w;
 			this->mass = mass;
 			this->fixed = isFixed;
+			this->grounded = false;
 }
 
 GameElement::GameElement(int id, std::string playerID, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed){
@@ -29,6 +30,7 @@ GameElement::GameElement(int id, std::string playerID, ElementType type, float p
 			this->width = w;
 			this->mass = mass;
 			this->fixed = isFixed;
+			this->grounded = false;
 }
 
 /* Circle constructor */
@@ -42,6 +44,7 @@ GameElement::GameElement(int id, float posX, float posY, float radius, float sca
 	this->radius = radius;
 	this->scale = scale;
 	this->fixed = fixed;
+	this->grounded = false;
 }
 
 /* Any other polygon constructor */
@@ -55,6 +58,7 @@ GameElement::GameElement(int id, ElementType type, float posX, float posY, float
 			this->scale = scale;
 			this->mass = mass;
 			this->fixed = isFixed;
+			this->grounded = false;
 }
 
 
@@ -67,7 +71,7 @@ GameElement::GameElement(const GameElement & aGameElement):
 					mass(aGameElement.type), myBody(aGameElement.myBody),
 					degrees(aGameElement.degrees), vertexList(aGameElement.vertexList),
 					radius(aGameElement.radius), scale(aGameElement.scale),
-					fixed(aGameElement.fixed)
+					fixed(aGameElement.fixed), grounded(aGameElement.grounded)
 {
 }
 
