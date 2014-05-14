@@ -356,10 +356,14 @@ int Cliente::netListener(void* data){
 			}catch(...){
 				n->unlock();
 				throw std::current_exception();
+				break;
 			}
 			n->unlock();
 			netcond->signal();
 
+			break;
+		case PLAYER_UPDATE:
+			//cli->domain.
 			break;
 		}
 	

@@ -41,6 +41,13 @@ public:
 	 StateConn getPlayerState(Player p){ return this->playersPlaying[p].first; }
 	 unsigned long getPlayerColor(Player p){ return this->playersPlaying[p].second; }
 	 void setPlayerState(Player p, StateConn c, unsigned long color);
+	 void addPlayer(Player p, StateConn c, unsigned long color){
+		this->playersPlaying[p] = std::make_pair(c,color);
+	}
+
+	 void updatePlayerStatus(Player p, StateConn st){
+		 this->playersPlaying[p] = std::make_pair(st,this->playersPlaying[p].second);
+	 }
 
 };
 
