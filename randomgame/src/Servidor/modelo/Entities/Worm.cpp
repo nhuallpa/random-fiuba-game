@@ -11,6 +11,7 @@ Worm::Worm(int id, std::string playerID, ElementType type, float posX, float pos
 :  GameElement(id, playerID, type, posX,  posY,  degrees,  h,  w,  mass,  isFixed) {
 
 	this->stopMoving();
+	this->alive = true;
 }
 
 int Worm::getLife()
@@ -43,8 +44,8 @@ void Worm::jump()
 void Worm::stop()
 {
 	this->stopMoving();
-	Worm2d* aWorm2d = (Worm2d*)this->myBody;
-	aWorm2d->getBody()->SetLinearVelocity(b2Vec2(0,0));
+	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
+	//aWorm2d->getBody()->SetLinearVelocity(b2Vec2(0,0));
 }
 
 void Worm::moveLeft()

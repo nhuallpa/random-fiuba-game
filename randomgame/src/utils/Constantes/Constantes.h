@@ -11,6 +11,9 @@
 #define WORM_WIDTH 30
 #define WORM_HEIGHT 30
 
+#define MODEL_WORM_WIDTH 2
+#define MODEL_WORM_HEIGHT 2.75
+
 #define SPRITES_WIDTH 48
 #define SPRITES_HEIGHT 48
 

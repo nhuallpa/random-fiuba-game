@@ -39,7 +39,7 @@ void Worm2d::animate(){
 	if(static_cast<Worm*>(myWorm)->isJumping())
 	{
 		this->jump();
-	}
+	} 
 
 	//si el Worm se esta moviendo a la izquierda, moverlo a izquierda
 	if(static_cast<Worm*>(myWorm)->isMovingLeft())
@@ -51,7 +51,13 @@ void Worm2d::animate(){
 	if(static_cast<Worm*>(myWorm)->isMovingRight())
 	{
 		this->moveRight();
+
 	}
+	
+	/*if(static_cast<Worm*>(myWorm)->isStopped()){
+		this->getBody()->SetLinearVelocity(b2Vec2(0,-10));
+		
+	}*/
 
 
 	b2Vec2 f = this->body->GetPosition();
@@ -61,8 +67,14 @@ void Worm2d::animate(){
 
 	//float y = f.y;
 	if ( ox != f.x || oy != f.y){
-		myWorm->setPosition(std::make_pair( f.x,f.y) );
-		myWorm->changed = true;
+		if (f.x < 0 || f.y < 0){
+			this->body->SetActive(false);
+			myWorm->changed = false;
+			static_cast<Worm*>(myWorm)->setAlive(false);
+		}else{
+			myWorm->setPosition(std::make_pair( f.x,f.y) );
+			myWorm->changed = true;
+		}
 	}else{
 		myWorm->changed = false;
 	}
