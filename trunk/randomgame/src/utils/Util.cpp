@@ -16,8 +16,8 @@ Util::~Util(void)
 *  @DEPRECATED
 */
 std::pair<float, float> Util::getTransformFromU2PX(){
-	ParserYaml* aParser = ParserYaml::getInstance();
 	std::pair<float,float> vec;
+	/**ParserYaml* aParser = ParserYaml::getInstance();
 	float x;
 	float y;
 	Log::t("Dimensiones Escenario - h:%s ul w:%s ul" , 
@@ -35,6 +35,7 @@ std::pair<float, float> Util::getTransformFromU2PX(){
 
 	vec = std::make_pair(x,y);
 		Log::t("Factor de escala x: %f px/ul    -     y: %f px/ul",x,y);
+	*/
 	return vec;
 }
 

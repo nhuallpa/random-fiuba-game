@@ -544,7 +544,6 @@ void Cliente::OnMovement(MovementEvent e){
 		if (e.y == -1)
 		{
 			p.action = 	JUMP;
-			Log::i("Jump");
 		}
 		else if (e.x == 1) // derecha
 		{
