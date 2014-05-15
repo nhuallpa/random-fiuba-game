@@ -36,8 +36,8 @@ void Cliente::loop(void){
 	bool quit = false;
 
 	bootstrap.init();
+	//GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain);
 	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain, &bootstrap.getScreen());
-
 	builder->setPlayerID(this->pl);
 	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
 	this->gameActivity = static_cast<GameActivity*> (currentActivity);
@@ -153,9 +153,9 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 {
 
 	input.connect2(ip, port+1);
-	printf("Connected to data port: %d", port);
+	Log::i("Connected to data port: %d", port);
 	output.connect2(ip, port);
-	printf("Connected to update port: %d", port+1);
+	Log::i("Connected to update port: %d", port+1);
 	this->srvStatus = true;
 
 	
@@ -233,7 +233,7 @@ int Cliente::applyNetworkChanges(void *data){
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 	
 	char* playerId = ((threadData*)data)->p;
-	Datagram* msg = new Datagram();
+	EDatagram* msg = new EDatagram();
 	msg->type = KEEPALIVE;
 
 	while(true){
@@ -285,7 +285,7 @@ int Cliente::notifyLocalUpdates(void *data){
 	Mutex* m = &cli->m;
 	Condition* cond = &(cli->somethingToTell);
 	char* playerId = aThreadData->p;
-	Datagram* msg = new Datagram();
+	EDatagram* msg = new EDatagram();
 
 	while(true){
 		m->lock();
@@ -295,10 +295,10 @@ int Cliente::notifyLocalUpdates(void *data){
 		}
 		Log::t("\nGot a local change");
 
-		msg->play.wormid = cli->localChanges.back().wormid;
-		msg->play.weaponid = cli->localChanges.back().weaponid;
-		msg->play.state = cli->localChanges.back().state;
-		msg->play.action = cli->localChanges.back().action;
+		msg->play[0].wormid = cli->localChanges.back().wormid;
+		msg->play[0].weaponid = cli->localChanges.back().weaponid;
+		msg->play[0].state = cli->localChanges.back().state;
+		msg->play[0].action = cli->localChanges.back().action;
 		msg->playerID = cli->pl.c_str();
 
 		msg->type = UPDATE;
@@ -323,6 +323,7 @@ int Cliente::netListener(void* data){
 
 	char* playerId = ((threadData*)data)->p;
 	Datagram* msg = new Datagram();
+	EDatagram* emsg = new EDatagram();
 
 	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
@@ -331,27 +332,35 @@ int Cliente::netListener(void* data){
 
 		Sleep(10);
 
-		if ( !cli->input.rcvmsg(*msg) ) {
+		if ( !cli->input.rcvmsg(*emsg) ) {
 			printf("\nDesconectando cliente at listening state");
 			//TODO: metodo de desconexion del server, mensaje y grisar pantalla o retry
 
 			return 1;
 		}
 		printf("\nGot network change");
-		switch(msg->type){
+		switch(emsg->type){
 		case UPDATE:
 			n->lock();
 			try{
 				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
 				Playable p;
 				/*p.wormid=37;*/
-				
-				p.wormid = msg->play.wormid;
-				p.weaponid = msg->play.weaponid;
-				p.x = msg->play.x;
-				p.y = msg->play.y;
+				//p.wormid = msg->play.wormid;
+				//p.weaponid = msg->play.weaponid;
+				//p.x = msg->play.x;
+				//p.y = msg->play.y;
 
-				cli->networkChanges.push_back(p);
+				//cli->networkChanges.push_back(p);
+
+				for ( int i=0; i < 15; i++){
+					p.wormid = emsg->play[i].wormid;
+					p.weaponid = emsg->play[i].weaponid;
+					p.x = emsg->play[i].x;
+					p.y = emsg->play[i].y;
+
+					cli->networkChanges.push_back(p);
+				}
 
 			}catch(...){
 				n->unlock();
@@ -365,7 +374,7 @@ int Cliente::netListener(void* data){
 		case PLAYER_UPDATE:
 
 			//Add the user to the players that are playing list
-			cli->domain.addPlayer(msg->playerID,msg->playerState,0);
+			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 
 			//Aca metes el mensaje de player logged in/logged out
 			break;
@@ -408,7 +417,7 @@ void Cliente::getRemoteWorld() {
 	Messages type = LOGIN;
 	std::vector<uint8_t> datos;
 	std::vector<uint8_t> buffer;
-	Datagram* msg = new Datagram();
+	EDatagram* msg = new EDatagram();
 	
 	//Login to server
 	msg->type = LOGIN;
@@ -439,23 +448,25 @@ void Cliente::getRemoteWorld() {
 	//printf("\nDONE - Retrieving data from server, world elements: %d", msg->elements);
 	int count = msg->elements;
 	Log::i("Going to load %d elements",count);
+
+	if (!this->input.rcvmsg(*msg)) {
+		Log::e("Client: connection error - Server disconnected/not responding");
+		//printf("\nClient: connection error - Server disconnected/not responding");
+		return;
+	}
+
+
 	for ( int i=0; i < count; i++){
-		if (!this->input.rcvmsg(*msg)) {
-			Log::e("Client: connection error - Server disconnected/not responding");
-			//printf("\nClient: connection error - Server disconnected/not responding");
-			return;
-		}
-		Log::i("Getted worm id: %d at pos: %d, %d",msg->play.wormid, msg->play.x, msg->play.y);
+
+		//Log::i("Getted worm id: %d at pos: %d, %d",msg->play.wormid, msg->play.x, msg->play.y);
 
 		//Trigger changes into game elements of the client
 		
-		GameElement* elem = 
-			getElementFromPlayable(msg->play);
+		GameElement* elem = getElementFromPlayable(msg->play[i]);
 
 		elem->playerID = msg->playerID;
 
-		Log::i("Inserting worm id: %d at pos: %f, %f",elem->getId(), elem->getPosition().first,
-			elem->getPosition().second);
+		//Log::i("Inserting worm id: %d at pos: %f, %f",elem->getId(), elem->getPosition().first, elem->getPosition().second);
 
 		this->domain.addElementToDomain(*elem);
 
