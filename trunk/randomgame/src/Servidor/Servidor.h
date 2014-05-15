@@ -86,7 +86,6 @@ class Servidor{
 
 		void waitConnections();
 	
-		static int broadcastMessages(void* data);
 		static int updating(void* data);
 		static int initClient(void* data);
 		static void notifyReject(Socket& fdCli);

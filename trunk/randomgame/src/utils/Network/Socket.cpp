@@ -237,8 +237,8 @@ void Socket::connect2(std::string hostname, uint16_t port)
 	
 	//Connect server
 	if (connect(this->fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR ) {
-		//Log::e("Couldn't connect to specified address/port: %s : %d",hostname,port);
-		printf("Couldn't connect to specified address/port: %s : %d",hostname,port);
+		Log::e("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
+		printf("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
 	}
 }
 
@@ -460,7 +460,7 @@ bool Socket::sendmsg(EDatagram msg){
 		return false;
 
 	}
-	printf("Send Bytes:  %d",messageSize);
+	//printf("Send Bytes:  %d",messageSize);
 
 
 	memcpy(&buffer,&msg,messageSize);

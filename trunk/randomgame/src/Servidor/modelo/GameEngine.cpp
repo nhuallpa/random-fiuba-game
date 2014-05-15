@@ -3,7 +3,8 @@
 #include "Box2D/Collision/Shapes/b2Shape.h"
 #include "Box2D/Collision/b2Collision.h"
 
-#define WATER_VELOCITY -1
+#define UPDATE_STEPS 4
+#define WATER_VELOCITY -2
 
 class b2Collision;
 
@@ -17,6 +18,8 @@ GameEngine::~GameEngine() {
 }
 
 bool GameEngine::initWorld(){
+
+	this->getLevel()->updateStep = 0;
 
 	this->gameBodies = new map<int,Body*>;
 	//Crea mundo en base a defaults (Gravity y otros coeficientes)
@@ -196,7 +199,7 @@ void GameEngine::animateWormsFromPlayer(std::string playerID){
 								);
 
 			(*elems).second->setBody(gus);
-			printf("Puntero Gusano: %p",gus); 
+			printf("\nPuntero Gusano: %p",gus); 
 			this->gameBodies->insert(std::pair<int,Body*>((*elems).second->getId(),gus) );
 		}
 	}
@@ -224,19 +227,28 @@ float GameEngine::getTimeStep () {
 }
 
 bool GameEngine::step(){
-
-
+	
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(this->timeStep,8,3);
 
 	//Reflect model
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();iterator != this->gameBodies->end(); ++iterator) {
-		Body* aBody = (iterator->second);
+		Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 		//printf("\nStep: now animating womrid %d",static_cast<GameElement*>(aBody->getBody()->GetUserData())->getId() );
-		aBody->animate();
+		if ( this->getUpdateStep() < UPDATE_STEPS ){
+			aBody->animate(false);
+		}
+		else{
+			aBody->animate(true);
+		}
+
 	}
 
+	if ( this->getUpdateStep() >= 5 )
+		this->resetUpdateStep();
+	
+	this->incrementUpdateStep();
 
 	/* Logica del agua */
 	std::set<fixturePair>::iterator it = this->myContactListener.m_fixturePairs.begin();
