@@ -7,6 +7,7 @@
 #include <sstream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include "../../utils/Log.h"
 #include "Camera.h"
 #include "../controlador/Contracts/OnZoomListener.h"
@@ -22,6 +23,8 @@ private:
 	float scale;
 
 	Camera * refCam;
+
+	TTF_Font *gFont;
 
 public:
 	
@@ -42,6 +45,9 @@ public:
 	void OnZoom(ZoomEvent e);
 
 	SDL_Renderer* getRenderer();
+
+
+	TTF_Font * getFont() { return this->gFont;}
 
 	~SDLScreen(void);
 };

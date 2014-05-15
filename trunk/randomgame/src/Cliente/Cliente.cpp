@@ -36,7 +36,7 @@ void Cliente::loop(void){
 	bool quit = false;
 
 	bootstrap.init();
-	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain);
+	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain, &bootstrap.getScreen());
 
 	builder->setPlayerID(this->pl);
 	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);

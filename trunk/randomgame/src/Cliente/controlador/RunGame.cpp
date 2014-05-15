@@ -195,8 +195,8 @@ void RunGame::loadQuadrantFactory(){
 
 	//seteo rangos
 	ParserYaml* aParser = ParserYaml::getInstance();
-	this->WIDTH = atoi(aParser->getEscenarioAnchoP().c_str());
-	this->HIGHT = atoi(aParser->getEscenarioAltoP().c_str());
+	this->WIDTH = W_SCREEN_VIEW;
+	this->HIGHT = H_SCREEN_VIEW;
 
 	s1->xFrom = 0, s1->xTo = DELTA, s1->yFrom = 0, s1->yTo = DELTA;
 	s2->xFrom = WIDTH - DELTA, s2->xTo = WIDTH, s2->yFrom = 0, s2->yTo = DELTA;

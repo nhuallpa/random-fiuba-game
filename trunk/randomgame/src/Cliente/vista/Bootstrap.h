@@ -5,12 +5,17 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include "SDLScreen.h"
 #include "TextureManager.h"
 #include "SpriteConfigurator.h"
 
+
 #include "../../utils/ParserYaml.h"
+
+
+
 class Bootstrap
 {
 private:
@@ -21,6 +26,9 @@ public:
 
 	/**Inicialize enviroment*/
 	void init();
+
+	/**Shout down enviroment*/
+	void shoutDown();
 
 	/**Load sprites*/
 	void loadSprites();

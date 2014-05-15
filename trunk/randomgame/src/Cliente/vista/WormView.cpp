@@ -8,7 +8,23 @@ WormView::WormView(int id)
 	this->selected = false;
 	this->gray = false;
 	this->color = COLOR_VERDE;
+}
+
+void WormView::setUserLabel(std::string text, SDL_Renderer* renderer, TTF_Font* font)
+{
 	
+	white.a = 0xFF;
+	white.r = 0xFF;
+	white.g = 0xFF;
+	white.b = 0xFF;
+
+	green.a = 0xFF;
+	green.r = 0x00;
+	green.g = 0xFF;
+	green.b = 0x00;
+	
+
+	labelUsuario.loadFromRenderedText(text, white, renderer,  font);
 }
 
 
@@ -41,8 +57,6 @@ void WormView::update()
 		currentSprite->clean();
 	}
 
-	
-
 }
 
 void WormView::draw(SDLScreen & screen)
@@ -64,25 +78,31 @@ void WormView::draw(SDLScreen & screen)
 
 	
 	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
-										this->getX()-(currentSprite->getWidth()/2), 
-										this->getY()-(currentSprite->getHeight()/2), 
+										this->getXCenter(), 
+										this->getYCenter(), 
 										currentSprite->getWidth(), 
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
 										currentSprite->getCurrentFrame(), 
-										screen.getRenderer(),this->gray, this->direction);
+										screen.getRenderer(),
+										this->gray, 
+										this->direction);
 	
 	 
 	if (this->isSelected())
 	{
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2)-8,buffer3,0xFFFFFFFF);
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,0xFFFFFFFF);
+		/*TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter() - 8,buffer3,0xFFFFFFFF);
+		TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter(),buffer,0xFFFFFFFF);*/
+		labelUsuario.setColor(green.r,green.g,green.b);
 	}
 	else
 	{
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2)-8,buffer3,this->color);
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getX()-(currentSprite->getWidth()/2),this->getY()-(currentSprite->getHeight()/2),buffer,this->color);
+		/*TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter() - 8,buffer3,this->color);
+		TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter(),buffer,this->color);*/
+		labelUsuario.setColor(white.r,white.g,white.b);
 	}
+
+	labelUsuario.draw(screen.getRenderer(),this->getXCenter(), this->getYCenter());
 }
 
 bool WormView::isSelected(){
@@ -127,4 +147,15 @@ void WormView::setColor(unsigned long color){
 }
 void WormView::setPlayer(std::string player){
 	this->player = player;
+}
+
+int WormView::getXCenter()
+{
+	return this->getX()-(currentSprite->getWidth()/2);
+}
+
+
+int WormView::getYCenter()
+{
+	return this->getY()-(currentSprite->getHeight()/2);
 }

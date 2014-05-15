@@ -11,8 +11,8 @@ void Bootstrap::init()
 	
 	ParserYaml* aParser = ParserYaml::getInstance();
 
-	int w = atoi(aParser->getEscenarioAnchoP().c_str());
-	int h = atoi(aParser->getEscenarioAltoP().c_str());
+	int w = W_SCREEN_VIEW;
+	int h = H_SCREEN_VIEW;
 	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
@@ -75,4 +75,9 @@ SDLScreen & Bootstrap::getScreen()
 
 Bootstrap::~Bootstrap(void)
 {
+}
+
+void Bootstrap::shoutDown()
+{
+	
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef __GameVIEW_H__
+#ifndef __VIEW_H__
 #define __VIEW_H__
 #include <list>
 #include "ViewGroup.h"

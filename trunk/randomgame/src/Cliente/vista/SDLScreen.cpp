@@ -5,6 +5,7 @@
 SDLScreen::SDLScreen() 
 {
 	this->scale = 1;
+	this->gFont = NULL;
 }
 
 void SDLScreen::init(const char* title, int xpos, int ypos, int width,
@@ -26,6 +27,21 @@ void SDLScreen::init(const char* title, int xpos, int ypos, int width,
 			0,0,0,0);
 
 			SDL_RenderSetScale(renderer, this->scale, this->scale);
+	
+			if( TTF_Init() == -1 )
+			{
+				Log::e("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+			}
+
+			this->gFont = TTF_OpenFont( "res/font/arial.ttf", 11 );
+			if( gFont == NULL )
+			{
+				Log::e("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+			}
+			else
+			{
+				Log::i("Font levantado");
+			}
 		}
 		else
 		{
@@ -37,6 +53,8 @@ void SDLScreen::init(const char* title, int xpos, int ypos, int width,
 	{
 		//return false; // window init fail
 	}
+
+	
 }	
 
 void SDLScreen::clear()
@@ -49,8 +67,13 @@ void SDLScreen::render()
 }	
 void SDLScreen::terminate()
 {
+	TTF_CloseFont( gFont );
+	gFont = NULL;
+
+	
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(renderer);
+	TTF_Quit();
 	SDL_Quit();
 }
 

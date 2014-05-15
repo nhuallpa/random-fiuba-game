@@ -16,6 +16,7 @@
 #include "TerrainView.h"
 #include "WormView.h"
 #include "EartView.h"
+#include "SDLScreen.h"
 #include "SpriteConfigurator.h"
 #include "../../utils/Util.h"
 #include "../../utils/Constantes/Constantes.h"
@@ -31,6 +32,8 @@ class GameViewBuilder
 	// Worm ID, (X,Y)
 	//std::map<int,GameElement> domainElements;
 
+	SDLScreen * screen;
+
 	std::string playerID;
 
 	GameController* cController;
@@ -45,7 +48,7 @@ public:
 	GameDomain* getDomain(){ return this->domain;}
 
 	//GameViewBuilder(GameLevel * cLevel);
-	GameViewBuilder(GameController* cController, GameDomain* domain);
+	GameViewBuilder(GameController* cController, GameDomain* domain, SDLScreen * screen);
 	~GameViewBuilder(void);
 
 	std::string getPlayerID() { return this->playerID; }
