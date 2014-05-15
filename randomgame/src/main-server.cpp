@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 	std::string path = (argc > 1) ? argv[1] : DEFAULT_YAML_LEVEL;
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 
-	Servidor mySrv(10025,1);
+	Servidor mySrv(10025,3);
 	
 	while(true){
 		Sleep(200);

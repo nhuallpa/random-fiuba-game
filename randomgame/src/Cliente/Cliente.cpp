@@ -245,9 +245,8 @@ int Cliente::applyNetworkChanges(void *data){
 		if ( cli->networkChanges.empty() ){
 			netcond->wait();
 		}
-		printf("\nGot a network change");
-
-		// TODO: Apply playable to the gameEntities at client side
+		
+		
 		Playable p;
 		p = cli->networkChanges.back();
 
@@ -338,21 +337,16 @@ int Cliente::netListener(void* data){
 
 			return 1;
 		}
-		printf("\nGot network change");
+		//printf("\nGot network change");
 		switch(emsg->type){
 		case UPDATE:
 			n->lock();
 			try{
 				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
 				Playable p;
-				/*p.wormid=37;*/
-				//p.wormid = msg->play.wormid;
-				//p.weaponid = msg->play.weaponid;
-				//p.x = msg->play.x;
-				//p.y = msg->play.y;
 
-				//cli->networkChanges.push_back(p);
-
+				// Esto deberia ser mas rapido, quizas lo meta en un vector de edatagrams
+				// que se van a ir vaciando del lado del cliente
 				for ( int i=0; i < 15; i++){
 					p.wormid = emsg->play[i].wormid;
 					p.weaponid = emsg->play[i].weaponid;

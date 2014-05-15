@@ -89,4 +89,6 @@ class GameLevel {
 		void disconnectPlayer(std::string playerID);
 		StateConn getPlayerStatus(std::string playerId);
 
+		int updateStep;
+
 };

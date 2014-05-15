@@ -43,7 +43,6 @@ class GameEngine {
 		void updateBodyPositions();
 		void deleteBody(int id);
 
-		//TODO
 		//Agarra los worms de un jugador y los pone como activos
 		//Para mi lo mejor es armar una clase GamePlayer que tenga la lista de wormsID que posee.
 		bool setWormsFromPlayerAsActive(std::string playerID);
@@ -52,8 +51,6 @@ class GameEngine {
 		GameEngine();
 		virtual ~GameEngine();
 
-		
-		//TODO: @BAUTI
 		// Pone los worms en el mapa y se los guarda al player id (persiste en el yaml)
 		bool placeInitialWorms(std::string playerID);
 
@@ -79,9 +76,7 @@ class GameEngine {
 		// and lately step into the world and broadcast
 		bool applyPlayable2Model();
 
-
 		void applyAction2Element(int id, Movement action);
-
 
 		bool step();
 
@@ -100,10 +95,14 @@ class GameEngine {
 
 		std::map<int,Body*>* getGameBodies(){ return this->gameBodies;}
 
-
 		// Le pasa el nivel completo al
 		GameLevel* getLevel();
 		int howManyPlayers(void);
+
+
+		int getUpdateStep(){return this->getLevel()->updateStep;}
+		void incrementUpdateStep(){ this->getLevel()->updateStep += 1; }
+		void resetUpdateStep(){ this->getLevel()->updateStep = 0; }
 
 		
 };

@@ -172,40 +172,25 @@ int Servidor::stepOver(void* data){
 		srv->getGameEngine().step();
 		w->unlock();
 		n->lock();
-		if (srv->somethingChange() ){
-			//netcond->signal();
-			//si algo cambio actualizo a los clientes
+		
+		//si algo cambio actualizo a los clientes
+		if ( i>5 ){
+			
+			i=0;
+			srv->somethingChange();
 
 			//chequeo si hay clientes
-			if ( srv->pList.size() && i >= 5){
-				i=0;
-				//Por cada cliente le envio los cambios
+			if ( srv->pList.size() ){
+				
 				std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
 				std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
 
+				//Por cada cliente le envio los cambios
+				srv->worldQ.type = UPDATE;
 				for ( ; it != copy.end() ; ++it){
-					//std::map<int,Playable> worldModifications = srv->worldModifications;
-					//std::map<int,Playable>::iterator itw = worldModifications.begin();
-
-					//for ( ; itw != worldModifications.end() ; ++itw){
-
-					//	//send over the network
-					//	//printf("\nSending data to client: %s",it->first.c_str() );
-
-					//	datagram->play.wormid = itw->second.wormid;
-					//	datagram->type = UPDATE;
-					//	//todo hardcoded scale
-					//	datagram->play.x = itw->second.x;//ESCALA_UL2PX;
-					//	datagram->play.y = itw->second.y;//ESCALA_UL2PX;
-					//	it->second.second.sendmsg(*datagram);
-
-					//}
-					srv->worldQ.type = UPDATE;
 					it->second.second.sendmsg(srv->worldQ);
-
 				}
 			}
-
 		}
 		n->unlock();
 		i++;
@@ -220,93 +205,33 @@ bool Servidor::somethingChange(){
 
 	std::map<int,GameElement*> copy = this->gameEngine.getLevel()->getEntities();
 	std::map<int,GameElement*>::iterator it = copy.begin();
-	//Playable* p = new Playable();
+
 	bool flag = false;
 	int i=0;
 
-	//for ( ; it != copy.end() ; ++it){
-	//	if( it->second->changed){
-	//		p->wormid = it->second->getId();
-	//		p->x = it->second->getPosition().first;
-	//		p->y = it->second->getPosition().second;
-	//		this->worldModifications[it->second->getId()] = *p;
-	//		flag = true;
-	//	}
-	//	if ( !static_cast<Worm*>(it->second)->isAlive() ){
-	//		//Lo elimino del mundo!
-	//		this->gameEngine.getLevel()->removeEntity(it->second->getId());
-	//	}
-	//}
 	for ( ; it != copy.end() ; ++it, i++){
-		if( it->second->changed){
+		if( it->second->changed ){
 			this->worldQ.play[i].wormid = it->second->getId();
 			this->worldQ.play[i].x = it->second->getPosition().first;
 			this->worldQ.play[i].y = it->second->getPosition().second;
 			flag = true;
 		}
 		if ( !static_cast<Worm*>(it->second)->isAlive() ){
-			//Lo elimino del mundo!
+
+			//Envio data de que esta muerto (x=-1,y=-1) y lo elimino del mundo
 			this->gameEngine.getLevel()->removeEntity(it->second->getId());
 		}
+
 	}
 
+	this->worldQ.elements = i+1; 
+
+	//TODO: Remover
 	for ( ; i != 15; i++)
 		this->worldQ.play[i].wormid = 0;
 
 	return flag;
 }
-
-
-int Servidor::broadcastMessages(void* data){
-	printf("\n\n\Broadcast Thread running\n");
-
-	threadData* aThreadData = (threadData*)data;
-
-	Servidor* srv = aThreadData->srv;
-
-	std::vector<Playable>* worldChanges = &srv->worldChanges;
-	std::map<int,Playable>* worldModifications = &srv->worldModifications;
-
-	Condition* netcond = &srv->canBroadcast;
-	Mutex* n = &srv->netlock;
-
-	Condition* worldcond =  &srv->canCreate;
-	Mutex* w =  &srv->worldlock;
-
-	while(true){
-		//n->lock();
-		//if ( worldModifications->empty() ){
-		//	//printf("\nwaiting.. is empty :(");
-		//	netcond->wait();
-		//}
-		//printf("\nUpdating all the clients");
-
-		//Sleep(30);
-		//One step into the world
-		//w->lock();
-		//srv->getGameEngine().step();
-		//w->unlock();
-		//n->lock();
-		//if (srv->somethingChange() )
-		//	netcond->signal();
-		//n->unlock();
-
-		//Playable p = worldChanges->back();
-
-		for ( int i = 0 ; i < srv->jugadoresConectados ; i++){
-			printf("Sending data to client: %d",i);
-		}
-
-
-		//worldChanges->pop_back();
-		//n->unlock();
-
-	}
-
-	
-	return 0;	
-}
-
 
 
 bool Servidor::updateModel(Playable p){
@@ -346,7 +271,7 @@ int Servidor::wait4Connections(void* data){
 
 	int players = 0;
 	while (true){
-		Sleep(30);
+		Sleep(10);
 		while(srv->cantJugadores > srv->jugadoresConectados){
 			
 			Socket sClientO = srv->input.aceptar();
@@ -439,6 +364,7 @@ int Servidor::initClient(void* data){
 
 	datagram->type = INIT;
 	datagram->elements = srv->getGameEngine().getLevel()->getEntities().size();
+
 	aThreadData->clientI.sendmsg(*datagram);
 	datagram->type = INIT;
 	printf("\nElements at model: %d, already sended to the client", srv->getGameEngine().getLevel()->getEntities().size() );

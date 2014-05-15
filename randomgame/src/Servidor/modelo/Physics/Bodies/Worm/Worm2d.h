@@ -19,7 +19,9 @@ void jump();
 void moveLeft();
 void moveRight();
 void animate();
+void animate(bool update);
 virtual ~Worm2d();
+
 
 };
 

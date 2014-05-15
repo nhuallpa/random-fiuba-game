@@ -16,6 +16,7 @@ public:
 	void touch(Body* touchingWith, b2World* mundo);
 	void setPosition(float x, float y,float rot);
 
+
 private:
 	b2Body* createBody();
 };

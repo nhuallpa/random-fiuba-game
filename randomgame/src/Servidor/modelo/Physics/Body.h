@@ -45,6 +45,9 @@ public:
 	float masa;
 	b2Vec2 center;
 	b2World* myWorld;
+
+	float ox;
+	float oy;
 };
 
 #endif 
