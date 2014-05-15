@@ -166,7 +166,7 @@ int Servidor::stepOver(void* data){
 	int i=0;
 
 	while(true){
-		Sleep(60);
+		Sleep(30);
 		//One step into the world
 		w->lock();
 		srv->getGameEngine().step();
