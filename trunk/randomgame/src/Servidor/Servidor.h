@@ -69,6 +69,8 @@ class Servidor{
 
 		Servidor(int nroPuerto, size_t cantJugadores);
 
+		EDatagram worldQ;
+
 		void notifyUsersAboutPlayer(std::string playerID);
 
 		bool allConnected() const;
