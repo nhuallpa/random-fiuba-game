@@ -18,7 +18,7 @@ void WormActions::jump()
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
 	{
 				
-                float impulse = this->aWorm2d->getMass() * 80;
+                float impulse = this->aWorm2d->getMass() * 10;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
 				printf("\nQuiero saltar, can I?");
         }
