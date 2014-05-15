@@ -38,7 +38,13 @@ typedef struct{
 	int elements;
 } Datagram;
 
-
+typedef struct{
+	Playable play[15];
+	Player playerID;
+	StateConn playerState;
+	Messages type;
+	int elements;
+} EDatagram;
 
 class Socket
 {
@@ -59,6 +65,8 @@ public:
 	bool sendmsg(Messages type, std::vector<uint8_t> datos);
 	bool sendmsg(Datagram msg);
 	bool rcvmsg(Datagram &msg);
+	bool sendmsg(EDatagram msg);
+	bool rcvmsg(EDatagram &msg);
 	bool rcvmsg(Messages &type, std::vector<uint8_t> &datos);
 
 	void setListen (int tamCola);

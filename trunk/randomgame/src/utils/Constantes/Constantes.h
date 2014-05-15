@@ -53,8 +53,8 @@
 /** 1 Unidad logica equivale a 10 pixels*/
 #define ESCALA_UL2PX  10
 
-#define W_SCREEN_VIEW  600
-#define H_SCREEN_VIEW  600
+#define W_SCREEN_VIEW  400
+#define H_SCREEN_VIEW  400
 
 
 /**************************** Log ****************************/

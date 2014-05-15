@@ -200,10 +200,10 @@ void Socket::connect2(std::string hostname, uint16_t port)
     int error = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (error == SOCKET_ERROR)
     {
-        std::cout << "Server: Winsock Failed to begin!\n";
+        Log::e("Server: Winsock Failed to begin!\n");
         return;
     }
-	std::cout << "Server: WinSocket Started Correctly!\n";
+	Log::e("Server: WinSocket Started Correctly!\n");
 
 	this->usable = true;
 	
@@ -215,11 +215,11 @@ void Socket::connect2(std::string hostname, uint16_t port)
 	
 
 
-	char server_name[40] = "localhost";
-	struct hostent *server = gethostbyname(server_name);
+	//char server_name[40] = "localhost";
+	struct hostent *server = gethostbyname(hostname.c_str());
 	if (server == NULL) {
-		//Log::e("Couldn't find host: %s",hostname);
-		printf("Couldn't find host: %s",server_name);
+		Log::e("Couldn't find host: %s",hostname.c_str());
+		printf("Couldn't find host: %s",hostname.c_str());
 		//return;
 	}
 
@@ -389,4 +389,100 @@ int Socket::extraerFd ()
 {
 	usable = false;
 	return fd;
+}
+
+
+
+
+// ********************************************************************************************************
+
+bool Socket::rcvmsg (EDatagram &msg){
+
+	char buffer[MAX_MESSAGE_SIZE];
+	size_t retries = 0;
+	unsigned long messageSize;
+    
+	int nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
+
+	if (nBytes == SOCKET_ERROR){
+		return false;
+	}
+	
+	messageSize = ntohl(messageSize); 
+	//printf("\nGet %d bytes",messageSize);
+
+	while(retries < 3){
+		int nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
+		//printf("\nGetted %d bytes of 4096",nBytes);
+		if (nBytes == SOCKET_ERROR) {
+			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
+				retries++;
+				Sleep(10);
+				//printf("\nRe-trying");
+				continue;
+			}
+			Log::e("\nError getting message body");
+			return false;
+		}
+		break;
+
+	}
+	//printf("\nOK");
+	memcpy(&msg,buffer,messageSize);
+	
+	//Log::i("\nbuffer player: %s, at pos: %d, %d",msg.playerID.c_str(),msg.play.x, msg.play.y );
+
+	return true;
+	
+}
+
+
+bool Socket::sendmsg(EDatagram msg){
+
+	size_t retries = 0;
+	char buffer[MAX_MESSAGE_SIZE];
+	unsigned long messageSize = sizeof(msg);
+	unsigned long datagramSize = htonl(messageSize); 
+	int nBytes;
+
+	nBytes = send(fd, (char*)&datagramSize, sizeof(datagramSize), 0);
+
+    if (nBytes == SOCKET_ERROR)
+    {
+        printf( "Client: Failed to send message size\n");
+		return false;
+    }
+
+
+	if (!messageSize) {
+		
+		printf("Sending empty message");
+		return false;
+
+	}
+	printf("Send Bytes:  %d",messageSize);
+
+
+	memcpy(&buffer,&msg,messageSize);
+
+	while(retries < 3){
+		nBytes = send(fd, buffer, messageSize, 0);
+		//printf("\n Client send %d bytes",nBytes);
+		if (nBytes == SOCKET_ERROR)
+		{
+			printf("Client: failed to send it at first attempt.\n");
+
+			if (errno == EAGAIN || errno == EWOULDBLOCK){
+				Sleep(10);
+				retries++;
+				continue;
+			}
+			return false;
+		}
+		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
+		return true;
+	}
+	printf("Client: Failed to send after several retries.\n");
+	return false;
+
 }
