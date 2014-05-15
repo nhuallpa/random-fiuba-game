@@ -4,6 +4,7 @@
 #define __WORMVIEW_H__
 #include "TextureManager.h"
 #include "View.h"
+#include "TextView.h"
 #include "Sprite.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../controlador/Contracts/OnMovementListener.h"
@@ -29,11 +30,15 @@ class WormView: public View, public OnMovementListener
 	Sprite spriteWalk;
 	Sprite spriteJump;
 
+	TextView labelUsuario;
+
 	bool gray;
 
 	std::string player;
 	unsigned long color;
 
+	SDL_Color white;
+	SDL_Color green;
 	
 public:
 	WormView(int id);
@@ -64,6 +69,10 @@ public:
 	void setColor(unsigned long color);
 	void setPlayer(std::string player);
 
+	int getXCenter();
+	int getYCenter();
+
+	void setUserLabel(std::string text, SDL_Renderer* renderer, TTF_Font* font);
 
 	~WormView(void);
 

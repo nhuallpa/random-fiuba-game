@@ -210,6 +210,9 @@
     <ClCompile Include="..\src\Cliente\vista\StateBarView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\TextView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -390,6 +393,9 @@
       <Filter>Archivos de código fuente\server\model</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\StateBarView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\TextView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>

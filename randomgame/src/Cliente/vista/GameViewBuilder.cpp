@@ -3,8 +3,8 @@
 
 
 
-GameViewBuilder::GameViewBuilder(GameController* cController, GameDomain* domain)
-	: cController(cController), domain(domain)
+GameViewBuilder::GameViewBuilder(GameController* cController, GameDomain* domain, SDLScreen * screen)
+	: cController(cController), domain(domain), screen(screen)
 {
 	gameView = NULL;
 }
@@ -209,6 +209,9 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 
 		aWorm->setColor(this->getDomain()->getPlayerColor(domainElement->getPlayerID()));
 		aWorm->setPlayer(domainElement->getPlayerID());
+		aWorm->setUserLabel(domainElement->getPlayerID(), this->screen->getRenderer(), this->screen->getFont());
+
+
 		try 
 		{
 			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
