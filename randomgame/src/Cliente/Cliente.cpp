@@ -1,21 +1,7 @@
+
 #include "./Cliente.h"
 
 
-
-//
-//Cliente::Cliente(Servidor* server)
-//	: input(Socket())
-//	, output(Socket())
-//	, pl()
-//	, localChanges()
-//	, networkChanges()
-//	, m()
-//	, n()
-//	, somethingToTell(m)
-//	, somethingToUpdate(n)
-//{
-//	this->server = server;
-//}
 
 Cliente::~Cliente(void){
 
@@ -36,10 +22,10 @@ void Cliente::loop(void){
 	bool quit = false;
 
 	bootstrap.init();
-	//GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain);
+
 	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain, &bootstrap.getScreen());
 	builder->setPlayerID(this->pl);
-	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController);
+	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController, this->pl);
 	this->gameActivity = static_cast<GameActivity*> (currentActivity);
 	
 	
@@ -62,7 +48,7 @@ void Cliente::loop(void){
 		SDL_framerateDelay(&fpsManager);
 	}
 	cController.destroy();
-	bootstrap.getScreen().terminate();
+	bootstrap.shoutDown();
 	delete currentActivity;
 	delete builder;
 
@@ -82,16 +68,6 @@ bool Cliente::run(){
 void Cliente::destroyWorld(void){
 	//TODO: Destructor
 }
-
-
-
-//
-//bool Cliente::connect2server(Servidor* server){
-//	this->cLevel = server->getLevel();
-//	//this->cController = GameController(&this->cLevel);
-//	
-//	return true;
-//}
 
 
 Uint32 Cliente::time_left(void)
@@ -121,21 +97,6 @@ void Cliente::runGame(){
 	
 	//this->server->getGameEngine().step();
 }
-/*
-void Cliente::stopGame(){
-	Log::i("Detencion de secuencia");
-	bootstrap.getScreen().setState("Juego Pausado");
-}*/
-/*
-void Cliente::iniGame(){
-	//TODO: Regenerar el mundo
-	Log::i("RE-Inicio de secuencia");
-	bootstrap.getScreen().setState("Juego Reiniciado");
-	this->server->getGameEngine().reInitWorld();
-	currentActivity->update();
-	currentActivity->render();
-}
-*/
 
 
 /************************ Start Network Client Side code *************************/

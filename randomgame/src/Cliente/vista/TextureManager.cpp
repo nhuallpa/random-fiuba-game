@@ -7,6 +7,22 @@ TextureManager::TextureManager(void) {
 	this->firstTime = true;
 }
 
+void TextureManager::init(int w, int h, std::map<std::string, std::string> map_images, SDL_Renderer * renderer)
+{
+	Log::i("TextureManager: Iniciando");
+	TextureManager::Instance().setScreenSize(w, h);
+	std::map<std::string, std::string>::iterator it;
+	for (it=map_images.begin(); it!=map_images.end(); ++it) {
+		try 
+		{
+			TextureManager::Instance().load(it->second.c_str(), it->first.c_str(), renderer);
+		} catch (GameException & e) 
+		{
+			Log::e(BOOT, e.what());		
+		}
+	}
+}
+
 TextureManager::~TextureManager(void)
 {
 	std::map<std::string, SDL_Texture*>::iterator iter;

@@ -8,23 +8,21 @@ WormView::WormView(int id)
 	this->selected = false;
 	this->gray = false;
 	this->color = COLOR_VERDE;
-}
-
-void WormView::setUserLabel(std::string text, SDL_Renderer* renderer, TTF_Font* font)
-{
-	
 	white.a = 0xFF;
 	white.r = 0xFF;
 	white.g = 0xFF;
 	white.b = 0xFF;
 
-	green.a = 0xFF;
-	green.r = 0x00;
-	green.g = 0xFF;
-	green.b = 0x00;
-	
+}
 
-	labelUsuario.loadFromRenderedText(text, white, renderer,  font);
+void WormView::setUserLabel(std::string text)
+{
+	labelUsuario.setText(text, white);
+}
+
+void WormView::setName(std::string text)
+{
+	labelNombre.setText(text, white);
 }
 
 
@@ -62,21 +60,6 @@ void WormView::update()
 void WormView::draw(SDLScreen & screen)
 { 
 	
-	char buffer[50];
-	char buffer2[50];
-	char buffer3[50];
-	/*if (this->isSelected()) 
-		this->putGrey();
-	else 
-		this->quitGrey();*/
-	
-	strcpy(buffer3,this->player.c_str());
-
-	strcpy(buffer,"Worm ");
-	itoa(this->id,buffer2,10);
-	strcat(buffer,buffer2);
-
-	
 	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
 										this->getXCenter(), 
 										this->getYCenter(), 
@@ -91,18 +74,10 @@ void WormView::draw(SDLScreen & screen)
 	 
 	if (this->isSelected())
 	{
-		/*TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter() - 8,buffer3,0xFFFFFFFF);
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter(),buffer,0xFFFFFFFF);*/
-		labelUsuario.setColor(green.r,green.g,green.b);
+		labelUsuario.draw(screen.getRenderer(),this->getXCenter(), this->getYCenter()-9);
+		labelNombre.draw(screen.getRenderer(),this->getXCenter(), this->getYCenter());
 	}
-	else
-	{
-		/*TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter() - 8,buffer3,this->color);
-		TextureManager::Instance().drawText(screen.getRenderer(),this->getXCenter(),this->getYCenter(),buffer,this->color);*/
-		labelUsuario.setColor(white.r,white.g,white.b);
-	}
-
-	labelUsuario.draw(screen.getRenderer(),this->getXCenter(), this->getYCenter());
+	
 }
 
 bool WormView::isSelected(){
@@ -147,6 +122,10 @@ void WormView::setColor(unsigned long color){
 }
 void WormView::setPlayer(std::string player){
 	this->player = player;
+}
+
+std::string WormView::getPlayer(){
+	return this->player;
 }
 
 int WormView::getXCenter()

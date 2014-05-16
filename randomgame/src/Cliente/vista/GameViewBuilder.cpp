@@ -205,11 +205,13 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 		/*esta linea hay que borrarla, es caca*/
 		//this->domain->setPlayerState("usuario",DISCONNECTED,COLOR_AMARILLO);
 		/**************************************/
-
+		std::stringstream name;
+		name<<"Worm "<< domainElement->getId();
 
 		aWorm->setColor(this->getDomain()->getPlayerColor(domainElement->getPlayerID()));
 		aWorm->setPlayer(domainElement->getPlayerID());
-		aWorm->setUserLabel(domainElement->getPlayerID(), this->screen->getRenderer(), this->screen->getFont());
+		aWorm->setUserLabel(domainElement->getPlayerID());
+		aWorm->setName(name.str());
 
 
 		try 

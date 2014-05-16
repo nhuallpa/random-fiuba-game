@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef __TEXTURE_MANAGER__
 #define __TEXTURE_MANAGER__
 #include <SDL.h>
@@ -50,6 +48,8 @@ public:
 			static TextureManager theTextureManager;
 			return theTextureManager;
 	}
+
+	void init(int w, int h, std::map<std::string, std::string> map_images, SDL_Renderer * renderer);
 
 	void setScreenSize(int w, int h);
 

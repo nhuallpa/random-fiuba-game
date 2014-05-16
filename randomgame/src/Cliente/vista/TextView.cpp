@@ -14,18 +14,19 @@ TextView::~TextView()
 }
 
 
-bool TextView::loadFromRenderedText( std::string textureText, SDL_Color textColor, SDL_Renderer* renderer, TTF_Font* font)
+bool TextView::setText( std::string textureText, SDL_Color textColor)
 {
 	free();
 
-	SDL_Surface* textSurface = TTF_RenderText_Solid( font, textureText.c_str(), textColor );
+	SDL_Surface* textSurface = TTF_RenderText_Solid( FontManager::Instance().getFont("arial"), 
+													textureText.c_str(), textColor );
 	if( textSurface == NULL )
 	{
 		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
 	}
 	else
 	{
-        mTexture = SDL_CreateTextureFromSurface( renderer, textSurface );
+        mTexture = SDL_CreateTextureFromSurface( FontManager::Instance().getRenderer(), textSurface );
 		if( mTexture == NULL )
 		{
 			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
@@ -36,7 +37,6 @@ bool TextView::loadFromRenderedText( std::string textureText, SDL_Color textColo
 			mHeight = textSurface->h;
 		}
 
-		//Get rid of old surface
 		SDL_FreeSurface( textSurface );
 	}
 	
@@ -45,7 +45,6 @@ bool TextView::loadFromRenderedText( std::string textureText, SDL_Color textColo
 
 void TextView::free()
 {
-	//Free texture if it exists
 	if( mTexture != NULL )
 	{
 		SDL_DestroyTexture( mTexture );
@@ -57,19 +56,16 @@ void TextView::free()
 
 void TextView::setColor( Uint8 red, Uint8 green, Uint8 blue )
 {
-	//Modulate texture rgb
 	SDL_SetTextureColorMod( mTexture, red, green, blue );
 }
 
 void TextView::setBlendMode( SDL_BlendMode blending )
 {
-	//Set blending function
 	SDL_SetTextureBlendMode( mTexture, blending );
 }
 		
 void TextView::setAlpha( Uint8 alpha )
 {
-	//Modulate texture alpha
 	SDL_SetTextureAlphaMod( mTexture, alpha );
 }
 

@@ -3,6 +3,7 @@
 #define __TERRAIN_VIEW__
 #include "View.h"
 #include "PolygonView.h"
+
 class TerrainView :
 	public View
 {
