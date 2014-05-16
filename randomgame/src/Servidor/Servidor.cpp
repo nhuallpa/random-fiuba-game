@@ -354,12 +354,14 @@ int Servidor::initClient(void* data){
 
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
-	datagram->type = CONF;
-	std::strcpy(datagram->play[0].level,"level.yaml");
+	//datagram->type = CONF;
+	//std::strcpy(datagram->play[0].level,"level.yaml");
 
-	//Send World info to client (LEVEL)
-	aThreadData->clientI.sendmsg(*datagram);
-	printf("\nEnviando data (level) al cliente");
+	////Send World info to client (LEVEL)
+	//aThreadData->clientI.sendmsg(*datagram);
+	//printf("\nEnviando data (level) al cliente");
+
+	aThreadData->clientI.sendFile("res/levels/level.yaml");
 
 
 	datagram->type = INIT;

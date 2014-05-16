@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <windows.h>
+#include <sys/stat.h>
 
 Socket::Socket()
 	: usable(false)
@@ -485,4 +486,88 @@ bool Socket::sendmsg(EDatagram msg){
 	printf("Client: Failed to send after several retries.\n");
 	return false;
 
+}
+
+
+bool Socket::sendFile(std::string path){
+
+	FILE *file = fopen(path.c_str(), "rb");
+	
+	struct stat stat_buf;
+    int rc = stat(path.c_str(), &stat_buf);
+
+	if (!file){
+		fclose (file);
+		return false;
+	}
+
+	//fseek( file, 0, SEEK_END );
+
+	printf("File Size: \n%d bytes\n", stat_buf.st_size);
+
+
+
+	unsigned long datagramSize = htonl( stat_buf.st_size ); 
+	int nBytes;
+
+	nBytes = send(fd, (char*)&datagramSize, sizeof(datagramSize), 0);
+
+    if (nBytes == SOCKET_ERROR)
+    {
+        printf( "Client: Failed to send message size\n");
+		return false;
+    }
+
+
+    char buffer[4096];
+    //buffer = new char[size];
+ 
+    fread(buffer, sizeof(buffer[0]), stat_buf.st_size, file);
+
+	nBytes = send(fd, buffer, stat_buf.st_size, 0);
+	printf("\nSended %d Bytes of YAML",nBytes);
+	(!nBytes) ? true : false;
+}
+
+
+bool Socket::receiveFile(std::string path){
+
+	FILE *file = fopen(path.c_str(), "wb");
+ 
+    int retries = 0;
+	unsigned long messageSize;
+    
+	int nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
+
+	if (nBytes == SOCKET_ERROR){
+		return false;
+	}
+	
+	messageSize = ntohl(messageSize);
+ 
+    char buffer[4096];
+    //buffer = new char[messageSize];
+ 
+    while(retries < 3){
+		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
+		//printf("\nGetted %d bytes of 4096",nBytes);
+		if (nBytes == SOCKET_ERROR) {
+			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
+				retries++;
+				Sleep(10);
+				//printf("\nRe-trying");
+				continue;
+			}
+			Log::e("\nError getting message body");
+			return false;
+		}
+		break;
+	}
+	
+	//fprintf(file, buffer);
+    fwrite(&buffer, sizeof(char), nBytes, file);
+    fclose(file);
+
+
+	return true;
 }
