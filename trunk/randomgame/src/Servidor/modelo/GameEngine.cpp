@@ -271,7 +271,7 @@ bool GameEngine::step(){
 		++it;
 	}
 
-
+	//this->myWorld->ClearForces();
 
 	return true;
 }

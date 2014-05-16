@@ -39,10 +39,12 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &boxShape;
 	boxFixtureDef.density = 1;
+	boxFixtureDef.friction = 0.5;
+	boxFixtureDef.restitution = 0;
 	dynamicBody->CreateFixture(&boxFixtureDef);
 
 	this->body->SetTransform( body->GetPosition(), angle*DEGTORAD );
-
+	this->body->SetFixedRotation(true);
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
 	//this->GetVertex();

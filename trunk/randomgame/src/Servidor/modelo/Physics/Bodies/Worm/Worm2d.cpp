@@ -10,6 +10,7 @@ Worm2d::Worm2d(ElementType type, float posX, float posY, float h,
 	//this->oy = static_cast<GameElement*>(this->body->GetUserData())->getPosition().second;
 	this->ox = this->body->GetPosition().x;
 	this->oy = this->body->GetPosition().y;
+	
 }
 void Worm2d::jump()
 {
