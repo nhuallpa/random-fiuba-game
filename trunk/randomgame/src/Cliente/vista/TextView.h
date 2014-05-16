@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string.h>
 #include "TextureManager.h"
-
+#include "FontManager.h"
 
 
 class TextView
@@ -21,7 +21,7 @@ class TextView
 
 
 
-		bool loadFromRenderedText( std::string textureText, SDL_Color textColor, SDL_Renderer* renderer, TTF_Font* font);
+		bool setText( std::string textureText, SDL_Color textColor);
 
 		void free();
 

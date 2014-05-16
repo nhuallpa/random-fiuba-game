@@ -17,23 +17,14 @@ void Bootstrap::init()
 	{
 		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
 	} 
-	TextureManager::Instance().setScreenSize(w, h);
 
+	
 	std::map<std::string, std::string> map_images;
 	map_images["sky"] = aParser->getEscenarioCielo();
 	map_images["eart"] = aParser->getEscenarioTierra();
 
-	std::map<std::string, std::string>::iterator it;
-	for (it=map_images.begin(); it!=map_images.end(); ++it) {
-		try 
-		{
-			TextureManager::Instance().load(it->second.c_str(), it->first.c_str(), this->getScreen().getRenderer());
-		} catch (GameException & e) 
-		{
-			Log::e(BOOT, e.what());		
-		}
-	}
-
+	FontManager::Instance().init(this->getScreen().getRenderer());
+	TextureManager::Instance().init(w,h,map_images,this->getScreen().getRenderer());
 	loadSprites();
 	initCamera(w, h);
 	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
@@ -58,7 +49,6 @@ void Bootstrap::loadSprites()
 	// todo: levantar la configuracion de los sprite del yaml
 	try 
 		{
-			
 			TextureManager::Instance().load("res/images/wwalk.png", "wwalk", this->getScreen().getRenderer());
 			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 0);
 
@@ -79,5 +69,6 @@ Bootstrap::~Bootstrap(void)
 
 void Bootstrap::shoutDown()
 {
-	
+	FontManager::Instance().closeFonts();
+	getScreen().terminate();
 }

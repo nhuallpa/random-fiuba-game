@@ -10,7 +10,7 @@
 #include "SDLScreen.h"
 #include "TextureManager.h"
 #include "SpriteConfigurator.h"
-
+#include "FontManager.h"
 
 #include "../../utils/ParserYaml.h"
 

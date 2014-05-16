@@ -24,8 +24,6 @@ private:
 
 	Camera * refCam;
 
-	TTF_Font *gFont;
-
 public:
 	
 	SDLScreen(void);
@@ -46,8 +44,6 @@ public:
 
 	SDL_Renderer* getRenderer();
 
-
-	TTF_Font * getFont() { return this->gFont;}
 
 	~SDLScreen(void);
 };

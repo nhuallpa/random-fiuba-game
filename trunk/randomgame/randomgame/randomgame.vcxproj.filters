@@ -213,6 +213,9 @@
     <ClCompile Include="..\src\Cliente\vista\TextView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\FontManager.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -396,6 +399,9 @@
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\TextView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\FontManager.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>

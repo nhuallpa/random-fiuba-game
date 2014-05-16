@@ -31,6 +31,7 @@ class WormView: public View, public OnMovementListener
 	Sprite spriteJump;
 
 	TextView labelUsuario;
+	TextView labelNombre;
 
 	bool gray;
 
@@ -38,7 +39,6 @@ class WormView: public View, public OnMovementListener
 	unsigned long color;
 
 	SDL_Color white;
-	SDL_Color green;
 	
 public:
 	WormView(int id);
@@ -52,7 +52,8 @@ public:
 	void draw(SDLScreen & screen);
 
 	int getId() {return this->id;}
-	
+	std::string getPlayer();
+
 	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
 
@@ -72,7 +73,8 @@ public:
 	int getXCenter();
 	int getYCenter();
 
-	void setUserLabel(std::string text, SDL_Renderer* renderer, TTF_Font* font);
+	void setUserLabel(std::string text);
+	void WormView::setName(std::string text);
 
 	~WormView(void);
 

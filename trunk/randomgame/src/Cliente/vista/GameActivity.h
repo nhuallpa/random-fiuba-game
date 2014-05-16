@@ -19,17 +19,19 @@ private:
 	//std::map<int,GameElement*> domainElements;
 	GameController* cController;
 	GameViewBuilder* builder;
+
+
 	
+	std::string playerId;
+
 	/*para calcular el zoom*/
-
-
 	int wormIdSelected;
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
 public:
 //	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
 
-	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController);
+	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController, std::string playerId);
 
 	void buildView( GameViewBuilder & builder);
 

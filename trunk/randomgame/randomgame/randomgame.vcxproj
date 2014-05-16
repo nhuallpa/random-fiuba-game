@@ -91,6 +91,7 @@
     <ClCompile Include="..\src\Cliente\vista\EartView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\FontManager.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\src\Cliente\vista\EartView.h" />
     <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
+    <ClInclude Include="..\src\Cliente\vista\FontManager.h" />
     <ClInclude Include="..\src\Cliente\vista\GameView.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\HexagonView.h" />

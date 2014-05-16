@@ -3,21 +3,12 @@
 #define WORM_H 30
 
 
-//GameActivity::GameActivity(const SDLScreen & screen, 
-//							GameViewBuilder & builder, 
-//							GameLevel * cLevel,
-//							GameController* cController)
-//							:Activity(screen), cLevel(cLevel), cController(cController)
-//{
-//	this->buildView(builder);
-//	this->setContentView(builder.getGameView());
-//	this->setListeners();
-//}
 
 GameActivity::GameActivity(SDLScreen & screen, 
 							GameViewBuilder & builder, 
-							GameController* cController)
-							:Activity(screen), cController(cController)
+							GameController* cController,
+							std::string playerId)
+							:Activity(screen), cController(cController), playerId(playerId)
 {
 	this->buildView(builder);
 	this->setContentView(builder.getGameView());
@@ -99,7 +90,10 @@ void GameActivity::selectWorm(WormView* aWorm)
 {
 	this->wormIdSelected = aWorm->getId();
 	aWorm->select();
-	this->cController->addListener(aWorm);
+	if (this->playerId.compare(aWorm->getPlayer()) == 0)
+	{
+		this->cController->addListener(aWorm);
+	}
 }
 
 
