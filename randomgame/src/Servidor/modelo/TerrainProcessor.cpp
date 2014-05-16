@@ -67,7 +67,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			b2BodyDef myBodyDef;
 			myBodyDef.type = b2_staticBody; //this will be a static body
 			myBodyDef.position.Set(0, 0); //in the middle
-			myFixtureDef.friction=2;
+			myFixtureDef.friction=0.6;
 			
 			myFixtureDef.userData = ( (void*)2 );
 			m_attachment = m_world->CreateBody(&myBodyDef);
