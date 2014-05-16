@@ -64,6 +64,9 @@ public:
 	void connect2 (std::string hostname, uint16_t port);
 	bool sendmsg(Messages type, std::vector<uint8_t> datos);
 	bool sendmsg(Datagram msg);
+	bool sendFile(std::string path);
+	bool receiveFile(std::string path);
+	
 	bool rcvmsg(Datagram &msg);
 	bool sendmsg(EDatagram msg);
 	bool rcvmsg(EDatagram &msg);

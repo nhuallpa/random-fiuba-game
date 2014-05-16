@@ -385,14 +385,16 @@ void Cliente::getRemoteWorld() {
 		return;
 	}
 
-	//printf("\nSTART - Retrieving data from server");
-	if (!this->input.rcvmsg(*msg)) {
-		//Log::e("connection error");
-		printf("\nClient: connection error - Server disconnected/not responding");
-		return;
-	}
+	////printf("\nSTART - Retrieving data from server");
+	//if (!this->input.rcvmsg(*msg)) {
+	//	//Log::e("connection error");
+	//	printf("\nClient: connection error - Server disconnected/not responding");
+	//	return;
+	//}
 	//printf("\nDONE - Retrieving data from server, level: %s", msg->play.level);
 	//TODO SET LEVEL ON CLIENT
+
+	this->input.receiveFile("res/levels/clienteyaml.yaml");
 
 
 	if (!this->input.rcvmsg(*msg)) {
