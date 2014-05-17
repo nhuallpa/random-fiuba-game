@@ -497,7 +497,9 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	datagram->playerID = playerId;
 	datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
 
-	//Por cada cliente le envio los cambios
+	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);
+	datagram->elements = el;
+
 	std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
 	std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
 
