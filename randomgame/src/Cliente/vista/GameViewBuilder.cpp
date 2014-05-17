@@ -14,6 +14,8 @@ GameViewBuilder::GameViewBuilder(GameController* cController, GameDomain* domain
 GameViewBuilder::~GameViewBuilder(void)
 {
 	if (gameView) delete gameView;
+
+	//TODO: Liberar gameDomain??????????????????????
 }
 
 

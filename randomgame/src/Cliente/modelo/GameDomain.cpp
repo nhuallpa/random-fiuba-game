@@ -4,7 +4,7 @@ GameDomain::GameDomain(){
 }
 		
 GameDomain::~GameDomain(void){
-	
+	//TODO: Liberar game element?
 }
 
 void GameDomain::updateElement(int id, float posX, float posY){

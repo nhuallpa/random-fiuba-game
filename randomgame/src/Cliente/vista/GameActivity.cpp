@@ -34,7 +34,6 @@ void GameActivity::buildView( GameViewBuilder & builder)
 void GameActivity::update() 
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	//ARIEL: Refactor grande, ver si no rompi :)
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	
 	std::map<int,GameElement>::iterator it;
@@ -120,15 +119,6 @@ bool GameActivity::hasClickedWorm(SDL_Point clickPoint)
 		if (domainElement.getType() == WORM){
 			WormView* aWorm = gameView->findWormById(domainElement.getId());
 			if (aWorm != NULL){
-				/*
-				// todo: corregir este RECT usando el 
-				Camera cam = TextureManager::Instance().getCamera();
-				SDL_Rect wormRect;
-				wormRect.x = aWorm->getX()-(WORM_W/2)-cam.getX(); // deberia se el centroide
-				wormRect.y = aWorm->getY()-(WORM_H/2)-cam.getY();  // deberia se el centroide
-				wormRect.w = WORM_W;   // tomar alto de constant y usar centroide
-				wormRect.h = WORM_H;  // tomar ancho de constant y usar centroide
-				*/
 				SDL_Rect wormRect;
 				this->calcRectPosition(wormRect,aWorm);
 				if (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))
@@ -190,4 +180,15 @@ void GameActivity::setListeners(SDLScreen &  screen)
 	this->cController->addListener(&TextureManager::Instance().getCamera());
 	this->cController->addListener(this);
 	this->cController->addListener(&screen);
+}
+
+
+void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y) 
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	GameElement aGameElem(id, playerID, WORM, x, y, 0, 0, 0, 0, false);
+	this->builder->getDomain()->addElementToDomain(aGameElem);
+	WormView* aWormView = this->builder->createWorm(&aGameElem);
+	gameView->getWormContainer()->add(aWormView);
+
 }

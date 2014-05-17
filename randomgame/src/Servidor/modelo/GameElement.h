@@ -65,6 +65,7 @@ public:
 	std::string playerID;
 
 	std::string getPlayerID() {return this->playerID; }
+	void setPlayerID(std::string playerId) {this->playerID = playerId;}
 
 	bool isGrounded(){ return this->grounded; }
 	void setGrounded(bool b){ this->grounded = b; }

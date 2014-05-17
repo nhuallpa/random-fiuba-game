@@ -41,17 +41,19 @@ class GameViewBuilder
 	GameDomain* domain;
 
 
-	WormView* createWorm(GameElement * domainElement);
+	
 
 public:
 
 	GameDomain* getDomain(){ return this->domain;}
 
-	//GameViewBuilder(GameLevel * cLevel);
 	GameViewBuilder(GameController* cController, GameDomain* domain, SDLScreen * screen);
 	~GameViewBuilder(void);
 
 	std::string getPlayerID() { return this->playerID; }
+
+	WormView* createWorm(GameElement * domainElement);
+
 	void setPlayerID(std::string  playerID){ this->playerID = playerID; }
 	
 	void buildContainer();
@@ -69,10 +71,6 @@ public:
 	void buildEart();
 
 	void buildStateBar();
-
-	//void addElementToDomain(GameElement worm);
-
-//	std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
 
 	GameView* getGameView() { return this->gameView;} 
 
