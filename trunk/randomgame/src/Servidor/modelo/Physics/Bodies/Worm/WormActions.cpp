@@ -31,22 +31,42 @@ void WormActions::jump()
 
 void WormActions::moveLeft()
 {
-	//aplicar fuerza hacia la izquierda
-	//if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
-	//{
-		//this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x - deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
+	
+	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
+	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
+	printf("\nGoinf LEFT, Normal X,Y: (%f,%f)",nx,ny);
+	
+	//if ( !nx ){
+		// Esta en el plano sin inclinacion
+		this->aWorm2d->body->ApplyForce( b2Vec2(-65,0), this->aWorm2d->body->GetWorldCenter() );
 	//}
-	this->aWorm2d->body->ApplyForce( b2Vec2(-65,0), this->aWorm2d->body->GetWorldCenter() );
+
+	//if ( nx > 0 )
+	//	this->aWorm2d->body->ApplyForce( b2Vec2(65*ny,-65*nx),	this->aWorm2d->body->GetWorldCenter() );
+
+	//if ( nx < 0 )
+	//	this->aWorm2d->body->ApplyForce( b2Vec2(65*ny,-65*nx),	this->aWorm2d->body->GetWorldCenter() );
+	
 }
 
 void WormActions::moveRight()
 {
-	//aplicar fuerza hacia la derecha
-	//if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
-	//{
-		//this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x + deltaMovement,this->aWorm2d->getBody()->GetPosition().y,this->aWorm2d->getBody()->GetAngle());
+
+	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
+	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
+	printf("\nGoinf RIGHT, Normal X,Y: (%f,%f)",nx,ny);
+	
+	//if ( !nx ){
+		// Esta en el plano sin inclinacion
+		this->aWorm2d->body->ApplyForce( b2Vec2(65,0), this->aWorm2d->body->GetWorldCenter() );
 	//}
-	this->aWorm2d->body->ApplyForce( b2Vec2(65,0), this->aWorm2d->body->GetWorldCenter() );
+
+	//if ( nx > 0 )
+	//	this->aWorm2d->body->ApplyForce( b2Vec2(-65*ny,65*nx),	this->aWorm2d->body->GetWorldCenter() );
+
+	//if ( nx < 0 )
+	//	this->aWorm2d->body->ApplyForce( b2Vec2(-65*ny,65*nx),	this->aWorm2d->body->GetWorldCenter() );
+
 }
 
 WormActions::~WormActions()

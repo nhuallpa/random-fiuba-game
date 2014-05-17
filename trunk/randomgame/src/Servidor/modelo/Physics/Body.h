@@ -46,8 +46,10 @@ public:
 	b2Vec2 center;
 	b2World* myWorld;
 
+	// Posicion original X,Y cada 4 pasos se actualiza
 	float ox;
 	float oy;
+	
 };
 
 #endif 
