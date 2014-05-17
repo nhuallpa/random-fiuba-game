@@ -18,8 +18,8 @@ using namespace server_model_exp;
 class GameLevel {
 	private:
 
-		std::map<string, GamePlayer*> players;//TODO @future - std::list<GamePlayer*> players;
-		int amountUser;//TODO @future - Mutex jugadores;
+		std::map<string, GamePlayer*> players;
+		int amountUser;
 		int amountWorms;
 		int idUnique;
 		
@@ -27,13 +27,11 @@ class GameLevel {
 		void addUserIntoLevel(string user)
 			throw(PlayerExp);
 		
-		//TODO @future - Mutex game elements;
 
 		int levelHeight;
 		int levelWidth;
 		float waterLevel;
 
-		//ToDo @aliguo ID, map de gameelements
 		std::map<int,GameElement> modelElements;
 		std::map<int, GameElement*> entities;
 		TerrainProcessor* aTerrainProcessor;
@@ -66,6 +64,7 @@ class GameLevel {
 		//TODO @future - void removePlayer(GamePlayer *jugador);
 		void addPlayer(string user, GamePlayer *pg);//TODO @future - void addPlayer(GamePlayer *jugador);
 		GamePlayer *getPlayer(string user);
+		
 		// ESTE NO VA 
 		std::map<int,GameElement> getModelElements();
 
@@ -88,6 +87,9 @@ class GameLevel {
 
 		void disconnectPlayer(std::string playerID);
 		StateConn getPlayerStatus(std::string playerId);
+
+		int getWormsFromPlayer(std::string playerId,Playable* p);
+
 
 		int updateStep;
 

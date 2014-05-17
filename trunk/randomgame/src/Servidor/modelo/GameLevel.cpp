@@ -339,3 +339,40 @@ StateConn GameLevel::getPlayerStatus(std::string playerID){
 		
 }
 
+
+
+int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerId);
+	int i=0;
+
+	if ( it != this->players.end() ){
+		
+
+		std::vector<Worm*> copy = it->second->getWorms();
+		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++, i++){
+			
+			p[i].wormid = (*itW)->getId();
+			p[i].x = (*itW)->getPosition().first;
+			p[i].y = (*itW)->getPosition().second;
+
+		}
+
+
+	}
+
+	return (i+1);
+
+}
+
+
+
+
+
+
+
+
+
+
+
