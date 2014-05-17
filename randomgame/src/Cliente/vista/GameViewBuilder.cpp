@@ -170,7 +170,7 @@ void GameViewBuilder::buildTerrain()
 
 void GameViewBuilder::buildCharacters()
 {
-
+	WormViewGroup* aWormGroup = new WormViewGroup(0,0);
 	std::map<int,GameElement>::iterator it;
 
 	for (it = this->domain->getDomainElements()->begin(); it != this->domain->getDomainElements()->end(); ++it)
@@ -180,12 +180,10 @@ void GameViewBuilder::buildCharacters()
 		if (domainElement.getType() == WORM) 
 		{
 			WormView* aWorm = createWorm(&domainElement);
-			this->gameView->putWorm(aWorm->getId(), aWorm);
+			aWormGroup->add(aWorm);
 		} 
 	}
-	
-	// todo: obtener los id de sprite del yaml
-	
+	this->gameView->setWormContainer(aWormGroup);
 }
 
 void GameViewBuilder::buildStateBar()

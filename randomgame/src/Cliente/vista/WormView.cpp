@@ -98,7 +98,6 @@ void WormView::quitGrey(){this->gray = false;}
 
 void WormView::OnMovement(MovementEvent e){
 
-
 	if (e.x == 1) // derecha
 	{
 		this->state = WORM_VIEW_DOING;
@@ -116,10 +115,10 @@ void WormView::OnMovement(MovementEvent e){
 
 }
 
-
 void WormView::setColor(unsigned long color){
 	this->color = color;
 }
+
 void WormView::setPlayer(std::string player){
 	this->player = player;
 }

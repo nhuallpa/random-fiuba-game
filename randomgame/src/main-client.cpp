@@ -24,14 +24,11 @@ bool checkArgument(int argc, char* argv[]) {
 **/
 int main(int argc, char* argv[]) {
 	
-
+	Log::logSide = LOG_CLIENT;
 	if (checkArgument(argc, argv)) {
 		std::string userId = argv[1];
 		std::string serverIp = argv[2];
 		int serverPort = atoi(argv[3]);
-		// ya no debo hacer esto
-		std::string path = DEFAULT_YAML_LEVEL;
-		ParserYaml* aParser = ParserYaml::getInstance(path);
 
 		Cliente* aClient = new Cliente(userId, serverIp.c_str(), serverPort);
 

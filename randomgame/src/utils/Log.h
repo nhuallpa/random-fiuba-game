@@ -21,6 +21,11 @@
 //#include "Constantes\Constantes.h"
 #include "../utils/Util.h"
 
+enum LogSide{
+	LOG_SERVER,
+	LOG_CLIENT,
+};
+
 
 enum TipoLog{
 	TRACE=0,
@@ -54,6 +59,8 @@ public:
 	Log(void);
 	virtual ~Log(void);
 	
+	static LogSide logSide;
+
 	static Log & Instance(){
 			static Log logger;
 			return logger;

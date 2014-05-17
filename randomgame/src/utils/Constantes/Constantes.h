@@ -37,7 +37,7 @@
 #define EXIT_BUTTON "exit"
 #define LOAD_BACK_BUTTON "loadButton"
 
-#define DEFAULT_YAML_LEVEL "res/levels/level.yaml"
+#define DEFAULT_YAML_LEVEL "res/levels/clienteyaml.yaml"
 #define CONFIG_FILE "config/config.yaml"
 
 
@@ -52,10 +52,6 @@
 
 /** 1 Unidad logica equivale a 10 pixels*/
 #define ESCALA_UL2PX  10
-
-#define W_SCREEN_VIEW  400
-#define H_SCREEN_VIEW  400
-
 
 /**************************** Log ****************************/
 #define LOG_RUTA "./DI_Log.txt"
