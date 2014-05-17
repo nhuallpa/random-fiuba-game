@@ -16,7 +16,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 	
-
+	Log::logSide = LOG_SERVER;
 	std::string path = (argc > 1) ? argv[1] : DEFAULT_YAML_LEVEL;
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 

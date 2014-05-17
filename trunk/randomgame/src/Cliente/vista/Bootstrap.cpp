@@ -8,11 +8,13 @@ Bootstrap::Bootstrap(void)
 
 void Bootstrap::init() 
 {
-	
-	ParserYaml* aParser = ParserYaml::getInstance();
+	Log::i("Bootstrap: Iniciando");
+	std::string path = DEFAULT_YAML_LEVEL;
+	ParserYaml* aParser = ParserYaml::getInstance(path);
 
-	int w = W_SCREEN_VIEW;
-	int h = H_SCREEN_VIEW;
+	std::map<std::string,std::string> prop = Util::loadProperteries("config/client.properties");
+	int w = Util::string2int(prop["ventana.ancho"]);
+	int h = Util::string2int(prop["ventana.alto"]);
 	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);

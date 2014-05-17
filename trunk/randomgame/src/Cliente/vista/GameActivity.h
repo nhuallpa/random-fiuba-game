@@ -15,12 +15,9 @@
 class GameActivity : public Activity, public OnClickListener
 {
 private:
-	//GameLevel* cLevel;
-	//std::map<int,GameElement*> domainElements;
+
 	GameController* cController;
 	GameViewBuilder* builder;
-
-
 	
 	std::string playerId;
 
@@ -29,7 +26,6 @@ private:
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
 public:
-//	GameActivity(const SDLScreen & screen, GameViewBuilder & builder, GameLevel * cLevel, GameController* cController);
 
 	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController, std::string playerId);
 

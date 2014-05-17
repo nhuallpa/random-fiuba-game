@@ -20,11 +20,13 @@ void GameView::putFigure(int id, FigureView* figure)
 	figures[id] = figure;
 	this->add(figure);
 }
-void GameView::putWorm(int id, WormView* worm)
+
+void GameView::setWormContainer(WormViewGroup * wormViewGroup)
 {
-	worms[id] = worm;
-	this->add(worm);
+	this->wormViewGroup = wormViewGroup;
+	this->add(wormViewGroup);
 }
+
 void GameView::setEart(EartView* eart)
 {
 	this->eart = eart;
@@ -53,8 +55,6 @@ void GameView::setStateBar(StateBarView* stateBar)
 	this->add(stateBar);
 }
 
-
-
 FigureView* GameView::findFigureById(int idElement)
 	
 {
@@ -71,16 +71,7 @@ FigureView* GameView::findFigureById(int idElement)
 }
 WormView* GameView::findWormById(int idElement)
 {
-	if (worms.find(idElement) != worms.end())
-	{
-		return worms[idElement];
-	} 
-	else 
-	{
-		std::stringstream msg;
-		msg<<"GameView: not found worm view by id: "<<idElement;
-		throw GameException(msg.str());
-	}
+	return this->wormViewGroup->findById(idElement);
 }
 
 

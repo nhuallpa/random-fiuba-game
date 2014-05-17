@@ -11,6 +11,7 @@
 #include "TerrainView.h"
 #include "StateBarView.h"
 #include "WormView.h"
+#include "WormViewGroup.h"
 #include <map>
 #include <string>
 using std::map;
@@ -19,7 +20,11 @@ class GameView : 	public ViewGroup
 {
 private:
 	map<int, FigureView*> figures;
-	map<int, WormView*> worms;
+	
+
+
+	WormViewGroup * wormViewGroup;
+
 	EartView* eart;
 	SkyView* sky;
 	WaterView* water;
@@ -30,7 +35,7 @@ public:
 	GameView(int x, int y, int width, int height);
 
 	void putFigure(int id, FigureView* figure);
-	void putWorm(int id, WormView* worm);
+	void setWormContainer(WormViewGroup * wormViewGroup);
 	void setEart(EartView* eart);
 	void setSky(SkyView* sky);
 	void setWater(WaterView* water);

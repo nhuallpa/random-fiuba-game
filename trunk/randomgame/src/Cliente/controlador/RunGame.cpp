@@ -194,9 +194,12 @@ void RunGame::loadQuadrantFactory(){
 	s9->id = QUADRANT_9;
 
 	//seteo rangos
-	ParserYaml* aParser = ParserYaml::getInstance();
-	this->WIDTH = W_SCREEN_VIEW;
-	this->HIGHT = H_SCREEN_VIEW;
+	std::map<std::string,std::string> prop = Util::loadProperteries("config/client.properties");
+	int w = Util::string2int(prop["ventana.ancho"]);
+	int h = Util::string2int(prop["ventana.alto"]);
+
+	this->WIDTH = w;
+	this->HIGHT = h;
 
 	s1->xFrom = 0, s1->xTo = DELTA, s1->yFrom = 0, s1->yTo = DELTA;
 	s2->xFrom = WIDTH - DELTA, s2->xTo = WIDTH, s2->yFrom = 0, s2->yTo = DELTA;

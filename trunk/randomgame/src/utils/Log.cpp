@@ -1,10 +1,16 @@
 #include "Log.h"
 
+LogSide Log::logSide = LOG_SERVER;
 
 Log::Log(void)
 {
 	retriveConfigFile();
-	file.open(this->properties["log.file"].c_str(), std::ios::trunc);
+	if (Log::logSide == LOG_CLIENT)
+		file.open(this->properties["log.client.file"].c_str(), std::ios::trunc);
+	else if (Log::logSide == LOG_SERVER)
+		file.open(this->properties["log.server.file"].c_str(), std::ios::trunc);
+	else 
+		file.open(this->properties["log.file"].c_str(), std::ios::trunc);
 }
 
 Log::~Log(void)
@@ -21,6 +27,8 @@ void Log::retriveConfigFile()
 	if (this->properties.size() == 0)
 	{
 		this->properties["log.file"] = "./DI_Log.txt";	
+		this->properties["log.client.file"] = "./DI_Log_cli.txt";	
+		this->properties["log.server.file"] = "./DI_Log_srv.txt";	
 		this->properties["log.maxline"] = "256";	
 		this->properties["log.level"] = "2";	
 	}
