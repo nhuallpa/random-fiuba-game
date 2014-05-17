@@ -4,7 +4,8 @@
 #include <string>
 #include <iostream>
 #include <windows.h>
-#include <sys/stat.h>
+#include <sys/stat.h>
+
 
 Socket::Socket()
 	: usable(false)
@@ -401,19 +402,21 @@ bool Socket::rcvmsg (EDatagram &msg){
 
 	char buffer[MAX_MESSAGE_SIZE];
 	size_t retries = 0;
-	unsigned long messageSize;
-    
-	int nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
+	//unsigned long messageSize;
+	unsigned long messageSize = sizeof(EDatagram);
+	int nBytes;
+ //   
+	//nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
 
-	if (nBytes == SOCKET_ERROR){
-		return false;
-	}
-	
-	messageSize = ntohl(messageSize); 
-	//printf("\nGet %d bytes",messageSize);
+	//if (nBytes == SOCKET_ERROR){
+	//	return false;
+	//}
+	//
+	//messageSize = ntohl(1024); 
+	////printf("\nGet %d bytes",messageSize);
 
 	while(retries < 3){
-		int nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
+		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
 		//printf("\nGetted %d bytes of 4096",nBytes);
 		if (nBytes == SOCKET_ERROR) {
 			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
@@ -429,6 +432,7 @@ bool Socket::rcvmsg (EDatagram &msg){
 
 	}
 	//printf("\nOK");
+
 	memcpy(&msg,buffer,messageSize);
 	
 	//Log::i("\nbuffer player: %s, at pos: %d, %d",msg.playerID.c_str(),msg.play.x, msg.play.y );
@@ -443,24 +447,24 @@ bool Socket::sendmsg(EDatagram msg){
 	size_t retries = 0;
 	char buffer[MAX_MESSAGE_SIZE];
 	unsigned long messageSize = sizeof(msg);
-	unsigned long datagramSize = htonl(messageSize); 
+	//unsigned long datagramSize = htonl(messageSize); 
 	int nBytes;
 
-	nBytes = send(fd, (char*)&datagramSize, sizeof(datagramSize), 0);
+	//nBytes = send(fd, (char*)&datagramSize, sizeof(datagramSize), 0);
 
-    if (nBytes == SOCKET_ERROR)
-    {
-        printf( "Client: Failed to send message size\n");
-		return false;
-    }
+ //   if (nBytes == SOCKET_ERROR)
+ //   {
+ //       printf( "Client: Failed to send message size\n");
+	//	return false;
+ //   }
 
 
-	if (!messageSize) {
-		
-		printf("Sending empty message");
-		return false;
+	//if (!messageSize) {
+	//	
+	//	printf("Sending empty message");
+	//	return false;
 
-	}
+	//}
 	//printf("Send Bytes:  %d",messageSize);
 
 

@@ -19,13 +19,24 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		m_fixturePairs.insert( std::make_pair(fixtureB, fixtureA) );
 		return;
 	}
+	
+	b2WorldManifold worldManifold;
+
 	//If My body (B) is touching the floor (A) (somewhere)
 	if ( fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() == 2){
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setGrounded(true);
+		
+		contact->GetWorldManifold(&worldManifold);
+
+		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
 		return;
 	}
 	if ( fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() == 2){
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setGrounded(true);
+		
+		contact->GetWorldManifold(&worldManifold);
+
+		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
 		return;
 	}
 

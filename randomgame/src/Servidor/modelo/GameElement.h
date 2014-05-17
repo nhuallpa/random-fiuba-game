@@ -70,6 +70,14 @@ public:
 	bool isGrounded(){ return this->grounded; }
 	void setGrounded(bool b){ this->grounded = b; }
 
+	void setNormalForce(float x, float y){ 
+		this->nx = x;
+		this->ny = y;
+	}
+
+	float getNormalY(){ return this->ny;}
+	float getNormalX(){ return this->nx;}
+
 protected:
 	int id;
 	
@@ -92,6 +100,13 @@ protected:
 
 	/** True if the element is static */
 	bool fixed;
+
+		// Normal aplicada al punto de contacto
+	float nx;
+	float ny;
+
+
+
 };
 
 #endif /* GAMEELEMENT_H_ */

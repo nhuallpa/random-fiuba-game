@@ -13,7 +13,7 @@
 
 #include "../Util.h"
 
-#define MAX_MESSAGE_SIZE 4096
+#define MAX_MESSAGE_SIZE 1024
 
 // Link with ws2_32.lib
 #pragma comment(lib, "Ws2_32.lib")
