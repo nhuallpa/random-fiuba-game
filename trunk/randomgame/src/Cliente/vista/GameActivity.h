@@ -49,6 +49,8 @@ public:
 
 	WormView* retrieveWormClicked(SDL_Point clickPoint);
 
+	void buildNewWorms(std::string playerID, int id, int x, int y) ;
+
 	~GameActivity(void);
 };
 

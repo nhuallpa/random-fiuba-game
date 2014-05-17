@@ -36,6 +36,7 @@ public:
 
 	void putFigure(int id, FigureView* figure);
 	void setWormContainer(WormViewGroup * wormViewGroup);
+	WormViewGroup * getWormContainer() {return this->wormViewGroup;};
 	void setEart(EartView* eart);
 	void setSky(SkyView* sky);
 	void setWater(WaterView* water);

@@ -70,28 +70,6 @@ void Cliente::destroyWorld(void){
 }
 
 
-Uint32 Cliente::time_left(void)
-{
-    Uint32 now;
-    now = SDL_GetTicks();
-    if (next_time <= now)
-        return 0;
-    else
-        return next_time - now;
-}
-
-Uint32 Cliente::getTickInterval()
-{
-	int fps = 60;
-	ParserYaml* aParser = ParserYaml::getInstance();
-	fps = Util::string2int(aParser->getInstance()->getEscenarioFps());
-	Uint32 tick_interval = 1000.0f / fps;
-	return tick_interval;
-}
-
-
-
-
 void Cliente::runGame(){
 	bootstrap.getScreen().setState("Juego corriendo");
 	
@@ -327,11 +305,22 @@ int Cliente::netListener(void* data){
 
 			break;
 		case PLAYER_UPDATE:
-
 			//Add the user to the players that are playing list
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
-
-			//Aca metes el mensaje de player logged in/logged out
+			
+			// y solo para recibir nuevos usuario en la vista.
+			static int primervez = true; // esta asi porque la primera vez no esta creada la vista
+			if (!primervez)
+			{
+				int i=0;
+				for (i=0; i<4; i++) 
+				{
+					cli->addPlayerToView(emsg->playerID, 9000+i, 20 + i*4, 13);
+				}
+			}
+			primervez = false;
+			
+			//Aca metes el mensaje de player logged in/logged out. Claro que si
 			break;
 		}
 	
@@ -531,5 +520,12 @@ void Cliente::OnMovement(MovementEvent e){
 		}
 		this->addLocalMovementFromView(p);
 	}
+
+	
 }
 
+void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
+{
+	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
+	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
+}

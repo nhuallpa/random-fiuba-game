@@ -31,8 +31,10 @@ public:
 	 void setPlayerID(std::string playerID){ this->playerID = playerID; }
 	 std::string getPlayerID(){ return this->playerID; }
 
-	 void addElementToDomain(GameElement element){
-		 this->domainElements.insert( std::make_pair(element.getId(),element) ); }
+	 void addElementToDomain(GameElement element)
+	 {
+			this->domainElements.insert( std::make_pair(element.getId(),element) ); 
+	 }
 
 	 std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
 

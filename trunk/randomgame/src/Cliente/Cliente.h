@@ -69,9 +69,6 @@ class Cliente : public OnMovementListener{
 		//bool connect2server(Servidor* server);
 		//Servidor* server;
 
-		Uint32 time_left(void);
-
-		Uint32 getTickInterval();
 
 		/**Inicia el VistaJuego y ControladorJuegon*/
 		bool begin();		
@@ -84,7 +81,6 @@ class Cliente : public OnMovementListener{
 
 		Player pl;
 		
-
 		// Se usa para controlar el timeout de los sockets
 
 		bool srvStatus;
@@ -108,7 +104,6 @@ class Cliente : public OnMovementListener{
 
 
 	public:
-		//Cliente(Servidor* server);
 		Cliente(std::string playerID, const char* ip, int port);
 		
 		virtual ~Cliente(void);
@@ -153,9 +148,14 @@ class Cliente : public OnMovementListener{
 
 		GameElement* getElementFromPlayable(Playable p);
 
-
-
-
+		/**
+		* Add a new worm into GameView
+		* @param playerId	id of player
+		* @param idWorm		id of worm
+		* @param x			x in UL
+		* @param y			x in UL
+		**/
+		void addPlayerToView(std::string playerID, int idWorm, int x, int y);
 };
 
 

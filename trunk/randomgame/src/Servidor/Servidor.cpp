@@ -194,9 +194,6 @@ int Servidor::stepOver(void* data){
 		}
 		n->unlock();
 		i++;
-
-
-
 	}
 	return 0;
 }
