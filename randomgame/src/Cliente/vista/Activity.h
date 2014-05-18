@@ -34,7 +34,7 @@ public:
 	/** Render the view on screen*/
 	void render();
 
-	virtual void setMessageView(std::string msg);
+	virtual void setMessageView(std::string msg) = 0;
 
 };
 

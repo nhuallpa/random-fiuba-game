@@ -362,7 +362,7 @@ int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
 
 	}
 
-	return (i+1);
+	return i;
 
 }
 
