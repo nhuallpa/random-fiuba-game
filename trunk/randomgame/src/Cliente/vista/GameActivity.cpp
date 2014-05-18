@@ -37,11 +37,11 @@ void GameActivity::update()
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	
 	std::map<int,GameElement>::iterator it;
-	Log::t(VIEW,"Actualizando %d en elemento", domainElements->size());
+	Log::t(VIEW,"Actualizando %d elemento", domainElements->size());
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::t(VIEW,"elemento %d",domainElement.getType());
+		Log::t(VIEW,"elemento id %d",domainElement.getId());
 		try
 		{
 			if (domainElement.getType() == WORM) 
@@ -205,4 +205,10 @@ bool GameActivity::isThisClientOwner(int wormId)
 	{
 			return false;
 	}
+}
+
+void GameActivity::setMessageView(std::string msg)
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->getStateBar()->setMsj(msg);
 }

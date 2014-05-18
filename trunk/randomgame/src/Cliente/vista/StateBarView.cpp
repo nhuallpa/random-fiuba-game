@@ -4,6 +4,10 @@
 StateBarView::StateBarView():View(0, 0){
 	this->i = 0;
 	this->j = 0;
+	color.a = 255;
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
 }
 
 StateBarView::~StateBarView(void)
@@ -30,7 +34,8 @@ void StateBarView::setMsj(std::string msj){
 	it = this->stateV.begin();
 	this->stateV.insert(it,aState);
 	*/
-	this->msj.assign(msj);
+	//this->msj.assign(msj);
+	this->label.setText(msj, this->color);
 	i=0;
 }
 
@@ -50,11 +55,14 @@ void StateBarView::draw(SDLScreen & screen){
 	if (i<=300) 
 	{
 		i++;
-		TextureManager::Instance().drawText(screen.getRenderer(), 
+		/*TextureManager::Instance().drawText(screen.getRenderer(), 
 										TextureManager::Instance().getCamera().getX(),
 										10 + TextureManager::Instance().getCamera().getY(), 
 										msj,
 										0xFFFFFFFF);
+		*/
+		this->label.draw(screen.getRenderer(), TextureManager::Instance().getCamera().getX(),
+												10 + TextureManager::Instance().getCamera().getY());
 	}
 	
 

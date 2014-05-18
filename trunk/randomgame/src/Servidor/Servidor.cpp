@@ -357,9 +357,8 @@ int Servidor::initClient(void* data){
 	////Send World info to client (LEVEL)
 	//aThreadData->clientI.sendmsg(*datagram);
 	//printf("\nEnviando data (level) al cliente");
-
-	aThreadData->clientI.sendFile("res/levels/level.yaml");
-
+	ParserYaml* aParser = ParserYaml::getInstance();
+	aThreadData->clientI.sendFile(aParser->getLevelFilePath());
 
 	datagram->type = INIT;
 	datagram->elements = srv->getGameEngine().getLevel()->getEntities().size();

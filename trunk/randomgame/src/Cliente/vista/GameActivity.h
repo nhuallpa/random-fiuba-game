@@ -53,6 +53,8 @@ public:
 
 	bool isThisClientOwner(int wormId);
 
+	void setMessageView(std::string msg);
+
 	~GameActivity(void);
 };
 
