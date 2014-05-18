@@ -1,3 +1,7 @@
+*====================================================
+*		Compilacion y Ejecución
+*====================================================
+
 Prepararse para le ejecucion:
 ----------------------------
 	1- Configurar pantalla del cliente
@@ -16,6 +20,7 @@ Ejecutar Servidor
 	Ejemplo
 		\> randomgame-server res/levels/level.yaml
 
+	Nota: el puerto del servidor es 10025 y es fijo
 
 Ejecutar Cliente
 ----------------
