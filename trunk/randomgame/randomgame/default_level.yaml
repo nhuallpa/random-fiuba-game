@@ -1,21 +1,23 @@
 metadata:
   epsilon: 1.5
   scale: 100
+  max_player: 4
+  max_per_team: 5
 escenario:
   fps: 60
-  ancho-un: 2500
+  ancho-un: 600
   alto-un: 600
-  ancho-px: 1000
+  ancho-px: 400
   alto-px: 400
   nivel_agua: 50
-  imagen_tierra: res/images/tierra1.bmp
+  imagen_tierra: res/images/terrain3.png
   imagen_cielo: res/images/cielo1.png
   color_tierra: "#BC794FFF"
   color_agua: "#0000FF99"
   objetos:
     - tipo: rec
       id: 1
-      x: 43.44
+      x: 100
       y: 100
       alto: 10
       ancho: 10
@@ -25,8 +27,8 @@ escenario:
       masa: 1
     - tipo: tri
       id: 2
-      x: 50
-      y: 50
+      x: 100
+      y: 200
       color: "#00FF00FF"
       estatico: si
       rot: 0

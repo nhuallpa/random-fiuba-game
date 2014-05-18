@@ -306,14 +306,15 @@ int Cliente::netListener(void* data){
 
 			break;
 		case PLAYER_UPDATE:
-			static int primervez = true; // esta asi porque la primera vez no esta creada la vista
+			//static int primervez = true; // esta asi porque la primera vez no esta creada la vista
 			//Add the user to the players that are playing list
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 			
 			// y solo para recibir nuevos usuario en la vista.
 			
-			if (!primervez && emsg->playerState == CONNECTED)
+			//if (!primervez && emsg->playerState == CONNECTED)
+			if (emsg->playerState == CONNECTED)
 			{
 				int i=0;
 				for (i=0; i< emsg->elements; i++) 
@@ -323,7 +324,15 @@ int Cliente::netListener(void* data){
 				}
 				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " ha ingresado");	
 			}
-			primervez = false;
+			else if (emsg->playerState == DISCONNECTED)
+			{
+				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " se ha desconectado");	
+			}
+			else if (emsg->playerState == RECONNECTED)
+			{
+				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " se ha reconectado");	
+			}
+			//primervez = false;
 			break;
 		}
 	
