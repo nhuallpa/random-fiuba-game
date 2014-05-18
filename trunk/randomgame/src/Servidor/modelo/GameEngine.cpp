@@ -3,7 +3,7 @@
 #include "Box2D/Collision/Shapes/b2Shape.h"
 #include "Box2D/Collision/b2Collision.h"
 
-#define UPDATE_STEPS 4
+#define UPDATE_STEPS 3
 #define WATER_VELOCITY -2
 
 class b2Collision;
@@ -236,19 +236,20 @@ bool GameEngine::step(){
 	for(iterator = this->gameBodies->begin();iterator != this->gameBodies->end(); ++iterator) {
 		Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 		//printf("\nStep: now animating womrid %d",static_cast<GameElement*>(aBody->getBody()->GetUserData())->getId() );
-		if ( this->getUpdateStep() < UPDATE_STEPS ){
-			aBody->animate(false);
-		}
-		else{
-			aBody->animate(true);
-		}
+		//if ( this->getUpdateStep() <= UPDATE_STEPS ){
+		//	aBody->animate(false);
+		//}
+		//else{
+		//	aBody->animate(true);
+		//}
+		aBody->animate();
 
 	}
 
-	if ( this->getUpdateStep() >= 5 )
-		this->resetUpdateStep();
-	
-	this->incrementUpdateStep();
+	//if ( this->getUpdateStep() >= 5 )
+	//	this->resetUpdateStep();
+	//
+	//this->incrementUpdateStep();
 
 	/* Logica del agua */
 	std::set<fixturePair>::iterator it = this->myContactListener.m_fixturePairs.begin();

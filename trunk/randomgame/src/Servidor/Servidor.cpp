@@ -127,14 +127,7 @@ int Servidor::updating(void* data){
 		p = srv->changes.back();
 		printf("\nGot message from user requesting to move worm %d to %d",p.wormid,p.action);
 		
-		
-		srv->updateModel(p); // This will update worldChanges queue
-		
-		//if necessary signal condition to start broadcasting, if not wait
-		/*n->lock();
-		srv->worldChanges.push_back(p);
-		n->unlock();
-		netcond->signal();*/
+		srv->updateModel(p); 
 		
 		srv->changes.pop_back();
 		m->unlock();
@@ -174,7 +167,7 @@ int Servidor::stepOver(void* data){
 		n->lock();
 		
 		//si algo cambio actualizo a los clientes
-		if ( i>5 ){
+		if ( i>=3 ){
 			
 			i=0;
 			srv->somethingChange();
@@ -351,12 +344,7 @@ int Servidor::initClient(void* data){
 
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
-	//datagram->type = CONF;
-	//std::strcpy(datagram->play[0].level,"level.yaml");
-
-	////Send World info to client (LEVEL)
-	//aThreadData->clientI.sendmsg(*datagram);
-	//printf("\nEnviando data (level) al cliente");
+	//Envio el nivel YAML al cliente
 	ParserYaml* aParser = ParserYaml::getInstance();
 	aThreadData->clientI.sendFile(aParser->getLevelFilePath());
 
@@ -365,7 +353,7 @@ int Servidor::initClient(void* data){
 
 	aThreadData->clientI.sendmsg(*datagram);
 	datagram->type = INIT;
-	printf("\nElements at model: %d, already sended to the client", srv->getGameEngine().getLevel()->getEntities().size() );
+	printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
 
 	std::map<int, GameElement*> copyWorld = srv->getGameEngine().getLevel()->getEntities();
 	std::map<int, GameElement*>::iterator itC = copyWorld.begin();
@@ -379,8 +367,6 @@ int Servidor::initClient(void* data){
 		datagram->play[i].y = itC->second->getPosition().second;//ESCALA_UL2PX;
 		datagram->playerID = itC->second->getPlayerID();
 		
-		
-
 		printf("\nEnviando worm: %d del jugador %s at %f, %f", datagram->play[i].wormid, datagram->playerID.c_str(), datagram->play[i].x, datagram->play[i].y );
 	}
 
@@ -399,23 +385,24 @@ int Servidor::initClient(void* data){
 			Sleep(30);
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
+				srv->notifyUsersAboutPlayer(playerId);
 				srv->disconnect(playerId);
 				activeClient=0;
 				break;
 			}
 			
 			// Got something ;)
-			m->lock();
-			try{
-				printf("\nGot something from client %s ;)",playerId );
-			}catch(...){
-				m->unlock();
-				throw std::current_exception();
-			}
-
+			/*m->lock();*/
+			//try{
+			//	printf("\nGot something from client %s ;)",playerId );
+			//}catch(...){
+			//	m->unlock();
+			//	throw std::current_exception();
+			//}
 
 			switch (datagram->type) {
 			case UPDATE:
+				m->lock();
 				printf("\nGot update");
 				srv->changes.push_back(datagram->play[0]);
 
@@ -426,21 +413,21 @@ int Servidor::initClient(void* data){
 				break;
 
 
-			case KEEPALIVE:
-				// Al pasar un tiempo, el cliente manda un paquete para mantener vivo el socket
-				// El servidor responde un vivo para mantener abierto el otro socket
-				//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
-				//printf("\nGot keepalive");
-				// DEPRECATED - Handling connections in other way now
-				printf("\nGot keepalive");
-				//((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
-				
-				m->unlock();
-				cond->signal();
-				break;
+			//case KEEPALIVE:
+			//	// Al pasar un tiempo, el cliente manda un paquete para mantener vivo el socket
+			//	// El servidor responde un vivo para mantener abierto el otro socket
+			//	//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
+			//	//printf("\nGot keepalive");
+			//	// DEPRECATED - Handling connections in other way now
+			//	printf("\nGot keepalive");
+			//	//((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
+			//	
+			//	m->unlock();
+			//	cond->signal();
+			//	break;
 			case LOGIN:
 				//((threadData*)data)->clientI.sendmsg(type,datos);
-				printf("\nEnviando data al cliente - switch");
+				//printf("\nEnviando data al cliente - switch");
 				
 				m->unlock();
 				cond->signal();
@@ -451,8 +438,8 @@ int Servidor::initClient(void* data){
 		//srv->desconectar(playerId);
 		throw std::current_exception();
 	}
-	printf("\nAbandonando cliente\n");
-
+	printf("\nAbandonando cliente: %s\n",playerId);
+	srv->notifyUsersAboutPlayer(playerId);
 
 
 

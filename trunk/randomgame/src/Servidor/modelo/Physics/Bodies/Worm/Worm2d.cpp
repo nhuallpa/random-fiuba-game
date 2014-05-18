@@ -66,8 +66,10 @@ void Worm2d::animate(){
 
 	if ( ox != f.x || oy != f.y){
 
+		//Matar cuando pasa el agua TODO
+
 		//Mata el worm (desactiva el cuerpo de Box2D)
-		if (f.x < 0 || f.y < 0){
+		if (f.x < -15 || f.y < -15){
 			this->body->SetActive(false);
 			//myWorm->changed = false;
 			static_cast<Worm*>(myWorm)->setAlive(false);
@@ -122,8 +124,11 @@ void Worm2d::animate(bool update){
 
 	if ( this->ox != f.x || this->oy != f.y){
 
+		//TODO lo desactivo al pasar el agua
+
+
 		//Mata el worm (desactiva el cuerpo de Box2D)
-		if (f.x < 0 || f.y < 0){
+		if (f.x < -15 || f.y < -15){
 			this->body->SetActive(false);
 			if ( update){
 				myWorm->changed = false;
