@@ -51,6 +51,8 @@ public:
 
 	void buildNewWorms(std::string playerID, int id, int x, int y) ;
 
+	bool isThisClientOwner(int wormId);
+
 	~GameActivity(void);
 };
 

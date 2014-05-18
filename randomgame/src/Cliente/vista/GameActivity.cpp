@@ -192,3 +192,17 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 	gameView->getWormContainer()->add(aWormView);
 
 }
+
+bool GameActivity::isThisClientOwner(int wormId)
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	WormView* aWorm = gameView->findWormById(wormId);
+	if (aWorm->getPlayer().compare(this->playerId)==0)
+	{
+			return true;
+	} 
+	else
+	{
+			return false;
+	}
+}

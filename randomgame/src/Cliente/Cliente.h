@@ -153,7 +153,7 @@ class Cliente : public OnMovementListener{
 		* @param playerId	id of player
 		* @param idWorm		id of worm
 		* @param x			x in UL
-		* @param y			x in UL
+		* @param y			y in UL
 		**/
 		void addPlayerToView(std::string playerID, int idWorm, int x, int y);
 };
