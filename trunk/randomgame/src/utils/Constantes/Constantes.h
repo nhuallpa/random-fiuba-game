@@ -38,6 +38,7 @@
 #define LOAD_BACK_BUTTON "loadButton"
 
 #define DEFAULT_YAML_LEVEL "res/levels/clienteyaml.yaml"
+#define DEFAULT_YAML_SERVER "res/levels/level.yaml"
 #define CONFIG_FILE "config/config.yaml"
 
 
