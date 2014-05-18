@@ -269,6 +269,7 @@ int Cliente::netListener(void* data){
 	while(true){
 
 		Sleep(10);
+		
 
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			printf("\nDesconectando cliente at listening state");
@@ -305,17 +306,18 @@ int Cliente::netListener(void* data){
 
 			break;
 		case PLAYER_UPDATE:
+			static int primervez = true; // esta asi porque la primera vez no esta creada la vista
 			//Add the user to the players that are playing list
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 			
 			// y solo para recibir nuevos usuario en la vista.
-			static int primervez = true; // esta asi porque la primera vez no esta creada la vista
+			
 			if (!primervez)
 			{
 				int i=0;
-				for (i=0; i<4; i++) 
+				for (i=0; i<emsg->elements; i++) 
 				{
-					cli->addPlayerToView(emsg->playerID, 9000+i, 20 + i*4, 13);
+					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
 				}
 				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " ha ingresado");	
 			}
