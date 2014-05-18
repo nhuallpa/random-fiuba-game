@@ -20,6 +20,14 @@ typedef enum{
 	MOVE_STOP
 } Movement;
 
+typedef enum{
+	MOVING_RIGHT=0,
+	JUMPING,
+	MOVING_LEFT,
+	DEAD,
+	WITH_WEAPON
+} WormAction;
+
 
 typedef struct {
 		int wormid;			// Worm identifier, unique
