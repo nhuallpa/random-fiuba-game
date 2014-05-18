@@ -39,7 +39,9 @@ void WormView::clean()
 void WormView::update(GameElement* domainElement)
 {
 	std::pair<float, float> pointUL = domainElement->getPosition();
+	Log::t("	Posicion x: %f y %f en UL", pointUL.first, pointUL.second);
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
+	Log::t("	Posicion x: %d y %d en SDL", pointSDL.x, pointSDL.y);
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
 }

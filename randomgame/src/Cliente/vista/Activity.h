@@ -20,6 +20,8 @@ protected:
 
 	ViewGroup* aView;
 
+	
+
 public:
 
 	Activity(SDLScreen & screen);
@@ -31,6 +33,8 @@ public:
 
 	/** Render the view on screen*/
 	void render();
+
+	virtual void setMessageView(std::string msg);
 
 };
 

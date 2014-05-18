@@ -112,6 +112,8 @@ class Cliente : public OnMovementListener{
 
 		void destroyWorld();
 
+		Activity* getCurrentActivity() {return this->currentActivity;}
+
 		void OnMovement(MovementEvent e);
 
 		bool serverAlive();

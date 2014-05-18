@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "View.h"
 #include "ViewGroup.h"
+#include "TextView.h"
 #include "time.h"
 class StateBarView : public View
 {
@@ -20,9 +21,12 @@ private:
 	void cutVect();
 
 	std::string msj;
+
+	TextView label;
 	
 public:
 	int j;
+	SDL_Color color;
 
 	~StateBarView(void);
 

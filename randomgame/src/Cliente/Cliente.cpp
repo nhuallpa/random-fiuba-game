@@ -177,7 +177,7 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true){
 
-		Sleep(10);
+		//Sleep(10);
 
 		// Wait for network updates from server
 		n->lock();
@@ -317,6 +317,7 @@ int Cliente::netListener(void* data){
 				{
 					cli->addPlayerToView(emsg->playerID, 9000+i, 20 + i*4, 13);
 				}
+				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " ha ingresado");	
 			}
 			primervez = false;
 			
@@ -415,10 +416,6 @@ void Cliente::getRemoteWorld() {
 		//Log::i("Inserting worm id: %d at pos: %f, %f",elem->getId(), elem->getPosition().first, elem->getPosition().second);
 
 		this->domain.addElementToDomain(*elem);
-
-
-
-
 
 	}
 
