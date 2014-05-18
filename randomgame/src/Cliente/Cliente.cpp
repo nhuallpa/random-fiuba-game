@@ -287,9 +287,9 @@ int Cliente::netListener(void* data){
 
 				// Esto deberia ser mas rapido, quizas lo meta en un vector de edatagrams
 				// que se van a ir vaciando del lado del cliente
-				for ( int i=0; i < 15; i++){
+				for ( int i=0; i < emsg->elements; i++){
 					p.wormid = emsg->play[i].wormid;
-					p.weaponid = emsg->play[i].weaponid;
+					//p.weaponid = emsg->play[i].weaponid;
 					p.x = emsg->play[i].x;
 					p.y = emsg->play[i].y;
 
@@ -308,22 +308,22 @@ int Cliente::netListener(void* data){
 		case PLAYER_UPDATE:
 			static int primervez = true; // esta asi porque la primera vez no esta creada la vista
 			//Add the user to the players that are playing list
+			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 			
 			// y solo para recibir nuevos usuario en la vista.
 			
-			if (!primervez)
+			if (!primervez && emsg->playerState == CONNECTED)
 			{
 				int i=0;
-				for (i=0; i<emsg->elements; i++) 
+				for (i=0; i< emsg->elements; i++) 
 				{
 					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
+					Log::t("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
 				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " ha ingresado");	
 			}
 			primervez = false;
-			
-			//Aca metes el mensaje de player logged in/logged out. Claro que si
 			break;
 		}
 	
@@ -388,38 +388,38 @@ void Cliente::getRemoteWorld() {
 
 	this->input.receiveFile("res/levels/clienteyaml.yaml");
 
-
+	//Get amount of users from the server
 	if (!this->input.rcvmsg(*msg)) {
-		Log::e("Client: connection error - Server disconnected/not responding");
-		//printf("\nClient: connection error - Server disconnected/not responding");
+		Log::e("Client: connection error - Server disconnected/not responding while retrieving amount of users");
 		return;
 	}
-	//printf("\nDONE - Retrieving data from server, world elements: %d", msg->elements);
 	int count = msg->elements;
-	Log::i("Going to load %d elements",count);
+	Log::i("Going to load %d players",count);
 
-	if (!this->input.rcvmsg(*msg)) {
-		Log::e("Client: connection error - Server disconnected/not responding");
-		//printf("\nClient: connection error - Server disconnected/not responding");
-		return;
-	}
+	for ( int i=0 ; i < count ; i++ ){
 
+		if (!this->input.rcvmsg(*msg)) {
+			Log::e("Client: connection error - Server disconnected/not responding while retrieving their worms");
+			return;
+		}
+		int els = msg->elements;
+		for ( int j=0; j < els; j++){
 
-	for ( int i=0; i < count; i++){
+			Log::i("Getted worm id: %d at pos: %d, %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y);
+			//Trigger changes into game elements of the client
+			GameElement* elem = getElementFromPlayable(msg->play[j]);
+			elem->playerID = msg->playerID;
+			this->domain.addElementToDomain(*elem);
 
-		//Log::i("Getted worm id: %d at pos: %d, %d",msg->play.wormid, msg->play.x, msg->play.y);
-
-		//Trigger changes into game elements of the client
-		
-		GameElement* elem = getElementFromPlayable(msg->play[i]);
-
-		elem->playerID = msg->playerID;
-
-		//Log::i("Inserting worm id: %d at pos: %f, %f",elem->getId(), elem->getPosition().first, elem->getPosition().second);
-
-		this->domain.addElementToDomain(*elem);
+		}
 
 	}
+
+
+
+
+
+
 
 	
 

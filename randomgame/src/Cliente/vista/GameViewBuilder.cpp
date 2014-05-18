@@ -213,7 +213,6 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 		aWorm->setUserLabel(domainElement->getPlayerID());
 		aWorm->setName(name.str());
 
-
 		try 
 		{
 			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));

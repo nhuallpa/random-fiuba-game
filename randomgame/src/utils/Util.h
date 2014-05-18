@@ -10,7 +10,7 @@
 
 typedef std::string Player;
 
-enum StateConn {CONNECTED, DISCONNECTED};
+enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED};
 
 typedef enum{
 	MOVE_RIGHT=0,

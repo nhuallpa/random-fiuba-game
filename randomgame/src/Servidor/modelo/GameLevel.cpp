@@ -286,11 +286,11 @@ bool GameLevel::acceptPlayer(std::string playerID){
 
 	if ( it != this->players.end() ){
 		// Esta en la lista de jugadores del nivel, lo seteo como conectado y lo acepto
-		it->second->setStateConn(CONNECTED);
+		it->second->setStateConn(RECONNECTED);
 		return true;
 	}
 
-	if ( this->players.size() < this->amountUser ){
+	if ( this->players.size() <= this->amountUser ){
 		// No esta en la lista pero lo acepto porque entra
 	
 		GamePlayer* gp = new GamePlayer(playerID);
@@ -298,6 +298,7 @@ bool GameLevel::acceptPlayer(std::string playerID){
 		int width = aTerrainProcessor->getWidth();
 		gp->initPlayer(this->idUnique,4,height,width);
 		this->idUnique += 4;
+		gp->setStateConn(CONNECTED);
 
 		this->players.insert(std::make_pair(playerID,gp));
 

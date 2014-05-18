@@ -90,6 +90,10 @@ class GameLevel {
 
 		int getWormsFromPlayer(std::string playerId,Playable* p);
 
+		int getAmountOfUsers(){ return this->players.size(); }
+
+		std::map<string, GamePlayer*> getPlayers(){ return this->players; }
+
 
 		int updateStep;
 

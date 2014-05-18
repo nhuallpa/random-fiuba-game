@@ -182,6 +182,7 @@ int Servidor::stepOver(void* data){
 				srv->worldQ.type = UPDATE;
 				for ( ; it != copy.end() ; ++it){
 					it->second.second.sendmsg(srv->worldQ);
+					//printf("\nSended to the client, wormid %d, x: %f, y: %f",srv->worldQ.play[0].wormid,srv->worldQ.play[0].x, srv->worldQ.play[0].y);
 				}
 			}
 		}
@@ -199,12 +200,13 @@ bool Servidor::somethingChange(){
 	bool flag = false;
 	int i=0;
 
-	for ( ; it != copy.end() ; ++it, i++){
+	for ( ; it != copy.end() ; ++it){
 		if( it->second->changed ){
 			this->worldQ.play[i].wormid = it->second->getId();
 			this->worldQ.play[i].x = it->second->getPosition().first;
 			this->worldQ.play[i].y = it->second->getPosition().second;
 			flag = true;
+			i++;
 		}
 		if ( !static_cast<Worm*>(it->second)->isAlive() ){
 
@@ -215,10 +217,10 @@ bool Servidor::somethingChange(){
 	}
 
 	this->worldQ.elements = i+1; 
-
-	//TODO: Remover
-	for ( ; i != 15; i++)
-		this->worldQ.play[i].wormid = 0;
+	printf("\nUpdated %d elements at this step",i);
+	////TODO: Remover
+	//for ( ; i != 15; i++)
+	//	this->worldQ.play[i].wormid = 0;
 
 	return flag;
 }
@@ -303,13 +305,6 @@ int Servidor::initClient(void* data){
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
 
-	//TODO: Enviar data del mundo necesaria para el cliente - vector de Playable con action INITIAL_PLACEMENT
-	//Playable* playableWorld = srv->getPlayable();
-
-	//TODO: Esperar mensajes del cliente, al recibir, bloquear elementsChanged 
-	//		y agregarlo a la cola. Luego (en otro loop) mirar los cambios y 
-	//		propagarlos
-
 	std::vector<uint8_t> datos(10);
 	std::vector<uint8_t> keepaliveData(10);
 	Messages keepaliveMsg = KEEPALIVE;
@@ -341,41 +336,36 @@ int Servidor::initClient(void* data){
 	w->unlock();
 	printf("\nCliente registrado satisfactoriamente en el servidor");
 	
-
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
 	//Envio el nivel YAML al cliente
 	ParserYaml* aParser = ParserYaml::getInstance();
 	aThreadData->clientI.sendFile(aParser->getLevelFilePath());
 
-	datagram->type = INIT;
-	datagram->elements = srv->getGameEngine().getLevel()->getEntities().size();
 
-	aThreadData->clientI.sendmsg(*datagram);
-	datagram->type = INIT;
 	printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
 
-	std::map<int, GameElement*> copyWorld = srv->getGameEngine().getLevel()->getEntities();
-	std::map<int, GameElement*>::iterator itC = copyWorld.begin();
 	int i = 0;
-	for ( ; itC != copyWorld.end(); itC++, i++){
-		
-		datagram->play[i].wormid = itC->second->getId();
+	std::string pl;
+	
+	//Notifico de todos los players que tengo en el mundo
+	datagram->elements = srv->gameEngine.getLevel()->getAmountOfUsers();
+	aThreadData->clientI.sendmsg(*datagram);
+	printf("\nAmount of user into the level: %d",datagram->elements);
 
-		//todo hardcoded scale
-		datagram->play[i].x = itC->second->getPosition().first;//ESCALA_UL2PX;
-		datagram->play[i].y = itC->second->getPosition().second;//ESCALA_UL2PX;
-		datagram->playerID = itC->second->getPlayerID();
-		
-		printf("\nEnviando worm: %d del jugador %s at %f, %f", datagram->play[i].wormid, datagram->playerID.c_str(), datagram->play[i].x, datagram->play[i].y );
-	}
-
-	for ( ; i < 15 ; i++){
-		datagram->play[i].wormid = 0;
+	std::map<std::string, GamePlayer*> gpcopy = srv->gameEngine.getLevel()->getPlayers();
+	std::map<std::string, GamePlayer*>::iterator itGP = gpcopy.begin(); 
+	
+	//Por cada player envio sus elementos
+	for ( ; itGP != gpcopy.end(); ++itGP ){
+		datagram->playerID = itGP->second->playerID;
+		datagram->playerState = srv->gameEngine.getLevel()->getPlayerStatus(itGP->second->playerID);
+		int el = srv->gameEngine.getLevel()->getWormsFromPlayer(itGP->second->playerID,datagram->play);
+		datagram->elements = el;
+		printf("\nSending %d elements at init",el);
+		aThreadData->clientI.sendmsg(*datagram);
 	}
 	
-	aThreadData->clientI.sendmsg(*datagram);
-
 	//Tell everybody that a new player has arrived!
 	srv->notifyUsersAboutPlayer(playerId);
 
@@ -412,22 +402,7 @@ int Servidor::initClient(void* data){
 
 				break;
 
-
-			//case KEEPALIVE:
-			//	// Al pasar un tiempo, el cliente manda un paquete para mantener vivo el socket
-			//	// El servidor responde un vivo para mantener abierto el otro socket
-			//	//this->sendHeartBeat(playerId, Red::TipoMensaje::Vivo);
-			//	//printf("\nGot keepalive");
-			//	// DEPRECATED - Handling connections in other way now
-			//	printf("\nGot keepalive");
-			//	//((threadData*)data)->clientI.sendmsg(keepaliveMsg,keepaliveData);
-			//	
-			//	m->unlock();
-			//	cond->signal();
-			//	break;
 			case LOGIN:
-				//((threadData*)data)->clientI.sendmsg(type,datos);
-				//printf("\nEnviando data al cliente - switch");
 				
 				m->unlock();
 				cond->signal();
@@ -484,6 +459,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
 
 	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);
+	printf("\nSending %d elements",el);
 	datagram->elements = el;
 
 	std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
@@ -491,7 +467,8 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 
 	for ( ; it != copy.end() ; ++it){
 		//send over the network
-		it->second.second.sendmsg(*datagram);
+		if ( it->first.compare(playerId) )
+			it->second.second.sendmsg(*datagram);
 
 	}
 

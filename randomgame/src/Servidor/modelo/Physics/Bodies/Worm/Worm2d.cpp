@@ -71,7 +71,7 @@ void Worm2d::animate(){
 		//Mata el worm (desactiva el cuerpo de Box2D)
 		if (f.x < -15 || f.y < -15){
 			this->body->SetActive(false);
-			//myWorm->changed = false;
+			myWorm->changed = false;
 			static_cast<Worm*>(myWorm)->setAlive(false);
 			//Chequear si aca lo puedo eliminar de box2d
 
@@ -79,12 +79,12 @@ void Worm2d::animate(){
 
 			//Actualiza la posicion en el modelo
 			myWorm->setPosition(std::make_pair( f.x,f.y) );
-			//myWorm->changed = true;
+			myWorm->changed = true;
 		}
 	}
-	//else{
-	//	myWorm->changed = false;
-	//}
+	else{
+		myWorm->changed = false;
+	}
 
 }
 
