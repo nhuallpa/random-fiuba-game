@@ -32,13 +32,6 @@ void Worm2d::animate(){
 
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
-	//memcpy(myWorm,(this->body->GetUserData()),sizeof(Worm));
-
-	// Aca antes tomaba la posicion
-
-	//printf("\n animating worm %d",static_cast<GameElement*>(this->body->GetUserData())->getId() );
-
-	//printf("\n animating worm %d",myWorm->getId() );
 
 	//si el Worm esta saltando, saltar
 	if(static_cast<Worm*>(myWorm)->isJumping())
@@ -64,7 +57,11 @@ void Worm2d::animate(){
 	b2Vec2 f = this->body->GetPosition();
 
 
-	if ( ox != f.x || oy != f.y){
+	if ( !((this->ox < (f.x + 0.1)) && (this->ox > (f.x - 0.1)) ) || 
+		 !((this->oy < (f.y + 0.1)) && (this->oy > (f.y - 0.1)) ) )
+	{
+
+		printf("\n WormID: %d, distinto X %f to %f, Y %f to %f",myWorm->getId(), this->ox,f.x,f.y,this->oy);
 
 		//Matar cuando pasa el agua TODO
 
@@ -72,14 +69,17 @@ void Worm2d::animate(){
 		if (f.x < -15 || f.y < -15){
 			this->body->SetActive(false);
 			myWorm->changed = false;
+			this->ox = f.x;
+			this->oy = f.y;
 			static_cast<Worm*>(myWorm)->setAlive(false);
-			//Chequear si aca lo puedo eliminar de box2d
-
+			
 		}else{
 
 			//Actualiza la posicion en el modelo
 			myWorm->setPosition(std::make_pair( f.x,f.y) );
 			myWorm->changed = true;
+			this->ox = f.x;
+			this->oy = f.y;
 		}
 	}
 	else{
@@ -98,60 +98,63 @@ Worm2d::~Worm2d()
 
 void Worm2d::animate(bool update){
 
-	//Use userdata to reflect changes in physics to model
-	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
+	////Use userdata to reflect changes in physics to model
+	//GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
 
-	//si el Worm esta saltando, saltar
-	if(static_cast<Worm*>(myWorm)->isJumping())
-	{
-		this->jump();
-	} 
+	////si el Worm esta saltando, saltar
+	//if(static_cast<Worm*>(myWorm)->isJumping())
+	//{
+	//	this->jump();
+	//} 
 
-	//si el Worm se esta moviendo a la izquierda, moverlo a izquierda
-	if(static_cast<Worm*>(myWorm)->isMovingLeft())
-	{
-		this->moveLeft();
-	}
+	////si el Worm se esta moviendo a la izquierda, moverlo a izquierda
+	//if(static_cast<Worm*>(myWorm)->isMovingLeft())
+	//{
+	//	this->moveLeft();
+	//}
 
-	//si el Worm se esta moviendo a la derecha, moverlo a derecha
-	if(static_cast<Worm*>(myWorm)->isMovingRight())
-	{
-		this->moveRight();
+	////si el Worm se esta moviendo a la derecha, moverlo a derecha
+	//if(static_cast<Worm*>(myWorm)->isMovingRight())
+	//{
+	//	this->moveRight();
 
-	}
+	//}
 
-	b2Vec2 f = this->body->GetPosition();
+	//b2Vec2 f = this->body->GetPosition();
 
-	if ( this->ox != f.x || this->oy != f.y){
+	//if ( this->ox != f.x || this->oy != f.y){
+	//	printf("distinto X %f to %f, Y %f to %f",this->ox,this->oy,f.x,f.y);
+	//	//this->ox = f.x;
+	//	//this->oy = f.y;
 
-		//TODO lo desactivo al pasar el agua
+	//	//TODO lo desactivo al pasar el agua
 
 
-		//Mata el worm (desactiva el cuerpo de Box2D)
-		if (f.x < -15 || f.y < -15){
-			this->body->SetActive(false);
-			if ( update){
-				myWorm->changed = false;
-				myWorm->setPosition(std::make_pair( f.x,f.y) );
-			}
-			static_cast<Worm*>(myWorm)->setAlive(false);
-			//TODO: Chequear si aca lo puedo eliminar de box2d
+	//	//Mata el worm (desactiva el cuerpo de Box2D)
+	//	if (f.x < -15 || f.y < -15){
+	//		this->body->SetActive(false);
+	//		if ( update){
+	//			myWorm->changed = false;
+	//			myWorm->setPosition(std::make_pair( f.x,f.y) );
+	//		}
+	//		static_cast<Worm*>(myWorm)->setAlive(false);
+	//		//TODO: Chequear si aca lo puedo eliminar de box2d
 
-		}else{
+	//	}else{
 
-			//Actualiza la posicion en el modelo
-			
-			if ( update){
-				myWorm->setPosition(std::make_pair( f.x,f.y) );
-				myWorm->changed = true;
-				this->ox = f.x;
-				this->oy = f.y;
-			}
-		}
-	}
-	else{
-		if ( update)
-			myWorm->changed = false;
-	}
+	//		//Actualiza la posicion en el modelo
+	//		
+	//		if ( update){
+	//			myWorm->setPosition(std::make_pair( f.x,f.y) );
+	//			myWorm->changed = true;
+	//			this->ox = f.x;
+	//			this->oy = f.y;
+	//		}
+	//	}
+	//}
+	//else{
+	//	if ( update)
+	//		myWorm->changed = false;
+	//}
 
 }

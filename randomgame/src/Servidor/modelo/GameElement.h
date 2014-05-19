@@ -78,6 +78,11 @@ public:
 	float getNormalY(){ return this->ny;}
 	float getNormalX(){ return this->nx;}
 
+	Movement action;
+
+	virtual Movement getAction(){ return this->action; }
+	virtual void setAction(Movement m){ this->action = m; }
+
 protected:
 	int id;
 	

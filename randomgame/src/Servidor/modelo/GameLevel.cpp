@@ -357,6 +357,7 @@ int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
 			p[i].wormid = (*itW)->getId();
 			p[i].x = (*itW)->getPosition().first;
 			p[i].y = (*itW)->getPosition().second;
+			p[i].action = (*itW)->getAction();
 
 		}
 
@@ -367,6 +368,19 @@ int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
 
 }
 
+
+void GameLevel::disconnectWormsFromPlayer(std::string playerId){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerId);
+
+	if ( it != this->players.end() ){
+		std::vector<Worm*> copy = it->second->getWorms();
+		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
+			(*itW)->setAction(NOT_CONNECTED);
+		}
+	}
+}
 
 
 
