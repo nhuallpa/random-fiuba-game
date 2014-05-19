@@ -217,7 +217,7 @@ bool Servidor::somethingChange(){
 	}
 
 	this->worldQ.elements = i+1; 
-	printf("\nUpdated %d elements at this step",i);
+	//printf("\nUpdated %d elements at this step, true: %d",i, flag);
 	////TODO: Remover
 	//for ( ; i != 15; i++)
 	//	this->worldQ.play[i].wormid = 0;
@@ -375,7 +375,7 @@ int Servidor::initClient(void* data){
 			Sleep(30);
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
-				srv->notifyUsersAboutPlayer(playerId);
+				//srv->notifyUsersAboutPlayer(playerId);
 				srv->disconnect(playerId);
 				activeClient=0;
 				break;
@@ -410,12 +410,12 @@ int Servidor::initClient(void* data){
 			}
 		}
 	} catch (...) {
-		//srv->desconectar(playerId);
+		srv->disconnect(playerId);
 		throw std::current_exception();
 	}
-	printf("\nAbandonando cliente: %s\n",playerId);
-	srv->notifyUsersAboutPlayer(playerId);
-
+	//printf("\nAbandonando cliente: %s\n",playerId);
+	//srv->notifyUsersAboutPlayer(playerId);
+	
 
 
 
