@@ -73,13 +73,14 @@ using namespace std;
 #include "VaryingRestitution.h"
 #include "VerticalStack.h"
 #include "Web.h"
-#include "TestCuadrado.h"
-#include "CuadradoConAgua.h"
-#include "iforce2d_Buoyancy.h"
+#include "inclinacion.h"
+#include "movimiento.h"
+
 
 TestEntry g_testEntries[] =
 {
-	{"Cuadrado con Agua Test", CuadradoConAguaTest::Create},
+	{"Inclinacion", InclinacionTest::Create},
+	{"Movimiento", MovimientoTest::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
 	{"Dump Shell", DumpShell::Create},
@@ -125,7 +126,5 @@ TestEntry g_testEntries[] =
 	{"Slider Crank", SliderCrank::Create},
 	{"Varying Friction", VaryingFriction::Create},
 	{"Add Pair Stress Test", AddPair::Create},
-	{"Cuadrado Test", CuadradoTest::Create},
-	{"iforce2d_Buoyancy", iforce2d_Buoyancy::Create},
 	{NULL, NULL}
 };
