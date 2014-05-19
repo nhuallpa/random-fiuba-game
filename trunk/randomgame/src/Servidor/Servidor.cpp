@@ -170,14 +170,14 @@ int Servidor::stepOver(void* data){
 		if ( i>=3 ){
 			
 			i=0;
-			srv->somethingChange();
-
+			int res = srv->somethingChange();
+			//printf ("\nDelta: %d",res);
 			//chequeo si hay clientes
 			if ( srv->pList.size() ){
 				
 				std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
 				std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
-
+				//printf("\nComienzo a enviar a los players");
 				//Por cada cliente le envio los cambios
 				srv->worldQ.type = UPDATE;
 				for ( ; it != copy.end() ; ++it){
@@ -192,7 +192,7 @@ int Servidor::stepOver(void* data){
 	return 0;
 }
 
-bool Servidor::somethingChange(){
+int Servidor::somethingChange(){
 
 	std::map<int,GameElement*> copy = this->gameEngine.getLevel()->getEntities();
 	std::map<int,GameElement*>::iterator it = copy.begin();
@@ -205,6 +205,7 @@ bool Servidor::somethingChange(){
 			this->worldQ.play[i].wormid = it->second->getId();
 			this->worldQ.play[i].x = it->second->getPosition().first;
 			this->worldQ.play[i].y = it->second->getPosition().second;
+			this->worldQ.play[i].action = it->second->getAction();
 			flag = true;
 			i++;
 		}
@@ -216,13 +217,13 @@ bool Servidor::somethingChange(){
 
 	}
 
-	this->worldQ.elements = i+1; 
+	this->worldQ.elements = i; 
 	//printf("\nUpdated %d elements at this step, true: %d",i, flag);
 	////TODO: Remover
 	//for ( ; i != 15; i++)
 	//	this->worldQ.play[i].wormid = 0;
 
-	return flag;
+	return i;
 }
 
 
@@ -440,6 +441,7 @@ void Servidor::disconnect(Player playerId) {
 	
 	printf("\nReleasing player: %s\n",playerId.c_str());
 	this->gameEngine.getLevel()->disconnectPlayer(playerId);
+	this->gameEngine.getLevel()->disconnectWormsFromPlayer(playerId);
 	closesocket(this->pList[playerId].first.getFD());
 	closesocket(this->pList[playerId].second.getFD());
 	this->pList.erase(playerId);
@@ -451,7 +453,6 @@ void Servidor::disconnect(Player playerId) {
 void Servidor::notifyUsersAboutPlayer(std::string playerId){
 
 	//send message to all the users telling abut the news of the player
-	
 	EDatagram* datagram = new EDatagram();
 
 	datagram->type = PLAYER_UPDATE;
@@ -459,7 +460,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
 
 	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);
-	printf("\nSending %d elements",el);
+	printf("\nNotifiyng users about player: %s. Sending %d elements.", playerId.c_str(),el);
 	datagram->elements = el;
 
 	std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
@@ -473,15 +474,3 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	}
 
 }
-
-//Main mock
-//int main (){
-//
-//	Servidor mySrv(10025,1);
-//	while(true){
-//
-//	}
-//	return 0;
-//
-//
-//}

@@ -207,7 +207,7 @@ bool Cliente::updateModel(Playable p){
 
 	//Search worm id
 	//p.wormid
-	this->domain.updateElement(p.wormid, p.x, p.y );
+	this->domain.updateElement(p.wormid, p.x, p.y, p.action );
 	//Update his position to new x,y
 	//p.x;
 	//p.y;
@@ -292,6 +292,7 @@ int Cliente::netListener(void* data){
 					//p.weaponid = emsg->play[i].weaponid;
 					p.x = emsg->play[i].x;
 					p.y = emsg->play[i].y;
+					p.action = emsg->play[i].action;
 
 					cli->networkChanges.push_back(p);
 				}
@@ -301,8 +302,11 @@ int Cliente::netListener(void* data){
 				throw std::current_exception();
 				break;
 			}
+			
 			n->unlock();
-			netcond->signal();
+			if ( emsg->elements ){
+				netcond->signal();
+			}
 
 			break;
 		case PLAYER_UPDATE:
@@ -386,15 +390,7 @@ void Cliente::getRemoteWorld() {
 		return;
 	}
 
-	////printf("\nSTART - Retrieving data from server");
-	//if (!this->input.rcvmsg(*msg)) {
-	//	//Log::e("connection error");
-	//	printf("\nClient: connection error - Server disconnected/not responding");
-	//	return;
-	//}
-	//printf("\nDONE - Retrieving data from server, level: %s", msg->play.level);
-	//TODO SET LEVEL ON CLIENT
-
+	// Get YAML
 	this->input.receiveFile("res/levels/clienteyaml.yaml");
 
 	//Get amount of users from the server
@@ -402,6 +398,7 @@ void Cliente::getRemoteWorld() {
 		Log::e("Client: connection error - Server disconnected/not responding while retrieving amount of users");
 		return;
 	}
+
 	int count = msg->elements;
 	Log::i("Going to load %d players",count);
 
@@ -412,28 +409,26 @@ void Cliente::getRemoteWorld() {
 			return;
 		}
 		int els = msg->elements;
+
 		for ( int j=0; j < els; j++){
 
 			Log::i("Getted worm id: %d at pos: %d, %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y);
 			//Trigger changes into game elements of the client
 			GameElement* elem = getElementFromPlayable(msg->play[j]);
 			elem->playerID = msg->playerID;
+			elem->setAction( msg->play[j].action );
 			this->domain.addElementToDomain(*elem);
 
+			if ( msg->play[j].action == NOT_CONNECTED ){
+				//Set user disconnected
+				this->domain.addPlayer(msg->playerID,DISCONNECTED,0);
+			}else
+				this->domain.addPlayer(msg->playerID,CONNECTED,0);
 		}
-
 	}
-
-
-
-
-
-
-
-	
-
-
 }
+
+
 
 bool Cliente::serverAlive () {
 	return this->srvStatus;
@@ -447,6 +442,8 @@ GameElement* Cliente::getElementFromPlayable(Playable p){
 	return g;
 
 }
+
+
 
 
 

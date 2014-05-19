@@ -92,7 +92,7 @@ class Servidor{
 		static int wait4Connections(void* data);
 		static int stepOver(void* data);
 
-		bool somethingChange();
+		int somethingChange();
 
 		bool run(void);
 		void destroyWorld();

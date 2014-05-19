@@ -89,6 +89,7 @@ class GameLevel {
 		StateConn getPlayerStatus(std::string playerId);
 
 		int getWormsFromPlayer(std::string playerId,Playable* p);
+		void disconnectWormsFromPlayer(std::string playerId);
 
 		int getAmountOfUsers(){ return this->players.size(); }
 
