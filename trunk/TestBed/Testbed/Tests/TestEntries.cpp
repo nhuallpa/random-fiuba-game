@@ -27,10 +27,10 @@
 
 #include <cstring>
 using namespace std;
-#include "BodyTypes.h"
+
 #include "AddPair.h"
 #include "ApplyForce.h"
-
+#include "BodyTypes.h"
 #include "Breakable.h"
 #include "Bridge.h"
 #include "BulletTest.h"
@@ -73,11 +73,14 @@ using namespace std;
 #include "VaryingRestitution.h"
 #include "VerticalStack.h"
 #include "Web.h"
+#include "inclinacion.h"
+#include "movimiento.h"
+
 
 TestEntry g_testEntries[] =
 {
-
-	{"Body Types", BodyTypes::Create},
+	{"Inclinacion", InclinacionTest::Create},
+	{"Movimiento", MovimientoTest::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
 	{"Dump Shell", DumpShell::Create},
@@ -86,7 +89,7 @@ TestEntry g_testEntries[] =
 	{"Varying Restitution", VaryingRestitution::Create},
 	{"Character Collision", CharacterCollision::Create},
 	{"Edge Test", EdgeTest::Create},
-
+	{"Body Types", BodyTypes::Create},
 	{"Shape Editing", ShapeEditing::Create},
 	{"Car", Car::Create},
 	{"Apply Force", ApplyForce::Create},
