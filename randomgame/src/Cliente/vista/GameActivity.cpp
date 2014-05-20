@@ -195,6 +195,42 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 
 }
 
+
+bool GameActivity::isAlive(int wormId) {
+	GameView* gameView = static_cast<GameView*>(this->aView);
+
+	try
+	{
+		WormView* aWorm = gameView->findWormById(wormId);
+		SDL_Rect wormDim;
+		SDL_Rect scenaryDim;
+		scenaryDim.y = 0;
+		scenaryDim.x = 0;
+		scenaryDim.w = TextureManager::Instance().getCamera().getWidthScenario();
+		scenaryDim.h = TextureManager::Instance().getCamera().getHeightScenario();
+		
+		wormDim.x = aWorm->getXCenter();
+		wormDim.y = aWorm->getYCenter();
+		wormDim.w = aWorm->getW();
+		wormDim.h = aWorm->getH();
+		if (TextureManager::Instance().intersectRects(wormDim, scenaryDim))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+	catch (GameException e) {
+		Log::e(e.what());
+		return false;
+	}
+
+	return true;
+}
+
 bool GameActivity::isThisClientOwner(int wormId)
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);

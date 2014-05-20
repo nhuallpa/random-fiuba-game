@@ -523,12 +523,15 @@ void Cliente::addLocalMovementFromView(Playable p){
 
 }
 
+//TODO: pasar a gameActivity
 void Cliente::OnMovement(MovementEvent e){
 
 	Playable p;
 	int wormIdSelected = this->gameActivity->getWormIdSelected();
 
-	if (wormIdSelected > 0 && this->gameActivity->isThisClientOwner(wormIdSelected))
+	if (wormIdSelected > 0 && 
+		this->gameActivity->isThisClientOwner(wormIdSelected) && 
+		this->gameActivity->isAlive(wormIdSelected))
 	{
 		p.wormid = wormIdSelected;
 		if (e.y == -1)
