@@ -188,6 +188,11 @@ public:
 
 
 	std::string getColorById(std::string id);
+
+
+
+	/*para modificar el terreno si sale algo mal*/
+	void setTerrain(std::string terrain);
 	
 
 };

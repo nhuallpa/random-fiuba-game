@@ -172,6 +172,22 @@ void PersistYaml::setPent(std::string id,std::string x,std::string y,std::string
 
 	this->escenario.elem.push_back(elem);
 }
+
+
+void PersistYaml::setHexa(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color){
+	stElemento elem;
+	elem.tipo = "hexa";
+	elem.id = id;
+	elem.x = x;
+	elem.y = y;
+	elem.rot = rot;
+	elem.masa = masa;
+	elem.escala = escala;
+	elem.color = color;
+	elem.estatico = estatico;
+
+	this->escenario.elem.push_back(elem);
+}
 	/*circ:	tipo,id,x,y,rot,masa,escala,estatico,color,radio*/
 void PersistYaml::setCirc(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color,std::string radio){
 	stElemento elem;
