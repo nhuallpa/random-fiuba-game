@@ -99,6 +99,8 @@ class Cliente : public OnMovementListener{
 		int sendDatagram(Datagram msg);
 		int login();
 
+		void informStateClient();
+
 		/* Data for threading**/
 		threadData data;
 
