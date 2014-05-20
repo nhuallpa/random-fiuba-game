@@ -15,7 +15,7 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	this->height = h;
 
 	b2BodyDef myBodyDef;
-	myBodyDef.position.Set(posX, posY); //starting position (at center)
+	myBodyDef.position.Set(posX+(w/2), posY+(h/2)); //starting position (at center)
 	myBodyDef.angle = (angle * DEGTORAD); 
 
 
@@ -30,16 +30,14 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	this->body = dynamicBody;
 	this->body->SetUserData(modelElement);
 
-
 	b2PolygonShape boxShape;
 	
 	boxShape.SetAsBox(w/2,h/2);
-	//boxShape.SetAsBox(1,1);
 
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &boxShape;
 	boxFixtureDef.density = 1;
-	boxFixtureDef.friction = 0.5;
+	boxFixtureDef.friction = 0.999;
 	boxFixtureDef.restitution = 0;
 	dynamicBody->CreateFixture(&boxFixtureDef);
 
@@ -47,11 +45,10 @@ Cuadrado::Cuadrado(ElementType type, float posX, float posY, float h,
 	this->body->SetFixedRotation(true);
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
 	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
-	//this->GetVertex();
 	
 	GameElement* ge = static_cast<GameElement*>(this->body->GetUserData());
 	ge->setVertexList(this->GetVertex());
-	this->masa=this->body->GetMass(); //extenderlo a los otros bodies o ARREGLARLO: (ToDo ARIEL)
+	this->masa=this->body->GetMass(); 
 
 }
 

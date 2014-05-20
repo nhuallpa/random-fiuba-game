@@ -18,9 +18,9 @@ void WormActions::jump()
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
 	{
 				
-                float impulse = this->aWorm2d->getMass() * 5;
+                float impulse = this->aWorm2d->getMass() * 2;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
-				printf("\nQuiero saltar, can I?");
+				//printf("\nQuiero saltar, can I?");
         }
 
 
@@ -34,19 +34,28 @@ void WormActions::moveLeft()
 	
 	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
 	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
-	printf("\nGoinf LEFT, Normal X,Y: (%f,%f)",nx,ny);
+	//printf("\nGoinf LEFT, Normal X,Y: (%f,%f)",nx,ny);
 	
-	//if ( !nx ){
+
 		// Esta en el plano sin inclinacion
-		this->aWorm2d->body->ApplyForce( b2Vec2(-65,0), this->aWorm2d->body->GetWorldCenter() );
-	//}
+		//this->aWorm2d->body->ApplyForce( b2Vec2(-65,0), this->aWorm2d->body->GetWorldCenter() );
 
-	//if ( nx > 0 )
-	//	this->aWorm2d->body->ApplyForce( b2Vec2(65*ny,-65*nx),	this->aWorm2d->body->GetWorldCenter() );
+	if ( nx > 0.02 && ny > 0.15){
+		this->aWorm2d->body->ApplyForce( b2Vec2(-60*ny,60*nx), this->aWorm2d->body->GetWorldCenter() );
+		return;
+	}
 
-	//if ( nx < 0 )
-	//	this->aWorm2d->body->ApplyForce( b2Vec2(65*ny,-65*nx),	this->aWorm2d->body->GetWorldCenter() );
-	
+	if (nx < -0.02 && ny > 0.15){
+		this->aWorm2d->body->ApplyForce( b2Vec2(-50*ny,50*nx), this->aWorm2d->body->GetWorldCenter() );
+		return;
+	}
+	if ((nx <= 0.02 || nx >= -0.02) && ny > 0.15){
+		//printf("\nen el plano horizontal");
+		this->aWorm2d->body->ApplyForce( b2Vec2(-50,0), this->aWorm2d->body->GetWorldCenter() );
+		return;
+	}
+
+
 }
 
 void WormActions::moveRight()
@@ -54,18 +63,25 @@ void WormActions::moveRight()
 
 	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
 	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
-	printf("\nGoinf RIGHT, Normal X,Y: (%f,%f)",nx,ny);
+	//printf("\nGoinf RIGHT, Normal X,Y: (%f,%f)",nx,ny);
 	
-	//if ( !nx ){
 		// Esta en el plano sin inclinacion
-		this->aWorm2d->body->ApplyForce( b2Vec2(65,0), this->aWorm2d->body->GetWorldCenter() );
-	//}
+		//this->aWorm2d->body->ApplyForce( b2Vec2(65,0), this->aWorm2d->body->GetWorldCenter() );
 
-	//if ( nx > 0 )
-	//	this->aWorm2d->body->ApplyForce( b2Vec2(-65*ny,65*nx),	this->aWorm2d->body->GetWorldCenter() );
+		if (nx > 0.02 && ny > 0.15){
+			this->aWorm2d->body->ApplyForce( b2Vec2(50*ny,-50*nx), this->aWorm2d->body->GetWorldCenter() );
+			return;
+		}
 
-	//if ( nx < 0 )
-	//	this->aWorm2d->body->ApplyForce( b2Vec2(-65*ny,65*nx),	this->aWorm2d->body->GetWorldCenter() );
+		if (nx < -0.02 && ny > 0.15){
+			this->aWorm2d->body->ApplyForce( b2Vec2(60*ny,-60*nx), this->aWorm2d->body->GetWorldCenter() );
+			return;
+		}
+
+		if ((nx <= 0.02 || nx >= -0.02) && ny > 0.15){
+			this->aWorm2d->body->ApplyForce( b2Vec2(50,0), this->aWorm2d->body->GetWorldCenter() );
+			return;
+		}
 
 }
 

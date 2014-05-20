@@ -2,8 +2,66 @@
 
 
 Worm2d::Worm2d(ElementType type, float posX, float posY, float h, 
-	float w, float masa, float angle, b2World *myWorld, GameElement *modelElement, bool fixed) : Cuadrado(type, posX, posY, h, w, masa,angle, myWorld, modelElement, fixed)
+	float w, float masa, float angle, b2World *myWorld, GameElement *modelElement, bool fixed)
 {
+
+	this->myWorld = myWorld;
+	this->center = b2Vec2( posX+(w/2), posY+(h/2) );
+	this->angle = angle;
+	this->masa = masa;
+	this->type = type;
+	this->width = w;
+	this->height = h;
+
+
+	this->myWorld = myWorld;
+	this->center = b2Vec2( posX, posY );
+	this->angle = angle;
+	this->masa = masa;
+	this->type = type;
+
+
+	//body definition
+    b2BodyDef myBodyDef;
+    if (!fixed){
+		myBodyDef.type = b2_dynamicBody;
+	}else{
+		myBodyDef.type = b2_staticBody;
+	}
+    
+    //hexagonal shape definition
+    b2PolygonShape polygonShape;
+    b2Vec2 vertices[6];
+    for (int i = 0; i < 6; i++) {
+      float angle = -i/6.0 * 360 * DEGTORAD;
+      vertices[i].Set((w/2)*sinf(angle), (h/2)*cosf(angle));
+    }
+ 
+    polygonShape.Set(vertices, 6);
+  
+    //fixture definition
+    b2FixtureDef myFixtureDef;
+    myFixtureDef.shape = &polygonShape;
+    myFixtureDef.density = 1;
+	myFixtureDef.friction = 0.999;
+	myFixtureDef.restitution = 0;
+    
+    //create dynamic body
+    myBodyDef.position.Set(posX, posY);
+    b2Body* body = this->myWorld->CreateBody(&myBodyDef);
+    body->CreateFixture(&myFixtureDef);
+
+	body->SetTransform( body->GetPosition(), angle*DEGTORAD );
+	body->SetFixedRotation(true);
+
+	this->body = body;
+	this->body->SetUserData(modelElement);
+
+	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
+	Log::d("Posicion Inicial: %.3f, %.3f", v.x, v.y);
+
+
+
 
 	aWormActions = new WormActions(this);
 	//this->ox = static_cast<GameElement*>(this->body->GetUserData())->getPosition().first;

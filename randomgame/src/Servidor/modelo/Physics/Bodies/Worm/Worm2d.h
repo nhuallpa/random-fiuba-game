@@ -7,7 +7,7 @@
 using namespace std;
 
 class WormActions;
-class Worm2d : public Cuadrado{
+class Worm2d : public Body{
 
 protected:
 WormActions* aWormActions;
