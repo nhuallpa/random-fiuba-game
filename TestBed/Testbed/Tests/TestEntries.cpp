@@ -30,7 +30,7 @@ using namespace std;
 
 #include "AddPair.h"
 #include "ApplyForce.h"
-#include "BodyTypes.h"
+#include "TerrenoConWorms.h"
 #include "Breakable.h"
 #include "Bridge.h"
 #include "BulletTest.h"
@@ -79,7 +79,7 @@ using namespace std;
 
 TestEntry g_testEntries[] =
 {
-	{"Inclinacion", InclinacionTest::Create},
+	//{"Inclinacion", InclinacionTest::Create},
 	{"Movimiento", MovimientoTest::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
@@ -89,7 +89,7 @@ TestEntry g_testEntries[] =
 	{"Varying Restitution", VaryingRestitution::Create},
 	{"Character Collision", CharacterCollision::Create},
 	{"Edge Test", EdgeTest::Create},
-	{"Body Types", BodyTypes::Create},
+	{"Terreno Con Worms", BodyTypes::Create},
 	{"Shape Editing", ShapeEditing::Create},
 	{"Car", Car::Create},
 	{"Apply Force", ApplyForce::Create},

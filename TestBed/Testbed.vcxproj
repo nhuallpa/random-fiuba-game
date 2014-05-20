@@ -75,7 +75,7 @@
     <ClInclude Include="Testbed\Framework\Test.h" />
     <ClInclude Include="Testbed\Tests\AddPair.h" />
     <ClInclude Include="Testbed\Tests\ApplyForce.h" />
-    <ClInclude Include="Testbed\Tests\BodyTypes.h" />
+    <ClInclude Include="Testbed\Tests\TerrenoConWorms.h" />
     <ClInclude Include="Testbed\Tests\Breakable.h" />
     <ClInclude Include="Testbed\Tests\Bridge.h" />
     <ClInclude Include="Testbed\Tests\BulletTest.h" />
