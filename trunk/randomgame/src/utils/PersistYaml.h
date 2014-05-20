@@ -108,6 +108,8 @@ public:
 	/*circ:	tipo,id,x,y,rot,masa,escala,estatico,color,radio*/
 	void setCirc(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color,std::string radio);
 
+	void setHexa(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color);
+
 	void escribirYaml(std::string);
 
 };

@@ -144,6 +144,54 @@ void ParserYaml::startWithDefaultLevel(){
 
 }
 
+
+void ParserYaml::setTerrain(std::string terrain){
+	
+	PersistYaml* aPersist=PersistYaml::getInstance();
+	aPersist->setMetaEps(this->getMetaEps());
+	aPersist->setMetaSca(this->getMetaSca());	
+	aPersist->setMetaMaxPlay(this->getMetaMaxPlay());	
+	aPersist->setMetaMaxPj(this->getMetaMaxPj());	
+	aPersist->setEscenarioFps(this->getEscenarioFps());
+	aPersist->setEscenarioAltoU(this->getEscenarioAltoU());
+	aPersist->setEscenarioAnchoU(this->getEscenarioAnchoU());
+	aPersist->setEscenarioAltoP(this->getEscenarioAltoP());
+	aPersist->setEscenarioAnchoP(this->getEscenarioAnchoP());
+	aPersist->setEscenarioNivelAgua(this->getEscenarioAgua());
+	aPersist->setEscenarioColorAgua(this->getEscenarioColorAgua());
+	aPersist->setEscenarioImTierra(terrain);
+	aPersist->setEscenarioColorTierra(this->getEscenarioColorTierra());
+	aPersist->setEscenarioImCielo(this->getEscenarioCielo());
+	for(unsigned j=0;j<this->getCantElem();j++){
+		if (this->getElemTipo(j).compare("rec") == 0){
+			aPersist->setRec(this->getElemId(j),this->getElemX(j),this->getElemY(j),this->getElemRot(j),this->getElemMasa(j),this->getElemAlto(j),this->getElemAncho(j),this->getElemEstatico(j),this->getElemColor(j));
+		
+		}
+		if (this->getElemTipo(j).compare("tri") == 0){
+			aPersist->setTri(this->getElemId(j),this->getElemX(j),this->getElemY(j),this->getElemRot(j),this->getElemMasa(j),this->getElemEstatico(j),this->getElemColor(j),this->getElemEscala(j));
+		
+		}
+		if (this->getElemTipo(j).compare("pent") == 0){
+			aPersist->setPent(this->getElemId(j),this->getElemX(j),this->getElemY(j),this->getElemRot(j),this->getElemMasa(j),this->getElemEscala(j),this->getElemEstatico(j),this->getElemColor(j));
+		}
+		if (this->getElemTipo(j).compare("hexa") == 0){
+			aPersist->setHexa(this->getElemId(j),this->getElemX(j),this->getElemY(j),this->getElemRot(j),this->getElemMasa(j),this->getElemEscala(j),this->getElemEstatico(j),this->getElemColor(j));
+		}
+		if (this->getElemTipo(j).compare("circ") == 0){
+			aPersist->setCirc(this->getElemId(j),this->getElemX(j),this->getElemY(j),this->getElemRot(j),this->getElemMasa(j),this->getElemEscala(j),this->getElemEstatico(j),this->getElemColor(j),this->getElemRadio(j));
+		}
+		
+		}
+
+
+
+
+	aPersist->escribirYaml(this->levelFilePath);
+
+
+
+}
+
 void ParserYaml::DestroySingleton(){
 	if(pInstance != NULL) delete pInstance;
 }
