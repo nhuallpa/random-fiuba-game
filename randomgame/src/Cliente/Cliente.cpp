@@ -117,6 +117,11 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 		return;
 	}
 
+	input.setRcvTimeout(10,5);
+	output.setRcvTimeout(10,5);
+	input.setSendTimeout(10,5);
+	output.setSendTimeout(10,5);
+
 	Log::i("Connected to update port: %d", port+1);
 	this->srvStatus = SERVER_OK;
 
