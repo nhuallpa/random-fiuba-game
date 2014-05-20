@@ -83,7 +83,7 @@ class Cliente : public OnMovementListener{
 		
 		// Se usa para controlar el timeout de los sockets
 
-		bool srvStatus;
+		ServerStatus srvStatus;
 
 		Mutex m;
 		Mutex n;
