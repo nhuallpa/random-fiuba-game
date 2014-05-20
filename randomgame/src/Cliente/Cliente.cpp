@@ -91,20 +91,27 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 	, domain()
 {
 
-	input.connect2(ip, port+1);
+	bool stat = input.connect2(ip, port+1);
+	if (!stat){
+		this->srvStatus = SERVER_NOT_RESPONDING;
+		return;
+	}
+
 	Log::i("Connected to data port: %d", port);
-	output.connect2(ip, port);
+	
+	stat = output.connect2(ip, port);
+	if (!stat){
+		this->srvStatus = SERVER_NOT_RESPONDING;
+		return;
+	}
+
 	Log::i("Connected to update port: %d", port+1);
-	this->srvStatus = true;
+	this->srvStatus = SERVER_OK;
 
-	
 	this->data.cli = this;
-
 	this->domain.setPlayerID(this->pl);
-	
 
 	getRemoteWorld(); // recibo el mundo o un codigo de reject
-
 
 	//Thread de escucha de mensajes en la red
 	Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
@@ -243,6 +250,7 @@ int Cliente::notifyLocalUpdates(void *data){
 
 		if ( !cli->output.sendmsg(*msg) ) {
 			Log::t("Local Update - Client connection with server error");
+			cli->srvStatus = SERVER_TIMEDOUT;
 			m->unlock();
 			return 1;
 		}
@@ -272,7 +280,8 @@ int Cliente::netListener(void* data){
 		
 
 		if ( !cli->input.rcvmsg(*emsg) ) {
-			printf("\nDesconectando cliente at listening state");
+			Log::e("\nDesconectando cliente at listening state");
+			cli->srvStatus = SERVER_TIMEDOUT;
 			//TODO: metodo de desconexion del server, mensaje y grisar pantalla o retry
 
 			return 1;
@@ -382,11 +391,10 @@ void Cliente::getRemoteWorld() {
 	//Login to server
 	msg->type = LOGIN;
 	msg->playerID = this->pl; 
-	//printf("\nLogin player id: %s",msg->playerID.c_str());
 
 	if ( !this->output.sendmsg(*msg) ) {
-		//Log::e("connection error");
-		printf("\nClient: connection error");
+		Log::e("\nClient: connection error");
+		this->srvStatus = SERVER_NOT_RESPONDING;
 		return;
 	}
 
@@ -396,6 +404,7 @@ void Cliente::getRemoteWorld() {
 	//Get amount of users from the server
 	if (!this->input.rcvmsg(*msg)) {
 		Log::e("Client: connection error - Server disconnected/not responding while retrieving amount of users");
+		this->srvStatus = SERVER_NOT_RESPONDING;
 		return;
 	}
 
@@ -406,6 +415,7 @@ void Cliente::getRemoteWorld() {
 
 		if (!this->input.rcvmsg(*msg)) {
 			Log::e("Client: connection error - Server disconnected/not responding while retrieving their worms");
+			this->srvStatus = SERVER_NOT_RESPONDING;
 			return;
 		}
 		int els = msg->elements;
@@ -413,6 +423,7 @@ void Cliente::getRemoteWorld() {
 		for ( int j=0; j < els; j++){
 
 			Log::i("Getted worm id: %d at pos: %d, %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y);
+
 			//Trigger changes into game elements of the client
 			GameElement* elem = getElementFromPlayable(msg->play[j]);
 			elem->playerID = msg->playerID;

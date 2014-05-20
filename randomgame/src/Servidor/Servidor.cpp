@@ -394,7 +394,7 @@ int Servidor::initClient(void* data){
 			switch (datagram->type) {
 			case UPDATE:
 				m->lock();
-				printf("\nGot update");
+				printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
 				m->unlock();

@@ -19,6 +19,12 @@
 #pragma comment(lib, "Ws2_32.lib")
 
 
+typedef enum{
+	SERVER_OK=0,
+	SERVER_NOT_RESPONDING,
+	SERVER_TIMEDOUT
+} ServerStatus;
+
 
 
 
@@ -61,7 +67,7 @@ public:
 	~Socket ();
 
 	Socket init();
-	void connect2 (std::string hostname, uint16_t port);
+	bool connect2 (std::string hostname, uint16_t port);
 	bool sendmsg(Messages type, std::vector<uint8_t> datos);
 	bool sendmsg(Datagram msg);
 	bool sendFile(std::string path);

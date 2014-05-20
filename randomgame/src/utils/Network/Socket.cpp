@@ -193,17 +193,17 @@ bool Socket::sendmsg(Datagram msg){
 
 }
 
-void Socket::connect2(std::string hostname, uint16_t port)
+bool Socket::connect2(std::string hostname, uint16_t port)
 {
 	
 	//this->init();
-		WSAData wsaData;
+	WSAData wsaData;
 
     int error = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (error == SOCKET_ERROR)
     {
         Log::e("Server: Winsock Failed to begin!\n");
-        return;
+        return false;
     }
 	Log::e("Server: WinSocket Started Correctly!\n");
 
@@ -222,7 +222,7 @@ void Socket::connect2(std::string hostname, uint16_t port)
 	if (server == NULL) {
 		Log::e("Couldn't find host: %s",hostname.c_str());
 		printf("Couldn't find host: %s",hostname.c_str());
-		//return;
+		return false;
 	}
 
 	
@@ -241,7 +241,10 @@ void Socket::connect2(std::string hostname, uint16_t port)
 	if (connect(this->fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR ) {
 		Log::e("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
 		printf("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
+		return false;
 	}
+
+	return true;
 }
 
 bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
