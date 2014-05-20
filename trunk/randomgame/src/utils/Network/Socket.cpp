@@ -348,7 +348,7 @@ void Socket::setRcvTimeout (long sec, long usec)
 	timeout.tv_usec = usec;
 
 	if (setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) == -1) {
-		//Log::e("Couldn't set specified timeout");
+		Log::e("Couldn't set specified timeout");
 	}
 }
 
