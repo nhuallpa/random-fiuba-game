@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\TerrainProcessor.h"
+#include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h"
 
 //using namespace server_model_handle;
 using namespace std;
@@ -63,6 +64,18 @@ public:
 			b2PolygonShape shape;
 			shape.SetAsBox(0.5f, 2.0f);
 			m_attachment->CreateFixture(&shape, 2.0f);*/
+
+						Worm2d* gus = new Worm2d(WORM,
+								20,
+								50,
+								MODEL_WORM_HEIGHT,
+								MODEL_WORM_WIDTH,
+								30,
+								0,
+								m_world,
+								NULL,
+								false
+								);
 
 
 			//caca agregada por Bauti con lujo

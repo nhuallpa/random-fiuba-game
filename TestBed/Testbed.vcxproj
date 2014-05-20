@@ -35,6 +35,10 @@
     <ClCompile Include="src\Servidor\modelo\HandlerBmp\PixelBmp.cpp" />
     <ClCompile Include="src\Servidor\modelo\HandlerBmp\Position.cpp" />
     <ClCompile Include="src\Servidor\modelo\HandlerBmp\TerrainImg.cpp" />
+    <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp" />
+    <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.cpp" />
+    <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp" />
+    <ClCompile Include="src\Servidor\modelo\Physics\Body.cpp" />
     <ClCompile Include="src\Servidor\modelo\TerrainProcessor.cpp" />
     <ClCompile Include="src\utils\Util.cpp" />
     <ClCompile Include="Testbed\Framework\Main.cpp" />
@@ -60,6 +64,10 @@
     <ClInclude Include="src\Servidor\modelo\HandlerBmp\PixelBmp.h" />
     <ClInclude Include="src\Servidor\modelo\HandlerBmp\Position.h" />
     <ClInclude Include="src\Servidor\modelo\HandlerBmp\TerrainImg.h" />
+    <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Cuadrado.h" />
+    <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h" />
+    <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h" />
+    <ClInclude Include="src\Servidor\modelo\Physics\Body.h" />
     <ClInclude Include="src\Servidor\modelo\TerrainProcessor.h" />
     <ClInclude Include="src\utils\Constantes\Constantes.h" />
     <ClInclude Include="src\utils\Util.h" />

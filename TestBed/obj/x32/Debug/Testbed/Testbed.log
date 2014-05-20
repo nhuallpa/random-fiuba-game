@@ -1,11 +1,12 @@
-﻿Build started 18/05/2014 07:28:02 p.m..
+﻿Build started 19/05/2014 10:46:58 p.m..
      1>Project "C:\random-fiuba-game\TestBed\Testbed.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "obj\x32\Debug\Testbed\Testbed.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\.. /ZI /nologo /W3 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"obj\x32\Debug\Testbed\\" /Fd"bin\Debug\Testbed.pdb" /Gd /TP /analyze- /errorReport:prompt Testbed\Tests\TestEntries.cpp
-         TestEntries.cpp
-     1>c:\random-fiuba-game\testbed\src\servidor\modelo\handlecontour.h(25): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\.. /ZI /nologo /W3 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"obj\x32\Debug\Testbed\\" /Fd"bin\Debug\Testbed.pdb" /Gd /TP /analyze- /errorReport:prompt src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp
+         Cuadrado.cpp
+     1>c:\random-fiuba-game\testbed\src\servidor\modelo\physics\body.h(25): warning C4099: 'b2Vec2' : type name first seen using 'struct' now seen using 'class'
+                 c:\random-fiuba-game\testbed\libs\box2d\common\b2math.h(65) : see declaration of 'b2Vec2'
      1>c:\program files (x86)\microsoft visual studio 10.0\vc\include\xutility(2227): warning C4996: 'std::_Copy_impl': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\xutility(2212) : see declaration of 'std::_Copy_impl'
                  c:\random-fiuba-game\testbed\libs\yaml-cpp\include\yaml-cpp\binary.h(32) : see reference to function template instantiation '_OutIt std::copy<const unsigned char*,unsigned char*>(_InIt,_InIt,_OutIt)' being compiled
@@ -34,6 +35,10 @@
          obj\x32\Debug\Testbed\PixelBmp.obj
          obj\x32\Debug\Testbed\Position.obj
          obj\x32\Debug\Testbed\TerrainImg.obj
+         obj\x32\Debug\Testbed\Cuadrado.obj
+         obj\x32\Debug\Testbed\Worm2d.obj
+         obj\x32\Debug\Testbed\WormActions.obj
+         obj\x32\Debug\Testbed\Body.obj
          obj\x32\Debug\Testbed\TerrainProcessor.obj
          obj\x32\Debug\Testbed\Util.obj
          obj\x32\Debug\Testbed\Main.obj
@@ -92,4 +97,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.76
+Time Elapsed 00:00:03.91
