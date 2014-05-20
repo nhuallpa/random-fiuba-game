@@ -16,7 +16,6 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-//agregado por Bauti
 #include <cstdio>
 #include <iostream>
 #include <iostream>
@@ -26,11 +25,9 @@
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\TerrainProcessor.h"
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h"
 
-//using namespace server_model_handle;
 using namespace std;
 
 
-//fin agregado por bauti
 
 #ifndef BODY_TYPES_H
 #define BODY_TYPES_H
@@ -206,13 +203,38 @@ public:
 		}
 
 		if ( action == KEY_LEFT){
-			bodies[0]->ApplyForce( b2Vec2(-50,0), bodies[0]->GetWorldCenter() );
+			
+			if (normals[0].x > 0){
+				bodies[0]->ApplyForce( b2Vec2(50*normals[0].y,-50*normals[0].x), bodies[0]->GetWorldCenter() );
+				action = NOTHING;
+			}
+			if (!normals[0].x){
+				bodies[0]->ApplyForce( b2Vec2(-50,0), bodies[0]->GetWorldCenter() );
+				action = NOTHING;
+			}
+			if (normals[0].x < 0){
+				bodies[0]->ApplyForce( b2Vec2(100*normals[0].y,-100*normals[0].x), bodies[0]->GetWorldCenter() );
+				action = NOTHING;
+			}
+			
+
 		}
 
 		if ( action == KEY_RIGHT){
-			bodies[0]->ApplyForce( b2Vec2(50,0), bodies[0]->GetWorldCenter() );
+			
+			if (normals[0].x > 0){
+				bodies[0]->ApplyForce( b2Vec2(-100*normals[0].y,100*normals[0].x), bodies[0]->GetWorldCenter() );
+				action = NOTHING;
+			}
+			if (!normals[0].x){
+				bodies[0]->ApplyForce( b2Vec2(50,0), bodies[0]->GetWorldCenter() );
+				action = NOTHING;
+			}
+			if (normals[0].x < 0){
+				bodies[0]->ApplyForce( b2Vec2(-50*normals[0].y,50*normals[0].x), bodies[0]->GetWorldCenter() );
+				action = NOTHING;
+			}
 		}
-
 	}
 
 

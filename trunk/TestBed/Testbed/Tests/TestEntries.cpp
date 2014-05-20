@@ -73,14 +73,16 @@ using namespace std;
 #include "VaryingRestitution.h"
 #include "VerticalStack.h"
 #include "Web.h"
-#include "inclinacion.h"
-#include "movimiento.h"
+/*#include "inclinacion.h"
+#include "movimiento.h"*/
 
 
 TestEntry g_testEntries[] =
 {
 	//{"Inclinacion", InclinacionTest::Create},
-	{"Movimiento", MovimientoTest::Create},
+	//{"Movimiento", MovimientoTest::Create},
+	{"Terreno Con Worms", BodyTypes::Create},
+
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
 	{"Dump Shell", DumpShell::Create},
@@ -89,7 +91,7 @@ TestEntry g_testEntries[] =
 	{"Varying Restitution", VaryingRestitution::Create},
 	{"Character Collision", CharacterCollision::Create},
 	{"Edge Test", EdgeTest::Create},
-	{"Terreno Con Worms", BodyTypes::Create},
+	
 	{"Shape Editing", ShapeEditing::Create},
 	{"Car", Car::Create},
 	{"Apply Force", ApplyForce::Create},
