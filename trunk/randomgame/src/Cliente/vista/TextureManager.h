@@ -37,7 +37,7 @@ private:
 
 	void putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
 
-	bool intersectRects(SDL_Rect one, SDL_Rect two);
+	
 
 public:
 	
@@ -129,6 +129,9 @@ public:
 	tPoint convertPointUL2PXSDL(float x, float y);
 
 	~TextureManager(void);
+
+	/* one in two*/
+	bool intersectRects(SDL_Rect one, SDL_Rect two);
 };
 
 

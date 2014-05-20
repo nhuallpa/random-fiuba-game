@@ -73,6 +73,9 @@ public:
 	int getXCenter();
 	int getYCenter();
 
+	int getW() {return this->currentSprite->getWidth();}
+	int getH() {return this->currentSprite->getHeight();}
+
 	void setUserLabel(std::string text);
 	void WormView::setName(std::string text);
 
