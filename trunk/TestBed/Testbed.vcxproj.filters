@@ -140,9 +140,6 @@
     <ClInclude Include="Testbed\Tests\ApplyForce.h">
       <Filter>Tests</Filter>
     </ClInclude>
-    <ClInclude Include="Testbed\Tests\BodyTypes.h">
-      <Filter>Tests</Filter>
-    </ClInclude>
     <ClInclude Include="Testbed\Tests\Breakable.h">
       <Filter>Tests</Filter>
     </ClInclude>
@@ -347,6 +344,9 @@
     </ClInclude>
     <ClInclude Include="src\Servidor\modelo\Physics\Body.h">
       <Filter>src\Servidor\modelo\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Testbed\Tests\TerrenoConWorms.h">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
