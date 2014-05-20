@@ -201,6 +201,18 @@ public:
 	{
 		Test::Step(settings);
 
+		if ( action == KEY_JUMP){
+			bodies[0]->ApplyForce( b2Vec2(50,0), bodies[0]->GetWorldCenter() );
+		}
+
+		if ( action == KEY_LEFT){
+			bodies[0]->ApplyForce( b2Vec2(-50,0), bodies[0]->GetWorldCenter() );
+		}
+
+		if ( action == KEY_RIGHT){
+			bodies[0]->ApplyForce( b2Vec2(50,0), bodies[0]->GetWorldCenter() );
+		}
+
 	}
 
 
