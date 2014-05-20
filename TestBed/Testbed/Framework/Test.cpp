@@ -303,6 +303,9 @@ void Test::Step(Settings* settings)
 		++m_stepCount;
 	}
 
+	//Ariel
+	m_world->ClearForces();
+
 	if (settings->drawStats)
 	{
 		int32 bodyCount = m_world->GetBodyCount();
