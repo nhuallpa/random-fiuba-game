@@ -40,6 +40,12 @@
     <Filter Include="src\utils\Network">
       <UniqueIdentifier>{1190ddcd-b8a3-4556-a61a-61e6afa65354}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Servidor\modelo\Physics\Bodies">
+      <UniqueIdentifier>{b9d0418a-5c62-46be-ac8d-2098044a7243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Servidor\modelo\Physics\Bodies\Worm">
+      <UniqueIdentifier>{c191c113-fc57-424d-9993-82587226733a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Testbed\Framework\Main.cpp">
@@ -107,6 +113,18 @@
     </ClCompile>
     <ClCompile Include="src\Servidor\modelo\b2Separator.cpp">
       <Filter>src\Servidor\modelo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.cpp">
+      <Filter>src\Servidor\modelo\Physics\Bodies\Worm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp">
+      <Filter>src\Servidor\modelo\Physics\Bodies\Worm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp">
+      <Filter>src\Servidor\modelo\Physics\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Servidor\modelo\Physics\Body.cpp">
+      <Filter>src\Servidor\modelo\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +335,18 @@
     </ClInclude>
     <ClInclude Include="src\Servidor\modelo\b2Separator.h">
       <Filter>src\Servidor\modelo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h">
+      <Filter>src\Servidor\modelo\Physics\Bodies\Worm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h">
+      <Filter>src\Servidor\modelo\Physics\Bodies\Worm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Cuadrado.h">
+      <Filter>src\Servidor\modelo\Physics\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Servidor\modelo\Physics\Body.h">
+      <Filter>src\Servidor\modelo\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
