@@ -150,6 +150,7 @@ void b2Separator::calcShapes(vector<b2Vec2> &pVerticesVec, vector<vector<b2Vec2>
                 
                 if (minLen==MAX_VALUE) {
                     //TODO: Throw Error !!!
+							h=h;
                 }
                 
                 vec1 = new vector<b2Vec2>();
@@ -176,6 +177,7 @@ void b2Separator::calcShapes(vector<b2Vec2> &pVerticesVec, vector<vector<b2Vec2>
                     else {
                         if (((h<0)||h>=n)) {
                             //TODO: Throw Error !!!
+							h=h;
                         }
                         if (! isOnSegment(v2.x,v2.y,vec[h].x,vec[h].y,p1.x,p1.y)) {
                             vec1->push_back(vec[k]);
@@ -203,6 +205,7 @@ void b2Separator::calcShapes(vector<b2Vec2> &pVerticesVec, vector<vector<b2Vec2>
                     else {
                         if (((h<0)||h>=n)) {
                             //TODO: Throw Error !!!
+							h=h;
                         }
                         if (((k==j1)&&! isOnSegment(v1.x,v1.y,vec[h].x,vec[h].y,p2.x,p2.y))) {
                             vec2->push_back(vec[k]);

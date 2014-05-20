@@ -34,9 +34,7 @@ void Cliente::loop(void){
 	this->cController.addListener(this);
 
 
-	int running = 0;
-	
-	bootstrap.getScreen().setState("Juego Creado");
+	informStateClient();
 	FPSmanager fpsManager;
 	fpsManager.rate = 60;
 	SDL_initFramerate(&fpsManager);
@@ -69,11 +67,25 @@ void Cliente::destroyWorld(void){
 	//TODO: Destructor
 }
 
+void Cliente::informStateClient()
+{
+	if (this->srvStatus == SERVER_NOT_RESPONDING)
+	{
+		this->currentActivity->setMessageView("El servidor no responde. Vuelva a conectarse mas tarde");
+	}
+	else if (this->srvStatus == SERVER_TIMEDOUT)
+	{
+		this->currentActivity->setMessageView("El servidor ha dejado de responder");
+	}
+	else if (this->srvStatus == SERVER_OK)
+	{
+		this->currentActivity->setMessageView("Se ha registrado correctamente");
+	}
+}
+
 
 void Cliente::runGame(){
 	bootstrap.getScreen().setState("Juego corriendo");
-	
-	//this->server->getGameEngine().step();
 }
 
 

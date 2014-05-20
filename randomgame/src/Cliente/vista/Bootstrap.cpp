@@ -19,22 +19,18 @@ void Bootstrap::init()
 	{
 		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
 	} 
+	FontManager::Instance().init(this->getScreen().getRenderer());
 
-	
 	std::map<std::string, std::string> map_images;
 	map_images["sky"] = aParser->getEscenarioCielo();
 	map_images["eart"] = aParser->getEscenarioTierra();
 
-	FontManager::Instance().init(this->getScreen().getRenderer());
 	TextureManager::Instance().init(w,h,map_images,this->getScreen().getRenderer());
 	loadSprites();
 	initCamera(w, h);
 	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
 
-
-
 }
-
 
 void Bootstrap::initCamera(int w, int h) 
 {

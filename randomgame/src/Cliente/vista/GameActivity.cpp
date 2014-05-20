@@ -1,5 +1,5 @@
 #include "GameActivity.h"
-#define WORM_W 30
+#define WORM_W 20
 #define WORM_H 30
 
 
