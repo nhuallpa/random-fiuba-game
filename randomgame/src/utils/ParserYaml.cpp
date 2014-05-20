@@ -25,7 +25,7 @@ ParserYaml::ParserYaml(std::string config, std::string level, bool aux){
 	this->levelFilePath = level;
 	//this->cargarConfYaml(this->confFilePath);
 	this->isDefault = false;
-	this->cargarNivelYaml(level);
+	this->cargarNivelYaml(this->levelFilePath);
 }
 
 ParserYaml::ParserYaml(std::string config,std::string level){
@@ -148,6 +148,9 @@ void ParserYaml::DestroySingleton(){
 	if(pInstance != NULL) delete pInstance;
 }
 
+
+
+
 ParserYaml* ParserYaml::getInstance(){
 	std::string path = "level.yaml";
 	if(pInstance == NULL){
@@ -168,6 +171,19 @@ ParserYaml* ParserYaml::getInstance(std::string file){
 			pInstance = new ParserYaml(CONFIG_FILE,file);
 		}
 	}
+	else{
+	std::ifstream fin(file.c_str());
+		if( fin.good() == true){
+			pInstance = new ParserYaml(CONFIG_FILE,file,true);
+		}else{
+			Log::e(PARSER,"Archivo de escenario: %s, invalido/corrupto o no encontrado", file.c_str());
+			Log::i(PARSER,"Se carga informacion default");
+			pInstance = new ParserYaml(CONFIG_FILE,file);
+		}
+	
+	}
+
+
 	return pInstance;
 }
 
@@ -517,7 +533,7 @@ void ParserYaml::cargarNivelYaml(std::string file){
 				}
 				else{
 					//LOG: key no es un identificador correcto del archivo de nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
-					Log::e(PARSER,"%s no es un identificador correcto del archivo de escenario.", key);
+					Log::e(PARSER,"%s no es un identificador correcto del archivo de escenario.", key.c_str());
 				}
 			}
 			
