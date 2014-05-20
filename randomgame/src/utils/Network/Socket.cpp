@@ -499,7 +499,7 @@ bool Socket::sendmsg(EDatagram msg){
 bool Socket::sendFile(std::string path){
 
 	FILE *file = fopen(path.c_str(), "rb");
-	
+	size_t retries = 0;
 	struct stat stat_buf;
     int rc = stat(path.c_str(), &stat_buf);
 
@@ -531,9 +531,29 @@ bool Socket::sendFile(std::string path){
  
     fread(buffer, sizeof(buffer[0]), stat_buf.st_size, file);
 
-	nBytes = send(fd, buffer, stat_buf.st_size, 0);
+	while(retries < 3){
+		nBytes = send(fd, buffer, stat_buf.st_size, 0);
+	
+			if (nBytes == SOCKET_ERROR)
+		{
+			printf("Client: failed to send it at first attempt.\n");
+
+			if (errno == EAGAIN || errno == EWOULDBLOCK){
+				Sleep(10);
+				retries++;
+				continue;
+			}
+			return false;
+		}
+		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
+		return true;
+	}
+
+
+	
+	
 	printf("\nSended %d Bytes of YAML",nBytes);
-	(!nBytes) ? true : false;
+	return true;
 }
 
 
