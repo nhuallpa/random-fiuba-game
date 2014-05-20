@@ -47,10 +47,10 @@ void GameActivity::update()
 			if (domainElement.getType() == WORM) 
 			{
 				WormView* aWorm = gameView->findWormById(domainElement.getId());
-
-				if (this->builder->getDomain()->getPlayerState(domainElement.getPlayerID()) == DISCONNECTED)
+				StateConn stateConn = this->builder->getDomain()->getPlayerState(domainElement.getPlayerID());
+				if (stateConn == DISCONNECTED)
 					aWorm->putGrey();
-				if (this->builder->getDomain()->getPlayerState(domainElement.getPlayerID()) == CONNECTED)
+				if (stateConn == CONNECTED || stateConn == RECONNECTED)
 					aWorm->quitGrey();
 
 

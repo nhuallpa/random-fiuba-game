@@ -57,11 +57,10 @@ void Worm2d::animate(){
 	b2Vec2 f = this->body->GetPosition();
 
 
-	if ( !((this->ox < (f.x + 0.1)) && (this->ox > (f.x - 0.1)) ) || 
-		 !((this->oy < (f.y + 0.1)) && (this->oy > (f.y - 0.1)) ) )
+	if ( this->ox != f.x || this->oy != f.y)
 	{
 
-		printf("\n WormID: %d, distinto X %f to %f, Y %f to %f",myWorm->getId(), this->ox,f.x,f.y,this->oy);
+		//printf("\n WormID: %d, distinto X %f to %f, Y %f to %f",myWorm->getId(), this->ox,f.x,f.y,this->oy);
 
 		//Matar cuando pasa el agua TODO
 
