@@ -10,6 +10,7 @@ Prepararse para le ejecucion:
 		
 	2- Ubicarse en Carpete de ejecutables desde DOS:
 	
+		C:\random-fiuba-game\randomgame\Release
 		C:\random-fiuba-game\randomgame\Debug
 
 Ejecutar Servidor

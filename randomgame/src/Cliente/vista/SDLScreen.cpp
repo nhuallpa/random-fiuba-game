@@ -83,8 +83,12 @@ void SDLScreen::OnZoom(ZoomEvent e)
 	{
 		SDL_RenderSetScale(renderer, nextScale, nextScale);
 		SDL_RenderGetViewport(renderer, &newViewPort);
-		if ((newViewPort.h + this->refCam->getY()) <= this->refCam->getHeightScenario() &&
-			(newViewPort.w + this->refCam->getX()) <= this->refCam->getWidthScenario())
+
+		//todo: pasar a camera
+		int camaraBootom = newViewPort.h + this->refCam->getY();
+		int camaraRight = newViewPort.w + this->refCam->getX();
+		if (camaraBootom <= this->refCam->getHeightScenario() &&
+			camaraRight <= this->refCam->getWidthScenario())
 		{
 			this->refCam->setH(newViewPort.h);
 			this->refCam->setW(newViewPort.w);

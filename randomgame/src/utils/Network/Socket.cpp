@@ -174,6 +174,9 @@ bool Socket::sendmsg(Datagram msg){
 	while(retries < 3){
 		nBytes = send(fd, buffer, messageSize, 0);
 		//printf("\n Client send %d bytes",nBytes);
+		if (nBytes != messageSize){
+			Log::e("sendmsg: I tried to send %d bytes, but I sent %d bytes", messageSize, nBytes);
+		}
 		if (nBytes == SOCKET_ERROR)
 		{
 			printf("Client: failed to send it at first attempt.\n");
@@ -262,6 +265,7 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 	//printf("\nSending bytes: %d",datos.size() );
 	while (aEnviar != 0) {
 		int bytes = send(fd, (char*)(&datos[base]), aEnviar, 0);
+		
 		if (bytes == -1) {
 			if (errno == EINTR) {
 
@@ -281,6 +285,9 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 		} else {
 			base += bytes;
 			aEnviar -= bytes;
+		}
+		if (bytes != aEnviar){
+			Log::e("sendmsg: I tried to send %d bytes, but I sent %d bytes", aEnviar, bytes);
 		}
 	}
 	return true;	
@@ -476,6 +483,7 @@ bool Socket::sendmsg(EDatagram msg){
 	while(retries < 3){
 		nBytes = send(fd, buffer, messageSize, 0);
 		//printf("\n Client send %d bytes",nBytes);
+		
 		if (nBytes == SOCKET_ERROR)
 		{
 			printf("Client: failed to send it at first attempt.\n");
@@ -486,6 +494,9 @@ bool Socket::sendmsg(EDatagram msg){
 				continue;
 			}
 			return false;
+		}
+		if (nBytes != messageSize){
+			Log::e("I tried to send %d bytes, but I sent %d bytes", messageSize, nBytes);
 		}
 		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
 		return true;
@@ -533,8 +544,8 @@ bool Socket::sendFile(std::string path){
 
 	while(retries < 3){
 		nBytes = send(fd, buffer, stat_buf.st_size, 0);
-	
-			if (nBytes == SOCKET_ERROR)
+		
+		if (nBytes == SOCKET_ERROR)
 		{
 			printf("Client: failed to send it at first attempt.\n");
 
@@ -544,6 +555,9 @@ bool Socket::sendFile(std::string path){
 				continue;
 			}
 			return false;
+		}
+		if (nBytes != stat_buf.st_size){
+			Log::e("I tried to send %d bytes, but I sent %d bytes", stat_buf.st_size, nBytes);
 		}
 		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
 		return true;
