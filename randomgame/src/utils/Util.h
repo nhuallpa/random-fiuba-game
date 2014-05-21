@@ -13,6 +13,15 @@ typedef std::string Player;
 enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED};
 
 typedef enum{
+	NEW_PLAYER=0,
+	EXISTING_PLAYER,
+	PLAYER_NOT_ALLOWED,
+	PLAYER_ALLOWED
+} PlayerAccounting;
+
+
+
+typedef enum{
 	MOVE_RIGHT=0,
 	MOVE_LEFT,
 	JUMP,

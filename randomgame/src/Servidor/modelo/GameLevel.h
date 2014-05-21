@@ -83,7 +83,7 @@ class GameLevel {
 
 		bool checkMapPosition(float x, float y);
 
-		bool acceptPlayer(std::string playerID);
+		PlayerAccounting acceptPlayer(std::string playerID);
 
 		void disconnectPlayer(std::string playerID);
 		StateConn getPlayerStatus(std::string playerId);

@@ -218,15 +218,19 @@ void GameEngine::animateWormsFromPlayer(std::string playerID){
 
 bool GameEngine::registerPlayer(std::string playerID){
 
-	bool retval = this->gameLevel->acceptPlayer(playerID);
+	PlayerAccounting retval = this->gameLevel->acceptPlayer(playerID);
 	
-	if (retval){
+	if (retval == NEW_PLAYER){
 		//Now animate new worms into the world
 		animateWormsFromPlayer(playerID);
-
-		
+		return true;
 	}
-	return retval;
+
+	if ( retval == EXISTING_PLAYER)
+		return true;
+
+	return false;
+	
 }
 
 
