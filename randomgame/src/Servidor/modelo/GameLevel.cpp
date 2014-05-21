@@ -290,7 +290,7 @@ PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 		return EXISTING_PLAYER;
 	}
 
-	if ( this->players.size() <= this->amountUser ){
+	if ( this->players.size() < this->amountUser ){
 		// No esta en la lista pero lo acepto porque entra
 	
 		GamePlayer* gp = new GamePlayer(playerID);

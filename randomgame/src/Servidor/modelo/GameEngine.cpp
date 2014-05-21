@@ -226,9 +226,10 @@ bool GameEngine::registerPlayer(std::string playerID){
 		return true;
 	}
 
-	if ( retval == EXISTING_PLAYER)
+	if ( retval == EXISTING_PLAYER){
+		
 		return true;
-
+	}
 	return false;
 	
 }
