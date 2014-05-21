@@ -274,10 +274,11 @@ int Servidor::wait4Connections(void* data){
 			dataCliente->srv = srv;
 			dataCliente->clientI = sClientI;
 			dataCliente->clientO = sClientO;
-
+			srv->jugadoresConectados++;
+			
 			Thread clientThread("Client Thread",initClient,dataCliente);
 
-			srv->jugadoresConectados++;
+
 		}
 	}
 
@@ -314,27 +315,38 @@ int Servidor::initClient(void* data){
 
 	// Receive LOGIN info
 	if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
+		
 		printf("\nDesconectando cliente at login");
-		srv->disconnect(playerId);
+		closesocket(aThreadData->clientO.getFD());
+		closesocket(aThreadData->clientI.getFD());
+		srv->jugadoresConectados--;
 		return 1;
 	}
 
 
-	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
-						std::make_pair(aThreadData->clientO,
-						aThreadData->clientI)
-						)
-					);
+
 
 
 	w->lock();
 	//Valido si puede estar en el nivel antes de avanzar
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
-		printf("\Cliente no permitido en el server");
-		srv->disconnect(playerId);
+		printf("\nCliente no permitido en el server");
+		
+		closesocket(aThreadData->clientO.getFD());
+		closesocket(aThreadData->clientI.getFD());
+		srv->jugadoresConectados--;
+		w->unlock();
+		
 		return 1;
 	}
 	w->unlock();
+
+	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
+					std::make_pair(aThreadData->clientO,
+					aThreadData->clientI)
+					)
+				);
+
 	printf("\nCliente registrado satisfactoriamente en el servidor");
 	
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
