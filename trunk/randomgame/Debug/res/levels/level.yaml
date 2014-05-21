@@ -1,6 +1,8 @@
 metadata:
     epsilon: 5
-    scale: 4
+    scale: 15
+    max_player: 5
+    max_per_team: 4
 escenario:
     fps: 60
     ancho-un: 400
