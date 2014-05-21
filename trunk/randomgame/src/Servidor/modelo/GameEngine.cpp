@@ -2,6 +2,8 @@
 #include <list>
 #include "Box2D/Collision/Shapes/b2Shape.h"
 #include "Box2D/Collision/b2Collision.h"
+#include "Exceptions\ContourException.h"
+#include "..\..\utils\ParserYaml.h"
 
 #define UPDATE_STEPS 3
 #define WATER_VELOCITY -2
@@ -38,7 +40,16 @@ bool GameEngine::initWorld(){
 	this->timeStep = 1.0 / TIME_STEP;//Util::string2float(aParser->getMetaTime());
 	Log::i("TimeStep: %f",this->timeStep);
 
-	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
+	try{
+		aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
+	}
+	catch(ContourExp e){
+		Log::e("SE CARGA TERRENO POR DEFECTO, res/images/terrain1.png, TEMPANOS DE HIELO");
+		aParser->setTerrain("res/images/terrain1.png");
+		aParser = ParserYaml::getInstance(aParser->getFilePath().c_str());
+		aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
+	}
+	
 	this->gameLevel->setTerrain(aTerrainProcessor);
 
 	
