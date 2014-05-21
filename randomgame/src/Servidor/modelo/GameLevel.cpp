@@ -8,21 +8,15 @@
 using namespace std;
 
 
-//ToDo @aliguo: crear nivel a partir de UL de YAML
 GameLevel::GameLevel() {
+
+	ParserYaml* aParser = ParserYaml::getInstance();
 	this->levelHeight = 100;
 	this->levelWidth = 100;
-	this->amountUser = 4; //TODO: LEVANTAR PARAMETRO DEL YAML
-	this->amountWorms = 5;
+	this->amountUser = Util::string2int(aParser->getMetaMaxPlay()); 
+	this->amountWorms = Util::string2int(aParser->getMetaMaxPj());
 	this->idUnique = 1;
 
-	//GamePosition * gp = GamePosition::getInstance();
-	//if(!gp->isCompleted()){
-	//	list<pair<int,int>> l;
-	//	l.push_back(pair<int,int>(100,700));
-	//	gp->generate(250);
-	//	gp->validPosition(&l);
-	//}
 }
 
 GameLevel::~GameLevel() {
