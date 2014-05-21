@@ -250,3 +250,15 @@ void GameActivity::setMessageView(std::string msg)
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->getStateBar()->setMsj(msg);
 }
+
+void GameActivity::showMessageError(std::string msg)
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->getStateBar()->setMsjError(msg);
+}
+
+void GameActivity::showMessageInfo(std::string msg)
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->getStateBar()->setMsjInfo(msg);
+}

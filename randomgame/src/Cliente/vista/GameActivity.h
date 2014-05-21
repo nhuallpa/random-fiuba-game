@@ -57,6 +57,10 @@ public:
 
 	void setMessageView(std::string msg);
 
+	void showMessageError(std::string msg);
+
+	void showMessageInfo(std::string msg);
+
 	~GameActivity(void);
 };
 

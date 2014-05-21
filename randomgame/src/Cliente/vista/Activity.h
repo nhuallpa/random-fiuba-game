@@ -35,6 +35,8 @@ public:
 	void render();
 
 	virtual void setMessageView(std::string msg) = 0;
+	virtual void showMessageError(std::string msg) = 0;
+	virtual void showMessageInfo(std::string msg) = 0;
 
 };
 

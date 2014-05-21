@@ -8,6 +8,9 @@ StateBarView::StateBarView():View(0, 0){
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;
+	colorError = 0xFF3300CC;
+	colorInfo = 0xFF006633;
+	colorMsg = colorError;
 }
 
 StateBarView::~StateBarView(void)
@@ -26,15 +29,19 @@ void StateBarView::cutVect(){
 	
 }
 
+void StateBarView::setMsjInfo(std::string msj){
+	colorMsg = colorInfo;
+	this->label.setText(msj, this->color);
+	i=0;
+}
+
+void StateBarView::setMsjError(std::string msj){
+	colorMsg = colorError;
+	this->label.setText(msj, this->color);
+	i=0;
+}
+
 void StateBarView::setMsj(std::string msj){
-	/*state aState;
-	std::vector<state>::iterator it;
-	aState.msj = msj;
-	aState.j = this->i;
-	it = this->stateV.begin();
-	this->stateV.insert(it,aState);
-	*/
-	//this->msj.assign(msj);
 	this->label.setText(msj, this->color);
 	i=0;
 }
@@ -61,6 +68,15 @@ void StateBarView::draw(SDLScreen & screen){
 										msj,
 										0xFFFFFFFF);
 		*/
+		int xLabel = TextureManager::Instance().getCamera().getX();
+		int yLabel = 10 + TextureManager::Instance().getCamera().getY();
+		TextureManager::Instance().drawBox(screen.getRenderer(), 
+											xLabel,
+											yLabel,
+											xLabel + this->label.getWidth(),
+											yLabel + this->label.getHeight(),
+											colorMsg);
+
 		this->label.draw(screen.getRenderer(), TextureManager::Instance().getCamera().getX(),
 												10 + TextureManager::Instance().getCamera().getY());
 	}

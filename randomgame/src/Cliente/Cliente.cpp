@@ -71,15 +71,15 @@ void Cliente::informStateClient()
 {
 	if (this->srvStatus == SERVER_NOT_RESPONDING)
 	{
-		this->currentActivity->setMessageView("El servidor no responde. Vuelva a conectarse mas tarde");
+		this->currentActivity->showMessageError("El servidor no responde. Vuelva a conectarse mas tarde");
 	}
 	else if (this->srvStatus == SERVER_TIMEDOUT)
 	{
-		this->currentActivity->setMessageView("El servidor ha dejado de responder");
+		this->currentActivity->showMessageError("El servidor ha dejado de responder");
 	}
 	else if (this->srvStatus == SERVER_OK)
 	{
-		this->currentActivity->setMessageView("Se ha registrado correctamente");
+		this->currentActivity->showMessageInfo("Se ha registrado correctamente");
 	}
 }
 
@@ -355,17 +355,17 @@ int Cliente::netListener(void* data){
 					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
 					Log::t("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
-				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " ha ingresado");	
+				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
 			}
 			else if (emsg->playerState == DISCONNECTED)
 			{
 				Log::d("El usuario %s se ha DESCONECTADO ", emsg->playerID.c_str());
-				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " se ha desconectado");	
+				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha desconectado");	
 			}
 			else if (emsg->playerState == RECONNECTED)
 			{
 				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
-				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " se ha reconectado");	
+				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
 			//primervez = false;
 			break;
