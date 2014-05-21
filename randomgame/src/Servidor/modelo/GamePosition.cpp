@@ -59,7 +59,12 @@ void GamePosition::getRandomPosition(int* x, int* y){
 	int size = positions.size();
 	int index = 0;
 	if(size){
-		it = this->getItemMap(Util::getRandom(1, size));
+		if(size > 1){
+			it = this->getItemMap(Util::getRandom(1, size - 1));
+		}else{
+			it = this->getItemMap(Util::getRandom(1, size));
+		}
+		
 		*y = it->first;
 		*x = getX(&it->second);
 		if(!it->second.size()){
