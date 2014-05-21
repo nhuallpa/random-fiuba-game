@@ -279,7 +279,7 @@ void GameLevel::updateElementPosition(int pos, int id, float x, float y, float a
 }
 
 
-bool GameLevel::acceptPlayer(std::string playerID){
+PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 
 	map<string, GamePlayer*>::iterator it;
 	it=this->players.find(playerID);
@@ -287,7 +287,7 @@ bool GameLevel::acceptPlayer(std::string playerID){
 	if ( it != this->players.end() ){
 		// Esta en la lista de jugadores del nivel, lo seteo como conectado y lo acepto
 		it->second->setStateConn(RECONNECTED);
-		return true;
+		return EXISTING_PLAYER;
 	}
 
 	if ( this->players.size() <= this->amountUser ){
@@ -307,10 +307,10 @@ bool GameLevel::acceptPlayer(std::string playerID){
 		for (std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
 			this->addEntity( (*itW) );
 		}
-		return true;
+		return NEW_PLAYER;
 	}
 
-	return false;
+	return PLAYER_NOT_ALLOWED;
 
 }
 
