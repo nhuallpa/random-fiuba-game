@@ -24,6 +24,11 @@ private:
 
 	TextView label;
 	
+	Uint32 colorInfo;
+	Uint32 colorError;
+	
+	Uint32 colorMsg;
+
 public:
 	int j;
 	SDL_Color color;
@@ -33,6 +38,10 @@ public:
 	StateBarView();
 				
 	void setMsj(std::string msj);
+
+	void setMsjInfo(std::string msj);
+
+	void setMsjError(std::string msj);
 
 	void draw(SDLScreen & screen);
 
