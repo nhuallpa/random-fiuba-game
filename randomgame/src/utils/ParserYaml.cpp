@@ -40,6 +40,9 @@ ParserYaml::ParserYaml(std::string config,std::string level){
 
 ParserYaml::~ParserYaml(){}
 
+std::string ParserYaml::getFilePath(){
+	return this->levelFilePath;
+}
 
 void ParserYaml::startWithDefaultElem(std::vector <stElemento>& vElem){
 	stElemento elem;

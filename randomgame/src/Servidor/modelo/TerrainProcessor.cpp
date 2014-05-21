@@ -40,8 +40,12 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			--itPosition;
 			lista.push_back(b2Vec2((float)(*itPosition)->getX(), (float)(*itPosition)->getY()));
 		}
-
-		result = this->getPolygonConvex(lista, epsilon, scale, height, width,waterLevel);
+		try{
+			result = this->getPolygonConvex(lista, epsilon, scale, height, width,waterLevel);
+		}
+		catch(ContourExp e){
+			throw e;
+		}
 
 		for(int nroDePoligono=0; nroDePoligono< result.size(); nroDePoligono++)
 		{
@@ -106,6 +110,8 @@ vector<vector<b2Vec2>> TerrainProcessor::
 		catch(ContourExp e)
 		{
 			Log::i(HANDLE_CONTOUR,"Error al procesar el archivo BMP, se creara uno por defecto.");
+			throw e;
+			/*
 			b2Body* m_attachment;
 			b2Vec2 vertices[3];
 			height=10;
@@ -124,7 +130,7 @@ vector<vector<b2Vec2>> TerrainProcessor::
 			this->rangeTerrainOverWater= new list<pair<int,int>>();
 			this->rangeTerrainOverWater->push_back(pair<int,int>(10-waterLevel,10-waterLevel));
 				this->maxPointTerrain=pair<int,int>(6,5);
-
+				*/
 		}
 		return result;
 }

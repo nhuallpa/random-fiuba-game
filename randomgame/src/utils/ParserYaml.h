@@ -130,6 +130,7 @@ private:
 public:
 	
 	
+	std::string getFilePath();
 	int getElementPosition(std::string name);
 	std::string getImagePath(std::string name);
 	std::string getElementType(int id);
