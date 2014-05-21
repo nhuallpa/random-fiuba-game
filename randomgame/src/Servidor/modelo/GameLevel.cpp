@@ -290,8 +290,8 @@ PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 		GamePlayer* gp = new GamePlayer(playerID);
 		int height = aTerrainProcessor->getHeight();
 		int width = aTerrainProcessor->getWidth();
-		gp->initPlayer(this->idUnique,4,height,width);
-		this->idUnique += 4;
+		gp->initPlayer(this->idUnique,this->amountWorms,height,width);
+		this->idUnique += this->amountWorms;
 		gp->setStateConn(CONNECTED);
 
 		this->players.insert(std::make_pair(playerID,gp));
