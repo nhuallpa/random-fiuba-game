@@ -268,6 +268,7 @@ int Cliente::notifyLocalUpdates(void *data){
 		if ( !cli->output.sendmsg(*msg) ) {
 			Log::t("Local Update - Client connection with server error");
 			cli->srvStatus = SERVER_TIMEDOUT;
+			cli->informStateClient();
 			m->unlock();
 			return 1;
 		}
@@ -299,6 +300,7 @@ int Cliente::netListener(void* data){
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			Log::e("\nDesconectando cliente at listening state");
 			cli->srvStatus = SERVER_TIMEDOUT;
+//			cli->informStateClient();
 			//TODO: metodo de desconexion del server, mensaje y grisar pantalla o retry
 
 			return 1;
@@ -346,6 +348,7 @@ int Cliente::netListener(void* data){
 			//if (!primervez && emsg->playerState == CONNECTED)
 			if (emsg->playerState == CONNECTED)
 			{
+				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
 				int i=0;
 				for (i=0; i< emsg->elements; i++) 
 				{
@@ -356,10 +359,12 @@ int Cliente::netListener(void* data){
 			}
 			else if (emsg->playerState == DISCONNECTED)
 			{
+				Log::d("El usuario %s se ha DESCONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " se ha desconectado");	
 			}
 			else if (emsg->playerState == RECONNECTED)
 			{
+				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->setMessageView("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
 			//primervez = false;
@@ -439,7 +444,7 @@ void Cliente::getRemoteWorld() {
 
 		for ( int j=0; j < els; j++){
 
-			Log::i("Getted worm id: %d at pos: %d, %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y);
+			Log::i("Got worm id: %d at pos: %f, %f",msg->play[j].wormid, msg->play[j].x, msg->play[j].y);
 
 			//Trigger changes into game elements of the client
 			GameElement* elem = getElementFromPlayable(msg->play[j]);
