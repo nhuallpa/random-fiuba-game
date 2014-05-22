@@ -119,7 +119,7 @@ bool Socket::rcvmsg (Datagram &msg){
 
 	while(retries < 3){
 		int nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
-		//printf("\nGetted %d bytes of 4096",nBytes);
+		Log::t("\nGetted %d bytes of %ld",nBytes,messageSize);
 		if (nBytes == SOCKET_ERROR) {
 			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
 				retries++;
@@ -367,7 +367,7 @@ void Socket::setSendTimeout (long sec, long usec)
 
 	if (setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) == -1) {
 		
-		//Log::e("Couldn't set specified timeout");
+		Log::e("Couldn't set specified timeout");
 	}
 }
 
@@ -375,7 +375,7 @@ void Socket::setKeepAlive ()
 {
 	int iOption = 1;
 	if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, (const char *) &iOption,  sizeof(int)) == -1) {
-		//Log::Suceso(Log::ERROR, "Fallo seteo de la opcion keepalive en socket.");
+		Log::e("Fallo seteo de la opcion keepalive en socket.");
 	}
 }
 
@@ -412,42 +412,39 @@ bool Socket::rcvmsg (EDatagram &msg){
 
 	char buffer[MAX_MESSAGE_SIZE];
 	size_t retries = 0;
-	//unsigned long messageSize;
 	unsigned long messageSize = sizeof(EDatagram);
 	int nBytes;
- //   
-	//nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
 
-	//if (nBytes == SOCKET_ERROR){
-	//	return false;
-	//}
-	//
-	//messageSize = ntohl(1024); 
-	////printf("\nGet %d bytes",messageSize);
-
-	while(retries < 3){
+	while(retries < 5){
 		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
-		//printf("\nGetted %d bytes of 4096",nBytes);
+		
+		//Log::t("Getted %d bytes of %ld",nBytes,messageSize);
 		if (nBytes == SOCKET_ERROR) {
-			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
-				retries++;
-				Sleep(10);
-				//printf("\nRe-trying");
-				continue;
-			}
-			Log::e("\nError getting message body");
-			return false;
+			//if ((errno == EAGAIN || errno == EWOULDBLOCK) && retries < 5)  {
+			//	retries++;
+			//	Sleep(10);
+			//	Log::t("Re-trying");
+			//	continue;
+			//}
+			Log::t("Re-trying");
+			retries++;
+			
 		}
-		break;
+
+		if ( nBytes == messageSize ){
+			Log::t("Getted ALL!");
+			memcpy(&msg,buffer,messageSize);
+			return true;
+		}
 
 	}
-	//printf("\nOK");
 
-	memcpy(&msg,buffer,messageSize);
-	
-	//Log::i("\nbuffer player: %s, at pos: %d, %d",msg.playerID.c_str(),msg.play.x, msg.play.y );
+	if (retries == 5){
+		Log::e("Error getting message body");
+		return false;
+	}
+	return false;
 
-	return true;
 	
 }
 
@@ -457,46 +454,29 @@ bool Socket::sendmsg(EDatagram msg){
 	size_t retries = 0;
 	char buffer[MAX_MESSAGE_SIZE];
 	unsigned long messageSize = sizeof(msg);
-	//unsigned long datagramSize = htonl(messageSize); 
 	int nBytes;
-
-	//nBytes = send(fd, (char*)&datagramSize, sizeof(datagramSize), 0);
-
- //   if (nBytes == SOCKET_ERROR)
- //   {
- //       printf( "Client: Failed to send message size\n");
-	//	return false;
- //   }
-
-
-	//if (!messageSize) {
-	//	
-	//	printf("Sending empty message");
-	//	return false;
-
-	//}
-	//printf("Send Bytes:  %d",messageSize);
-
 
 	memcpy(&buffer,&msg,messageSize);
 
-	while(retries < 3){
+	while(retries < 5){
 		nBytes = send(fd, buffer, messageSize, 0);
 		//printf("\n Client send %d bytes",nBytes);
 		
 		if (nBytes == SOCKET_ERROR)
 		{
-			printf("Client: failed to send it at first attempt.\n");
+			Log::t("Client: failed to send it at first attempt.\n");
 
-			if (errno == EAGAIN || errno == EWOULDBLOCK){
+			//if (errno == EAGAIN || errno == EWOULDBLOCK){
 				Sleep(10);
 				retries++;
+				Log::t("Re-trying");
 				continue;
-			}
-			return false;
+
 		}
 		if (nBytes != messageSize){
 			Log::e("I tried to send %d bytes, but I sent %d bytes", messageSize, nBytes);
+			retries++;
+			continue;
 		}
 		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
 		return true;
@@ -530,9 +510,9 @@ bool Socket::sendFile(std::string path){
 
 	nBytes = send(fd, (char*)&datagramSize, sizeof(datagramSize), 0);
 
-    if (nBytes == SOCKET_ERROR)
+    if (nBytes == SOCKET_ERROR || nBytes != sizeof(datagramSize))
     {
-        printf( "Client: Failed to send message size\n");
+		Log::e( "Client: Failed to send message size, sended: %d",nBytes);
 		return false;
     }
 
@@ -542,32 +522,25 @@ bool Socket::sendFile(std::string path){
  
     fread(buffer, sizeof(buffer[0]), stat_buf.st_size, file);
 
-	while(retries < 3){
+	while(retries < 5){
 		nBytes = send(fd, buffer, stat_buf.st_size, 0);
 		
-		if (nBytes == SOCKET_ERROR)
+		if (nBytes == SOCKET_ERROR || nBytes != stat_buf.st_size)
 		{
-			printf("Client: failed to send it at first attempt.\n");
+			Log::i("Client: failed to send it at attempt n.:%d",retries);
+			Sleep(10);
+			retries++;
+		}
+		if (nBytes == stat_buf.st_size){
+			Log::i("Sended YAML OK");
+			return true;
+		}
 
-			if (errno == EAGAIN || errno == EWOULDBLOCK){
-				Sleep(10);
-				retries++;
-				continue;
-			}
-			return false;
-		}
-		if (nBytes != stat_buf.st_size){
-			Log::e("I tried to send %d bytes, but I sent %d bytes", stat_buf.st_size, nBytes);
-		}
-		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
-		return true;
 	}
 
+	Log::e("I tried to send %d bytes, but I sent %d bytes", stat_buf.st_size, nBytes);
+	return false;
 
-	
-	
-	printf("\nSended %d Bytes of YAML",nBytes);
-	return true;
 }
 
 
@@ -580,35 +553,32 @@ bool Socket::receiveFile(std::string path){
     
 	int nBytes = recv(fd, (char*)&messageSize, sizeof(messageSize), 0);
 
-	if (nBytes == SOCKET_ERROR){
+	if (nBytes == SOCKET_ERROR || nBytes != sizeof(messageSize)){
+		Log::e("Failed to retrieve File size, getted %d bytes",nBytes);
 		return false;
 	}
 	
 	messageSize = ntohl(messageSize);
  
     char buffer[4096];
-    //buffer = new char[messageSize];
  
-    while(retries < 3){
+    while(retries < 5){
 		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
-		//printf("\nGetted %d bytes of 4096",nBytes);
-		if (nBytes == SOCKET_ERROR) {
-			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
-				retries++;
-				Sleep(10);
-				//printf("\nRe-trying");
-				continue;
-			}
-			Log::e("\nError getting message body");
-			return false;
+
+		if (nBytes == SOCKET_ERROR || nBytes != messageSize) {
+			Log::i("\nError getting message body, retrying n: %d",retries);
+			retries++;
+			Sleep(10);
 		}
-		break;
+
+		if (nBytes == messageSize){
+			Log::i("File getted correctly");
+			fwrite(&buffer, sizeof(char), nBytes, file);
+			fclose(file);
+			return true;
+		}
 	}
 	
-	//fprintf(file, buffer);
-    fwrite(&buffer, sizeof(char), nBytes, file);
-    fclose(file);
+	return false;
 
-
-	return true;
 }

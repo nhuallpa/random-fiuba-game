@@ -75,6 +75,14 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, canCreate(worldlock)
 {
 
+	//input.setRcvTimeout(15,5);
+	//output.setRcvTimeout(15,5);
+	//input.setSendTimeout(15,5);
+	//output.setSendTimeout(15,5);
+	//input.setKeepAlive();
+	//output.setKeepAlive();
+
+
 	jugadoresConectados = 0;
 
 	//Carga el servidor con un nivel, ese nivel tiene el terreno y su fisica y los jugadores que han
@@ -116,7 +124,7 @@ int Servidor::updating(void* data){
 	Mutex* n =  &srv->netlock;
 
 	while(true){
-		Sleep(30);
+		Sleep(20);
 		m->lock();
 		if ( changes->empty() ){
 			//printf("\nwaiting.. is empty :(");
@@ -159,7 +167,7 @@ int Servidor::stepOver(void* data){
 	int i=0;
 
 	while(true){
-		Sleep(30);
+		Sleep(20);
 		//One step into the world
 		w->lock();
 		srv->getGameEngine().step();
@@ -180,7 +188,9 @@ int Servidor::stepOver(void* data){
 				//printf("\nComienzo a enviar a los players");
 				//Por cada cliente le envio los cambios
 				srv->worldQ.type = UPDATE;
+				
 				for ( ; it != copy.end() ; ++it){
+					//Log::t("Sending UPDATE message to player: %s",it->first.c_str());
 					it->second.second.sendmsg(srv->worldQ);
 					//printf("\nSended to the client, wormid %d, x: %f, y: %f",srv->worldQ.play[0].wormid,srv->worldQ.play[0].x, srv->worldQ.play[0].y);
 				}

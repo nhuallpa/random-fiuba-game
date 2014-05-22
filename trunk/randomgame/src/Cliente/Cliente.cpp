@@ -117,10 +117,13 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 		return;
 	}
 
-	input.setRcvTimeout(10,5);
-	output.setRcvTimeout(10,5);
-	input.setSendTimeout(10,5);
-	output.setSendTimeout(10,5);
+	//input.setRcvTimeout(15,5);
+	//output.setRcvTimeout(15,5);
+	//input.setSendTimeout(15,5);
+	//output.setSendTimeout(15,5);
+
+	//input.setKeepAlive();
+	//output.setKeepAlive();
 
 	Log::i("Connected to update port: %d", port+1);
 	this->srvStatus = SERVER_OK;
@@ -201,7 +204,7 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true){
 
-		//Sleep(10);
+		Sleep(10);
 
 		// Wait for network updates from server
 		n->lock();
@@ -296,9 +299,9 @@ int Cliente::netListener(void* data){
 
 		Sleep(10);
 		
-
+		
 		if ( !cli->input.rcvmsg(*emsg) ) {
-			Log::e("\nDesconectando cliente at listening state");
+			Log::e("\nNETLISTENER: Desconectando cliente at listening state");
 			cli->srvStatus = SERVER_TIMEDOUT;
 //			cli->informStateClient();
 			//TODO: metodo de desconexion del server, mensaje y grisar pantalla o retry
@@ -308,6 +311,7 @@ int Cliente::netListener(void* data){
 		//printf("\nGot network change");
 		switch(emsg->type){
 		case UPDATE:
+			Log::t("Got UPDATE message from server");
 			n->lock();
 			try{
 				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
@@ -414,6 +418,7 @@ void Cliente::getRemoteWorld() {
 	msg->type = LOGIN;
 	msg->playerID = this->pl; 
 
+	Log::t("Sending login info ");
 	if ( !this->output.sendmsg(*msg) ) {
 		Log::e("\nClient: connection error");
 		this->srvStatus = SERVER_NOT_RESPONDING;
@@ -424,6 +429,7 @@ void Cliente::getRemoteWorld() {
 	this->input.receiveFile("res/levels/clienteyaml.yaml");
 
 	//Get amount of users from the server
+	Log::t("Getting amount of users from server ");
 	if (!this->input.rcvmsg(*msg)) {
 		Log::e("Client: connection error - Server disconnected/not responding while retrieving amount of users");
 		this->srvStatus = SERVER_NOT_RESPONDING;
@@ -434,7 +440,7 @@ void Cliente::getRemoteWorld() {
 	Log::i("Going to load %d players",count);
 
 	for ( int i=0 ; i < count ; i++ ){
-
+		Log::t("Loading player: %d ",i);
 		if (!this->input.rcvmsg(*msg)) {
 			Log::e("Client: connection error - Server disconnected/not responding while retrieving their worms");
 			this->srvStatus = SERVER_NOT_RESPONDING;
