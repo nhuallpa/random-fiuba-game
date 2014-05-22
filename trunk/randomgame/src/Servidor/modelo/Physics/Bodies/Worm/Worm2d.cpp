@@ -29,27 +29,38 @@ Worm2d::Worm2d(ElementType type, float posX, float posY, float h,
 		myBodyDef.type = b2_staticBody;
 	}
     
-    //hexagonal shape definition
-    b2PolygonShape polygonShape;
-    b2Vec2 vertices[6];
-    for (int i = 0; i < 6; i++) {
-      float angle = -i/6.0 * 360 * DEGTORAD;
-      vertices[i].Set((w/2)*sinf(angle), (h/2)*cosf(angle));
-    }
- 
-    polygonShape.Set(vertices, 6);
-  
+    ////hexagonal shape definition
+    //b2PolygonShape polygonShape;
+    //b2Vec2 vertices[6];
+    //for (int i = 0; i < 6; i++) {
+    //  float angle = -i/6.0 * 360 * DEGTORAD;
+    //  vertices[i].Set((w/2)*sinf(angle), (h/2)*cosf(angle));
+    //} 
+    //polygonShape.Set(vertices, 6);
+    //myFixtureDef.shape = &polygonShape;
+
+
     //fixture definition
     b2FixtureDef myFixtureDef;
-    myFixtureDef.shape = &polygonShape;
+   
+	b2CircleShape circleShape;
+	circleShape.m_radius = 1;
+	circleShape.m_p.Set(0,0);
+
+	myFixtureDef.shape = &circleShape;
     myFixtureDef.density = 1;
 	myFixtureDef.friction = 0.999;
 	myFixtureDef.restitution = 0;
     
+
     //create dynamic body
     myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
-    body->CreateFixture(&myFixtureDef);
+    
+
+	body->CreateFixture(&myFixtureDef);
+	circleShape.m_p.Set(0,1);
+	body->CreateFixture(&myFixtureDef);
 
 	body->SetTransform( body->GetPosition(), angle*DEGTORAD );
 	body->SetFixedRotation(true);
