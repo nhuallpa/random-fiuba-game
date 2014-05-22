@@ -1,5 +1,5 @@
 #include "WormActions.h"
-
+#define FUERZA_MOV 100
 
 WormActions::WormActions(Worm2d* worm2d)
 {
@@ -18,7 +18,7 @@ void WormActions::jump()
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
 	{
 				
-                float impulse = this->aWorm2d->getMass() * 2;
+                float impulse = this->aWorm2d->getMass() * 1.3;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
 				//printf("\nQuiero saltar, can I?");
         }
@@ -41,17 +41,17 @@ void WormActions::moveLeft()
 		//this->aWorm2d->body->ApplyForce( b2Vec2(-65,0), this->aWorm2d->body->GetWorldCenter() );
 
 	if ( nx > 0.02 && ny > 0.15){
-		this->aWorm2d->body->ApplyForce( b2Vec2(-60*ny,60*nx), this->aWorm2d->body->GetWorldCenter() );
+		this->aWorm2d->body->ApplyForce( b2Vec2(-FUERZA_MOV*ny,FUERZA_MOV*nx), this->aWorm2d->body->GetWorldCenter() );
 		return;
 	}
 
 	if (nx < -0.02 && ny > 0.15){
-		this->aWorm2d->body->ApplyForce( b2Vec2(-50*ny,50*nx), this->aWorm2d->body->GetWorldCenter() );
+		this->aWorm2d->body->ApplyForce( b2Vec2(-FUERZA_MOV*ny,FUERZA_MOV*nx), this->aWorm2d->body->GetWorldCenter() );
 		return;
 	}
 	if ((nx <= 0.02 || nx >= -0.02) && ny > 0.15){
 		//printf("\nen el plano horizontal");
-		this->aWorm2d->body->ApplyForce( b2Vec2(-50,0), this->aWorm2d->body->GetWorldCenter() );
+		this->aWorm2d->body->ApplyForce( b2Vec2(-FUERZA_MOV,0), this->aWorm2d->body->GetWorldCenter() );
 		return;
 	}
 
@@ -69,17 +69,17 @@ void WormActions::moveRight()
 		//this->aWorm2d->body->ApplyForce( b2Vec2(65,0), this->aWorm2d->body->GetWorldCenter() );
 
 		if (nx > 0.02 && ny > 0.15){
-			this->aWorm2d->body->ApplyForce( b2Vec2(50*ny,-50*nx), this->aWorm2d->body->GetWorldCenter() );
+			this->aWorm2d->body->ApplyForce( b2Vec2(FUERZA_MOV*ny,-FUERZA_MOV*nx), this->aWorm2d->body->GetWorldCenter() );
 			return;
 		}
 
 		if (nx < -0.02 && ny > 0.15){
-			this->aWorm2d->body->ApplyForce( b2Vec2(60*ny,-60*nx), this->aWorm2d->body->GetWorldCenter() );
+			this->aWorm2d->body->ApplyForce( b2Vec2(FUERZA_MOV*ny,-FUERZA_MOV*nx), this->aWorm2d->body->GetWorldCenter() );
 			return;
 		}
 
 		if ((nx <= 0.02 || nx >= -0.02) && ny > 0.15){
-			this->aWorm2d->body->ApplyForce( b2Vec2(50,0), this->aWorm2d->body->GetWorldCenter() );
+			this->aWorm2d->body->ApplyForce( b2Vec2(FUERZA_MOV,0), this->aWorm2d->body->GetWorldCenter() );
 			return;
 		}
 
