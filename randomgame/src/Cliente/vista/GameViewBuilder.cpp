@@ -210,7 +210,7 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 
 		aWorm->setColor(this->getDomain()->getPlayerColor(domainElement->getPlayerID()));
 		aWorm->setPlayer(domainElement->getPlayerID());
-		aWorm->setUserLabel(domainElement->getPlayerID());
+		//aWorm->setUserLabel(domainElement->getPlayerID());
 		aWorm->setName(name.str());
 
 		try 

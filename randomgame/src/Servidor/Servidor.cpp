@@ -124,7 +124,7 @@ int Servidor::updating(void* data){
 	Mutex* n =  &srv->netlock;
 
 	while(true){
-		Sleep(20);
+		Sleep(10);
 		m->lock();
 		if ( changes->empty() ){
 			//printf("\nwaiting.. is empty :(");
@@ -167,7 +167,7 @@ int Servidor::stepOver(void* data){
 	int i=0;
 
 	while(true){
-		Sleep(20);
+		Sleep(25);
 		//One step into the world
 		w->lock();
 		srv->getGameEngine().step();
@@ -395,7 +395,7 @@ int Servidor::initClient(void* data){
 	int activeClient=1;
 		try {
 		while (activeClient) {
-			Sleep(30);
+			Sleep(10);
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
 				//srv->notifyUsersAboutPlayer(playerId);
