@@ -15,7 +15,6 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	gameView->getStateBar()->setMsj("Ingreso al juego");
 }
 
 void GameActivity::buildView( GameViewBuilder & builder)
@@ -51,9 +50,15 @@ void GameActivity::update()
 				if (!this->isThisClientOwner(domainElement.getId()))
 				{
 					if (stateConn == DISCONNECTED)
+					{
 						aWorm->putGrey();
+						Log::d("El usuario %s tiene estado %d",domainElement.getPlayerID().c_str(),stateConn );	
+					}
 					else
+					{
 						aWorm->quitGrey();
+					}
+						
 				}
 				aWorm->update(&domainElement);
 			}
