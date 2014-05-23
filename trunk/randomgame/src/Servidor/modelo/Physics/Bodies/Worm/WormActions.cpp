@@ -15,6 +15,7 @@ void WormActions::jump()
 	//this->aWorm2d->setPosition(this->aWorm2d->getBody()->GetPosition().x,this->aWorm2d->getBody()->GetPosition().y - deltaMovement,this->aWorm2d->getBody()->GetAngle());
 	//this->aWorm2d->body->SetLinearVelocity(b2Vec2(0,0));
 	//if(this->aWorm2d->body->GetLinearVelocity().y ==0.0)// && jumpMovement != 0)
+	//printf("trying to jump, im grounded?: %d",static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() );
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
 	{
 				

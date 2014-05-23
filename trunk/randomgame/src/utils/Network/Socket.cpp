@@ -30,7 +30,7 @@ Socket::Socket (uint16_t port)
 
 	this->usable = true;
 	
-	this->fd = socket(AF_INET, SOCK_STREAM, 0);
+	this->fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	if (this->fd == -1) {
 		//Log::e("Couldn't open socket connection");
@@ -84,7 +84,7 @@ Socket Socket::init()
 	std::cout << "Server: WinSocket Started Correctly!\n";
 	retval.usable = true;
 	
-	retval.fd = socket(AF_INET, SOCK_STREAM, 0);
+	retval.fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	if (retval.fd == -1) {
 		//Log::e("Couldn't open socket connection");
@@ -212,7 +212,7 @@ bool Socket::connect2(std::string hostname, uint16_t port)
 
 	this->usable = true;
 	
-	this->fd = socket(AF_INET, SOCK_STREAM, 0);
+	this->fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	if (this->fd == -1) {
 		//Log::e("Couldn't open socket connection");
@@ -413,27 +413,32 @@ bool Socket::rcvmsg (EDatagram &msg){
 	char buffer[MAX_MESSAGE_SIZE];
 	size_t retries = 0;
 	unsigned long messageSize = sizeof(EDatagram);
-	int nBytes;
+	int nBytes = 0;
+	int count = 0;
 
 	while(retries < 5){
 		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
 		
 		//Log::t("Getted %d bytes of %ld",nBytes,messageSize);
 		if (nBytes == SOCKET_ERROR) {
-			//if ((errno == EAGAIN || errno == EWOULDBLOCK) && retries < 5)  {
-			//	retries++;
-			//	Sleep(10);
-			//	Log::t("Re-trying");
-			//	continue;
-			//}
 			Log::t("Re-trying");
 			retries++;
-			
 		}
+		 if ( nBytes != messageSize && nBytes != SOCKET_ERROR ){
+			 memcpy(&msg + count,buffer,nBytes);
+			 count = count + nBytes;
+		 }
 
-		if ( nBytes == messageSize ){
+		 //Si lo recibo en la primera vez 
+		if ( nBytes == messageSize){
 			Log::t("Getted ALL!");
 			memcpy(&msg,buffer,messageSize);
+			return true;
+		}
+
+		//Si lo termine de recibir tras varios intentos
+		if ( count == messageSize ){
+			Log::t("Getted All, after some retries");
 			return true;
 		}
 
@@ -454,36 +459,35 @@ bool Socket::sendmsg(EDatagram msg){
 	size_t retries = 0;
 	char buffer[MAX_MESSAGE_SIZE];
 	unsigned long messageSize = sizeof(msg);
-	int nBytes;
+	int nBytes = 0;
+	int count = 0;
 
 	memcpy(&buffer,&msg,messageSize);
 
 	while(retries < 5){
-		nBytes = send(fd, buffer, messageSize, 0);
-		//printf("\n Client send %d bytes",nBytes);
+		nBytes = send(fd, buffer + count, messageSize, 0);
 		
 		if (nBytes == SOCKET_ERROR)
 		{
-			Log::t("Client: failed to send it at first attempt.\n");
-
-			//if (errno == EAGAIN || errno == EWOULDBLOCK){
-				Sleep(10);
-				retries++;
-				Log::t("Re-trying");
-				continue;
-
-		}
-		if (nBytes != messageSize){
-			Log::e("I tried to send %d bytes, but I sent %d bytes", messageSize, nBytes);
+			Sleep(10);
 			retries++;
-			continue;
+			Log::t("Re-trying");
 		}
-		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
-		return true;
+
+		if (nBytes != messageSize && nBytes != SOCKET_ERROR){
+			count = count + nBytes;
+		}
+
+		//Si lo envio bien en la primera vez o tras varios intentos
+		if ( nBytes == messageSize || count == messageSize ){
+			Log::t("Sended OK");
+			return true;
+		}
+		
 	}
+
 	printf("Client: Failed to send after several retries.\n");
 	return false;
-
 }
 
 
@@ -521,20 +525,29 @@ bool Socket::sendFile(std::string path){
     //buffer = new char[size];
  
     fread(buffer, sizeof(buffer[0]), stat_buf.st_size, file);
+	nBytes = 0;
+	int count = 0;
 
 	while(retries < 5){
-		nBytes = send(fd, buffer, stat_buf.st_size, 0);
+		nBytes = send(fd, buffer + count, stat_buf.st_size, 0);
 		
-		if (nBytes == SOCKET_ERROR || nBytes != stat_buf.st_size)
+		if (nBytes == SOCKET_ERROR)
 		{
 			Log::i("Client: failed to send it at attempt n.:%d",retries);
 			Sleep(10);
 			retries++;
 		}
-		if (nBytes == stat_buf.st_size){
-			Log::i("Sended YAML OK");
+
+		if (nBytes != stat_buf.st_size && nBytes != SOCKET_ERROR){
+			count = count + nBytes;
+		}
+
+		//Si lo envio bien en la primera vez o tras varios intentos
+		if ( nBytes == stat_buf.st_size || count == stat_buf.st_size ){
+			Log::i("Sended FILE OK");
 			return true;
 		}
+
 
 	}
 
@@ -561,24 +574,51 @@ bool Socket::receiveFile(std::string path){
 	messageSize = ntohl(messageSize);
  
     char buffer[4096];
- 
+	nBytes = 0;
+	int count = 0;
     while(retries < 5){
 		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
 
-		if (nBytes == SOCKET_ERROR || nBytes != messageSize) {
+		if (nBytes == SOCKET_ERROR) {
 			Log::i("\nError getting message body, retrying n: %d",retries);
 			retries++;
 			Sleep(10);
 		}
 
-		if (nBytes == messageSize){
+		 if ( nBytes != messageSize && nBytes != SOCKET_ERROR ){
+			 fwrite(&buffer + count, sizeof(char), nBytes, file);
+			 count = count + nBytes;
+		 }
+
+		 //Si lo recibo en la primera vez 
+		 if (nBytes == messageSize){
 			Log::i("File getted correctly");
 			fwrite(&buffer, sizeof(char), nBytes, file);
 			fclose(file);
 			return true;
 		}
+
+		//Si lo termine de recibir tras varios intentos
+		if ( count == messageSize ){
+			Log::i("File getted correctly, after some retries");
+			return true;
+		}
+
+
 	}
 	
+	Log::e("Couldn't get FILE properly");
 	return false;
 
+}
+
+void Socket::defaultSocketOption()
+{
+        BOOL TRUE_BOOLEAN_VALUE = TRUE;
+		int BOOLEAN_OPTION_LENGTH = sizeof(BOOL);
+                if (setsockopt(this->fd, IPPROTO_TCP, TCP_NODELAY, (char*)&TRUE_BOOLEAN_VALUE, BOOLEAN_OPTION_LENGTH) == SOCKET_ERROR)
+                {
+                       Log::i("Imposible asignar opcion al socket ");
+           
+                }
 }
