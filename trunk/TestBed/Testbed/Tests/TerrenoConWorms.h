@@ -31,6 +31,11 @@ using namespace std;
 
 #ifndef BODY_TYPES_H
 #define BODY_TYPES_H
+
+#define FUERZA_MOV 150
+#define FUERZA_SALTO 85
+#define VELOCIDAD 10
+
 class BodyTypes;
 
 	b2Vec2 normals[3];
@@ -45,25 +50,36 @@ class MyContactListener : public b2ContactListener
       //check if fixture A is body (2)
       b2WorldManifold worldManifold;
 
-	  if ( (int)(contact->GetFixtureA()->GetUserData()) == 2 ){  
+	  if ( (int)(contact->GetFixtureA()->GetUserData()) == 3 ){  
 		contact->GetWorldManifold(&worldManifold);
 		normals[0].x = worldManifold.normal.x;
 		normals[0].y = worldManifold.normal.y;
+		contact->GetFixtureA()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
 	  }
         
   
       //check if fixture B was the body
-      if ( (int)(contact->GetFixtureB()->GetUserData()) == 2 ){
+      if ( (int)(contact->GetFixtureB()->GetUserData()) == 3 ){
 		contact->GetWorldManifold(&worldManifold);
 		normals[0].x = worldManifold.normal.x;
 		normals[0].y = worldManifold.normal.y;
+		contact->GetFixtureB()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
 	  }
         
     } //Begin Contact - END
   
 
     void EndContact(b2Contact* contact) {
-  
+		if ( (int)(contact->GetFixtureB()->GetUserData()) == 3 ){
+			
+			contact->GetFixtureB()->GetBody()->SetLinearVelocity(b2Vec2(0,-10));
+		}
+
+		if ( (int)(contact->GetFixtureA()->GetUserData()) == 3 ){
+			contact->GetFixtureA()->GetBody()->SetLinearVelocity(b2Vec2(0,-10));
+
+		}
+
 	}
   };
 
@@ -88,6 +104,7 @@ public:
 		action = NOTHING;
 		//Set contact listener
 		m_world->SetContactListener(&myContactListenerInstance);
+		m_world->SetGravity(b2Vec2(0,-10));
 
 		b2Body* ground = NULL;
 		{
@@ -106,55 +123,38 @@ public:
 		
 		{
 
-			//Create Bodies
+			////Create Bodies (AKA Worms)
+
             b2BodyDef myBodyDef;
             myBodyDef.type = b2_dynamicBody;
-         
-            b2PolygonShape polygonShape;
-            b2Vec2 vertices[6];
-            for (int i = 0; i < 6; i++) {
-                float angle = -i/6.0 * 360 * DEGTORAD;
-                vertices[i].Set(sinf(angle)+40, cosf(angle)+60);
-            }
-            polygonShape.Set(vertices, 6);
-            b2FixtureDef myFixtureDef;
-            myFixtureDef.shape = &polygonShape;
+
+			b2CircleShape circleShape;
+			circleShape.m_radius = 1;
+			circleShape.m_p.Set(0,0);
+
+			b2FixtureDef myFixtureDef;
+			myFixtureDef.shape = &circleShape;
             myFixtureDef.density = 1;
 			myFixtureDef.restitution = 0;
 			myFixtureDef.friction = 0.999;
-			myFixtureDef.userData = (void*)2;
+			myFixtureDef.userData = (void*)3;
 
-			//for (int i = 0; i < 3; i++) {
-			//	myBodyDef.position.Set(i*10, 60);
-			//	bodies[i] = m_world->CreateBody(&myBodyDef);
-			//	bodies[i]->CreateFixture(&myFixtureDef);
-			//	bodies[i]->SetFixedRotation(true);
-			//}
-
-			myBodyDef.position.Set(10, 60);
+			myBodyDef.position.Set(26, 60);
 			bodies[0] = m_world->CreateBody(&myBodyDef);
+			bodies[0]->CreateFixture(&myFixtureDef);
+
+			circleShape.m_p.Set(0,1);
+			
 			bodies[0]->CreateFixture(&myFixtureDef);
 			bodies[0]->SetFixedRotation(true);
 
 
-			Worm2d* gus = new Worm2d(WORM,
-					25,
-					100,
-					MODEL_WORM_HEIGHT,
-					MODEL_WORM_WIDTH,
-					30,
-					0,
-					m_world,
-					NULL,
-					false
-					);
-
 
 
 			//Create terrain
-			char* path="C:\\random-fiuba-game\\randomgame\\randomgame-server\\res\\images\\terrain5.png";
-			float epsilon=2.5;
-			int scale =100;
+			char* path="C:\\random-fiuba-game\\randomgame\\randomgame-server\\res\\images\\terrain3.png";
+			float epsilon=5;
+			int scale =15;
 			int waterLevel=50;
 			TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon, scale,waterLevel);
 			
@@ -197,23 +197,28 @@ public:
 	void Step(Settings* settings)
 	{
 		Test::Step(settings);
-
+		printf("normals[0].x: %f, normals[0].y: %f",normals[0].x,normals[0].y);
 		if ( action == KEY_JUMP){
-			bodies[0]->ApplyForce( b2Vec2(50,0), bodies[0]->GetWorldCenter() );
+			bodies[0]->ApplyLinearImpulse( b2Vec2(0,FUERZA_SALTO), bodies[0]->GetWorldCenter() );
 		}
 
 		if ( action == KEY_LEFT){
 			
-			if (normals[0].x > 0){
-				bodies[0]->ApplyForce( b2Vec2(50*normals[0].y,-50*normals[0].x), bodies[0]->GetWorldCenter() );
+			if ( normals[0].x > 0.02 && normals[0].y > 0.15){
+				//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+				bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals[0].y,VELOCIDAD*normals[0].x));
 				action = NOTHING;
 			}
-			if (!normals[0].x){
-				bodies[0]->ApplyForce( b2Vec2(-50,0), bodies[0]->GetWorldCenter() );
+
+			if (normals[0].x < -0.02 && normals[0].y > 0.15){
+				//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+				bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals[0].y,VELOCIDAD*normals[0].x));
 				action = NOTHING;
 			}
-			if (normals[0].x < 0){
-				bodies[0]->ApplyForce( b2Vec2(100*normals[0].y,-100*normals[0].x), bodies[0]->GetWorldCenter() );
+			if ((normals[0].x <= 0.02 || normals[0].x >= -0.02) && normals[0].y > 0.15){
+				//printf("\nen el plano horizontal");
+				//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
+				bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD,0));
 				action = NOTHING;
 			}
 			
@@ -222,18 +227,27 @@ public:
 
 		if ( action == KEY_RIGHT){
 			
-			if (normals[0].x > 0){
-				bodies[0]->ApplyForce( b2Vec2(-100*normals[0].y,100*normals[0].x), bodies[0]->GetWorldCenter() );
+			if ( normals[0].x > 0.02 && normals[0].y > 0.15){
+				//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV*normals[0].y,-FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+				bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD*normals[0].y,-VELOCIDAD*normals[0].x));
 				action = NOTHING;
 			}
-			if (!normals[0].x){
-				bodies[0]->ApplyForce( b2Vec2(50,0), bodies[0]->GetWorldCenter() );
+
+			if (normals[0].x < -0.02 && normals[0].y > 0.15){
+				//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV*normals[0].y,-FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+				bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD*normals[0].y,-VELOCIDAD*normals[0].x));
 				action = NOTHING;
 			}
-			if (normals[0].x < 0){
-				bodies[0]->ApplyForce( b2Vec2(-50*normals[0].y,50*normals[0].x), bodies[0]->GetWorldCenter() );
+			if ((normals[0].x <= 0.02 || normals[0].x >= -0.02) && normals[0].y > 0.15){
+				//printf("\nen el plano horizontal");
+				//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
+				
+				bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD,0));
 				action = NOTHING;
-			}
+			}	
+
+
+
 		}
 	}
 
