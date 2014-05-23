@@ -33,18 +33,18 @@ void StateBarView::cutVect(){
 
 void StateBarView::setMsjInfo(std::string msj){
 	colorMsg = colorInfo;
-	this->label.setText(msj, this->color);
+	//this->label.setText(msj, this->color);
 	i=0;
 }
 
 void StateBarView::setMsjError(std::string msj){
 	colorMsg = colorError;
-	this->label.setText(msj, this->color);
+	//this->label.setText(msj, this->color);
 	i=0;
 }
 
 void StateBarView::setMsj(std::string msj){
-	this->label.setText(msj, this->color);
+	//this->label.setText(msj, this->color);
 	i=0;
 }
 

@@ -90,6 +90,7 @@ class GameLevel {
 
 		int getWormsFromPlayer(std::string playerId,Playable* p);
 		void disconnectWormsFromPlayer(std::string playerId);
+		void connectWormsFromPlayer(std::string playerId);
 
 		int getAmountOfUsers(){ return this->players.size(); }
 

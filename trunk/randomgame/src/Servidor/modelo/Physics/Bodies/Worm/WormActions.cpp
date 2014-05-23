@@ -1,5 +1,5 @@
 #include "WormActions.h"
-#define FUERZA_MOV 100
+#define FUERZA_MOV 120
 
 WormActions::WormActions(Worm2d* worm2d)
 {
@@ -19,7 +19,7 @@ void WormActions::jump()
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() )
 	{
 				
-                float impulse = this->aWorm2d->getMass() * 1.3;
+                float impulse = this->aWorm2d->getMass() * 35;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
 				//printf("\nQuiero saltar, can I?");
         }
@@ -36,7 +36,7 @@ void WormActions::moveLeft()
 	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
 	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
 	//printf("\nGoinf LEFT, Normal X,Y: (%f,%f)",nx,ny);
-	
+	if ( !static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping() ){
 
 		// Esta en el plano sin inclinacion
 		//this->aWorm2d->body->ApplyForce( b2Vec2(-65,0), this->aWorm2d->body->GetWorldCenter() );
@@ -56,7 +56,7 @@ void WormActions::moveLeft()
 		return;
 	}
 
-
+	}
 }
 
 void WormActions::moveRight()
@@ -65,7 +65,7 @@ void WormActions::moveRight()
 	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
 	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
 	//printf("\nGoinf RIGHT, Normal X,Y: (%f,%f)",nx,ny);
-	
+	if ( !static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping() ){
 		// Esta en el plano sin inclinacion
 		//this->aWorm2d->body->ApplyForce( b2Vec2(65,0), this->aWorm2d->body->GetWorldCenter() );
 
@@ -83,6 +83,7 @@ void WormActions::moveRight()
 			this->aWorm2d->body->ApplyForce( b2Vec2(FUERZA_MOV,0), this->aWorm2d->body->GetWorldCenter() );
 			return;
 		}
+	}
 
 }
 

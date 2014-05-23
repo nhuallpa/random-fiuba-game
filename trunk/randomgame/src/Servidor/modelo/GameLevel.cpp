@@ -281,6 +281,10 @@ PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 	if ( it != this->players.end() ){
 		// Esta en la lista de jugadores del nivel, lo seteo como conectado y lo acepto
 		it->second->setStateConn(RECONNECTED);
+		this->connectWormsFromPlayer(playerID);
+		//Update all their worms has connected
+
+
 		return EXISTING_PLAYER;
 	}
 
@@ -301,6 +305,8 @@ PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 		for (std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
 			this->addEntity( (*itW) );
 		}
+
+		this->connectWormsFromPlayer(playerID);
 		return NEW_PLAYER;
 	}
 
@@ -372,6 +378,19 @@ void GameLevel::disconnectWormsFromPlayer(std::string playerId){
 		std::vector<Worm*> copy = it->second->getWorms();
 		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
 			(*itW)->setAction(NOT_CONNECTED);
+		}
+	}
+}
+
+void GameLevel::connectWormsFromPlayer(std::string playerId){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerId);
+
+	if ( it != this->players.end() ){
+		std::vector<Worm*> copy = it->second->getWorms();
+		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
+			(*itW)->setAction(MOVELESS);
 		}
 	}
 }

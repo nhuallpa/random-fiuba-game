@@ -17,12 +17,12 @@ WormView::WormView(int id)
 
 void WormView::setUserLabel(std::string text)
 {
-	labelUsuario.setText(text, white);
+	//labelUsuario.setText(text, white);
 }
 
 void WormView::setName(std::string text)
 {
-	labelNombre.setText(text, white);
+	//labelNombre.setText(text, white);
 }
 
 
