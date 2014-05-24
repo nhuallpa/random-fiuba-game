@@ -15,7 +15,7 @@ class Move : public Notifiable{
 		void add(OnMovementListener* obj);
 		void remuve(OnMovementListener* obj);
 		void notify();
-		int x, y;
+		int x, y, shoot;
 		bool newEvent();
 
 	private:
@@ -23,7 +23,7 @@ class Move : public Notifiable{
 		~Move(void);
 		static Move* move;
 		list<OnMovementListener*> objects;
-		int xp, yp;
+		int xp, yp, shootp;
 };
 
 #endif
