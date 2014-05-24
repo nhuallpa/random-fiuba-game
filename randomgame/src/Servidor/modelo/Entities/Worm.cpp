@@ -13,6 +13,7 @@ Worm::Worm(int id, std::string playerID, ElementType type, float posX, float pos
 	this->action = MOVELESS; 
 	this->stopMoving();
 	this->alive = true;
+	this->myLastAction = MOVELESS;
 }
 
 int Worm::getLife()
@@ -37,6 +38,7 @@ void Worm::subLife(int lessLife)
 
 void Worm::jump()
 {
+	this->stopMoving();
 	jumping=true;
 	Worm2d* aWorm2d = (Worm2d*)this->myBody;
 	aWorm2d->jump();
@@ -53,6 +55,7 @@ void Worm::stop()
 
 void Worm::moveLeft()
 {
+	this->stopMoving();
 	movingLeft=true;
 	Worm2d* aWorm2d = (Worm2d*)this->myBody;
 	aWorm2d->moveLeft();
@@ -61,6 +64,7 @@ void Worm::moveLeft()
 
 void Worm::moveRight()
 {
+	this->stopMoving();
 	this->movingRight=true;
 	Worm2d* aWorm2d = (Worm2d*)this->myBody;
 	aWorm2d->moveRight();

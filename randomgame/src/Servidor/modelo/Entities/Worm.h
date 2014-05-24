@@ -41,6 +41,8 @@ bool isMovingLeft();
 bool isStopped();
 bool isAlive() { return this->alive;}
 
+
+
 void select();
 void deselect();
 virtual ~Worm();

@@ -279,12 +279,17 @@ PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 	it=this->players.find(playerID);
 
 	if ( it != this->players.end() ){
+		
+		//Si ya esta conectado lo rechazo
+		if ( it->second->getStatus() == CONNECTED || it->second->getStatus() == RECONNECTED )
+			return PLAYER_NOT_ALLOWED;
+
 		// Esta en la lista de jugadores del nivel, lo seteo como conectado y lo acepto
 		it->second->setStateConn(RECONNECTED);
-		this->connectWormsFromPlayer(playerID);
+		
 		//Update all their worms has connected
-
-
+		this->connectWormsFromPlayer(playerID);
+		
 		return EXISTING_PLAYER;
 	}
 

@@ -102,6 +102,7 @@ void Worm2d::animate(){
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
 
+
 	//si el Worm esta saltando, saltar
 	if(static_cast<Worm*>(myWorm)->isJumping())
 	{
@@ -111,6 +112,7 @@ void Worm2d::animate(){
 	//si el Worm se esta moviendo a la izquierda, moverlo a izquierda
 	if(static_cast<Worm*>(myWorm)->isMovingLeft())
 	{
+		
 		this->moveLeft();
 	}
 
@@ -129,8 +131,6 @@ void Worm2d::animate(){
 	if ( this->ox != f.x || this->oy != f.y)
 	{
 
-		//printf("\n WormID: %d, distinto X %f to %f, Y %f to %f",myWorm->getId(), this->ox,f.x,f.y,this->oy);
-
 		//Matar cuando pasa el agua TODO
 
 		//Mata el worm (desactiva el cuerpo de Box2D)
@@ -140,6 +140,8 @@ void Worm2d::animate(){
 			this->ox = f.x;
 			this->oy = f.y;
 			static_cast<Worm*>(myWorm)->setAlive(false);
+			if ( myWorm->getAction() != NOT_CONNECTED )
+				(myWorm)->myLastAction = MOVELESS;
 			
 		}else{
 
@@ -148,10 +150,18 @@ void Worm2d::animate(){
 			myWorm->changed = true;
 			this->ox = f.x;
 			this->oy = f.y;
+			(myWorm)->myLastAction = static_cast<Worm*>(myWorm)->getAction();
 		}
 	}
 	else{
-		myWorm->changed = false;
+
+
+		if ( myWorm->getAction() !=  myWorm->getMyLastAction() && myWorm->getAction() != NOT_CONNECTED ){
+			myWorm->setAction(MOVELESS);
+			myWorm->changed = true;
+		}else{
+			myWorm->changed = false;
+		}
 	}
 
 }

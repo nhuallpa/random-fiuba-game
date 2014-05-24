@@ -70,6 +70,8 @@ public:
 	bool isGrounded(){ return this->grounded; }
 	void setGrounded(bool b){ this->grounded = b; }
 
+	Movement getMyLastAction(){ return this->myLastAction; }
+
 	void setNormalForce(float x, float y){ 
 		this->nx = x;
 		this->ny = y;
@@ -79,6 +81,7 @@ public:
 	float getNormalX(){ return this->nx;}
 
 	Movement action;
+	Movement myLastAction;
 
 	virtual Movement getAction(){ return this->action; }
 	virtual void setAction(Movement m){ this->action = m; }
