@@ -450,7 +450,7 @@ void Cliente::getRemoteWorld() {
 
 		for ( int j=0; j < els; j++){
 
-			Log::i("Got worm id: %d at pos: %f, %f",msg->play[j].wormid, msg->play[j].x, msg->play[j].y);
+			Log::i("Got worm id: %d at pos: %f, %f, action: %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, msg->play[j].action);
 
 			//Trigger changes into game elements of the client
 			GameElement* elem = getElementFromPlayable(msg->play[j]);

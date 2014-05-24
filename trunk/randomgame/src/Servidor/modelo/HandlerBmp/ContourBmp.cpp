@@ -89,7 +89,7 @@ list< pair<int,int> >* ContourBmp::getConnectedComponentsOptimized(int waterLeve
 	list< pair<int,int> >* aConnectedComponentsList = new list< pair<int,int> >();
 
 	int width=this->aBmpFile->getWidth();
-	int height=this->aBmpFile->getHeight()-(waterLevel/10);
+	int height=this->aBmpFile->getHeight()-(waterLevel);
 
 	int cabeza=0;
 	int cola=0;

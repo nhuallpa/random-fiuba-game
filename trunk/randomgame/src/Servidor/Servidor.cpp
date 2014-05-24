@@ -179,20 +179,21 @@ int Servidor::stepOver(void* data){
 			
 			i=0;
 			int res = srv->somethingChange();
-			//printf ("\nDelta: %d",res);
+
 			//chequeo si hay clientes
 			if ( srv->pList.size() ){
 				
 				std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
 				std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
-				//printf("\nComienzo a enviar a los players");
+
 				//Por cada cliente le envio los cambios
 				srv->worldQ.type = UPDATE;
 				
+				//Levantar un thread para cada uno y enviarles
 				for ( ; it != copy.end() ; ++it){
-					//Log::t("Sending UPDATE message to player: %s",it->first.c_str());
-					it->second.second.sendmsg(srv->worldQ);
-					//printf("\nSended to the client, wormid %d, x: %f, y: %f",srv->worldQ.play[0].wormid,srv->worldQ.play[0].x, srv->worldQ.play[0].y);
+					if ( !it->second.second.sendmsg(srv->worldQ) ){
+						srv->disconnect(it->first);
+					}
 				}
 			}
 		}
@@ -482,7 +483,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
 
 	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);
-	printf("\nNotifiyng users about player: %s. Sending %d elements.", playerId.c_str(),el);
+	printf("\nNotifiyng users about player: %s. His State is: %d Sending %d elements.", playerId.c_str(), datagram->playerState, el);
 	datagram->elements = el;
 
 	std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
@@ -491,7 +492,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	for ( ; it != copy.end() ; ++it){
 		//send over the network
 		if ( it->first.compare(playerId) )
-			it->second.second.sendmsg(*datagram);
+			 it->second.second.sendmsg(*datagram);
 
 	}
 

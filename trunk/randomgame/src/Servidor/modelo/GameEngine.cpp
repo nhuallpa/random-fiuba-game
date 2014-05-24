@@ -251,21 +251,9 @@ bool GameEngine::step(){
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();iterator != this->gameBodies->end(); ++iterator) {
 		Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
-		//printf("\nStep: now animating womrid %d",static_cast<GameElement*>(aBody->getBody()->GetUserData())->getId() );
-		//if ( this->getUpdateStep() <= UPDATE_STEPS ){
-		//	aBody->animate(false);
-		//}
-		//else{
-		//	aBody->animate(true);
-		//}
 		aBody->animate();
 
 	}
-
-	//if ( this->getUpdateStep() >= 5 )
-	//	this->resetUpdateStep();
-	//
-	//this->incrementUpdateStep();
 
 	/* Logica del agua */
 	std::set<fixturePair>::iterator it = this->myContactListener.m_fixturePairs.begin();
@@ -284,6 +272,9 @@ bool GameEngine::step(){
 			/* Velocidad que toma al caer */
 			b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
 			it->second->GetBody()->SetLinearVelocity(vel);
+			//it->second->GetBody()->SetActive(false);
+			//static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAlive(false);
+			//static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAction(MOVELESS);
 		}
 		++it;
 	}
