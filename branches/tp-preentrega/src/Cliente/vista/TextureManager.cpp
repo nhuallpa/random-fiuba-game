@@ -60,6 +60,66 @@ bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRe
 	return false;
 }
 
+bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer)
+{
+	/*this is filled in with a pointer to the locked pixels, appropriately offset by the locked area*/
+	void* mPixels;
+
+	/*Amount of bytes betweed rows */
+	int mPitch;
+
+	SDL_Surface* tmpSurface = IMG_Load(fileName.c_str());
+	SDL_Texture* newTexture = NULL;
+	if( tmpSurface == NULL )
+	{
+		Log::e( "Unable to load image %s! SDL_image Error: %s\n", fileName.c_str(), IMG_GetError() );
+	} else {
+
+		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat( tmpSurface, SDL_PIXELFORMAT_RGBA8888, NULL );
+		if( formattedSurface == NULL )
+		{
+			Log::e( "Unable to convert loaded surface to display format! %s\n", SDL_GetError() );
+		}
+		else
+		{
+			newTexture = SDL_CreateTexture(pRenderer, 
+													SDL_PIXELFORMAT_RGBA8888, 
+													SDL_TEXTUREACCESS_STREAMING, 
+													formattedSurface->w, 
+													formattedSurface->h );
+			if( newTexture == NULL )
+			{
+				Log::e( "Unable to create blank texture! SDL Error: %s\n", SDL_GetError() );
+			}
+			else
+			{
+				//Lock texture for manipulation
+				SDL_LockTexture( newTexture, NULL, &mPixels, &mPitch );
+
+				memcpy( mPixels, formattedSurface->pixels, mPitch * formattedSurface->h );
+
+				//Unlock texture to update
+				SDL_UnlockTexture( newTexture );
+				mPixels = NULL;
+			}
+			SDL_FreeSurface(formattedSurface);	
+		}
+		SDL_FreeSurface(tmpSurface);	
+	}
+	if (newTexture)
+	{
+		this->texture_map[id]=newTexture;
+		return true;
+	} 
+	else 
+	{
+		std::stringstream msg;
+		msg<<"TextureManager: Imagen NO encontrada: "<<fileName;
+		throw GameException(msg.str());
+	}
+	return false;
+}
+
 void TextureManager::draw(std::string id, int x, int y, 
 					SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
 {
