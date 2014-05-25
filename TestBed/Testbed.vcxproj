@@ -40,6 +40,7 @@
     <ClCompile Include="src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp" />
     <ClCompile Include="src\Servidor\modelo\Physics\Body.cpp" />
     <ClCompile Include="src\Servidor\modelo\TerrainProcessor.cpp" />
+    <ClCompile Include="src\utils\Clipper\clipper.cpp" />
     <ClCompile Include="src\utils\Util.cpp" />
     <ClCompile Include="Testbed\Framework\Main.cpp" />
     <ClCompile Include="Testbed\Framework\Render.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h" />
     <ClInclude Include="src\Servidor\modelo\Physics\Body.h" />
     <ClInclude Include="src\Servidor\modelo\TerrainProcessor.h" />
+    <ClInclude Include="src\utils\Clipper\clipper.hpp" />
     <ClInclude Include="src\utils\Constantes\Constantes.h" />
     <ClInclude Include="src\utils\Util.h" />
     <ClInclude Include="Testbed\Framework\Render.h" />
@@ -185,8 +187,8 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">obj\x64\Release\Testbed\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Testbed</TargetName>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\TestBed\src;C:\random-fiuba-game\TestBed\libs\yaml-cpp;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\include;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\include;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\include;C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\include;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\include;C:\random-fiuba-game\TestBed\libs\Box2D;C:\random-fiuba-game\TestBed\libs;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\Box2D;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\lib;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\TestBed\libs\clipper\cpp;C:\random-fiuba-game\TestBed\src;C:\random-fiuba-game\TestBed\libs\yaml-cpp;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\include;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\include;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\include;C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\include;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\include;C:\random-fiuba-game\TestBed\libs\Box2D;C:\random-fiuba-game\TestBed\libs;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\random-fiuba-game\TestBed\libs\clipper\cpp;C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\Box2D;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\lib;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
