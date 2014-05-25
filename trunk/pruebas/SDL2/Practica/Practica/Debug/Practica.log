@@ -1,0 +1,24 @@
+﻿Build started 24/05/2014 09:52:49 p.m..
+     1>Project "C:\random-fiuba-game\pruebas\SDL2\Practica\Practica\Practica.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Practica.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\random-fiuba-game\pruebas\sdl2\practica\practica\main.cpp(416): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\random-fiuba-game\pruebas\SDL2\Practica\Debug\Practica.exe" /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib Box2D.lib "libyaml-cppmd.lib" SDL2_gfx.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Practica.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\random-fiuba-game\pruebas\SDL2\Practica\Debug\Practica.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\random-fiuba-game\pruebas\SDL2\Practica\Debug\Practica.lib" /MACHINE:X86 Debug\main.obj
+         LINK : C:\random-fiuba-game\pruebas\SDL2\Practica\Debug\Practica.exe not found or not built by the last incremental link; performing full link
+     1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Practica.vcxproj -> C:\random-fiuba-game\pruebas\SDL2\Practica\Debug\Practica.exe
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\random-fiuba-game\pruebas\SDL2\Practica\Debug\Practica.exe;#1" /manifest Debug\Practica.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\Practica.unsuccessfulbuild".
+         Touching "Debug\Practica.lastbuildstate".
+     1>Done Building Project "C:\random-fiuba-game\pruebas\SDL2\Practica\Practica\Practica.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.02
