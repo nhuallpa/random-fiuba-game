@@ -46,6 +46,9 @@
     <Filter Include="src\Servidor\modelo\Physics\Bodies\Worm">
       <UniqueIdentifier>{c191c113-fc57-424d-9993-82587226733a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\Clipper">
+      <UniqueIdentifier>{ad69729f-0812-47f4-9c47-2dffc0d0cbf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Testbed\Framework\Main.cpp">
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="src\Servidor\modelo\Physics\Body.cpp">
       <Filter>src\Servidor\modelo\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Clipper\clipper.cpp">
+      <Filter>src\utils\Clipper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="Testbed\Tests\TerrenoConWorms.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Clipper\clipper.hpp">
+      <Filter>src\utils\Clipper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
