@@ -327,6 +327,7 @@ int Cliente::netListener(void* data){
 					p.action = emsg->play[i].action;
 
 					cli->networkChanges.push_back(p);
+					Log::d("Getted wormid: %d at pos x: %f, y: %f",p.wormid,p.x, p.y);
 				}
 
 			}catch(...){
@@ -357,7 +358,7 @@ int Cliente::netListener(void* data){
 				for (i=0; i< emsg->elements; i++) 
 				{
 					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
-					Log::t("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
+					Log::d("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
 			}

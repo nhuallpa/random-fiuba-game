@@ -52,6 +52,13 @@ typedef struct{
 	int elements;
 } EDatagram;
 
+
+typedef enum{
+	TX_READY=0,
+	TX_WAIT
+} TransmitStatus;
+
+
 class Socket
 {
 public:
