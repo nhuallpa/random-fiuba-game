@@ -576,11 +576,11 @@ void GameEngine::deleteBody(int id){
 
 void GameEngine::applyAction2Element(int id, Movement action){
 
-	printf("\n applying action");
+	//printf("\n applying action");
 	std::map<int,GameElement*> copy = this->gameLevel->getEntities();
 	GameElement* myWorm = copy[id];
 
-	printf("\n looking for worm %d and located worm: %d", id, myWorm->getId() );
+	//printf("\n looking for worm %d and located worm: %d", id, myWorm->getId() );
 	switch (action){
 		case MOVE_RIGHT:
 			static_cast<Worm*>(myWorm)->moveRight();
