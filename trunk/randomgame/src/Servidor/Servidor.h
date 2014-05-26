@@ -52,7 +52,7 @@ class Servidor{
 
 		void sendHeartBeat(Player playerId, Messages type);
 	
-		
+		void broadcastMsg(Playable change);
 		void enviarMensaje(Player playerId, std::vector<uint8_t> buffer);
 		void wait4Updates(Player playerId);
 		void disconnect(std::string playerId);
@@ -61,8 +61,6 @@ class Servidor{
 
 		/* Data for threading**/
 		threadData data;
-
-		TransmitStatus worldQStatus;
 
 	public:
 
@@ -74,9 +72,6 @@ class Servidor{
 		EDatagram worldQ;
 
 		void notifyUsersAboutPlayer(std::string playerID);
-
-		TransmitStatus getWorldQStatus(){ return this->worldQStatus; };
-		void setWorldQStatus( TransmitStatus st){ this->worldQStatus = st; };
 
 		bool allConnected() const;
 		void esperarUserDelta ();
@@ -96,10 +91,8 @@ class Servidor{
 		static void notifyReject(Socket& fdCli);
 		static int wait4Connections(void* data);
 		static int stepOver(void* data);
-		static int updateClient(void* data);
 
 		int somethingChange();
-
 
 		bool run(void);
 		void destroyWorld();

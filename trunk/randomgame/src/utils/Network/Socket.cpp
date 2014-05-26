@@ -548,7 +548,6 @@ bool Socket::sendFile(std::string path){
 			return true;
 		}
 
-
 	}
 
 	Log::e("I tried to send %d bytes, but I sent %d bytes", stat_buf.st_size, nBytes);
