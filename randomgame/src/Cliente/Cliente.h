@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 #include <list>
-
+#include <queue>
 
 
 // todo: cambiar TICK_INTERVAL por  DELAY_TIME y recuperar fps del yaml
@@ -71,9 +71,11 @@ class Cliente : public OnMovementListener{
 
 
 		/**Inicia el VistaJuego y ControladorJuegon*/
+
 		bool begin();		
 		void loop(void);
 
+		bool loginOk;
 		void runGame();
 
 		Socket input;
@@ -92,12 +94,16 @@ class Cliente : public OnMovementListener{
 
 		size_t revision;
 		std::vector<Playable> localChanges;
-		std::vector<Playable> networkChanges;
+		std::queue<Playable> networkChanges;
 
 		void getRemoteWorld();
 		int sendMsg(Messages type, std::vector<uint8_t> buffer);
 		int sendDatagram(Datagram msg);
-		int login();
+		bool doLogin();
+
+		int login();  // no se usa??
+
+		
 
 		void informStateClient();
 
@@ -109,6 +115,8 @@ class Cliente : public OnMovementListener{
 		Cliente(std::string playerID, const char* ip, int port);
 		
 		virtual ~Cliente(void);
+
+		bool isLoginOk() {return this->loginOk;}
 
 		bool run();
 

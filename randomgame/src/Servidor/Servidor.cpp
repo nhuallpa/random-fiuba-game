@@ -334,23 +334,34 @@ int Servidor::initClient(void* data){
 		return 1;
 	}
 
-
-
-
-
 	w->lock();
 	//Valido si puede estar en el nivel antes de avanzar
+	Log::i("Valido nuevo cliente en el server - %d", datagram->playerID.c_str());
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		printf("\nCliente no permitido en el server");
+		// envio Rechazo
+		Sleep(1);
+		EDatagram* msg = new EDatagram();
+		msg->type = ALREADY_EXIST_USER;
+		aThreadData->clientI.sendmsg(*msg);
 		
+		// Cierro socket abiertos del cliente
 		closesocket(aThreadData->clientO.getFD());
 		closesocket(aThreadData->clientI.getFD());
 		srv->jugadoresConectados--;
 		w->unlock();
-		
+		delete msg;
 		return 1;
+	} else {
+		// envio LOGIN_OK
+		EDatagram* msg = new EDatagram();
+		msg->type = LOGIN_OK;
+		((threadData*)data)->clientI.sendmsg(*msg);
 	}
+	
+
 	w->unlock();
+	
 
 	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
 					std::make_pair(aThreadData->clientO,

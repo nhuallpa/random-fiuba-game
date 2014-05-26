@@ -32,13 +32,14 @@ int main(int argc, char* argv[]) {
 
 		Cliente* aClient = new Cliente(userId, serverIp.c_str(), serverPort);
 
-		Log::d("INICIO");
-		if( aClient->run() == false ){
-			Log::e("Error al correr el juego en modo Cliente");
+		if (aClient->isLoginOk()) {
+			Log::d("INICIO");
+			if( aClient->run() == false ){
+				Log::e("Error al correr el juego en modo Cliente");
+			}
 		}
 	}
 	
-
 	return 0;
 }
 
