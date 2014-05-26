@@ -209,14 +209,16 @@ int Cliente::applyNetworkChanges(void *data){
 		Sleep(1); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
 
 		// Wait for network updates from server
-		//n->lock(); Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
+		n->lock(); //Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
+				   //Ariel: No, si esta vacia espera (eso lo desbloquea), si no esta vacia ya tiene el lock	
+				   // y opera tranquilo
 		if ( cli->networkChanges.empty() ){
 			netcond->wait();
 		}
 		if (cli->networkChanges.size() > 1) {
 			Log::t("Cliente::applyNetworkChanges >> Mas de un cambio para actualizar");
 		}
-		n->lock();
+		//n->lock();
 		while (!cli->networkChanges.empty())
 		{	
 			Playable p;
@@ -428,8 +430,10 @@ bool Cliente::doLogin()
 	} else if (datagram->type == LOGIN_OK) {
 		Log::i("Client: Login con exito");
 		this->loginOk = true;
+		return true;
 	} else {
 		Log::i("Client: Login ERROR - rta %d" ,datagram->type);
+		return false;
 	}
 	delete datagram;
 
@@ -439,6 +443,7 @@ void Cliente::getRemoteWorld() {
 
 	EDatagram* msg = new EDatagram();
 	if (!this->doLogin()){
+		Log::t("Failed login, exiting");
 		return;
 	}
 	// Get YAML

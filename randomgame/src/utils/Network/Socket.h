@@ -26,6 +26,10 @@ typedef enum{
 } ServerStatus;
 
 
+typedef enum{
+        TX_READY=0,
+        TX_WAIT
+} TransmitStatus;
 
 
 /*

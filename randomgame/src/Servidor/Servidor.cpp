@@ -1,24 +1,11 @@
 #include "Servidor.h"
-//
-//Servidor::Servidor()
-//	: input ()
-//	, output ()
-//	, cantJugadores()
-//	, changes ()
-//	, lock()
-//	, netlock()
-//	, canUpdate(lock)
-//	, canBroadcast(netlock)
-//{
-//}
+
 
 Servidor::~Servidor(void){
 
 }
 
 bool Servidor::begin(void){
-
-	// TODO @future - Initialize socket
 
 	return true;
 }
@@ -130,10 +117,10 @@ int Servidor::updating(void* data){
 			//printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		printf("\nUpdating: doing stuff at server side");
+		//printf("\nUpdating: doing stuff at server side");
 		Playable p;
 		p = srv->changes.back();
-		printf("\nGot message from user requesting to move worm %d to %d",p.wormid,p.action);
+		//printf("\nGot message from user requesting to move worm %d to %d",p.wormid,p.action);
 		
 		srv->updateModel(p); 
 		
@@ -149,20 +136,15 @@ int Servidor::stepOver(void* data){
 	printf("\n\n\StepOver Thread running\n");
 
 	threadData* aThreadData = (threadData*)data;
-
 	Servidor* srv = aThreadData->srv;
-	std::vector<Playable>* changes =  &srv->changes;
 	
-	Condition* cond =  &srv->canUpdate;
-	Mutex* m = &srv->lock;
-
 	Condition* netcond =  &srv->canBroadcast;
 	Mutex* n =  &srv->netlock;
 
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
 
-	EDatagram* datagram = new EDatagram();
+	//EDatagram* datagram = new EDatagram();
 
 	int i=0;
 
@@ -172,34 +154,42 @@ int Servidor::stepOver(void* data){
 		w->lock();
 		srv->getGameEngine().step();
 		w->unlock();
-		n->lock();
+		//n->lock();
 		
 		//si algo cambio actualizo a los clientes
 		if ( i>=3 ){
 			
 			i=0;
+			n->lock();
 			int res = srv->somethingChange();
 
 			//chequeo si hay clientes
 			if ( srv->pList.size() ){
 				
-				std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
-				std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
+				//std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
+				//std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
 
-				//Por cada cliente le envio los cambios
-				srv->worldQ.type = UPDATE;
+				//srv->worldQ.type = UPDATE;
+				//
+				////Levantar un thread para cada uno y enviarles
+				//for ( ; it != copy.end() ; ++it){
+				//	if ( !it->second.second.sendmsg(srv->worldQ) ){
+				//		srv->disconnect(it->first);
+				//	}
+				//}
 				
-				//Levantar un thread para cada uno y enviarles
-				for ( ; it != copy.end() ; ++it){
-					if ( !it->second.second.sendmsg(srv->worldQ) ){
-						srv->disconnect(it->first);
-					}
-				}
-			}
+				srv->worldQ.type = UPDATE;
+				srv->setWorldQ();
+				netcond->broadcast();
+				n->unlock();
+			}else
+				n->unlock();
+
 		}
-		n->unlock();
+		
 		i++;
 	}
+
 	return 0;
 }
 
@@ -338,7 +328,9 @@ int Servidor::initClient(void* data){
 	//Valido si puede estar en el nivel antes de avanzar
 	Log::i("Valido nuevo cliente en el server - %d", datagram->playerID.c_str());
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
+		w->unlock();
 		printf("\nCliente no permitido en el server");
+		
 		// envio Rechazo
 		Sleep(1);
 		EDatagram* msg = new EDatagram();
@@ -349,18 +341,19 @@ int Servidor::initClient(void* data){
 		closesocket(aThreadData->clientO.getFD());
 		closesocket(aThreadData->clientI.getFD());
 		srv->jugadoresConectados--;
-		w->unlock();
+
 		delete msg;
 		return 1;
 	} else {
 		// envio LOGIN_OK
+		w->unlock();
 		EDatagram* msg = new EDatagram();
 		msg->type = LOGIN_OK;
 		((threadData*)data)->clientI.sendmsg(*msg);
 	}
 	
 
-	w->unlock();
+
 	
 
 	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
@@ -368,6 +361,8 @@ int Servidor::initClient(void* data){
 					aThreadData->clientI)
 					)
 				);
+
+	srv->insertWorldQ(datagram->playerID);
 
 	printf("\nCliente registrado satisfactoriamente en el servidor");
 	
@@ -403,6 +398,12 @@ int Servidor::initClient(void* data){
 	
 	//Tell everybody that a new player has arrived!
 	srv->notifyUsersAboutPlayer(playerId);
+
+	threadData* dataCliente = new threadData();
+	dataCliente->srv = srv;
+	dataCliente->clientI = aThreadData->clientI;
+	dataCliente->clientO = aThreadData->clientO;
+	Thread clientThread("Update Client Thread",updateClient,dataCliente);
 
 	int activeClient=1;
 		try {
@@ -506,5 +507,74 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 			 it->second.second.sendmsg(*datagram);
 
 	}
+
+}
+
+
+int Servidor::updateClient(void* data){
+
+	printf("\n\nUpdate Client Thread running\n");
+
+    threadData* aThreadData = (threadData*)data;
+
+    Servidor* srv = aThreadData->srv;
+    std::vector<Playable>* changes =  &srv->changes;
+
+    Condition* netcond =  &srv->canBroadcast;
+    Mutex* n =  &srv->netlock;
+
+    char* playerId = aThreadData->p;
+
+    EDatagram* datagram = new EDatagram();
+
+    while(true){
+                
+		Sleep(20);
+
+        n->lock();
+        if ( srv->getWorldQStatus(playerId) != TX_READY){
+            netcond->wait();
+		}
+
+		memcpy(datagram,&srv->worldQ,sizeof(EDatagram));
+		srv->setWorldQStatus(playerId,TX_WAIT);
+		n->unlock();
+
+		for ( int i = 0; i < datagram->elements; i++)
+		       printf("\nEnvie x: %f, y: %f de worm: %d a player",datagram->play[i].x,datagram->play[i].y,datagram->play[i].wormid);
+
+                
+		//printf("Enviando worldQ desde upate client thread");
+		if ( !aThreadData->clientI.sendmsg(*datagram) ){
+				printf("Deberia desconectarlo en el upate client thread");
+				
+				return 0;
+				//srv->disconnect(playerId);
+		}
+                
+		
+		//printf("\nEl que sigue...");
+		
+    }
+    return 0;
+}
+
+void Servidor::resetWorldQ(){
+
+	std::map<std::string,TransmitStatus> copy = this->playerQueueStat;
+	std::map<std::string,TransmitStatus>::iterator it=copy.begin();
+
+	for( ; it!=copy.end(); ++it)
+		it->second = TX_WAIT;
+
+}
+
+void Servidor::setWorldQ(){
+
+	std::map<std::string,TransmitStatus> copy = this->playerQueueStat;
+	std::map<std::string,TransmitStatus>::iterator it=copy.begin();
+
+	for( ; it!=copy.end(); ++it)
+		it->second = TX_READY;
 
 }
