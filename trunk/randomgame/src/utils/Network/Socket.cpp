@@ -416,35 +416,39 @@ bool Socket::rcvmsg (EDatagram &msg){
 	int nBytes = 0;
 	int count = 0;
 
-	while(retries < 5){
+	while(retries < 2){
 		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
 		
 		//Log::t("Getted %d bytes of %ld",nBytes,messageSize);
 		if (nBytes == SOCKET_ERROR) {
+			Sleep(5);
 			Log::t("Re-trying because of error: %ld", WSAGetLastError());
 			retries++;
 		}
-		 if ( nBytes != messageSize && nBytes != SOCKET_ERROR ){
-			 memcpy(&msg + count,buffer,nBytes);
-			 count = count + nBytes;
-		 }
 
-		 //Si lo recibo en la primera vez 
+		//Si lo recibo en la primera vez 
 		if ( nBytes == messageSize){
 			Log::t("Getted ALL!");
 			memcpy(&msg,buffer,messageSize);
 			return true;
 		}
 
-		//Si lo termine de recibir tras varios intentos
-		if ( count == messageSize ){
-			Log::t("Getted All, after some retries");
-			return true;
-		}
+
+		 if ( nBytes != messageSize && nBytes != SOCKET_ERROR ){
+			 memcpy(&msg + count,buffer,nBytes);
+			 count = count + nBytes;
+			 messageSize = messageSize - count;
+		 }
+
+		////Si lo termine de recibir tras varios intentos
+		//if ( count == messageSize ){
+		//	Log::t("Getted All, after some retries");
+		//	return true;
+		//}
 
 	}
 
-	if (retries == 5){
+	if (retries == 2){
 		Log::e("Error getting message body");
 		return false;
 	}
@@ -464,26 +468,30 @@ bool Socket::sendmsg(EDatagram msg){
 
 	memcpy(&buffer,&msg,messageSize);
 
-	while(retries < 5){
+	while(retries < 2){
 		nBytes = send(fd, buffer + count, messageSize, 0);
 		
 		if (nBytes == SOCKET_ERROR)
 		{
 			
-			Sleep(10);
+			Sleep(5);
 			retries++;
 			Log::t("Re-trying because of error: %ld", WSAGetLastError());
+			printf("Re-trying because of error: %ld", WSAGetLastError());
+		}
+
+		//Si lo envio bien en la primera vez o tras varios intentos
+		if ( nBytes == messageSize ){
+			Log::t("Sended OK");
+			return true;
 		}
 
 		if (nBytes != messageSize && nBytes != SOCKET_ERROR){
 			count = count + nBytes;
+			messageSize = messageSize - nBytes;
 		}
 
-		//Si lo envio bien en la primera vez o tras varios intentos
-		if ( nBytes == messageSize || count == messageSize ){
-			Log::t("Sended OK");
-			return true;
-		}
+
 		
 	}
 

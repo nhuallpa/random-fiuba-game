@@ -50,6 +50,8 @@ class Servidor{
 
 		std::map<int,Playable> worldModifications;
 
+		std::map<std::string,TransmitStatus> playerQueueStat;
+
 		void sendHeartBeat(Player playerId, Messages type);
 	
 		void broadcastMsg(Playable change);
@@ -66,6 +68,11 @@ class Servidor{
 
 		~Servidor();
 
+		TransmitStatus getWorldQStatus(std::string pl){ return this->playerQueueStat[pl]; }
+		void setWorldQStatus(std::string pl, TransmitStatus tx) { this->playerQueueStat[pl] = tx; }
+		void insertWorldQ(std::string pl){ this->playerQueueStat[pl] = TX_WAIT; }
+		void resetWorldQ();
+		void setWorldQ();
 
 		Servidor(int nroPuerto, size_t cantJugadores);
 
@@ -91,6 +98,7 @@ class Servidor{
 		static void notifyReject(Socket& fdCli);
 		static int wait4Connections(void* data);
 		static int stepOver(void* data);
+		static int updateClient(void* data);
 
 		int somethingChange();
 
