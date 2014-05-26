@@ -67,8 +67,9 @@ public:
 	std::string getPlayerID() {return this->playerID; }
 	void setPlayerID(std::string playerId) {this->playerID = playerId;}
 
-	bool isGrounded(){ return this->grounded; }
-	void setGrounded(bool b){ this->grounded = b; }
+	bool isGrounded(){ return (this->grounded > 0) ? true : false; }
+	void addGrounded(){ this->grounded = this->grounded + 1; }
+	void reduceGrounded(){ this->grounded = this->grounded - 1; }
 
 	Movement getMyLastAction(){ return this->myLastAction; }
 
@@ -99,7 +100,7 @@ protected:
 	// Center position!
 	std::pair<float,float> position;
 	std::list<std::pair<float,float>> vertexList;
-	bool grounded;
+	int grounded;
 	/** Used for circule */
 	float radius;
 
