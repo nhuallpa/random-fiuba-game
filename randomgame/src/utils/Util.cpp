@@ -128,3 +128,55 @@ int Util::getRandom(int min, int max){
 	srand(i++);
 	return rand() % max + min;
 }
+
+
+std::string Util::actionString(Movement action)
+{
+	std::string sValue;
+
+	if (action == MOVE_RIGHT)
+	{
+		sValue.assign("MOVE_RIGHT");
+	} 
+	else if (action == MOVE_LEFT)
+	{
+		sValue.assign("MOVE_LEFT");
+	}
+	else if (action == JUMP)
+	{
+		sValue.assign("JUMP");
+	}
+	else if (action == JUMP_LEFT)
+	{
+		sValue.assign("JUMP_LEFT");
+	}
+	else if (action == JUMP_RIGHT)
+	{
+		sValue.assign("JUMP_RIGHT");
+	}
+	else if (action == INIT_PLACEMENT)
+	{
+		sValue.assign("INIT_PLACEMENT");
+	}
+	else if (action == MOVE_STOP)
+	{
+		sValue.assign("MOVE_STOP");
+	}
+	else if (action == DEAD)
+	{
+		sValue.assign("DEAD");
+	}
+	else if (action == WITH_WEAPON)
+	{
+		sValue.assign("WITH_WEAPON");
+	}
+	else if (action == NOT_CONNECTED)
+	{
+		sValue.assign("NOT_CONNECTED");
+	}
+	else if (action == MOVELESS)
+	{
+		sValue.assign("MOVELESS");
+	}
+	return sValue;
+}

@@ -52,6 +52,10 @@ void WormView::update(GameElement* domainElement)
 		this->state = WORM_VIEW_DOING;
 		this->direction = SDL_FLIP_NONE;
 	}
+	else if (domainElement->getAction() == JUMP)
+	{
+		this->state = WORM_VIEW_MOTIONLESS;
+	}
 	else if (domainElement->getAction() == MOVELESS)
 	{
 		this->state = WORM_VIEW_MOTIONLESS;

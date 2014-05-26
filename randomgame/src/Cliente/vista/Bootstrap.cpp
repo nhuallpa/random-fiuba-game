@@ -15,7 +15,7 @@ void Bootstrap::init()
 	std::map<std::string,std::string> prop = Util::loadProperteries("config/client.properties");
 	int w = Util::string2int(prop["ventana.ancho"]);
 	int h = Util::string2int(prop["ventana.alto"]);
-	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) == 0)
 	{
 		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
 	} 

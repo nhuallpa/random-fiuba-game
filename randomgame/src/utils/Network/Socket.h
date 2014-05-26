@@ -53,12 +53,6 @@ typedef struct{
 } EDatagram;
 
 
-typedef enum{
-	TX_READY=0,
-	TX_WAIT
-} TransmitStatus;
-
-
 class Socket
 {
 public:
@@ -75,7 +69,6 @@ public:
 
 	Socket init();
 	void defaultSocketOption();
-
 	bool connect2 (std::string hostname, uint16_t port);
 	bool sendmsg(Messages type, std::vector<uint8_t> datos);
 	bool sendmsg(Datagram msg);

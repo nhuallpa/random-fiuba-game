@@ -25,6 +25,8 @@ typedef enum{
 	MOVE_RIGHT=0,
 	MOVE_LEFT,
 	JUMP,
+	JUMP_LEFT,
+	JUMP_RIGHT,
 	INIT_PLACEMENT,
 	MOVE_STOP,
 	DEAD,
@@ -127,6 +129,8 @@ public:
 
 
 	static int getRandom(int min, int max);
+
+	static std::string actionString(Movement action);
 
 
 };

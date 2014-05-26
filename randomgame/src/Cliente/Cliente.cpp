@@ -325,7 +325,7 @@ int Cliente::netListener(void* data){
 					p.x = emsg->play[i].x;
 					p.y = emsg->play[i].y;
 					p.action = emsg->play[i].action;
-
+					Log::d("Recibo accion %s para worm %d", Util::actionString(p.action).c_str(), p.wormid);
 					cli->networkChanges.push_back(p);
 					Log::d("Getted wormid: %d at pos x: %f, y: %f",p.wormid,p.x, p.y);
 				}
@@ -551,9 +551,23 @@ void Cliente::OnMovement(MovementEvent e){
 		this->gameActivity->isAlive(wormIdSelected))
 	{
 		p.wormid = wormIdSelected;
-		if (e.y == -1)
+		if (e.y == -1)  // Solo saltar
 		{
-			p.action = 	JUMP;
+			if (e.x == 1) //Salta derecha
+			{
+				p.action = 	JUMP_RIGHT;
+				Log::t("CLIENTE: Saltar derecha");
+			}
+			else if (e.x == -1) // Saltar izquierda
+			{
+				p.action = 	JUMP_LEFT;
+				Log::t("CLIENTE: Saltar izquierda");
+			} 
+			else 
+			{
+				p.action = 	JUMP;
+				Log::t("CLIENTE: Saltar");
+			}
 		}
 		else if (e.x == 1) // derecha
 		{
@@ -578,3 +592,4 @@ void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
 	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
 	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
 }
+
