@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <math.h>
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\TerrainProcessor.h"
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h"
 #include "C:\random-fiuba-game\TestBed\src\utils\Clipper\clipper.hpp"
@@ -96,10 +97,12 @@ class BodyTypes : public Test
 {
 public:
 
-	b2Body* bodies[3];
+	//b2Body* bodies[3];
 
 	MyContactListener myContactListenerInstance;
 	keyAction action;
+	bool mouseDown;
+	b2Vec2 puntoMouse;
 
 	BodyTypes()
 	{
@@ -112,13 +115,14 @@ public:
 		{
 			b2BodyDef bd;
 			ground = m_world->CreateBody(&bd);
+			ground->SetUserData((void*)1);
 
 			b2EdgeShape shape;
 			shape.Set(b2Vec2(-120.0f, 0.0f), b2Vec2(120.0f, 0.0f));
 
 			b2FixtureDef fd;
 			fd.shape = &shape;
-
+			fd.userData = ( (void*)1 );
 			ground->CreateFixture(&fd);
 		}
 
@@ -127,128 +131,167 @@ public:
 
 			////Create Bodies (AKA Worms)
 
-			b2BodyDef myBodyDef;
-			myBodyDef.type = b2_dynamicBody;
+			//b2BodyDef myBodyDef;
+			//myBodyDef.type = b2_dynamicBody;
 
-			b2CircleShape circleShape;
-			circleShape.m_radius = 1;
-			circleShape.m_p.Set(0,0);
+			//b2CircleShape circleShape;
+			//circleShape.m_radius = 1;
+			//circleShape.m_p.Set(0,0);
 
-			b2FixtureDef myFixtureDef;
-			myFixtureDef.shape = &circleShape;
-			myFixtureDef.density = 1;
-			myFixtureDef.restitution = 0;
-			myFixtureDef.friction = 0.999;
-			myFixtureDef.userData = (void*)3;
+			//b2FixtureDef myFixtureDef;
+			//myFixtureDef.shape = &circleShape;
+			//myFixtureDef.density = 1;
+			//myFixtureDef.restitution = 0;
+			//myFixtureDef.friction = 0.999;
+			//myFixtureDef.userData = (void*)3;
 
-			myBodyDef.position.Set(26, 60);
-			bodies[0] = m_world->CreateBody(&myBodyDef);
-			bodies[0]->CreateFixture(&myFixtureDef);
+			//myBodyDef.position.Set(26, 60);
+			//bodies[0] = m_world->CreateBody(&myBodyDef);
+			//bodies[0]->CreateFixture(&myFixtureDef);
 
-			circleShape.m_p.Set(0,1);
+			//circleShape.m_p.Set(0,1);
 
-			bodies[0]->CreateFixture(&myFixtureDef);
-			bodies[0]->SetFixedRotation(true);
+			//bodies[0]->CreateFixture(&myFixtureDef);
+			//bodies[0]->SetFixedRotation(true);
 
 
-			
+
 			Paths subj(1), clip(1), solution;
 
 			//un cuadrado
 			b2BodyDef bd;
-						b2FixtureDef myFixtureDef2;
-						myFixtureDef2.friction=0.999;
+			b2FixtureDef myFixtureDef2;
+			myFixtureDef2.friction=0.999;
 			myFixtureDef2.userData = ( (void*)2 );
-			bd.type = b2_dynamicBody;
-			bd.position.Set(0.0f, 8.0f);
+			bd.type = b2_staticBody;
+			bd.position.Set(100.0f, 200.0f);
 			bd.allowSleep = false;
 			b2Body* body = m_world->CreateBody(&bd);
+			body->SetUserData((void*)2);
 
 			b2PolygonShape shape;
-			shape.SetAsBox(5.0f, 8.0f);
+			shape.SetAsBox(100.0f, 200.0f);
 			myFixtureDef2.shape = &shape; //change the shape of the fixture
 			body->CreateFixture(&myFixtureDef2);
-			
-			b2PolygonShape* poly = (b2PolygonShape*)body->GetFixtureList()->GetShape();
-			std::list<std::pair<float,float>> vertexList;
-			int count = poly->GetVertexCount();
-
-			for( int i = 0; i < count; i++ ){
-				b2Vec2 verts = poly->GetVertex(i);
-				b2Vec2 f = body->GetWorldPoint(verts);
-				subj[0].push_back(IntPoint(f.x,f.y));
-			}
 
 			//otro cuadrado
+			//b2BodyDef bd3;
+			//b2FixtureDef myFixtureDef3;
+			//myFixtureDef3.friction=0.999;
+			//myFixtureDef3.userData = ( (void*)2 );
+			//bd3.type = b2_staticBody;
+			//bd3.position.Set(-25.0f, 40.0f);
+			//bd3.allowSleep = false;
+			//b2Body* body3 = m_world->CreateBody(&bd3);
 
-			//b2BodyDef bd2;
-			//bd2.type = b2_dynamicBody;
-			//bd2.position.Set(1.0f, 1.0f);
-			//bd2.allowSleep = false;
-			//b2Body* body2 = m_world->CreateBody(&bd2);
-
-			//b2PolygonShape shape2;
-			//shape2.SetAsBox(5.0f, 6.0f);
-
-			//body2->CreateFixture(&shape2, 1.0f);
-
-	
-	////define outer blue 'subject' polygon
-	//subj[0] << 
-	//  IntPoint(180,200) << IntPoint(260,200) <<
-	//  IntPoint(260,150) << IntPoint(180,150);
-	//
-	////define subject's inner triangular 'hole' (with reverse orientation)
-	//subj[1] << 
-	//  IntPoint(215,160) << IntPoint(230,190) << IntPoint(200,190);
-	//
-	//define orange 'clipping' polygon
-	clip[0] << 
-	  IntPoint(0,2) << IntPoint(5,2) << 
-	  IntPoint(5,6) << IntPoint(0,6);
-	
-	//perform intersection ...
-	Clipper c;
-	c.AddPaths(subj, ptSubject, true);
-	c.AddPaths(clip, ptClip, true);
-	c.Execute(ctIntersection, solution, pftNonZero, pftNonZero);
-	
+			//b2PolygonShape shape3;
+			//shape3.SetAsBox(25.0f, 40.0f);
+			//myFixtureDef3.shape = &shape3; //change the shape of the fixture
+			//body3->CreateFixture(&myFixtureDef3);
 
 
+			//explosion
 
 
 			////Create terrain
 			//char* path="C:\\random-fiuba-game\\randomgame\\randomgame-server\\res\\images\\terrain3.png";
-			//float epsilon=5;
+			//float epsilon=0.5;
 			//int scale =15;
 			//int waterLevel=50;
 			//TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon, scale,waterLevel);
 			//auto terrainPolygons = aTerrainProcessor->getListOfPolygons();
 
-			auto bodyCount1 = m_world->GetBodyCount();
-			for(int i=0; i < bodyCount1 ; i++)
-			{
-				auto bodycount2 = m_world->GetBodyCount();
-				auto bodies = m_world->GetBodyList();
-				void* userData=(bodies->GetFixtureList()->GetUserData());
-				if(	(int)userData == 2)
-				{
-					m_world->DestroyBody(bodies);
-					addToWorld(m_world, solution);
-				}
-			}
+			//auto bodies = m_world->GetBodyList();
+			//Paths solutions;
+			//int bodiesRecorridos=0;
+			//while(bodiesRecorridos < m_world->GetBodyCount())
+			//{
+			//	void* userData=(bodies->GetFixtureList()->GetUserData());
+			//	auto nextBody=bodies->GetNext();
+			//	if(	(int)userData == 2)
+			//	{
+			//		auto bodyCount2 = m_world->GetBodyCount();
+			//		subj[0] = fromPolygonToPath(bodies);
+			//		clip[0] = createCircle(20,10,40,10);
+			//		Paths solution = makeClip(clip,subj);
+			//		solutions.push_back(solution[0]);
+			//		m_world->DestroyBody(bodies);
+			//	}
+			//	bodies=nextBody;
+			//	bodiesRecorridos++;
+			//}
+			//addSolutionsToWorld(m_world, solutions);
 		}
 
 		// Define platform
+		//{
+		//	b2BodyDef bd;
+		//	bd.type = b2_dynamicBody;
+		//	bd.position.Set(-4.0f, 5.0f);
+		//	m_platform = m_world->CreateBody(&bd);
+		//	m_speed = 3.0f;
+		//}
+
+
+	}
+
+
+	void MouseDown(const b2Vec2 &p)
+	{
+		destroyTerrain(p);
+
+	}
+
+
+	void destroyTerrain(const b2Vec2 &p)
+	{
+
+
+		Paths subj(1), clip(1);
+		auto bodies = m_world->GetBodyList();
+		Paths solutions;
+
+		auto count = m_world->GetBodyCount();
+		for(int bodiesRecorridos=0; bodiesRecorridos < count; bodiesRecorridos++)
 		{
-			b2BodyDef bd;
-			bd.type = b2_dynamicBody;
-			bd.position.Set(-4.0f, 5.0f);
-			m_platform = m_world->CreateBody(&bd);
-			m_speed = 3.0f;
+			auto nextBody=bodies->GetNext();
+			void* userData=bodies->GetUserData();;
+			bool bug1=false;//el clip va a devolver uno o mas poligonos
+			bool bug2=true;//el clip es mas grande que el poligono
+			bool bug3=true;//el clip es completamente mas chico que el poligono
+
+
+			if(	(int)userData == 2)
+			{
+				auto bodyCount1 = m_world->GetBodyCount();
+				subj[0] = fromPolygonToPath(bodies);
+				clip[0] = createCircle(50,p.x,p.y,50);
+				isBugged(bodies,clip[0],bug1,bug2,bug3);
+				Paths solution = makeClip(clip,subj);
+				auto intersec = makeClipIntersec(clip,subj);
+				if(bug2 && intersec.size() > 0 )
+				{
+					m_world->DestroyBody(bodies);
+				}
+				else if(bug3)
+				{
+					//solutions.push_back(solution[0]);
+					//m_world->DestroyBody(bodies);
+				}
+				if ( bug2==false && bug3==false)
+				{
+					for(int j=0; j<solution.size();j++)
+					{
+						solutions.push_back(solution[j]);
+					}
+					m_world->DestroyBody(bodies);
+				}
+			}
+			bodies=nextBody;
 		}
-
-
+		auto bodyCount2 = m_world->GetBodyCount();
+		addSolutionsToWorld(m_world, solutions);
+		auto bodyCount3 = m_world->GetBodyCount();
 	}
 
 
@@ -275,103 +318,182 @@ public:
 	void Step(Settings* settings)
 	{
 		Test::Step(settings);
-		printf("normals[0].x: %f, normals[0].y: %f",normals[0].x,normals[0].y);
-		if ( action == KEY_JUMP){
-			bodies[0]->ApplyLinearImpulse( b2Vec2(0,FUERZA_SALTO), bodies[0]->GetWorldCenter() );
-		}
+		//printf("normals[0].x: %f, normals[0].y: %f",normals[0].x,normals[0].y);
+		//if ( action == KEY_JUMP){
+		//	bodies[0]->ApplyLinearImpulse( b2Vec2(0,FUERZA_SALTO), bodies[0]->GetWorldCenter() );
+		//}
 
-		if ( action == KEY_LEFT){
+		//if ( action == KEY_LEFT){
 
-			if ( normals[0].x > 0.02 && normals[0].y > 0.15){
-				//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
-				bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals[0].y,VELOCIDAD*normals[0].x));
-				action = NOTHING;
-			}
+		//	if ( normals[0].x > 0.02 && normals[0].y > 0.15){
+		//		//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+		//		bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals[0].y,VELOCIDAD*normals[0].x));
+		//		action = NOTHING;
+		//	}
 
-			if (normals[0].x < -0.02 && normals[0].y > 0.15){
-				//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
-				bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals[0].y,VELOCIDAD*normals[0].x));
-				action = NOTHING;
-			}
-			if ((normals[0].x <= 0.02 || normals[0].x >= -0.02) && normals[0].y > 0.15){
-				//printf("\nen el plano horizontal");
-				//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
-				bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD,0));
-				action = NOTHING;
-			}
-
-
-		}
-
-		if ( action == KEY_RIGHT){
-
-			if ( normals[0].x > 0.02 && normals[0].y > 0.15){
-				//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV*normals[0].y,-FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
-				bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD*normals[0].y,-VELOCIDAD*normals[0].x));
-				action = NOTHING;
-			}
-
-			if (normals[0].x < -0.02 && normals[0].y > 0.15){
-				//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV*normals[0].y,-FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
-				bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD*normals[0].y,-VELOCIDAD*normals[0].x));
-				action = NOTHING;
-			}
-			if ((normals[0].x <= 0.02 || normals[0].x >= -0.02) && normals[0].y > 0.15){
-				//printf("\nen el plano horizontal");
-				//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
-
-				bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD,0));
-				action = NOTHING;
-			}	
+		//	if (normals[0].x < -0.02 && normals[0].y > 0.15){
+		//		//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+		//		bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals[0].y,VELOCIDAD*normals[0].x));
+		//		action = NOTHING;
+		//	}
+		//	if ((normals[0].x <= 0.02 || normals[0].x >= -0.02) && normals[0].y > 0.15){
+		//		//printf("\nen el plano horizontal");
+		//		//bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
+		//		bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD,0));
+		//		action = NOTHING;
+		//	}
 
 
+		//}
 
-		}
+		//if ( action == KEY_RIGHT){
+
+		//	if ( normals[0].x > 0.02 && normals[0].y > 0.15){
+		//		//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV*normals[0].y,-FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+		//		bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD*normals[0].y,-VELOCIDAD*normals[0].x));
+		//		action = NOTHING;
+		//	}
+
+		//	if (normals[0].x < -0.02 && normals[0].y > 0.15){
+		//		//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV*normals[0].y,-FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+		//		bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD*normals[0].y,-VELOCIDAD*normals[0].x));
+		//		action = NOTHING;
+		//	}
+		//	if ((normals[0].x <= 0.02 || normals[0].x >= -0.02) && normals[0].y > 0.15){
+		//		//printf("\nen el plano horizontal");
+		//		//bodies[0]->ApplyForce( b2Vec2(FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
+
+		//		bodies[0]->SetLinearVelocity( b2Vec2(VELOCIDAD,0));
+		//		action = NOTHING;
+		//	}	
+
+
+
+		//}
 	}
+	void addSolutionsToWorld(b2World* m_world, Paths solutions)
+	{
+		for(int i=0; i< solutions.size(); i++)
+		{
+			float epsilon=0.1;
+			int scale =15;
+			int waterLevel=50;
+			HandleContour hc;
+			vector<b2Vec2> lista;
+			pathsToVec2d(lista,solutions.at(i));
+			auto result = hc.getPolygonConvex(lista, epsilon, scale);
 
-	void addToWorld(b2World* m_world, Paths solution)
+			for(int nroDePoligono=0; nroDePoligono< result.size(); nroDePoligono++)
+			{
+				// AGREGAR POLIGONO A BOX2D 
+				addToWorld(m_world,result[nroDePoligono]);
+
+			}
+		}
+
+	}
+	void addToWorld(b2World* m_world, vector<b2Vec2> aPolygon)
 	{
 		// AGREGAR POLIGONO SOLUTION A BOX2D 
+		b2Body* m_attachment;
+		//Creo el poligono en Box2D
+		b2FixtureDef myFixtureDef;
+		b2BodyDef myBodyDef;
+		myBodyDef.type = b2_staticBody; //this will be a static body
+		myBodyDef.position.Set(0, 0); //in the middle
+		myFixtureDef.friction=0.999;
 
-			//Creo el poligono en Box2D
-			b2FixtureDef myFixtureDef;
-			b2BodyDef myBodyDef;
-			myBodyDef.type = b2_staticBody; //this will be a static body
-			myBodyDef.position.Set(0, 0); //in the middle
-			myFixtureDef.friction=0.999;
-			
-			myFixtureDef.userData = ( (void*)2 );
-			m_attachment = m_world->CreateBody(&myBodyDef);
+		myFixtureDef.userData = ( (void*)2 );
+		m_attachment = m_world->CreateBody(&myBodyDef);
 
-			b2PolygonShape polygonShape;
-			b2Vec2 vertices[8];
-			pathsToVec2d(vertices,solution[0]);
-			polygonShape.Set(vertices, solution[0].size()); //pass array to the shape
+		b2PolygonShape polygonShape;
+		b2Vec2 vertices[8];
+		polygonShape.Set(&aPolygon[0], aPolygon.size()); //pass array to the shape
 
-			myFixtureDef.shape = &polygonShape; //change the shape of the fixture
-			m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
-			int* st= 0;
-			m_attachment->SetUserData(st);
+		myFixtureDef.shape = &polygonShape; //change the shape of the fixture
+		m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
+
+		m_attachment->SetUserData((void*)2);
 	}
 
-	void pathsToVec2d(b2Vec2* vertices, Path solution)
+	void pathsToVec2d(vector<b2Vec2>& vertices, Path solution)
 	{
 		for(int i =0; i< solution.size();i++)
 		{
-			vertices[i] = b2Vec2(solution.at(i).X,solution.at(i).Y);
+			vertices.push_back(b2Vec2(solution.at(i).X,solution.at(i).Y));
 		}
 	}
 
 
+	Path fromPolygonToPath(b2Body* body)
+	{
+		b2PolygonShape* poly = (b2PolygonShape*)body->GetFixtureList()->GetShape();
+		Path aPath;
+		int count = poly->GetVertexCount();
 
+		for( int i = 0; i < count; i++ ){
+			b2Vec2 verts = poly->GetVertex(i);
+			b2Vec2 f = body->GetWorldPoint(verts);
+			aPath.push_back(IntPoint(f.x,f.y));
+		}
+		return aPath;
+	}
+
+	Path createCircle(float precision,float posXCentral, float posYCentral, float radio){
+		float  PI=3.14159265358979f;
+		float angle=2*PI/precision;
+		Path aCirclePerimeter;
+		for (int i=0; i<precision; i++) {
+			float posX=posXCentral+radio*cos(angle*i);
+			float posY=posYCentral+radio*sin(angle*i);
+			aCirclePerimeter.push_back(IntPoint(posX,posY) );
+		}
+		return aCirclePerimeter;
+	}
+
+	Paths makeClip(Paths clip, Paths subj)
+	{
+		Paths aSolution;
+		//perform difference ...
+		Clipper c;
+		c.AddPaths(subj, ptSubject, true);
+		c.AddPaths(clip, ptClip, true);
+		c.Execute(ctDifference, aSolution,pftNonZero, pftPositive  );
+		return aSolution;
+	}
+
+	Paths makeClipIntersec(Paths clip, Paths subj)
+	{
+		Paths aSolution;
+		//perform difference ...
+		Clipper c;
+		c.AddPaths(subj, ptSubject, true);
+		c.AddPaths(clip, ptClip, true);
+		c.Execute(ctIntersection , aSolution,pftNonZero, pftNonZero  );
+		return aSolution;
+	}
+
+
+	bool isBugged(b2Body* body, Path aClip,bool & bug1, bool& bug2, bool & bug3)
+	{
+		bug1=false;//el clip va a devolver uno o mas poligonos
+		bug2=true;//el clip es mas grande que el poligono
+		bug3=true;//el clip es completamente mas chico que el poligono
+		for(int i =0; i < aClip.size(); i++)
+		{
+			b2Vec2 unPunto(aClip.at(i).X,aClip.at(i).Y);
+			bug3 = bug3 && body->GetFixtureList()->TestPoint(unPunto); //todos los puntos del clip estan dentro del poligono
+			bug2 = bug2 && (body->GetFixtureList()->TestPoint(unPunto)==false ); //ningun punto del perimetro del clip esta dentro del poligono
+		}
+		bug1= !bug2 && !bug3;
+		return bug1 || bug2 || bug3;
+	}
 
 	static Test* Create()
 	{
 		return new BodyTypes;
 	}
 
-
-	b2Body* m_attachment;
 	b2Body* m_platform;
 	float32 m_speed;
 };
