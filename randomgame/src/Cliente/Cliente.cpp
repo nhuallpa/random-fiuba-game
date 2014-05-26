@@ -309,7 +309,7 @@ int Cliente::netListener(void* data){
 		//printf("\nGot network change");
 		switch(emsg->type){
 		case UPDATE:
-			Log::t("Got UPDATE message from server");
+			//Log::t("Got UPDATE message from server");
 			n->lock();
 			try{
 				//printf("\nGot something from client %s at i: %d ;)",playerId,i );

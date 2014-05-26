@@ -403,11 +403,12 @@ int Servidor::initClient(void* data){
 	dataCliente->srv = srv;
 	dataCliente->clientI = aThreadData->clientI;
 	dataCliente->clientO = aThreadData->clientO;
+	std::strcpy(dataCliente->p,playerId);
 	Thread clientThread("Update Client Thread",updateClient,dataCliente);
 
 	int activeClient=1;
 		try {
-		while (activeClient) {
+		while (activeClient &&  srv->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ) {
 			Sleep(10);
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
@@ -429,7 +430,7 @@ int Servidor::initClient(void* data){
 			switch (datagram->type) {
 			case UPDATE:
 				m->lock();
-				printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
+				//printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
 				m->unlock();
@@ -449,12 +450,7 @@ int Servidor::initClient(void* data){
 		srv->disconnect(playerId);
 		throw std::current_exception();
 	}
-	//printf("\nAbandonando cliente: %s\n",playerId);
-	//srv->notifyUsersAboutPlayer(playerId);
-	
-
-
-
+	printf("\nSali intacto");
 	return 0;
 }
 
@@ -474,14 +470,17 @@ void Servidor::notifyReject(Socket& client) {
 
 void Servidor::disconnect(Player playerId) {
 	
-	printf("\nReleasing player: %s\n",playerId.c_str());
-	this->gameEngine.getLevel()->disconnectPlayer(playerId);
-	this->gameEngine.getLevel()->disconnectWormsFromPlayer(playerId);
-	closesocket(this->pList[playerId].first.getFD());
-	closesocket(this->pList[playerId].second.getFD());
-	this->pList.erase(playerId);
-	this->jugadoresConectados--;
-	this->notifyUsersAboutPlayer(playerId);
+	//No desconecto dos veces
+	if ( this->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ){
+		printf("\nReleasing player: %s\n",playerId.c_str());
+		this->gameEngine.getLevel()->disconnectPlayer(playerId);
+		this->gameEngine.getLevel()->disconnectWormsFromPlayer(playerId);
+		closesocket(this->pList[playerId].first.getFD());
+		closesocket(this->pList[playerId].second.getFD());
+		this->pList.erase(playerId);
+		this->jugadoresConectados--;
+		this->notifyUsersAboutPlayer(playerId);
+	}
 
 }
 
@@ -513,7 +512,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 
 int Servidor::updateClient(void* data){
 
-	printf("\n\nUpdate Client Thread running\n");
+	printf("\n\nUpdate Client Thread running for player: %s\n",static_cast<threadData*>(data)->p);
 
     threadData* aThreadData = (threadData*)data;
 
@@ -540,16 +539,16 @@ int Servidor::updateClient(void* data){
 		srv->setWorldQStatus(playerId,TX_WAIT);
 		n->unlock();
 
-		for ( int i = 0; i < datagram->elements; i++)
-		       printf("\nEnvie x: %f, y: %f de worm: %d a player",datagram->play[i].x,datagram->play[i].y,datagram->play[i].wormid);
+		//for ( int i = 0; i < datagram->elements; i++)
+		//       printf("\nEnvie x: %f, y: %f de worm: %d a player",datagram->play[i].x,datagram->play[i].y,datagram->play[i].wormid);
 
                 
 		//printf("Enviando worldQ desde upate client thread");
 		if ( !aThreadData->clientI.sendmsg(*datagram) ){
-				printf("Deberia desconectarlo en el upate client thread");
-				
+				printf("Desconectando cliente: %s desde Update Thread",playerId);
+				srv->disconnect(playerId);
 				return 0;
-				//srv->disconnect(playerId);
+				
 		}
                 
 		
