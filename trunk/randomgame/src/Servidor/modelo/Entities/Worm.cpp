@@ -40,8 +40,8 @@ void Worm::jump()
 {
 	this->stopMoving();
 	jumping=true;
-	Worm2d* aWorm2d = (Worm2d*)this->myBody;
-	aWorm2d->jump();
+	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
+	//aWorm2d->jump();
 	this->action = JUMP;
 }
 

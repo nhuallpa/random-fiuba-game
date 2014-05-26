@@ -10,7 +10,7 @@ class WormActions{
 protected:
 Worm2d* aWorm2d;
 float deltaMovement;
-int jumpMovement;
+int jumpTimeOut;
 
 public:
 WormActions(Worm2d* worm2d);
@@ -18,6 +18,7 @@ void jump();
 void moveLeft();
 void moveRight();
 virtual ~WormActions();
+void updateJumpTimeout(){ this->jumpTimeOut = this->jumpTimeOut -1; }
 
 };
 

@@ -595,6 +595,8 @@ void GameEngine::applyAction2Element(int id, Movement action){
 			static_cast<Worm*>(myWorm)->stop();
 			break;
 	}
+
+
 	return;
 
 }

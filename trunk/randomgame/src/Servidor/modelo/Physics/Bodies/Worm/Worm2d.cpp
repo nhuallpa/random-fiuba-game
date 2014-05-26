@@ -96,17 +96,21 @@ void Worm2d::moveRight()
 	aWormActions->moveRight();
 }
 
-//At each step links current box2d with model data
+
+
 void Worm2d::animate(){
 
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
 
+	this->aWormActions->updateJumpTimeout();
 
 	//si el Worm esta saltando, saltar
 	if(static_cast<Worm*>(myWorm)->isJumping())
 	{
 		this->jump();
+		static_cast<Worm*>(myWorm)->stopMoving();
+
 	} 
 
 	//si el Worm se esta moviendo a la izquierda, moverlo a izquierda
