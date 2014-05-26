@@ -421,7 +421,7 @@ bool Socket::rcvmsg (EDatagram &msg){
 		
 		//Log::t("Getted %d bytes of %ld",nBytes,messageSize);
 		if (nBytes == SOCKET_ERROR) {
-			Log::t("Re-trying");
+			Log::t("Re-trying because of error: %ld", WSAGetLastError());
 			retries++;
 		}
 		 if ( nBytes != messageSize && nBytes != SOCKET_ERROR ){
@@ -469,9 +469,10 @@ bool Socket::sendmsg(EDatagram msg){
 		
 		if (nBytes == SOCKET_ERROR)
 		{
+			
 			Sleep(10);
 			retries++;
-			Log::t("Re-trying");
+			Log::t("Re-trying because of error: %ld", WSAGetLastError());
 		}
 
 		if (nBytes != messageSize && nBytes != SOCKET_ERROR){

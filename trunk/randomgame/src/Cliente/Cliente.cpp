@@ -102,7 +102,7 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 	, somethingToUpdate(n)
 	, domain()
 {
-
+	this->loginOk = false;
 	bool stat = input.connect2(ip, port+1);
 	if (!stat){
 		this->srvStatus = SERVER_NOT_RESPONDING;
@@ -132,18 +132,20 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 	this->domain.setPlayerID(this->pl);
 
 	getRemoteWorld(); // recibo el mundo o un codigo de reject
+	if (this->isLoginOk()){
+		//Thread de escucha de mensajes en la red
+		Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
 
-	//Thread de escucha de mensajes en la red
-	Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
+		//Thread de keepalive (Listen for disconnect)
+		Thread keepaliveThread("Listening",netListener,&data);
 
-	//Thread de keepalive (Listen for disconnect)
-	Thread keepaliveThread("Listening",netListener,&data);
+		//Thread de escucha de actualizaciones locales
+		Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
 
-	//Thread de escucha de actualizaciones locales
-	Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
-
-	//Thread de simulacion de cambios locales
-	//Thread clientSideThread("Emulation",clientSideEmulation,&data);
+		//Thread de simulacion de cambios locales
+		//Thread clientSideThread("Emulation",clientSideEmulation,&data);
+	}
+	
 
 }
 
@@ -192,7 +194,7 @@ int Cliente::clientSideEmulation(void *data){
 
 int Cliente::applyNetworkChanges(void *data){
 	Sleep(10);
-	printf("\nDisparado apply Network Changes thread");
+	Log::i("Cliente::applyNetworkChanges >> Disparado apply Network Changes thread");
 	Cliente* cli = ((threadData*)data)->cli;
 	
 	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
@@ -204,47 +206,43 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true){
 
-		Sleep(10);
+		Sleep(1); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
 
 		// Wait for network updates from server
-		n->lock();
+		//n->lock(); Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
 		if ( cli->networkChanges.empty() ){
 			netcond->wait();
 		}
-		
-		
-		Playable p;
-		p = cli->networkChanges.back();
+		if (cli->networkChanges.size() > 1) {
+			Log::t("Cliente::applyNetworkChanges >> Mas de un cambio para actualizar");
+		}
+		n->lock();
+		while (!cli->networkChanges.empty())
+		{	
+			Playable p;
+			p = cli->networkChanges.front();
 
-		cli->updateModel(p);
+			cli->updateModel(p);
 
-		cli->networkChanges.pop_back();
-
-
+			cli->networkChanges.pop();
+		}
 		n->unlock();
 	}
 
 	return 0;
-
 
 }
 
 
 bool Cliente::updateModel(Playable p){
 
-	//Search worm id
-	//p.wormid
 	this->domain.updateElement(p.wormid, p.x, p.y, p.action );
-	//Update his position to new x,y
-	//p.x;
-	//p.y;
-
 	return true;
 }
 
 //
 int Cliente::notifyLocalUpdates(void *data){
-	printf("\nDisparado notify local updates thread");
+	Log::i("Cliente::notifyLocalUpdates >> Disparado notify local updates thread");
 	threadData* aThreadData = (threadData*)data;
 	Cliente* cli = aThreadData->cli;
 	Mutex* m = &cli->m;
@@ -285,7 +283,7 @@ int Cliente::notifyLocalUpdates(void *data){
 
 int Cliente::netListener(void* data){
 	Sleep(10);
-	printf("\nDisparado net listen thread");
+	Log::i("Cliente::netListener >> Disparado net listen thread");
 	Cliente* cli = ((threadData*)data)->cli;
 
 	char* playerId = ((threadData*)data)->p;
@@ -296,10 +294,8 @@ int Cliente::netListener(void* data){
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 
 	while(true){
-
 		Sleep(10);
-		
-		
+	
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			Log::e("\nNETLISTENER: Desconectando cliente at listening state");
 			cli->srvStatus = SERVER_TIMEDOUT;
@@ -326,7 +322,7 @@ int Cliente::netListener(void* data){
 					p.y = emsg->play[i].y;
 					p.action = emsg->play[i].action;
 					Log::d("Recibo accion %s para worm %d", Util::actionString(p.action).c_str(), p.wormid);
-					cli->networkChanges.push_back(p);
+					cli->networkChanges.push(p);
 					Log::d("Getted wormid: %d at pos x: %f, y: %f",p.wormid,p.x, p.y);
 				}
 
@@ -343,14 +339,10 @@ int Cliente::netListener(void* data){
 
 			break;
 		case PLAYER_UPDATE:
-			//static int primervez = true; // esta asi porque la primera vez no esta creada la vista
 			//Add the user to the players that are playing list
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 			
-			// y solo para recibir nuevos usuario en la vista.
-			
-			//if (!primervez && emsg->playerState == CONNECTED)
 			if (emsg->playerState == CONNECTED)
 			{
 				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
@@ -372,7 +364,6 @@ int Cliente::netListener(void* data){
 				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
-			//primervez = false;
 			break;
 		}
 	
@@ -392,6 +383,8 @@ int Cliente::login(){
 	this->sendDatagram(msg);
 	//Send login datagram
 
+	//Nestor: Evaluar si fue aceptado
+
 	return 0;
 }
 
@@ -407,10 +400,9 @@ int Cliente::sendDatagram(Datagram msg){
 
 }
 
-
-
-void Cliente::getRemoteWorld() {
-	Messages type = LOGIN;
+bool Cliente::doLogin()
+{
+		Messages type = LOGIN;
 	std::vector<uint8_t> datos;
 	std::vector<uint8_t> buffer;
 	EDatagram* msg = new EDatagram();
@@ -421,11 +413,34 @@ void Cliente::getRemoteWorld() {
 
 	Log::t("Sending login info ");
 	if ( !this->output.sendmsg(*msg) ) {
-		Log::e("\nClient: connection error");
+		Log::e("Client: Login request connection error");
 		this->srvStatus = SERVER_NOT_RESPONDING;
+		return false;
+	}
+	// recibo confirmacion de login
+	EDatagram* datagram = new EDatagram();
+	if ( !this->input.rcvmsg(*datagram) ) {
+		Log::e("Client: Login response connection error");
+	}
+	if (datagram->type == ALREADY_EXIST_USER) {
+		Log::i("Client: El usuario ya esta registrado y jugando en el servidor");
+		return false;
+	} else if (datagram->type == LOGIN_OK) {
+		Log::i("Client: Login con exito");
+		this->loginOk = true;
+	} else {
+		Log::i("Client: Login ERROR - rta %d" ,datagram->type);
+	}
+	delete datagram;
+
+}
+
+void Cliente::getRemoteWorld() {
+
+	EDatagram* msg = new EDatagram();
+	if (!this->doLogin()){
 		return;
 	}
-
 	// Get YAML
 	this->input.receiveFile("res/levels/clienteyaml.yaml");
 
@@ -466,6 +481,7 @@ void Cliente::getRemoteWorld() {
 				this->domain.addPlayer(msg->playerID,CONNECTED,0);
 		}
 	}
+	delete msg;
 }
 
 
