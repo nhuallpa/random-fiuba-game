@@ -1,8 +1,8 @@
 #include "WormActions.h"
-#define FUERZA_MOV 70
-#define JUMP_IMPULSE 45
-#define CLIMB_FACTOR 1.7
-#define JUMP_TIMEOUT 16
+#define FUERZA_MOV 90
+#define JUMP_IMPULSE 55
+#define CLIMB_FACTOR 1.1
+#define JUMP_TIMEOUT 14
 
 WormActions::WormActions(Worm2d* worm2d)
 {

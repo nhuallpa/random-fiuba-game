@@ -71,6 +71,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	//input.setKeepAlive();
 	//output.setKeepAlive();
 
+	this->advance = SDL_CreateSemaphore( 1 );
 
 	jugadoresConectados = 0;
 
@@ -148,50 +149,28 @@ int Servidor::stepOver(void* data){
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
 
-	Condition* playerscond =  &srv->canAddNews;
-	Mutex* u =  &srv->playerslock;
-
-
-	//EDatagram* datagram = new EDatagram();
-
 	int i=0;
-
 	while(true){
 		Sleep(35);
-		//One step into the world
+
 		w->lock();
 		srv->getGameEngine().step();
 		w->unlock();
 
-		
 		//si algo cambio actualizo a los clientes
 		if ( i>=1 ){
-			
 			i=0;
 	
-			//u->lock();
-			//if ( srv->worldQ.type != UPDATE ){
-			//	playerscond->wait();
-			//}
-			//u->unlock();
-
-			if ( srv->worldQ.type == UPDATE ){
-
-
-
-				//chequeo si hay clientes
-				if ( srv->pList.size() && srv->allInWaitingStatus() ){
-					n->lock();
-					int res = srv->somethingChange();
-					srv->worldQ.type = UPDATE;
-					srv->setWorldQ();
-					netcond->broadcast();
-				} 
-				n->unlock();
-			}
-
+			//chequeo si hay clientes
+			if ( srv->pList.size()  ){
+				SDL_SemWait(srv->advance);
+				int res = srv->somethingChange();
+				srv->worldQ.type = UPDATE;
+				//Agrego a la cola y notifico clientes
+				srv->notifyAll();
+				SDL_SemPost(srv->advance);
+			} 
 		}
-		
 		i++;
 	}
 
@@ -224,29 +203,16 @@ int Servidor::somethingChange(){
 	}
 
 	this->worldQ.elements = i; 
-	//printf("\nUpdated %d elements at this step, true: %d",i, flag);
-	////TODO: Remover
-	//for ( ; i != 15; i++)
-	//	this->worldQ.play[i].wormid = 0;
 
 	return i;
 }
 
 
 bool Servidor::updateModel(Playable p){
-
 	//Apply playable to the world, locate wormid and apply the action
 	this->gameEngine.applyAction2Element(p.wormid,p.action);
 
-	//Make a step into the world
-	//this->gameEngine.step();
-
-	//Look for changes in the world, if something change 
-	//somethingChange()
-
 	return true;
-
-
 }
 
 
@@ -367,19 +333,18 @@ int Servidor::initClient(void* data){
 					)
 				);
 
-	srv->insertWorldQ(datagram->playerID);
+
+	srv->inserPlayerIntotWorld(datagram->playerID);
+
 
 	printf("\nCliente registrado satisfactoriamente en el servidor");
-	
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
 	//Envio el nivel YAML al cliente
 	ParserYaml* aParser = ParserYaml::getInstance();
 	aThreadData->clientI.sendFile(aParser->getLevelFilePath());
 
-
 	printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
-
 	int i = 0;
 	std::string pl;
 	
@@ -497,28 +462,7 @@ void Servidor::disconnect(Player playerId) {
 
 void Servidor::notifyUsersAboutPlayer(std::string playerId){
 
-	//send message to all the users telling abut the news of the player
-	//EDatagram* datagram = new EDatagram();
-
-	//datagram->type = PLAYER_UPDATE;
-	//datagram->playerID = playerId;
-	//datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
-
-	/*int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);*/
-	
-	/*datagram->elements = el;*/
-
-	//std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
-	//std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
-
-	//for ( ; it != copy.end() ; ++it){
-	//	//send over the network
-	//	if ( it->first.compare(playerId) )
-	//		 it->second.second.sendmsg(*datagram);
-
-	//}
-
-	this->netlock.lock();
+	SDL_SemWait(this->advance);
 	this->worldQ.type = PLAYER_UPDATE;
 	this->worldQ.playerID = playerId;
 	this->worldQ.playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
@@ -527,18 +471,11 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 				
 	printf("\nNOTIFYING NEWS: Sending type: %d (player_update), about: %s, elements: %d",this->worldQ.type, this->worldQ.playerID.c_str(), this->worldQ.elements);
 
-	this->setWorldQ();
+	
+	this->notifyAll();
+	SDL_SemPost(this->advance);
 
-	this->canBroadcast.broadcast();
-	this->netlock.unlock();	
 
-
-	//Chequeo si es el primero
-	if ( this->pList.size() == 1 )
-		this->worldQ.type = UPDATE;
-
-	//this->playerslock.unlock();
-	//this->canAddNews.signal();
 
 }
 
@@ -559,49 +496,24 @@ int Servidor::updateClient(void* data){
 
     EDatagram* datagram = new EDatagram();
 
-    while(true){
-                
+    while(true){           
 		//Sleep(25);
-
-        n->lock();
-        if ( srv->getWorldQStatus(playerId) != TX_READY){
-            netcond->wait();
+		srv->playerMutexes[playerId].first->lock();
+		if ( srv->playerQueues[playerId]->empty() ){
+			srv->playerMutexes[playerId].second->wait();
 		}
-		printf("\nUpdate client: %s control", playerId);
-		memcpy(datagram,&srv->worldQ,sizeof(EDatagram));
-		srv->setWorldQStatus(playerId,TX_WAIT);        
+		//printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
+		memcpy(datagram, &srv->playerQueues[playerId]->front() ,sizeof(EDatagram));
+		srv->playerQueues[playerId]->pop();
+		srv->playerMutexes[playerId].first->unlock();
+		if ( datagram->type == PLAYER_UPDATE && !datagram->playerID.compare(playerId) )
+			continue;
 
-		if ( srv->allInWaitingStatus() && datagram->type == PLAYER_UPDATE ){
-			printf("\nResetting to UPDATE");
-			srv->worldQ.type = UPDATE;
+		if ( !aThreadData->clientI.sendmsg(*datagram) ){
+			printf("Desconectando cliente: %s desde Update Thread",playerId);
+			srv->disconnect(playerId);
+			return 0;
 		}
-
-
-		netcond->broadcast();
-		n->unlock();
-
-		//Sleep(60);		
-		
-
-		//for ( int i = 0; i < datagram->elements; i++)
-		//       printf("\nEnvie x: %f, y: %f de worm: %d a player",datagram->play[i].x,datagram->play[i].y,datagram->play[i].wormid);
-		//printf("Enviando worldQ desde upate client thread a: %s, type: %d",playerId,datagram->type );
-		if ( datagram->type == PLAYER_UPDATE && datagram->playerID.compare(playerId) ){
-			Log::i("Enviando worldQ desde upate client thread a: %s, type: %d about: %s",playerId,datagram->type,datagram->playerID );
-			printf("Enviando worldQ desde upate client thread a: %s, type: %d about: %s",playerId,datagram->type,datagram->playerID );
-			
-		}
-		if ( ( datagram->type == PLAYER_UPDATE && datagram->playerID.compare(playerId) ) || datagram->type == UPDATE ) {
-			
-			if ( !aThreadData->clientI.sendmsg(*datagram) ){
-				printf("Desconectando cliente: %s desde Update Thread",playerId);
-				srv->disconnect(playerId);
-				return 0;
-			}
-		}
-
-
-		
     }
     return 0;
 }
@@ -639,4 +551,31 @@ bool Servidor::allInWaitingStatus(){
 	}
 
 	return true;
+}
+
+void Servidor::inserPlayerIntotWorld(std::string pl){
+
+	this->playerQueueStat[pl] = TX_WAIT;
+	Mutex* m = new Mutex();
+	Condition* c = new Condition(*m);
+	this->playerMutexes[pl] = std::make_pair(m,c);
+	this->playerQueues[pl] = new queue<EDatagram>;
+
+
+}
+
+
+void Servidor::notifyAll(){
+
+	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
+	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
+
+	for( ; itm!=mutexes.end(); ++itm){
+		itm->second.first->lock();
+		this->playerQueues[itm->first]->push( this->worldQ );
+		itm->second.second->signal();
+		itm->second.first->unlock();
+	}
+
+
 }
