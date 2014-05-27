@@ -206,29 +206,30 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true){
 
-		Sleep(1); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
+		Sleep(15); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
 
 		// Wait for network updates from server
 		n->lock(); //Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
 				   //Ariel: No, si esta vacia espera (eso lo desbloquea), si no esta vacia ya tiene el lock	
 				   // y opera tranquilo
-		if ( cli->networkChanges.empty() ){
+		if ( cli->clientQueue.empty() ){
 			netcond->wait();
 		}
-		if (cli->networkChanges.size() > 1) {
-			Log::t("Cliente::applyNetworkChanges >> Mas de un cambio para actualizar");
-		}
-		//n->lock();
-		while (!cli->networkChanges.empty())
-		{	
-			Playable p;
-			p = cli->networkChanges.front();
-
-			cli->updateModel(p);
-
-			cli->networkChanges.pop();
-		}
+		EDatagram temp = cli->clientQueue.front();
+		cli->clientQueue.pop();
 		n->unlock();
+
+		Playable p;
+		Log::i("\nProcessing");
+		for ( int i=0; i < temp.elements; i++){
+			p.wormid = temp.play[i].wormid;
+			//p.weaponid = emsg->play[i].weaponid;
+			p.x = temp.play[i].x;
+			p.y = temp.play[i].y;
+			p.action = temp.play[i].action;
+			cli->updateModel(p);
+		}
+
 	}
 
 	return 0;
@@ -284,19 +285,18 @@ int Cliente::notifyLocalUpdates(void *data){
 
 
 int Cliente::netListener(void* data){
-	Sleep(10);
+
 	Log::i("Cliente::netListener >> Disparado net listen thread");
 	Cliente* cli = ((threadData*)data)->cli;
 
 	char* playerId = ((threadData*)data)->p;
-	Datagram* msg = new Datagram();
 	EDatagram* emsg = new EDatagram();
 
 	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 
 	while(true){
-		Sleep(10);
+		Sleep(1);
 	
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			Log::e("\nNETLISTENER: Desconectando cliente at listening state");
@@ -310,41 +310,43 @@ int Cliente::netListener(void* data){
 		switch(emsg->type){
 		case UPDATE:
 			//Log::t("Got UPDATE message from server");
-			n->lock();
+			
 			try{
-				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
-				Playable p;
+				Log::i("\nGot something from client %s worm: %d posY: %f",emsg->playerID.c_str(),emsg->play[0].wormid,emsg->play[0].y);
+				n->lock();
+				cli->clientQueue.push(*emsg);
+				
+				netcond->signal();
+				n->unlock();
+				//Playable p;
 
-				// Esto deberia ser mas rapido, quizas lo meta en un vector de edatagrams
-				// que se van a ir vaciando del lado del cliente
-				for ( int i=0; i < emsg->elements; i++){
-					p.wormid = emsg->play[i].wormid;
-					//p.weaponid = emsg->play[i].weaponid;
-					p.x = emsg->play[i].x;
-					p.y = emsg->play[i].y;
-					p.action = emsg->play[i].action;
-					Log::d("Recibo accion %s para worm %d", Util::actionString(p.action).c_str(), p.wormid);
-					cli->networkChanges.push(p);
-					Log::d("Getted wormid: %d at pos x: %f, y: %f",p.wormid,p.x, p.y);
-				}
+
+				//// Esto deberia ser mas rapido, quizas lo meta en un vector de edatagrams
+				//// que se van a ir vaciando del lado del cliente
+				//for ( int i=0; i < emsg->elements; i++){
+				//	p.wormid = emsg->play[i].wormid;
+				//	//p.weaponid = emsg->play[i].weaponid;
+				//	p.x = emsg->play[i].x;
+				//	p.y = emsg->play[i].y;
+				//	p.action = emsg->play[i].action;
+				//	Log::d("Recibo accion %s para worm %d", Util::actionString(p.action).c_str(), p.wormid);
+				//	cli->networkChanges.push(p);
+				//	Log::d("Getted wormid: %d at pos x: %f, y: %f",p.wormid,p.x, p.y);
+				//}
 
 			}catch(...){
-				n->unlock();
+				
 				throw std::current_exception();
 				break;
 			}
 			
 			
-			if ( emsg->elements ){
-				netcond->signal();
-			}
-			n->unlock();
 			break;
 		case PLAYER_UPDATE:
 			//Add the user to the players that are playing list
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
-			
+			n->lock();
 			if (emsg->playerState == CONNECTED)
 			{
 				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
@@ -366,6 +368,7 @@ int Cliente::netListener(void* data){
 				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
+			n->unlock();
 			break;
 		}
 	

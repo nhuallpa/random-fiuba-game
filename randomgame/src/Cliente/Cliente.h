@@ -21,8 +21,6 @@
 #include <string>
 #include <iostream>
 #include <ctime>
-
-
 #include <string>
 #include <vector>
 #include <list>
@@ -112,6 +110,9 @@ class Cliente : public OnMovementListener{
 
 
 	public:
+		
+		std::queue<EDatagram> clientQueue;
+
 		Cliente(std::string playerID, const char* ip, int port);
 		
 		virtual ~Cliente(void);
