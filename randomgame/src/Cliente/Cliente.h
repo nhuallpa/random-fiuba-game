@@ -111,6 +111,7 @@ class Cliente : public OnMovementListener{
 
 	public:
 		
+		SDL_sem* advance;
 		std::queue<EDatagram> clientQueue;
 
 		Cliente(std::string playerID, const char* ip, int port);
