@@ -31,8 +31,17 @@ public:
 	 void setPlayerID(std::string playerID){ this->playerID = playerID; }
 	 std::string getPlayerID(){ return this->playerID; }
 
+	 void printDomain(){
+
+		 std::map<int,GameElement> copy = this->domainElements;
+		 std::map<int,GameElement>::iterator it=copy.begin();
+		 for( ; it != copy.end(); ++it)
+			 Log::i("ID Map: %d, ID elem: %d",it->first,it->second.getId());
+	 }
+
 	 void addElementToDomain(GameElement element)
 	 {
+		 Log::i("\nAdded to domain wormid: %d",element.getId());
 			this->domainElements.insert( std::make_pair(element.getId(),element) ); 
 	 }
 

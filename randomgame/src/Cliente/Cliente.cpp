@@ -353,7 +353,7 @@ int Cliente::netListener(void* data){
 					
 					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
 					
-					Log::d("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
+					Log::i("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
 				//SDL_SemPost(cli->advance);
 				cli->domainMx.unlock();
@@ -619,5 +619,7 @@ void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
 {
 	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
 	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
+	this->domain.printDomain();
+
 }
 
