@@ -39,9 +39,12 @@ void Cliente::loop(void){
 	fpsManager.rate = 60;
 	SDL_initFramerate(&fpsManager);
 	while (!this->cController.isQuit()){
+		
 		cController.handlerEvent();
 		this->runGame();
+		SDL_SemWait(this->advance);
 		currentActivity->update();
+		SDL_SemPost(this->advance);
 		currentActivity->render();
 		SDL_framerateDelay(&fpsManager);
 	}
@@ -103,6 +106,7 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 	, domain()
 {
 	this->loginOk = false;
+	this->advance = SDL_CreateSemaphore( 1 );
 	bool stat = input.connect2(ip, port+1);
 	if (!stat){
 		this->srvStatus = SERVER_NOT_RESPONDING;
@@ -193,7 +197,6 @@ int Cliente::clientSideEmulation(void *data){
 
 
 int Cliente::applyNetworkChanges(void *data){
-	Sleep(10);
 	Log::i("Cliente::applyNetworkChanges >> Disparado apply Network Changes thread");
 	Cliente* cli = ((threadData*)data)->cli;
 	
@@ -206,13 +209,13 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true){
 
-		Sleep(15); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
+		Sleep(1); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
 
 		// Wait for network updates from server
 		n->lock(); //Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
 				   //Ariel: No, si esta vacia espera (eso lo desbloquea), si no esta vacia ya tiene el lock	
 				   // y opera tranquilo
-		if ( cli->clientQueue.empty() ){
+		while ( cli->clientQueue.empty() ){
 			netcond->wait();
 		}
 		EDatagram temp = cli->clientQueue.front();
@@ -220,7 +223,9 @@ int Cliente::applyNetworkChanges(void *data){
 		n->unlock();
 
 		Playable p;
-		Log::i("\nProcessing");
+
+		SDL_SemWait(cli->advance);
+
 		for ( int i=0; i < temp.elements; i++){
 			p.wormid = temp.play[i].wormid;
 			//p.weaponid = emsg->play[i].weaponid;
@@ -228,8 +233,9 @@ int Cliente::applyNetworkChanges(void *data){
 			p.y = temp.play[i].y;
 			p.action = temp.play[i].action;
 			cli->updateModel(p);
+			Log::i("\nProcessing wid: %d, x: %f, y: %f", p.wormid,p.x,p.y);
 		}
-
+		SDL_SemPost(cli->advance);
 	}
 
 	return 0;
@@ -239,7 +245,9 @@ int Cliente::applyNetworkChanges(void *data){
 
 bool Cliente::updateModel(Playable p){
 
+
 	this->domain.updateElement(p.wormid, p.x, p.y, p.action );
+
 	return true;
 }
 
@@ -296,7 +304,7 @@ int Cliente::netListener(void* data){
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 
 	while(true){
-		Sleep(1);
+		Sleep(10);
 	
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			Log::e("\nNETLISTENER: Desconectando cliente at listening state");
@@ -312,27 +320,12 @@ int Cliente::netListener(void* data){
 			//Log::t("Got UPDATE message from server");
 			
 			try{
-				Log::i("\nGot something from client %s worm: %d posY: %f",emsg->playerID.c_str(),emsg->play[0].wormid,emsg->play[0].y);
+				//Log::i("\nGot something from client %s worm: %d posY: %f",emsg->playerID.c_str(),emsg->play[0].wormid,emsg->play[0].y);
 				n->lock();
 				cli->clientQueue.push(*emsg);
 				
 				netcond->signal();
 				n->unlock();
-				//Playable p;
-
-
-				//// Esto deberia ser mas rapido, quizas lo meta en un vector de edatagrams
-				//// que se van a ir vaciando del lado del cliente
-				//for ( int i=0; i < emsg->elements; i++){
-				//	p.wormid = emsg->play[i].wormid;
-				//	//p.weaponid = emsg->play[i].weaponid;
-				//	p.x = emsg->play[i].x;
-				//	p.y = emsg->play[i].y;
-				//	p.action = emsg->play[i].action;
-				//	Log::d("Recibo accion %s para worm %d", Util::actionString(p.action).c_str(), p.wormid);
-				//	cli->networkChanges.push(p);
-				//	Log::d("Getted wormid: %d at pos x: %f, y: %f",p.wormid,p.x, p.y);
-				//}
 
 			}catch(...){
 				
@@ -346,16 +339,20 @@ int Cliente::netListener(void* data){
 			//Add the user to the players that are playing list
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
-			n->lock();
+			/*n->lock();*/
 			if (emsg->playerState == CONNECTED)
 			{
 				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
 				int i=0;
+				SDL_SemWait(cli->advance);
 				for (i=0; i< emsg->elements; i++) 
 				{
+					
 					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
+					
 					Log::d("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
+				SDL_SemPost(cli->advance);
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
 			}
 			else if (emsg->playerState == DISCONNECTED)
@@ -368,7 +365,7 @@ int Cliente::netListener(void* data){
 				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
-			n->unlock();
+			/*n->unlock();*/
 			break;
 		}
 	
@@ -471,7 +468,7 @@ void Cliente::getRemoteWorld() {
 			return;
 		}
 		int els = msg->elements;
-
+		SDL_SemWait(this->advance);
 		for ( int j=0; j < els; j++){
 
 			Log::i("Got worm id: %d at pos: %f, %f, action: %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, msg->play[j].action);
@@ -480,14 +477,17 @@ void Cliente::getRemoteWorld() {
 			GameElement* elem = getElementFromPlayable(msg->play[j]);
 			elem->playerID = msg->playerID;
 			elem->setAction( msg->play[j].action );
+			
 			this->domain.addElementToDomain(*elem);
-
+			
 			if ( msg->play[j].action == NOT_CONNECTED ){
 				//Set user disconnected
 				this->domain.addPlayer(msg->playerID,DISCONNECTED,0);
 			}else
 				this->domain.addPlayer(msg->playerID,CONNECTED,0);
 		}
+		SDL_SemPost(this->advance);
+
 	}
 	delete msg;
 }
