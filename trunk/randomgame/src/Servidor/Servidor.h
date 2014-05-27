@@ -14,6 +14,8 @@
 
 #include ".\modelo\GameEngine.h"
 
+#include <queue>
+
 class Servidor;
 
 typedef struct{
@@ -52,6 +54,8 @@ class Servidor{
 
 		std::map<std::string,TransmitStatus> playerQueueStat;
 
+
+
 		void sendHeartBeat(Player playerId, Messages type);
 	
 		void broadcastMsg(Playable change);
@@ -68,9 +72,16 @@ class Servidor{
 
 		~Servidor();
 
+		SDL_sem* advance;
+
+		//Mutex per player - basado en consume/producer model
+		std::map<std::string,std::pair<Mutex*,Condition*>> playerMutexes;
+		std::map<std::string,std::queue<EDatagram>* > playerQueues;
+
 		TransmitStatus getWorldQStatus(std::string pl){ return this->playerQueueStat[pl]; }
 		void setWorldQStatus(std::string pl, TransmitStatus tx) { this->playerQueueStat[pl] = tx; }
-		void insertWorldQ(std::string pl){ this->playerQueueStat[pl] = TX_WAIT; }
+		
+		void inserPlayerIntotWorld(std::string pl);
 		void resetWorldQ();
 		void setWorldQ();
 
@@ -97,6 +108,7 @@ class Servidor{
 		Condition canAddNews;
 
 		void waitConnections();
+		void notifyAll();
 	
 		static int updating(void* data);
 		static int initClient(void* data);
