@@ -90,6 +90,7 @@ class Cliente : public OnMovementListener{
 		Condition somethingToTell;
 		Condition somethingToUpdate;
 
+
 		size_t revision;
 		std::vector<Playable> localChanges;
 		std::queue<Playable> networkChanges;
@@ -110,6 +111,9 @@ class Cliente : public OnMovementListener{
 
 
 	public:
+
+				Mutex domainMx;
+		Condition updateDomain;
 		
 		SDL_sem* advance;
 		std::queue<EDatagram> clientQueue;

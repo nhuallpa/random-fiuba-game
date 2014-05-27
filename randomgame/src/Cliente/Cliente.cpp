@@ -42,10 +42,10 @@ void Cliente::loop(void){
 		
 		cController.handlerEvent();
 		this->runGame();
-		SDL_SemWait(this->advance);
+		//SDL_SemWait(this->advance);
 		currentActivity->update();
-		SDL_SemPost(this->advance);
 		currentActivity->render();
+		//SDL_SemPost(this->advance);
 		SDL_framerateDelay(&fpsManager);
 	}
 	cController.destroy();
@@ -104,6 +104,8 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 	, somethingToTell(m)
 	, somethingToUpdate(n)
 	, domain()
+	, domainMx()
+	, updateDomain(domainMx)
 {
 	this->loginOk = false;
 	this->advance = SDL_CreateSemaphore( 1 );
@@ -224,8 +226,8 @@ int Cliente::applyNetworkChanges(void *data){
 
 		Playable p;
 
-		SDL_SemWait(cli->advance);
-
+		//SDL_SemWait(cli->advance);
+		
 		for ( int i=0; i < temp.elements; i++){
 			p.wormid = temp.play[i].wormid;
 			//p.weaponid = emsg->play[i].weaponid;
@@ -233,9 +235,9 @@ int Cliente::applyNetworkChanges(void *data){
 			p.y = temp.play[i].y;
 			p.action = temp.play[i].action;
 			cli->updateModel(p);
-			Log::i("\nProcessing wid: %d, x: %f, y: %f", p.wormid,p.x,p.y);
+			//Log::i("\nProcessing wid: %d, x: %f, y: %f", p.wormid,p.x,p.y);
 		}
-		SDL_SemPost(cli->advance);
+		//SDL_SemPost(cli->advance);
 	}
 
 	return 0;
@@ -245,9 +247,9 @@ int Cliente::applyNetworkChanges(void *data){
 
 bool Cliente::updateModel(Playable p){
 
-
+	this->domainMx.lock();
 	this->domain.updateElement(p.wormid, p.x, p.y, p.action );
-
+	this->domainMx.unlock();
 	return true;
 }
 
@@ -344,7 +346,8 @@ int Cliente::netListener(void* data){
 			{
 				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
 				int i=0;
-				SDL_SemWait(cli->advance);
+				//SDL_SemWait(cli->advance);
+				cli->domainMx.lock();
 				for (i=0; i< emsg->elements; i++) 
 				{
 					
@@ -352,7 +355,8 @@ int Cliente::netListener(void* data){
 					
 					Log::d("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
-				SDL_SemPost(cli->advance);
+				//SDL_SemPost(cli->advance);
+				cli->domainMx.unlock();
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
 			}
 			else if (emsg->playerState == DISCONNECTED)
@@ -468,7 +472,7 @@ void Cliente::getRemoteWorld() {
 			return;
 		}
 		int els = msg->elements;
-		SDL_SemWait(this->advance);
+		this->domainMx.lock();
 		for ( int j=0; j < els; j++){
 
 			Log::i("Got worm id: %d at pos: %f, %f, action: %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, msg->play[j].action);
@@ -486,7 +490,7 @@ void Cliente::getRemoteWorld() {
 			}else
 				this->domain.addPlayer(msg->playerID,CONNECTED,0);
 		}
-		SDL_SemPost(this->advance);
+		this->domainMx.unlock();
 
 	}
 	delete msg;
