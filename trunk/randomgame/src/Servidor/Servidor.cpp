@@ -151,23 +151,25 @@ int Servidor::stepOver(void* data){
 
 	int i=0;
 	while(true){
-		Sleep(35);
+		Sleep(40);
 
 		w->lock();
 		srv->getGameEngine().step();
 		w->unlock();
 
 		//si algo cambio actualizo a los clientes
-		if ( i>=1 ){
+		if ( i>=2 ){
 			i=0;
 	
 			//chequeo si hay clientes
 			if ( srv->pList.size()  ){
 				SDL_SemWait(srv->advance);
 				int res = srv->somethingChange();
-				srv->worldQ.type = UPDATE;
-				//Agrego a la cola y notifico clientes
-				srv->notifyAll();
+				if ( res ){
+					srv->worldQ.type = UPDATE;
+					//Agrego a la cola y notifico clientes
+					srv->notifyAll();
+				}
 				SDL_SemPost(srv->advance);
 			} 
 		}
@@ -494,7 +496,7 @@ int Servidor::updateClient(void* data){
 
     char* playerId = aThreadData->p;
 
-    EDatagram* datagram = new EDatagram();
+    EDatagram datagram;
 
     while(true){           
 		//Sleep(25);
@@ -503,13 +505,14 @@ int Servidor::updateClient(void* data){
 			srv->playerMutexes[playerId].second->wait();
 		}
 		//printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
-		memcpy(datagram, &srv->playerQueues[playerId]->front() ,sizeof(EDatagram));
+		//memcpy(datagram, &srv->playerQueues[playerId]->front() ,sizeof(EDatagram));
+		datagram = srv->playerQueues[playerId]->front() ;
 		srv->playerQueues[playerId]->pop();
 		srv->playerMutexes[playerId].first->unlock();
-		if ( datagram->type == PLAYER_UPDATE && !datagram->playerID.compare(playerId) )
+		if ( datagram.type == PLAYER_UPDATE && !datagram.playerID.compare(playerId) )
 			continue;
-
-		if ( !aThreadData->clientI.sendmsg(*datagram) ){
+		Log::i("Sending type: %d to %s",datagram.type,playerId);
+		if ( !aThreadData->clientI.sendmsg(datagram) ){
 			printf("Desconectando cliente: %s desde Update Thread",playerId);
 			srv->disconnect(playerId);
 			return 0;
