@@ -40,7 +40,7 @@ void GameActivity::update()
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::i(VIEW,"elemento id %d",domainElement.getId());
+		Log::d(VIEW,"elemento id %d",domainElement.getId());
 		try
 		{
 			if (domainElement.getType() == WORM) 
@@ -192,8 +192,10 @@ void GameActivity::setListeners(SDLScreen &  screen)
 void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y) 
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
+
 	GameElement aGameElem(id, playerID, WORM, x, y, 0, 0, 0, 0, false);
 	aGameElem.setAction(MOVELESS);
+	
 	this->builder->getDomain()->addElementToDomain(aGameElem);
 	WormView* aWormView = this->builder->createWorm(&aGameElem);
 	gameView->getWormContainer()->add(aWormView);

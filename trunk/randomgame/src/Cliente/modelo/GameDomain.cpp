@@ -8,14 +8,27 @@ GameDomain::~GameDomain(void){
 }
 
 void GameDomain::updateElement(int id, float posX, float posY){
-	this->domainElements[id].setPosition(std::make_pair(posX,posY));
+	std::map<int,GameElement>::iterator it;
+
+	it = this->domainElements.find(id);
+	if ( it != this->domainElements.end() ){
+		this->domainElements[id].setPosition(std::make_pair(posX,posY));
+	}
 }
 
 void GameDomain::updateElement(int id, float posX, float posY, Movement action){
-	this->domainElements[id].setPosition(std::make_pair(posX,posY));
-	this->domainElements[id].setAction(action);
+	std::map<int,GameElement>::iterator it;
+
+	it = this->domainElements.find(id);
+
+	if ( it != this->domainElements.end() ){
+		this->domainElements[id].setPosition(std::make_pair(posX,posY));
+		this->domainElements[id].setAction(action);
+	}
+
 }
 
 void GameDomain::setPlayerState(Player p, StateConn c, unsigned long color){
 	this->playersPlaying[p] = std::make_pair(c,color);
 }
+

@@ -194,7 +194,7 @@ void GameViewBuilder::buildStateBar()
 	this->gameView->setStateBar(stateBar);
 }
 
-WormView* GameViewBuilder::createWorm(GameElement * domainElement)
+WormView* GameViewBuilder::createWorm(GameElement* domainElement)
 {
 		WormView* aWorm = new WormView(	domainElement->getId());
 		Log::i("Adding worm: %d, at position: %f, %f", domainElement->getId(), 

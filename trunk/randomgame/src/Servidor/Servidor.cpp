@@ -511,7 +511,7 @@ int Servidor::updateClient(void* data){
 		srv->playerMutexes[playerId].first->unlock();
 		if ( datagram.type == PLAYER_UPDATE && !datagram.playerID.compare(playerId) )
 			continue;
-		Log::i("Sending type: %d to %s",datagram.type,playerId);
+		//Log::i("Sending type: %d to %s",datagram.type,playerId);
 		if ( !aThreadData->clientI.sendmsg(datagram) ){
 			printf("Desconectando cliente: %s desde Update Thread",playerId);
 			srv->disconnect(playerId);
