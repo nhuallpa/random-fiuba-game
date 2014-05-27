@@ -39,7 +39,7 @@ typedef struct {
 		int wormid;			// Worm identifier, unique
 		Movement action;	// der, izq, salt
 		int state;			//selected or not
-		int weaponid;		
+		//int weaponid;		
 		float x;				// X,Y alreaded passed to view coords.
 		float y;				//
 		char level[15];		// YAML level (filename), path must be specified

@@ -56,10 +56,12 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, changes()
 	, lock()
 	, netlock()
+	, playerslock()
 	, worldlock()
 	, canUpdate(lock)
 	, canBroadcast(netlock)
 	, canCreate(worldlock)
+	, canAddNews(playerslock)
 {
 
 	//input.setRcvTimeout(15,5);
@@ -80,6 +82,8 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	/* Start threading stuff */
 
 	this->data.srv = this;
+
+	this->worldQ.type = UPDATE;
 
 	//Start connection Loop, when a client connects I will trigger a new thread for him
 	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
@@ -144,46 +148,47 @@ int Servidor::stepOver(void* data){
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
 
+	Condition* playerscond =  &srv->canAddNews;
+	Mutex* u =  &srv->playerslock;
+
+
 	//EDatagram* datagram = new EDatagram();
 
 	int i=0;
 
 	while(true){
-		Sleep(25);
+		Sleep(35);
 		//One step into the world
 		w->lock();
 		srv->getGameEngine().step();
 		w->unlock();
-		//n->lock();
+
 		
 		//si algo cambio actualizo a los clientes
-		if ( i>=3 ){
+		if ( i>=1 ){
 			
 			i=0;
-			n->lock();
-			int res = srv->somethingChange();
+	
+			//u->lock();
+			//if ( srv->worldQ.type != UPDATE ){
+			//	playerscond->wait();
+			//}
+			//u->unlock();
 
-			//chequeo si hay clientes
-			if ( srv->pList.size() ){
-				
-				//std::map<std::string, std::pair<Socket,Socket>> copy = srv->pList;
-				//std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
+			if ( srv->worldQ.type == UPDATE ){
 
-				//srv->worldQ.type = UPDATE;
-				//
-				////Levantar un thread para cada uno y enviarles
-				//for ( ; it != copy.end() ; ++it){
-				//	if ( !it->second.second.sendmsg(srv->worldQ) ){
-				//		srv->disconnect(it->first);
-				//	}
-				//}
-				
-				srv->worldQ.type = UPDATE;
-				srv->setWorldQ();
-				netcond->broadcast();
+
+
+				//chequeo si hay clientes
+				if ( srv->pList.size() && srv->allInWaitingStatus() ){
+					n->lock();
+					int res = srv->somethingChange();
+					srv->worldQ.type = UPDATE;
+					srv->setWorldQ();
+					netcond->broadcast();
+				} 
 				n->unlock();
-			}else
-				n->unlock();
+			}
 
 		}
 		
@@ -396,8 +401,6 @@ int Servidor::initClient(void* data){
 		aThreadData->clientI.sendmsg(*datagram);
 	}
 	
-	//Tell everybody that a new player has arrived!
-	srv->notifyUsersAboutPlayer(playerId);
 
 	threadData* dataCliente = new threadData();
 	dataCliente->srv = srv;
@@ -405,6 +408,12 @@ int Servidor::initClient(void* data){
 	dataCliente->clientO = aThreadData->clientO;
 	std::strcpy(dataCliente->p,playerId);
 	Thread clientThread("Update Client Thread",updateClient,dataCliente);
+
+	Sleep(10);
+
+	//Tell everybody that a new player has arrived!
+	srv->notifyUsersAboutPlayer(playerId);
+
 
 	int activeClient=1;
 		try {
@@ -433,9 +442,9 @@ int Servidor::initClient(void* data){
 				//printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
-				m->unlock();
-				cond->signal();
 
+				cond->signal();
+				m->unlock();
 
 				break;
 
@@ -480,6 +489,8 @@ void Servidor::disconnect(Player playerId) {
 		this->pList.erase(playerId);
 		this->jugadoresConectados--;
 		this->notifyUsersAboutPlayer(playerId);
+		this->playerQueueStat.erase(playerId);
+
 	}
 
 }
@@ -487,25 +498,47 @@ void Servidor::disconnect(Player playerId) {
 void Servidor::notifyUsersAboutPlayer(std::string playerId){
 
 	//send message to all the users telling abut the news of the player
-	EDatagram* datagram = new EDatagram();
+	//EDatagram* datagram = new EDatagram();
 
-	datagram->type = PLAYER_UPDATE;
-	datagram->playerID = playerId;
-	datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
+	//datagram->type = PLAYER_UPDATE;
+	//datagram->playerID = playerId;
+	//datagram->playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
 
-	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);
-	printf("\nNotifiyng users about player: %s. His State is: %d Sending %d elements.", playerId.c_str(), datagram->playerState, el);
-	datagram->elements = el;
+	/*int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,datagram->play);*/
+	
+	/*datagram->elements = el;*/
 
-	std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
-	std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
+	//std::map<std::string, std::pair<Socket,Socket>> copy = this->pList;
+	//std::map<std::string, std::pair<Socket,Socket>>::iterator it = copy.begin();
 
-	for ( ; it != copy.end() ; ++it){
-		//send over the network
-		if ( it->first.compare(playerId) )
-			 it->second.second.sendmsg(*datagram);
+	//for ( ; it != copy.end() ; ++it){
+	//	//send over the network
+	//	if ( it->first.compare(playerId) )
+	//		 it->second.second.sendmsg(*datagram);
 
-	}
+	//}
+
+	this->netlock.lock();
+	this->worldQ.type = PLAYER_UPDATE;
+	this->worldQ.playerID = playerId;
+	this->worldQ.playerState = this->gameEngine.getLevel()->getPlayerStatus(playerId);
+	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,this->worldQ.play);
+	this->worldQ.elements = el;
+				
+	printf("\nNOTIFYING NEWS: Sending type: %d (player_update), about: %s, elements: %d",this->worldQ.type, this->worldQ.playerID.c_str(), this->worldQ.elements);
+
+	this->setWorldQ();
+
+	this->canBroadcast.broadcast();
+	this->netlock.unlock();	
+
+
+	//Chequeo si es el primero
+	if ( this->pList.size() == 1 )
+		this->worldQ.type = UPDATE;
+
+	//this->playerslock.unlock();
+	//this->canAddNews.signal();
 
 }
 
@@ -528,31 +561,46 @@ int Servidor::updateClient(void* data){
 
     while(true){
                 
-		Sleep(20);
+		//Sleep(25);
 
         n->lock();
         if ( srv->getWorldQStatus(playerId) != TX_READY){
             netcond->wait();
 		}
-
+		printf("\nUpdate client: %s control", playerId);
 		memcpy(datagram,&srv->worldQ,sizeof(EDatagram));
-		srv->setWorldQStatus(playerId,TX_WAIT);
+		srv->setWorldQStatus(playerId,TX_WAIT);        
+
+		if ( srv->allInWaitingStatus() && datagram->type == PLAYER_UPDATE ){
+			printf("\nResetting to UPDATE");
+			srv->worldQ.type = UPDATE;
+		}
+
+
+		netcond->broadcast();
 		n->unlock();
+
+		//Sleep(60);		
+		
 
 		//for ( int i = 0; i < datagram->elements; i++)
 		//       printf("\nEnvie x: %f, y: %f de worm: %d a player",datagram->play[i].x,datagram->play[i].y,datagram->play[i].wormid);
-
-                
-		//printf("Enviando worldQ desde upate client thread");
-		if ( !aThreadData->clientI.sendmsg(*datagram) ){
+		//printf("Enviando worldQ desde upate client thread a: %s, type: %d",playerId,datagram->type );
+		if ( datagram->type == PLAYER_UPDATE && datagram->playerID.compare(playerId) ){
+			Log::i("Enviando worldQ desde upate client thread a: %s, type: %d about: %s",playerId,datagram->type,datagram->playerID );
+			printf("Enviando worldQ desde upate client thread a: %s, type: %d about: %s",playerId,datagram->type,datagram->playerID );
+			
+		}
+		if ( ( datagram->type == PLAYER_UPDATE && datagram->playerID.compare(playerId) ) || datagram->type == UPDATE ) {
+			
+			if ( !aThreadData->clientI.sendmsg(*datagram) ){
 				printf("Desconectando cliente: %s desde Update Thread",playerId);
 				srv->disconnect(playerId);
 				return 0;
-				
+			}
 		}
-                
-		
-		//printf("\nEl que sigue...");
+
+
 		
     }
     return 0;
@@ -576,4 +624,19 @@ void Servidor::setWorldQ(){
 	for( ; it!=copy.end(); ++it)
 		it->second = TX_READY;
 
+}
+
+bool Servidor::allInWaitingStatus(){
+
+	//bool flag = true;
+	std::map<std::string,TransmitStatus> copy = this->playerQueueStat;
+	std::map<std::string,TransmitStatus>::iterator it=copy.begin();
+
+	for( ; it!=copy.end(); ++it){
+		if ( it->second == TX_READY ){
+			return false;
+		}
+	}
+
+	return true;
 }

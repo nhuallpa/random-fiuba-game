@@ -416,7 +416,7 @@ bool Socket::rcvmsg (EDatagram &msg){
 	int nBytes = 0;
 	int count = 0;
 
-	while(retries < 2){
+	while(retries < 5){
 		nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
 		
 		//Log::t("Getted %d bytes of %ld",nBytes,messageSize);
@@ -448,7 +448,7 @@ bool Socket::rcvmsg (EDatagram &msg){
 
 	}
 
-	if (retries == 2){
+	if (retries == 5){
 		Log::e("Error getting message body");
 		return false;
 	}
@@ -468,7 +468,7 @@ bool Socket::sendmsg(EDatagram msg){
 
 	memcpy(&buffer,&msg,messageSize);
 
-	while(retries < 2){
+	while(retries < 5){
 		nBytes = send(fd, buffer + count, messageSize, 0);
 		
 		if (nBytes == SOCKET_ERROR)

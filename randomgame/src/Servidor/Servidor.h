@@ -80,16 +80,21 @@ class Servidor{
 
 		void notifyUsersAboutPlayer(std::string playerID);
 
+		bool allInWaitingStatus();
 		bool allConnected() const;
 		void esperarUserDelta ();
 	
 		Mutex lock;
 		Condition canUpdate;
+		
 		Mutex netlock;
 		Condition canBroadcast;
 
 		Mutex worldlock;
 		Condition canCreate;
+
+		Mutex playerslock;
+		Condition canAddNews;
 
 		void waitConnections();
 	

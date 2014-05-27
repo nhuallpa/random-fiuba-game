@@ -32,6 +32,7 @@ typedef enum{
 } TransmitStatus;
 
 
+
 /*
 Aprox Size:68 bytes per datagram ( So I can send 15 Playable on same datagram and still under half of MTU)
 40 bytes per Playable
@@ -49,7 +50,7 @@ typedef struct{
 } Datagram;
 
 typedef struct{
-	Playable play[15];
+	Playable play[16];
 	Player playerID;
 	StateConn playerState;
 	Messages type;
