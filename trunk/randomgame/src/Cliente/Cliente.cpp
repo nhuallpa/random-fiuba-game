@@ -261,7 +261,7 @@ int Cliente::notifyLocalUpdates(void *data){
 		Log::t("\nGot a local change");
 
 		msg->play[0].wormid = cli->localChanges.back().wormid;
-		msg->play[0].weaponid = cli->localChanges.back().weaponid;
+		//msg->play[0].weaponid = cli->localChanges.back().weaponid;
 		msg->play[0].state = cli->localChanges.back().state;
 		msg->play[0].action = cli->localChanges.back().action;
 		msg->playerID = cli->pl.c_str();
@@ -334,11 +334,11 @@ int Cliente::netListener(void* data){
 				break;
 			}
 			
-			n->unlock();
+			
 			if ( emsg->elements ){
 				netcond->signal();
 			}
-
+			n->unlock();
 			break;
 		case PLAYER_UPDATE:
 			//Add the user to the players that are playing list
