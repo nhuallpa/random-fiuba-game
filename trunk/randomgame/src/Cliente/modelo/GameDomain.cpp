@@ -24,6 +24,8 @@ void GameDomain::updateElement(int id, float posX, float posY, Movement action){
 	if ( it != this->domainElements.end() ){
 		this->domainElements[id].setPosition(std::make_pair(posX,posY));
 		this->domainElements[id].setAction(action);
+	} else {
+		Log::e("GameDomain::updateElement: No se pudo actualizar el worm id %d", id);
 	}
 
 }
