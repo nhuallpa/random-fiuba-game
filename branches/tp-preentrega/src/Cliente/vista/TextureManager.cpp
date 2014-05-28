@@ -31,6 +31,38 @@ TextureManager::~TextureManager(void)
 		SDL_DestroyTexture(iter->second);
 	}
 	texture_map.clear();
+
+	std::map<std::string, SDL_Surface*>::iterator iterS;
+	for (iterS = surface_map.begin(); iterS!=surface_map.end(); ++iterS)
+	{
+		SDL_FreeSurface(iterS->second);
+	}
+	surface_map.clear();
+}
+
+SDL_Texture* TextureManager::getTexture(std::string imageId)
+{
+
+	if (this->texture_map.find(imageId) != this->texture_map.end())
+	{
+		return this->texture_map[imageId];
+	}
+	else
+	{
+		return NULL;
+	}
+}
+SDL_Surface* TextureManager::getSurface(std::string imageId)
+{
+
+	if (this->surface_map.find(imageId) != this->surface_map.end())
+	{
+		return this->surface_map[imageId];
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 void TextureManager::setScreenSize(int w, int h)
@@ -89,6 +121,7 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 													formattedSurface->h );
 			if( newTexture == NULL )
 			{
+				SDL_FreeSurface(formattedSurface);	
 				Log::e( "Unable to create blank texture! SDL Error: %s\n", SDL_GetError() );
 			}
 			else
@@ -101,8 +134,8 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 				//Unlock texture to update
 				SDL_UnlockTexture( newTexture );
 				mPixels = NULL;
+				surface_map[id] = formattedSurface;	
 			}
-			SDL_FreeSurface(formattedSurface);	
 		}
 		SDL_FreeSurface(tmpSurface);	
 	}
@@ -114,7 +147,7 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 	else 
 	{
 		std::stringstream msg;
-		msg<<"TextureManager: Imagen NO encontrada: "<<fileName;
+		msg<<"TextureManager: No se pudo crear el Texture para : "<<fileName;
 		throw GameException(msg.str());
 	}
 	return false;
@@ -349,3 +382,83 @@ tPoint TextureManager::convertPointUL2PXSDL(float x, float y)
 	return aPoint;
 }
 
+void TextureManager::putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel )
+{
+
+    Uint32 *pixels = (Uint32 *)surface->pixels;
+    
+    pixels[ ( y * surface->w ) + x ] = pixel;
+}
+
+void TextureManager::drawCircleOn(SDL_Surface *surface, int centerX, int centerY, int radius, Uint32 pixel)
+{
+    // if the first pixel in the screen is represented by (0,0) (which is in sdl)
+    // remember that the beginning of the circle is not in the middle of the pixel
+    // but to the left-top from it:
+ 
+    double error = (double)-radius;
+    double x = (double)radius -0.5;
+    double y = (double)0.5;
+    double cx = centerX - 0.5;
+    double cy = centerY - 0.5;
+ 
+    while (x >= y)
+    {
+        putPixel32(surface, (int)(cx + x), (int)(cy + y), pixel);
+        putPixel32(surface, (int)(cx + y), (int)(cy + x), pixel);
+ 
+        if (x != 0)
+        {
+            putPixel32(surface, (int)(cx - x), (int)(cy + y), pixel);
+            putPixel32(surface, (int)(cx + y), (int)(cy - x), pixel);
+        }
+ 
+        if (y != 0)
+        {
+            putPixel32(surface, (int)(cx + x), (int)(cy - y), pixel);
+            putPixel32(surface, (int)(cx - y), (int)(cy + x), pixel);
+        }
+ 
+        if (x != 0 && y != 0)
+        {
+            putPixel32(surface, (int)(cx - x), (int)(cy - y), pixel);
+            putPixel32(surface, (int)(cx - y), (int)(cy - x), pixel);
+        }
+ 
+        error += y;
+        ++y;
+        error += y;
+ 
+        if (error >= 0)
+        {
+            --x;
+            error -= x;
+            error -= x;
+        }
+    }
+}
+
+void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
+{
+ 
+    static const int BPP = 4;
+ 
+    double r = (double)radius;
+ 
+    for (double dy = 1; dy <= r; dy += 1.0)
+    {
+        double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));
+        int x = cx - dx;
+ 
+        Uint8 *target_pixel_a = (Uint8 *)surface->pixels + ((int)(cy + r - dy)) * surface->pitch + x * BPP;
+        Uint8 *target_pixel_b = (Uint8 *)surface->pixels + ((int)(cy - r + dy)) * surface->pitch + x * BPP;
+ 
+        for (; x <= cx + dx; x++)
+        {
+            *(Uint32 *)target_pixel_a = pixel;
+            *(Uint32 *)target_pixel_b = pixel;
+            target_pixel_a += BPP;
+            target_pixel_b += BPP;
+        }
+    }
+}
