@@ -87,12 +87,18 @@ void Worm::moveRight()
 
 void Worm::stopMoving()
 {
+
+	if ( movingRight ){
+		this->action = MOVELESS_RIGHT;
+	}else if ( movingLeft ){
+		this->action = MOVELESS_LEFT;
+	}else
+		this->action = MOVELESS;
 	jumping=false;
 	jumpingRight=false;
 	jumpingLeft=false;
 	movingRight=false;
 	movingLeft=false;
-	this->action = MOVELESS;
 }
 
 
