@@ -23,10 +23,11 @@ void Bootstrap::init()
 
 	std::map<std::string, std::string> map_images;
 	map_images["sky"] = aParser->getEscenarioCielo();
-	map_images["eart"] = aParser->getEscenarioTierra();
+	//map_images["eart"] = aParser->getEscenarioTierra();
 
 	TextureManager::Instance().init(w,h,map_images,this->getScreen().getRenderer());
 	loadSprites();
+	loadEart();
 	initCamera(w, h);
 	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
 
@@ -40,6 +41,21 @@ void Bootstrap::initCamera(int w, int h)
 	cam.setDimension(w, h);
 	cam.setWidthScenario(dimensionScenario.first);
 	cam.setHeightScenario(dimensionScenario.second);
+}
+
+void Bootstrap::loadEart()
+{
+	// todo: levantar la configuracion de los sprite del yaml
+	std::string path = DEFAULT_YAML_LEVEL;
+	ParserYaml* aParser = ParserYaml::getInstance(path);
+	try 
+		{
+			TextureManager::Instance().loadStream(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer());
+		} 
+		catch (GameException & e) 
+		{
+			Log::e(BOOT, e.what());		
+		}
 }
 
 void Bootstrap::loadSprites()
