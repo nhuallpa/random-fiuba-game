@@ -15,6 +15,8 @@ int jumpTimeOut;
 public:
 WormActions(Worm2d* worm2d);
 void jump();
+void jumpLeft();
+void jumpRight();
 void moveLeft();
 void moveRight();
 virtual ~WormActions();

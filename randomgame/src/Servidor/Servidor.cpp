@@ -151,14 +151,14 @@ int Servidor::stepOver(void* data){
 
 	int i=0;
 	while(true){
-		Sleep(40);
+		Sleep(20);
 
 		w->lock();
 		srv->getGameEngine().step();
 		w->unlock();
 
 		//si algo cambio actualizo a los clientes
-		if ( i>=2 ){
+		if ( i>=1 ){
 			i=0;
 	
 			//chequeo si hay clientes

@@ -591,6 +591,12 @@ void GameEngine::applyAction2Element(int id, Movement action){
 		case JUMP:
 			static_cast<Worm*>(myWorm)->jump();
 			break;
+		case JUMP_RIGHT:
+			static_cast<Worm*>(myWorm)->jumpRight();
+			break;
+		case JUMP_LEFT:
+			static_cast<Worm*>(myWorm)->jumpLeft();
+			break;
 		case MOVE_STOP:
 			static_cast<Worm*>(myWorm)->stop();
 			break;

@@ -16,6 +16,8 @@ public:
 Worm2d(ElementType type, float posX, float posY, float h, 
 		float w, float masa, float angle, b2World *myWorld, GameElement *modelElement, bool fixed);
 void jump();
+void jumpRight();
+void jumpLeft();
 void moveLeft();
 void moveRight();
 void animate();

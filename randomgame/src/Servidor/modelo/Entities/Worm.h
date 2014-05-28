@@ -11,6 +11,8 @@ class Worm : public GameElement{
 protected:
 int life;
 bool jumping;
+bool jumpingRight;
+bool jumpingLeft;
 bool movingRight;
 bool movingLeft;
 bool selected;
@@ -30,12 +32,16 @@ void setAlive(bool b){ this->alive = b;}
 
 void stop();
 void jump();
+void jumpRight();
+void jumpLeft();
 void moveLeft();
 void moveRight();
 void stopMoving();
 
 bool isSelected();
 bool isJumping();
+bool isJumpingRight(){ return this->jumpingRight; }
+bool isJumpingLeft(){ return this->jumpingLeft; }
 bool isMovingRight();
 bool isMovingLeft();
 bool isStopped();

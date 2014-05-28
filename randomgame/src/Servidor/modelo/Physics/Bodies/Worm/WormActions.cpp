@@ -1,8 +1,8 @@
 #include "WormActions.h"
 #define FUERZA_MOV 90
-#define JUMP_IMPULSE 55
-#define CLIMB_FACTOR 1.1
-#define JUMP_TIMEOUT 14
+#define JUMP_IMPULSE 70
+#define CLIMB_FACTOR 1.2
+#define JUMP_TIMEOUT 15
 
 WormActions::WormActions(Worm2d* worm2d)
 {
@@ -14,20 +14,37 @@ WormActions::WormActions(Worm2d* worm2d)
 
 void WormActions::jump()
 {	
-
 	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() && (this->jumpTimeOut < 0) )
 	{
 				
                 float impulse = this->aWorm2d->getMass() * JUMP_IMPULSE;
                 this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(0,impulse), this->aWorm2d->body->GetWorldCenter() );
-				//printf("\nQuiero saltar, can I? Timeout: %d", this->jumpTimeOut);
 				this->jumpTimeOut = JUMP_TIMEOUT;
         }
+}
 
 
-//if( this->jumpTimeOut < 0 )
-		
+void WormActions::jumpRight()
+{	
+	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() && (this->jumpTimeOut < 0) )
+	{
+				
+                float impulse = this->aWorm2d->getMass() * JUMP_IMPULSE;
+                this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(impulse/1.5,impulse), this->aWorm2d->body->GetWorldCenter() );
+				this->jumpTimeOut = JUMP_TIMEOUT;
+        }
+}
 
+
+void WormActions::jumpLeft()
+{	
+	if ( static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() && (this->jumpTimeOut < 0) )
+	{
+				
+                float impulse = this->aWorm2d->getMass() * JUMP_IMPULSE;
+                this->aWorm2d->body->ApplyLinearImpulse( b2Vec2(-impulse/1.5,impulse), this->aWorm2d->body->GetWorldCenter() );
+				this->jumpTimeOut = JUMP_TIMEOUT;
+        }
 }
 
 void WormActions::moveLeft()
