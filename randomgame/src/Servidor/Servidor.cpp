@@ -448,6 +448,7 @@ void Servidor::disconnect(Player playerId) {
 	
 	//No desconecto dos veces
 	if ( this->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ){
+		Log::i("Releasing player: %s",playerId.c_str());
 		printf("\nReleasing player: %s\n",playerId.c_str());
 		this->gameEngine.getLevel()->disconnectPlayer(playerId);
 		this->gameEngine.getLevel()->disconnectWormsFromPlayer(playerId);

@@ -156,7 +156,7 @@ void Worm2d::animate(){
 	b2Vec2 f = this->body->GetPosition();
 
 
-	if ( this->ox != f.x || this->oy != f.y)
+	if ( this->ox != f.x || this->oy != f.y)   // cambio posicion en mundo
 	{
 
 		//Matar cuando pasa el agua TODO
@@ -180,24 +180,22 @@ void Worm2d::animate(){
 			myWorm->changed = true;
 			this->ox = f.x;
 			this->oy = f.y;
+			Log::t("Las Actions worm %d of %s", myWorm->getId(), myWorm->playerID.c_str());
 			(myWorm)->myLastAction = static_cast<Worm*>(myWorm)->getAction();
 		}
 	}
 	else{
 
-
-		if ( myWorm->getAction() !=  myWorm->getMyLastAction() && 
-			 ( myWorm->getAction() != NOT_CONNECTED || myWorm->getAction() != NOT_CONNECTED_LEFT ||
-			   myWorm->getAction() != NOT_CONNECTED_RIGHT )	
-			){
-			if ( myWorm->getMyLastAction()  ==  MOVE_RIGHT || myWorm->getMyLastAction()  ==  NOT_CONNECTED_RIGHT ){
+		bool cambieDeEstado = myWorm->getAction() !=  myWorm->getMyLastAction();
+		bool estoyConectado = (myWorm->getAction() != NOT_CONNECTED) && (myWorm->getAction() != NOT_CONNECTED_LEFT) && (myWorm->getAction() != NOT_CONNECTED_RIGHT);
+		if ( cambieDeEstado &&  estoyConectado )
+		{
+			Log::t("\nModificando worm %d of %s", myWorm->getId(), myWorm->playerID.c_str());
+			if ( myWorm->getAction()  ==  MOVE_RIGHT ) {
 				myWorm->setAction(MOVELESS_RIGHT);
-			}else if ( myWorm->getMyLastAction()  ==  MOVE_LEFT || myWorm->getMyLastAction()  ==  NOT_CONNECTED_LEFT ){
+			}else if ( myWorm->getAction()  ==  MOVE_LEFT){
 				myWorm->setAction(MOVELESS_LEFT);
-			}else
-				myWorm->setAction(MOVELESS);
-			
-
+			}
 			myWorm->changed = true;
 		}else{
 			myWorm->changed = false;

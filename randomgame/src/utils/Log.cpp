@@ -1,16 +1,24 @@
 #include "Log.h"
 
 LogSide Log::logSide = LOG_SERVER;
+std::string Log::userId;
 
 Log::Log(void)
 {
 	retriveConfigFile();
 	if (Log::logSide == LOG_CLIENT)
-		file.open(this->properties["log.client.file"].c_str(), std::ios::trunc);
+	{
+		std::string filename = Log::userId +"-"+ this->properties["log.client.file"];
+		file.open(filename.c_str(), std::ios::trunc);
+	}
 	else if (Log::logSide == LOG_SERVER)
+	{
 		file.open(this->properties["log.server.file"].c_str(), std::ios::trunc);
+	}
 	else 
+	{
 		file.open(this->properties["log.file"].c_str(), std::ios::trunc);
+	}
 }
 
 Log::~Log(void)

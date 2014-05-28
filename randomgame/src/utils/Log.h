@@ -61,6 +61,8 @@ public:
 	
 	static LogSide logSide;
 
+	static std::string userId;
+
 	static Log & Instance(){
 			static Log logger;
 			return logger;

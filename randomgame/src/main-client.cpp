@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 		std::string userId = argv[1];
 		std::string serverIp = argv[2];
 		int serverPort = atoi(argv[3]);
-
+		Log::userId = userId;
 		Cliente* aClient = new Cliente(userId, serverIp.c_str(), serverPort);
 
 		if (aClient->isLoginOk()) {

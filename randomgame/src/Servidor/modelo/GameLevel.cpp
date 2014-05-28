@@ -385,7 +385,7 @@ void GameLevel::disconnectWormsFromPlayer(std::string playerId){
 			if ( (*itW)->getAction() == MOVE_LEFT || (*itW)->getAction() == MOVELESS_LEFT){
 				(*itW)->setAction(NOT_CONNECTED_LEFT);
 			}else 	if ( (*itW)->getAction() == MOVE_RIGHT || (*itW)->getAction() == MOVELESS_RIGHT){
-				(*itW)->setAction(NOT_CONNECTED_LEFT);
+				(*itW)->setAction(NOT_CONNECTED_RIGHT);
 			}else
 				(*itW)->setAction(NOT_CONNECTED);
 		}

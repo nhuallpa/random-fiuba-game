@@ -17,12 +17,12 @@ WormView::WormView(int id)
 
 void WormView::setUserLabel(std::string text)
 {
-	//labelUsuario.setText(text, white);
+	labelUsuario.setText(text, white);
 }
 
 void WormView::setName(std::string text)
 {
-	//labelNombre.setText(text, white);
+	labelNombre.setText(text, white);
 }
 
 
@@ -71,7 +71,7 @@ void WormView::update(GameElement* domainElement)
 		this->state = WORM_VIEW_MOTIONLESS;
 	}
 
-	Log::i("Estado de worm %d = %s", domainElement->getId(), Util::actionString(domainElement->getAction()).c_str());
+	Log::t("Estado de worm %d = %s", domainElement->getId(), Util::actionString(domainElement->getAction()).c_str());
 }
 	
 void WormView::update() 
