@@ -74,6 +74,7 @@ using namespace std;
 #include "VerticalStack.h"
 #include "Web.h"
 #include "Worms_TerrenoOriginal.h"
+#include "Worms_TerrenoDestructible.h"
 /*#include "inclinacion.h"
 #include "movimiento.h"*/
 
@@ -84,6 +85,7 @@ TestEntry g_testEntries[] =
 	//{"Movimiento", MovimientoTest::Create},
 	{"Terreno Con Worms", BodyTypes::Create},
 	{"Worms Terreno Original", WormsTOrig::Create},
+	{"Worms Terreno Destructible", WormsTDest::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
 	{"Dump Shell", DumpShell::Create},
