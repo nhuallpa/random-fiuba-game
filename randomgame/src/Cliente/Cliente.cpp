@@ -50,8 +50,17 @@ void Cliente::loop(void){
 	}
 	cController.destroy();
 	bootstrap.shoutDown();
+	this->disconnectClient();
 	delete currentActivity;
 	delete builder;
+
+}
+
+
+void Cliente::disconnectClient(){
+
+	//closesocket(this->input.getFD());
+	//closesocket(this->output.getFD());
 
 }
 
@@ -122,14 +131,6 @@ Cliente::Cliente(std::string playerID, const char* ip, int port)
 		this->srvStatus = SERVER_NOT_RESPONDING;
 		return;
 	}
-
-	//input.setRcvTimeout(15,5);
-	//output.setRcvTimeout(15,5);
-	//input.setSendTimeout(15,5);
-	//output.setSendTimeout(15,5);
-
-	//input.setKeepAlive();
-	//output.setKeepAlive();
 
 	Log::i("Connected to update port: %d", port+1);
 	this->srvStatus = SERVER_OK;
@@ -209,7 +210,7 @@ int Cliente::applyNetworkChanges(void *data){
 	EDatagram* msg = new EDatagram();
 	msg->type = KEEPALIVE;
 
-	while(true){
+	while(true && !cli->cController.isQuit() ){
 
 		Sleep(1); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
 
@@ -240,6 +241,7 @@ int Cliente::applyNetworkChanges(void *data){
 		//SDL_SemPost(cli->advance);
 	}
 
+	Log::i("Cliente::applyNetworkChanges >> Terminado apply Network Changes thread");
 	return 0;
 
 }
@@ -263,7 +265,7 @@ int Cliente::notifyLocalUpdates(void *data){
 	char* playerId = aThreadData->p;
 	EDatagram* msg = new EDatagram();
 
-	while(true){
+	while(true && !cli->cController.isQuit()){
 		m->lock();
 		if ( cli->localChanges.empty() ){
 			//printf("\nwaiting.. is empty :(");
@@ -290,6 +292,8 @@ int Cliente::notifyLocalUpdates(void *data){
 		cli->localChanges.pop_back();
 		m->unlock();
 	}
+
+	Log::i("Cliente::notifyLocalUpdates >> Terminado notify local updates thread");
 	return 0;
 }
 
@@ -305,15 +309,12 @@ int Cliente::netListener(void* data){
 	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
 	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
 
-	while(true){
+	while(true && !cli->cController.isQuit() ){
 		Sleep(10);
 	
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			Log::e("\nNETLISTENER: Desconectando cliente at listening state");
 			cli->srvStatus = SERVER_TIMEDOUT;
-//			cli->informStateClient();
-			//TODO: metodo de desconexion del server, mensaje y grisar pantalla o retry
-
 			return 1;
 		}
 		//printf("\nGot network change");
@@ -375,6 +376,7 @@ int Cliente::netListener(void* data){
 	
 	}
 
+	Log::i("Cliente::netListener >> Terminado net listen thread");
 	return 0;
 }
 
