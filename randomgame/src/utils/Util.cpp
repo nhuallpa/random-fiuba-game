@@ -174,6 +174,22 @@ std::string Util::actionString(Movement action)
 	{
 		sValue.assign("NOT_CONNECTED");
 	}
+	else if (action == NOT_CONNECTED_LEFT)
+	{
+		sValue.assign("NOT_CONNECTED_LEFT");
+	}
+	else if (action == NOT_CONNECTED_RIGHT)
+	{
+		sValue.assign("NOT_CONNECTED_RIGHT");
+	}
+	else if (action == MOVELESS_LEFT)
+	{
+		sValue.assign("MOVELESS_LEFT");
+	}
+	else if (action == MOVELESS_RIGHT)
+	{
+		sValue.assign("MOVELESS_RIGHT");
+	}
 	else if (action == MOVELESS)
 	{
 		sValue.assign("MOVELESS");

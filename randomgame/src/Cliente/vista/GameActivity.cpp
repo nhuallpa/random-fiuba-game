@@ -194,7 +194,6 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 	GameView* gameView = static_cast<GameView*>(this->aView);
 
 	GameElement aGameElem(id, playerID, WORM, x, y, 0, 0, 0, 0, false);
-	aGameElem.setAction(MOVELESS);
 	
 	this->builder->getDomain()->addElementToDomain(aGameElem);
 	WormView* aWormView = this->builder->createWorm(&aGameElem);

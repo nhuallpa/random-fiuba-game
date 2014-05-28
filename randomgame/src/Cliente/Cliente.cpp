@@ -486,7 +486,7 @@ void Cliente::getRemoteWorld() {
 			
 			this->domain.addElementToDomain(*elem);
 			
-			if ( msg->play[j].action == NOT_CONNECTED ){
+			if ( msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED){
 				//Set user disconnected
 				this->domain.addPlayer(msg->playerID,DISCONNECTED,0);
 			}else
