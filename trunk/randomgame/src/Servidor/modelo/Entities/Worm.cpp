@@ -40,10 +40,23 @@ void Worm::jump()
 {
 	this->stopMoving();
 	jumping=true;
-	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
-	//aWorm2d->jump();
 	this->action = JUMP;
 }
+
+void Worm::jumpRight()
+{
+	this->stopMoving();
+	jumpingRight=true;
+	this->action = JUMP_RIGHT;
+}
+
+void Worm::jumpLeft()
+{
+	this->stopMoving();
+	jumpingLeft=true;
+	this->action = JUMP_LEFT;
+}
+
 
 void Worm::stop()
 {
@@ -75,6 +88,8 @@ void Worm::moveRight()
 void Worm::stopMoving()
 {
 	jumping=false;
+	jumpingRight=false;
+	jumpingLeft=false;
 	movingRight=false;
 	movingLeft=false;
 	this->action = MOVELESS;

@@ -86,6 +86,16 @@ void Worm2d::jump()
 	aWormActions->jump();
 }
 
+void Worm2d::jumpRight()
+{
+	aWormActions->jumpRight();
+}
+
+void Worm2d::jumpLeft()
+{
+	aWormActions->jumpLeft();
+}
+
 void Worm2d::moveLeft()
 {
 	aWormActions->moveLeft();
@@ -109,6 +119,20 @@ void Worm2d::animate(){
 	if(static_cast<Worm*>(myWorm)->isJumping())
 	{
 		this->jump();
+		static_cast<Worm*>(myWorm)->stopMoving();
+
+	} 
+
+	if(static_cast<Worm*>(myWorm)->isJumpingRight())
+	{
+		this->jumpRight();
+		static_cast<Worm*>(myWorm)->stopMoving();
+
+	} 
+
+	if(static_cast<Worm*>(myWorm)->isJumpingLeft())
+	{
+		this->jumpLeft();
 		static_cast<Worm*>(myWorm)->stopMoving();
 
 	} 
