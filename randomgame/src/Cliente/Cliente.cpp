@@ -36,7 +36,7 @@ void Cliente::loop(void){
 
 	informStateClient();
 	FPSmanager fpsManager;
-	fpsManager.rate = 60;
+	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
 	while (!this->cController.isQuit()){
 		
@@ -88,7 +88,7 @@ void Cliente::informStateClient()
 
 
 void Cliente::runGame(){
-	bootstrap.getScreen().setState("Juego corriendo");
+	bootstrap.getScreen().setState("Jugando como " + this->pl);
 }
 
 
