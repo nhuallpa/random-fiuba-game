@@ -43,30 +43,58 @@ class BodyTypes;
 
 b2Vec2 normals[3];
 
-class MyContactListener : public b2ContactListener
+BodyTypes *aBodyTypes;
+
+
+
+typedef enum{
+	KEY_RIGHT,
+	KEY_LEFT,
+	KEY_JUMP,
+	NOTHING
+} keyAction;
+
+class BodyTypes : public Test
 {
+public:
 
-
-
+	class MyContactListener : public b2ContactListener
+{
+	
 	void BeginContact(b2Contact* contact) {
 
 		//check if fixture A is body (2)
 		b2WorldManifold worldManifold;
 
-		if ( (int)(contact->GetFixtureA()->GetUserData()) == 3 ){  
-			contact->GetWorldManifold(&worldManifold);
-			normals[0].x = worldManifold.normal.x;
-			normals[0].y = worldManifold.normal.y;
-			contact->GetFixtureA()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
+		//if ( (int)(contact->GetFixtureA()->GetUserData()) == 2 ){  
+		//	contact->GetWorldManifold(&worldManifold);
+		//	normals[0].x = worldManifold.normal.x;
+		//	normals[0].y = worldManifold.normal.y;
+		//	contact->GetFixtureA()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
+		//}
+
+
+		////check if fixture B was the body
+		//if ( (int)(contact->GetFixtureB()->GetUserData()) == 2 ){
+		//	contact->GetWorldManifold(&worldManifold);
+		//	normals[0].x = worldManifold.normal.x;
+		//	normals[0].y = worldManifold.normal.y;
+		//	contact->GetFixtureB()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
+		//}
+
+
+		if ( (int)(contact->GetFixtureA()->GetUserData()) == 7 ){  
+			Paths solutions=aBodyTypes->destroyTerrain(contact->GetFixtureB()->GetBody(), contact->GetFixtureA()->GetBody());
+					addSolutionsToWorld(contact->GetFixtureA()->GetBody()->GetWorld(), solutions);
+			contact->GetFixtureA()->GetBody()->GetWorld()->DestroyBody(contact->GetFixtureA()->GetBody());
 		}
 
 
 		//check if fixture B was the body
-		if ( (int)(contact->GetFixtureB()->GetUserData()) == 3 ){
-			contact->GetWorldManifold(&worldManifold);
-			normals[0].x = worldManifold.normal.x;
-			normals[0].y = worldManifold.normal.y;
-			contact->GetFixtureB()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
+		if ( (int)(contact->GetFixtureB()->GetUserData()) == 7 ){
+			Paths solutions=aBodyTypes->destroyTerrain(contact->GetFixtureA()->GetBody(), contact->GetFixtureB()->GetBody());
+			addSolutionsToWorld(contact->GetFixtureA()->GetBody()->GetWorld(), solutions);
+						contact->GetFixtureB()->GetBody()->GetWorld()->DestroyBody(contact->GetFixtureB()->GetBody());
 		}
 
 	} //Begin Contact - END
@@ -86,16 +114,9 @@ class MyContactListener : public b2ContactListener
 	}
 };
 
-typedef enum{
-	KEY_RIGHT,
-	KEY_LEFT,
-	KEY_JUMP,
-	NOTHING
-} keyAction;
 
-class BodyTypes : public Test
-{
-public:
+
+
 
 	//b2Body* bodies[3];
 
@@ -164,41 +185,28 @@ public:
 			myFixtureDef2.friction=0.999;
 			myFixtureDef2.userData = ( (void*)2 );
 			bd.type = b2_staticBody;
-			bd.position.Set(100.0f, 200.0f);
+			bd.position.Set(5.0f, 10.0f);
 			bd.allowSleep = false;
 			b2Body* body = m_world->CreateBody(&bd);
 			body->SetUserData((void*)2);
 
 			b2PolygonShape shape;
-			shape.SetAsBox(100.0f, 200.0f);
+			shape.SetAsBox(5.0f, 10.0f);
 			myFixtureDef2.shape = &shape; //change the shape of the fixture
 			body->CreateFixture(&myFixtureDef2);
 
-			//otro cuadrado
-			//b2BodyDef bd3;
-			//b2FixtureDef myFixtureDef3;
-			//myFixtureDef3.friction=0.999;
-			//myFixtureDef3.userData = ( (void*)2 );
-			//bd3.type = b2_staticBody;
-			//bd3.position.Set(-25.0f, 40.0f);
-			//bd3.allowSleep = false;
-			//b2Body* body3 = m_world->CreateBody(&bd3);
 
-			//b2PolygonShape shape3;
-			//shape3.SetAsBox(25.0f, 40.0f);
-			//myFixtureDef3.shape = &shape3; //change the shape of the fixture
-			//body3->CreateFixture(&myFixtureDef3);
 
 
 			//explosion
 
 
-			////Create terrain
-			//char* path="C:\\random-fiuba-game\\randomgame\\randomgame-server\\res\\images\\terrain3.png";
-			//float epsilon=0.5;
-			//int scale =15;
-			//int waterLevel=50;
-			//TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon, scale,waterLevel);
+			//Create terrain
+			/*char* path="C:\\random-fiuba-game\\randomgame\\randomgame-server\\res\\images\\terrain3.png";
+			float epsilon=0.5;
+			int scale =15;
+			int waterLevel=50;
+			TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon, scale,waterLevel);*/
 			//auto terrainPolygons = aTerrainProcessor->getListOfPolygons();
 
 			//auto bodies = m_world->GetBodyList();
@@ -238,61 +246,117 @@ public:
 
 	void MouseDown(const b2Vec2 &p)
 	{
-		destroyTerrain(p);
+		/*destroyTerrain(p);*/
+
+			b2BodyDef myBodyDef;
+			myBodyDef.type = b2_dynamicBody;
+
+			b2CircleShape circleShape;
+			circleShape.m_radius = 5;
+			circleShape.m_p.Set(0,0);
+
+			b2FixtureDef myFixtureDef;
+			myFixtureDef.shape = &circleShape;
+			myFixtureDef.density = 1;
+			myFixtureDef.restitution = 0;
+			myFixtureDef.friction = 0.999;
+			myFixtureDef.userData = (void*)7;
+
+			myBodyDef.position.Set(p.x, p.y);
+
+			b2Body* body = m_world->CreateBody(&myBodyDef);
+			body->SetUserData((void*)7); //explosion
+			body->CreateFixture(&myFixtureDef);
 
 	}
 
-
-	void destroyTerrain(const b2Vec2 &p)
+static Paths destroyTerrain(b2Body* terreno, b2Body* explosion)
 	{
-
-
+		auto aWorld= terreno->GetWorld();
 		Paths subj(1), clip(1);
-		auto bodies = m_world->GetBodyList();
 		Paths solutions;
 
-		auto count = m_world->GetBodyCount();
-		for(int bodiesRecorridos=0; bodiesRecorridos < count; bodiesRecorridos++)
+		bool bug1=false;//el clip va a devolver uno o mas poligonos
+		bool bug2=true;//el clip es mas grande que el poligono
+		bool bug3=true;//el clip es completamente mas chico que el poligono
+
+		subj[0] = fromPolygonToPath(terreno);
+		clip[0] = createCircle(20,explosion->GetPosition().x ,explosion->GetPosition().y,5);
+		isBugged(terreno,clip[0],bug1,bug2,bug3);
+		Paths solution = makeClip(clip,subj);
+		auto intersec = makeClipIntersec(clip,subj);
+
+		if(bug2 && intersec.size() > 0 )
 		{
-			auto nextBody=bodies->GetNext();
-			void* userData=bodies->GetUserData();;
-			bool bug1=false;//el clip va a devolver uno o mas poligonos
-			bool bug2=true;//el clip es mas grande que el poligono
-			bool bug3=true;//el clip es completamente mas chico que el poligono
-
-
-			if(	(int)userData == 2)
-			{
-				auto bodyCount1 = m_world->GetBodyCount();
-				subj[0] = fromPolygonToPath(bodies);
-				clip[0] = createCircle(50,p.x,p.y,50);
-				isBugged(bodies,clip[0],bug1,bug2,bug3);
-				Paths solution = makeClip(clip,subj);
-				auto intersec = makeClipIntersec(clip,subj);
-				if(bug2 && intersec.size() > 0 )
-				{
-					m_world->DestroyBody(bodies);
-				}
-				else if(bug3)
-				{
-					//solutions.push_back(solution[0]);
-					//m_world->DestroyBody(bodies);
-				}
-				if ( bug2==false && bug3==false)
-				{
-					for(int j=0; j<solution.size();j++)
-					{
-						solutions.push_back(solution[j]);
-					}
-					m_world->DestroyBody(bodies);
-				}
-			}
-			bodies=nextBody;
+			aWorld->DestroyBody(terreno);
 		}
-		auto bodyCount2 = m_world->GetBodyCount();
-		addSolutionsToWorld(m_world, solutions);
-		auto bodyCount3 = m_world->GetBodyCount();
+		else if(bug3)
+		{
+			//solutions.push_back(solution[0]);
+			//aWorld->DestroyBody(bodies);
+		}
+		if ( bug2==false && bug3==false)
+		{
+			for(int j=0; j<solution.size();j++)
+			{
+				solutions.push_back(solution[j]);
+			}
+		}
+	return solutions;
 	}
+
+
+	//void destroyTerrain(const b2Vec2 &p)
+	//{
+
+
+	//	Paths subj(1), clip(1);
+	//	auto bodies = m_world->GetBodyList();
+	//	Paths solutions;
+
+	//	auto count = m_world->GetBodyCount();
+	//	for(int bodiesRecorridos=0; bodiesRecorridos < count; bodiesRecorridos++)
+	//	{
+	//		auto nextBody=bodies->GetNext();
+	//		void* userData=bodies->GetUserData();;
+	//		bool bug1=false;//el clip va a devolver uno o mas poligonos
+	//		bool bug2=true;//el clip es mas grande que el poligono
+	//		bool bug3=true;//el clip es completamente mas chico que el poligono
+
+
+	//		if(	(int)userData == 2)
+	//		{
+	//			auto bodyCount1 = m_world->GetBodyCount();
+	//			subj[0] = fromPolygonToPath(bodies);
+	//			clip[0] = createCircle(20,p.x,p.y,5);
+	//			isBugged(bodies,clip[0],bug1,bug2,bug3);
+	//			Paths solution = makeClip(clip,subj);
+	//			auto intersec = makeClipIntersec(clip,subj);
+	//			
+	//			if(bug2 && intersec.size() > 0 )
+	//			{
+	//				m_world->DestroyBody(bodies);
+	//			}
+	//			else if(bug3)
+	//			{
+	//				//solutions.push_back(solution[0]);
+	//				//m_world->DestroyBody(bodies);
+	//			}
+	//			if ( bug2==false && bug3==false)
+	//			{
+	//				for(int j=0; j<solution.size();j++)
+	//				{
+	//					solutions.push_back(solution[j]);
+	//				}
+	//				m_world->DestroyBody(bodies);
+	//			}
+	//		}
+	//		bodies=nextBody;
+	//	}
+	//	auto bodyCount2 = m_world->GetBodyCount();
+	//	addSolutionsToWorld(m_world, solutions);
+	//	auto bodyCount3 = m_world->GetBodyCount();
+	//}
 
 
 
@@ -371,7 +435,7 @@ public:
 
 		//}
 	}
-	void addSolutionsToWorld(b2World* m_world, Paths solutions)
+	static void addSolutionsToWorld(b2World* m_world, Paths solutions)
 	{
 		for(int i=0; i< solutions.size(); i++)
 		{
@@ -392,7 +456,7 @@ public:
 		}
 
 	}
-	void addToWorld(b2World* m_world, vector<b2Vec2> aPolygon)
+static	void addToWorld(b2World* m_world, vector<b2Vec2> aPolygon)
 	{
 		// AGREGAR POLIGONO SOLUTION A BOX2D 
 		b2Body* m_attachment;
@@ -416,7 +480,7 @@ public:
 		m_attachment->SetUserData((void*)2);
 	}
 
-	void pathsToVec2d(vector<b2Vec2>& vertices, Path solution)
+static	void pathsToVec2d(vector<b2Vec2>& vertices, Path solution)
 	{
 		for(int i =0; i< solution.size();i++)
 		{
@@ -425,7 +489,7 @@ public:
 	}
 
 
-	Path fromPolygonToPath(b2Body* body)
+static	Path fromPolygonToPath(b2Body* body)
 	{
 		b2PolygonShape* poly = (b2PolygonShape*)body->GetFixtureList()->GetShape();
 		Path aPath;
@@ -439,7 +503,7 @@ public:
 		return aPath;
 	}
 
-	Path createCircle(float precision,float posXCentral, float posYCentral, float radio){
+static	Path createCircle(float precision,float posXCentral, float posYCentral, float radio){
 		float  PI=3.14159265358979f;
 		float angle=2*PI/precision;
 		Path aCirclePerimeter;
@@ -451,7 +515,7 @@ public:
 		return aCirclePerimeter;
 	}
 
-	Paths makeClip(Paths clip, Paths subj)
+static	Paths makeClip(Paths clip, Paths subj)
 	{
 		Paths aSolution;
 		//perform difference ...
@@ -462,7 +526,7 @@ public:
 		return aSolution;
 	}
 
-	Paths makeClipIntersec(Paths clip, Paths subj)
+	static Paths makeClipIntersec(Paths clip, Paths subj)
 	{
 		Paths aSolution;
 		//perform difference ...
@@ -474,7 +538,7 @@ public:
 	}
 
 
-	bool isBugged(b2Body* body, Path aClip,bool & bug1, bool& bug2, bool & bug3)
+	static bool isBugged(b2Body* body, Path aClip,bool & bug1, bool& bug2, bool & bug3)
 	{
 		bug1=false;//el clip va a devolver uno o mas poligonos
 		bug2=true;//el clip es mas grande que el poligono
@@ -491,7 +555,8 @@ public:
 
 	static Test* Create()
 	{
-		return new BodyTypes;
+		aBodyTypes= new BodyTypes;
+		return aBodyTypes;
 	}
 
 	b2Body* m_platform;

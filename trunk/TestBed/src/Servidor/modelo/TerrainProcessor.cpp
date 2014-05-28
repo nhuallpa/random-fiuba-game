@@ -78,7 +78,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			myFixtureDef.shape = &polygonShape; //change the shape of the fixture
 			m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
 			int* st= 0;
-			m_attachment->SetUserData(st);
+			m_attachment->SetUserData((void*)2);
 
 		}
 		itComponente++;
