@@ -382,7 +382,12 @@ void GameLevel::disconnectWormsFromPlayer(std::string playerId){
 	if ( it != this->players.end() ){
 		std::vector<Worm*> copy = it->second->getWorms();
 		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
-			(*itW)->setAction(NOT_CONNECTED);
+			if ( (*itW)->getAction() == MOVE_LEFT || (*itW)->getAction() == MOVELESS_LEFT){
+				(*itW)->setAction(NOT_CONNECTED_LEFT);
+			}else 	if ( (*itW)->getAction() == MOVE_RIGHT || (*itW)->getAction() == MOVELESS_RIGHT){
+				(*itW)->setAction(NOT_CONNECTED_LEFT);
+			}else
+				(*itW)->setAction(NOT_CONNECTED);
 		}
 	}
 }
@@ -393,11 +398,20 @@ void GameLevel::connectWormsFromPlayer(std::string playerId){
 	it=this->players.find(playerId);
 
 	if ( it != this->players.end() ){
+
 		std::vector<Worm*> copy = it->second->getWorms();
+
 		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
-			(*itW)->setAction(MOVELESS);
+			if ( (*itW)->getAction() == MOVE_RIGHT || (*itW)->getAction() == NOT_CONNECTED_RIGHT || (*itW)->getAction() == MOVELESS_RIGHT ){
+				(*itW)->setAction(MOVELESS_RIGHT);
+			} else if ( (*itW)->getAction() == MOVE_LEFT || (*itW)->getAction() == NOT_CONNECTED_LEFT || (*itW)->getAction() == MOVELESS_LEFT ) {
+				(*itW)->setAction(MOVELESS_LEFT);
+			}else
+				(*itW)->setAction(MOVELESS);
 		}
+
 	}
+
 }
 
 

@@ -168,7 +168,9 @@ void Worm2d::animate(){
 			this->ox = f.x;
 			this->oy = f.y;
 			static_cast<Worm*>(myWorm)->setAlive(false);
-			if ( myWorm->getAction() != NOT_CONNECTED )
+			if ( myWorm->getAction() != NOT_CONNECTED || 
+				 myWorm->getAction() != NOT_CONNECTED_LEFT ||
+				 myWorm->getAction() != NOT_CONNECTED_RIGHT  )
 				(myWorm)->myLastAction = MOVELESS;
 			
 		}else{
@@ -184,8 +186,18 @@ void Worm2d::animate(){
 	else{
 
 
-		if ( myWorm->getAction() !=  myWorm->getMyLastAction() && myWorm->getAction() != NOT_CONNECTED ){
-			myWorm->setAction(MOVELESS);
+		if ( myWorm->getAction() !=  myWorm->getMyLastAction() && 
+			 ( myWorm->getAction() != NOT_CONNECTED || myWorm->getAction() != NOT_CONNECTED_LEFT ||
+			   myWorm->getAction() != NOT_CONNECTED_RIGHT )	
+			){
+			if ( myWorm->getMyLastAction()  ==  MOVE_RIGHT || myWorm->getMyLastAction()  ==  NOT_CONNECTED_RIGHT ){
+				myWorm->setAction(MOVELESS_RIGHT);
+			}else if ( myWorm->getMyLastAction()  ==  MOVE_LEFT || myWorm->getMyLastAction()  ==  NOT_CONNECTED_LEFT ){
+				myWorm->setAction(MOVELESS_LEFT);
+			}else
+				myWorm->setAction(MOVELESS);
+			
+
 			myWorm->changed = true;
 		}else{
 			myWorm->changed = false;
