@@ -73,6 +73,7 @@ using namespace std;
 #include "VaryingRestitution.h"
 #include "VerticalStack.h"
 #include "Web.h"
+#include "Worms_TerrenoOriginal.h"
 /*#include "inclinacion.h"
 #include "movimiento.h"*/
 
@@ -82,7 +83,7 @@ TestEntry g_testEntries[] =
 	//{"Inclinacion", InclinacionTest::Create},
 	//{"Movimiento", MovimientoTest::Create},
 	{"Terreno Con Worms", BodyTypes::Create},
-
+	{"Worms Terreno Original", WormsTOrig::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
 	{"Dump Shell", DumpShell::Create},
