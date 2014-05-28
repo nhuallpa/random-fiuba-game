@@ -112,9 +112,11 @@ class Cliente : public OnMovementListener{
 
 	public:
 
-				Mutex domainMx;
+		Mutex domainMx;
 		Condition updateDomain;
 		
+		void disconnectClient();
+
 		SDL_sem* advance;
 		std::queue<EDatagram> clientQueue;
 
