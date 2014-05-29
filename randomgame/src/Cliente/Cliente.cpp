@@ -18,6 +18,7 @@ bool Cliente::begin(){
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
+
 	Uint32 start = 0;
 	bool quit = false;
 
@@ -26,7 +27,9 @@ void Cliente::loop(void){
 	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain, &bootstrap.getScreen());
 	builder->setPlayerID(this->pl);
 	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController, this->pl);
+	
 	this->gameActivity = static_cast<GameActivity*> (currentActivity);
+	this->gameActivity->wormIdDesSelected = -1;
 	
 	
 	/** refresh the initial view*/
@@ -40,6 +43,14 @@ void Cliente::loop(void){
 	SDL_initFramerate(&fpsManager);
 	while (!this->cController.isQuit()){
 		
+		if (this->gameActivity->wormIdDesSelected > 0) {
+			Playable p;
+			p.action = MOVE_STOP;
+			p.wormid = this->gameActivity->wormIdDesSelected;
+			this->addLocalMovementFromView(p);
+			this->gameActivity->wormIdDesSelected = -1;
+		}
+
 		cController.handlerEvent();
 		this->runGame();
 		//SDL_SemWait(this->advance);
@@ -47,6 +58,15 @@ void Cliente::loop(void){
 		currentActivity->render();
 		//SDL_SemPost(this->advance);
 		SDL_framerateDelay(&fpsManager);
+	}
+
+	if (this->gameActivity->wormIdSelected > 0) 
+	{
+		Playable p;
+			p.action = MOVE_STOP;
+			p.wormid = this->gameActivity->wormIdSelected;
+			this->addLocalMovementFromView(p);
+			this->gameActivity->wormIdSelected = -1;
 	}
 	cController.destroy();
 	bootstrap.shoutDown();
@@ -583,21 +603,21 @@ void Cliente::OnMovement(MovementEvent e){
 		p.wormid = wormIdSelected;
 		if (e.y == -1)  // Solo saltar
 		{
-			if (e.x == 1) //Salta derecha
-			{
-				p.action = 	JUMP_RIGHT;
-				Log::t("CLIENTE: Saltar derecha");
-			}
-			else if (e.x == -1) // Saltar izquierda
-			{
-				p.action = 	JUMP_LEFT;
-				Log::t("CLIENTE: Saltar izquierda");
-			} 
-			else 
-			{
+			//if (e.x == 1) //Salta derecha
+			//{
+			//	p.action = 	JUMP_RIGHT;
+			//	Log::t("CLIENTE: Saltar derecha");
+			//}
+			//else if (e.x == -1) // Saltar izquierda
+			//{
+			//	p.action = 	JUMP_LEFT;
+			//	Log::t("CLIENTE: Saltar izquierda");
+			//} 
+			//else 
+			//{
 				p.action = 	JUMP;
 				Log::t("CLIENTE: Saltar");
-			}
+			//}
 		}
 		else if (e.x == 1) // derecha
 		{

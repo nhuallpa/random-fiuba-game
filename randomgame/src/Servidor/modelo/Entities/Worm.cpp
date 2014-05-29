@@ -14,6 +14,7 @@ Worm::Worm(int id, std::string playerID, ElementType type, float posX, float pos
 	this->stopMoving();
 	this->alive = true;
 	this->myLastAction = MOVELESS;
+	this->stopped = false;
 }
 
 int Worm::getLife()
@@ -101,6 +102,10 @@ void Worm::stopMoving()
 	movingLeft=false;
 }
 
+bool Worm::isStopped()
+{
+	return this->stopped;
+}
 
 
 bool Worm::isSelected()

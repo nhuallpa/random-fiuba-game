@@ -144,6 +144,12 @@ void Worm2d::animate(){
 		this->moveLeft();
 	}
 
+	/*if ((myWorm)->getAction() == NOT_CONNECTED || (myWorm)->getAction() == NOT_CONNECTED_LEFT || (myWorm)->getAction() == NOT_CONNECTED_RIGHT)
+	{
+			this->body->SetLinearVelocity(b2Vec2(0,0));
+			static_cast<Worm*>(myWorm)->myLastAction == MOVELESS;
+	}*/
+
 	//si el Worm se esta moviendo a la derecha, moverlo a derecha
 	if(static_cast<Worm*>(myWorm)->isMovingRight())
 	{
@@ -151,7 +157,11 @@ void Worm2d::animate(){
 
 	}
 
-
+	if(static_cast<Worm*>(myWorm)->isStopped())
+	{
+		this->body->SetLinearVelocity(b2Vec2(0,0));
+	
+	}
 
 	b2Vec2 f = this->body->GetPosition();
 
@@ -182,6 +192,10 @@ void Worm2d::animate(){
 			this->oy = f.y;
 			Log::t("Las Actions worm %d of %s", myWorm->getId(), myWorm->playerID.c_str());
 			(myWorm)->myLastAction = static_cast<Worm*>(myWorm)->getAction();
+			if ((myWorm)->myLastAction == MOVE_STOP)
+			{
+				this->body->SetLinearVelocity(b2Vec2(0,0));
+			}
 		}
 	}
 	else{

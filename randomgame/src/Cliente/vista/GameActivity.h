@@ -11,21 +11,25 @@
 #include "../../utils/Util.h"
 #include "Camera.h"
 
-
 class GameActivity : public Activity, public OnClickListener
 {
 private:
-
 	GameController* cController;
 	GameViewBuilder* builder;
 	
+	
+
 	std::string playerId;
 
 	/*para calcular el zoom*/
-	int wormIdSelected;
+	
+	
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
 public:
+
+	int wormIdDesSelected;
+	int wormIdSelected;
 
 	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController, std::string playerId);
 

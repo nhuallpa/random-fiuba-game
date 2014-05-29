@@ -382,12 +382,22 @@ void GameLevel::disconnectWormsFromPlayer(std::string playerId){
 	if ( it != this->players.end() ){
 		std::vector<Worm*> copy = it->second->getWorms();
 		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
-			if ( (*itW)->getAction() == MOVE_LEFT || (*itW)->getAction() == MOVELESS_LEFT){
+			if ( (*itW)->getAction() == MOVE_LEFT || (*itW)->getAction() == MOVELESS_LEFT)
+			{
+				(*itW)->myLastAction=NOT_CONNECTED_LEFT;
 				(*itW)->setAction(NOT_CONNECTED_LEFT);
-			}else 	if ( (*itW)->getAction() == MOVE_RIGHT || (*itW)->getAction() == MOVELESS_RIGHT){
+			}
+			else 	if ( (*itW)->getAction() == MOVE_RIGHT || (*itW)->getAction() == MOVELESS_RIGHT)
+			{
+				(*itW)->myLastAction=NOT_CONNECTED_RIGHT;
 				(*itW)->setAction(NOT_CONNECTED_RIGHT);
-			}else
+			}
+			else
+			{
+				(*itW)->myLastAction=NOT_CONNECTED;
 				(*itW)->setAction(NOT_CONNECTED);
+			}
+				
 		}
 	}
 }
