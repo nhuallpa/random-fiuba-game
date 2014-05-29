@@ -21,6 +21,7 @@ private:
 	
 	// Contains all texture
 	std::map<std::string, SDL_Texture*> texture_map;
+	std::map<std::string, SDL_Surface*> surface_map;
 
 	int screenWidth;
 	int screenHeight;
@@ -33,9 +34,7 @@ private:
 	*/
 	SDL_Surface* flipSurface(SDL_Surface* surface);
 	
-	Uint32 getPixel32( SDL_Surface *surface, int x, int y );
-
-	void putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
+	
 
 	
 
@@ -65,6 +64,7 @@ public:
 	*/
 	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer);
 
+	bool loadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer);
 
 	void draw(std::string id, int x, int y, 
 					SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
@@ -130,8 +130,18 @@ public:
 
 	~TextureManager(void);
 
+	SDL_Texture * getTexture(std::string imageId);
+
+	SDL_Surface* getSurface(std::string imageId);
+
 	/* one in two*/
 	bool intersectRects(SDL_Rect one, SDL_Rect two);
+
+	void drawCircleOn(SDL_Surface *surface, int centerX, int centerY, int radius, Uint32 pixel);
+
+	void fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel);
+
+	void putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
 };
 
 
