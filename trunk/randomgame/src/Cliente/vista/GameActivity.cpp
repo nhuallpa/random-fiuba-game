@@ -79,14 +79,23 @@ void GameActivity::deselectPreviewsWorm()
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	if (this->wormIdSelected > 0) {
+
+		Playable p;
+		p.action = MOVE_STOP;
+		
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
-		aWorm->deselect();
-		this->cController->remuveListener(aWorm);
-		this->wormIdSelected = -1;
 		MovementEvent m;
 		m.x = 0;
 		m.y = 0;
 		aWorm->OnMovement(m);
+		aWorm->deselect();
+		p.wormid = aWorm->getId();
+		this->wormIdDesSelected = aWorm->getId();
+		this->cController->remuveListener(aWorm);
+		this->wormIdSelected = -1;
+		
+		//this->aCliente->addLocalMovementFromView(p);
+		
 	}
 	
 }
