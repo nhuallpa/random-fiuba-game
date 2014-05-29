@@ -35,6 +35,8 @@ public:
 
 	void initCamera(int w, int h);
 
+	void loadEart();
+
 	SDLScreen & getScreen();
 	
 	~Bootstrap(void);

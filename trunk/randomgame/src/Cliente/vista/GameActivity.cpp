@@ -40,7 +40,7 @@ void GameActivity::update()
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		Log::d(VIEW,"elemento id %d",domainElement.getId());
+		Log::t(VIEW,"elemento id %d",domainElement.getId());
 		try
 		{
 			if (domainElement.getType() == WORM) 

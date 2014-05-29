@@ -42,36 +42,20 @@ void WormView::update(GameElement* domainElement)
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
-	// ACTIONS
-	if (domainElement->getAction() == MOVE_RIGHT ||
-		domainElement->getAction() == MOVE_LEFT)
+	if (domainElement->getAction() == MOVE_RIGHT)
 	{
 		this->state = WORM_VIEW_DOING;
-	} 
-	else 
-	{
-		this->state = WORM_VIEW_MOTIONLESS;
-	}
-	// DIRECTION
-	if (domainElement->getAction() == MOVELESS_RIGHT || 
-		domainElement->getAction() == NOT_CONNECTED_RIGHT ||
-		domainElement->getAction() == MOVE_RIGHT)
-	{
 		this->direction = SDL_FLIP_HORIZONTAL;
-	} 
-	else if (domainElement->getAction() == MOVELESS_LEFT || 
-		domainElement->getAction() == NOT_CONNECTED_LEFT ||
-		domainElement->getAction() == MOVE_LEFT)
-	{
-		this->direction = SDL_FLIP_NONE;	
 	}
-
-	if (domainElement->getAction() == MOVELESS)
+	else if (domainElement->getAction() == MOVE_LEFT)
+	{
+		this->state = WORM_VIEW_DOING;
+		this->direction = SDL_FLIP_NONE;
+	}
+	else if (domainElement->getAction() == MOVELESS)
 	{
 		this->state = WORM_VIEW_MOTIONLESS;
 	}
-
-	Log::t("Estado de worm %d = %s", domainElement->getId(), Util::actionString(domainElement->getAction()).c_str());
 }
 	
 void WormView::update() 

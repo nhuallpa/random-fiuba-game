@@ -137,6 +137,12 @@ void RunGame::detectMovem(Move* mv, int value, SDL_Event* e){
 			break;
 		default:;
 	}
+	switch(sc){
+		case SDL_SCANCODE_RETURN:
+			mv->shoot = value;
+			break;
+		default:;
+	}
 }
 
 

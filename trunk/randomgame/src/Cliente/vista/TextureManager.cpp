@@ -31,6 +31,38 @@ TextureManager::~TextureManager(void)
 		SDL_DestroyTexture(iter->second);
 	}
 	texture_map.clear();
+
+	std::map<std::string, SDL_Surface*>::iterator iterS;
+	for (iterS = surface_map.begin(); iterS!=surface_map.end(); ++iterS)
+	{
+		SDL_FreeSurface(iterS->second);
+	}
+	surface_map.clear();
+}
+
+SDL_Texture* TextureManager::getTexture(std::string imageId)
+{
+
+	if (this->texture_map.find(imageId) != this->texture_map.end())
+	{
+		return this->texture_map[imageId];
+	}
+	else
+	{
+		return NULL;
+	}
+}
+SDL_Surface* TextureManager::getSurface(std::string imageId)
+{
+
+	if (this->surface_map.find(imageId) != this->surface_map.end())
+	{
+		return this->surface_map[imageId];
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 void TextureManager::setScreenSize(int w, int h)
@@ -55,6 +87,67 @@ bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRe
 	{
 		std::stringstream msg;
 		msg<<"TextureManager: Imagen NO encontrada: "<<fileName;
+		throw GameException(msg.str());
+	}
+	return false;
+}
+
+bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer)
+{
+	/*this is filled in with a pointer to the locked pixels, appropriately offset by the locked area*/
+	void* mPixels;
+
+	/*Amount of bytes betweed rows */
+	int mPitch;
+
+	SDL_Surface* tmpSurface = IMG_Load(fileName.c_str());
+	SDL_Texture* newTexture = NULL;
+	if( tmpSurface == NULL )
+	{
+		Log::e( "Unable to load image %s! SDL_image Error: %s\n", fileName.c_str(), IMG_GetError() );
+	} else {
+
+		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat( tmpSurface, SDL_PIXELFORMAT_RGBA8888, NULL );
+		if( formattedSurface == NULL )
+		{
+			Log::e( "Unable to convert loaded surface to display format! %s\n", SDL_GetError() );
+		}
+		else
+		{
+			newTexture = SDL_CreateTexture(pRenderer, 
+													SDL_PIXELFORMAT_RGBA8888, 
+													SDL_TEXTUREACCESS_STREAMING, 
+													formattedSurface->w, 
+													formattedSurface->h );
+			if( newTexture == NULL )
+			{
+				SDL_FreeSurface(formattedSurface);	
+				Log::e( "Unable to create blank texture! SDL Error: %s\n", SDL_GetError() );
+			}
+			else
+			{
+				//Lock texture for manipulation
+				SDL_LockTexture( newTexture, NULL, &mPixels, &mPitch );
+
+				memcpy( mPixels, formattedSurface->pixels, mPitch * formattedSurface->h );
+
+				//Unlock texture to update
+				SDL_UnlockTexture( newTexture );
+				mPixels = NULL;
+				surface_map[id] = formattedSurface;	
+			}
+		}
+		SDL_FreeSurface(tmpSurface);	
+	}
+	if (newTexture)
+	{
+		this->texture_map[id]=newTexture;
+		return true;
+	} 
+	else 
+	{
+		std::stringstream msg;
+		msg<<"TextureManager: No se pudo crear el Texture para : "<<fileName;
 		throw GameException(msg.str());
 	}
 	return false;
@@ -289,3 +382,83 @@ tPoint TextureManager::convertPointUL2PXSDL(float x, float y)
 	return aPoint;
 }
 
+void TextureManager::putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel )
+{
+
+    Uint32 *pixels = (Uint32 *)surface->pixels;
+    
+    pixels[ ( y * surface->w ) + x ] = pixel;
+}
+
+void TextureManager::drawCircleOn(SDL_Surface *surface, int centerX, int centerY, int radius, Uint32 pixel)
+{
+    // if the first pixel in the screen is represented by (0,0) (which is in sdl)
+    // remember that the beginning of the circle is not in the middle of the pixel
+    // but to the left-top from it:
+ 
+    double error = (double)-radius;
+    double x = (double)radius -0.5;
+    double y = (double)0.5;
+    double cx = centerX - 0.5;
+    double cy = centerY - 0.5;
+ 
+    while (x >= y)
+    {
+        putPixel32(surface, (int)(cx + x), (int)(cy + y), pixel);
+        putPixel32(surface, (int)(cx + y), (int)(cy + x), pixel);
+ 
+        if (x != 0)
+        {
+            putPixel32(surface, (int)(cx - x), (int)(cy + y), pixel);
+            putPixel32(surface, (int)(cx + y), (int)(cy - x), pixel);
+        }
+ 
+        if (y != 0)
+        {
+            putPixel32(surface, (int)(cx + x), (int)(cy - y), pixel);
+            putPixel32(surface, (int)(cx - y), (int)(cy + x), pixel);
+        }
+ 
+        if (x != 0 && y != 0)
+        {
+            putPixel32(surface, (int)(cx - x), (int)(cy - y), pixel);
+            putPixel32(surface, (int)(cx - y), (int)(cy - x), pixel);
+        }
+ 
+        error += y;
+        ++y;
+        error += y;
+ 
+        if (error >= 0)
+        {
+            --x;
+            error -= x;
+            error -= x;
+        }
+    }
+}
+
+void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
+{
+ 
+    static const int BPP = 4;
+ 
+    double r = (double)radius;
+ 
+    for (double dy = 1; dy <= r; dy += 1.0)
+    {
+        double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));
+        int x = cx - dx;
+ 
+        Uint8 *target_pixel_a = (Uint8 *)surface->pixels + ((int)(cy + r - dy)) * surface->pitch + x * BPP;
+        Uint8 *target_pixel_b = (Uint8 *)surface->pixels + ((int)(cy - r + dy)) * surface->pitch + x * BPP;
+ 
+        for (; x <= cx + dx; x++)
+        {
+            *(Uint32 *)target_pixel_a = pixel;
+            *(Uint32 *)target_pixel_b = pixel;
+            target_pixel_a += BPP;
+            target_pixel_b += BPP;
+        }
+    }
+}
