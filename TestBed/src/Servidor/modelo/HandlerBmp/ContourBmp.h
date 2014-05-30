@@ -14,6 +14,8 @@ class ContourBmp
 		pair<int,int> getMaxPointTerrain();
 		void updateMaxPosition(int posX, int posY);
         static void deleteListOfListPositions(list< list<Position*>* >* aListOfListToDelete);
+		std::vector<Position> getContourMS();
+		Position getCabeza();
         virtual ~ContourBmp();
     protected:
     private:

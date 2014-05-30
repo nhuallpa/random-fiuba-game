@@ -4,6 +4,67 @@
 #include "HandlerBmp\TerrainImg.h"
 #include "..\..\utils\Util.h"
 
+
+TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon){
+
+	b2Body* m_attachment;
+	TerrainImg* aBmpFile;
+	try
+	{
+		aBmpFile = new TerrainImg(path);
+	}
+	catch (int e)
+	{
+		makeDefaultTerrain(m_world,5);
+		return;
+	}
+
+	ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
+
+	this->height =aBmpFile->getHeight();
+	this->width =aBmpFile->getWidth();
+
+	std::vector<Position> contourVector = aContourBmp->getContourMS();
+
+	HandleContour hc;
+
+	contourVector = hc.rdp(contourVector,epsilon);
+
+	b2Vec2* vec = new b2Vec2[contourVector.size()];
+	int i = 0;
+	for (i = contourVector.size() - 1; i>=0; i--) {
+		// reducing a bit the polys
+		if (i%10==0) {
+			vec[i].Set( contourVector[i].getX(),contourVector[i].getY() );
+		}
+	}
+
+	b2ChainShape shape;
+	shape.CreateChain(vec, i);
+	printf("creando");
+    shape.CreateLoop(vec,i);
+
+	b2FixtureDef myFixtureDef;
+	b2BodyDef myBodyDef;
+	myBodyDef.type = b2_staticBody; //this will be a static body
+	myBodyDef.position.Set(0, 0); //in the middle
+	myFixtureDef.friction=0.999;
+			
+	myFixtureDef.userData = ( (void*)2 );
+	m_attachment = m_world->CreateBody(&myBodyDef);
+
+	myFixtureDef.shape = &shape; //change the shape of the fixture
+	m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the body
+
+	int* st= 0;
+	m_attachment->SetUserData(st);
+
+	
+
+
+
+}
+
 TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale,int waterLevel)
 {
 	this->rangeTerrainOverWater= new list<pair<int,int>>();
@@ -122,12 +183,21 @@ vector<vector<b2Vec2>> TerrainProcessor::
 			delete this->rangeTerrainOverWater;
 			this->rangeTerrainOverWater= new list<pair<int,int>>();
 			this->rangeTerrainOverWater->push_back(pair<int,int>(10-waterLevel,10-waterLevel));
-				this->maxPointTerrain=pair<int,int>(6,5);
-
+			this->maxPointTerrain=pair<int,int>(6,5);
 		}
 		return result;
 }
 
+
+vector<b2Vec2> TerrainProcessor::	
+	getChains(vector<b2Vec2> lista, float epsilon, int scale, int &height, int& width, int waterLevel){
+		vector<b2Vec2> result;
+		HandleContour hc;
+
+		result = hc.getPolygonConvex(lista, epsilon, scale,true);
+
+		return result;
+}
 
 
 
@@ -236,4 +306,95 @@ int TerrainProcessor::getHeight()
 int TerrainProcessor::getWidth()
 {
 	return this->width;
+}
+
+
+
+
+
+
+
+TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale,int waterLevel, bool chained, std::vector<b2Body*>* myTerrain)
+{
+	this->rangeTerrainOverWater= new list<pair<int,int>>();
+	b2Body* m_attachment;
+	TerrainImg* aBmpFile;
+	this->aListOfPolygons= new list< list< pair<float,float> > > ();
+	try
+	{
+		aBmpFile = new TerrainImg(path);
+	}
+	catch (int e)
+	{
+		makeDefaultTerrain(m_world,waterLevel);
+		return;
+	}
+
+	ContourBmp* aContourBmp = new ContourBmp(aBmpFile);
+
+	this->height =aBmpFile->getHeight();
+	this->width =aBmpFile->getWidth();
+
+
+	list< list<Position* > *>* cc =aContourBmp->getContour();
+	
+	this->maxPointTerrain=aContourBmp->getMaxPointTerrain();
+	
+	rangeTerrainOverWater =aContourBmp->getConnectedComponentsOptimized(waterLevel);
+	
+	list< list<Position* >* >::iterator itComponente = cc->begin();
+	
+	b2Vec2 result[1000]; //= new b2Vec2[1000];
+	int count = 0;
+	while(itComponente != cc->end() )
+	{
+		vector<b2Vec2> lista;
+		
+		vector<b2Vec2> auxR;
+		list<Position*>::iterator itPosition = (*itComponente)->end();
+		while(itPosition != (*itComponente)->begin()){
+			--itPosition;
+			lista.push_back(b2Vec2((float)(*itPosition)->getX(), (float)(*itPosition)->getY()));
+		}
+
+		auxR = this->getChains(lista, epsilon, scale, height, width,waterLevel);
+		int i = 0;
+		b2Vec2 auxv;
+
+		for ( i = 0; i < auxR.size() - 1; i++){
+			auxv = transformBmpToBox2D( auxR[i], height, width);
+			result[i+count].Set( auxv.x, (auxv.y) );
+		}
+
+		count += i;
+		itComponente++;
+	
+	}
+
+
+	// AGREGAR CHAIN A BOX2D 
+
+	/*count--;*/
+	b2ChainShape shape;
+	//shape.CreateChain(result, count);
+    shape.CreateLoop(result,count);
+
+	b2FixtureDef myFixtureDef;
+	b2BodyDef myBodyDef;
+	myBodyDef.type = b2_staticBody; //this will be a static body
+	myBodyDef.position.Set(0, 0); //in the middle
+	myFixtureDef.friction=0.999;
+			
+	myFixtureDef.userData = ( (void*)2 );
+	m_attachment = m_world->CreateBody(&myBodyDef);
+
+	myFixtureDef.shape = &shape; //change the shape of the fixture
+	auto polygonFixture = m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the	
+	b2Filter filter;
+	filter.categoryBits = Shape::destructible;
+	polygonFixture->SetFilterData(filter);
+	myTerrain->push_back(m_attachment);
+
+
+
 }

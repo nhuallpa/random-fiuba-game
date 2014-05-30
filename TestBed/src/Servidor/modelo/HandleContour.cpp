@@ -4,17 +4,87 @@
 #include "..\..\utils\Log.h"
 #include <map>
 
+
 #define SEGMENT 2
 #define MAX_VERTEX 8
 #define UNKNOWN_ERROR 4
 
-using namespace server_model_handle;
+
 using namespace server_model_exp;
 
 HandleContour::HandleContour(){
 
 }
 HandleContour::~HandleContour(){}
+
+
+vector<Position> slice(const vector<Position>& v, int start=0, int end=-1) {
+    int oldlen = v.size();
+    int newlen;
+
+    if (end == -1 || end >= oldlen){
+        newlen = oldlen-start;
+    } else {
+        newlen = end-start;
+    }
+
+    vector<Position>* nv = new vector<Position>;
+
+    for (int i=0; i<newlen; i++) {
+		nv->at(i) = v[start+i];
+    }
+    return *nv;
+}
+
+
+vector<Position> HandleContour::rdp(vector<Position> contour, float epsilon){
+	
+	Position firstPoint = contour[0];
+	Position lastPoint = contour[contour.size() - 1];
+	float distance = 0.0, aux = 0.0;
+	vector<Position> contourRDP;
+	vector<Position> contour1, contour2, contour3, contour4;
+	int index = -1, dist = 0;
+
+	if(contour.size() <= 3){
+		return contour;
+	}
+
+	int i =1;
+	for( i = 1; i < contour.size() - 1; i++ ){
+		aux = findPerpendicularDistance(contour[i],firstPoint,lastPoint);
+
+		if(aux > distance){
+			distance = aux;
+			index = i;
+		}
+	}
+
+	if ( distance > epsilon ){
+		contour1 = slice(contour,0,index+1);
+		contour2 = slice(contour,index,contour.size() - 1);
+		contour3 = rdp(contour1,epsilon);
+		contour4 = rdp(contour2,epsilon);
+		for ( int j= 0; j < contour3.size() -1; j++)
+			contourRDP.push_back(contour3[j]);
+
+		for ( int k= 0; k < contour4.size() -1; k++)
+			contourRDP.push_back(contour4[k]);
+	}else{
+		contourRDP.push_back(firstPoint);
+		contourRDP.push_back(lastPoint);
+	}
+
+	return contourRDP;
+}
+
+
+
+
+
+
+
+
 
 vector<vector<b2Vec2>> HandleContour::
 	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale){
@@ -30,6 +100,10 @@ vector<vector<b2Vec2>> HandleContour::
 		}
 		contourAux = this->rdp(contour, epsilon);
 		contourAux = this->mulK(contourAux, scale);
+		// Aca podria retornar los b2Vec2 points :D
+
+
+
 		sep = new b2Separator();
 		sep->calcShapes(contourAux, result);
 		contourAux.clear();
@@ -45,6 +119,43 @@ vector<vector<b2Vec2>> HandleContour::
 	}
 	return result;
 }
+
+
+vector<b2Vec2> HandleContour::
+	getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, bool chained){
+	vector<vector<b2Vec2>>::iterator it;
+	vector<vector<b2Vec2>> result;
+	vector<b2Vec2> contourAux;
+	b2Separator* sep = NULL;
+	int val = 0;
+	//try{
+	//	val = sep->Validate(contour);
+	//	if (val) {
+	//		throw ContourExp(val);
+	//	}
+		contourAux = this->rdp(contour, epsilon);
+		//contourAux = this->mulK(contourAux, scale);
+
+		//sep = new b2Separator();
+		//sep->calcShapes(contourAux, result);
+		//contourAux.clear();
+		//delete sep;
+		//result = this->mulK(result, scale);
+		//contourAux = this->valSize(result,true);
+		
+		//int count = 0;
+		//for ( int i=0; i < result.size() - 1; i++){
+		//	for(int j=0; j < result[i].size() -1; j++){
+		//		contourAux[count].Set(result[i][j].x,result[i][j].y) ;
+
+		//	}
+		//}
+
+		return contourAux;
+
+}
+
+
 
 vector<b2Vec2> HandleContour::rdp(vector<b2Vec2> contour, float epsilon){
 	vector<b2Vec2>::iterator it;
@@ -111,6 +222,23 @@ float HandleContour::findPerpendicularDistance(b2Vec2 p, b2Vec2 p1, b2Vec2 p2){
 				/ sqrt(pow(slope, 2) + 1);
 	}
 	return result;
+}
+
+
+float HandleContour::findPerpendicularDistance(Position p, Position p1, Position p2){
+	float slope = 0.0;
+	float intercept = 0.0;
+	float result = 0.0;
+
+    if (p1.getX() == p2.getX()) {
+        result=abs(p.getX()-p1.getX());
+    }
+    else {
+        slope = (float)(p2.getY() - p1.getY()) / (float)(p2.getX() - p1.getX());
+        intercept = p1.getY() - ( slope * p1.getX() );
+        result = (float) abs(slope * p.getX() - p.getY() + intercept) / (float)sqrt(pow(slope, 2) + 1);
+    }
+    return result;
 }
 
 
@@ -204,6 +332,20 @@ vector<vector<b2Vec2>> HandleContour::valSize(vector<vector<b2Vec2>> contours){
 	}
 	return result;
 }
+
+
+vector<b2Vec2> HandleContour::valSize(vector<vector<b2Vec2>> contours, bool chained){
+	vector<b2Vec2> result;
+	vector<vector<b2Vec2>>::iterator jt;
+	for(jt = contours.begin(); jt != contours.end(); jt++){
+		for ( int i=0; i < jt->size() -1; i++){
+			result.push_back( (*jt)[i] );
+		}
+	}
+
+	return result;
+}
+
 
 void HandleContour::
 	removeVertexThanMore(vector<b2Vec2>* contour){
