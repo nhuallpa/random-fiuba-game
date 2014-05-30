@@ -17,6 +17,7 @@ Cliente::Cliente(std::string playerID, std::string ip, int port)
 	, updateDomain(domainMx)
 	, serverPort(port)
 	, serverIp(ip)
+	, updater(&input, &output,&m,&n,&somethingToTell,&localChanges)
 {
 	this->loginOk = false;
 	this->advance = SDL_CreateSemaphore( 1 );
@@ -61,10 +62,22 @@ bool Cliente::begin(){
 
 	this->data.cli = this;
 	this->domain.setPlayerID(this->pl);
+	this->updater.setPlayerId(this->pl);
 
-	getRemoteWorld(); // recibo el mundo o un codigo de reject
+	/*if (!this->doLogin()){
+		Log::t("Failed login, exiting");
+		return false;
+	}*/
+	
+	if (this->updater.doLogin())
+	{
+		this->loginOk = true;
+	}
+
 	if (this->isLoginOk())
 	{
+		getRemoteWorld(); // recibo el mundo o un codigo de reject
+
 		//Thread de escucha de mensajes en la red
 		Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
 
@@ -85,14 +98,13 @@ void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
 
-	Uint32 start = 0;
 	bool quit = false;
 
 	bootstrap.init();
 
 	GameViewBuilder* builder = new GameViewBuilder(&this->domain, &bootstrap.getScreen());
 	builder->setPlayerID(this->pl);
-	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController, this->pl);
+	this->currentActivity = new GameActivity(bootstrap.getScreen(), *builder, &this->cController, this->pl, this->updater);
 	
 	this->gameActivity = static_cast<GameActivity*> (currentActivity);
 	this->gameActivity->wormIdDesSelected = -1;
@@ -373,7 +385,7 @@ int Cliente::sendDatagram(Datagram msg){
 
 bool Cliente::doLogin()
 {
-		Messages type = LOGIN;
+	Messages type = LOGIN;
 	std::vector<uint8_t> datos;
 	std::vector<uint8_t> buffer;
 	EDatagram* msg = new EDatagram();
@@ -393,6 +405,7 @@ bool Cliente::doLogin()
 	if ( !this->input.rcvmsg(*datagram) ) {
 		Log::e("Client: Login response connection error");
 	}
+	// proceso resultado
 	if (datagram->type == ALREADY_EXIST_USER) {
 		Log::i("Client: El usuario ya esta registrado y jugando en el servidor");
 		return false;
@@ -411,10 +424,6 @@ bool Cliente::doLogin()
 void Cliente::getRemoteWorld() {
 
 	EDatagram* msg = new EDatagram();
-	if (!this->doLogin()){
-		Log::t("Failed login, exiting");
-		return;
-	}
 	// Get YAML
 	this->input.receiveFile("res/levels/clienteyaml.yaml");
 
@@ -519,6 +528,7 @@ int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 
 }
 
+// todo: pasar a Updater
 void Cliente::addLocalMovementFromView(Playable p){
 
 	this->m.lock();

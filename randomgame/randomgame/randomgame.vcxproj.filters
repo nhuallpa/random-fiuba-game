@@ -219,6 +219,9 @@
     <ClCompile Include="..\src\Cliente\vista\WormViewGroup.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\Updater.cpp">
+      <Filter>Archivos de código fuente\client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\WormViewGroup.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\Updater.h">
+      <Filter>Archivos de código fuente\client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

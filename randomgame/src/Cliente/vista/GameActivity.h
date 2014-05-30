@@ -10,6 +10,7 @@
 #include <SDL_rect.h>
 #include "../../utils/Util.h"
 #include "Camera.h"
+#include "../Updater.h"
 
 
 class GameActivity : public Activity, public OnClickListener
@@ -18,6 +19,8 @@ private:
 
 	GameController* cController;
 	GameViewBuilder* builder;
+
+	Updater updater;
 	
 	std::string playerId;
 
@@ -29,7 +32,7 @@ public:
 	int wormIdDesSelected;
 	int wormIdSelected;
 
-	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController, std::string playerId);
+	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController, std::string playerId, Updater & updater);
 
 	void buildView( GameViewBuilder & builder);
 
