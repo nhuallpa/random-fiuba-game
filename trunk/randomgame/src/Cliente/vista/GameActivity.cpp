@@ -7,8 +7,8 @@
 GameActivity::GameActivity(SDLScreen & screen, 
 							GameViewBuilder & builder, 
 							GameController* cController,
-							std::string playerId)
-							:Activity(screen), cController(cController), playerId(playerId)
+							std::string playerId, Updater & updater)
+							:Activity(screen), cController(cController), playerId(playerId), updater(updater)
 {
 	this->buildView(builder);
 	this->setContentView(builder.getGameView());

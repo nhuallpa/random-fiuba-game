@@ -18,6 +18,7 @@
 #include "../utils/Network/Condition.h"
 #include "../utils/Util.h"
 #include "../utils/Log.h"
+#include "Updater.h"
 #include <string>
 #include <iostream>
 #include <ctime>
@@ -62,6 +63,8 @@ class Cliente : public OnMovementListener{
 		GameController cController;
 		
 		GameDomain domain;
+
+		Updater updater;
 
 		/* Estado de loggin en el server*/
 		bool loginOk;
