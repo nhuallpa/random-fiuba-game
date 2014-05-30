@@ -2,18 +2,84 @@
 #include "./Cliente.h"
 
 
+Cliente::Cliente(std::string playerID, std::string ip, int port)
+	: input(Socket())
+	, output(Socket())
+	, pl(playerID)
+	, localChanges()
+	, networkChanges()
+	, m()
+	, n()
+	, somethingToTell(m)
+	, somethingToUpdate(n)
+	, domain()
+	, domainMx()
+	, updateDomain(domainMx)
+	, serverPort(port)
+	, serverIp(ip)
+{
+	this->loginOk = false;
+	this->advance = SDL_CreateSemaphore( 1 );
+	
+}
 
 Cliente::~Cliente(void){
 
 }
 
-bool Cliente::begin(){
-	// TODO @future: Initialize sockets
-	//this->connect2server(this->server);
+
+bool Cliente::run(){
+
+	if( this->begin()){
+		this->loop();
+	}else{
+		Log::e("Error al iniciar el juego el cliente");
+		return false;
+	}
 	return true;
 }
 
+/************************ Start Network Client Side code *************************/
+bool Cliente::begin(){
 
+	bool stat = input.connect2(serverIp.c_str(), serverPort+1);
+	if (!stat){
+		this->srvStatus = SERVER_NOT_RESPONDING;
+		return false;
+	}
+
+	Log::i("Connected to data port: %d", serverPort);
+	
+	stat = output.connect2(serverIp.c_str(), serverPort);
+	if (!stat){
+		this->srvStatus = SERVER_NOT_RESPONDING;
+		return false;
+	}
+
+	Log::i("Connected to update port: %d", serverPort+1);
+	this->srvStatus = SERVER_OK;
+
+	this->data.cli = this;
+	this->domain.setPlayerID(this->pl);
+
+	getRemoteWorld(); // recibo el mundo o un codigo de reject
+	if (this->isLoginOk())
+	{
+		//Thread de escucha de mensajes en la red
+		Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
+
+		//Thread de keepalive (Listen for disconnect)
+		Thread keepaliveThread("Listening",netListener,&data);
+
+		//Thread de escucha de actualizaciones locales
+		Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
@@ -24,7 +90,7 @@ void Cliente::loop(void){
 
 	bootstrap.init();
 
-	GameViewBuilder* builder = new GameViewBuilder(&this->cController, &this->domain, &bootstrap.getScreen());
+	GameViewBuilder* builder = new GameViewBuilder(&this->domain, &bootstrap.getScreen());
 	builder->setPlayerID(this->pl);
 	this->currentActivity = new GameActivity (bootstrap.getScreen(), *builder, &this->cController, this->pl);
 	
@@ -84,16 +150,6 @@ void Cliente::disconnectClient(){
 
 }
 
-bool Cliente::run(){
-
-	if( this->begin() == true ){
-		this->loop();
-	}else{
-		Log::e("Error al iniciar el juego el cliente");
-		return false;
-	}
-	return true;
-}
 
 void Cliente::destroyWorld(void){
 	//TODO: Destructor
@@ -121,102 +177,6 @@ void Cliente::runGame(){
 }
 
 
-/************************ Start Network Client Side code *************************/
-Cliente::Cliente(std::string playerID, const char* ip, int port)
-	: input(Socket())
-	, output(Socket())
-	, pl(playerID)
-	, localChanges()
-	, networkChanges()
-	, m()
-	, n()
-	, somethingToTell(m)
-	, somethingToUpdate(n)
-	, domain()
-	, domainMx()
-	, updateDomain(domainMx)
-{
-	this->loginOk = false;
-	this->advance = SDL_CreateSemaphore( 1 );
-	bool stat = input.connect2(ip, port+1);
-	if (!stat){
-		this->srvStatus = SERVER_NOT_RESPONDING;
-		return;
-	}
-
-	Log::i("Connected to data port: %d", port);
-	
-	stat = output.connect2(ip, port);
-	if (!stat){
-		this->srvStatus = SERVER_NOT_RESPONDING;
-		return;
-	}
-
-	Log::i("Connected to update port: %d", port+1);
-	this->srvStatus = SERVER_OK;
-
-	this->data.cli = this;
-	this->domain.setPlayerID(this->pl);
-
-	getRemoteWorld(); // recibo el mundo o un codigo de reject
-	if (this->isLoginOk()){
-		//Thread de escucha de mensajes en la red
-		Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
-
-		//Thread de keepalive (Listen for disconnect)
-		Thread keepaliveThread("Listening",netListener,&data);
-
-		//Thread de escucha de actualizaciones locales
-		Thread localUpdatesThread("LocalUpdates",notifyLocalUpdates,&data);
-
-		//Thread de simulacion de cambios locales
-		//Thread clientSideThread("Emulation",clientSideEmulation,&data);
-	}
-	
-
-}
-
-
-int Cliente::clientSideEmulation(void *data){
-
-	printf("\nDisparado apply Network Changes thread");
-	Cliente* cli = ((threadData*)data)->cli;
-	Mutex* m = &((Cliente*)((threadData*)data)->cli)->m;
-	Condition* cond = &((Cliente*)((threadData*)data)->cli)->somethingToTell;
-	
-	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
-	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
-	
-	char* playerId = ((threadData*)data)->p;
-	Datagram* msg = new Datagram();
-	msg->type = KEEPALIVE;
-	size_t i = 0;
-
-	while(true){
-		//copy and (un)comment this to mock local changes
-		Sleep(10);
-		i++;
-
-		//Esto es lo que se va disparar al haber una accion del lado del cliente
-		if ( i == 500 || i == 2000 ){
-			m->lock();
-			try{
-				//printf("\nGot something from client %s at i: %d ;)",playerId,i );
-				Playable p;
-				p.wormid=37;
-				cli->localChanges.push_back(p);
-			}catch(...){
-				m->unlock();
-				throw std::current_exception();
-			}
-			m->unlock();
-			cond->signal();
-		}
-
-	}
-
-	return 0;
-}
 
 
 int Cliente::applyNetworkChanges(void *data){
@@ -232,7 +192,7 @@ int Cliente::applyNetworkChanges(void *data){
 
 	while(true && !cli->cController.isQuit() ){
 
-		Sleep(1); // Nestor: lo paso a uno para que se actualizan rapdido los cambios
+		Sleep(1); 
 
 		// Wait for network updates from server
 		n->lock(); //Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
@@ -275,7 +235,7 @@ bool Cliente::updateModel(Playable p){
 	return true;
 }
 
-//
+
 int Cliente::notifyLocalUpdates(void *data){
 	Log::i("Cliente::notifyLocalUpdates >> Disparado notify local updates thread");
 	threadData* aThreadData = (threadData*)data;
@@ -399,23 +359,6 @@ int Cliente::netListener(void* data){
 	Log::i("Cliente::netListener >> Terminado net listen thread");
 	return 0;
 }
-
-int Cliente::login(){
-
-	Datagram msg;
-
-	msg.type = LOGIN;
-	std::strcpy((char*)&msg.playerID,this->pl.c_str()); // works?
-	printf("\nplayer id: %s",msg.playerID.c_str());
-
-	this->sendDatagram(msg);
-	//Send login datagram
-
-	//Nestor: Evaluar si fue aceptado
-
-	return 0;
-}
-
 
 int Cliente::sendDatagram(Datagram msg){
 
@@ -642,6 +585,5 @@ void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
 	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
 	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
 	this->domain.printDomain();
-
 }
 

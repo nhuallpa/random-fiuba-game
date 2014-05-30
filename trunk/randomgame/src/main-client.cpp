@@ -26,18 +26,18 @@ int main(int argc, char* argv[]) {
 	
 	Log::logSide = LOG_CLIENT;
 	if (checkArgument(argc, argv)) {
+		
 		std::string userId = argv[1];
 		std::string serverIp = argv[2];
 		int serverPort = atoi(argv[3]);
 		Log::userId = userId;
-		Cliente* aClient = new Cliente(userId, serverIp.c_str(), serverPort);
 
-		if (aClient->isLoginOk()) {
-			Log::d("INICIO");
-			if( aClient->run() == false ){
-				Log::e("Error al correr el juego en modo Cliente");
-			}
+		Cliente* aClient = new Cliente(userId, serverIp, serverPort);
+
+		if (!aClient->run()){
+			Log::e("Error al correr el juego en modo Cliente");
 		}
+		
 	}
 	
 	return 0;
