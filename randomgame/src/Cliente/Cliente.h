@@ -48,7 +48,6 @@ class Cliente : public OnMovementListener{
 	private:
 		//TODO @future: Going to need a socket conn;
 		
-		//GameLevel cLevel;
 		
 		/**Inicializador de componentes de la vista*/
 		Bootstrap bootstrap;
@@ -56,7 +55,7 @@ class Cliente : public OnMovementListener{
 		/**Activity que manerja la pantalla actual de la vista*/
 		Activity* currentActivity;
 
-		
+		/**Activity que maneja la vista del juego*/
 		GameActivity* gameActivity;
 
 		/**Controlador de eventos y estados*/
@@ -64,46 +63,50 @@ class Cliente : public OnMovementListener{
 		
 		GameDomain domain;
 
-		//bool connect2server(Servidor* server);
-		//Servidor* server;
+		/* Estado de loggin en el server*/
+		bool loginOk;
 
-
-		/**Inicia el VistaJuego y ControladorJuegon*/
-
-		bool begin();		
+		/**Inicia la conexion con el servidor y 
+		   inicia la session con el servidor*/
+		bool begin();	
+	
+		/** Main loop de la pantalla*/
 		void loop(void);
 
-		bool loginOk;
 		void runGame();
 
+		/** Objetos para la conexion con el server */
 		Socket input;
 		Socket output;
-
-		Player pl;
-		
-		// Se usa para controlar el timeout de los sockets
-
+		std::string serverIp;
+		int serverPort;
 		ServerStatus srvStatus;
 
+		/** Player en este cliente ???????*/
+		Player pl;
+		
+		/** Obejtos para sincronismo entre modelo y red*/
 		Mutex m;
 		Mutex n;
 		Condition somethingToTell;
 		Condition somethingToUpdate;
 
-
-		size_t revision;
+		//size_t revision;
+		/** Colas de entrada y salidas*/
 		std::vector<Playable> localChanges;
 		std::queue<Playable> networkChanges;
 
-		void getRemoteWorld();
-		int sendMsg(Messages type, std::vector<uint8_t> buffer);
-		int sendDatagram(Datagram msg);
+		/** Realiza el login contra el servidor*/
 		bool doLogin();
 
-		int login();  // no se usa??
-
+		/** Obtiene el estado actual del mundo para iniciar el cliente*/
+		void getRemoteWorld();
 		
+		int sendMsg(Messages type, std::vector<uint8_t> buffer);
 
+		int sendDatagram(Datagram msg);
+		
+		/** informa estado de conexion al servidor*/
 		void informStateClient();
 
 		/* Data for threading**/
@@ -120,7 +123,7 @@ class Cliente : public OnMovementListener{
 		SDL_sem* advance;
 		std::queue<EDatagram> clientQueue;
 
-		Cliente(std::string playerID, const char* ip, int port);
+		Cliente(std::string playerID, std::string ip, int port);
 		
 		virtual ~Cliente(void);
 
@@ -144,8 +147,6 @@ class Cliente : public OnMovementListener{
 
 		//Apply the changes that we receive on listen state
 		static int applyNetworkChanges(void* data);
-
-		static int clientSideEmulation(void* data);
 
 		void addLocalMovementFromView(Playable p);
 

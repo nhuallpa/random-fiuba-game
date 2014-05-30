@@ -26,17 +26,11 @@
 class GameViewBuilder 
 {
 	
-	//GameLevel* cLevel;
 	GameView* gameView;
 	
-	// Worm ID, (X,Y)
-	//std::map<int,GameElement> domainElements;
-
 	SDLScreen * screen;
 
 	std::string playerID;
-
-	GameController* cController;
 
 	GameDomain* domain;
 
@@ -47,7 +41,7 @@ public:
 
 	GameDomain* getDomain(){ return this->domain;}
 
-	GameViewBuilder(GameController* cController, GameDomain* domain, SDLScreen * screen);
+	GameViewBuilder(GameDomain* domain, SDLScreen * screen);
 	~GameViewBuilder(void);
 
 	std::string getPlayerID() { return this->playerID; }

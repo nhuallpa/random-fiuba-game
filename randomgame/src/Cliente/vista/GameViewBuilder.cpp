@@ -3,8 +3,8 @@
 
 
 
-GameViewBuilder::GameViewBuilder(GameController* cController, GameDomain* domain, SDLScreen * screen)
-	: cController(cController), domain(domain), screen(screen)
+GameViewBuilder::GameViewBuilder(GameDomain* domain, SDLScreen * screen)
+	: domain(domain), screen(screen)
 {
 	gameView = NULL;
 }

@@ -65,15 +65,7 @@ void StateBarView::draw(SDLScreen & screen){
 	if (i<=300) 
 	{
 		i++;
-		
-		/*SDL_RenderGetScale(screen.getRenderer(), &lastScaleX, &lastScaleY);
-
-		SDL_Texture* auxtexture = SDL_CreateTexture(screen.getRenderer(), 
-										SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, canvas.w, canvas.h);
-		SDL_SetTextureBlendMode(auxtexture, SDL_BLENDMODE_BLEND);
-		SDL_SetRenderTarget(screen.getRenderer(), auxtexture);
-		SDL_RenderSetScale(screen.getRenderer(),1,1);
-		*/
+	
 		TextureManager::Instance().drawBox(screen.getRenderer(), 
 											xLabel,
 											yLabel,
@@ -84,11 +76,6 @@ void StateBarView::draw(SDLScreen & screen){
 		this->label.draw(screen.getRenderer(), TextureManager::Instance().getCamera().getX(),
 												10 + TextureManager::Instance().getCamera().getY());
 
-
-		/*
-		SDL_SetRenderTarget(screen.getRenderer(), NULL);
-		SDL_RenderCopy(screen.getRenderer(), auxtexture, NULL, &canvas);
-		SDL_DestroyTexture(auxtexture);*/
 	}	
 	
 
