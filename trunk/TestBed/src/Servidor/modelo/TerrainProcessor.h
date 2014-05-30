@@ -15,8 +15,19 @@
 #include <string>
 #include <vector>
 
-using namespace server_model_handle;
+
 using namespace std;
+
+struct Shape
+{
+	enum Category
+	{
+		normal	     = (1 << 0),
+		destructible = (1 << 1)
+	};
+};
+
+
 class TerrainProcessor
 {
 private:
@@ -31,8 +42,13 @@ private:
 
 public:
 	TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale, int waterLevel);
+		TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale, int waterLevel, bool chained, std::vector<b2Body*>* myTerrain);
+	TerrainProcessor(b2World* m_world, char* path,float epsilon);
 	list< list< pair<float,float> > > * getListOfPolygons();
 	~TerrainProcessor(void);
+
+	vector<b2Vec2> getChains(vector<b2Vec2> lista, float epsilon, int scale, int &height, int& width, int waterLevel);
+
 	vector<vector<b2Vec2>> 
 	    getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, int& height, int& width,int waterLevel);
 	static void getRandomPosition(int* x,int* y);
@@ -40,6 +56,7 @@ public:
 	pair<int,int> getMaxPointTerrain();
 	int getHeight();
 	int getWidth();
+	std::vector<Position> rdp(std::vector<Position> contourVec, float epsilon);
 };
 
 #endif

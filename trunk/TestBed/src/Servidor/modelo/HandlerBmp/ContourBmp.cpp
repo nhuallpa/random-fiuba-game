@@ -43,6 +43,50 @@ list< list<Position*>* >* ContourBmp::getConnectedComponents(list<Position*>* aP
 	return aConnectedComponentsList;
 }
 
+        //private function getStartingPixel(bitmapData:BitmapData):Point {
+        //    // finding the starting pixel is a matter of brute force, we need to scan
+        //    // the image pixel by pixel until we find a non-transparent pixel
+        //    var zeroPoint:Point=new Point(0,0);
+        //    var offsetPoint:Point=new Point(0,0);
+        //    for (var i:Number=0; i<bitmapData.height; i++) {
+        //        for (var j:Number=0; j<bitmapData.width; j++) {
+        //            offsetPoint.x=j;
+        //            offsetPoint.y=i;
+        //            if (bitmapData.hitTest(zeroPoint,tolerance,offsetPoint)) {
+        //                return offsetPoint;
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
+
+
+
+//Ariel Magic
+Position ContourBmp::getCabeza(){
+
+	int width=this->aBmpFile->getWidth();
+	int height=this->aBmpFile->getHeight();
+	
+	Position cabeza(0,0);
+
+
+	for(int columna=0; columna < width ; columna++)
+	{
+		for ( int fila = height-1; fila > 0 ; fila--){
+		if ( aBmpFile->getBit(fila,columna) == 0 )  //si encuentra el principio de un terreno, agrega la posicion inicial
+			{
+				cabeza.setX(fila);
+				cabeza.setY(columna);
+				return cabeza;
+			}
+		}
+	}
+
+	return Position(width,height);
+}
+
+
 
 //Pre: Recibe el extremo inferior izquierdo de la matriz bmp
 //Pos1:Devuelve una lista dentro de la cual, cada elemento es una lista.
@@ -140,8 +184,93 @@ list< list<Position*> *>* ContourBmp::getContour()
 	return contours;
 }
 
-//Devuelve el contorno de una componente conexa.
-//Libera de memoria las posiciones que no conforman el contorno
+
+//Ariel Magic
+std::vector<Position> ContourBmp::getContourMS(){
+
+	int width=this->aBmpFile->getWidth();
+	int height=this->aBmpFile->getHeight();
+	std::vector<Position> contourVec;
+
+	Position start = this->getCabeza();
+
+	if ( start.getX() != width && start.getY() != height ){
+		int pX = start.getX();
+		int pY = start.getY();
+		int nextX;
+		int nextY;
+		int prevX;
+		int prevY;
+		bool cerrado = false;
+		int regionVal;
+		while (!cerrado){
+			regionVal = this->getSquareValue(pX,pY);
+			switch ( regionVal ){
+				case 1 :
+                case 5 :
+                case 13 :
+                    nextX=0;
+                    nextY=-1;
+                    break;
+			    case 8 :
+                case 10 :
+                case 11 :
+                    nextX=0;
+                    nextY=1;
+                    break;
+				case 4 :
+				case 12 :
+				case 14 :
+					nextX=-1;
+					nextY=0;
+					break;
+		        case 2 :
+                case 3 :
+                case 7 :
+                    nextX=1;
+                    nextY=0;
+                    break;
+				case 6 :
+					if (prevX==0&&prevY==-1) {
+						nextX=-1;
+						nextY=0;
+					}
+					else {
+						nextX=1;
+						nextY=0;
+					}
+					break;
+				case 9 :
+					if (prevX==1&&prevY==0) {
+						nextX=0;
+						nextY=-1;
+					}
+					else {
+						nextX=0;
+						nextY=1;
+					}
+					break;
+			}
+			pX+=nextX;
+			pY+=nextY;
+
+			contourVec.push_back( Position(pX,pY) );
+			prevX=nextX;
+			prevY=nextY;
+
+            if ( pX == start.getX() && pY== start.getY() ) {
+                cerrado=true;
+            }
+
+		}
+
+	}
+
+	return contourVec;
+}
+
+
+
 list<Position*> * ContourBmp::getContour(list<Position*> * aConnectedComponent)
 {
 	list<Position*> * aContour= new list<Position*>();
@@ -495,3 +624,7 @@ ContourBmp::~ContourBmp()
 {
 	delete this->aBmpFile;
 }
+
+
+
+

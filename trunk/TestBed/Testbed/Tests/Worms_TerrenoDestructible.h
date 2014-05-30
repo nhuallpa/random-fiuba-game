@@ -152,7 +152,7 @@ public:
                         float epsilon=5;
                         int scale =15;
                         int waterLevel=50;
-                        TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon, scale,waterLevel);
+                        TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon,15,50);
                         
 
                 }

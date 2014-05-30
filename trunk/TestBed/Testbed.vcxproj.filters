@@ -357,6 +357,12 @@
     <ClInclude Include="src\utils\Clipper\clipper.hpp">
       <Filter>src\utils\Clipper</Filter>
     </ClInclude>
+    <ClInclude Include="Testbed\Tests\Worms_TerrenoOriginal.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Testbed\Tests\Worms_TerrenoDestructible.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Testbed.rc" />

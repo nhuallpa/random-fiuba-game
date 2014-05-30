@@ -83,8 +83,10 @@ TestEntry g_testEntries[] =
 {
 	//{"Inclinacion", InclinacionTest::Create},
 	//{"Movimiento", MovimientoTest::Create},
-	{"Terreno Con Worms", BodyTypes::Create},
 	{"Worms Terreno Original", WormsTOrig::Create},
+
+	{"Terreno Con Worms", BodyTypes::Create},
+
 	{"Worms Terreno Destructible", WormsTDest::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
