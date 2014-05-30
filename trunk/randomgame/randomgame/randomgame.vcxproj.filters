@@ -46,6 +46,9 @@
     <Filter Include="Archivos de código fuente\server\model">
       <UniqueIdentifier>{0e9a491f-4aa6-42cb-8c87-6862896fec2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\client\sound">
+      <UniqueIdentifier>{d6b6eae0-f07b-4147-a6f9-9720ad5c015d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Cliente\Cliente.cpp">
@@ -221,6 +224,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Cliente\Updater.cpp">
       <Filter>Archivos de código fuente\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\sonido\SoundManager.cpp">
+      <Filter>Archivos de código fuente\client\sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\Updater.h">
       <Filter>Archivos de código fuente\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\sonido\SoundManager.h">
+      <Filter>Archivos de código fuente\client\sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
