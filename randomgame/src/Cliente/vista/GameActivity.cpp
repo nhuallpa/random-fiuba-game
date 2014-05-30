@@ -4,6 +4,7 @@
 
 
 
+
 GameActivity::GameActivity(SDLScreen & screen, 
 							GameViewBuilder & builder, 
 							GameController* cController,
@@ -187,6 +188,8 @@ void GameActivity::OnClick(ClickEvent e){
 		}
 	}
 	else deselectPreviewsWorm();
+
+	
 }
 
 

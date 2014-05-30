@@ -1,4 +1,5 @@
 #include "Bootstrap.h"
+#include "../sonido/SoundManager.h"
 
 
 
@@ -11,6 +12,9 @@ void Bootstrap::init()
 	Log::i("Bootstrap: Iniciando");
 	std::string path = DEFAULT_YAML_LEVEL;
 	ParserYaml* aParser = ParserYaml::getInstance(path);
+
+	SoundManager::Instance().init();
+	SoundManager::Instance().play();
 
 	std::map<std::string,std::string> prop = Util::loadProperteries("config/client.properties");
 	int w = Util::string2int(prop["ventana.ancho"]);
