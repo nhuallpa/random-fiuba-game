@@ -64,11 +64,7 @@ bool Cliente::begin(){
 	this->domain.setPlayerID(this->pl);
 	this->updater.setPlayerId(this->pl);
 
-	/*if (!this->doLogin()){
-		Log::t("Failed login, exiting");
-		return false;
-	}*/
-	
+
 	if (this->updater.doLogin())
 	{
 		this->loginOk = true;
@@ -97,60 +93,33 @@ bool Cliente::begin(){
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
-
 	bool quit = false;
 
 	bootstrap.init();
 
-	GameViewBuilder* builder = new GameViewBuilder(&this->domain, &bootstrap.getScreen());
-	builder->setPlayerID(this->pl);
-	this->currentActivity = new GameActivity(bootstrap.getScreen(), *builder, &this->cController, this->pl, this->updater);
-	
+	this->currentActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);
 	this->gameActivity = static_cast<GameActivity*> (currentActivity);
-	this->gameActivity->wormIdDesSelected = -1;
 	
 	
 	/** refresh the initial view*/
 	this->currentActivity->render();
-	this->cController.addListener(this);
-
 
 	informStateClient();
 	FPSmanager fpsManager;
 	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
-	while (!this->cController.isQuit()){
-		
-		if (this->gameActivity->wormIdDesSelected > 0) {
-			Playable p;
-			p.action = MOVE_STOP;
-			p.wormid = this->gameActivity->wormIdDesSelected;
-			this->addLocalMovementFromView(p);
-			this->gameActivity->wormIdDesSelected = -1;
-		}
-
+	while (!this->cController.isQuit()){		
 		cController.handlerEvent();
 		this->runGame();
-		//SDL_SemWait(this->advance);
 		currentActivity->update();
 		currentActivity->render();
-		//SDL_SemPost(this->advance);
 		SDL_framerateDelay(&fpsManager);
 	}
-
-	if (this->gameActivity->wormIdSelected > 0) 
-	{
-		Playable p;
-			p.action = MOVE_STOP;
-			p.wormid = this->gameActivity->wormIdSelected;
-			this->addLocalMovementFromView(p);
-			this->gameActivity->wormIdSelected = -1;
-	}
+	currentActivity->stop();
 	cController.destroy();
 	bootstrap.shoutDown();
 	this->disconnectClient();
 	delete currentActivity;
-	delete builder;
 
 }
 
@@ -293,21 +262,21 @@ int Cliente::notifyLocalUpdates(void *data){
 int Cliente::netListener(void* data){
 
 	Log::i("Cliente::netListener >> Disparado net listen thread");
-	Cliente* cli = ((threadData*)data)->cli;
+	threadData* tData = (threadData*)data;
+	Cliente* cli = tData->cli;
+	char* playerId = tData->p;
+	Mutex* n = &(cli)->n;
+	Condition* netcond = &(cli)->somethingToUpdate;
 
-	char* playerId = ((threadData*)data)->p;
 	EDatagram* emsg = new EDatagram();
-
-	Mutex* n = &((Cliente*)((threadData*)data)->cli)->n;
-	Condition* netcond = &((Cliente*)((threadData*)data)->cli)->somethingToUpdate;
-
-	while(true && !cli->cController.isQuit() ){
+	bool closeListen = false;
+	while(!cli->cController.isQuit() && !closeListen){
 		Sleep(10);
 	
 		if ( !cli->input.rcvmsg(*emsg) ) {
 			Log::e("\nNETLISTENER: Desconectando cliente at listening state");
 			cli->srvStatus = SERVER_TIMEDOUT;
-			return 1;
+			closeListen = true;
 		}
 		//printf("\nGot network change");
 		switch(emsg->type){
@@ -343,7 +312,6 @@ int Cliente::netListener(void* data){
 				cli->domainMx.lock();
 				for (i=0; i< emsg->elements; i++) 
 				{
-					
 					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
 					
 					Log::i("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
@@ -367,7 +335,7 @@ int Cliente::netListener(void* data){
 		}
 	
 	}
-
+	delete emsg;
 	Log::i("Cliente::netListener >> Terminado net listen thread");
 	return 0;
 }
@@ -380,44 +348,6 @@ int Cliente::sendDatagram(Datagram msg){
 		return 1;
 	}
 	return 0;
-
-}
-
-bool Cliente::doLogin()
-{
-	Messages type = LOGIN;
-	std::vector<uint8_t> datos;
-	std::vector<uint8_t> buffer;
-	EDatagram* msg = new EDatagram();
-	
-	//Login to server
-	msg->type = LOGIN;
-	msg->playerID = this->pl; 
-
-	Log::t("Sending login info ");
-	if ( !this->output.sendmsg(*msg) ) {
-		Log::e("Client: Login request connection error");
-		this->srvStatus = SERVER_NOT_RESPONDING;
-		return false;
-	}
-	// recibo confirmacion de login
-	EDatagram* datagram = new EDatagram();
-	if ( !this->input.rcvmsg(*datagram) ) {
-		Log::e("Client: Login response connection error");
-	}
-	// proceso resultado
-	if (datagram->type == ALREADY_EXIST_USER) {
-		Log::i("Client: El usuario ya esta registrado y jugando en el servidor");
-		return false;
-	} else if (datagram->type == LOGIN_OK) {
-		Log::i("Client: Login con exito");
-		this->loginOk = true;
-		return true;
-	} else {
-		Log::i("Client: Login ERROR - rta %d" ,datagram->type);
-		return false;
-	}
-	delete datagram;
 
 }
 
@@ -452,10 +382,8 @@ void Cliente::getRemoteWorld() {
 			Log::i("Got worm id: %d at pos: %f, %f, action: %s",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, Util::actionString(msg->play[j].action).c_str());
 
 			//Trigger changes into game elements of the client
-			GameElement* elem = getElementFromPlayable(msg->play[j]);
-			elem->playerID = msg->playerID;
-			elem->setAction( msg->play[j].action );
-			
+			GameElement* elem = getElementFromPlayable(msg->playerID, msg->play[j]);
+					
 			this->domain.addElementToDomain(*elem);
 			
 			if ( msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED){
@@ -470,25 +398,18 @@ void Cliente::getRemoteWorld() {
 	delete msg;
 }
 
-
-
 bool Cliente::serverAlive () {
 	return this->srvStatus;
 }
 
-
-GameElement* Cliente::getElementFromPlayable(Playable p){
+GameElement* Cliente::getElementFromPlayable(std::string playerID, Playable p){
 
 	GameElement* g = new GameElement(p.wormid,"PLAYER 1",WORM,p.x,p.y,0.0,40,40,15,false);
-
+	g->playerID = playerID;
+	g->setAction( p.action );
 	return g;
 
 }
-
-
-
-
-
 
 void Cliente::lockLocalMutex(){
 	this->m.lock();
@@ -526,68 +447,6 @@ int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	}
 	return 0;
 
-}
-
-// todo: pasar a Updater
-void Cliente::addLocalMovementFromView(Playable p){
-
-	this->m.lock();
-	try{
-		this->localChanges.push_back(p);
-	}catch(...){
-		this->m.unlock();
-		throw std::current_exception();
-	}
-	this->m.unlock();
-	this->somethingToTell.signal();
-
-}
-
-//TODO: pasar a gameActivity
-void Cliente::OnMovement(MovementEvent e){
-
-	Playable p;
-	int wormIdSelected = this->gameActivity->getWormIdSelected();
-
-	if (wormIdSelected > 0 && 
-		this->gameActivity->isThisClientOwner(wormIdSelected) && 
-		this->gameActivity->isAlive(wormIdSelected))
-	{
-		p.wormid = wormIdSelected;
-		if (e.y == -1)  // Solo saltar
-		{
-			//if (e.x == 1) //Salta derecha
-			//{
-			//	p.action = 	JUMP_RIGHT;
-			//	Log::t("CLIENTE: Saltar derecha");
-			//}
-			//else if (e.x == -1) // Saltar izquierda
-			//{
-			//	p.action = 	JUMP_LEFT;
-			//	Log::t("CLIENTE: Saltar izquierda");
-			//} 
-			//else 
-			//{
-				p.action = 	JUMP;
-				Log::t("CLIENTE: Saltar");
-			//}
-		}
-		else if (e.x == 1) // derecha
-		{
-			p.action = 	MOVE_RIGHT;
-		}
-		else if (e.x == -1) // izquierda
-		{
-			p.action = 	MOVE_LEFT;
-		} 
-		else if (e.x == 0) // quieto
-		{
-			p.action = 	MOVE_STOP;
-		}
-		this->addLocalMovementFromView(p);
-	}
-
-	
 }
 
 void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)

@@ -13,7 +13,7 @@
 #include "../Updater.h"
 
 
-class GameActivity : public Activity, public OnClickListener
+class GameActivity : public Activity, public OnClickListener, public OnMovementListener
 {
 private:
 
@@ -32,9 +32,13 @@ public:
 	int wormIdDesSelected;
 	int wormIdSelected;
 
-	GameActivity(SDLScreen & screen, GameViewBuilder & builder, GameController* cController, std::string playerId, Updater & updater);
+	GameActivity(SDLScreen & screen, GameDomain* domain, GameController* cController, std::string playerId, Updater & updater);
 
-	void buildView( GameViewBuilder & builder);
+	void buildView( GameViewBuilder* builder);
+
+	void stop();
+
+	void clear();
 
 	void update();
 
@@ -43,6 +47,8 @@ public:
 	void setListeners(SDLScreen & screen);
 
 	void OnClick(ClickEvent e);
+
+	void OnMovement(MovementEvent e);
 
 	void deselectPreviewsWorm();
 
