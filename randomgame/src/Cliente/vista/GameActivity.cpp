@@ -6,28 +6,32 @@
 
 
 GameActivity::GameActivity(SDLScreen & screen, 
-							GameViewBuilder & builder, 
+							GameDomain* domain, 
 							GameController* cController,
 							std::string playerId, Updater & updater)
 							:Activity(screen), cController(cController), playerId(playerId), updater(updater)
 {
+
+	builder = new GameViewBuilder(domain, &screen);
+	builder->setPlayerID(playerId);
+
 	this->buildView(builder);
-	this->setContentView(builder.getGameView());
+	this->setContentView(builder->getGameView());
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
+	this->wormIdDesSelected = -1;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 }
 
-void GameActivity::buildView( GameViewBuilder & builder)
+void GameActivity::buildView( GameViewBuilder * builder)
 {
-	this->builder = &builder;
-	builder.buildContainer();
-	builder.buildSky();
+	builder->buildContainer();
+	builder->buildSky();
 	//builder.buildFigures();
-	builder.buildEart();
-	builder.buildCharacters();
-	builder.buildWater();
-	builder.buildStateBar();
+	builder->buildEart();
+	builder->buildCharacters();
+	builder->buildWater();
+	builder->buildStateBar();
 
 }
 
@@ -74,6 +78,7 @@ void GameActivity::update()
 
 GameActivity::~GameActivity(void)
 {
+	delete builder;
 }
 
 void GameActivity::deselectPreviewsWorm()
@@ -92,6 +97,16 @@ void GameActivity::deselectPreviewsWorm()
 		aWorm->deselect();
 		p.wormid = aWorm->getId();
 		this->wormIdDesSelected = aWorm->getId();
+
+
+		if (this->wormIdDesSelected > 0) {
+			Playable p;
+			p.action = MOVE_STOP;
+			p.wormid = this->wormIdDesSelected;
+			updater.addLocalMovementFromView(p);
+			this->wormIdDesSelected = -1;
+		}
+
 		this->cController->remuveListener(aWorm);
 		this->wormIdSelected = -1;
 		
@@ -99,6 +114,18 @@ void GameActivity::deselectPreviewsWorm()
 		
 	}
 	
+}
+
+void GameActivity::stop()
+{
+	if (this->wormIdSelected > 0) 
+	{
+		Playable p;
+		p.action = MOVE_STOP;
+		p.wormid = this->wormIdSelected;
+		updater.addLocalMovementFromView(p);
+		this->wormIdSelected = -1;
+	}
 }
 
 void GameActivity::selectWorm(WormView* aWorm)
@@ -196,7 +223,8 @@ void GameActivity::OnClick(ClickEvent e){
 void GameActivity::setListeners(SDLScreen &  screen) 
 {
 	this->cController->addListener(&TextureManager::Instance().getCamera());
-	this->cController->addListener(this);
+	this->cController->addOnClickListener(this);
+	this->cController->addOnMovementListener(this);
 	this->cController->addListener(&screen);
 }
 
@@ -279,4 +307,50 @@ void GameActivity::showMessageInfo(std::string msg)
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->getStateBar()->setMsjInfo(msg);
+}
+
+void GameActivity::OnMovement(MovementEvent e)
+{
+	Playable p;
+	int wormIdSelected = this->getWormIdSelected();
+
+	if (wormIdSelected > 0 && 
+		this->isThisClientOwner(wormIdSelected) && 
+		this->isAlive(wormIdSelected))
+	{
+		p.wormid = wormIdSelected;
+		if (e.y == -1)  // Solo saltar
+		{
+			//if (e.x == 1) //Salta derecha
+			//{
+			//	p.action = 	JUMP_RIGHT;
+			//	Log::t("CLIENTE: Saltar derecha");
+			//}
+			//else if (e.x == -1) // Saltar izquierda
+			//{
+			//	p.action = 	JUMP_LEFT;
+			//	Log::t("CLIENTE: Saltar izquierda");
+			//} 
+			//else 
+			//{
+				p.action = 	JUMP;
+				Log::t("CLIENTE: Saltar");
+			//}
+		}
+		else if (e.x == 1) // derecha
+		{
+			p.action = 	MOVE_RIGHT;
+		}
+		else if (e.x == -1) // izquierda
+		{
+			p.action = 	MOVE_LEFT;
+		} 
+		else if (e.x == 0) // quieto
+		{
+			p.action = 	MOVE_STOP;
+		}
+		updater.addLocalMovementFromView(p);
+	}
+
+	
 }

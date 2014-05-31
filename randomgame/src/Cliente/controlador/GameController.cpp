@@ -53,3 +53,25 @@ void GameController::remuveListener(OnZoomListener* z){
 	Zoom* zm = Zoom::getInstance();
 	zm->remuve(z);
 }
+
+
+void GameController::addOnClickListener(OnClickListener* c)
+{
+	Click* ck = Click::getInstance();
+	ck->add(c);
+}
+void GameController::addOnMovementListener(OnMovementListener* m)
+{
+	Move* mv = Move::getInstance();
+	mv->add(m);
+}
+void GameController::remuveOnMovementListener(OnMovementListener* m)
+{
+	Move* mv = Move::getInstance();
+	mv->remuve(m);
+}
+void GameController::remuveOnClickListener(OnClickListener* c)
+{
+	Click* ck = Click::getInstance();
+	ck->remuve(c);
+}

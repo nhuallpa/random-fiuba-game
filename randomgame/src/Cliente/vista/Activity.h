@@ -28,6 +28,8 @@ public:
 
 	virtual ~Activity(void);
 
+	virtual void stop();
+
 	/** Update the view*/
 	virtual void update();
 

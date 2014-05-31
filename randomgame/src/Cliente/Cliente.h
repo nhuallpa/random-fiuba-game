@@ -44,7 +44,7 @@ typedef struct {
 } threadData;
 
 
-class Cliente : public OnMovementListener{
+class Cliente { //: public OnMovementListener{
 
 	private:
 		//TODO @future: Going to need a socket conn;
@@ -99,9 +99,6 @@ class Cliente : public OnMovementListener{
 		std::vector<Playable> localChanges;
 		std::queue<Playable> networkChanges;
 
-		/** Realiza el login contra el servidor*/
-		bool doLogin();
-
 		/** Obtiene el estado actual del mundo para iniciar el cliente*/
 		void getRemoteWorld();
 		
@@ -138,7 +135,7 @@ class Cliente : public OnMovementListener{
 
 		Activity* getCurrentActivity() {return this->currentActivity;}
 
-		void OnMovement(MovementEvent e);
+		//void OnMovement(MovementEvent e);
 
 		bool serverAlive();
 	
@@ -150,9 +147,6 @@ class Cliente : public OnMovementListener{
 
 		//Apply the changes that we receive on listen state
 		static int applyNetworkChanges(void* data);
-
-		void addLocalMovementFromView(Playable p);
-
 
 		void lockLocalMutex();
 
@@ -170,7 +164,7 @@ class Cliente : public OnMovementListener{
 
 		void signalNetworkChange();
 
-		GameElement* getElementFromPlayable(Playable p);
+		GameElement* getElementFromPlayable(std::string playerID, Playable p);
 
 		/**
 		* Add a new worm into GameView

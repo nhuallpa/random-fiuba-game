@@ -42,7 +42,9 @@ public:
 
 	void setPlayerId(std::string pl) {this->pl = pl;}
 
+	/** Realiza el login contra el servidor*/
 	bool doLogin();
+
 
 	void addLocalMovementFromView(Playable p);
 
