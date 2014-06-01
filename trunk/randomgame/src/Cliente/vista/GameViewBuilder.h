@@ -15,6 +15,7 @@
 #include "TriangleView.h"
 #include "TerrainView.h"
 #include "WormView.h"
+#include "MenuWeaponView.h"
 #include "EartView.h"
 #include "SDLScreen.h"
 #include "SpriteConfigurator.h"

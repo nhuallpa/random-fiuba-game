@@ -45,6 +45,8 @@ public:
 	/** Realiza el login contra el servidor*/
 	bool doLogin();
 
+	/** Recupera el level yaml del servidor*/
+	void retrieveLevel();
 
 	void addLocalMovementFromView(Playable p);
 

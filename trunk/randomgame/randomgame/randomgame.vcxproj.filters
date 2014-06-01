@@ -228,6 +228,15 @@
     <ClCompile Include="..\src\Cliente\sonido\SoundManager.cpp">
       <Filter>Archivos de código fuente\client\sound</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\WaitActivity.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\WaitView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\MenuWeaponView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -424,6 +433,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\sonido\SoundManager.h">
       <Filter>Archivos de código fuente\client\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\WaitActivity.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\WaitView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\MenuWeaponView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -97,6 +97,7 @@
     <ClCompile Include="..\src\Cliente\vista\GameView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\MenuWeaponView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
@@ -106,6 +107,8 @@
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TextView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\WaitActivity.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\WaitView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WormView.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\GameController.cpp" />
@@ -163,6 +166,7 @@
     <ClInclude Include="..\src\Cliente\vista\GameView.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\HexagonView.h" />
+    <ClInclude Include="..\src\Cliente\vista\MenuWeaponView.h" />
     <ClInclude Include="..\src\Cliente\vista\PentagonView.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
@@ -172,6 +176,8 @@
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
     <ClInclude Include="..\src\Cliente\vista\TextView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
+    <ClInclude Include="..\src\Cliente\vista\WaitActivity.h" />
+    <ClInclude Include="..\src\Cliente\vista\WaitView.h" />
     <ClInclude Include="..\src\Cliente\vista\WormView.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\GameController.h" />

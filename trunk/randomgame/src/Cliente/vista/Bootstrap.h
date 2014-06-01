@@ -27,11 +27,15 @@ public:
 	/**Inicialize enviroment*/
 	void init();
 
+	void loadConfigGame();
+
 	/**Shout down enviroment*/
 	void shoutDown();
 
 	/**Load sprites*/
 	void loadSprites();
+
+	void loadWait();
 
 	void initCamera(int w, int h);
 

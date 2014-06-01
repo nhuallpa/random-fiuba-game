@@ -30,7 +30,7 @@ public:
 
 	virtual void stop();
 
-	/** Update the view*/
+	/** Update	 the view*/
 	virtual void update();
 
 	/** Render the view on screen*/

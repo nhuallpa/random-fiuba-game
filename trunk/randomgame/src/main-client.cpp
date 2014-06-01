@@ -32,12 +32,10 @@ int main(int argc, char* argv[]) {
 		int serverPort = atoi(argv[3]);
 		Log::userId = userId;
 
-		Cliente* aClient = new Cliente(userId, serverIp, serverPort);
+		Cliente aClient(userId, serverIp, serverPort);
 
-		if (!aClient->run()){
-			Log::e("Error al correr el juego en modo Cliente");
-		}
-		
+		aClient.run();
+
 	}
 	
 	return 0;

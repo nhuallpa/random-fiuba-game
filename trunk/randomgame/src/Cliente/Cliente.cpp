@@ -29,20 +29,17 @@ Cliente::~Cliente(void){
 }
 
 
-bool Cliente::run(){
+void Cliente::run(){
 
-	if( this->begin()){
-		this->loop();
-	}else{
+	if (!this->begin()){
 		Log::e("Error al iniciar el juego el cliente");
-		return false;
 	}
-	return true;
+	this->loop();
 }
 
 /************************ Start Network Client Side code *************************/
-bool Cliente::begin(){
-
+bool Cliente::openConnection() {
+	
 	bool stat = input.connect2(serverIp.c_str(), serverPort+1);
 	if (!stat){
 		this->srvStatus = SERVER_NOT_RESPONDING;
@@ -57,8 +54,18 @@ bool Cliente::begin(){
 		return false;
 	}
 
+	
 	Log::i("Connected to update port: %d", serverPort+1);
 	this->srvStatus = SERVER_OK;
+	return true;
+}
+
+bool Cliente::begin(){
+
+	if (!this->openConnection())
+	{
+		return false;
+	}
 
 	this->data.cli = this;
 	this->domain.setPlayerID(this->pl);
@@ -72,7 +79,10 @@ bool Cliente::begin(){
 
 	if (this->isLoginOk())
 	{
-		getRemoteWorld(); // recibo el mundo o un codigo de reject
+		updater.retrieveLevel();
+
+		// lo voy a lanzar despues de que el server me diga que comience el juego
+		getRemoteWorld(); 
 
 		//Thread de escucha de mensajes en la red
 		Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
@@ -90,16 +100,71 @@ bool Cliente::begin(){
 	}
 }
 
+
+void Cliente::getRemoteWorld() {
+
+	EDatagram* msg = new EDatagram();
+	
+	//Get amount of users from the server
+	Log::t("Getting amount of users from server ");
+	if (!this->input.rcvmsg(*msg)) {
+		Log::e("Client: connection error - Server disconnected/not responding while retrieving amount of users");
+		this->srvStatus = SERVER_NOT_RESPONDING;
+		return;
+	}
+
+	int count = msg->elements;
+	Log::i("Going to load %d players",count);
+
+	for ( int i=0 ; i < count ; i++ ){
+		Log::t("Loading player: %d ",i);
+		if (!this->input.rcvmsg(*msg)) {
+			Log::e("Client: connection error - Server disconnected/not responding while retrieving their worms");
+			this->srvStatus = SERVER_NOT_RESPONDING;
+			return;
+		}
+		int els = msg->elements;
+		this->domainMx.lock();
+		for ( int j=0; j < els; j++){
+
+			Log::i("Got worm id: %d at pos: %f, %f, action: %s",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, Util::actionString(msg->play[j].action).c_str());
+
+			//Trigger changes into game elements of the client
+			GameElement* elem = getElementFromPlayable(msg->playerID, msg->play[j]);
+					
+			this->domain.addElementToDomain(*elem);
+			
+			if ( msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED){
+				//Set user disconnected
+				this->domain.addPlayer(msg->playerID,DISCONNECTED,0);
+			}else
+				this->domain.addPlayer(msg->playerID,CONNECTED,0);
+		}
+		this->domainMx.unlock();
+
+	}
+	delete msg;
+}
+
+
+
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
 	bool quit = false;
 
 	bootstrap.init();
-
-	this->currentActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);
-	this->gameActivity = static_cast<GameActivity*> (currentActivity);
+	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
+	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
 	
+	if (this->loginOk) 
+	{
+		this->currentActivity = this->gameActivity;
+	} 
+	else 
+	{
+		this->currentActivity = this->waitActivity;
+	}
 	
 	/** refresh the initial view*/
 	this->currentActivity->render();
@@ -117,10 +182,12 @@ void Cliente::loop(void){
 	}
 	currentActivity->stop();
 	cController.destroy();
-	bootstrap.shoutDown();
+	
 	this->disconnectClient();
-	delete currentActivity;
+	delete this->gameActivity;
+	delete this->waitActivity;
 
+	bootstrap.shoutDown();
 }
 
 
@@ -338,64 +405,6 @@ int Cliente::netListener(void* data){
 	delete emsg;
 	Log::i("Cliente::netListener >> Terminado net listen thread");
 	return 0;
-}
-
-int Cliente::sendDatagram(Datagram msg){
-
-	if ( !this->output.sendmsg(msg) ) {
-		//Log::e("connection error");
-		printf("\nClient: connection error");
-		return 1;
-	}
-	return 0;
-
-}
-
-void Cliente::getRemoteWorld() {
-
-	EDatagram* msg = new EDatagram();
-	// Get YAML
-	this->input.receiveFile("res/levels/clienteyaml.yaml");
-
-	//Get amount of users from the server
-	Log::t("Getting amount of users from server ");
-	if (!this->input.rcvmsg(*msg)) {
-		Log::e("Client: connection error - Server disconnected/not responding while retrieving amount of users");
-		this->srvStatus = SERVER_NOT_RESPONDING;
-		return;
-	}
-
-	int count = msg->elements;
-	Log::i("Going to load %d players",count);
-
-	for ( int i=0 ; i < count ; i++ ){
-		Log::t("Loading player: %d ",i);
-		if (!this->input.rcvmsg(*msg)) {
-			Log::e("Client: connection error - Server disconnected/not responding while retrieving their worms");
-			this->srvStatus = SERVER_NOT_RESPONDING;
-			return;
-		}
-		int els = msg->elements;
-		this->domainMx.lock();
-		for ( int j=0; j < els; j++){
-
-			Log::i("Got worm id: %d at pos: %f, %f, action: %s",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, Util::actionString(msg->play[j].action).c_str());
-
-			//Trigger changes into game elements of the client
-			GameElement* elem = getElementFromPlayable(msg->playerID, msg->play[j]);
-					
-			this->domain.addElementToDomain(*elem);
-			
-			if ( msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED){
-				//Set user disconnected
-				this->domain.addPlayer(msg->playerID,DISCONNECTED,0);
-			}else
-				this->domain.addPlayer(msg->playerID,CONNECTED,0);
-		}
-		this->domainMx.unlock();
-
-	}
-	delete msg;
 }
 
 bool Cliente::serverAlive () {
