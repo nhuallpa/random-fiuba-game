@@ -87,33 +87,13 @@ void GameActivity::deselectPreviewsWorm()
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	if (this->wormIdSelected > 0) {
-
-		Playable p;
-		p.action = MOVE_STOP;
-		
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
-		MovementEvent m;
-		m.x = 0;
-		m.y = 0;
-		aWorm->OnMovement(m);
+
 		aWorm->deselect();
-		p.wormid = aWorm->getId();
-		this->wormIdDesSelected = aWorm->getId();
-
-
-		if (this->wormIdDesSelected > 0) {
-			Playable p;
-			p.action = MOVE_STOP;
-			p.wormid = this->wormIdDesSelected;
-			updater.addLocalMovementFromView(p);
-			this->wormIdDesSelected = -1;
-		}
-
+		updater.doStopWorm(aWorm->getId());
 		this->cController->remuveListener(aWorm);
+
 		this->wormIdSelected = -1;
-		
-		//this->aCliente->addLocalMovementFromView(p);
-		
 	}
 	
 }
@@ -122,10 +102,7 @@ void GameActivity::stop()
 {
 	if (this->wormIdSelected > 0) 
 	{
-		Playable p;
-		p.action = MOVE_STOP;
-		p.wormid = this->wormIdSelected;
-		updater.addLocalMovementFromView(p);
+		updater.doStopWorm(this->wormIdSelected);
 		this->wormIdSelected = -1;
 	}
 }
@@ -323,21 +300,21 @@ void GameActivity::OnMovement(MovementEvent e)
 		p.wormid = wormIdSelected;
 		if (e.y == -1)  // Solo saltar
 		{
-			//if (e.x == 1) //Salta derecha
-			//{
-			//	p.action = 	JUMP_RIGHT;
-			//	Log::t("CLIENTE: Saltar derecha");
-			//}
-			//else if (e.x == -1) // Saltar izquierda
-			//{
-			//	p.action = 	JUMP_LEFT;
-			//	Log::t("CLIENTE: Saltar izquierda");
-			//} 
-			//else 
-			//{
+			if (e.x == 1) //Salta derecha
+			{
+				p.action = 	JUMP_RIGHT;
+				Log::t("CLIENTE: Saltar derecha");
+			}
+			else if (e.x == -1) // Saltar izquierda
+			{
+				p.action = 	JUMP_LEFT;
+				Log::t("CLIENTE: Saltar izquierda");
+			} 
+			else 
+			{
 				p.action = 	JUMP;
 				Log::t("CLIENTE: Saltar");
-			//}
+			}
 		}
 		else if (e.x == 1) // derecha
 		{

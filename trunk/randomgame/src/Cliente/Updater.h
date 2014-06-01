@@ -45,6 +45,8 @@ public:
 	/** Realiza el login contra el servidor*/
 	bool doLogin();
 
+	void doStopWorm(int idWorm);
+
 	/** Recupera el level yaml del servidor*/
 	void retrieveLevel();
 

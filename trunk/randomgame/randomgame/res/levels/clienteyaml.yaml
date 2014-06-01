@@ -1,7 +1,7 @@
 metadata:
     epsilon: 5
     scale: 15
-    max_player: 4
+    max_player: 5
     max_per_team: 4
 escenario:
     fps: 60
@@ -9,7 +9,7 @@ escenario:
     alto-un: 400
     alto-px: 400
     ancho-px: 600
-    nivel_agua: 10
+    nivel_agua: 5
     color_agua: "#0000FF99"
     imagen_tierra: res/images/terrain3.png
     color_tierra: "#BC794FFF"
