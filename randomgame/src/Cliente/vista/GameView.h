@@ -30,6 +30,7 @@ private:
 	WaterView* water;
 	TerrainView* terrain;
 	StateBarView* stateBar;
+	View* menuWeapon;
 
 public:
 	GameView(int x, int y, int width, int height);
@@ -42,6 +43,7 @@ public:
 	void setWater(WaterView* water);
 	void setTerrain(TerrainView* terrain);
 	void setStateBar(StateBarView* stateBar);
+	void setMenuWeapon(View* menuWeapon);
 
 	StateBarView* getStateBar() { return this->stateBar;}
 

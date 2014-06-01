@@ -32,6 +32,8 @@ void GameActivity::buildView( GameViewBuilder * builder)
 	builder->buildCharacters();
 	builder->buildWater();
 	builder->buildStateBar();
+	// Comento este metodo hasta probar que funciona, by Erik
+	//builder->buildMenuWeapon();
 
 }
 

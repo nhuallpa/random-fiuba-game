@@ -55,6 +55,12 @@ void GameView::setStateBar(StateBarView* stateBar)
 	this->add(stateBar);
 }
 
+void GameView::setMenuWeapon(View* menuWeapon)
+{
+	this->menuWeapon = menuWeapon;
+	this->add(menuWeapon);
+}
+
 FigureView* GameView::findFigureById(int idElement)
 	
 {

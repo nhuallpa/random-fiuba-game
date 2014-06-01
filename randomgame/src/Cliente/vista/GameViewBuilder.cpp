@@ -194,6 +194,11 @@ void GameViewBuilder::buildStateBar()
 	this->gameView->setStateBar(stateBar);
 }
 
+void GameViewBuilder::buildMenuWeapon(){
+	MenuWeaponView* menuWeapon = new MenuWeaponView(30,20);
+	this->gameView->setMenuWeapon(menuWeapon);
+}
+
 WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 {
 		WormView* aWorm = new WormView(	domainElement->getId());
