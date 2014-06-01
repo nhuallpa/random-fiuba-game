@@ -11,7 +11,7 @@ private:
 
 		
 	// Contains all fx sounds
-	//std::map<std::string, Mix_Chunk*> fx_map;
+	std::map<std::string, Mix_Chunk*> fx_map;
 
 	Mix_Music* music;
 
