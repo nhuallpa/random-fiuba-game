@@ -41,6 +41,8 @@ public:
 
 	void loadEart();
 
+	void loadMenuWeapon();
+
 	SDLScreen & getScreen();
 	
 	~Bootstrap(void);
