@@ -190,7 +190,7 @@
 #define OW "/res/sounds/audio_vox/ow.wav"
 #define STUPID "/res/sounds/audio_vox/stupid.wav"
 #define SURF "/res/sounds/audio_vox/surf.wav"
-#define UH-OH "/res/sounds/audio_vox/uh-oh.wav"
+#define UH_OH "/res/sounds/audio_vox/uh-oh.wav"
 #define WATCHTHIS "/res/sounds/audio_vox/watchthis.wav"
 #define YOULLREGRETTHAT "/res/sounds/audio_vox/youllregretthat.wav"
 

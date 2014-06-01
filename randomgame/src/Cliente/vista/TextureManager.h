@@ -48,7 +48,7 @@ public:
 			return theTextureManager;
 	}
 
-	void init(int w, int h, std::map<std::string, std::string> map_images, SDL_Renderer * renderer);
+	void init(int w, int h);
 
 	void setScreenSize(int w, int h);
 
@@ -63,6 +63,8 @@ public:
 	* @param oper		The aditional operation on image
 	*/
 	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer);
+
+	void loadImages(std::map<std::string, std::string> map_images, SDL_Renderer * renderer);
 
 	bool loadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer);
 

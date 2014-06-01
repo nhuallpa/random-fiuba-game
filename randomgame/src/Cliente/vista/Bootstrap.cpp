@@ -10,8 +10,6 @@ Bootstrap::Bootstrap(void)
 void Bootstrap::init() 
 {
 	Log::i("Bootstrap: Iniciando");
-	std::string path = DEFAULT_YAML_LEVEL;
-	ParserYaml* aParser = ParserYaml::getInstance(path);
 
 	SoundManager::Instance().init();
 	SoundManager::Instance().play();
@@ -21,18 +19,31 @@ void Bootstrap::init()
 	int h = Util::string2int(prop["ventana.alto"]);
 	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
-		this->getScreen().init("Taller TP2", 50, 50, w, h, 0);
+		this->getScreen().init("Fiuba Worms", 50, 50, w, h, 0);
 	} 
 	FontManager::Instance().init(this->getScreen().getRenderer());
+	TextureManager::Instance().init(w,h);
+
+	loadWait();
+
+	// despues de que el server dija comienze el juego
+	loadConfigGame();
+
+}
+
+void Bootstrap::loadConfigGame() 
+{
+	Log::i("Bootstrap: Iniciando");
+	std::string path = DEFAULT_YAML_LEVEL;
+	ParserYaml* aParser = ParserYaml::getInstance(path);
 
 	std::map<std::string, std::string> map_images;
 	map_images["sky"] = aParser->getEscenarioCielo();
-	//map_images["eart"] = aParser->getEscenarioTierra();
 
-	TextureManager::Instance().init(w,h,map_images,this->getScreen().getRenderer());
+	TextureManager::Instance().loadImages(map_images, this->getScreen().getRenderer());
 	loadSprites();
 	loadEart();
-	initCamera(w, h);
+	initCamera(this->getScreen().getWidth(), this->getScreen().getHeight());
 	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
 
 }
@@ -45,6 +56,18 @@ void Bootstrap::initCamera(int w, int h)
 	cam.setDimension(w, h);
 	cam.setWidthScenario(dimensionScenario.first);
 	cam.setHeightScenario(dimensionScenario.second);
+}
+
+void Bootstrap::loadWait()
+{
+	try 
+		{
+			TextureManager::Instance().load("res/images/watting.jpg", "waitting", this->getScreen().getRenderer());
+		} 
+		catch (GameException & e) 
+		{
+			Log::e(BOOT, e.what());		
+		}
 }
 
 void Bootstrap::loadEart()

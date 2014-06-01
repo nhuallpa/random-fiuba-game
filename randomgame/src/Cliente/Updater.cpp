@@ -56,9 +56,15 @@ bool Updater::doLogin()
 
 }
 
+void Updater::retrieveLevel()
+{
+	EDatagram* msg = new EDatagram();
+	// Get YAML
+	this->input->receiveFile("res/levels/clienteyaml.yaml");
 
+	delete msg;
+}
 
-// todo: pasar a Updater
 void Updater::addLocalMovementFromView(Playable p){
 
 	this->m->lock();

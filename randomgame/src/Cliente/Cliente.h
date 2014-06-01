@@ -10,6 +10,7 @@
 #include "vista\Bootstrap.h"
 #include "vista\Activity.h"
 #include "vista\GameActivity.h"
+#include "vista\WaitActivity.h"
 #include "controlador\Contracts\OnMovementListener.h"
 #include <SDL2_framerate.h>
 #include "../utils/Network/Socket.h"
@@ -59,12 +60,18 @@ class Cliente { //: public OnMovementListener{
 		/**Activity que maneja la vista del juego*/
 		GameActivity* gameActivity;
 
+		/**Activity que maneja la vista del juego*/
+		WaitActivity* waitActivity;
+
 		/**Controlador de eventos y estados*/
 		GameController cController;
 		
 		GameDomain domain;
 
 		Updater updater;
+
+		/* Open sockets*/
+		bool openConnection();
 
 		/* Estado de loggin en el server*/
 		bool loginOk;
@@ -104,8 +111,7 @@ class Cliente { //: public OnMovementListener{
 		
 		int sendMsg(Messages type, std::vector<uint8_t> buffer);
 
-		int sendDatagram(Datagram msg);
-		
+	
 		/** informa estado de conexion al servidor*/
 		void informStateClient();
 
@@ -129,7 +135,7 @@ class Cliente { //: public OnMovementListener{
 
 		bool isLoginOk() {return this->loginOk;}
 
-		bool run();
+		void run();
 
 		void destroyWorld();
 
