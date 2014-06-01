@@ -116,6 +116,7 @@ void WormView::select(){
 	this->selected = true;
 }
 void WormView::deselect(){
+	this->state = WORM_VIEW_MOTIONLESS;
 	this->selected = false;
 }
 

@@ -64,6 +64,13 @@ void Updater::retrieveLevel()
 
 	delete msg;
 }
+void Updater::doStopWorm(int idWorm)
+{
+	Playable p;
+	p.action = MOVE_STOP;
+	p.wormid = idWorm;
+	this->addLocalMovementFromView(p);
+}
 
 void Updater::addLocalMovementFromView(Playable p){
 

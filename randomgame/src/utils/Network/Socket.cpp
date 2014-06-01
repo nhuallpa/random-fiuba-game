@@ -435,6 +435,7 @@ bool Socket::rcvmsg (EDatagram &msg){
 
 
 		 if ( nBytes != messageSize && nBytes != SOCKET_ERROR ){
+			 Log::e("Socket::rcvmsg >> I can't recive all message");
 			 memcpy(&msg + count,buffer,nBytes);
 			 count = count + nBytes;
 			 messageSize = messageSize - count;
