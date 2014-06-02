@@ -113,6 +113,31 @@ public:
         keyAction action;
 		bool mouseDown;
 
+		polygon makeConvexRing(b2Vec2 position, float radius, int vertices)
+		{
+			polygon convexRing;
+			const float theta = boost::math::constants::two_pi<float>() / static_cast<float>(vertices);
+
+			float c = std::cos(theta);
+			float s = std::sin(theta);
+
+			float t = 0.0f;
+			float y = 0.0f;
+			float x = radius;
+			for (float i = 0; i < vertices; i++)
+			{
+				float v_x = x + position.x;
+				float v_y = y + position.y;
+				bg::append(convexRing, point(v_x, v_y));
+
+				t = x;
+				x = c * x - s * y;
+				y = s * t + c * y;
+			}
+
+			return convexRing;
+		}
+
 
 		
 		
@@ -125,16 +150,17 @@ public:
 			polygon* explosion = new polygon();
 			float x0 = -500.0f ,y0 = -500.0f;
 			float x,y;
-			for(int i = 0; i < 360; i+=10){
-				x = removalRadius*cos(gradosAradianes(i)) + removalPosition.x;
-				y = removalRadius*sin(gradosAradianes(i)) + removalPosition.y;
-					if(x0==-500.0f && y0==-500.0f){
-							x0 = x;
-							y0 = y;
-					}
-					explosion->outer().push_back(point(x,y));
-			}
-			explosion->outer().push_back(point(x0,y0));
+			//for(int i = 0; i < 360; i+=10){
+			//	x = removalRadius*cos(gradosAradianes(i)) + removalPosition.x;
+			//	y = removalRadius*sin(gradosAradianes(i)) + removalPosition.y;
+			//		if(x0==-500.0f && y0==-500.0f){
+			//				x0 = x;
+			//				y0 = y;
+			//		}
+			//		explosion->outer().push_back(point(x,y));
+			//}
+			//explosion->outer().push_back(point(x0,y0));
+			*explosion = makeConvexRing(removalPosition, removalRadius, 16);
 			
 
 		list <polygon*>* resultado = new list<polygon*>();
