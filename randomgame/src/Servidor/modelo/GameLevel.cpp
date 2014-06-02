@@ -96,16 +96,18 @@ void GameLevel::setWidth(int w){
 void GameLevel::setTerrain( b2World* mworld, char* path,float epsilon, int scale,int waterLevel )
 {
 	GamePosition * gp = GamePosition::getInstance();
-	TerrainProcessor* aNewTerrain = new TerrainProcessor();
-	aNewTerrain->process(mworld, path, epsilon, scale, waterLevel, true, &this->myTerrain, this->myPol);
+	this->aTerrainProcessor = new TerrainProcessor();
+	this->myPol = new list<poly_t*>();
+	
+	this->aTerrainProcessor->process(mworld, path, epsilon, scale, waterLevel, true, &this->myTerrain, this->myPol);
  
 	if(!gp->isCompleted()){
-		list<pair<int,int>> *l =aNewTerrain->getRangeTerrainOverWater();
+		list<pair<int,int>> *l = this->aTerrainProcessor->getRangeTerrainOverWater();
 		
-		gp->generate(aNewTerrain->getMaxPointTerrain().first, aNewTerrain->getWidth());
+		gp->generate(this->aTerrainProcessor->getMaxPointTerrain().first, this->aTerrainProcessor->getWidth());
 		gp->validPosition(l);
 	}
-	this->aTerrainProcessor = aNewTerrain;
+
 }
 
 void GameLevel::removeEntity(int id) {
