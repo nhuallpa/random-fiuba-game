@@ -33,16 +33,9 @@
 #include <boost/geometry/geometries/register/point.hpp>
 #include <boost/geometry/geometries/ring.hpp>
 #include <boost/math/constants/constants.hpp>
+#define PI 3.141592654f
 
 namespace bg = boost::geometry;
-
-BOOST_GEOMETRY_REGISTER_POINT_2D(b2Vec2, float, bg::cs::cartesian, x, y)
-
-typedef boost::geometry::model::ring<b2Vec2, false, true> ring_t;
-typedef std::vector<ring_t> ring_collection_t;
-
-typedef std::unordered_set<b2Body*> QueryResult;
-typedef std::pair<b2Body*, ring_t> match_t;
 
 
 
@@ -59,23 +52,10 @@ using namespace std;
 
 
 
-
-
-		ring_t convertShape(b2Vec2 position, const b2ChainShape* source_shape)
-		{
-			auto vertices = source_shape->m_vertices;
-			auto vertexCount = source_shape->m_count;
-			ring_t ring(vertices, vertices + vertexCount);
-			std::transform(ring.begin(), ring.end(), ring.begin(), [=](b2Vec2 v){ return v + position; });
-			bg::correct(ring);
-
-			return ring;
-		}
-
-
 class WormsTOrig;
 
         b2Vec2 normals1[3];
+
 
 class MyContactListener1 : public b2ContactListener
   {
@@ -128,98 +108,80 @@ public:
         b2Body* bodies[3];
 
 		std::vector<b2Body*> myTerrain;
-
+		std::list<polygon*>* myPol;
         MyContactListener1 myContactListenerInstance;
         keyAction action;
 		bool mouseDown;
 
-		struct WorldQueryCallback : public b2QueryCallback
-		{
-			WorldQueryCallback(b2Shape::Type filter, Shape::Category categoryFilter_)
-			: shapeFilter(filter)
-			, categoryFilter(categoryFilter_)
-			{ }
 
-			bool ReportFixture(b2Fixture* fixture) override
-			{
-				auto type = fixture->GetShape()->GetType();
-				auto fixtureCategory = fixture->GetFilterData().categoryBits;
-				if (type == shapeFilter && (categoryFilter & fixtureCategory))
-				{
-					foundBodies.insert(fixture->GetBody());
-				}
-				return true;
-			}
-
-			QueryResult foundBodies;
-			b2Shape::Type shapeFilter;
-			Shape::Category categoryFilter;
-
-		};
-
-
-ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend)
-		{
-			ring_collection_t out;
-			bg::difference(source, subtrahend, out);
-			return out;
+		
+		
+		float gradosAradianes(float grados){
+				return (grados*PI/180.0f);
 		}
-
-
-
 
 		void doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo){
 
-
-			bool flag=false;
-			//auto foundBodies = queryDestructibleBodies(removalPosition, removalRadius, *mundo);
-			//auto foundBodies = myTerrain;
-			auto batch = matchBodiesToRings(myTerrain.begin(), myTerrain.end());
-			
-
-			ring_t diff = makeConvexRing(removalPosition, removalRadius, 16);
-			boost::geometry::correct(diff);
-			std::vector<b2ChainShape> converted;
-			for( std::vector<match_t>::iterator it = batch.begin(); it != batch.end(); ++it){
-				auto subtractionResult = subtract(it->second, diff);
-				converted = convertGeometry(subtractionResult);
-
-				//Aca en converted tengo el vector de b2Shape
-
-				if (!subtractionResult.empty())
-				{
-					for ( int i=0; i<myTerrain.size() && !flag; i++)
-						mundo->DestroyBody(myTerrain[i]);
-						flag = true;
-						
-				}
+			polygon* explosion = new polygon();
+			float x0 = -500.0f ,y0 = -500.0f;
+			float x,y;
+			for(int i = 0; i < 360; i+=10){
+				x = removalRadius*cos(gradosAradianes(i)) + removalPosition.x;
+				y = removalRadius*sin(gradosAradianes(i)) + removalPosition.y;
+					if(x0==-500.0f && y0==-500.0f){
+							x0 = x;
+							y0 = y;
+					}
+					explosion->outer().push_back(point(x,y));
 			}
-
+			explosion->outer().push_back(point(x0,y0));
 			
-			if ( flag ){
-				myTerrain.clear();
-				for ( int i=0; i < converted.size(); i++){
-					b2BodyDef bd;
-					b2Body* body = mundo->CreateBody(&bd);
-					auto fix = body->CreateFixture(&converted[i], 0.0f);
-					//converted[i].CreateLoop(result,count);
-					b2Filter filter;
-					filter.categoryBits = Shape::destructible;
-					fix->SetFilterData(filter);
-					myTerrain.push_back(body);
-				}
-			}
 
-			
+		list <polygon*>* resultado = new list<polygon*>();
+        for(list<polygon*>::iterator it = this->myPol->begin(); it != this->myPol->end(); it++){
+                list <polygon>* output = new list<polygon>();
+                boost::geometry::difference(*(*it), *explosion, *output);
+                for(list<polygon>::iterator it2 = output->begin(); it2 != output->end(); it2++){
+                        resultado->push_back(&(*it2));
+                }
+                //output.clear();
+        }
+        this->myPol->clear();
+        this->myPol = resultado;
+
+		for(std::vector<b2Body*>::iterator it = myTerrain.begin(); it != myTerrain.end(); it++){
+                mundo->DestroyBody(*it);
+        }
+
+        myTerrain.clear();
+
+        for(std::list<polygon*>::iterator it = resultado->begin(); it != resultado->end(); it++){
+                b2BodyDef* bd = new b2BodyDef();
+                b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
+                int i = 0;
+
+                for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
+                        vs[i].Set((*it2).get<0>(),(*it2).get<1>());
+                        i++;
+                }
+
+                b2ChainShape shape;
+                shape.CreateChain(vs, i);
+                //shape.CreateLoop(vs,i);
+                b2Body* tierra = mundo->CreateBody(bd);
+                tierra->CreateFixture(&shape, 1.0f);
+                myTerrain.push_back(tierra);
+        }
+
+
+
 
 		}
 
 		void MouseDown(const b2Vec2 &p)
 		{
 			doExplosion(p,5.0,m_world);
-
 		}
-
 
 
         WormsTOrig()
@@ -251,6 +213,8 @@ ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend)
                 
                 {
 
+
+						myPol = new list<polygon*>();
                         ////Create Bodies (AKA Worms)
 
 						b2BodyDef myBodyDef;
@@ -292,8 +256,17 @@ ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend)
                         float epsilon=5;
                         int scale =15;
                         int waterLevel=50;
-                        TerrainProcessor* aTerrainProcessor = new TerrainProcessor(m_world,path,epsilon, scale,waterLevel,true,&myTerrain);
+                        TerrainProcessor* aTerrainProcessor = new TerrainProcessor();
+						
+						aTerrainProcessor->process(m_world,path,epsilon, scale,waterLevel,true,&myTerrain,myPol);
                         
+
+
+						
+
+
+
+
 
                 }
 
@@ -315,71 +288,22 @@ ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend)
 
 
 
-	template<typename It>
-	std::vector<match_t> matchBodiesToRings(It begin, It end)
-	{
-		std::vector<match_t> batch;
-
-		std::transform(begin, end, std::back_inserter(batch), [](b2Body* body) ->std::pair<b2Body*, ring_t>
-		{
-			auto f = body->GetFixtureList();
-			auto shape = static_cast<b2ChainShape*>(f->GetShape());
-			return std::make_pair(body, convertShape(body->GetWorldCenter(), shape));
-		});
-
-		return batch;
-	}
-
-	std::unordered_set<b2Body*> queryDestructibleBodies(b2Vec2 position, float radius, const b2World& world)
-	{
-		WorldQueryCallback callback(b2Shape::e_chain, Shape::destructible);
-		b2AABB aabb;
-		aabb.lowerBound = b2Vec2(position.x - radius, position.y - radius );
-		aabb.upperBound = b2Vec2( position.x + radius, position.y + radius );
-
-		world.QueryAABB(&callback, aabb);
-
-		return callback.foundBodies;
-	}
-
-
-	std::vector<b2ChainShape> convertGeometry(ring_collection_t& rings){
-		std::vector<b2ChainShape> shapes;
-		for ( ring_collection_t::iterator r = rings.begin(); r != rings.end(); ++r ){
-			b2ChainShape* shape = new b2ChainShape();
-			//shape->CreateChain(r->data(), r->size());
-			shape->CreateLoop(r->data(), r->size());
-			shapes.push_back(*shape);
-		}
-		return shapes;
-	}
-
-
-
-	// Genera un circulo a partir de la posicion de Box2d, radio y la cantidad de vertices de precision
-	ring_t makeConvexRing(b2Vec2 position, float radius, int vertices)	{
-		ring_t convexRing;
-		const float theta = boost::math::constants::two_pi<float>() / static_cast<float>(vertices);
-
-		float c = std::cos(theta);
-		float s = std::sin(theta);
-
-		float t = 0.0f;
-		float y = 0.0f;
-		float x = radius;
-		for (float i = 0; i < vertices; i++)
-		{
-			float v_x = x + position.x;
-			float v_y = y + position.y;
-			bg::append(convexRing, b2Vec2(v_x, v_y));
-
-			t = x;
-			x = c * x - s * y;
-			y = s * t + c * y;
-		}
-
-		return convexRing;
-	}
+	//polygon* Funciones::explosion(Posicion* centro, float radio){
+	//		polygon* poligono = new polygon();
+	//		float x0 = -500.0f ,y0 = -500.0f;
+	//		float x,y;
+	//		for(int i = 0; i < 360; i+=10){
+	//				x = radio*cos(Funciones::gradosAradianes(i)) + centro->getX();
+	//				y = radio*sin(Funciones::gradosAradianes(i)) + centro->getY();
+	//				if(x0==-500.0f && y0==-500.0f){
+	//						x0 = x;
+	//						y0 = y;
+	//				}
+	//				poligono->outer().push_back(point(x,y));
+	//		}
+	//		poligono->outer().push_back(point(x0,y0));
+	//		return poligono;
+	//}
 
 
 
