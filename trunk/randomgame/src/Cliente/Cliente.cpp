@@ -166,18 +166,20 @@ void Cliente::loop(void){
 		this->currentActivity = this->waitActivity;
 	}
 	
+	this->runGame();
+
 	/** refresh the initial view*/
 	this->currentActivity->render();
-
 	informStateClient();
 	FPSmanager fpsManager;
 	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
+	
 	while (!this->cController.isQuit()){		
 		cController.handlerEvent();
-		this->runGame();
 		currentActivity->update();
 		currentActivity->render();
+		// evaluar cambio de pantalla
 		SDL_framerateDelay(&fpsManager);
 	}
 	currentActivity->stop();
