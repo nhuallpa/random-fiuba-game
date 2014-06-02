@@ -107,6 +107,8 @@ class Servidor{
 		Mutex playerslock;
 		Condition canAddNews;
 
+
+
 		void waitConnections();
 		void notifyAll();
 	

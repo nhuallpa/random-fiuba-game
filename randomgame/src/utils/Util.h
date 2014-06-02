@@ -7,10 +7,13 @@
 #include <map>
 #include <stdlib.h>
 
-
 typedef std::string Player;
 
-enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED};
+#define DYNAMITE_TIMEOUT 5
+#define GRANADE_TIMEOUT 3
+
+enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED, WAITING_TURN};
+enum GameState {STARTED, WAITING_PLAYERS, OVER, WIN};
 
 typedef enum{
 	NEW_PLAYER=0,
@@ -38,6 +41,28 @@ typedef enum{
 	MOVELESS_RIGHT,
 	MOVELESS_LEFT
 } Movement;
+
+
+typedef enum{
+	YOUR_TURN=0,
+	WAITING_FOR_TURN,
+	TURN_OVER
+} Turn;
+
+
+typedef enum{
+	BAZOOKA=2,
+	GRANADE=4,
+	HOLY=12,
+	AIRATTACK=3,
+	DYNAMITE=5
+} Weapons;
+
+
+
+//If action is WITH_WEAPON then X and Y means angle of weapon.
+// - Dynamite X,Y drops at worm position.
+// - Air Attack X,Y means center of where the air attack is going to be dropped
 
 typedef struct {
 		int wormid;			// Worm identifier, unique
