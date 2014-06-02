@@ -9,7 +9,6 @@
 #include "../../utils/PersistYaml.h"
 #include "../../utils/Util.h"
 #include "TerrainProcessor.h"
-//#include "../../utils/utils.h"
 #include "GamePlayer.h"
 #include "Exceptions\PlayerException.h"
 
@@ -22,7 +21,8 @@ class GameLevel {
 		int amountUser;
 		int amountWorms;
 		int idUnique;
-		
+		std::vector<b2Body*> myTerrain;
+		std::list<poly_t*>* myPol;
 
 		void addUserIntoLevel(string user)
 			throw(PlayerExp);
@@ -59,7 +59,7 @@ class GameLevel {
 		// Setters
 		void setHeight(int h);
 		void setWidth(int w);
-		void setTerrain(TerrainProcessor* aTerrainProcessor);
+		void setTerrain( b2World* mworld, char* path,float epsilon, int scale,int waterLevel );
 
 		//TODO @future - void removePlayer(GamePlayer *jugador);
 		void addPlayer(string user, GamePlayer *pg);//TODO @future - void addPlayer(GamePlayer *jugador);
@@ -96,6 +96,8 @@ class GameLevel {
 
 		std::map<string, GamePlayer*> getPlayers(){ return this->players; }
 
+		void doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo);
+		poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
 
 		int updateStep;
 

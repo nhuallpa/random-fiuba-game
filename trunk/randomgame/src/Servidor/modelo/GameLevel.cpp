@@ -93,16 +93,19 @@ void GameLevel::setWidth(int w){
 	this->levelWidth = w;
 }
 
-void GameLevel::setTerrain(TerrainProcessor* aNewTerrain)
+void GameLevel::setTerrain( b2World* mworld, char* path,float epsilon, int scale,int waterLevel )
 {
 	GamePosition * gp = GamePosition::getInstance();
+	TerrainProcessor* aNewTerrain = new TerrainProcessor();
+	aNewTerrain->process(mworld, path, epsilon, scale, waterLevel, true, &this->myTerrain, this->myPol);
+ 
 	if(!gp->isCompleted()){
 		list<pair<int,int>> *l =aNewTerrain->getRangeTerrainOverWater();
 		
 		gp->generate(aNewTerrain->getMaxPointTerrain().first, aNewTerrain->getWidth());
 		gp->validPosition(l);
 	}
-	this->aTerrainProcessor=aNewTerrain;
+	this->aTerrainProcessor = aNewTerrain;
 }
 
 void GameLevel::removeEntity(int id) {
@@ -420,6 +423,81 @@ void GameLevel::connectWormsFromPlayer(std::string playerId){
 				(*itW)->setAction(MOVELESS);
 		}
 
+	}
+
+}
+
+
+poly_t GameLevel::makeConvexRing(b2Vec2 position, float radius, int vertices)
+{
+	poly_t convexRing;
+	const float theta = boost::math::constants::two_pi<float>() / static_cast<float>(vertices);
+
+	float c = std::cos(theta);
+	float s = std::sin(theta);
+
+	float t = 0.0f;
+	float y = 0.0f;
+	float x = radius;
+	for (float i = 0; i < vertices; i++)
+	{
+		float v_x = x + position.x;
+		float v_y = y + position.y;
+		bg::append(convexRing, point(v_x, v_y));
+
+		t = x;
+		x = c * x - s * y;
+		y = s * t + c * y;
+	}
+
+	return convexRing;
+}
+
+
+void GameLevel::doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo){
+
+	poly_t* explosion = new poly_t();
+	*explosion = this->makeConvexRing(removalPosition, removalRadius, 16);
+			
+	list <poly_t*>* afterExplode = new list<poly_t*>();
+	for(list<poly_t*>::iterator it = this->myPol->begin(); it != this->myPol->end(); it++){
+		list <poly_t>* output = new list<poly_t>();
+		boost::geometry::difference(*(*it), *explosion, *output);
+		for(list<poly_t>::iterator it2 = output->begin(); it2 != output->end(); it2++){
+				afterExplode->push_back(&(*it2));
+		}
+	}
+	this->myPol->clear();
+	this->myPol = afterExplode;
+
+	for(std::vector<b2Body*>::iterator it = myTerrain.begin(); it != myTerrain.end(); it++){
+			mundo->DestroyBody(*it);
+	}
+
+	myTerrain.clear();
+
+	for(std::list<poly_t*>::iterator it = afterExplode->begin(); it != afterExplode->end(); it++){
+		b2BodyDef* bd = new b2BodyDef();
+		b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
+		int vertexCount = 0;
+		for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
+				vs[vertexCount].Set((*it2).get<0>(),(*it2).get<1>());
+				vertexCount++;
+		}
+
+		b2ChainShape shape;
+		shape.CreateChain(vs, vertexCount);
+
+		bd->type = b2_staticBody; //this will be a static body
+		b2Body* newTerrainBody = mundo->CreateBody(bd);
+
+		b2FixtureDef myFixtureDef;
+		myFixtureDef.friction = 0.999;
+		myFixtureDef.userData = ( (void*)2 );
+		myFixtureDef.shape = &shape; //change the shape of the fixture
+		newTerrainBody->CreateFixture(&myFixtureDef);	
+		
+		myTerrain.push_back(newTerrainBody);
 	}
 
 }

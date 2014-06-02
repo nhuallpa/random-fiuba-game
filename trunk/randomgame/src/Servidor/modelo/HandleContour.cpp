@@ -279,3 +279,12 @@ vector<b2Vec2>::iterator result;
 
 
 
+vector<b2Vec2> HandleContour::getPolygonConvex(vector<b2Vec2> contour, float epsilon, int scale, bool chained){
+	vector<b2Vec2> contourAux;
+	
+	contourAux = this->rdp(contour, epsilon);
+	
+	return contourAux;
+}
+
+
