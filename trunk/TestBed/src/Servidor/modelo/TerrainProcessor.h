@@ -14,7 +14,15 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <list>
+#include <boost/geometry/geometry.hpp>
+#include <boost/geometry/geometries/register/point.hpp>
+#include <boost/geometry/geometries/ring.hpp>
+#include <boost/math/constants/constants.hpp>
 
+namespace bg = boost::geometry;
+typedef boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian> point;
+typedef boost::geometry::model::polygon<point, false, true> polygon;
 
 using namespace std;
 
@@ -41,8 +49,12 @@ private:
 	
 
 public:
+	TerrainProcessor();
+
+	void  process(b2World* mworld, char* path,float epsilon, int scale,int waterLevel, bool chained, std::vector<b2Body*>* myTerrain, std::list<polygon*>* myPol);
+
 	TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale, int waterLevel);
-		TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale, int waterLevel, bool chained, std::vector<b2Body*>* myTerrain);
+		TerrainProcessor(b2World* m_world, char* path,float epsilon, int scale, int waterLevel, bool chained, std::vector<b2Body*>* myTerrain, std::vector<polygon*>* myPol);
 	TerrainProcessor(b2World* m_world, char* path,float epsilon);
 	list< list< pair<float,float> > > * getListOfPolygons();
 	~TerrainProcessor(void);
