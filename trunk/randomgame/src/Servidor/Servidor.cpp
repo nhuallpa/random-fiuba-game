@@ -251,9 +251,8 @@ int Servidor::wait4Connections(void* data){
 			srv->jugadoresConectados++;
 			
 			Thread clientThread("Client Thread",initClient,dataCliente);
-
-
 		}
+	
 	}
 
 	return 0;
@@ -280,6 +279,10 @@ int Servidor::initClient(void* data){
 
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
+
+	Condition* canStart =  &srv->canAddNews;
+	Mutex* allIn =  &srv->playerslock;
+
 
 	std::vector<uint8_t> datos(10);
 	std::vector<uint8_t> keepaliveData(10);
@@ -328,7 +331,7 @@ int Servidor::initClient(void* data){
 
 
 	
-
+	
 	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
 					std::make_pair(aThreadData->clientO,
 					aThreadData->clientI)
@@ -345,6 +348,15 @@ int Servidor::initClient(void* data){
 	//Envio el nivel YAML al cliente
 	ParserYaml* aParser = ParserYaml::getInstance();
 	aThreadData->clientI.sendFile(aParser->getLevelFilePath());
+
+	//En este punto el cliente se registro OK, chequeo si estan todos los players, si no espero.
+
+	allIn->lock();
+	while ( srv->pList.size() != srv->cantJugadores ){
+		canStart->wait();
+	}
+	canStart->broadcast();
+
 
 	printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
 	int i = 0;
