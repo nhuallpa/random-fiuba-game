@@ -40,17 +40,18 @@ bool GameEngine::initWorld(){
 	this->timeStep = 1.0 / TIME_STEP;//Util::string2float(aParser->getMetaTime());
 	Log::i("TimeStep: %f",this->timeStep);
 
-	try{
-		aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
-	}
-	catch(ContourExp e){
-		Log::e("SE CARGA TERRENO POR DEFECTO, res/images/terrain1.png, TEMPANOS DE HIELO");
-		aParser->setTerrain("res/images/terrain1.png");
-		aParser = ParserYaml::getInstance(aParser->getFilePath().c_str());
-		aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
-	}
+	//try{
+		/*aTerrainProcessor=new TerrainProcessor();
+		aTerrainProcessor->process(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));*/
+	//}
+	//catch(ContourExp e){
+	//	Log::e("SE CARGA TERRENO POR DEFECTO, res/images/terrain1.png, TEMPANOS DE HIELO");
+	//	aParser->setTerrain("res/images/terrain1.png");
+	//	aParser = ParserYaml::getInstance(aParser->getFilePath().c_str());
+	//	aTerrainProcessor=new TerrainProcessor(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
+	//}
 	
-	this->gameLevel->setTerrain(aTerrainProcessor);
+	this->gameLevel->setTerrain(this->myWorld,(char*)aParser->getEscenarioTierra().c_str(),atof(aParser->getMetaEps().c_str()),atoi(aParser->getMetaSca().c_str()),atoi(aParser->getEscenarioAgua().c_str()));
 
 	
 	//Crea cuerpos en base a elementos del nivel (la logica de posicionamiento primero en el modelo puro de objetos)

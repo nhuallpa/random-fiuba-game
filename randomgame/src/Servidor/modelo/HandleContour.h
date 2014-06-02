@@ -24,6 +24,11 @@ namespace server_model_handle{
 			                 float epsilon, 
 							 int scale) throw (ContourExp);
 
+		vector<b2Vec2> getPolygonConvex(vector<b2Vec2> contour,
+										float epsilon, 
+										int scale,
+										bool chained);
+
 	private:
 		map<int, string> _error;
 		vector<b2Vec2> rdp(vector<b2Vec2> contour, float epsilon);
