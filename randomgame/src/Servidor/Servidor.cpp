@@ -236,6 +236,9 @@ int Servidor::wait4Connections(void* data){
 	Condition* cond = &srv->canUpdate;
 	Mutex* m = &srv->lock;
 
+	Condition* canStart =  &srv->canAddNews;
+	Mutex* allIn =  &srv->playerslock;
+
 	int players = 0;
 	while (true){
 		Sleep(10);
@@ -249,8 +252,13 @@ int Servidor::wait4Connections(void* data){
 			dataCliente->clientI = sClientI;
 			dataCliente->clientO = sClientO;
 			srv->jugadoresConectados++;
-			
 			Thread clientThread("Client Thread",initClient,dataCliente);
+		}
+
+		// Avisa si todos estan conectados
+		if ( srv->jugadoresConectados == srv->cantJugadores){
+			srv->notifyAll();
+
 		}
 	
 	}
@@ -351,17 +359,18 @@ int Servidor::initClient(void* data){
 
 	//En este punto el cliente se registro OK, chequeo si estan todos los players, si no espero.
 
-	allIn->lock();
+	srv->playerMutexes[playerId].first->lock();
+	
 	while ( srv->pList.size() != srv->cantJugadores ){
-		canStart->wait();
+		srv->playerMutexes[playerId].second->wait();
 	}
-	canStart->broadcast();
+	srv->playerMutexes[playerId].first->unlock();
 
 
 	printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
 	int i = 0;
 	std::string pl;
-	
+		
 	//Notifico de todos los players que tengo en el mundo
 	datagram->elements = srv->gameEngine.getLevel()->getAmountOfUsers();
 	aThreadData->clientI.sendmsg(*datagram);
@@ -376,7 +385,7 @@ int Servidor::initClient(void* data){
 		datagram->playerState = srv->gameEngine.getLevel()->getPlayerStatus(itGP->second->playerID);
 		int el = srv->gameEngine.getLevel()->getWormsFromPlayer(itGP->second->playerID,datagram->play);
 		datagram->elements = el;
-		printf("\nSending %d elements at init",el);
+		printf("\nSending %d elements about player: %s at init",el,itGP->second->playerID.c_str());
 		aThreadData->clientI.sendmsg(*datagram);
 	}
 	
@@ -388,7 +397,7 @@ int Servidor::initClient(void* data){
 	std::strcpy(dataCliente->p,playerId);
 	Thread clientThread("Update Client Thread",updateClient,dataCliente);
 
-	Sleep(10);
+	//Sleep(10);
 
 	//Tell everybody that a new player has arrived!
 	srv->notifyUsersAboutPlayer(playerId);
