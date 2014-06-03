@@ -52,6 +52,8 @@ public:
 
 	void deselectPreviewsWorm();
 
+	void doExplotion(float x, float y, float radio);
+
 	void selectWorm(WormView* aWorm);
 
 	bool hasClickedWorm(SDL_Point clickPoint);
@@ -71,6 +73,12 @@ public:
 	void showMessageError(std::string msg);
 
 	void showMessageInfo(std::string msg);
+
+	void otherTurn(std::string playerId);
+
+	void endMyTurn();
+
+	void beginMyTurn();
 
 	~GameActivity(void);
 };
