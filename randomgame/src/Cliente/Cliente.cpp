@@ -21,6 +21,9 @@ Cliente::Cliente(std::string playerID, std::string ip, int port)
 {
 	this->loginOk = false;
 	this->advance = SDL_CreateSemaphore( 1 );
+
+	this->gameReady = false;
+	this->gameOver = false;
 	
 }
 
@@ -82,7 +85,7 @@ bool Cliente::begin(){
 		updater.retrieveLevel();
 
 		// lo voy a lanzar despues de que el server me diga que comience el juego
-		getRemoteWorld(); 
+		//getRemoteWorld(); 
 
 		//Thread de escucha de mensajes en la red
 		Thread networkUpdatesThread("Net Updates",applyNetworkChanges,&data);
@@ -157,14 +160,14 @@ void Cliente::loop(void){
 	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
 	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
 	
-	if (this->loginOk) 
+	/*if (this->loginOk) 
 	{
 		this->currentActivity = this->gameActivity;
 	} 
 	else 
-	{
+	{*/
 		this->currentActivity = this->waitActivity;
-	}
+	//}
 	
 	this->runGame();
 
@@ -180,6 +183,16 @@ void Cliente::loop(void){
 		currentActivity->update();
 		currentActivity->render();
 		// evaluar cambio de pantalla
+
+		if (this->gameReady) 
+		{
+			this->currentActivity = this->gameActivity;
+		} 
+		else if (this->gameOver) 
+		{
+			this->currentActivity = this->waitActivity;
+		}
+
 		SDL_framerateDelay(&fpsManager);
 	}
 	currentActivity->stop();

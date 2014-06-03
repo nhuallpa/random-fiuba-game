@@ -79,8 +79,8 @@ public:
 	* Draw a frame from sprite
 	*
 	* @param id Id de imagen 
-	* @param x  Position in axis x
-	* @param y  Position in axis y
+	* @param x  Position in axis x on scenario
+	* @param y  Position in axis y on scenario
 	* @param width Width of frame 
 	* @param height Height of frame
 	* @param currentRow row to draw. Beginning since 1
@@ -90,6 +90,25 @@ public:
 	* 
 	**/
 	void drawFrame(std::string id, int x, int y, int width, int
+					height, int currentRow, int currentFrame, SDL_Renderer*
+					pRenderer,bool grey, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+
+	/**
+	* Draw a frame from sprite on screen
+	*
+	* @param id Id de imagen 
+	* @param x  Position in axis x on SCREEN
+	* @param y  Position in axis y on SCREEN
+	* @param width Width of frame 
+	* @param height Height of frame
+	* @param currentRow row to draw. Beginning since 1
+	* @param currentFrame frame to draw. Beginning since 0
+	* @param pRenderer Render to draw
+	* @param flip SDL flip
+	* 
+	**/
+	void drawFrameOnScreen(std::string id, int x, int y, int width, int
 					height, int currentRow, int currentFrame, SDL_Renderer*
 					pRenderer,bool grey, SDL_RendererFlip flip = SDL_FLIP_NONE);
 

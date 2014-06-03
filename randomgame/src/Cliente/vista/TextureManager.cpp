@@ -247,6 +247,34 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 	if (grey) SDL_SetTextureColorMod(this->texture_map[id],255,255,255);
 }
 
+
+void TextureManager::drawFrameOnScreen(std::string id, int x, int y, int width, int
+					height, int currentRow, int currentFrame, SDL_Renderer*
+					pRenderer,bool grey, SDL_RendererFlip flip)
+{
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+	SDL_Rect viewPort;
+	srcRect.x = width * currentFrame;
+	srcRect.y = height * currentRow;
+	
+	srcRect.w = destRect.w = width;
+	srcRect.h = destRect.h = height;
+
+	destRect.x = x;
+	destRect.y = y;
+	
+	viewPort.x = 0;
+	viewPort.y = 0;
+	viewPort.w = this->cam.getW();
+	viewPort.h = this->cam.getH();
+	if (grey) SDL_SetTextureColorMod(this->texture_map[id],100,100,100);
+	if (intersectRects(destRect, viewPort)) {
+		SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	}
+	if (grey) SDL_SetTextureColorMod(this->texture_map[id],255,255,255);
+}
+
 std::pair<int, int> TextureManager::getDimension(std::string imageId)
 {
 	SDL_Rect rect;

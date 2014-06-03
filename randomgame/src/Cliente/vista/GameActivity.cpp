@@ -193,7 +193,18 @@ void GameActivity::OnClick(ClickEvent e){
 			selectWorm(aWorm);
 		}
 	}
-	else deselectPreviewsWorm();
+	/*else if (hasClickedMenu(clickPoint) && wormIdSelected != -1)
+	{
+		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
+		int idWeapon = retrieveWaponId(clickPoint);
+		selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
+		aWorm->setWeapon(idWapon);
+		updater.doSelectWapon(wormIdSelected, idWapon);
+	}*/
+	else
+	{
+		deselectPreviewsWorm();
+	}
 
 	
 }
