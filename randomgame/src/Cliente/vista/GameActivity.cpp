@@ -117,6 +117,11 @@ void GameActivity::selectWorm(WormView* aWorm)
 	}
 }
 
+void GameActivity::doExplotion(float x, float y, float radio)
+{
+	//TODO: @Nestor romper terreno imagen
+}
+
 
 void GameActivity::calcRectPosition(SDL_Rect& wormRect,WormView *aWorm){
 	
@@ -193,14 +198,14 @@ void GameActivity::OnClick(ClickEvent e){
 			selectWorm(aWorm);
 		}
 	}
-	/*else if (hasClickedMenu(clickPoint) && wormIdSelected != -1)
-	{
-		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
-		int idWeapon = retrieveWaponId(clickPoint);
-		selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
-		aWorm->setWeapon(idWapon);
-		updater.doSelectWapon(wormIdSelected, idWapon);
-	}*/
+	//else if (hasClickedMenu(clickPoint) && wormIdSelected != -1)
+	//{
+	//	WormView* aWorm = gameView->findWormById(this->wormIdSelected);
+	//	int idWeapon = retrieveWaponId(clickPoint);
+	//	selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
+	//	aWorm->setWeapon(idWapon);
+	//	updater.doSelectWapon(wormIdSelected, idWapon);
+	//}
 	else
 	{
 		deselectPreviewsWorm();
@@ -209,12 +214,32 @@ void GameActivity::OnClick(ClickEvent e){
 	
 }
 
+void GameActivity::otherTurn(std::string playerId) 
+{
+	// seter el label del gameview para mostar el turno de peppito
+}
+
+void GameActivity::endMyTurn() 
+{
+	this->cController->remuveOnClickListener(this);
+	this->cController->remuveOnMovementListener(this);
+}
+
+
+void GameActivity::beginMyTurn() 
+{
+	this->cController->addOnClickListener(this);
+	this->cController->addOnMovementListener(this);
+}
+
 
 void GameActivity::setListeners(SDLScreen &  screen) 
 {
-	this->cController->addListener(&TextureManager::Instance().getCamera());
+	/* TODO: @Ariel, sacar estas dos lineas*/
 	this->cController->addOnClickListener(this);
 	this->cController->addOnMovementListener(this);
+
+	this->cController->addListener(&TextureManager::Instance().getCamera());
 	this->cController->addListener(&screen);
 }
 

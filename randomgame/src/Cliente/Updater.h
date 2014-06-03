@@ -47,10 +47,15 @@ public:
 
 	void doStopWorm(int idWorm);
 
+	void doSelectWapon(int wormIdSelected, int idWapon);
+
 	/** Recupera el level yaml del servidor*/
 	void retrieveLevel();
 
 	void addLocalMovementFromView(Playable p);
+
+	/** x y cross head*/
+	void doShoot(int wormId, int idWapon, int x_aim, int y_aim);
 
 };
 

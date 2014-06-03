@@ -72,6 +72,26 @@ void Updater::doStopWorm(int idWorm)
 	this->addLocalMovementFromView(p);
 }
 
+void Updater::doSelectWapon(int wormId, int idWapon)
+{
+	Playable p;
+	p.action = WITH_WEAPON;
+	p.wormid = wormId;
+	//TODO: @Ariel descomentar cuando agreges el wapon
+	//p.waponid = idWapon;
+	this->addLocalMovementFromView(p);
+}
+
+void Updater::doShoot(int wormId, int idWapon, int x_aim, int y_aim)
+{
+	Playable p;
+	p.action = WITH_WEAPON;
+	p.wormid = wormId;
+	//TODO: @Ariel descomentar cuando agreges el wapon
+	//p.waponid = idWapon;
+	this->addLocalMovementFromView(p);
+}
+
 void Updater::addLocalMovementFromView(Playable p){
 
 	this->m->lock();
