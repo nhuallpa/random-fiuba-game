@@ -470,6 +470,7 @@ void TextureManager::drawCircleOn(SDL_Surface *surface, int centerX, int centerY
     }
 }
 
+/*cx and cy are center points*/
 void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
 {
  
@@ -480,11 +481,18 @@ void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radi
     for (double dy = 1; dy <= r; dy += 1.0)
     {
         double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));
+
+		// col_left = cx - dx;
         int x = cx - dx;
- 
+		Log::t("Ancho fila circulo %f", dx);
+		// validar que los pixeles se modifiquen dentro del
+
+		// row_top = (cy - r + dy) * surface->pitch // Borde arriba hacia abajo
+		// row_bottom = (cy + r - dy) * surface->pitch// Borde abajo hacia arriba   
         Uint8 *target_pixel_a = (Uint8 *)surface->pixels + ((int)(cy + r - dy)) * surface->pitch + x * BPP;
         Uint8 *target_pixel_b = (Uint8 *)surface->pixels + ((int)(cy - r + dy)) * surface->pitch + x * BPP;
  
+		// col_right = cx + dx;
         for (; x <= cx + dx; x++)
         {
             *(Uint32 *)target_pixel_a = pixel;
