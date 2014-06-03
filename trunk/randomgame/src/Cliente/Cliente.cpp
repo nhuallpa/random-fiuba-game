@@ -350,6 +350,12 @@ int Cliente::netListener(void* data){
 	Mutex* n = &(cli)->n;
 	Condition* netcond = &(cli)->somethingToUpdate;
 
+
+	// Si recibo un GAME START puedo iniciar el Juego
+	
+	
+	cli->getRemoteWorld();
+
 	EDatagram* emsg = new EDatagram();
 	bool closeListen = false;
 	while(!cli->cController.isQuit() && !closeListen){
