@@ -50,6 +50,8 @@ public:
 	FigureView* findFigureById(int idElement);
 	WormView* findWormById(int idElement);
 
+	void getDestroyEart(int x, int y, int radio);
+
 	~GameView(void);
 };
 

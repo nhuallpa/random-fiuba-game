@@ -81,3 +81,8 @@ WormView* GameView::findWormById(int idElement)
 }
 
 
+void GameView::getDestroyEart(int x, int y, int radio)
+{
+	this->eart->drawExplotion(x, y, radio);
+}
+

@@ -119,7 +119,11 @@ void GameActivity::selectWorm(WormView* aWorm)
 
 void GameActivity::doExplotion(float x, float y, float radio)
 {
-	//TODO: @Nestor romper terreno imagen
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	int xView = x * ESCALA_UL2PX;
+	int yView = y * ESCALA_UL2PX;
+	int rView = radio * ESCALA_UL2PX;
+	gameView->getDestroyEart(xView, yView, rView);
 }
 
 
