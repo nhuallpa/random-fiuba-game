@@ -13,7 +13,7 @@ MenuWeaponView::~MenuWeaponView(){
 }
 
 void MenuWeaponView::draw(SDLScreen & screen){
-	TextureManager::Instance().drawFrame("gun_1", 
+	TextureManager::Instance().drawFrameOnScreen("gun_1", 
 									30, 
 									30, 
 									50, 

@@ -76,6 +76,9 @@ class Cliente { //: public OnMovementListener{
 		/* Estado de loggin en el server*/
 		bool loginOk;
 
+		bool gameReady;
+		bool gameOver;
+
 		/**Inicia la conexion con el servidor y 
 		   inicia la session con el servidor*/
 		bool begin();	
