@@ -111,6 +111,7 @@ class Servidor{
 
 		void waitConnections();
 		void notifyAll();
+		void initialNotify();
 	
 		static int updating(void* data);
 		static int initClient(void* data);

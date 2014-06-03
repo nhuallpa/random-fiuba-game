@@ -146,6 +146,7 @@ void Cliente::getRemoteWorld() {
 		this->domainMx.unlock();
 
 	}
+	this->gameReady = true;
 	delete msg;
 }
 
@@ -177,22 +178,20 @@ void Cliente::loop(void){
 	FPSmanager fpsManager;
 	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
-	
-	while (!this->cController.isQuit()){		
+
+	//Dibujo wait
+	currentActivity->update();
+	currentActivity->render();
+
+	while (!this->gameReady) 
+	{
+			Sleep(1);
+	}
+	this->currentActivity = this->gameActivity;
+	while (!this->cController.isQuit() && !this->gameOver && this->gameReady){		
 		cController.handlerEvent();
 		currentActivity->update();
 		currentActivity->render();
-		// evaluar cambio de pantalla
-
-		if (this->gameReady) 
-		{
-			this->currentActivity = this->gameActivity;
-		} 
-		else if (this->gameOver) 
-		{
-			this->currentActivity = this->waitActivity;
-		}
-
 		SDL_framerateDelay(&fpsManager);
 	}
 	currentActivity->stop();

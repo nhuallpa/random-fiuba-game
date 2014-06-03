@@ -151,7 +151,7 @@ int Servidor::stepOver(void* data){
 
 	int i=0;
 	while(true){
-		Sleep(20);
+		Sleep(15);
 
 		w->lock();
 		srv->getGameEngine().step();
@@ -257,7 +257,7 @@ int Servidor::wait4Connections(void* data){
 
 		// Avisa si todos estan conectados
 		if ( srv->jugadoresConectados == srv->cantJugadores){
-			srv->notifyAll();
+			srv->initialNotify();
 
 		}
 	
@@ -397,7 +397,7 @@ int Servidor::initClient(void* data){
 	std::strcpy(dataCliente->p,playerId);
 	Thread clientThread("Update Client Thread",updateClient,dataCliente);
 
-	//Sleep(10);
+	Sleep(10);
 
 	//Tell everybody that a new player has arrived!
 	srv->notifyUsersAboutPlayer(playerId);
@@ -428,6 +428,7 @@ int Servidor::initClient(void* data){
 			case UPDATE:
 				m->lock();
 				Log::t("Got update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
+				//printf("Got update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
 
@@ -523,7 +524,7 @@ int Servidor::updateClient(void* data){
     while(true){           
 		//Sleep(25);
 		srv->playerMutexes[playerId].first->lock();
-		if ( srv->playerQueues[playerId]->empty() ){
+		while ( srv->playerQueues[playerId]->empty() ){
 			srv->playerMutexes[playerId].second->wait();
 		}
 		//printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
@@ -534,6 +535,7 @@ int Servidor::updateClient(void* data){
 		if ( datagram.type == PLAYER_UPDATE && !datagram.playerID.compare(playerId) )
 			continue;
 		//Log::i("Sending type: %d to %s",datagram.type,playerId);
+		//printf("\nENVIO");
 		if ( !aThreadData->clientI.sendmsg(datagram) ){
 			printf("Desconectando cliente: %s desde Update Thread",playerId);
 			srv->disconnect(playerId);
@@ -598,6 +600,20 @@ void Servidor::notifyAll(){
 	for( ; itm!=mutexes.end(); ++itm){
 		itm->second.first->lock();
 		this->playerQueues[itm->first]->push( this->worldQ );
+		itm->second.second->signal();
+		itm->second.first->unlock();
+	}
+
+
+}
+
+void Servidor::initialNotify(){
+
+	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
+	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
+
+	for( ; itm!=mutexes.end(); ++itm){
+		itm->second.first->lock();
 		itm->second.second->signal();
 		itm->second.first->unlock();
 	}
