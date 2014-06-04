@@ -9,6 +9,7 @@
 #include "Contracts\OnMovementListener.h"
 #include "Contracts\OnScrollListener.h"
 #include "Contracts\OnZoomListener.h"
+#include "Contracts\OnActionListener.h"
 
 class GameController{
 	public:
@@ -19,13 +20,15 @@ class GameController{
 		void destroy();
 		void addListener(OnClickListener* c);
 		void addListener(OnMovementListener* m);
-		
 		void addListener(OnScrollListener* s);
 		void addListener(OnZoomListener* z);
+		void addListener(OnActionListener* a);
+
 		void remuveListener(OnClickListener* c);
 		void remuveListener(OnMovementListener* m);
 		void remuveListener(OnScrollListener* s);
 		void remuveListener(OnZoomListener* z);
+		void remuveListener(OnActionListener* a);
 
 		/*para evistar 'ambiguous call to overloaded function'*/
 		void addOnClickListener(OnClickListener* c);
