@@ -155,7 +155,7 @@ int Servidor::stepOver(void* data){
 
 	printf("\nInicio tiempo");
 	timeHandler.start();
-	srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+	//srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 	while(true){
 		
@@ -344,6 +344,7 @@ int Servidor::initClient(void* data){
 					aThreadData->clientI)
 					)
 				);
+
 
 	allIn->lock();
 	srv->inserPlayerIntotWorld(datagram->playerID);

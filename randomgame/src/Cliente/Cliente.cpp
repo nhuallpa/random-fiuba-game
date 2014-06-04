@@ -344,16 +344,13 @@ int Cliente::notifyLocalUpdates(void *data){
 
 
 int Cliente::netListener(void* data){
-	//Sleep(45);
+	Sleep(25);
 	Log::i("Cliente::netListener >> Disparado net listen thread");
 	threadData* tData = (threadData*)data;
 	Cliente* cli = tData->cli;
 	char* playerId = tData->p;
 	Mutex* n = &(cli)->n;
 	Condition* netcond = &(cli)->somethingToUpdate;
-
-
-	// Si recibo un GAME START puedo iniciar el Juego
 	
 	
 	cli->getRemoteWorld();
@@ -390,18 +387,18 @@ int Cliente::netListener(void* data){
 			break;
 
 		case TURN_CHANGE:
-			//Process turn variation
-			if ( emsg->playerID.compare(playerId) ){
-				//not my turn
-				Log::i("Not My turn, turn for: %s, i am: %s",emsg->playerID.c_str(),playerId );
-				cli->gameActivity->endMyTurn();
-				cli->gameActivity->otherTurn(emsg->playerID);
+			////Process turn variation
+			//if ( emsg->playerID.compare(playerId) ){
+			//	//not my turn
+			//	Log::i("Not My turn, turn for: %s, i am: %s",emsg->playerID.c_str(),playerId );
+			//	cli->gameActivity->endMyTurn();
+			//	cli->gameActivity->otherTurn(emsg->playerID);
 
-			}else{
-				//my turn
-				Log::i("My turn ( %s ) :D",playerId );
-				cli->gameActivity->beginMyTurn();
-			}
+			//}else{
+			//	//my turn
+			//	Log::i("My turn ( %s ) :D",playerId );
+			//	cli->gameActivity->beginMyTurn();
+			//}
 
 			break;
 			
