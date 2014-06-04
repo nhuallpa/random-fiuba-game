@@ -106,6 +106,12 @@ void ParserYaml::label(std::string &campo,bool &flag,TipoDato tipo,std::string k
 		case TipoValido:
 			if (this->esTipoValido(campo)) flag = true;
 			break;
+		case ArmTipoValido:
+			if (this->esArmaTipoValido(campo)) flag = true;
+			break;
+		case ArmHabilitado:
+			if (this->esArmaHabilitadoValido(campo)) flag = true;
+			break;
 		case Str:
 			flag = true;
 			break;
@@ -141,6 +147,11 @@ void ParserYaml::startWithDefaultLevel(){
 	aPersist->setTri("2","100","200","0","1","si","#00FF00FF","3.5");
 	aPersist->setPent("3","150","50","10","4","2","si","#0000FFFF");
 	aPersist->setCirc("4","150","250","10","4","1.5","no","#00FFFFFF","3");
+	aPersist->setBazooka("si");
+	aPersist->setGrenade("si");
+	aPersist->setDynamite("si");
+	aPersist->setDonkey("si");
+	aPersist->setAirStrike("si");
 	aPersist->escribirYaml(this->levelFilePath);
 	Log::i(PARSER,"Se creo el archivo de Nivel Default");
 	this->cargarNivelYaml(this->levelFilePath);
@@ -185,6 +196,9 @@ void ParserYaml::setTerrain(std::string terrain){
 		}
 		
 		}
+	for(unsigned j=0;j<this->getCantArm();j++){
+		aPersist->setArma(this->getArmaTipo(j),this->getArmaHab(j));	
+	}
 
 
 
@@ -354,6 +368,7 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 	bool fFPS = false;
 	bool fCAgua = false;
 	bool fCTierra = false;
+	bool fArma = false;
 	
 		const YAML::Node& node = nodeVect;
 		
@@ -394,6 +409,10 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 					fElem = true;
 					this->cargarElementos(it.second(),escenario.elem);
 				}
+				else if (key.compare("armas")==0){
+					fArma = true;
+					this->cargarArmas(it.second(),escenario.arma);
+				}
 				else {
 					//LOG: key no es un identificador correcto del nivel + line +std::to_string(mark.line + 1) + column +std::to_string(mark.column + 1)
 					Log::e(PARSER,"%s no es un identificador correcto de elemento. Linea: %d, Columna: %d",key.c_str(),(mark.line+1),(mark.column + 1));
@@ -405,13 +424,16 @@ void ParserYaml::cargarNiveles(const YAML::Node& nodeVect,stEscenario& escenario
 			exit(1);
 		 }
 		
-		if ( fCAgua && fCTierra && fFPS && fElem && fAncho && fAlto && fAnchoP && fAltoP && fAgua && fTierra && fCielo){
+		if ( fCAgua && fCTierra && fFPS && fElem && fArma && fAncho && fAlto && fAnchoP && fAltoP && fAgua && fTierra && fCielo){
 			escenarioVect = escenario;
 			//Log carga Nivel correctamente
 		}
 		else{
 			if (!fElem){
 				Log::i(PARSER,"Objetos no encontrado, escenario vacio");
+			}
+			if (!fArma){
+				Log::i(PARSER,"Armas no encontrado");
 			}
 			if (!fFPS){
 				Log::e(PARSER,"FPS no encontrado, seteando default");
@@ -747,10 +769,17 @@ std::string ParserYaml::getElemRadio(int e){
 }
 
 
+int ParserYaml::getCantArm(){
+	return this->todo.escenario.arma.size();
+}
+
+std::string ParserYaml::getArmaTipo(int e){
+	return this->todo.escenario.arma[e].tipo;
+}
 
 
-std::string ParserYaml::getLevelFilePath(){
-	return this->levelFilePath;
+std::string ParserYaml::getArmaHab(int e){
+	return this->todo.escenario.arma[e].habilitado;
 }
 
 
@@ -993,6 +1022,23 @@ bool ParserYaml::esImagen(std::string str){
 	return false;
 }
 
+bool ParserYaml::esArmaTipoValido(std::string str){
+	if (str.compare("Bazooka") == 0) return true;
+	if (str.compare("Grenade") == 0) return true;
+	if (str.compare("Dynamite") == 0) return true;
+	if (str.compare("Donkey") == 0) return true;
+	if (str.compare("AirStrike") == 0) return true;
+	return false;
+}
+bool ParserYaml::esArmaHabilitadoValido(std::string str){
+	if (str.compare("si") == 0) return true;
+	if (str.compare("no") == 0) return true;
+	return false;
+}
+
+
+
+
 std::string ParserYaml::getColorById(std::string id){
 	  int i;
       for (i = 0; i<this->getCantElem(); i++) 
@@ -1003,5 +1049,46 @@ std::string ParserYaml::getColorById(std::string id){
 	  Log::i(PARSER,"Color del elemento id: %d no encontrado", i-1);
 	  return "";
 }
+
+
+
+void ParserYaml::cargarArmas(const YAML::Node& nodeVect,std::vector <stArma>& armaVect){
+	bool fTipo = false;
+	bool fHabil = false;
+	armaVect.clear();
+	for (unsigned i=0; i<nodeVect.size();i++){
+		stArma arma;
+		const YAML::Node& node = nodeVect[i];
+		YAML::Mark mark1 = node.GetMark();
+		
+		for(YAML::Iterator it=node.begin();it!=node.end();++it){			
+			std::string key = this->yamlNodeToString(it.first());
+			YAML::Mark mark = it.first().GetMark();
+
+			if (key.compare("tipo")==0)
+				label(arma.tipo,fTipo,ArmTipoValido,key,it.second(),mark.line,mark.column);
+			else if (key.compare("habilitado")==0)
+				label(arma.habilitado,fHabil,ArmHabilitado,key,it.second(),mark.line,mark.column);
+			else {
+				Log::e(PARSER,"%s atributo incorrecto en linea: %d, columna: %d",key.c_str(),(mark.line + 1),(mark.column + 1));
+			}
+		}
+			if (fTipo && fHabil)
+				armaVect.push_back(arma);
+
+			if (!fTipo)Log::i(PARSER,"Atributo TIPO faltante en arma en linea: %d, columna: %d, descartando arma.",(mark1.line + 1),(mark1.column + 1));
+			if (!fHabil)Log::i(PARSER,"Atributo HABILITADO faltante en arma en linea: %d, columna: %d, descartando arma.",(mark1.line + 1),(mark1.column + 1));;
+
+			fTipo = false;
+			fHabil = false;
+
+		
+	}
+
+}
+
+
+
+
 
 ParserYaml* ParserYaml::pInstance = NULL;

@@ -24,7 +24,9 @@ enum TipoDato{
 	Estatico,
 	TipoValido,
 	Str,
-	Imagen
+	Imagen,
+	ArmTipoValido,
+	ArmHabilitado
 };
 
 class ParserYaml{
@@ -48,6 +50,10 @@ private:
 		std::string radio;
 	};
 
+	struct stArma{
+		std::string tipo;
+		std::string habilitado;
+	};
 	struct stEscenario{
 		std::string fps;
 		std::string alto;
@@ -59,7 +65,8 @@ private:
 		std::string tierra;
 		std::string colorTierra;
 		std::string cielo;
-		std::vector <stElemento> elem;	
+		std::vector <stElemento> elem;
+		std::vector <stArma> arma;	
 	};
 	struct stMeta{
 		std::string epsilon ;
@@ -71,6 +78,9 @@ private:
 		std::string MaxPj;
 
 	};
+
+	
+
 
 	/*
 	struct dtElemento{
@@ -89,6 +99,7 @@ private:
 	stTodo todo;
 	std::string yamlNodeToString(const YAML::Node&);
 	void cargarElementos(const YAML::Node&,std::vector <stElemento>&);
+	void cargarArmas(const YAML::Node&,std::vector <stArma>&);
 //	void cargarDataElementos(const YAML::Node&,std::vector <dtElemento>&);
 	void cargarNiveles(const YAML::Node&,stEscenario&);
 	void cargarMeta(const YAML::Node&,stMeta&);
@@ -108,6 +119,10 @@ private:
 	bool esHexaSdl(std::string);
 	bool esUnsInt(std::string str);
 	bool esImagen(std::string str);
+
+	bool esArmaTipoValido(std::string str);
+	bool esArmaHabilitadoValido(std::string str);
+
 
 	void label(std::string &campo,bool &flag,TipoDato tipo,std::string key,const YAML::Node& node,int line,int col);
 
@@ -186,6 +201,13 @@ public:
 	std::string getElemEstatico(int);
 	std::string getElemRot(int);
 	std::string getElemRadio(int);
+
+
+	//arma en escenario
+	int getCantArm();
+	std::string getArmaTipo(int);
+	std::string getArmaHab(int);
+
 
 
 	std::string getColorById(std::string id);
