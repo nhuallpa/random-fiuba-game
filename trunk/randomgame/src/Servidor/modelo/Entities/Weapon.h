@@ -8,7 +8,7 @@
 
 class Weapon : public GameElement{
 
-	private:
+	protected:
 		bool delayedExplosion;
 		bool multipleChilds;
 		int amountOfMissils;
