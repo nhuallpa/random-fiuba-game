@@ -192,6 +192,12 @@
     <ClCompile Include="..\src\utils\Timer.cpp">
       <Filter>Archivos de código fuente\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\Weapon.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Weapon2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h">
@@ -340,6 +346,12 @@
     </ClInclude>
     <ClInclude Include="..\src\utils\Timer.h">
       <Filter>Archivos de código fuente\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\Weapon.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Weapon2d.h">
+      <Filter>Archivos de código fuente\server\model\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

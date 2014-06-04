@@ -76,13 +76,7 @@ void GameLevel::addPlayer(string user, GamePlayer *pg){
 //}
 
 void GameLevel::addEntity(GameElement *entidad) {
-	//this->entities.insert(std::make_pair(entidad->getId(), entidad ));
 	this->entities[entidad->getId()] = entidad;
-	
-	// TODO reflect to modelEntities (the one used for pass data) //future
-	//this->modelElements[entidad->getId()] = *entidad;
-
-
 }
 
 void GameLevel::setHeight(int h){
@@ -117,21 +111,11 @@ void GameLevel::removeEntity(int id) {
 	if ( it != this->entities.end() ){
 		this->entities.erase(it);
 	}
-
-	//std::map<int, GameElement>::iterator it2 = this->modelElements.begin();
-	//it2 = this->modelElements.find(id);
-	//if ( it2 != this->modelElements.end() ){
-	//	this->modelElements.erase(it2);
-	//}
 }
 
 
 
 bool GameLevel::posicionOcupada(float x, float y){
-	//TODO @future - logic for placement / El modelo lo rechaza antes que Box2D
-	//Chequear en base a radio/distancia del centro. Recibe pos central y tiene h, w
-
-
 	return false;
 }
 

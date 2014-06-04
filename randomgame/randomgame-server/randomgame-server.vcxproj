@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\main-server.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\Weapon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\PlayerException.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Body.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\ContactListener.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Weapon2d.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\TerrainProcessor.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\TurnManager.cpp" />
     <ClCompile Include="..\src\Servidor\Servidor.cpp" />
@@ -132,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\Weapon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\PlayerException.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Worm\WormActions.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Body.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\ContactListener.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Weapon2d.h" />
     <ClInclude Include="..\src\Servidor\modelo\TerrainProcessor.h" />
     <ClInclude Include="..\src\Servidor\modelo\TurnManager.h" />
     <ClInclude Include="..\src\Servidor\Servidor.h" />

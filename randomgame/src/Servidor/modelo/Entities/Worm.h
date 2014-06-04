@@ -37,6 +37,8 @@ void jumpLeft();
 void moveLeft();
 void moveRight();
 void stopMoving();
+void weaponedLeft();
+void weaponedRight();
 
 bool isSelected();
 bool isJumping();
@@ -47,6 +49,10 @@ bool isMovingLeft();
 bool isStopped();
 bool isAlive() { return this->alive;}
 
+
+
+bool weaponRight;
+bool weaponLeft;
 
 
 void select();

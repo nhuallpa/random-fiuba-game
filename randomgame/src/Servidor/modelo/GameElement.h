@@ -21,6 +21,7 @@ enum ElementType{
 	PENTA=3,
 	HEXAGON=4,
 	WORM=5,
+	WEAPON=6
 };
 
 

@@ -207,9 +207,20 @@ void Worm2d::animate(){
 			Log::t("\nModificando worm %d of %s", myWorm->getId(), myWorm->playerID.c_str());
 			if ( myWorm->getAction()  ==  MOVE_RIGHT ) {
 				myWorm->setAction(MOVELESS_RIGHT);
-			}else if ( myWorm->getAction()  ==  MOVE_LEFT){
+			}
+			
+			if ( myWorm->getAction()  ==  MOVE_LEFT){
 				myWorm->setAction(MOVELESS_LEFT);
 			}
+			
+			if ( myWorm->getAction()  ==  WITH_WEAPON_LEFT){
+				myWorm->setAction(WITH_WEAPON_LEFT);
+			}
+
+			if ( myWorm->getAction()  ==  WITH_WEAPON_RIGHT){
+				myWorm->setAction(WITH_WEAPON_RIGHT);
+			}
+
 			myWorm->changed = true;
 		}else{
 			myWorm->changed = false;

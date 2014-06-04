@@ -105,14 +105,12 @@ int Servidor::updating(void* data){
 		Sleep(10);
 		m->lock();
 		if ( changes->empty() ){
-			//printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
-		//printf("\nUpdating: doing stuff at server side");
+
 		Playable p;
 		p = srv->changes.back();
-		//printf("\nGot message from user requesting to move worm %d to %d",p.wormid,p.action);
-		
+
 		srv->updateModel(p); 
 		
 		srv->changes.pop_back();
@@ -219,29 +217,18 @@ int Servidor::somethingChange(){
 			i++;
 		}
 		if ( !static_cast<Worm*>(it->second)->isAlive() ){
-
-			//Envio data de que esta muerto (x=-1,y=-1) y lo elimino del mundo
 			this->gameEngine.getLevel()->removeEntity(it->second->getId());
 		}
-
 	}
-
 	this->worldQ.elements = i; 
-
 	return i;
 }
 
 
 bool Servidor::updateModel(Playable p){
-	//Apply playable to the world, locate wormid and apply the action
-	this->gameEngine.applyAction2Element(p.wormid,p.action);
-
+	this->gameEngine.applyAction2Element(p.wormid, p.weaponid, p.x, p.y, p.action);
 	return true;
 }
-
-
-
-
 
 
 
@@ -279,13 +266,9 @@ int Servidor::wait4Connections(void* data){
 		// Avisa si todos estan conectados
 		if ( srv->jugadoresConectados == srv->cantJugadores){
 			srv->initialNotify();
-
 		}
-	
 	}
-
 	return 0;
-
 }
 
 

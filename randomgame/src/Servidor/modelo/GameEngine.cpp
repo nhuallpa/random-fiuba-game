@@ -7,12 +7,20 @@
 
 #define UPDATE_STEPS 3
 #define WATER_VELOCITY -2
+#define WEAPON_STARTING_ID 100
 
 class b2Collision;
 
 
 GameEngine::GameEngine() {
 	this->gameLevel = new GameLevel();
+	this->weaponUniquedId = WEAPON_STARTING_ID;
+}
+
+int GameEngine::getWeaponUniqueId(){
+	int id = this->weaponUniquedId;
+	this->weaponUniquedId = this->weaponUniquedId + 1;
+	return id;
 }
 
 GameEngine::~GameEngine() {
@@ -27,10 +35,9 @@ bool GameEngine::initWorld(){
 	//Crea mundo en base a defaults (Gravity y otros coeficientes)
 	animateWorld();
 
-	//Carga nivel (desde el YAML) -- deprecated at TP2
+	//Carga nivel (desde el YAML)
 	this->gameLevel->createLevel(this->gameLevel);
 	
-
 
 	this->floodWorld();
 
@@ -248,13 +255,17 @@ bool GameEngine::step(){
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(this->timeStep,8,3);
 
-	//Reflect model
+	//Reflect model - for every body (worm)
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();iterator != this->gameBodies->end(); ++iterator) {
 		Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 		aBody->animate();
 
 	}
+
+	//Reflect model - for every weapon
+	//Weapon :: hasDelayedExplode? --> TRUE --> compare desde su creacion al actual si es >= EXPLODE!
+
 
 	/* Logica del agua */
 	std::set<fixturePair>::iterator it = this->myContactListener.m_fixturePairs.begin();
@@ -349,6 +360,8 @@ bool GameEngine::findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixt
 }
 
 bool GameEngine::intersectionWithWater(b2Fixture* fixture){
+
+	//TODO @Music: hacer ruido de que cayo en el agua
 
 
 	if(fixture->GetShape()->GetType() == b2Shape::e_polygon){
@@ -576,9 +589,15 @@ void GameEngine::deleteBody(int id){
 
 }
 
-void GameEngine::applyAction2Element(int id, Movement action){
 
-	//printf("\n applying action");
+/*
+id = worm_id
+weaponid = id del arma
+<x , y> = angulo del disparo
+action = accion a ejecutar
+*/
+void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Movement action){
+
 	std::map<int,GameElement*> copy = this->gameLevel->getEntities();
 	GameElement* myWorm = copy[id];
 
@@ -602,6 +621,15 @@ void GameEngine::applyAction2Element(int id, Movement action){
 		case MOVE_STOP:
 			static_cast<Worm*>(myWorm)->stop();
 			break;
+		case WITH_WEAPON_LEFT:
+			static_cast<Worm*>(myWorm)->weaponedLeft();
+			break;
+		case WITH_WEAPON_RIGHT:
+			static_cast<Worm*>(myWorm)->weaponedRight();
+			break;
+		case DO_SHOOT:
+			animateWeapon(weaponid, x, y);
+			break;
 	}
 
 
@@ -609,3 +637,18 @@ void GameEngine::applyAction2Element(int id, Movement action){
 
 }
 
+// Solo se ejecuta si recibo la accion DO_SHOOT
+void GameEngine::animateWeapon(int weaponid, float angle_x, float angle_y){
+	//TODO @Bauti: Crea el arma en Box2D
+	//Le aplica la fuerza/Impulso definido para dicha armar y en la direccion dada por x, y
+	//Weapon2d* wp = new Weapon2d(WEAPON,
+
+
+	//Crea el arma en el modelo
+	//Le asigna un tiempo de explosion en caso de ser necesario (granada, holy, etc)
+	//this->gameLevel->addEntity( new Weapon( ...
+
+
+	
+
+}

@@ -14,6 +14,7 @@
 #include "Physics\Bodies\Pentagon.h"
 #include "Physics\Bodies\Water.h"
 #include "TerrainProcessor.h"
+
 #include <set>
 #include <utility>
 
@@ -35,14 +36,17 @@ class GameEngine {
 
 		Body* lookForABody();
 		ContactListener myContactListener;
+
 		std::map<int, Body*>* gameBodies;
+		std::map<int, Body*>* gameWeapons;
+
 		void floodWorld();
 		void animateContacts();
 		bool findIntersectionOfFixtures(b2Fixture* fixtureA, b2Fixture* fixtureB);
 		bool intersectionWithWater(b2Fixture* fixtureA);
 		void updateBodyPositions();
 		void deleteBody(int id);
-
+		int weaponUniquedId;
 		//Agarra los worms de un jugador y los pone como activos
 		//Para mi lo mejor es armar una clase GamePlayer que tenga la lista de wormsID que posee.
 		bool setWormsFromPlayerAsActive(std::string playerID);
@@ -50,6 +54,8 @@ class GameEngine {
 	public:
 		GameEngine();
 		virtual ~GameEngine();
+		int getWeaponUniqueId();
+		void addWeapon(int id, b2Body* body);
 
 		// Pone los worms en el mapa y se los guarda al player id (persiste en el yaml)
 		bool placeInitialWorms(std::string playerID);
@@ -76,7 +82,7 @@ class GameEngine {
 		// and lately step into the world and broadcast
 		bool applyPlayable2Model();
 
-		void applyAction2Element(int id, Movement action);
+		void applyAction2Element(int id, int weaponid, float x, float y, Movement action);
 
 		bool step();
 
@@ -92,6 +98,7 @@ class GameEngine {
 		void animateWorld();
 		void animateBodies();
 		void animateJoints();
+		void animateWeapon(int weaponid, float angle_x, float angle_y);
 
 		std::map<int,Body*>* getGameBodies(){ return this->gameBodies;}
 
