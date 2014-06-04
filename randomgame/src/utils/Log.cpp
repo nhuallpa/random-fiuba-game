@@ -216,6 +216,8 @@ std::string Log::logearLugarLog(LugarLog lugarLog)
 			return "[VISTA]";
 		case HANDLE_CONTOUR:
 			return "[HANDLE_CONTOUR]";
+		case SOUND:
+			return "[SOUND]";
 	}
 	return "";
 }

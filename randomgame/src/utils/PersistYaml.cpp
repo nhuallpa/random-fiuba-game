@@ -111,6 +111,19 @@ void PersistYaml::setEscenarioElem(stElemento elem){
 	this->escenario.elem.push_back(elem);
 }
 
+void PersistYaml::setArmaTipo(std::string tipo){
+	this->arma.tipo = tipo;
+}
+
+void PersistYaml::setArmaHab(std::string hab){
+	this->arma.habilitado = hab;
+}
+
+void PersistYaml::setEscenarioArm(stArma arma){
+	this->escenario.arma.push_back(arma);
+}
+
+
 void PersistYaml::setElem(std::string tipo,std::string x,std::string y,std::string alto,std::string ancho,std::string color, std::string estatico,std::string rot,std::string masa){
 	stElemento elem;
 	elem.tipo = tipo;
@@ -206,8 +219,28 @@ void PersistYaml::setCirc(std::string id,std::string x,std::string y,std::string
 }
 
 
+void PersistYaml::setArma(std::string tipo,std::string hab){
+	this->setArmaTipo(tipo);
+	this->setArmaHab(hab);
+	this->setEscenarioArm(this->arma);
+}
 
 
+void PersistYaml::setBazooka(std::string hab){
+	this->setArma("Bazooka",hab);
+}
+void PersistYaml::setGrenade(std::string hab){
+	this->setArma("Grenade",hab);
+}
+void PersistYaml::setDynamite(std::string hab){
+	this->setArma("Dynamite",hab);
+}
+void PersistYaml::setDonkey(std::string hab){
+	this->setArma("Donkey",hab);
+}
+void PersistYaml::setAirStrike(std::string hab){
+	this->setArma("AirStrike",hab);
+}
 
 
 void PersistYaml::escribirYaml(std::string fileOut){
@@ -288,9 +321,28 @@ void PersistYaml::escribirYaml(std::string fileOut){
 		}
 		out << YAML::EndMap;		
 	}
-	out << YAML::EndMap;
+	//out << YAML::EndMap;
 	out << YAML::EndSeq;
 	
+
+	out << YAML::Key << "armas";
+	out << YAML::Value << YAML::BeginSeq;
+	for(unsigned i=0;i<this->escenario.arma.size();i++){
+		stArma arma = this->escenario.arma[i];
+		out << YAML::BeginMap;
+		out << YAML::Key << "tipo";
+		out << YAML::Value << arma.tipo;
+		out << YAML::Key << "habilitado";
+		out << YAML::Value << arma.habilitado;
+		out << YAML::EndMap;		
+	}
+
+
+	out << YAML::EndMap;
+	out << YAML::EndSeq;
+
+
+
 	//out << YAML::EndSeq;
 	
 	/* escribe el archivo*/

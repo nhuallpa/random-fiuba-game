@@ -12,7 +12,7 @@ void Bootstrap::init()
 	Log::i("Bootstrap: Iniciando");
 
 	SoundManager::Instance().init();
-	SoundManager::Instance().play();
+	SoundManager::Instance().playMusic();
 
 	std::map<std::string,std::string> prop = Util::loadProperteries("config/client.properties");
 	int w = Util::string2int(prop["ventana.ancho"]);

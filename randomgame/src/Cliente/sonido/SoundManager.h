@@ -4,16 +4,28 @@
 #include "../../utils/Constantes/Constantes.h"
 #include <map>
 #include <SDL.h>
+#include "../../utils/Log.h"
+
+enum FX {eEXPLOSION1,
+         eFIREPUNCHIMPACT,
+         eOUCH,
+         eBYEBYE,
+         };
 
 class SoundManager
 {
 private:
 
-		
-	// Contains all fx sounds
-	std::map<std::string, Mix_Chunk*> fx_map;
+	
+
+	Mix_Chunk* fxEXPLOSION1;
+	Mix_Chunk* fxFIREPUNCHIMPACT;
+	Mix_Chunk* fxOUCH;
+	Mix_Chunk* fxBYEBYE;
 
 	Mix_Music* music;
+
+	void playFX(FX);
 
 public:
 
@@ -24,9 +36,18 @@ public:
 
 	void init();
 
-	void play();
+	
 
 	void close();
+
+	/*musica de fondo*/
+	void playMusic();
+
+	/*FX*/
+	void pEXPLOSION1();
+	void pFIREPUNCHIMPACT();
+	void pOUCH();
+	void pBYEBYE();
 
 };
 

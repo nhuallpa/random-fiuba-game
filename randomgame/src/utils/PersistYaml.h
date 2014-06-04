@@ -33,7 +33,10 @@ private:
 		std::string rot;
 		std::string radio;
 	};
-
+	struct stArma{
+		std::string tipo;
+		std::string habilitado;
+	};
 	struct stEscenario{
 		std::string fps;
 		std::string alto;
@@ -46,6 +49,7 @@ private:
 		std::string colorTierra;
 		std::string cielo;
 		std::vector <stElemento> elem;	
+		std::vector <stArma> arma;	
 	};
 	struct stMeta{
 		std::string epsilon ;
@@ -56,6 +60,7 @@ private:
 
 	stElemento elem;
 	stEscenario escenario;
+	stArma arma;
 	stMeta meta;
 
 	void destroyLevel();
@@ -98,6 +103,13 @@ public:
 
 	void setEscenarioElem(stElemento);
 
+
+
+	void setArmaTipo(std::string);
+	void setArmaHab(std::string);
+	void setEscenarioArm(stArma);
+
+
 	void setElem(std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string);
 	/*rec: tipo,id,x,y,rot,masa,alto,ancho,estatico,color*/
 	void setRec(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string alto,std::string ancho,std::string estatico,std::string color);
@@ -107,6 +119,13 @@ public:
 	void setPent(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color);
 	/*circ:	tipo,id,x,y,rot,masa,escala,estatico,color,radio*/
 	void setCirc(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color,std::string radio);
+
+	void setArma(std::string,std::string);
+	void setBazooka(std::string);
+	void setGrenade(std::string);
+	void setDynamite(std::string);
+	void setDonkey(std::string);
+	void setAirStrike(std::string);
 
 	void setHexa(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color);
 

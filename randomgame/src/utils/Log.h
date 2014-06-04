@@ -43,6 +43,7 @@ enum LugarLog{
 	GAME_CONTROLLER,
 	HANDLE_CONTOUR,
 	VIEW,
+	SOUND
 };
 
 class Log
