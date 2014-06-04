@@ -118,6 +118,7 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Body.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\ContactListener.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\TerrainProcessor.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\TurnManager.cpp" />
     <ClCompile Include="..\src\Servidor\Servidor.cpp" />
     <ClCompile Include="..\src\utils\Log.cpp" />
     <ClCompile Include="..\src\utils\Network\Condition.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="..\src\utils\Network\Thread.cpp" />
     <ClCompile Include="..\src\utils\ParserYaml.cpp" />
     <ClCompile Include="..\src\utils\PersistYaml.cpp" />
+    <ClCompile Include="..\src\utils\Timer.cpp" />
     <ClCompile Include="..\src\utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +165,7 @@
     <ClInclude Include="..\src\Servidor\modelo\Physics\Body.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\ContactListener.h" />
     <ClInclude Include="..\src\Servidor\modelo\TerrainProcessor.h" />
+    <ClInclude Include="..\src\Servidor\modelo\TurnManager.h" />
     <ClInclude Include="..\src\Servidor\Servidor.h" />
     <ClInclude Include="..\src\utils\Constantes\Constantes.h" />
     <ClInclude Include="..\src\utils\Log.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="..\src\utils\Network\Thread.h" />
     <ClInclude Include="..\src\utils\ParserYaml.h" />
     <ClInclude Include="..\src\utils\PersistYaml.h" />
+    <ClInclude Include="..\src\utils\Timer.h" />
     <ClInclude Include="..\src\utils\Util.h" />
   </ItemGroup>
   <ItemGroup>

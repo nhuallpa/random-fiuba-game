@@ -147,7 +147,7 @@ void Cliente::getRemoteWorld() {
 
 	}
 	this->gameReady = true;
-	delete msg;
+	//delete msg;
 }
 
 
@@ -178,20 +178,22 @@ void Cliente::loop(void){
 	FPSmanager fpsManager;
 	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
-
-	//Dibujo wait
-	currentActivity->update();
-	currentActivity->render();
-
-	while (!this->gameReady) 
-	{
-			Sleep(1);
-	}
-	this->currentActivity = this->gameActivity;
-	while (!this->cController.isQuit() && !this->gameOver && this->gameReady){		
+	
+	while (!this->cController.isQuit()){		
 		cController.handlerEvent();
 		currentActivity->update();
 		currentActivity->render();
+		// evaluar cambio de pantalla
+
+		if (this->gameReady) 
+		{
+			this->currentActivity = this->gameActivity;
+		} 
+		else if (this->gameOver) 
+		{
+			this->currentActivity = this->waitActivity;
+		}
+
 		SDL_framerateDelay(&fpsManager);
 	}
 	currentActivity->stop();
@@ -341,7 +343,7 @@ int Cliente::notifyLocalUpdates(void *data){
 
 
 int Cliente::netListener(void* data){
-
+	Sleep(45);
 	Log::i("Cliente::netListener >> Disparado net listen thread");
 	threadData* tData = (threadData*)data;
 	Cliente* cli = tData->cli;
@@ -482,6 +484,6 @@ void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
 {
 	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
 	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
-	this->domain.printDomain();
+	//this->domain.printDomain();
 }
 
