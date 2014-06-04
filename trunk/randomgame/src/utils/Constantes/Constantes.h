@@ -137,7 +137,7 @@
 
 
 /**************************** SOUNDS ***************************/
-#define MUSICAFONDO "./res/sounds/audio_sfx/explosion1.wav"
+#define MUSICAFONDO ""
 
 #define AIRSTRIKE		"./res/sounds/audio_sfx/airstrike.wav"
 #define BANANAIMPACT	"./res/sounds/audio_sfx/bananaimpact.wav"

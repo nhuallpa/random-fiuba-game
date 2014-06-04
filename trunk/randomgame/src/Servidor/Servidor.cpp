@@ -59,6 +59,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, canBroadcast(netlock)
 	, canCreate(worldlock)
 	, canAddNews(playerslock)
+	, turnMgr(cantJugadores)
 {
 
 	this->advance = SDL_CreateSemaphore( 1 );
@@ -133,24 +134,40 @@ int Servidor::stepOver(void* data){
 
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
+	
+	Condition* canStart =  &srv->canAddNews;
+	Mutex* allIn =  &srv->playerslock;
+	
 	srv->startNewTurn = false;
 	int i=0;
 
+
+
 	Timer timeHandler;
-	TurnManager turnMgr(srv->cantJugadores);
+	
 	bool doWeHaveAExplosion = false;
 	float explosionTime = 0;
 	//TODO @Ariel si no estan todos no arranca el juego (la simulacion fisica)
+
+	allIn->lock();
+	while ( srv->turnMgr.getRegisteredPlayers() != srv->cantJugadores ){
+		canStart->wait();
+	}
+	allIn->unlock();
+
 	printf("\nInicio tiempo");
 	timeHandler.start();
+	srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+
 	while(true){
 		
-		if ( timeHandler.elapsed() >= 60 || ( doWeHaveAExplosion && ( timeHandler.elapsed() - explosionTime ) >= 5 )  ){
+		if ( timeHandler.elapsed() >= 25 || ( doWeHaveAExplosion && ( timeHandler.elapsed() - explosionTime ) >= 5 )  ){
 			printf("\n pasaron 60 seg o 5 seg despues de una explosion");
 			doWeHaveAExplosion = false;
 			explosionTime = 0;
 			timeHandler.reset();
-			srv->notifyTurnForPlayer( turnMgr.getNextPlayerTurn() );
+			srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+			printf("\n TIME RESETED: Continuo!");
 		}
 
 		Sleep(15);
@@ -241,8 +258,7 @@ int Servidor::wait4Connections(void* data){
 	Condition* cond = &srv->canUpdate;
 	Mutex* m = &srv->lock;
 
-	Condition* canStart =  &srv->canAddNews;
-	Mutex* allIn =  &srv->playerslock;
+
 
 	int players = 0;
 	while (true){
@@ -296,12 +312,7 @@ int Servidor::initClient(void* data){
 	Condition* canStart =  &srv->canAddNews;
 	Mutex* allIn =  &srv->playerslock;
 
-
-	std::vector<uint8_t> datos(10);
-	std::vector<uint8_t> keepaliveData(10);
-	Messages keepaliveMsg = KEEPALIVE;
 	EDatagram* datagram = new EDatagram();
-
 
 	// Receive LOGIN info
 	if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
@@ -351,9 +362,10 @@ int Servidor::initClient(void* data){
 					)
 				);
 
-
+	allIn->lock();
 	srv->inserPlayerIntotWorld(datagram->playerID);
-
+	canStart->signal();
+	allIn->unlock();
 
 	printf("\nCliente registrado satisfactoriamente en el servidor");
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
@@ -588,6 +600,7 @@ void Servidor::inserPlayerIntotWorld(std::string pl){
 	Condition* c = new Condition(*m);
 	this->playerMutexes[pl] = std::make_pair(m,c);
 	this->playerQueues[pl] = new queue<EDatagram>;
+	this->turnMgr.addPlayer(pl);
 
 
 }
