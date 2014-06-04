@@ -48,6 +48,7 @@ void SoundManager::close(){
 	Mix_FreeChunk(this->fxFIREPUNCHIMPACT);
 	Mix_FreeChunk(this->fxOUCH);
 	Mix_FreeChunk(this->fxBYEBYE);
+	Mix_Quit();
 }
 
 void SoundManager::playFX(FX i){
