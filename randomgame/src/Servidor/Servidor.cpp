@@ -15,12 +15,9 @@ void Servidor::loop(void){
 	// Init conns from clients
 	bool quit = false;		
 	while (quit == false){
-		
-		// TODO @future - The engine will loop separately when this runs on different sockets, not now (TP1)
 		if( this->gameEngine.initWorld() ) quit = true;
 	}
 
-	//TODO @future -  CERRAR CONEXIONES DE CLIENTES 
 	return void();
 }
 
@@ -64,13 +61,6 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	, canAddNews(playerslock)
 {
 
-	//input.setRcvTimeout(15,5);
-	//output.setRcvTimeout(15,5);
-	//input.setSendTimeout(15,5);
-	//output.setSendTimeout(15,5);
-	//input.setKeepAlive();
-	//output.setKeepAlive();
-
 	this->advance = SDL_CreateSemaphore( 1 );
 
 	jugadoresConectados = 0;
@@ -89,14 +79,10 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	//Start connection Loop, when a client connects I will trigger a new thread for him
 	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
 
-	//TODO: UpdatingThread()
 	//		Dispara el thread que ante un update modifica el mundo, simula un paso
 	//		y notifica a los clientes.
 	Thread clientThread("Updating Thread",updating,&data);
 
-	//Thread netUpdaterThread("Updater",broadcastMessages,&data);
-
-	//TODO Refactor para que corra en el hilo principal 
 	Thread stepOverThread("step",stepOver,&data);
 
 }
@@ -148,13 +134,33 @@ int Servidor::stepOver(void* data){
 
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
-
+	srv->startNewTurn = false;
 	int i=0;
+
+	//TODO @Ariel si no estan todos no arranca el juego (la simulacion fisica)
+
 	while(true){
+		//TODO @Ariel Logica de tiempo, si pasan 60 segundos cambio de turno
+		//TurnManager (random para elegir el jugador, al pasar 60 segundos le pido el siguiente
+
+		// doWeExplode: boolean -> true si hubo una explosion
+		// newTime = getTime();
+		//if ( transcurrieron 60seg -> newTime - initialTime >= 60seg || ( doWeExplode && (newTime - ExplosionTime >= 5seg) ) ){
+		//	doWeExplode = false;
+		//	whoPlays = turnMgr.getNextPlayerTurn();
+		//	notifyTurnForPlayer( whoPlays );
+		//}
+
 		Sleep(15);
 
 		w->lock();
+		////TODO @Ariel step va a devolver true si hubo una explosion
 		srv->getGameEngine().step();
+		// if ( huboExplosion  -> puedo usar directamente doWeExplode){
+		// explosionTime = getTime();
+		// doWeExplode = true;
+		// }
+
 		w->unlock();
 
 		//si algo cambio actualizo a los clientes
@@ -163,14 +169,14 @@ int Servidor::stepOver(void* data){
 	
 			//chequeo si hay clientes
 			if ( srv->pList.size()  ){
-				SDL_SemWait(srv->advance);
+				//SDL_SemWait(srv->advance);
 				int res = srv->somethingChange();
 				if ( res ){
 					srv->worldQ.type = UPDATE;
 					//Agrego a la cola y notifico clientes
 					srv->notifyAll();
 				}
-				SDL_SemPost(srv->advance);
+				//SDL_SemPost(srv->advance);
 			} 
 		}
 		i++;
@@ -403,6 +409,11 @@ int Servidor::initClient(void* data){
 	srv->notifyUsersAboutPlayer(playerId);
 
 
+	//TODO @Ariel: Envio los agujeros del mundo
+	//Envio la cantidad de agujeros
+	//Envio uno a uno los agujeros (Uso la cola de mensajes de cada jugador o un ciclo for)
+
+
 	int activeClient=1;
 		try {
 		while (activeClient &&  srv->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ) {
@@ -414,15 +425,6 @@ int Servidor::initClient(void* data){
 				activeClient=0;
 				break;
 			}
-			
-			// Got something ;)
-			/*m->lock();*/
-			//try{
-			//	printf("\nGot something from client %s ;)",playerId );
-			//}catch(...){
-			//	m->unlock();
-			//	throw std::current_exception();
-			//}
 
 			switch (datagram->type) {
 			case UPDATE:
@@ -618,5 +620,26 @@ void Servidor::initialNotify(){
 		itm->second.first->unlock();
 	}
 
+
+}
+
+void Servidor::notifyTurnForPlayer(std::string player){
+
+
+
+	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
+	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
+
+	this->worldQ.type = PLAYER_UPDATE;
+	this->worldQ.elements = 1;
+	this->worldQ.play[0].action = YOUR_TURN;
+	this->worldQ.playerID = player;
+
+	for( ; itm!=mutexes.end(); ++itm){
+		itm->second.first->lock();
+		this->playerQueues[itm->first]->push( this->worldQ );
+		itm->second.second->signal();
+		itm->second.first->unlock();
+	}
 
 }

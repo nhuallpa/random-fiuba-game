@@ -74,6 +74,11 @@ class Servidor{
 
 		SDL_sem* advance;
 
+		//TurnManager turnMgr;
+
+		bool startNewTurn;
+		void notifyTurnForPlayer(std::string player);
+
 		//Mutex per player - basado en consume/producer model
 		std::map<std::string,std::pair<Mutex*,Condition*>> playerMutexes;
 		std::map<std::string,std::queue<EDatagram>* > playerQueues;
