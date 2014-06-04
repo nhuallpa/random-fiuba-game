@@ -113,6 +113,8 @@ void Bootstrap::shoutDown()
 {
 	FontManager::Instance().closeFonts();
 	getScreen().terminate();
+	SoundManager::Instance().close();
+
 }
 
 void Bootstrap::loadMenuWeapon(){
