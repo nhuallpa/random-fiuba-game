@@ -782,6 +782,10 @@ std::string ParserYaml::getArmaHab(int e){
 	return this->todo.escenario.arma[e].habilitado;
 }
 
+std::string ParserYaml::getLevelFilePath(){
+	return this->levelFilePath;
+}
+
 
 std::string parserFloat2String(float n){
 	std::stringstream ss;

@@ -137,7 +137,7 @@ int Servidor::stepOver(void* data){
 	int i=0;
 
 	Timer timeHandler;
-	TurnManager turnMgr;
+	TurnManager turnMgr(srv->cantJugadores);
 	bool doWeHaveAExplosion = false;
 	float explosionTime = 0;
 	//TODO @Ariel si no estan todos no arranca el juego (la simulacion fisica)
@@ -150,9 +150,7 @@ int Servidor::stepOver(void* data){
 			doWeHaveAExplosion = false;
 			explosionTime = 0;
 			timeHandler.reset();
-			//notifyTurnForPlayer( turnMgr.getNextPlayerTurn() );
-			//TODO @Ariel
-
+			srv->notifyTurnForPlayer( turnMgr.getNextPlayerTurn() );
 		}
 
 		Sleep(15);
@@ -531,7 +529,7 @@ int Servidor::updateClient(void* data){
 			srv->playerMutexes[playerId].second->wait();
 		}
 		//printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
-		//memcpy(datagram, &srv->playerQueues[playerId]->front() ,sizeof(EDatagram));
+
 		datagram = srv->playerQueues[playerId]->front() ;
 		srv->playerQueues[playerId]->pop();
 		srv->playerMutexes[playerId].first->unlock();
@@ -627,11 +625,10 @@ void Servidor::initialNotify(){
 void Servidor::notifyTurnForPlayer(std::string player){
 
 
-
 	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
 	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
 
-	this->worldQ.type = PLAYER_UPDATE;
+	this->worldQ.type = TURN_CHANGE;
 	this->worldQ.elements = 1;
 	this->worldQ.play[0].action = YOUR_TURN;
 	this->worldQ.playerID = player;

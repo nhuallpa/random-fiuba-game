@@ -30,6 +30,8 @@ private:
 	/*para calcular el zoom*/
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
+	bool isMyTurn;
+
 public:
 
 	int wormIdDesSelected;
@@ -84,6 +86,8 @@ public:
 	void endMyTurn();
 
 	void beginMyTurn();
+
+	
 
 	~GameActivity(void);
 };

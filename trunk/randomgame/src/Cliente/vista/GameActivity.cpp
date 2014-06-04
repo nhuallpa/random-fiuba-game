@@ -20,6 +20,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
 	this->wormIdDesSelected = -1;
+	this->isMyTurn = false;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 }
 
@@ -220,18 +221,21 @@ void GameActivity::OnClick(ClickEvent e){
 void GameActivity::otherTurn(std::string playerId) 
 {
 	// seter el label del gameview para mostar el turno de peppito
+	this->isMyTurn = false;
 }
 
-void GameActivity::endMyTurn() 
-{
-	this->cController->remuveOnClickListener(this);
-	this->cController->remuveOnMovementListener(this);
-	this->cController->remuveOnActionListener(this);
+void GameActivity::endMyTurn() {
+	if ( this->isMyTurn ){
+		this->cController->remuveOnClickListener(this);
+		this->cController->remuveOnMovementListener(this);
+		this->cController->remuveOnActionListener(this);
+	}
 }
 
 
 void GameActivity::beginMyTurn() 
 {
+	this->isMyTurn = true;
 	this->cController->addOnClickListener(this);
 	this->cController->addOnMovementListener(this);
 	this->cController->addOnActionListener(this);
