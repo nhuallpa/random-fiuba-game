@@ -15,13 +15,15 @@ class Action : public Notifiable{
 		void remuve(OnActionListener * obj);
 		void notify();
 		void setEvent(ActionKey a);
+		void setLastEvent(ActionKey a);
+		bool newEvent();
 
 	private:
 		Action(void);
 		~Action(void);
 		static Action* action;
 		list<OnActionListener*> objects;
-		ActionKey a;
+		ActionKey a, last;
 };
 
 #endif

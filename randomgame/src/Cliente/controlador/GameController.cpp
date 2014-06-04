@@ -37,7 +37,7 @@ void GameController::addListener(OnZoomListener* z){
 	Zoom* zm = Zoom::getInstance();
 	zm->add(z);
 }
-void GameController::addListener(OnActionListener* a){
+void GameController::addOnActionListener(OnActionListener* a){
 	Action* at = Action::getInstance();
 	at->add(a);
 }
@@ -57,7 +57,7 @@ void GameController::remuveListener(OnZoomListener* z){
 	Zoom* zm = Zoom::getInstance();
 	zm->remuve(z);
 }
-void GameController::remuveListener(OnActionListener* a){
+void GameController::remuveOnActionListener(OnActionListener* a){
 	Action* at = Action::getInstance();
 	at->remuve(a);
 }

@@ -1,7 +1,7 @@
 #ifndef __ACTIONEVENT__
 #define __ACTIONEVENT__
 
-enum ActionKey{SHOOT, MENU};
+enum ActionKey{NONE, SHOOT, MENU};
 class ActionEvent{
 	public:
 		ActionEvent(void);

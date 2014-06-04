@@ -47,6 +47,8 @@ class RunGame{
 		void detectClick();
 		void detectMovem(SDL_Event* e);
 		void detectMovem(Move* mv, int value, SDL_Event* e);
+		void detectAction(Action* at, SDL_Event* e);
+		void iniAction(Action* at, SDL_Event* e);
 		int WIDTH, HIGHT;
 		CollectionEvent listEvent;
 };

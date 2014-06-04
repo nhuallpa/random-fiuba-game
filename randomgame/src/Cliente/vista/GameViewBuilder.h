@@ -23,7 +23,6 @@
 #include "../../utils/Constantes/Constantes.h"
 #include "../controlador/GameController.h"
 #include "../modelo/GameDomain.h"
-#include "MenuWeaponView.h"
 
 class GameViewBuilder 
 {

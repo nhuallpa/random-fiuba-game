@@ -13,7 +13,10 @@
 #include "../Updater.h"
 
 
-class GameActivity : public Activity, public OnClickListener, public OnMovementListener
+class GameActivity : public Activity, 
+					 public OnClickListener, 
+					 public OnMovementListener,
+					 public OnActionListener
 {
 private:
 
@@ -49,6 +52,8 @@ public:
 	void OnClick(ClickEvent e);
 
 	void OnMovement(MovementEvent e);
+
+	void OnAction(ActionEvent e);
 
 	void deselectPreviewsWorm();
 

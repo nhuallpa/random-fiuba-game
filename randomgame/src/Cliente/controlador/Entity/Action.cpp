@@ -2,7 +2,9 @@
 
 Action* Action::action = NULL;
 
-Action::Action(void){}
+Action::Action(void){
+	last = a = NONE;
+}
 
 Action::~Action(void){}
 
@@ -45,4 +47,19 @@ void Action::notify(){
 
 void Action::setEvent(ActionKey a){
 	this->a = a;
+}
+
+void Action::setLastEvent(ActionKey a){
+	this->last = a;
+}
+
+bool Action::newEvent(){
+	bool result = true;
+	if(last == a){
+		result = false;
+	}
+	else{
+		last = a;
+	}
+	return result;
 }

@@ -5,7 +5,7 @@
 
 class OnActionListener{
 	public:
-		virtual void OnAction(ActionEvent e){}
+		virtual void OnAction(ActionEvent e) = 0;
 };
 
 #endif

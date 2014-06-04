@@ -99,10 +99,16 @@ void RunGame::detectClick(){
 }
 void RunGame::detectMovem(SDL_Event* e){
 	Move* mv = Move::getInstance();
+	Action* at = Action::getInstance();
+	
 	if(e->type == SDL_KEYDOWN){
 		detectMovem(mv, 1, e);
 		if(mv->newEvent()){
 			listEvent.add(mv);
+		}
+		detectAction(at, e);
+		if(at->newEvent()){
+			listEvent.add(at);
 		}
 	}
 	else if(e->type == SDL_KEYUP){
@@ -110,6 +116,7 @@ void RunGame::detectMovem(SDL_Event* e){
 		if(mv->newEvent()){
 			listEvent.add(mv);
 		}
+		iniAction(at, e);
 	}
 }
 
@@ -137,15 +144,40 @@ void RunGame::detectMovem(Move* mv, int value, SDL_Event* e){
 			break;
 		default:;
 	}
+}
+
+
+void RunGame::detectAction(Action* at, SDL_Event* e){
+	SDL_Scancode sc = e->key.keysym.scancode;
 	switch(sc){
 		case SDL_SCANCODE_RETURN:
-			mv->shoot = value;
+			at->setEvent(SHOOT);
+			break;
+		case SDL_SCANCODE_RCTRL:
+			at->setEvent(MENU);
+			break;
+		case SDL_SCANCODE_LCTRL:
+			at->setEvent(MENU);
 			break;
 		default:;
 	}
 }
 
-
+void RunGame::iniAction(Action* at, SDL_Event* e){
+	SDL_Scancode sc = e->key.keysym.scancode;
+	switch(sc){
+		case SDL_SCANCODE_RETURN:
+			/*at->setEvent(NONE);
+			break;*/
+		case SDL_SCANCODE_RCTRL:
+			/*at->setEvent(NONE);
+			break;*/
+		case SDL_SCANCODE_LCTRL:
+			at->setLastEvent(NONE);
+			break;
+		default:;
+	}
+}
 
 void RunGame::detectMouse(){
 	Over* ov = Over::getInstance();
