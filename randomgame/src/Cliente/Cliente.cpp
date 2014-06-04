@@ -367,7 +367,7 @@ int Cliente::netListener(void* data){
 			cli->srvStatus = SERVER_TIMEDOUT;
 			closeListen = true;
 		}
-		//printf("\nGot network change");
+
 		switch(emsg->type){
 		case UPDATE:
 			//Log::t("Got UPDATE message from server");
@@ -376,7 +376,6 @@ int Cliente::netListener(void* data){
 				//Log::i("\nGot something from client %s worm: %d posY: %f",emsg->playerID.c_str(),emsg->play[0].wormid,emsg->play[0].y);
 				n->lock();
 				cli->clientQueue.push(*emsg);
-				
 				netcond->signal();
 				n->unlock();
 
@@ -388,16 +387,30 @@ int Cliente::netListener(void* data){
 			
 			
 			break;
+
+		case TURN_CHANGE:
+			//Process turn variation
+			if ( emsg->playerID.compare(playerId) ){
+				//not my turn
+				cli->gameActivity->endMyTurn();
+				cli->gameActivity->otherTurn(emsg->playerID);
+
+			}else{
+				//my turn
+				cli->gameActivity->beginMyTurn();
+			}
+
+			break;
+			
 		case PLAYER_UPDATE:
 			//Add the user to the players that are playing list
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
-			/*n->lock();*/
+
 			if (emsg->playerState == CONNECTED)
 			{
 				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
 				int i=0;
-				//SDL_SemWait(cli->advance);
 				cli->domainMx.lock();
 				for (i=0; i< emsg->elements; i++) 
 				{
@@ -405,7 +418,6 @@ int Cliente::netListener(void* data){
 					
 					Log::i("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
 				}
-				//SDL_SemPost(cli->advance);
 				cli->domainMx.unlock();
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
 			}
@@ -419,7 +431,6 @@ int Cliente::netListener(void* data){
 				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
-			/*n->unlock();*/
 			break;
 		}
 	
