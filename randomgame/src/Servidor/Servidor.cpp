@@ -71,7 +71,6 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 
 	/* Start threading stuff */
-
 	this->data.srv = this;
 
 	this->worldQ.type = UPDATE;

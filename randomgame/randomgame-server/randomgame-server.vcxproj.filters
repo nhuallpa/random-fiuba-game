@@ -186,6 +186,12 @@
     <ClCompile Include="..\src\Servidor\Servidor.cpp">
       <Filter>Archivos de código fuente\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\TurnManager.cpp">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\Timer.cpp">
+      <Filter>Archivos de código fuente\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h">
@@ -329,5 +335,14 @@
     <ClInclude Include="..\src\Servidor\Servidor.h">
       <Filter>Archivos de código fuente\server</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\TurnManager.h">
+      <Filter>Archivos de código fuente\server\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\Timer.h">
+      <Filter>Archivos de código fuente\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="configFile.props" />
   </ItemGroup>
 </Project>
