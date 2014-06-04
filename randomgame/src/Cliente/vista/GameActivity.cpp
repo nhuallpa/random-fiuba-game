@@ -226,6 +226,7 @@ void GameActivity::otherTurn(std::string playerId)
 
 void GameActivity::endMyTurn() {
 	if ( this->isMyTurn ){
+		Log::i("\nRemoving all listeners");
 		this->cController->remuveOnClickListener(this);
 		this->cController->remuveOnMovementListener(this);
 		this->cController->remuveOnActionListener(this);

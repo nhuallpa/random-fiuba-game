@@ -32,6 +32,7 @@ std::string TurnManager::getNextPlayerTurn(){
 	}
 	int newPos = this->indicator + 1;
 	this->indicator = newPos % this->maxPlayers;
+	printf("\nTurn for:  %s",this->players[indicator].c_str());
 	return this->players[indicator];
 }
 

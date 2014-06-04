@@ -71,6 +71,7 @@ bool Cliente::begin(){
 	}
 
 	this->data.cli = this;
+	strcpy(this->data.p,this->pl.c_str());
 	this->domain.setPlayerID(this->pl);
 	this->updater.setPlayerId(this->pl);
 
@@ -343,7 +344,7 @@ int Cliente::notifyLocalUpdates(void *data){
 
 
 int Cliente::netListener(void* data){
-	Sleep(45);
+	//Sleep(45);
 	Log::i("Cliente::netListener >> Disparado net listen thread");
 	threadData* tData = (threadData*)data;
 	Cliente* cli = tData->cli;
@@ -392,11 +393,13 @@ int Cliente::netListener(void* data){
 			//Process turn variation
 			if ( emsg->playerID.compare(playerId) ){
 				//not my turn
+				Log::i("Not My turn, turn for: %s, i am: %s",emsg->playerID.c_str(),playerId );
 				cli->gameActivity->endMyTurn();
 				cli->gameActivity->otherTurn(emsg->playerID);
 
 			}else{
 				//my turn
+				Log::i("My turn ( %s ) :D",playerId );
 				cli->gameActivity->beginMyTurn();
 			}
 
