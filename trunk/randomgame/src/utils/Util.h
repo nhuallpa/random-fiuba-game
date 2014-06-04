@@ -33,7 +33,10 @@ typedef enum{
 	INIT_PLACEMENT,
 	MOVE_STOP,
 	DEAD,
-	WITH_WEAPON,
+	WITH_WEAPON,			/* DEPRECATED */
+	WITH_WEAPON_LEFT,		/* Apuntando hacia la izquierda */
+	WITH_WEAPON_RIGHT,		/* Apuntando hacia la derecha */
+	DO_SHOOT,				/* Disparo */
 	NOT_CONNECTED,
 	NOT_CONNECTED_LEFT,
 	NOT_CONNECTED_RIGHT,
@@ -52,12 +55,13 @@ typedef enum{
 
 
 typedef enum{
+	NO_WEAPON=0,
 	BAZOOKA=2,
 	GRANADE=4,
 	HOLY=12,
 	AIRATTACK=3,
 	DYNAMITE=5
-} Weapons;
+} WeaponId;
 
 
 
@@ -69,7 +73,7 @@ typedef struct {
 		int wormid;			// Worm identifier, unique
 		Movement action;	// der, izq, salt
 		int state;			//selected or not
-		//int weaponid;		
+		int weaponid;		
 		float x;				// X,Y alreaded passed to view coords.
 		float y;				//
 		char level[15];		// YAML level (filename), path must be specified
