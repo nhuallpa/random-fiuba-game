@@ -273,16 +273,17 @@ bool GameEngine::step(){
 			/* Velocidad que toma al caer */
 			b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
 			it->second->GetBody()->SetLinearVelocity(vel);
-			//it->second->GetBody()->SetActive(false);
-			//static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAlive(false);
-			//static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAction(MOVELESS);
 		}
 		++it;
 	}
 
-	//this->myWorld->ClearForces();
+	//Logica de colision
+	// if ( a missil has collided)
+	// return true;
 	
-	return true;
+
+
+	return false;
 }
 
 

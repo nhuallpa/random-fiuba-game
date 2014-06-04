@@ -136,29 +136,33 @@ int Servidor::stepOver(void* data){
 	srv->startNewTurn = false;
 	int i=0;
 
+	Timer timeHandler;
+	TurnManager turnMgr;
+	bool doWeHaveAExplosion = false;
+	float explosionTime = 0;
 	//TODO @Ariel si no estan todos no arranca el juego (la simulacion fisica)
-
+	printf("\nInicio tiempo");
+	timeHandler.start();
 	while(true){
-		//TODO @Ariel Logica de tiempo, si pasan 60 segundos cambio de turno
-		//TurnManager (random para elegir el jugador, al pasar 60 segundos le pido el siguiente
+		
+		if ( timeHandler.elapsed() >= 60 || ( doWeHaveAExplosion && ( timeHandler.elapsed() - explosionTime ) >= 5 )  ){
+			printf("\n pasaron 60 seg o 5 seg despues de una explosion");
+			doWeHaveAExplosion = false;
+			explosionTime = 0;
+			timeHandler.reset();
+			//notifyTurnForPlayer( turnMgr.getNextPlayerTurn() );
+			//TODO @Ariel
 
-		// doWeExplode: boolean -> true si hubo una explosion
-		// newTime = getTime();
-		//if ( transcurrieron 60seg -> newTime - initialTime >= 60seg || ( doWeExplode && (newTime - ExplosionTime >= 5seg) ) ){
-		//	doWeExplode = false;
-		//	whoPlays = turnMgr.getNextPlayerTurn();
-		//	notifyTurnForPlayer( whoPlays );
-		//}
+		}
 
 		Sleep(15);
 
 		w->lock();
-		////TODO @Ariel step va a devolver true si hubo una explosion
-		srv->getGameEngine().step();
-		// if ( huboExplosion  -> puedo usar directamente doWeExplode){
-		// explosionTime = getTime();
-		// doWeExplode = true;
-		// }
+		
+		doWeHaveAExplosion = srv->getGameEngine().step();
+		if ( doWeHaveAExplosion){
+			explosionTime = timeHandler.elapsed();
+		}
 
 		w->unlock();
 
@@ -168,19 +172,17 @@ int Servidor::stepOver(void* data){
 	
 			//chequeo si hay clientes
 			if ( srv->pList.size()  ){
-				//SDL_SemWait(srv->advance);
+
 				int res = srv->somethingChange();
 				if ( res ){
 					srv->worldQ.type = UPDATE;
-					//Agrego a la cola y notifico clientes
 					srv->notifyAll();
 				}
-				//SDL_SemPost(srv->advance);
+
 			} 
 		}
 		i++;
 	}
-
 	return 0;
 }
 
