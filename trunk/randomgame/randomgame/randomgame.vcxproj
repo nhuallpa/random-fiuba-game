@@ -74,6 +74,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Action.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ActionEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\Click.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ClickEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\CollectionEvent.cpp" />
@@ -139,10 +141,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\controlador\Contracts\Notifiable.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnActionListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnClickListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnMovementListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnScrollListener.h" />
     <ClInclude Include="..\src\Cliente\controlador\Contracts\OnZoomListener.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Action.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ActionEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\Click.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ClickEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\CollectionEvent.h" />
