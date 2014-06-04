@@ -22,19 +22,19 @@ class GameController{
 		void addListener(OnMovementListener* m);
 		void addListener(OnScrollListener* s);
 		void addListener(OnZoomListener* z);
-		void addListener(OnActionListener* a);
 
 		void remuveListener(OnClickListener* c);
 		void remuveListener(OnMovementListener* m);
 		void remuveListener(OnScrollListener* s);
 		void remuveListener(OnZoomListener* z);
-		void remuveListener(OnActionListener* a);
 
-		/*para evistar 'ambiguous call to overloaded function'*/
+
 		void addOnClickListener(OnClickListener* c);
 		void addOnMovementListener(OnMovementListener* m);
 		void remuveOnMovementListener(OnMovementListener* m);
 		void remuveOnClickListener(OnClickListener* c);
+		void addOnActionListener(OnActionListener* a);
+		void remuveOnActionListener(OnActionListener* a);
 
 	private:
 		RunGame* rg;

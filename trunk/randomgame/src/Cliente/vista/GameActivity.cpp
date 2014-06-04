@@ -32,7 +32,6 @@ void GameActivity::buildView( GameViewBuilder * builder)
 	builder->buildCharacters();
 	builder->buildWater();
 	builder->buildStateBar();
-	// Proceso de contruccion, by Erik
 	builder->buildMenuWeapon();
 
 }
@@ -227,6 +226,7 @@ void GameActivity::endMyTurn()
 {
 	this->cController->remuveOnClickListener(this);
 	this->cController->remuveOnMovementListener(this);
+	this->cController->remuveOnActionListener(this);
 }
 
 
@@ -234,14 +234,16 @@ void GameActivity::beginMyTurn()
 {
 	this->cController->addOnClickListener(this);
 	this->cController->addOnMovementListener(this);
+	this->cController->addOnActionListener(this);
 }
 
 
 void GameActivity::setListeners(SDLScreen &  screen) 
 {
-	/* TODO: @Ariel, sacar estas dos lineas*/
+	/* TODO: @Ariel, sacar estas tres lineas*/
 	this->cController->addOnClickListener(this);
 	this->cController->addOnMovementListener(this);
+	this->cController->addOnActionListener(this);
 
 	this->cController->addListener(&TextureManager::Instance().getCamera());
 	this->cController->addListener(&screen);
@@ -373,3 +375,11 @@ void GameActivity::OnMovement(MovementEvent e)
 
 	
 }
+
+
+void GameActivity::OnAction(ActionEvent e){
+	Log::e("ASD: %d", (int)e.action);
+}
+
+
+
