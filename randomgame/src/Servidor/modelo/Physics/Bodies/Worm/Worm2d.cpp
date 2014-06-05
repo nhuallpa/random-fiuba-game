@@ -51,7 +51,7 @@ Worm2d::Worm2d(ElementType type, float posX, float posY, float h,
     myFixtureDef.density = 1;
 	myFixtureDef.friction = 0.999;
 	myFixtureDef.restitution = 0;
-    
+   
 
     //create dynamic body
     myBodyDef.position.Set(posX, posY);
@@ -115,53 +115,57 @@ void Worm2d::animate(){
 
 	this->aWormActions->updateJumpTimeout();
 
-	//si el Worm esta saltando, saltar
-	if(static_cast<Worm*>(myWorm)->isJumping())
+	bool noEstabaSatando =  ( myWorm->myLastAction != JUMP && myWorm->myLastAction != JUMP_RIGHT && myWorm->myLastAction != JUMP_LEFT );
+
+	//si el Worm esta saltando y no estaba saltando
+	if(static_cast<Worm*>(myWorm)->isJumping() && noEstabaSatando )
 	{
 		this->jump();
-		static_cast<Worm*>(myWorm)->stopMoving();
+		myWorm->myLastAction = JUMP;
 
 	} 
 
-	if(static_cast<Worm*>(myWorm)->isJumpingRight())
+	if(static_cast<Worm*>(myWorm)->isJumpingRight() && noEstabaSatando )
 	{
 		this->jumpRight();
-		static_cast<Worm*>(myWorm)->stopMoving();
+		myWorm->myLastAction = JUMP_RIGHT;
 
 	} 
 
-	if(static_cast<Worm*>(myWorm)->isJumpingLeft())
+	if(static_cast<Worm*>(myWorm)->isJumpingLeft() && noEstabaSatando )
 	{
 		this->jumpLeft();
-		static_cast<Worm*>(myWorm)->stopMoving();
+		myWorm->myLastAction = JUMP_LEFT;
 
 	} 
 
 	//si el Worm se esta moviendo a la izquierda, moverlo a izquierda
-	if(static_cast<Worm*>(myWorm)->isMovingLeft())
+	if(static_cast<Worm*>(myWorm)->isMovingLeft() && noEstabaSatando )
 	{
-		
 		this->moveLeft();
+		myWorm->myLastAction = MOVE_LEFT;
 	}
-
-	/*if ((myWorm)->getAction() == NOT_CONNECTED || (myWorm)->getAction() == NOT_CONNECTED_LEFT || (myWorm)->getAction() == NOT_CONNECTED_RIGHT)
-	{
-			this->body->SetLinearVelocity(b2Vec2(0,0));
-			static_cast<Worm*>(myWorm)->myLastAction == MOVELESS;
-	}*/
 
 	//si el Worm se esta moviendo a la derecha, moverlo a derecha
-	if(static_cast<Worm*>(myWorm)->isMovingRight())
+	if(static_cast<Worm*>(myWorm)->isMovingRight() && noEstabaSatando )
 	{
 		this->moveRight();
-
+		myWorm->myLastAction = MOVE_RIGHT;
 	}
 
-	if(static_cast<Worm*>(myWorm)->isStopped())
-	{
+
+	if(static_cast<Worm*>(myWorm)->action == MOVE_STOP && noEstabaSatando ){
+		//printf("\nLo detengo 1");
 		this->body->SetLinearVelocity(b2Vec2(0,0));
-	
+
 	}
+
+	if ( !noEstabaSatando ){
+		if ( myWorm->isGrounded() ){
+			myWorm->myLastAction = MOVE_STOP;
+		}
+	}
+
 
 	b2Vec2 f = this->body->GetPosition();
 
@@ -190,12 +194,8 @@ void Worm2d::animate(){
 			myWorm->changed = true;
 			this->ox = f.x;
 			this->oy = f.y;
-			Log::t("Las Actions worm %d of %s", myWorm->getId(), myWorm->playerID.c_str());
-			(myWorm)->myLastAction = static_cast<Worm*>(myWorm)->getAction();
-			if ((myWorm)->myLastAction == MOVE_STOP)
-			{
-				this->body->SetLinearVelocity(b2Vec2(0,0));
-			}
+			
+
 		}
 	}
 	else{

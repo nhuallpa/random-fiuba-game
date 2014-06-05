@@ -101,7 +101,7 @@ Circle::~Circle() {
 
 void Circle::setPosition(float x, float y,float rot){
 	this->body->SetTransform(b2Vec2(x,y),0);
-	this->body->SetLinearVelocity( b2Vec2( 0, 0 ) );
+	//this->body->SetLinearVelocity( b2Vec2( 0, 0 ) );
 	this->body->SetAngularVelocity( 0 );
 	this->body->SetAwake(true);
 }

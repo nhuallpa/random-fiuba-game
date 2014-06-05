@@ -428,7 +428,7 @@ int Servidor::initClient(void* data){
 			case UPDATE:
 				m->lock();
 				Log::t("Got update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
-				//printf("Got update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
+				printf("\nGot update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
 

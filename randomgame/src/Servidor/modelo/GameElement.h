@@ -61,6 +61,8 @@ public:
 	float getScale();
 	bool isFixed();
 
+	int grounded;
+
 	float getRadiusScaled() {return radius * scale;}
 
 	std::string playerID;
@@ -101,7 +103,7 @@ protected:
 	// Center position!
 	std::pair<float,float> position;
 	std::list<std::pair<float,float>> vertexList;
-	int grounded;
+
 	/** Used for circule */
 	float radius;
 
