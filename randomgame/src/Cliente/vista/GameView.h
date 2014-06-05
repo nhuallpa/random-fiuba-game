@@ -53,6 +53,8 @@ public:
 	void getDestroyEart(int x, int y, int radio);
 
 	~GameView(void);
+
+	void actionMenu();
 };
 
 

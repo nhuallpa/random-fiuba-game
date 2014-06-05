@@ -150,7 +150,7 @@ void Cliente::getRemoteWorld() {
 		this->domainMx.unlock();
 
 	}
-	//delete msg;
+	delete msg;
 }
 
 

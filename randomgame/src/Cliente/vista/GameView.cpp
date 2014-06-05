@@ -86,3 +86,6 @@ void GameView::getDestroyEart(int x, int y, int radio)
 	this->eart->drawExplotion(x, y, radio);
 }
 
+void GameView::actionMenu(){
+	this->menuWeapon->update();
+}
