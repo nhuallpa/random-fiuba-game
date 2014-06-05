@@ -146,10 +146,7 @@ class Cliente { //: public OnMovementListener{
 
 		Activity* getCurrentActivity() {return this->currentActivity;}
 
-		//void OnMovement(MovementEvent e);
-
-		bool serverAlive();
-	
+		
 		//Listen changes in the network
 		static int netListener(void* data);
 

@@ -77,12 +77,11 @@ void Bootstrap::loadWait()
 
 void Bootstrap::loadEart()
 {
-	// todo: levantar la configuracion de los sprite del yaml
 	std::string path = DEFAULT_YAML_LEVEL;
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 	try 
 		{
-			TextureManager::Instance().loadStream(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer());
+			TextureManager::Instance().load(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer(), true);
 		} 
 		catch (GameException & e) 
 		{

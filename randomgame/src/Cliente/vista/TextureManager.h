@@ -10,6 +10,7 @@
 #include <SDL_rect.h>
 #include "../../utils/Log.h"
 #include <SDL2_gfxPrimitives.h>
+#include "FontManager.h"
 
 class TextureManager
 {
@@ -35,7 +36,7 @@ private:
 	SDL_Surface* flipSurface(SDL_Surface* surface);
 	
 	
-
+	
 	
 
 public:
@@ -62,7 +63,7 @@ public:
 	* @param pRenderer	The renderer which is used to load image
 	* @param oper		The aditional operation on image
 	*/
-	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer);
+	bool load(std::string fileName,std::string id, SDL_Renderer* pRenderer, bool keepSurface=false);
 
 	void loadImages(std::map<std::string, std::string> map_images, SDL_Renderer * renderer);
 
@@ -161,6 +162,8 @@ public:
 	void drawCircleOn(SDL_Surface *surface, int centerX, int centerY, int radius, Uint32 pixel);
 
 	void fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel);
+
+	void fillCircleOn(std::string imageId, int cx, int cy, int radius, Uint32 pixel);
 
 	void putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
 };

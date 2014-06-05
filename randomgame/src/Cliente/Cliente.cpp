@@ -447,10 +447,6 @@ int Cliente::netListener(void* data){
 	return 0;
 }
 
-bool Cliente::serverAlive () {
-	return this->srvStatus;
-}
-
 GameElement* Cliente::getElementFromPlayable(std::string playerID, Playable p){
 
 	GameElement* g = new GameElement(p.wormid,"PLAYER 1",WORM,p.x,p.y,0.0,40,40,15,false);

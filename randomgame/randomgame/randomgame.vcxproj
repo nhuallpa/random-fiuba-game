@@ -111,6 +111,7 @@
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaitActivity.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaitView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\Weapon.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WormView.cpp" />
     <ClCompile Include="..\src\Cliente\Cliente.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\GameController.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\WaitActivity.h" />
     <ClInclude Include="..\src\Cliente\vista\WaitView.h" />
+    <ClInclude Include="..\src\Cliente\vista\Weapon.h" />
     <ClInclude Include="..\src\Cliente\vista\WormView.h" />
     <ClInclude Include="..\src\Cliente\Cliente.h" />
     <ClInclude Include="..\src\Cliente\controlador\GameController.h" />
