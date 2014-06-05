@@ -16,7 +16,7 @@ public:
 	~Weapon();
 	void setWeapon(WSTATE ws, string ref);
 	void setState(WSTATE ws);
-	void setRender(bool b);
+	void setRender();
 	string getWeapon(WSTATE ws);
 	void draw(SDLScreen & screen);
 private:

@@ -12,6 +12,7 @@ public:
 	MenuWeaponView(int x, int y);
 	~MenuWeaponView();
 	void buildWeapon();
+	void update();
 	void draw(SDLScreen & screen);
 private:
 	map<WeaponId, Weapon*> mapa;

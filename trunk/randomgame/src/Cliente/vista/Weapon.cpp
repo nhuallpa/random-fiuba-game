@@ -14,8 +14,11 @@ Weapon::~Weapon(){
 }
 
 
-void Weapon::setRender(bool b){
-	this->render = b;
+void Weapon::setRender(){
+	if(this->render)
+		this->render = false;
+	else
+		this->render = true;
 }
 
 void Weapon::setState(WSTATE ws){

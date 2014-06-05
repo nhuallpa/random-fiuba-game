@@ -18,8 +18,14 @@ void MenuWeaponView::buildWeapon(){
 	Weapon* menu = new Weapon(NO_WEAPON,30,30,267,214);
 	menu->setWeapon(ENABLE,"MenuWeapon");
 	menu->setState(ENABLE);
-	menu->setRender(false);
+	//menu->setRender(false);
 	mapa.insert(pair<WeaponId, Weapon*>(NO_WEAPON,menu));
+}
+
+
+void MenuWeaponView::update(){
+	Weapon* menu = mapa[NO_WEAPON];
+	menu->setRender();
 }
 
 void MenuWeaponView::draw(SDLScreen & screen){
