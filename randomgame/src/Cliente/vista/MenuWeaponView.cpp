@@ -12,18 +12,38 @@ MenuWeaponView::~MenuWeaponView(){
 
 }
 
+void MenuWeaponView::buildWeapon(){
+
+	//creo el menu WeaponId=NO_WEAPON, debo registrar la url
+	Weapon* menu = new Weapon(NO_WEAPON,30,30,267,214);
+	menu->setWeapon(ENABLE,"MenuWeapon");
+	menu->setState(ENABLE);
+	menu->setRender(false);
+	mapa.insert(pair<WeaponId, Weapon*>(NO_WEAPON,menu));
+}
+
 void MenuWeaponView::draw(SDLScreen & screen){
+	
+	map<WeaponId, Weapon*>::iterator it;
+	for(it = mapa.begin(); it != mapa.end(); it++){
+		it->second->draw(screen);
+	}
+
+
+	//TextureManager::Instance().drawFrameOnScreen("MenuWeapon", 
+	//								30, 
+	//								30, 
+	//								267, 
+	//								214, 
+	//								0, 
+	//								0, 
+	//								screen.getRenderer(),
+	//								false, 
+	//								SDL_FLIP_NONE);
+	
+
 	//screen.setTarget(2);
-	TextureManager::Instance().drawFrameOnScreen("gun_1", 
-									30, 
-									30, 
-									50, 
-									50, 
-									0, 
-									0, 
-									screen.getRenderer(),
-									false, 
-									SDL_FLIP_NONE);
+
 
 	//screen.setTarget(1);
 }
