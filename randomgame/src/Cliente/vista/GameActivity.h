@@ -39,7 +39,7 @@ public:
 
 	GameActivity(SDLScreen & screen, GameDomain* domain, GameController* cController, std::string playerId, Updater & updater);
 
-	void buildView( GameViewBuilder* builder);
+	void buildView();
 
 	void stop();
 

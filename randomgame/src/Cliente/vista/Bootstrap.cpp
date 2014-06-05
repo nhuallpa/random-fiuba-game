@@ -43,9 +43,13 @@ void Bootstrap::loadConfigGame()
 	TextureManager::Instance().loadImages(map_images, this->getScreen().getRenderer());
 	loadSprites();
 	loadEart();
+	// a a partir de aca tengo las dimensiones del terreno
 	loadMenuWeapon();
 	initCamera(this->getScreen().getWidth(), this->getScreen().getHeight());
 	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
+	std::pair<int, int> dimensionScenario = TextureManager::Instance().getDimension("eart");
+	//this->getScreen().createTarget(dimensionScenario.first, dimensionScenario.second);
+	//this->getScreen().createTarget(this->getScreen().getWidth(), this->getScreen().getHeight());
 
 }
 

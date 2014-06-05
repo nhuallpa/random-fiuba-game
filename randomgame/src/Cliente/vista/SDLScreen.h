@@ -17,6 +17,9 @@ private:
 	SDL_Window* m_pWindow;
 
 	SDL_Renderer* renderer;
+
+	SDL_Texture* mTexture;
+	SDL_Texture* mTexture2;
 	
 	std::string title;
 
@@ -32,6 +35,12 @@ public:
 			int height, int flags);
 	
 	void setCamera(Camera * camera) { refCam = camera;}
+
+	void createTarget(int w, int h);
+
+	void setTarget(int index);
+	void setOriginalTarget();
+
 	void clear();
 	
 	void render();
