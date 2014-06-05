@@ -62,7 +62,7 @@ void Worm::jumpLeft()
 void Worm::stop()
 {
 	this->stopMoving();
-	//this->action = MOVELESS;
+	this->action = MOVE_STOP;
 	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
 	//aWorm2d->getBody()->SetLinearVelocity(b2Vec2(0,0));
 }
@@ -71,8 +71,8 @@ void Worm::moveLeft()
 {
 	this->stopMoving();
 	movingLeft=true;
-	Worm2d* aWorm2d = (Worm2d*)this->myBody;
-	aWorm2d->moveLeft();
+	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
+	//aWorm2d->moveLeft();
 	this->action = MOVE_LEFT;
 }
 
@@ -80,8 +80,8 @@ void Worm::moveRight()
 {
 	this->stopMoving();
 	this->movingRight=true;
-	Worm2d* aWorm2d = (Worm2d*)this->myBody;
-	aWorm2d->moveRight();
+	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
+	//aWorm2d->moveRight();
 	this->action = MOVE_RIGHT;
 }
 

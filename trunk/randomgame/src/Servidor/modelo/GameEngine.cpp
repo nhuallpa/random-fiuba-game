@@ -84,6 +84,7 @@ void GameEngine::floodWorld(){
 void GameEngine::animateWorld() {
 	//ToDo: hardcoded gravity
 	this->myWorld = new b2World(b2Vec2(0,-10.0));
+	this->myWorld->SetGravity(b2Vec2(0,-10));
 	//this->myContactListener = new ContactListener();
 	this->myContactListener = ContactListener();
 	this->myWorld->SetContactListener(&this->myContactListener);
