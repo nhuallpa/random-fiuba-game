@@ -53,7 +53,9 @@ SDL_Texture* TextureManager::getTexture(std::string imageId)
 	}
 	else
 	{
-		return NULL;
+		std::stringstream msg;
+		msg<<"TextureManager: Texture de ImagenID NO encontrada: "<<imageId;
+		throw GameException(msg.str());
 	}
 }
 SDL_Surface* TextureManager::getSurface(std::string imageId)
@@ -65,7 +67,9 @@ SDL_Surface* TextureManager::getSurface(std::string imageId)
 	}
 	else
 	{
-		return NULL;
+		std::stringstream msg;
+		msg<<"TextureManager: Surface de ImagenID NO encontrada: "<<imageId;
+		throw GameException(msg.str());
 	}
 }
 
@@ -75,16 +79,22 @@ void TextureManager::setScreenSize(int w, int h)
 	this->screenHeight = h;
 }
 
-bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRenderer)
+bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRenderer, bool keepSurface)
 {
 	SDL_Surface* tmpSurface = IMG_Load(fileName.c_str());
 
 	SDL_Texture* newTexture = SDL_CreateTextureFromSurface(pRenderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-
+	
+	if (keepSurface) {
+		surface_map[id] = tmpSurface;	
+	} else {
+		SDL_FreeSurface(tmpSurface);
+	}
 	if (newTexture)
 	{
 		this->texture_map[id]=newTexture;
+
+		
 		return true;
 	} 
 	else 
@@ -501,4 +511,23 @@ void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radi
             target_pixel_b += BPP;
         }
     }
+}
+
+void TextureManager::fillCircleOn(std::string imageId, int x, int y, int radius, Uint32 pixel)
+{
+	try
+	{
+		SDL_Texture* texture = this->getTexture(imageId);
+		SDL_DestroyTexture(texture);
+		
+		SDL_Surface* surface = this->getSurface(imageId);
+		TextureManager::Instance().fillCircleOn(surface, x, y, radius, pixel);
+
+		SDL_Texture* newTexture = SDL_CreateTextureFromSurface(FontManager::Instance().getRenderer(), surface);
+		this->texture_map[imageId]=newTexture;
+
+	}
+	catch (GameException e) {
+		Log::e(e.what());
+	}
 }
