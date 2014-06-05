@@ -246,6 +246,9 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Action.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\Weapon.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\Action.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\Weapon.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
