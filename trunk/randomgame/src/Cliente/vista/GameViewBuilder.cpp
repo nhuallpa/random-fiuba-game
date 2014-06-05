@@ -196,6 +196,7 @@ void GameViewBuilder::buildStateBar()
 
 void GameViewBuilder::buildMenuWeapon(){
 	MenuWeaponView* menuWeapon = new MenuWeaponView(30,20);
+	menuWeapon->buildWeapon();
 	this->gameView->setMenuWeapon(menuWeapon);
 }
 

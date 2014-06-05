@@ -123,6 +123,7 @@ void Bootstrap::shoutDown()
 
 void Bootstrap::loadMenuWeapon(){
 	try {
+		TextureManager::Instance().load("res/images/MenuWeapon.png", "MenuWeapon", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/grenade.1.png", "gun_1", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/bazooka.1.png", "gun_2", this->getScreen().getRenderer());
 	} catch (GameException & e) 
