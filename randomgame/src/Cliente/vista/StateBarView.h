@@ -24,6 +24,8 @@ private:
 
 	TextView label;
 	
+	TextView labelCenter;
+
 	Uint32 colorInfo;
 	Uint32 colorError;
 	
@@ -42,6 +44,8 @@ public:
 	void setMsjInfo(std::string msj);
 
 	void setMsjError(std::string msj);
+
+	void setMessageCenter(std::string msg);
 
 	void draw(SDLScreen & screen);
 
