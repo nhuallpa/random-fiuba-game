@@ -221,6 +221,8 @@ void GameActivity::OnClick(ClickEvent e){
 void GameActivity::otherTurn(std::string playerId) 
 {
 	// seter el label del gameview para mostar el turno de peppito
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->getStateBar()->setMessageCenter("Is turn of " + playerId);
 	this->isMyTurn = false;
 }
 
@@ -237,6 +239,8 @@ void GameActivity::endMyTurn() {
 void GameActivity::beginMyTurn() 
 {
 	this->isMyTurn = true;
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->getStateBar()->setMessageCenter("Is your turn");
 	this->cController->addOnClickListener(this);
 	this->cController->addOnMovementListener(this);
 	this->cController->addOnActionListener(this);
@@ -245,11 +249,6 @@ void GameActivity::beginMyTurn()
 
 void GameActivity::setListeners(SDLScreen &  screen) 
 {
-	/* TODO: @Ariel, sacar estas tres lineas*/
-	this->cController->addOnClickListener(this);
-	this->cController->addOnMovementListener(this);
-	this->cController->addOnActionListener(this);
-
 	this->cController->addListener(&TextureManager::Instance().getCamera());
 	this->cController->addListener(&screen);
 }

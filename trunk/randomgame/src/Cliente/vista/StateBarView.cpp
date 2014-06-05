@@ -48,16 +48,14 @@ void StateBarView::setMsj(std::string msj){
 	i=0;
 }
 
+void StateBarView::setMessageCenter(std::string msg) {
+	this->labelCenter.setText(msg, this->color);
+}
+
 void StateBarView::draw(SDLScreen & screen){
 	
 	int xLabel = TextureManager::Instance().getCamera().getX();
 	int yLabel = 10 + TextureManager::Instance().getCamera().getY();
-
-	SDL_Rect canvas;
-	canvas.x = xLabel;
-	canvas.y = yLabel;
-	canvas.h = this->label.getHeight();
-	canvas.w = this->label.getWidth();
 
 	float lastScaleX=0;
 	float lastScaleY=0;
@@ -78,5 +76,9 @@ void StateBarView::draw(SDLScreen & screen){
 
 	}	
 	
-
+	int posX = TextureManager::Instance().getCamera().getX() + 
+					TextureManager::Instance().getCamera().getW()/2 - 
+						this->labelCenter.getWidth() / 2;
+	int posY = TextureManager::Instance().getCamera().getY() + 10;
+	this->labelCenter.draw(screen.getRenderer(), posX, posY);
 }

@@ -160,19 +160,7 @@ void Cliente::loop(void){
 
 	bool quit = false;
 
-	/*bootstrap.init();
-	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
-	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
-	*/
-	/*if (this->loginOk) 
-	{
-		this->currentActivity = this->gameActivity;
-	} 
-	else 
-	{*/
-		this->currentActivity = this->waitActivity;
-	//}
-	
+	this->currentActivity = this->waitActivity;
 	this->runGame();
 
 	/** refresh the initial view*/
@@ -274,8 +262,6 @@ int Cliente::applyNetworkChanges(void *data){
 
 		Playable p;
 
-		//SDL_SemWait(cli->advance);
-		
 		for ( int i=0; i < temp.elements; i++){
 			p.wormid = temp.play[i].wormid;
 			//p.weaponid = emsg->play[i].weaponid;
@@ -285,7 +271,6 @@ int Cliente::applyNetworkChanges(void *data){
 			cli->updateModel(p);
 			//Log::i("\nProcessing wid: %d, x: %f, y: %f", p.wormid,p.x,p.y);
 		}
-		//SDL_SemPost(cli->advance);
 	}
 
 	Log::i("Cliente::applyNetworkChanges >> Terminado apply Network Changes thread");
@@ -394,17 +379,17 @@ int Cliente::netListener(void* data){
 
 		case TURN_CHANGE:
 			////Process turn variation
-			//if ( emsg->playerID.compare(playerId) ){
-			//	//not my turn
-			//	Log::i("Not My turn, turn for: %s, i am: %s",emsg->playerID.c_str(),playerId );
-			//	cli->gameActivity->endMyTurn();
-			//	cli->gameActivity->otherTurn(emsg->playerID);
+			if ( emsg->playerID.compare(playerId) ){
+				//not my turn
+				Log::i("Not My turn, turn for: %s, i am: %s",emsg->playerID.c_str(),playerId );
+				cli->gameActivity->endMyTurn();
+				cli->gameActivity->otherTurn(emsg->playerID);
 
-			//}else{
-			//	//my turn
-			//	Log::i("My turn ( %s ) :D",playerId );
-			//	cli->gameActivity->beginMyTurn();
-			//}
+			}else{
+				//my turn
+				Log::i("My turn ( %s ) :D",playerId );
+				cli->gameActivity->beginMyTurn();
+			}
 
 			break;
 			
