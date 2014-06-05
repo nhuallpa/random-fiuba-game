@@ -57,8 +57,6 @@ class Cliente { //: public OnMovementListener{
 		/**Activity que manerja la pantalla actual de la vista*/
 		Activity* currentActivity;
 
-		/**Activity que maneja la vista del juego*/
-		GameActivity* gameActivity;
 
 		/**Activity que maneja la vista del juego*/
 		WaitActivity* waitActivity;
@@ -123,6 +121,10 @@ class Cliente { //: public OnMovementListener{
 
 
 	public:
+
+
+		/**Activity que maneja la vista del juego*/
+		GameActivity* gameActivity;
 
 		Mutex domainMx;
 		Condition updateDomain;

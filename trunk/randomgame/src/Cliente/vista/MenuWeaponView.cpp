@@ -13,6 +13,7 @@ MenuWeaponView::~MenuWeaponView(){
 }
 
 void MenuWeaponView::draw(SDLScreen & screen){
+	//screen.setTarget(2);
 	TextureManager::Instance().drawFrameOnScreen("gun_1", 
 									30, 
 									30, 
@@ -23,4 +24,6 @@ void MenuWeaponView::draw(SDLScreen & screen){
 									screen.getRenderer(),
 									false, 
 									SDL_FLIP_NONE);
+
+	//screen.setTarget(1);
 }

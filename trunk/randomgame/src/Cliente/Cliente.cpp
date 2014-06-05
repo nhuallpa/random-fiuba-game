@@ -24,7 +24,7 @@ Cliente::Cliente(std::string playerID, std::string ip, int port)
 
 	this->gameReady = false;
 	this->gameOver = false;
-	
+		
 }
 
 Cliente::~Cliente(void){
@@ -33,6 +33,9 @@ Cliente::~Cliente(void){
 
 
 void Cliente::run(){
+	bootstrap.init();
+	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
+	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
 
 	if (!this->begin()){
 		Log::e("Error al iniciar el juego el cliente");
@@ -147,7 +150,6 @@ void Cliente::getRemoteWorld() {
 		this->domainMx.unlock();
 
 	}
-	this->gameReady = true;
 	//delete msg;
 }
 
@@ -158,10 +160,10 @@ void Cliente::loop(void){
 
 	bool quit = false;
 
-	bootstrap.init();
+	/*bootstrap.init();
 	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
 	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
-	
+	*/
 	/*if (this->loginOk) 
 	{
 		this->currentActivity = this->gameActivity;
@@ -344,7 +346,6 @@ int Cliente::notifyLocalUpdates(void *data){
 
 
 int Cliente::netListener(void* data){
-	Sleep(25);
 	Log::i("Cliente::netListener >> Disparado net listen thread");
 	threadData* tData = (threadData*)data;
 	Cliente* cli = tData->cli;
@@ -354,6 +355,11 @@ int Cliente::netListener(void* data){
 	
 	
 	cli->getRemoteWorld();
+
+
+	cli->gameActivity->buildView();
+
+	cli->gameReady = true;
 
 	EDatagram* emsg = new EDatagram();
 	bool closeListen = false;
@@ -407,21 +413,23 @@ int Cliente::netListener(void* data){
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 
-			if (emsg->playerState == CONNECTED)
-			{
-				Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
-				int i=0;
-				cli->domainMx.lock();
-				for (i=0; i< emsg->elements; i++) 
-				{
-					cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
-					
-					Log::i("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
-				}
-				cli->domainMx.unlock();
-				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
-			}
-			else if (emsg->playerState == DISCONNECTED)
+			// Esto era por el tp2
+			//if (emsg->playerState == CONNECTED)
+			//{
+			//	Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
+			//	int i=0;
+			//	cli->domainMx.lock();
+			//	for (i=0; i< emsg->elements; i++) 
+			//	{
+			//		cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
+			//		
+			//		Log::i("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
+			//	}
+			//	cli->domainMx.unlock();
+			//	cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
+			//}
+			//else 
+			if (emsg->playerState == DISCONNECTED)
 			{
 				Log::d("El usuario %s se ha DESCONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha desconectado");	
@@ -435,7 +443,6 @@ int Cliente::netListener(void* data){
 		}
 	
 	}
-	delete emsg;
 	Log::i("Cliente::netListener >> Terminado net listen thread");
 	return 0;
 }

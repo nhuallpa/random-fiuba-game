@@ -19,7 +19,8 @@ void Activity::update()
 void Activity::render() 
 {
 	this->clear();
-	
+
+	//m_screen.setTarget(1);
 	this->aView->draw(m_screen);	
 
 	this->m_screen.render();

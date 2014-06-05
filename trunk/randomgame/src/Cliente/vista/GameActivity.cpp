@@ -14,17 +14,16 @@ GameActivity::GameActivity(SDLScreen & screen,
 
 	builder = new GameViewBuilder(domain, &screen);
 	builder->setPlayerID(playerId);
-
-	this->buildView(builder);
-	this->setContentView(builder->getGameView());
+	//this->buildView();
+	//this->setContentView(builder->getGameView());
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
 	this->wormIdDesSelected = -1;
 	this->isMyTurn = false;
-	GameView* gameView = static_cast<GameView*>(this->aView);
+	
 }
 
-void GameActivity::buildView( GameViewBuilder * builder)
+void GameActivity::buildView()
 {
 	builder->buildContainer();
 	builder->buildSky();
@@ -34,7 +33,8 @@ void GameActivity::buildView( GameViewBuilder * builder)
 	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildMenuWeapon();
-
+	this->setContentView(builder->getGameView());
+	GameView* gameView = static_cast<GameView*>(this->aView);
 }
 
 void GameActivity::update() 

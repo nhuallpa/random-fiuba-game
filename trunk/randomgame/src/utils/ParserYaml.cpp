@@ -24,7 +24,7 @@ ParserYaml::ParserYaml(std::string config, std::string level, bool aux){
 	this->confFilePath = config;
 	this->levelFilePath = level;
 	//this->cargarConfYaml(this->confFilePath);
-	this->isDefault = false;
+	this->isDefault = false;	
 	this->cargarNivelYaml(this->levelFilePath);
 }
 
@@ -36,6 +36,10 @@ ParserYaml::ParserYaml(std::string config,std::string level){
 	this->startWithDefaultLevel();
 }
 
+
+ std::string ParserYaml::getLevelFilePath(){	
+	return this->levelFilePath;	
+}
 
 
 ParserYaml::~ParserYaml(){}
@@ -781,11 +785,6 @@ std::string ParserYaml::getArmaTipo(int e){
 std::string ParserYaml::getArmaHab(int e){
 	return this->todo.escenario.arma[e].habilitado;
 }
-
-std::string ParserYaml::getLevelFilePath(){
-	return this->levelFilePath;
-}
-
 
 std::string parserFloat2String(float n){
 	std::stringstream ss;
