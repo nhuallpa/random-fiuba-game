@@ -363,6 +363,26 @@ int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
 }
 
 
+bool GameLevel::stopWormsFromPlayer(std::string playerId){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerId);
+
+	if ( it != this->players.end() ){
+		std::vector<Worm*> copy = it->second->getWorms();
+		for ( std::vector<Worm*>::const_iterator itW = copy.begin() ; itW != copy.end(); itW++){
+			(*itW)->stop();
+		}
+	}else{
+		return false;
+	}
+
+	return true;
+
+}
+
+
+
 void GameLevel::disconnectWormsFromPlayer(std::string playerId){
 
 	map<string, GamePlayer*>::iterator it;

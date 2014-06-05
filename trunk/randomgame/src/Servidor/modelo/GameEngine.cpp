@@ -637,6 +637,15 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 
 }
 
+
+void GameEngine::stopPlayer( std::string pl){
+
+	this->gameLevel->stopWormsFromPlayer(pl);
+
+}
+
+
+
 // Solo se ejecuta si recibo la accion DO_SHOOT
 void GameEngine::animateWeapon(int weaponid, float angle_x, float angle_y){
 	//TODO @Bauti: Crea el arma en Box2D

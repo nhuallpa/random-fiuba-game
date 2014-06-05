@@ -22,6 +22,7 @@ class TurnManager{
 		~TurnManager();
 		TurnManager(int nrPlayers);
 		
+		std::string getCurrentPlayerTurn(){ return this->players[indicator]; }
 		int getRegisteredPlayers(){ return this->players.size(); }
 		void addPlayer(std::string player);
 		void removePlayer(std::string player);

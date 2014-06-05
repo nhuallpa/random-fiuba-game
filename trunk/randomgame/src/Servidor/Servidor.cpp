@@ -154,8 +154,10 @@ int Servidor::stepOver(void* data){
 	allIn->unlock();
 
 	printf("\nInicio tiempo");
+	Sleep(10);
+
 	timeHandler.start();
-	//srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+	srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 	while(true){
 		
@@ -164,8 +166,9 @@ int Servidor::stepOver(void* data){
 			doWeHaveAExplosion = false;
 			explosionTime = 0;
 			timeHandler.reset();
+			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
 			srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
-			printf("\n TIME RESETED: Continuo!");
+			//printf("\n TIME RESETED: Continuo!");
 		}
 
 		Sleep(15);
