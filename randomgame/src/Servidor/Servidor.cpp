@@ -438,10 +438,14 @@ int Servidor::initClient(void* data){
 				break;
 
 			case LOGIN:
-				
 				m->unlock();
 				cond->signal();
 				break;
+
+			case LOGOUT:
+				srv->disconnect(playerId);
+				break;
+
 			}
 		}
 	} catch (...) {
