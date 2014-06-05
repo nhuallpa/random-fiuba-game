@@ -28,6 +28,7 @@ class WormView: public View, public OnMovementListener
 	Sprite* currentSprite;
 
 	Sprite spriteWalk;
+	Sprite spriteBazooka;
 	Sprite spriteJump;
 
 	TextView labelUsuario;
@@ -56,6 +57,7 @@ public:
 
 	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
+	void setSpriteBazooka(Sprite spriteBazooka) {this->spriteBazooka = spriteBazooka;}
 
 	void OnMovement(MovementEvent e);
 

@@ -4,7 +4,7 @@
 WormView::WormView(int id)
 	: View(0, 0), id(id), direction(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
 {
-	currentSprite = &this->spriteWalk;
+	currentSprite = &this->spriteBazooka;
 	this->selected = false;
 	this->gray = false;
 	this->color = COLOR_VERDE;
