@@ -44,7 +44,8 @@ typedef enum{
 	MOVELESS_RIGHT,
 	MOVELESS_LEFT,
 	YOUR_TURN,
-	TURN_OVER
+	TURN_OVER,
+	EXPLOSION				/* X e Y tienen el radio de la explosion en este caso */
 } Movement;
 
 
@@ -72,14 +73,20 @@ typedef enum{
 typedef struct {
 		int wormid;			// Worm identifier, unique
 		Movement action;	// der, izq, salt
-		int state;			//selected or not
-		int weaponid;		
-		float x;				// X,Y alreaded passed to view coords.
-		float y;				//
+		int life;			// Worm health
+		int weaponid;		// Worm Weapon elected
+		float x;			// X coord
+		float y;			// Y coord
 		char level[15];		// YAML level (filename), path must be specified
 
 } Playable;
 
+
+typedef struct{
+	float x;
+	float y;
+	int radio;	/* El arma define el radio */
+} Explosion;
 
 
 struct s_point{

@@ -1,23 +1,27 @@
 #pragma once
 
-#ifndef WEAPON_H_
-#define WEAPON_H_
+#ifndef WEAPONMODEL_H_
+#define WEAPONMODEL_H_
 
 #include "../GameElement.h"
 #include "../Physics/Weapon2d.h"
 
-class Weapon : public GameElement{
+class WeaponModel : public GameElement{
 
 	protected:
 		bool delayedExplosion;
 		bool multipleChilds;
 		int amountOfMissils;
-		WeaponId identifier;
+		int identifier;
+		int parentWormId;
+		int aim_x;
+		int aim_y;
+		int intensidad;
 
 	public:
-		Weapon();
-		~Weapon();
-		Weapon(int id, ElementType type, float posX, float posY);
+		WeaponModel();
+		~WeaponModel();
+		WeaponModel(int id, int weaponid, int wormId, float posX, float posY, int aim_x, int aim_y, int intensidad);
 		bool hasDelayedExplosion(){ return this->delayedExplosion; }
 		int getAmountOfMissils(){ return this->amountOfMissils; }
 		bool hasMultipleChilds(){ return this->multipleChilds; }

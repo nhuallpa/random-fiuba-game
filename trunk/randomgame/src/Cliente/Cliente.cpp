@@ -250,9 +250,7 @@ int Cliente::applyNetworkChanges(void *data){
 		Sleep(1); 
 
 		// Wait for network updates from server
-		n->lock(); //Nestor: cambio de lugar porque me parece que el netListener se bloquearia en un caso
-				   //Ariel: No, si esta vacia espera (eso lo desbloquea), si no esta vacia ya tiene el lock	
-				   // y opera tranquilo
+		n->lock();
 		while ( cli->clientQueue.empty() ){
 			netcond->wait();
 		}
@@ -264,7 +262,8 @@ int Cliente::applyNetworkChanges(void *data){
 
 		for ( int i=0; i < temp.elements; i++){
 			p.wormid = temp.play[i].wormid;
-			//p.weaponid = emsg->play[i].weaponid;
+			p.weaponid = temp.play[i].weaponid;
+			p.life = temp.play[i].life;
 			p.x = temp.play[i].x;
 			p.y = temp.play[i].y;
 			p.action = temp.play[i].action;
@@ -281,10 +280,15 @@ int Cliente::applyNetworkChanges(void *data){
 
 bool Cliente::updateModel(Playable p){
 
-	this->domainMx.lock();
-	this->domain.updateElement(p.wormid, p.x, p.y, p.action );
-	this->domainMx.unlock();
+	if ( p.action != EXPLOSION ){
+		this->domainMx.lock();
+		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
+		this->domainMx.unlock();
+	}else{
+		this->processExplosions( p.x, p.y, p.weaponid );
+	}
 	return true;
+
 }
 
 
@@ -306,8 +310,8 @@ int Cliente::notifyLocalUpdates(void *data){
 		Log::t("\nGot a local change");
 
 		msg->play[0].wormid = cli->localChanges.back().wormid;
-		//msg->play[0].weaponid = cli->localChanges.back().weaponid;
-		msg->play[0].state = cli->localChanges.back().state;
+		msg->play[0].weaponid = cli->localChanges.back().weaponid;
+		msg->play[0].life = cli->localChanges.back().life;
 		msg->play[0].action = cli->localChanges.back().action;
 		msg->playerID = cli->pl.c_str();
 
@@ -398,22 +402,6 @@ int Cliente::netListener(void* data){
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
 			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
 
-			// Esto era por el tp2
-			//if (emsg->playerState == CONNECTED)
-			//{
-			//	Log::d("El usuario %s se ha CONECTADO ", emsg->playerID.c_str());
-			//	int i=0;
-			//	cli->domainMx.lock();
-			//	for (i=0; i< emsg->elements; i++) 
-			//	{
-			//		cli->addPlayerToView(emsg->playerID, emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y );
-			//		
-			//		Log::i("Adding to View Player %s, wormid: %d, X: %f, Y: %f",emsg->playerID.c_str(), emsg->play[i].wormid, emsg->play[i].x, emsg->play[i].y);
-			//	}
-			//	cli->domainMx.unlock();
-			//	cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " ha ingresado");	
-			//}
-			//else 
 			if (emsg->playerState == DISCONNECTED)
 			{
 				Log::d("El usuario %s se ha DESCONECTADO ", emsg->playerID.c_str());
@@ -425,6 +413,11 @@ int Cliente::netListener(void* data){
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
 			break;
+
+		case MAP_UPDATE:
+			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
+
+			break;
 		}
 	
 	}
@@ -432,11 +425,22 @@ int Cliente::netListener(void* data){
 	return 0;
 }
 
-GameElement* Cliente::getElementFromPlayable(std::string playerID, Playable p){
+void Cliente::processExplosions(float x, float y, int radio){
 
+	// TODO @Nestor: Decime como llamo a lo que hace la explosion en el mapa
+	// ExplodeView ( X, Y, RADIO );
+
+}
+
+
+
+GameElement* Cliente::getElementFromPlayable(std::string playerID, Playable p){
+	// OJO! Esto siempre crea worms
 	GameElement* g = new GameElement(p.wormid,"PLAYER 1",WORM,p.x,p.y,0.0,40,40,15,false);
 	g->playerID = playerID;
 	g->setAction( p.action );
+	g->setLife ( p.life );
+	g->setWeapon ( p.weaponid );
 	return g;
 
 }

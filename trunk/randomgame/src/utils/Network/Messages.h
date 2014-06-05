@@ -11,11 +11,12 @@ enum Messages {
 	REJECT,
 	KEEPALIVE,
 	DISCONNECT,
-	PLAYER_UPDATE,
+	PLAYER_UPDATE,  // Actualiza el estado del jugador
 	TURN_CHANGE,
 	ALREADY_EXIST_USER,
 	LOGIN_OK,
-	LOGOUT
+	LOGOUT,
+	MAP_UPDATE		// Actualiza mapa por explosiones 
 };
 
 

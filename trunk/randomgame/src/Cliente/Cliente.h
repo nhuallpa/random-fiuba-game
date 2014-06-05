@@ -122,6 +122,7 @@ class Cliente { //: public OnMovementListener{
 
 	public:
 
+		void processExplosions(float x, float y, int radio);
 
 		/**Activity que maneja la vista del juego*/
 		GameActivity* gameActivity;

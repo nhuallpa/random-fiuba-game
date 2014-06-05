@@ -15,27 +15,13 @@ Worm::Worm(int id, std::string playerID, ElementType type, float posX, float pos
 	this->alive = true;
 	this->myLastAction = MOVELESS;
 	this->stopped = false;
+	this->life = MAX_WORM_LIFE;
+	this->weapon = NO_WEAPON;
 }
 
-int Worm::getLife()
-{
-	return this->life;
-}
 
-void Worm::setLife(int newLife)
-{
-this->life=newLife;
-}
 
-void Worm::addLife(int moreLife)
-{
- this->life= this->life+moreLife;
-}
 
-void Worm::subLife(int lessLife)
-{
- this->life= this->life-lessLife;
-}
 
 void Worm::jump()
 {
