@@ -95,7 +95,9 @@ void Bootstrap::loadSprites()
 	try 
 		{
 			TextureManager::Instance().load("res/images/wwalk.png", "wwalk", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wbaz2.png", "wbaz2", this->getScreen().getRenderer());
 			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 0);
+			SpriteConfigurator::Instance().add("wbaz2", 60, 60, 32, 0);
 
 		} catch (GameException & e) 
 		{

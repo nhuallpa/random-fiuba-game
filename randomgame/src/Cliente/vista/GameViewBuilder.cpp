@@ -222,6 +222,7 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 		try 
 		{
 			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
+			aWorm->setSpriteBazooka(SpriteConfigurator::Instance().get("wbaz2"));
 		} 
 		catch (std::exception & e) 
 		{
