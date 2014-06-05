@@ -53,6 +53,7 @@ class GameEngine {
 
 	public:
 		GameEngine();
+		void stopPlayer( std::string pl);
 		virtual ~GameEngine();
 		int getWeaponUniqueId();
 		void addWeapon(int id, b2Body* body);
