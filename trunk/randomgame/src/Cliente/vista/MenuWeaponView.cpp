@@ -23,7 +23,7 @@ void MenuWeaponView::buildWeapon(){
 }
 
 
-void MenuWeaponView::update(){
+void MenuWeaponView::actionMenu(){
 	Weapon* menu = mapa[NO_WEAPON];
 	menu->setRender();
 }

@@ -1,4 +1,5 @@
 #include "GameView.h"
+#include "MenuWeaponView.h"
 
 
 GameView::GameView(int x, int y, int width, int height)
@@ -87,5 +88,6 @@ void GameView::getDestroyEart(int x, int y, int radio)
 }
 
 void GameView::actionMenu(){
-	this->menuWeapon->update();
+	//MenuWeaponView* menu = static_cast<MenuWeaponView*>(this->menuWeapon);
+	//menu->actionMenu();
 }
