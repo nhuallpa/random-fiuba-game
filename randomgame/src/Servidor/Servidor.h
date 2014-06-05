@@ -81,6 +81,8 @@ class Servidor{
 		
 		SDL_sem* advance;
 
+		void sendHoles();
+
 		//TurnManager turnMgr;
 
 		bool startNewTurn;

@@ -48,7 +48,7 @@ public:
 	 std::map<int,GameElement>* getDomainElements() { return &this->domainElements;}
 
 	 void updateElement(int id, float x, float y);
-	 void updateElement(int id, float x, float y, Movement action);
+	 void updateElement(int id, float x, float y, Movement action, int life, int weaponid);
 
 	 StateConn getPlayerState(Player p){ return this->playersPlaying[p].first; }
 	 unsigned long getPlayerColor(Player p){ return this->playersPlaying[p].second; }

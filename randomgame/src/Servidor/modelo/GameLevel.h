@@ -3,7 +3,6 @@
 #include <vector>
 #include <map>
 #include <algorithm>
-#include "GameElement.h"
 #include <list>
 #include "../../utils/ParserYaml.h"
 #include "../../utils/PersistYaml.h"
@@ -11,6 +10,7 @@
 #include "TerrainProcessor.h"
 #include "GamePlayer.h"
 #include "Exceptions\PlayerException.h"
+#include "Entities\WeaponModel.h"
 
 using namespace server_model_exp;
 
@@ -69,6 +69,8 @@ class GameLevel {
 		std::map<int,GameElement> getModelElements();
 
 		std::map<int, GameElement*> getEntities();
+		
+		GameElement* getEntityByID(int id){ return this->entities[id]; }
 
 		void addEntity(GameElement *entidad);
 

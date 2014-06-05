@@ -31,6 +31,10 @@ class GameEngine {
 		//ThreadRcv* pRcvThread;
 		TerrainProcessor* aTerrainProcessor;
 
+		//map de las explosiones del mapa
+		std::vector<Explosion> mapExplosions;
+		std::queue<Explosion> lastExplosions;
+
 		b2World* myWorld;
 		Water* water;
 
@@ -52,8 +56,18 @@ class GameEngine {
 		bool setWormsFromPlayerAsActive(std::string playerID);
 
 	public:
+
 		GameEngine();
+
+		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }
+		void enqueueExplosion(Explosion e){ this->lastExplosions.push(e); }
+
+		std::vector<Explosion> getMapExplosions(){ return this->mapExplosions; }
+
+		bool getExplosion(Explosion e);
+
 		void stopPlayer( std::string pl);
+		
 		virtual ~GameEngine();
 		int getWeaponUniqueId();
 		void addWeapon(int id, b2Body* body);
@@ -83,7 +97,7 @@ class GameEngine {
 		// and lately step into the world and broadcast
 		bool applyPlayable2Model();
 
-		void applyAction2Element(int id, int weaponid, float x, float y, Movement action);
+		void applyAction2Element(int id, int weaponid, float x, float y, Movement action, int intensidad);
 
 		bool step();
 
@@ -99,7 +113,7 @@ class GameEngine {
 		void animateWorld();
 		void animateBodies();
 		void animateJoints();
-		void animateWeapon(int weaponid, float angle_x, float angle_y);
+		void animateWeapon(int weaponid, int wormid, float angle_x, float angle_y, int intensidad);
 
 		std::map<int,Body*>* getGameBodies(){ return this->gameBodies;}
 

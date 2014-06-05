@@ -16,7 +16,7 @@ void GameDomain::updateElement(int id, float posX, float posY){
 	}
 }
 
-void GameDomain::updateElement(int id, float posX, float posY, Movement action){
+void GameDomain::updateElement(int id, float posX, float posY, Movement action, int life, int weaponid){
 	std::map<int,GameElement>::iterator it;
 
 	it = this->domainElements.find(id);
@@ -24,6 +24,8 @@ void GameDomain::updateElement(int id, float posX, float posY, Movement action){
 	if ( it != this->domainElements.end() ){
 		this->domainElements[id].setPosition(std::make_pair(posX,posY));
 		this->domainElements[id].setAction(action);
+		this->domainElements[id].setLife(life);
+		this->domainElements[id].setWeapon(weaponid);
 	} else {
 		Log::e("GameDomain::updateElement: No se pudo actualizar el worm id %d", id);
 	}

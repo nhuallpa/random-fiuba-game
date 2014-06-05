@@ -3,6 +3,30 @@
 GameElement::GameElement(){
 }
 
+
+
+
+int GameElement::getLife()
+{
+	return this->life;
+}
+
+void GameElement::setLife(int newLife)
+{
+this->life=newLife;
+}
+
+void GameElement::addLife(int moreLife)
+{
+ this->life= this->life+moreLife;
+}
+
+void GameElement::subLife(int lessLife)
+{
+ this->life= this->life-lessLife;
+}
+
+
 /* Rectangle constructor */
 GameElement::GameElement(int id, ElementType type, float posX, float posY, float degrees, float h, float w, float mass, bool isFixed){
 	

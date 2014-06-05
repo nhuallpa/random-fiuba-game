@@ -69,6 +69,16 @@ bool GameEngine::initWorld(){
 	return true;
 }
 
+bool GameEngine::getExplosion( Explosion e ){
+	
+	if ( !this->lastExplosions.empty() ){
+		e = this->lastExplosions.front();
+		this->lastExplosions.pop();
+		return true;
+	}
+	return false;
+}
+
 
 void GameEngine::floodWorld(){
 
@@ -597,7 +607,7 @@ weaponid = id del arma
 <x , y> = angulo del disparo
 action = accion a ejecutar
 */
-void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Movement action){
+void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Movement action, int intensidad){
 
 	std::map<int,GameElement*> copy = this->gameLevel->getEntities();
 	GameElement* myWorm = copy[id];
@@ -629,7 +639,7 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			static_cast<Worm*>(myWorm)->weaponedRight();
 			break;
 		case DO_SHOOT:
-			animateWeapon(weaponid, x, y);
+			animateWeapon(weaponid, id, x, y, intensidad);
 			break;
 	}
 
@@ -648,7 +658,7 @@ void GameEngine::stopPlayer( std::string pl){
 
 
 // Solo se ejecuta si recibo la accion DO_SHOOT
-void GameEngine::animateWeapon(int weaponid, float angle_x, float angle_y){
+void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float angle_y, int intensidad){
 	//TODO @Bauti: Crea el arma en Box2D
 	//Le aplica la fuerza/Impulso definido para dicha armar y en la direccion dada por x, y
 	//Weapon2d* wp = new Weapon2d(WEAPON,
@@ -656,7 +666,21 @@ void GameEngine::animateWeapon(int weaponid, float angle_x, float angle_y){
 
 	//Crea el arma en el modelo
 	//Le asigna un tiempo de explosion en caso de ser necesario (granada, holy, etc)
-	//this->gameLevel->addEntity( new Weapon( ...
+
+	float xworm = this->gameLevel->getEntityByID(wormid)->getPosition().first;
+	float yworm = this->gameLevel->getEntityByID(wormid)->getPosition().second;
+
+	int elementId = this->getWeaponUniqueId();
+
+	//switch ( weaponid ){
+	// case BAZOOKA:
+	//this->gameLevel->addEntity( new Weapon(elementId, BAZOOKA, wormid, xworm, yworm, angle_x, angle_y, intensidad) );
+	// break;
+	// case GRENADE:
+	//this->gameLevel->addEntity( new Weapon(elementId, GRENADE, wormid, xworm, yworm, angle_x, angle_y, intensidad) );
+	// break;
+	//}
+	this->gameLevel->addEntity( new WeaponModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad) );
 
 
 	

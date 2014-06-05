@@ -215,7 +215,9 @@ int Servidor::somethingChange(){
 			this->worldQ.play[i].wormid = it->second->getId();
 			this->worldQ.play[i].x = it->second->getPosition().first;
 			this->worldQ.play[i].y = it->second->getPosition().second;
+			this->worldQ.play[i].life = it->second->getLife();
 			this->worldQ.play[i].action = it->second->getAction();
+			this->worldQ.play[i].weaponid = it->second->getWeapon();
 			flag = true;
 			i++;
 		}
@@ -229,7 +231,8 @@ int Servidor::somethingChange(){
 
 
 bool Servidor::updateModel(Playable p){
-	this->gameEngine.applyAction2Element(p.wormid, p.weaponid, p.x, p.y, p.action);
+	// p.life tiene la intensidad del arma
+	this->gameEngine.applyAction2Element(p.wormid, p.weaponid, p.x, p.y, p.action, p.life);
 	return true;
 }
 
@@ -407,9 +410,9 @@ int Servidor::initClient(void* data){
 	srv->notifyUsersAboutPlayer(playerId);
 
 
-	//TODO @Ariel: Envio los agujeros del mundo
 	//Envio la cantidad de agujeros
-	//Envio uno a uno los agujeros (Uso la cola de mensajes de cada jugador o un ciclo for)
+	srv->sendHoles();
+
 
 
 	int activeClient=1;
@@ -642,6 +645,30 @@ void Servidor::notifyTurnForPlayer(std::string player){
 		this->playerQueues[itm->first]->push( this->worldQ );
 		itm->second.second->signal();
 		itm->second.first->unlock();
+	}
+
+}
+
+void Servidor::sendHoles(){
+
+	std::vector<Explosion> copy = this->gameEngine.getMapExplosions();
+	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
+	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
+	EDatagram* msg = new EDatagram();
+	for( ; itm!=mutexes.end(); ++itm){
+		printf("\n Enviando holes");
+		for ( int i=0; i< copy.size() ; i++ ){
+			itm->second.first->lock();
+
+			msg->type = MAP_UPDATE;
+			msg->play[0].weaponid = copy[i].radio;
+			msg->play[0].x = copy[i].x;
+			msg->play[0].y = copy[i].y;
+
+			this->playerQueues[itm->first]->push( *msg );
+			itm->second.second->signal();
+			itm->second.first->unlock();
+		}
 	}
 
 }

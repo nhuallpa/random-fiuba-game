@@ -60,8 +60,21 @@ public:
 	float getRadius();
 	float getScale();
 	bool isFixed();
-
 	int grounded;
+
+	int weapon;
+	bool alive;
+
+	int getLife();
+	int getWeapon(){ return this->weapon; }
+	
+	void setWeapon( int weaponid) { this->weapon = weaponid; }
+	void setLife(int newLife);
+	void addLife(int moreLife);
+	void subLife(int lessLife);
+	void setAlive(bool b){ this->alive = b;}
+	bool isAlive() { return this->alive;}
+
 
 	float getRadiusScaled() {return radius * scale;}
 
@@ -117,6 +130,7 @@ protected:
 	float nx;
 	float ny;
 
+	int life;
 
 
 };
