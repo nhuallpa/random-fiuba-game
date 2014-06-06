@@ -62,8 +62,26 @@ void Updater::retrieveLevel()
 	// Get YAML
 	this->input->receiveFile("res/levels/clienteyaml.yaml");
 
-	delete msg;
+	// se comenta hace porque pincha
+	//delete msg;
 }
+
+void Updater::doLogout()
+{
+	//Logout to server
+	EDatagram* msg = new EDatagram();
+
+	msg->type = LOGOUT;
+	msg->playerID = this->pl; 
+
+	Log::t("Sending login info ");
+	if ( !this->output->sendmsg(*msg) ) {
+		Log::e("Updater::doLogout >> I coudn't send logout msg");
+	} else {
+		Log::i("Updater::doLogout >> Logout done!");
+	}
+}
+
 void Updater::doStopWorm(int idWorm)
 {
 	Playable p;

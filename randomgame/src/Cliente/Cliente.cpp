@@ -200,9 +200,14 @@ void Cliente::loop(void){
 
 void Cliente::disconnectClient(){
 
-	//closesocket(this->input.getFD());
-	//closesocket(this->output.getFD());
+	if (this->isLoginOk()) {
+		this->updater.doLogout();
+		// TODO: Cerrar hilo y sockets
 
+		//closesocket(this->input.getFD());
+		//closesocket(this->output.getFD());
+
+	}	
 }
 
 
