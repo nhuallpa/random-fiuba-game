@@ -51,6 +51,9 @@ void Bootstrap::loadConfigGame()
 	//this->getScreen().createTarget(dimensionScenario.first, dimensionScenario.second);
 	//this->getScreen().createTarget(this->getScreen().getWidth(), this->getScreen().getHeight());
 
+	
+	
+
 }
 
 void Bootstrap::initCamera(int w, int h) 
@@ -99,6 +102,9 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 0);
 			SpriteConfigurator::Instance().add("wbaz2", 60, 60, 32, 0);
 
+			TextManager::Instance().init(this->getScreen().getRenderer());
+			TextManager::Instance().loadFont("C:/random-fiuba-game/randomgame/arial.jpg","arial",256,256,16,16);
+
 		} catch (GameException & e) 
 		{
 			Log::e(BOOT, e.what());		
@@ -127,6 +133,8 @@ void Bootstrap::loadMenuWeapon(){
 		TextureManager::Instance().load("res/images/MenuWeapon.png", "MenuWeapon", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/grenade.1.png", "gun_1", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/bazooka.1.png", "gun_2", this->getScreen().getRenderer());
+
+
 	} catch (GameException & e) 
 	{
 		Log::e(BOOT, e.what());		

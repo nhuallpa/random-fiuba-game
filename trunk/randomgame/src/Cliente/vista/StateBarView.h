@@ -6,6 +6,7 @@
 #include "ViewGroup.h"
 #include "TextView.h"
 #include "time.h"
+#include "TextManager.h"
 class StateBarView : public View
 {
 private:

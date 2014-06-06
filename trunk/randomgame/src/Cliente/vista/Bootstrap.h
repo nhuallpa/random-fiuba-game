@@ -11,6 +11,7 @@
 #include "TextureManager.h"
 #include "SpriteConfigurator.h"
 #include "FontManager.h"
+#include "TextManager.h"
 
 #include "../../utils/ParserYaml.h"
 

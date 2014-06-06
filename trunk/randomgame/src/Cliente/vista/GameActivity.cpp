@@ -39,6 +39,7 @@ void GameActivity::buildView()
 
 void GameActivity::update() 
 {
+	
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	
