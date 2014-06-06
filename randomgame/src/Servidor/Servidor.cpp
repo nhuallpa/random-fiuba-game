@@ -212,7 +212,14 @@ int Servidor::somethingChange(){
 
 	for ( ; it != copy.end() ; ++it){
 		if( it->second->changed ){
-			this->worldQ.play[i].wormid = it->second->getId();
+			
+			//Chequeo si es un arma, y en ese caso el Worm ID es 0
+			if ( it->second->getType() == WEAPON ){
+				this->worldQ.play[i].wormid = 0;
+			}else{
+				this->worldQ.play[i].wormid = it->second->getId();
+			}
+
 			this->worldQ.play[i].x = it->second->getPosition().first;
 			this->worldQ.play[i].y = it->second->getPosition().second;
 			this->worldQ.play[i].life = it->second->getLife();

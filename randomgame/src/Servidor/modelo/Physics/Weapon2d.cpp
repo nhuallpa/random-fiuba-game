@@ -19,7 +19,7 @@ Weapon2d::Weapon2d(ElementType type, float posX, float posY, float angle_x, floa
     myFixtureDef.density = 1;
 	myFixtureDef.friction = 0.01;
 	myFixtureDef.restitution = 0;
-
+	myFixtureDef.userData = (void*)UD_MISSIL;
 	myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 
@@ -32,13 +32,33 @@ Weapon2d::Weapon2d(ElementType type, float posX, float posY, float angle_x, floa
 	this->body = body;
 	this->body->SetUserData(modelElement);
 
-	//TODO @Bauti Aplicale impulso asi ya nace con su objetivo en mente
+	//TODO @Bauti Aplicale impulso que consideres necesario
+	this->body->ApplyLinearImpulse( b2Vec2 ( angle_x * 10, angle_y * 10 ),this->body->GetWorldCenter() );
 
 }
 
 Weapon2d::~Weapon2d(){}
 
-void Weapon2d::animate(){
+void Weapon2d::animate( float time ){
+
+	//Use userdata to reflect changes in physics to model
+	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
+
+	if ( static_cast<WeaponModel*>(myWeapon)->hasDelayedExplosion() ){
+		static_cast<WeaponModel*>(myWeapon)->updateExplode( time );
+	}
+	
+	if ( static_cast<WeaponModel*>(myWeapon)->hasExploded() ){
+		myWeapon->setAction(EXPLOSION);
+	} else{
+		myWeapon->setAction(MISSIL_FLYING);
+	}
+
+	//Actualizo la posicion
+	b2Vec2 f = this->body->GetPosition();
+
+	myWeapon->setPosition(std::make_pair( f.x,f.y) );
+	myWeapon->changed = true;
 
 
 }

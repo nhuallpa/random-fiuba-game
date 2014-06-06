@@ -23,7 +23,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	b2WorldManifold worldManifold;
 
 	//If My body (B) is touching the floor (A) (somewhere)
-	if ( fixtureB->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureA->GetUserData() == 2 || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
+	if ( fixtureB->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
 		//printf("\nSetted has GROUNDED");
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->addGrounded();
 		
@@ -32,7 +32,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
 		return;
 	}
-	if ( fixtureA->GetBody()->GetType() == b2_dynamicBody && ( (int)fixtureB->GetUserData() == 2  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
+	if ( fixtureA->GetBody()->GetType() == b2_dynamicBody && ( (int)fixtureB->GetUserData() == UD_TERRAIN  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->addGrounded();
 		
 		contact->GetWorldManifold(&worldManifold);
@@ -64,7 +64,7 @@ void ContactListener::EndContact(b2Contact* contact) {
 	}
 
 	//If My body (B) is touching the floor (A) (somewhere)
-	if ( fixtureB->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureA->GetUserData() == 2 || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
+	if ( fixtureB->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
 		//printf("\nSetted has NOT GROUNDED");
 		//fixtureB->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->reduceGrounded();
@@ -72,7 +72,7 @@ void ContactListener::EndContact(b2Contact* contact) {
 
 		return;
 	}
-	if ( fixtureA->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureB->GetUserData() == 2 || fixtureB->GetBody()->GetType() == b2_dynamicBody)){
+	if ( fixtureA->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureB->GetUserData() == UD_TERRAIN || fixtureB->GetBody()->GetType() == b2_dynamicBody)){
 		//printf("\nSetted has NOT GROUNDED");
 		//fixtureA->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->reduceGrounded();

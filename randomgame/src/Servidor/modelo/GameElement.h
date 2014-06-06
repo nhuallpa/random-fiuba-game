@@ -64,6 +64,10 @@ public:
 
 	int weapon;
 	bool alive;
+	bool exploded;
+
+	
+	void setExploded(bool b){ this->exploded = b; }
 
 	int getLife();
 	int getWeapon(){ return this->weapon; }

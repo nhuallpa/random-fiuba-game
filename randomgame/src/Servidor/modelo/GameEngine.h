@@ -13,7 +13,10 @@
 #include "Physics\Bodies\Triangulo.h"
 #include "Physics\Bodies\Pentagon.h"
 #include "Physics\Bodies\Water.h"
+#include "Physics\Weapon2d.h"
 #include "TerrainProcessor.h"
+
+#include "../../utils/Timer.h"
 
 #include <set>
 #include <utility>
@@ -58,6 +61,8 @@ class GameEngine {
 	public:
 
 		GameEngine();
+
+		Timer myTimer;
 
 		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }
 		void enqueueExplosion(Explosion e){ this->lastExplosions.push(e); }

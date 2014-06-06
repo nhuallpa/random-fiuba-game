@@ -10,10 +10,12 @@
 typedef std::string Player;
 
 #define DYNAMITE_TIMEOUT 5
-#define GRANADE_TIMEOUT 3
+#define GRENADE_TIMEOUT 3
 
 enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED, WAITING_TURN};
 enum GameState {STARTED, WAITING_PLAYERS, OVER, WIN};
+enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORM, UD_MISSIL };
+
 
 typedef enum{
 	NEW_PLAYER=0,
@@ -37,6 +39,7 @@ typedef enum{
 	WITH_WEAPON_LEFT,		/* Apuntando hacia la izquierda */
 	WITH_WEAPON_RIGHT,		/* Apuntando hacia la derecha */
 	DO_SHOOT,				/* Disparo */
+	MISSIL_FLYING,
 	NOT_CONNECTED,
 	NOT_CONNECTED_LEFT,
 	NOT_CONNECTED_RIGHT,
@@ -58,11 +61,12 @@ typedef enum{
 typedef enum{
 	NO_WEAPON=0,
 	BAZOOKA=2,
-	GRANADE=4,
+	GRENADE=4,
 	HOLY=12,
 	AIRATTACK=3,
 	DYNAMITE=5
 } WeaponId;
+
 
 
 

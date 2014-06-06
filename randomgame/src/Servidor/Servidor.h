@@ -12,7 +12,6 @@
 #include "Socket.h"
 #include "Thread.h"
 #include "Condition.h"
-#include "../utils/Timer.h"
 #include ".\modelo\TurnManager.h"
 #include ".\modelo\GameEngine.h"
 #include "../utils/ParserYaml.h"

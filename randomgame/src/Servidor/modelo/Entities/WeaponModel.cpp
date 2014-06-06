@@ -4,7 +4,7 @@ WeaponModel::WeaponModel(){}
 
 WeaponModel::~WeaponModel(){}
 
-WeaponModel::WeaponModel(int id, int weaponid, int wormid, float posX, float posY, int aim_x, int aim_y, int intensidad){
+WeaponModel::WeaponModel(int id, int weaponid, int wormid, float posX, float posY, int aim_x, int aim_y, int intensidad, float startTime){
 	this->id = id;
 	this->type = WEAPON;
 	this->position.first = posX;
@@ -14,4 +14,14 @@ WeaponModel::WeaponModel(int id, int weaponid, int wormid, float posX, float pos
 	this->identifier = weaponid;
 	this->parentWormId = wormid;
 	this->intensidad = intensidad;
+	this->exploded = false;
+	this->startTime = startTime;
+}
+
+void WeaponModel::updateExplode(float time){
+
+	if ( (time - this->startTime) >= this->explodeTime ){
+		this->exploded = true;
+	}
+
 }
