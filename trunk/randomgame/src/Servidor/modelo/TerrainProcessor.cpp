@@ -73,7 +73,7 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			myBodyDef.position.Set(0, 0); //in the middle
 			myFixtureDef.friction=0.999;
 			
-			myFixtureDef.userData = ( (void*)2 );
+			myFixtureDef.userData = ( (void*) UD_TERRAIN );
 			m_attachment = m_world->CreateBody(&myBodyDef);
 
 			b2PolygonShape polygonShape;
@@ -325,7 +325,7 @@ void TerrainProcessor::process(b2World* m_world, char* path,float epsilon, int s
 	myBodyDef.position.Set(0, 0); //in the middle
 	myFixtureDef.friction=0.999;
 			
-	myFixtureDef.userData = ( (void*)2 );
+	myFixtureDef.userData = ( (void*) UD_TERRAIN );
 	m_attachment = m_world->CreateBody(&myBodyDef);
 
 	myFixtureDef.shape = &shape; //change the shape of the fixture
