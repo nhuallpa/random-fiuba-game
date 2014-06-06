@@ -45,6 +45,9 @@ public:
 	/** Realiza el login contra el servidor*/
 	bool doLogin();
 
+	/** Realiza el login contra el servidor*/
+	void doLogout();
+
 	void doStopWorm(int idWorm);
 
 	void doSelectWapon(int wormIdSelected, int idWeapon);
