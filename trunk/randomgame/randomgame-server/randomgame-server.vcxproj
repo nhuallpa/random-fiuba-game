@@ -85,7 +85,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\main-server.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
-    <ClCompile Include="..\src\Servidor\modelo\Entities\Weapon.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\WeaponModel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\PlayerException.cpp" />
@@ -134,7 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
-    <ClInclude Include="..\src\Servidor\modelo\Entities\Weapon.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\WeaponModel.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\PlayerException.h" />
