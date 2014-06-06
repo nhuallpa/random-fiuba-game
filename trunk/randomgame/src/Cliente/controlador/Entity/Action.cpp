@@ -1,4 +1,5 @@
 #include "Action.h"
+#include "..\..\..\utils\Log.h"
 
 Action* Action::action = NULL;
 
@@ -38,6 +39,7 @@ void Action::remuve(OnActionListener * obj){
 void Action::notify(){
 	list<OnActionListener*>::iterator it;
 	ActionEvent a;
+	//Log::e("Erik, Notifico accion menu");
 	a.action = this->a;
 	it = objects.begin();
 	for(; it != objects.end(); it++){
