@@ -107,6 +107,7 @@
     <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
     <ClCompile Include="..\src\Cliente\vista\StateBarView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\TextManager.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TextView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaitActivity.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />
     <ClInclude Include="..\src\Cliente\vista\StateBarView.h" />
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
+    <ClInclude Include="..\src\Cliente\vista\TextManager.h" />
     <ClInclude Include="..\src\Cliente\vista\TextView.h" />
     <ClInclude Include="..\src\Cliente\vista\TriangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\WaitActivity.h" />
