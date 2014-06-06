@@ -12,6 +12,7 @@
 #include "StateBarView.h"
 #include "WormView.h"
 #include "WormViewGroup.h"
+#include "MenuWeaponView.h"
 #include <map>
 #include <string>
 using std::map;
@@ -30,7 +31,7 @@ private:
 	WaterView* water;
 	TerrainView* terrain;
 	StateBarView* stateBar;
-	View* menuWeapon;
+	MenuWeaponView* menuWeapon;
 
 public:
 	GameView(int x, int y, int width, int height);
@@ -43,7 +44,7 @@ public:
 	void setWater(WaterView* water);
 	void setTerrain(TerrainView* terrain);
 	void setStateBar(StateBarView* stateBar);
-	void setMenuWeapon(View* menuWeapon);
+	void setMenuWeapon(MenuWeaponView* menuWeapon);
 
 	StateBarView* getStateBar() { return this->stateBar;}
 

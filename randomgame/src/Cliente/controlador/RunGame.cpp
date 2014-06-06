@@ -89,6 +89,11 @@ void RunGame::detectWheel(SDL_Event* e){
 }
 
 void RunGame::detectClick(){
+	detectClickLeft();
+	detectClickRight();
+}
+
+void RunGame::detectClickLeft(){
 	Click* c = Click::getInstance();
 	int x, y = 0;
 	Uint32 button = SDL_GetMouseState(&x, &y);
@@ -97,6 +102,17 @@ void RunGame::detectClick(){
 		listEvent.add(c);
 	}
 }
+
+void RunGame::detectClickRight(){
+	Action* at = Action::getInstance();
+	int x, y = 0;
+	Uint32 button = SDL_GetMouseState(&x, &y);
+	if(button & SDL_BUTTON(3)){
+		at->setEvent(MENU);
+		listEvent.add(at);
+	}
+}
+
 void RunGame::detectMovem(SDL_Event* e){
 	Move* mv = Move::getInstance();
 	Action* at = Action::getInstance();
@@ -106,17 +122,12 @@ void RunGame::detectMovem(SDL_Event* e){
 		if(mv->newEvent()){
 			listEvent.add(mv);
 		}
-		detectAction(at, e);
-		if(at->newEvent()){
-			listEvent.add(at);
-		}
 	}
 	else if(e->type == SDL_KEYUP){
 		detectMovem(mv, 0, e);
 		if(mv->newEvent()){
 			listEvent.add(mv);
 		}
-		iniAction(at, e);
 	}
 }
 
@@ -141,39 +152,6 @@ void RunGame::detectMovem(Move* mv, int value, SDL_Event* e){
 			break;
 		case SDL_SCANCODE_SPACE:
 			mv->y = (-1)*value;
-			break;
-		default:;
-	}
-}
-
-
-void RunGame::detectAction(Action* at, SDL_Event* e){
-	SDL_Scancode sc = e->key.keysym.scancode;
-	switch(sc){
-		case SDL_SCANCODE_RETURN:
-			at->setEvent(SHOOT);
-			break;
-		case SDL_SCANCODE_RCTRL:
-			at->setEvent(MENU);
-			break;
-		case SDL_SCANCODE_LCTRL:
-			at->setEvent(MENU);
-			break;
-		default:;
-	}
-}
-
-void RunGame::iniAction(Action* at, SDL_Event* e){
-	SDL_Scancode sc = e->key.keysym.scancode;
-	switch(sc){
-		case SDL_SCANCODE_RETURN:
-			/*at->setEvent(NONE);
-			break;*/
-		case SDL_SCANCODE_RCTRL:
-			/*at->setEvent(NONE);
-			break;*/
-		case SDL_SCANCODE_LCTRL:
-			at->setLastEvent(NONE);
 			break;
 		default:;
 	}

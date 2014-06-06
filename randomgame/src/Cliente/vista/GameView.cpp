@@ -1,5 +1,4 @@
 #include "GameView.h"
-#include "MenuWeaponView.h"
 
 
 GameView::GameView(int x, int y, int width, int height)
@@ -56,7 +55,7 @@ void GameView::setStateBar(StateBarView* stateBar)
 	this->add(stateBar);
 }
 
-void GameView::setMenuWeapon(View* menuWeapon)
+void GameView::setMenuWeapon(MenuWeaponView* menuWeapon)
 {
 	this->menuWeapon = menuWeapon;
 	this->add(menuWeapon);
@@ -88,6 +87,5 @@ void GameView::getDestroyEart(int x, int y, int radio)
 }
 
 void GameView::actionMenu(){
-	//MenuWeaponView* menu = static_cast<MenuWeaponView*>(this->menuWeapon);
-	//menu->actionMenu();
+	this->menuWeapon->actionMenu();
 }

@@ -15,10 +15,14 @@ Weapon::~Weapon(){
 
 
 void Weapon::setRender(){
-	if(this->render)
+	if(this->render){
+		//Log::e("Erik, NO Dibujo Notificacion");
 		this->render = false;
-	else
+	}
+	else{
+		//Log::e("Erik, Dibujo Notificacion");
 		this->render = true;
+	}
 }
 
 void Weapon::setState(WSTATE ws){
@@ -41,9 +45,9 @@ string Weapon::getWeapon(WSTATE ws){
 
 void Weapon::draw(SDLScreen & screen){
 
-	if(!this->render)
+	if(!this->render){
 		return;
-
+	}
 	TextureManager::Instance().drawFrameOnScreen(
 					this->weapons[this->state], 
 					this->x, 
