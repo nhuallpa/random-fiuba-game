@@ -84,6 +84,7 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Over.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\PartialScreen.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ScrollEvent.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Shape.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\Zoom.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ZoomEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="..\src\Cliente\controlador\Entity\Over.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\PartialScreen.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ScrollEvent.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Shape.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\Zoom.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ZoomEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h" />
