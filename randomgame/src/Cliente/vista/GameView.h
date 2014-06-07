@@ -17,6 +17,7 @@
 #include "ElemViewGroup.h"
 #include <map>
 #include <string>
+#include "Weapon.h"
 using std::map;
 using std::string;
 
@@ -67,6 +68,8 @@ public:
 	void actionMenu();
 	
 	bool hasClickedMenu(SDL_Point clickPoint);
+	Weapon* retrieveWeaponClicked(SDL_Point clickPoint);
+	Weapon* findWeaponById(int idWeapon);
 };
 
 

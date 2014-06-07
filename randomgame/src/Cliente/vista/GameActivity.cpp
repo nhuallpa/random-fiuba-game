@@ -20,6 +20,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->wormIdSelected = -1;
 	this->wormIdDesSelected = -1;
 	this->isMyTurn = false;
+	this->idWeapon = -1;
 	
 }
 
@@ -169,6 +170,11 @@ bool GameActivity::hasClickedMenu(SDL_Point clickPoint){
 	return gameView->hasClickedMenu(clickPoint);
 }
 
+Weapon* GameActivity::retrieveWeaponClicked(SDL_Point clickPoint){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	return gameView->retrieveWeaponClicked(clickPoint);
+}
+
 WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 {
 	WormView* aWormClicked = NULL;
@@ -209,7 +215,14 @@ void GameActivity::OnClick(ClickEvent e){
 		}
 	}
 	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint))
-	{/*
+	{
+		if(this->idWeapon != -1){
+			deselectPreviewsWeapon();
+		}
+		Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
+		this->idWeapon = aWeapon->getId();
+		aWeapon->selected();
+		/*
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
 		int idWeapon = retrieveWaponId(clickPoint);
 		selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
@@ -219,10 +232,22 @@ void GameActivity::OnClick(ClickEvent e){
 	else
 	{
 		deselectPreviewsWorm();
+		deselectPreviewsWeapon();
 	}
 
 	
 }
+
+void GameActivity::deselectPreviewsWeapon(){
+	if(this->idWeapon != -1){
+		GameView* gameView = static_cast<GameView*>(this->aView);
+		Weapon* aWeapon = gameView->findWeaponById(idWeapon);
+		aWeapon->unSelected();
+		this->idWeapon = -1;
+	}
+
+}
+
 
 void GameActivity::otherTurn(std::string playerId) 
 {
