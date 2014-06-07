@@ -15,6 +15,7 @@
 #include "TriangleView.h"
 #include "TerrainView.h"
 #include "WormView.h"
+#include "ProjectileView.h"
 #include "MenuWeaponView.h"
 #include "EartView.h"
 #include "SDLScreen.h"
@@ -49,6 +50,8 @@ public:
 
 	WormView* createWorm(GameElement * domainElement);
 
+	ProjectileView* createBullet();
+
 	void setPlayerID(std::string  playerID){ this->playerID = playerID; }
 	
 	void buildContainer();
@@ -68,6 +71,8 @@ public:
 	void buildStateBar();
 
 	void buildMenuWeapon();
+
+	
 
 	GameView* getGameView() { return this->gameView;} 
 

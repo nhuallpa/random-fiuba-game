@@ -82,6 +82,6 @@ void StateBarView::draw(SDLScreen & screen){
 	int posY = TextureManager::Instance().getCamera().getY() + 10;
 	this->labelCenter.draw(screen.getRenderer(), posX, posY);
 
-
-	TextManager::Instance().wLetter("arial",50, 50,'a');
+	// pichaba ... ver 
+	//TextManager::Instance().wLetter("arial",50, 50,'a');
 }

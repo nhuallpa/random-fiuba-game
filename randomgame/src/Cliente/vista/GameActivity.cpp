@@ -269,7 +269,11 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 
 void GameActivity::buildProjectile(int idElement, float x, float y, int type)
 {
+	GameView* gameView = static_cast<GameView*>(this->aView);
+
 	// crear el domain element y la vista
+	ProjectileView* aProjectileView = this->builder->createBullet();
+	gameView->getProjectileContainer()->add(aProjectileView);
 }
 
 bool GameActivity::isAlive(int wormId) {

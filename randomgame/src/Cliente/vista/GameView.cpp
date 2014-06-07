@@ -27,6 +27,12 @@ void GameView::setWormContainer(WormViewGroup * wormViewGroup)
 	this->add(wormViewGroup);
 }
 
+void GameView::setProjectileContainer(ProjectileViewGroup * projectileViewGroup)
+{
+	this->projectileViewGroup = projectileViewGroup;
+	this->add(projectileViewGroup);
+}
+
 void GameView::setEart(EartView* eart)
 {
 	this->eart = eart;

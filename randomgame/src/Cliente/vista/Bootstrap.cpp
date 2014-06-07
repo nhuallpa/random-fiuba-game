@@ -23,7 +23,7 @@ void Bootstrap::init()
 	} 
 	FontManager::Instance().init(this->getScreen().getRenderer());
 	TextureManager::Instance().init(w,h);
-
+	TextManager::Instance().init(this->getScreen().getRenderer());
 	loadWait();
 
 	// despues de que el server dija comienze el juego
@@ -94,16 +94,21 @@ void Bootstrap::loadEart()
 
 void Bootstrap::loadSprites()
 {
-	// todo: levantar la configuracion de los sprite del yaml
+
 	try 
 		{
 			TextureManager::Instance().load("res/images/wwalk.png", "wwalk", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wbaz2.png", "wbaz2", this->getScreen().getRenderer());
+
+			TextureManager::Instance().load("res/images/clustlet.png", "clustlet", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/circle25.png", "circle25", this->getScreen().getRenderer());
+
 			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 0);
 			SpriteConfigurator::Instance().add("wbaz2", 60, 60, 32, 0);
+			SpriteConfigurator::Instance().add("clustlet", 60, 60, 6, 0);
+			SpriteConfigurator::Instance().add("circle25", 50, 50, 8, 0);
 
-			TextManager::Instance().init(this->getScreen().getRenderer());
-			TextManager::Instance().loadFont("C:/random-fiuba-game/randomgame/arial.jpg","arial",256,256,16,16);
+			
 
 		} catch (GameException & e) 
 		{
