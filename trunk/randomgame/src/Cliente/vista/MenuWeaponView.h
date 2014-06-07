@@ -15,6 +15,7 @@ public:
 	void buildWeapon();
 	void actionMenu();
 	void draw(SDLScreen & screen);
+	void allowWeapon(list<WeaponId> items);
 private:
 	map<WeaponId, Weapon*> mapa;
 	Weapon* menu;
