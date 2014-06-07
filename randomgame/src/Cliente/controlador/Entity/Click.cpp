@@ -1,4 +1,5 @@
 #include "Click.h"
+#include <algorithm>
 
 Click* Click::click = NULL;
 
@@ -14,7 +15,9 @@ Click* Click::getInstance(){
 }
 
 void Click::add(OnClickListener * obj){
-	objects.push_back(obj);
+	if(!isRegistered(obj)){
+		objects.push_back(obj);
+	}
 }
 
 void Click::remuve(OnClickListener * obj){
@@ -46,4 +49,11 @@ void Click::notify(){
 void Click::setEvent(int x, int y){
 	this->x = x;
 	this->y = y;
+}
+
+
+bool Click::isRegistered(OnClickListener * obj){
+	return (find(objects.begin(),
+			objects.end(), 
+			obj) != objects.end());
 }

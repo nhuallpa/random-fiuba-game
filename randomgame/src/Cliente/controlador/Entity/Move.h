@@ -24,6 +24,7 @@ class Move : public Notifiable{
 		static Move* move;
 		list<OnMovementListener*> objects;
 		int xp, yp;
+		bool isRegistered(OnMovementListener * obj);
 };
 
 #endif

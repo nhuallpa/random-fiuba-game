@@ -22,6 +22,7 @@ class Over : public Notifiable{
 		static Over* over;
 		list<OnScrollListener*> objects;
 		int x, y;
+		bool isRegistered(OnScrollListener * obj);
 };
 
 #endif

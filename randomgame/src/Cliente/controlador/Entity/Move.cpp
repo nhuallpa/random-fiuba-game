@@ -1,4 +1,5 @@
 #include "Move.h"
+#include <algorithm>
 
 Move* Move::move = NULL;
 
@@ -17,7 +18,9 @@ Move* Move::getInstance(){
 }
 
 void Move::add(OnMovementListener* obj){
-	objects.push_back(obj);
+	if(!isRegistered(obj)){
+		objects.push_back(obj);
+	}
 }
 
 void Move::remuve(OnMovementListener* obj){
@@ -56,4 +59,10 @@ void Move::notify(){
 	for(; it != objects.end(); it++){
 		(*it)->OnMovement(m);
 	}
+}
+
+bool Move::isRegistered(OnMovementListener * obj){
+	return (find(objects.begin(),
+			objects.end(), 
+			obj) != objects.end());
 }
