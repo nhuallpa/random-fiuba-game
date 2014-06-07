@@ -5,6 +5,7 @@
 #include <list>
 #include "..\..\utils\Util.h"
 #include "..\controlador\Entity\Shape.h"
+#include <SDL.h>
 
 using namespace std;
 
@@ -19,11 +20,13 @@ public:
 	void removeWeapon(string key);
 	void draw(SDLScreen & screen);
 	void allow();
+	bool hasClickedMenu(SDL_Point clickPoint);
 private:
 	list<string> lWeaponView;
 	WeaponId id;
 	string allowWeapon;
 	int x, y, width, height;
+	bool ballow;
 	void drawItems(SDLScreen & screen);
 };
 
