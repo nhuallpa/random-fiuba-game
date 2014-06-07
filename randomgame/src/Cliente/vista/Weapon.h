@@ -15,12 +15,15 @@ public:
 	Weapon(WeaponId id, Shape s, list<string> keys, string allowWeapon);
 	~Weapon();
 	bool findWeapon(string key);
+	int getId();
 	void setWeapon(string key);
 	void setRender();
 	void removeWeapon(string key);
 	void draw(SDLScreen & screen);
 	void allow();
 	bool hasClickedMenu(SDL_Point clickPoint);
+	void selected();
+	void unSelected();
 private:
 	list<string> lWeaponView;
 	WeaponId id;

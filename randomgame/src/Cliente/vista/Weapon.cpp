@@ -96,3 +96,19 @@ bool Weapon::hasClickedMenu(SDL_Point clickPoint){
 		return false;
 	}
 }
+
+
+int Weapon::getId(){
+	return (int) this->id;
+}
+
+void Weapon::selected(){
+	if(!findWeapon("ok"))
+		lWeaponView.push_back("ok");
+}
+
+
+void Weapon::unSelected(){
+	if(findWeapon("ok"))
+		removeWeapon("ok");
+}

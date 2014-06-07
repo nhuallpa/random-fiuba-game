@@ -76,8 +76,30 @@ bool MenuWeaponView::hasClickedMenu(SDL_Point clickPoint){
 }
 
 
+Weapon* MenuWeaponView::retrieveWeaponClicked(SDL_Point clickPoint){
+	Weapon* result = NULL;
+	if(menu->findWeapon("MenuWeapon")){
+		map<WeaponId, Weapon*>::iterator it;
+		for(it = mapa.begin(); it != mapa.end(); it++){
+			if(it->second->hasClickedMenu(clickPoint)){
+				result = it->second;
+				break;
+			}
+		}
+	}
+	return result;
+}
 
-
+Weapon* MenuWeaponView::findWeaponById(int idWeapon){
+	Weapon* result = NULL;
+	WeaponId key = (WeaponId) idWeapon;
+	map<WeaponId, Weapon*>::iterator it;
+	it = mapa.find(key);
+	if(it != mapa.end()){
+		result = it->second;
+	}
+	return result;
+}
 
 
 void MenuWeaponView::buildWeapon(){
