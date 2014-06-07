@@ -198,6 +198,18 @@
     <ClCompile Include="..\src\Servidor\modelo\Entities\WeaponModel.cpp">
       <Filter>Archivos de código fuente\server\model\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\BazookaModel.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\BurroModel.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\GranadaModel.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h">
@@ -351,6 +363,18 @@
       <Filter>Archivos de código fuente\server\model\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Entities\WeaponModel.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\BazookaModel.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\BurroModel.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\GranadaModel.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.h">
       <Filter>Archivos de código fuente\server\model\Entities</Filter>
     </ClInclude>
   </ItemGroup>
