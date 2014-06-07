@@ -8,23 +8,27 @@
 #include "EartView.h"
 #include "SkyView.h"
 #include "WaterView.h"
+#include "ProjectileView.h"
 #include "TerrainView.h"
 #include "StateBarView.h"
 #include "WormView.h"
 #include "WormViewGroup.h"
 #include "MenuWeaponView.h"
+#include "ElemViewGroup.h"
 #include <map>
 #include <string>
 using std::map;
 using std::string;
+
+typedef ElemViewGroup<ProjectileView*> ProjectileViewGroup;
+
 class GameView : 	public ViewGroup
 {
 private:
 	map<int, FigureView*> figures;
 	
-
-
 	WormViewGroup * wormViewGroup;
+	ProjectileViewGroup* projectileViewGroup;
 
 	EartView* eart;
 	SkyView* sky;
@@ -37,8 +41,13 @@ public:
 	GameView(int x, int y, int width, int height);
 
 	void putFigure(int id, FigureView* figure);
+
 	void setWormContainer(WormViewGroup * wormViewGroup);
-	WormViewGroup * getWormContainer() {return this->wormViewGroup;};
+	WormViewGroup * getWormContainer() {return this->wormViewGroup;}
+
+	void setProjectileContainer(ProjectileViewGroup * projectileViewGroup);
+	ProjectileViewGroup* getProjectileContainer() {return this->projectileViewGroup;}
+
 	void setEart(EartView* eart);
 	void setSky(SkyView* sky);
 	void setWater(WaterView* water);

@@ -252,6 +252,9 @@
     <ClCompile Include="..\src\Cliente\vista\Weapon.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\ProjectileView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -474,6 +477,12 @@
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\Weapon.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\ProjectileView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\ElemViewGroup.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>

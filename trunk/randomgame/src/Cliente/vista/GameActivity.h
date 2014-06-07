@@ -6,6 +6,7 @@
 #include "GameViewBuilder.h"
 #include "TextureManager.h"
 #include "TextManager.h"
+#include "ProjectileView.h"
 
 #include "../../Servidor/modelo/GameLevel.h"
 #include <SDL_rect.h>

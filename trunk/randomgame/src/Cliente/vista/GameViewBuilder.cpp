@@ -24,6 +24,7 @@ void GameViewBuilder::buildContainer()
 
 	std::pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
 	gameView = new GameView(0,0,dimension.first, dimension.second);
+	gameView->setProjectileContainer(new ProjectileViewGroup(0,0));
 }
 
 void GameViewBuilder::buildSky()
@@ -208,9 +209,6 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 													   domainElement->getPosition().second);
 		aWorm->update(domainElement);
 
-		/*esta linea hay que borrarla, es caca*/
-		//this->domain->setPlayerState("usuario",DISCONNECTED,COLOR_AMARILLO);
-		/**************************************/
 		std::stringstream name;
 		name<<"Worm "<< domainElement->getId();
 
@@ -230,5 +228,23 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 			return NULL;
 		}
 		return aWorm;
+}
+
+
+ProjectileView*  GameViewBuilder::createBullet()
+{
+	ProjectileView*  aProjectile = new ProjectileView(33);
+
+	try 
+	{
+		aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("clustlet"));
+		aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+	} 
+	catch (std::exception & e) 
+	{
+		Log::e(e.what());
+		return NULL;
+	}
+	return aProjectile;
 }
 

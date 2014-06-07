@@ -102,6 +102,7 @@
     <ClCompile Include="..\src\Cliente\vista\MenuWeaponView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\ProjectileView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Sprite.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="..\src\Cliente\vista\Camera.h" />
     <ClInclude Include="..\src\Cliente\vista\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\EartView.h" />
+    <ClInclude Include="..\src\Cliente\vista\ElemViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\FontManager.h" />
@@ -176,6 +178,7 @@
     <ClInclude Include="..\src\Cliente\vista\MenuWeaponView.h" />
     <ClInclude Include="..\src\Cliente\vista\PentagonView.h" />
     <ClInclude Include="..\src\Cliente\vista\PolygonView.h" />
+    <ClInclude Include="..\src\Cliente\vista\ProjectileView.h" />
     <ClInclude Include="..\src\Cliente\vista\RectangleView.h" />
     <ClInclude Include="..\src\Cliente\vista\Sprite.h" />
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />
