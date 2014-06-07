@@ -95,3 +95,7 @@ void GameView::getDestroyEart(int x, int y, int radio)
 void GameView::actionMenu(){
 	this->menuWeapon->actionMenu();
 }
+
+bool GameView::hasClickedMenu(SDL_Point clickPoint){
+	return this->menuWeapon->hasClickedMenu(clickPoint);
+}
