@@ -133,7 +133,8 @@ void Bootstrap::loadMenuWeapon(){
 		TextureManager::Instance().load("res/images/MenuWeapon.png", "MenuWeapon", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/grenade.1.png", "gun_1", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/bazooka.1.png", "gun_2", this->getScreen().getRenderer());
-
+		//TODO: @Nahu: agrego la imagen que usas, despues la ponemos donde vos digas,
+		TextureManager::Instance().load("res/images/arial.png", "arial", this->getScreen().getRenderer());
 
 	} catch (GameException & e) 
 	{
