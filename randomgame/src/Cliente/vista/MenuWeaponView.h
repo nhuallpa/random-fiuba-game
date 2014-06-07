@@ -3,6 +3,7 @@
 
 #include "View.h"
 #include "Weapon.h"
+#include <map>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
 	void draw(SDLScreen & screen);
 private:
 	map<WeaponId, Weapon*> mapa;
+	Weapon* menu;
 };
 
 

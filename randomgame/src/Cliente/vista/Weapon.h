@@ -2,29 +2,27 @@
 #define __WEAPON__
 
 #include "View.h"
-#include <map>
+#include <list>
 #include "..\..\utils\Util.h"
+#include "..\controlador\Entity\Shape.h"
 
 using namespace std;
-
-enum WSTATE {SELECT, ENABLE, DISABLE};
 
 class Weapon : public View{
 
 public:
-	Weapon(WeaponId id, int x, int y, int width, int height);
+	Weapon(WeaponId id, Shape s, list<string> keys);
 	~Weapon();
-	void setWeapon(WSTATE ws, string ref);
-	void setState(WSTATE ws);
+	bool findWeapon(string key);
+	void setWeapon(string key);
 	void setRender();
-	string getWeapon(WSTATE ws);
+	void removeWeapon(string key);
 	void draw(SDLScreen & screen);
 private:
-	map<WSTATE, string> weapons;
-	WSTATE state;
+	list<string> lWeaponView;
 	WeaponId id;
-	bool render;
 	int x, y, width, height;
+	void drawItems(SDLScreen & screen);
 };
 
 #endif
