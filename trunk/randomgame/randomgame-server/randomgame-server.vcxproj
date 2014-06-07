@@ -85,6 +85,10 @@
   <ItemGroup>
     <ClCompile Include="..\src\main-server.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\b2Separator.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\BazookaModel.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\BurroModel.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\GranadaModel.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\WeaponModel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
@@ -134,6 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Servidor\modelo\b2Separator.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\BazookaModel.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\BurroModel.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\GranadaModel.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\WeaponModel.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
