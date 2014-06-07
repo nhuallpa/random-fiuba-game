@@ -432,9 +432,7 @@ int Cliente::netListener(void* data){
 
 void Cliente::processExplosions(float x, float y, int radio){
 
-	// TODO @Nestor: Decime como llamo a lo que hace la explosion en el mapa
-	// ExplodeView ( X, Y, RADIO );
-
+	this->gameActivity->doExplotion(x, y, radio);
 }
 
 
@@ -495,3 +493,8 @@ void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
 	//this->domain.printDomain();
 }
 
+void Cliente::addProjectileToView(float x, float y, int idElement, int type)
+{
+	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
+	aGameActivity->buildProjectile(idElement, x, y, type);
+}

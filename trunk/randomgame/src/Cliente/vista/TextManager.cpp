@@ -39,9 +39,16 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett){
 	destino.y = y;
 	destino.w = origen.w;
 	destino.h = origen.h;
+	try 
+	{
+	
 	Log::i("fuente: %p",TextureManager::Instance().getTexture(idFont));
 	SDL_RenderCopy(this->renderer,
                    TextureManager::Instance().getTexture(idFont),
                    &origen,
                    &destino);
+	} catch (std::exception &e) {
+		Log::e(e.what());
+	}
+
 }

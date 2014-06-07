@@ -72,6 +72,8 @@ public:
 
 	void buildNewWorms(std::string playerID, int id, int x, int y) ;
 
+	void buildProjectile(int idElement, float x, float y, int type);
+
 	bool isThisClientOwner(int wormId);
 
 	bool isAlive(int wormId);
