@@ -17,6 +17,7 @@ Weapon::Weapon(WeaponId id, Shape s, list<string> keys, string allowWeapon)
 	lWeaponView.insert(lWeaponView.begin(),
 					   keys.begin(),
 					   keys.end());
+	ballow = false;
 }
 
 Weapon::~Weapon(){
@@ -63,4 +64,35 @@ void Weapon::drawItems(SDLScreen & screen){
 void Weapon::allow(){
 	lWeaponView.clear();
 	lWeaponView.push_back(allowWeapon);
+	ballow = true;
+}
+
+
+bool Weapon::hasClickedMenu(SDL_Point clickPoint){
+	int x1, x2, y1, y2;
+	x1 = x, x2 = x + width;
+	y1 = y, y2 = y + height;
+
+	if(!ballow)
+		return false;
+/*
+	return (
+		((x1 <= clickPoint.x) && (x2 >= clickPoint.x))
+		&&
+		((y1 <= clickPoint.y) && (y2 >= clickPoint.y))
+		);*/
+
+	if(
+		((x1 <= clickPoint.x) && (x2 >= clickPoint.x))
+		&&
+		((y1 <= clickPoint.y) && (y2 >= clickPoint.y))
+		){
+	
+			Log::i("xx (weaponId=%d)", (int)id);
+			return true;
+	}
+	else{
+	
+		return false;
+	}
 }

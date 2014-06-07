@@ -60,6 +60,26 @@ void MenuWeaponView::allowWeapon(list<WeaponId> items){
 
 }
 
+
+bool MenuWeaponView::hasClickedMenu(SDL_Point clickPoint){
+	bool result = false;
+	if(menu->findWeapon("MenuWeapon")){
+		map<WeaponId, Weapon*>::iterator it;
+		for(it = mapa.begin(); it != mapa.end(); it++){
+			if(it->second->hasClickedMenu(clickPoint)){
+				result = true;
+				break;
+			}
+		}
+	}
+	return result;
+}
+
+
+
+
+
+
 void MenuWeaponView::buildWeapon(){
 	int x, y;
 	Shape *shape = NULL;
@@ -173,12 +193,12 @@ void MenuWeaponView::buildWeapon(){
 	//LUEGO SACAR ESTO,
 	list<WeaponId> allowW;
 	allowW.push_back(BAZOOKA);
-	allowW.push_back(GRENADE);
+	//allowW.push_back(GRENADE);
 	allowW.push_back(HGRANADE);
 	allowW.push_back(BURRO);
 	allowW.push_back(DYNAMITE);
 	allowW.push_back(AIRATTACK);
-	allowW.push_back(BANANA);
+	//allowW.push_back(BANANA);
 	allowW.push_back(HMISSILE);
 
 	allowWeapon(allowW);

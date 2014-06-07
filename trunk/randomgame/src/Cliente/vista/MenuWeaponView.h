@@ -16,6 +16,7 @@ public:
 	void actionMenu();
 	void draw(SDLScreen & screen);
 	void allowWeapon(list<WeaponId> items);
+	bool hasClickedMenu(SDL_Point clickPoint);
 private:
 	map<WeaponId, Weapon*> mapa;
 	Weapon* menu;
