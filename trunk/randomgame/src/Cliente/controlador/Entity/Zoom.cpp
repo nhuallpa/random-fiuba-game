@@ -1,4 +1,5 @@
 #include "Zoom.h"
+#include <algorithm>
 
 
 Zoom* Zoom::zoom = NULL;
@@ -15,7 +16,9 @@ Zoom* Zoom::getInstance(){
 }
 
 void Zoom::add(OnZoomListener* obj){
-	objects.push_back(obj);
+	if(!isRegistered(obj)){
+		objects.push_back(obj);
+	}
 }
 
 void Zoom::remuve(OnZoomListener* obj){
@@ -48,3 +51,8 @@ void Zoom::setEvent(int y){
 	this->y = y;
 }
 
+bool Zoom::isRegistered(OnZoomListener * obj){
+	return (find(objects.begin(),
+			objects.end(), 
+			obj) != objects.end());
+}

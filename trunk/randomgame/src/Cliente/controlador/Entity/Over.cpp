@@ -1,4 +1,5 @@
 #include "Over.h"
+#include <algorithm>
 
 Over* Over::over = NULL;
 
@@ -14,7 +15,9 @@ Over* Over::getInstance(){
 }
 
 void Over::add(OnScrollListener * obj){
-	objects.push_back(obj);
+	if(!isRegistered(obj)){
+		objects.push_back(obj);
+	}
 }
 
 void Over::remuve(OnScrollListener * obj){
@@ -46,4 +49,11 @@ void Over::notify(){
 
 void Over::setEvent(int x, int y){
 	this->x = x, this->y = y;
+}
+
+
+bool Over::isRegistered(OnScrollListener * obj){
+	return (find(objects.begin(),
+			objects.end(), 
+			obj) != objects.end());
 }

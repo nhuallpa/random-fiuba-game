@@ -22,6 +22,7 @@ class Click : public Notifiable{
 		static Click* click;
 		list<OnClickListener*> objects;
 		int x, y;
+		bool isRegistered(OnClickListener * obj);
 };
 
 #endif

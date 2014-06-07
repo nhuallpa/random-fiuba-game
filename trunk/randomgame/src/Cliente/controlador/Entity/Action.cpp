@@ -1,4 +1,5 @@
 #include "Action.h"
+#include <algorithm>
 #include "..\..\..\utils\Log.h"
 
 Action* Action::action = NULL;
@@ -17,7 +18,9 @@ Action* Action::getInstance(){
 }
 
 void Action::add(OnActionListener * obj){
-	objects.push_back(obj);
+	if(!isRegistered(obj)){
+		objects.push_back(obj);
+	}
 }
 
 void Action::remuve(OnActionListener * obj){
@@ -64,4 +67,10 @@ bool Action::newEvent(){
 		last = a;
 	}
 	return result;
+}
+
+bool Action::isRegistered(OnActionListener * obj){
+	return (find(objects.begin(),
+				objects.end(), 
+				obj) != objects.end());
 }

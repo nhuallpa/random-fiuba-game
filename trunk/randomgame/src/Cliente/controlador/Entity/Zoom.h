@@ -22,6 +22,7 @@ class Zoom : public Notifiable{
 		static Zoom* zoom;
 		list<OnZoomListener*> objects;
 		int y;
+		bool isRegistered(OnZoomListener * obj);
 };
 
 #endif

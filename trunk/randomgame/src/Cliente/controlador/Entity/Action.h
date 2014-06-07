@@ -24,6 +24,7 @@ class Action : public Notifiable{
 		static Action* action;
 		list<OnActionListener*> objects;
 		ActionKey a, last;
+		bool isRegistered(OnActionListener * obj);
 };
 
 #endif
