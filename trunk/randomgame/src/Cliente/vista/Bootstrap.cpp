@@ -136,8 +136,36 @@ void Bootstrap::shoutDown()
 void Bootstrap::loadMenuWeapon(){
 	try {
 		TextureManager::Instance().load("res/images/MenuWeapon.png", "MenuWeapon", this->getScreen().getRenderer());
-		TextureManager::Instance().load("res/images/grenade.1.png", "gun_1", this->getScreen().getRenderer());
+		/*TextureManager::Instance().load("res/images/grenade.1.png", "gun_1", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/bazooka.1.png", "gun_2", this->getScreen().getRenderer());
+		*/
+		TextureManager::Instance().load("res/images/ok.png", "ok", this->getScreen().getRenderer());
+
+		TextureManager::Instance().load("res/images/bazooka.1.1.png", "bazooka.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/bazooka.1.2.png", "bazooka.1.2", this->getScreen().getRenderer());
+
+		TextureManager::Instance().load("res/images/grenade.1.1.png", "grenade.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/grenade.1.2.png", "grenade.1.2", this->getScreen().getRenderer());
+
+		TextureManager::Instance().load("res/images/hgrenade.1.1.png", "hgrenade.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/hgrenade.1.2.png", "hgrenade.1.2", this->getScreen().getRenderer());
+		
+		TextureManager::Instance().load("res/images/donkey.1.1.png", "donkey.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/donkey.1.2.png", "donkey.1.2", this->getScreen().getRenderer());
+		
+		TextureManager::Instance().load("res/images/dynamite.1.1.png", "dynamite.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/dynamite.1.2.png", "dynamite.1.2", this->getScreen().getRenderer());
+
+		TextureManager::Instance().load("res/images/airstrke.1.1.png", "airstrke.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/airstrke.1.2.png", "airstrke.1.2", this->getScreen().getRenderer());
+
+		TextureManager::Instance().load("res/images/banana.1.1.png", "banana.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/banana.1.2.png", "banana.1.2", this->getScreen().getRenderer());
+
+		TextureManager::Instance().load("res/images/hmissile.1.1.png", "hmissile.1.1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/hmissile.1.2.png", "hmissile.1.2", this->getScreen().getRenderer());
+
+
 		//TODO: @Nahu: agrego la imagen que usas, despues la ponemos donde vos digas,
 		TextureManager::Instance().load("res/images/arial.png", "arial", this->getScreen().getRenderer());
 
