@@ -5,6 +5,7 @@
 #include "Exceptions\ContourException.h"
 #include "..\..\utils\ParserYaml.h"
 
+
 #define UPDATE_STEPS 3
 #define WATER_VELOCITY -2
 #define WEAPON_STARTING_ID 100
@@ -698,16 +699,27 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	switch ( weaponid ){
 		
 		case BAZOOKA:
-			this->gameLevel->addEntity( new WeaponModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+			this->gameLevel->addEntity( new BazookaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
 			myWeapon = this->gameLevel->getEntityByID(elementId);
 			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
 			break;
 		
 		case GRENADE:
-			this->gameLevel->addEntity( new WeaponModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+			this->gameLevel->addEntity( new GranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
 			myWeapon = this->gameLevel->getEntityByID(elementId);
 			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
 			break;
+		case HOLY:
+			this->gameLevel->addEntity( new HolyGranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+			myWeapon = this->gameLevel->getEntityByID(elementId);
+			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+			break;
+		case BURRO:
+			this->gameLevel->addEntity( new BurroModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+			myWeapon = this->gameLevel->getEntityByID(elementId);
+			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+			break;
+
 		
 			
 		// TODO comentar cuando existan las otras armas
