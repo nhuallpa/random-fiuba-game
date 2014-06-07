@@ -212,16 +212,26 @@ void GameActivity::OnClick(ClickEvent e){
 		if (!aWorm->isSelected()) {
 			deselectPreviewsWorm();
 			selectWorm(aWorm);
+			if(this->idWeapon != -1){
+				deselectPreviewsWeapon();
+			}
 		}
 	}
 	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint))
 	{
+		int aux = this->idWeapon;
 		if(this->idWeapon != -1){
 			deselectPreviewsWeapon();
 		}
+
 		Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
 		this->idWeapon = aWeapon->getId();
 		aWeapon->selected();
+		
+		if(aux == this->idWeapon ){
+			deselectPreviewsWeapon();
+		}
+
 		/*
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
 		int idWeapon = retrieveWaponId(clickPoint);

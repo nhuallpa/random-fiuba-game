@@ -113,7 +113,7 @@ void MenuWeaponView::buildWeapon(){
 
 	shape = new Shape(x, y, 280, 214);
 	if(shape != NULL){
-		lweapons.push_back("MenuWeapon");
+		//lweapons.push_back("MenuWeapon");
 		menu = new Weapon(NO_WEAPON, *shape, lweapons, "");
 		delete shape;
 	}
