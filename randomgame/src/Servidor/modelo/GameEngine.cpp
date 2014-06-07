@@ -694,43 +694,53 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	Weapon2d* w2d;
 	GameElement* myWeapon;
 
-	int elementId = this->getWeaponUniqueId();
+	int elementId = this->getWeaponUniqueId(); //QUE PASA CON EL ATAQUE AEREO QUE SON VARIOS??
 
-	switch ( weaponid ){
-		
-		case BAZOOKA:
-			this->gameLevel->addEntity( new BazookaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-			myWeapon = this->gameLevel->getEntityByID(elementId);
-			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-			break;
-		
-		case GRENADE:
-			this->gameLevel->addEntity( new GranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-			myWeapon = this->gameLevel->getEntityByID(elementId);
-			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-			break;
-		case HOLY:
-			this->gameLevel->addEntity( new HolyGranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-			myWeapon = this->gameLevel->getEntityByID(elementId);
-			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-			break;
-		case BURRO:
-			this->gameLevel->addEntity( new BurroModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-			myWeapon = this->gameLevel->getEntityByID(elementId);
-			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-			break;
+	Missile* aMissile = MissileFactory::getInstance()->getMissile(weaponid,elementId);
+	aMissile->setPosition(pair<float,float>(xworm,yworm));
+	aMissile->setStartTime(this->myTimer.elapsed());
+	this->gameLevel->addEntity(aMissile);
 
-		
-			
-		// TODO comentar cuando existan las otras armas
-		default:
-			this->gameLevel->addEntity( new WeaponModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-			myWeapon = this->gameLevel->getEntityByID(elementId);
-			w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-			break;
-	}
-	
-	myWeapon->setBody(w2d);
-	this->gameBodies->insert(std::make_pair<int,Body*>(elementId,w2d));
+	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, aMissile);
+	aMissile->setBody(aMissile2d);
+
+	this->gameBodies->insert(std::make_pair<int,Body*>(elementId,aMissile2d));
+
+	//PURO CHAMUYO DE ARI QUE NO FUNCIONA:
+	//switch ( weaponid ){
+	//	
+	//	case BAZOOKA:
+	//		this->gameLevel->addEntity( new BazookaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+	//		myWeapon = this->gameLevel->getEntityByID(elementId);
+	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+	//		break;
+	//	
+	//	case GRENADE:
+	//		this->gameLevel->addEntity( new GranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+	//		myWeapon = this->gameLevel->getEntityByID(elementId);
+	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+	//		break;
+	//	case HOLY:
+	//		this->gameLevel->addEntity( new HolyGranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+	//		myWeapon = this->gameLevel->getEntityByID(elementId);
+	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+	//		break;
+	//	case BURRO:
+	//		this->gameLevel->addEntity( new BurroModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+	//		myWeapon = this->gameLevel->getEntityByID(elementId);
+	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+	//		break;
+
+	//	
+	//		
+	//	// TODO comentar cuando existan las otras armas
+	//	default:
+	//		this->gameLevel->addEntity( new WeaponModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
+	//		myWeapon = this->gameLevel->getEntityByID(elementId);
+	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
+	//		break;
+	//}
+	//myWeapon->setBody(w2d);
+	//this->gameBodies->insert(std::make_pair<int,Body*>(elementId,w2d));
 	
 }

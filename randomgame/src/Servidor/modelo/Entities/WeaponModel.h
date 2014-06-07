@@ -28,6 +28,7 @@ class WeaponModel : public GameElement{
 		bool hasMultipleChilds(){ return this->multipleChilds; }
 		bool hasExploded(){ return this->exploded; }
 		void updateExplode(float time);
+		void setExplodeTime(float explodeTime);
 
 };
 

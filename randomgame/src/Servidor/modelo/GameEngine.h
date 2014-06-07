@@ -15,7 +15,9 @@
 #include "Physics\Bodies\Water.h"
 #include "Physics\Weapon2d.h"
 #include "TerrainProcessor.h"
-
+#include "Entities\MissileFactory.h"
+#include "..\modelo\Physics\Bodies\Missiles\Missile2dFactory.h"
+#include  "Entities\Missile.h"
 #include "../../utils/Timer.h"
 
 #include <set>
@@ -40,6 +42,8 @@ class GameEngine {
 
 		b2World* myWorld;
 		Water* water;
+		MissileFactory* missileFactory;
+		Missile2dFactory* missile2dFactory;
 
 		Body* lookForABody();
 		ContactListener myContactListener;

@@ -1,7 +1,10 @@
-#include "Weapon2d.h"
+#include "Missile2d.h"
 
+Missile2d::Missile2d()
+{
+}
 
-Weapon2d::Weapon2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
+Missile2d::Missile2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;
 	this->center = b2Vec2( posX+(BULLET_RADIUS/2), posY+(BULLET_RADIUS/2) );
@@ -36,18 +39,18 @@ Weapon2d::Weapon2d(ElementType type, float posX, float posY, float angle_x, floa
 
 }
 
-Weapon2d::~Weapon2d(){}
+Missile2d::~Missile2d(){}
 
-void Weapon2d::animate( float time ){
+void Missile2d::animate( float time ){
 
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
-	if ( static_cast<WeaponModel*>(myWeapon)->hasDelayedExplosion() ){
-		static_cast<WeaponModel*>(myWeapon)->updateExplode( time );
+	if ( static_cast<Missile*>(myWeapon)->hasDelayedExplosion() ){
+		static_cast<Missile*>(myWeapon)->updateExplode( time );
 	}
-	
-	if ( static_cast<WeaponModel*>(myWeapon)->hasExploded() ){
+
+	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
 		myWeapon->setAction(EXPLOSION);
 	} else{
 		myWeapon->setAction(MISSIL_FLYING);
@@ -60,4 +63,11 @@ void Weapon2d::animate( float time ){
 	myWeapon->changed = true;
 
 
+}
+
+Explosion Missile2d::getExplosion()
+{
+	this->explosion.x=this->center.x;
+	this->explosion.y=this->center.y;
+	return this->explosion;
 }
