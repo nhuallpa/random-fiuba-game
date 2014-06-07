@@ -65,7 +65,10 @@ typedef enum{
 	HOLY=12,
 	BURRO=7,
 	AIRATTACK=3,
-	DYNAMITE=5
+	DYNAMITE=5,
+	HGRANADE = 14,
+	HMISSILE = 15,
+	BANANA = 16
 } WeaponId;
 
 
