@@ -25,3 +25,9 @@ void WeaponModel::updateExplode(float time){
 	}
 
 }
+
+void WeaponModel::setExplodeTime(float explodeTime){
+
+	this->explodeTime = explodeTime;
+
+}
