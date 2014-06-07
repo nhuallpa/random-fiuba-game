@@ -67,6 +67,8 @@ public:
 
 	bool hasClickedWorm(SDL_Point clickPoint);
 
+	bool hasClickedMenu(SDL_Point clickPoint);
+
 	int getWormIdSelected() {return this->wormIdSelected;}
 
 	WormView* retrieveWormClicked(SDL_Point clickPoint);

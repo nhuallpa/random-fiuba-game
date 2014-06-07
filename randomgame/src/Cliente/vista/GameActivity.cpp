@@ -164,6 +164,11 @@ bool GameActivity::hasClickedWorm(SDL_Point clickPoint)
 	return wormClicked;
 }
 
+bool GameActivity::hasClickedMenu(SDL_Point clickPoint){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	return gameView->hasClickedMenu(clickPoint);
+}
+
 WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 {
 	WormView* aWormClicked = NULL;
@@ -203,14 +208,14 @@ void GameActivity::OnClick(ClickEvent e){
 			selectWorm(aWorm);
 		}
 	}
-	//else if (hasClickedMenu(clickPoint) && wormIdSelected != -1)
-	//{
-	//	WormView* aWorm = gameView->findWormById(this->wormIdSelected);
-	//	int idWeapon = retrieveWaponId(clickPoint);
-	//	selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
-	//	aWorm->setWeapon(idWapon);
-	//	updater.doSelectWapon(wormIdSelected, idWapon);
-	//}
+	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint))
+	{/*
+		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
+		int idWeapon = retrieveWaponId(clickPoint);
+		selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
+		aWorm->setWeapon(idWapon);
+		updater.doSelectWapon(wormIdSelected, idWapon);*/
+	}
 	else
 	{
 		deselectPreviewsWorm();
