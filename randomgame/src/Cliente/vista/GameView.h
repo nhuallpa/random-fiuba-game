@@ -65,6 +65,8 @@ public:
 	~GameView(void);
 
 	void actionMenu();
+	
+	bool hasClickedMenu(SDL_Point clickPoint);
 };
 
 
