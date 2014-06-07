@@ -3,7 +3,7 @@
 #include <algorithm>
 
 
-Weapon::Weapon(WeaponId id, Shape s, list<string> keys)
+Weapon::Weapon(WeaponId id, Shape s, list<string> keys, string allowWeapon)
 :View(x,y){
 	pair<int, int> data;
 	this->id = id;
@@ -13,6 +13,7 @@ Weapon::Weapon(WeaponId id, Shape s, list<string> keys)
 	data = s.getDimension();
 	this->width = data.first;
 	this->height = data.second;
+	this->allowWeapon = allowWeapon;
 	lWeaponView.insert(lWeaponView.begin(),
 					   keys.begin(),
 					   keys.end());
@@ -59,4 +60,7 @@ void Weapon::drawItems(SDLScreen & screen){
 
 }
 
-
+void Weapon::allow(){
+	lWeaponView.clear();
+	lWeaponView.push_back(allowWeapon);
+}
