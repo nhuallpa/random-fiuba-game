@@ -99,3 +99,11 @@ void GameView::actionMenu(){
 bool GameView::hasClickedMenu(SDL_Point clickPoint){
 	return this->menuWeapon->hasClickedMenu(clickPoint);
 }
+
+Weapon* GameView::retrieveWeaponClicked(SDL_Point clickPoint){
+	return this->menuWeapon->retrieveWeaponClicked(clickPoint);
+}
+
+Weapon* GameView::findWeaponById(int idWeapon){
+	return this->menuWeapon->findWeaponById(idWeapon);
+}

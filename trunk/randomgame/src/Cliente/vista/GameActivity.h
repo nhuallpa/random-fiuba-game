@@ -13,6 +13,7 @@
 #include "../../utils/Util.h"
 #include "Camera.h"
 #include "../Updater.h"
+#include "Weapon.h"
 
 
 class GameActivity : public Activity, 
@@ -33,6 +34,7 @@ private:
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
 	bool isMyTurn;
+	int idWeapon;
 
 public:
 
@@ -61,6 +63,8 @@ public:
 
 	void deselectPreviewsWorm();
 
+	void deselectPreviewsWeapon();
+
 	void doExplotion(float x, float y, float radio);
 
 	void selectWorm(WormView* aWorm);
@@ -72,6 +76,8 @@ public:
 	int getWormIdSelected() {return this->wormIdSelected;}
 
 	WormView* retrieveWormClicked(SDL_Point clickPoint);
+
+	Weapon* retrieveWeaponClicked(SDL_Point clickPoint);
 
 	void buildNewWorms(std::string playerID, int id, int x, int y) ;
 
