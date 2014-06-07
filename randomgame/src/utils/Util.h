@@ -63,6 +63,7 @@ typedef enum{
 	BAZOOKA=2,
 	GRENADE=4,
 	HOLY=12,
+	BURRO=7,
 	AIRATTACK=3,
 	DYNAMITE=5
 } WeaponId;
