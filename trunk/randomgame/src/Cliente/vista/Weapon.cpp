@@ -1,62 +1,62 @@
 #include "Weapon.h"
 #include "TextureManager.h"
+#include <algorithm>
 
 
-Weapon::Weapon(WeaponId id, int x, int y, int width, int height)
+Weapon::Weapon(WeaponId id, Shape s, list<string> keys)
 :View(x,y){
-	this->id = id, this->x = x, this->y = y;
-	this->width = width, this->height = height;
-	this->render = true;
+	pair<int, int> data;
+	this->id = id;
+	data = s.getPosition();
+	this->x = data.first;
+	this->y = data.second;
+	data = s.getDimension();
+	this->width = data.first;
+	this->height = data.second;
+	lWeaponView.insert(lWeaponView.begin(),
+					   keys.begin(),
+					   keys.end());
 }
 
 Weapon::~Weapon(){
 
 }
 
+void Weapon::setWeapon(string key){
+	lWeaponView.push_back(key);
+}
 
-void Weapon::setRender(){
-	if(this->render){
-		//Log::e("Erik, NO Dibujo Notificacion");
-		this->render = false;
+void Weapon::removeWeapon(string key){
+	list<string>::iterator it;
+	it = find(lWeaponView.begin(), 
+		      lWeaponView.end(), key);
+	if(it != lWeaponView.end()){
+		lWeaponView.erase(it);
 	}
-	else{
-		//Log::e("Erik, Dibujo Notificacion");
-		this->render = true;
-	}
 }
 
-void Weapon::setState(WSTATE ws){
-	this->state = ws;
+bool Weapon::findWeapon(string key){
+	list<string>::iterator it;
+	it = find(lWeaponView.begin(), 
+		      lWeaponView.end(), key);
+	return (it != lWeaponView.end());
 }
-
-void Weapon::setWeapon(WSTATE ws, string ref){
-	this->weapons.insert(pair<WSTATE, string>(ws, ref));
-}
-
-string Weapon::getWeapon(WSTATE ws){
-	map<WSTATE, string>::iterator it;
-	it = this->weapons.find(ws);
-	if(it != this->weapons.end()){
-		return it->second;
-	}
-	return "";
-}
-
 
 void Weapon::draw(SDLScreen & screen){
-
-	if(!this->render){
-		return;
-	}
-	TextureManager::Instance().drawFrameOnScreen(
-					this->weapons[this->state], 
-					this->x, 
-					this->y, 
-					this->width, 
-					this->height, 
-					0, 
-					0, 
-					screen.getRenderer(),
-					false, 
-					SDL_FLIP_NONE);
+	drawItems(screen);
 }
+
+void Weapon::drawItems(SDLScreen & screen){
+	list<string>::iterator it;
+	for(it  = lWeaponView.begin();
+		it != lWeaponView.end();
+		it++){
+		TextureManager::Instance().drawFrameOnScreen(
+					(*it), x, y, width, height, 
+					0, 0, screen.getRenderer(),
+					false, SDL_FLIP_NONE);
+	}
+
+}
+
+
