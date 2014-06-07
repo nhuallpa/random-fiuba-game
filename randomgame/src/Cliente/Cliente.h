@@ -183,6 +183,16 @@ class Cliente { //: public OnMovementListener{
 		* @param y			y in UL
 		**/
 		void addPlayerToView(std::string playerID, int idWorm, int x, int y);
+
+
+		/**
+		* Add a new projectile into GameView
+		* @param x			x in UL
+		* @param y			y in UL
+		* @param idElement	id of element
+		* @param type		type of projectile
+		**/
+		void Cliente::addProjectileToView(float x, float y, int idElement, int type);
 };
 
 
