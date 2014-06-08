@@ -16,7 +16,7 @@ Worm::Worm(int id, std::string playerID, ElementType type, float posX, float pos
 	this->myLastAction = MOVELESS;
 	this->stopped = false;
 	this->life = MAX_WORM_LIFE;
-	this->weapon = NO_WEAPON;
+	this->weaponId = NO_WEAPON;
 }
 
 

@@ -224,7 +224,7 @@ int Servidor::somethingChange(){
 			this->worldQ.play[i].y = it->second->getPosition().second;
 			this->worldQ.play[i].life = it->second->getLife();
 			this->worldQ.play[i].action = it->second->getAction();
-			this->worldQ.play[i].weaponid = it->second->getWeapon();
+			this->worldQ.play[i].weaponid = it->second->getWeaponId();
 			flag = true;
 			i++;
 		}

@@ -168,3 +168,8 @@ bool GameElement::isFixed()
 {
 	return this->fixed;
 }
+
+bool GameElement::hasExploded()
+{ 
+	return this->exploded;
+}

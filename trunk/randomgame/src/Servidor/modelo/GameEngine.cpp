@@ -706,7 +706,7 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 
 	this->gameBodies->insert(std::make_pair<int,Body*>(elementId,aMissile2d));
 
-	//PURO CHAMUYO DE ARI QUE NO FUNCIONA:
+	//PURO CHAMUYO DE ARI QUE NO FUNCIONA - GATO COPIASTE LO MISMO DENTRO DE UN FACTORY
 	//switch ( weaponid ){
 	//	
 	//	case BAZOOKA:
