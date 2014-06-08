@@ -8,6 +8,7 @@
 #include "Entity/Click.h"
 #include "Entity/Zoom.h"
 #include "Entity/Move.h"
+#include "Entity/Coord.h"
 #include "Entity\Action.h"
 #include "Contracts/Notifiable.h"
 #include "Entity/CollectionEvent.h"
@@ -50,6 +51,7 @@ class RunGame{
 		void detectClick();
 		void detectClickLeft();
 		void detectClickRight();
+		void detectCoord();
 		void detectMovem(SDL_Event* e);
 		void detectMovem(Move* mv, int value, SDL_Event* e);
 		int getFactor(float time);

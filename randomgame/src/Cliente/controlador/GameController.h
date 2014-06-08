@@ -10,6 +10,7 @@
 #include "Contracts\OnScrollListener.h"
 #include "Contracts\OnZoomListener.h"
 #include "Contracts\OnActionListener.h"
+#include "Contracts\OnCoordListener.h"
 
 class GameController{
 	public:
@@ -35,6 +36,10 @@ class GameController{
 		void remuveOnClickListener(OnClickListener* c);
 		void addOnActionListener(OnActionListener* a);
 		void remuveOnActionListener(OnActionListener* a);
+
+
+		void addOnCoordListener(OnCoordListener* coord);
+		void remuveOnCoordListener(OnCoordListener* coord);
 
 	private:
 		RunGame* rg;

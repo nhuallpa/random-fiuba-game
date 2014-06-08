@@ -81,3 +81,12 @@ void GameController::remuveOnClickListener(OnClickListener* c)
 	Click* ck = Click::getInstance();
 	ck->remuve(c);
 }
+
+void GameController::addOnCoordListener(OnCoordListener* coord){
+	Coord* co = Coord::getInstance();
+	co->add(coord);
+}
+void GameController::remuveOnCoordListener(OnCoordListener* coord){
+	Coord* co = Coord::getInstance();
+	co->remuve(coord);
+}
