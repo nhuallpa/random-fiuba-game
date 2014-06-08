@@ -20,6 +20,9 @@ int main(int argc, char* argv[]) {
 	std::string path = (argc > 1) ? argv[1] : DEFAULT_YAML_SERVER;
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 
+	//TODO: Inicializo por unica vez el vector que tendra los angulos de disparo
+	Util::iniAimValue();
+
 	Servidor mySrv( SERVER_PORT , Util::string2int(aParser->getMetaMaxPlay()) );
 	
 	while(true){

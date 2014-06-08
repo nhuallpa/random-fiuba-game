@@ -11,6 +11,29 @@ Util::~Util(void)
 {
 }
 
+std::map<int, std::pair<float,float> > Util::aimValue;
+
+void Util::iniAimValue(){
+	if(!aimValue.size()){
+		aimValue.insert(std::pair<int, std::pair<float, float>>( 0, std::pair<float, float>(1,0)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(30, std::pair<float, float>(0.866,0.5)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(45, std::pair<float, float>(0.707,0.707)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(60, std::pair<float, float>(0.5,0.866)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(90, std::pair<float, float>(0,1)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(120, std::pair<float, float>(-0.5,0.866)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(135, std::pair<float, float>(-0.707,0.707)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(150, std::pair<float, float>(-0.866,0.5)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(180, std::pair<float, float>(-1,0)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(210, std::pair<float, float>(-0.866,-0.5)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(225, std::pair<float, float>(-0.707,-0.707)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(240, std::pair<float, float>(-0.5,-0.866)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(270, std::pair<float, float>(0,-1)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(300, std::pair<float, float>(0.5,-0.866)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(315, std::pair<float, float>(0.707,-0.707)));
+		aimValue.insert(std::pair<int, std::pair<float, float>>(330, std::pair<float, float>(0.866,-0.5)));
+	}
+
+}
 
 /**
 *  @DEPRECATED
