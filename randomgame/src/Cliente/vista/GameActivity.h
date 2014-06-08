@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "../Updater.h"
 #include "Weapon.h"
+#include "AimView.h"
 
 
 class GameActivity : public Activity, 
@@ -35,6 +36,8 @@ private:
 
 	bool isMyTurn;
 	WeaponId idWeapon;
+
+	AimView* aimView;
 
 public:
 
