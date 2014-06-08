@@ -198,6 +198,23 @@ void GameViewBuilder::buildStateBar()
 void GameViewBuilder::buildMenuWeapon(){
 	MenuWeaponView* menuWeapon = new MenuWeaponView(30,20);
 	menuWeapon->buildWeapon();
+
+
+	// tomar desde yaml y usar los siguiente. Agregar solo los permitidos
+		//LUEGO SACAR ESTO,
+	list<WeaponId> allowW;
+	allowW.push_back(BAZOOKA);
+	allowW.push_back(GRENADE);
+	allowW.push_back(HOLY);
+	allowW.push_back(BURRO);
+	allowW.push_back(DYNAMITE);
+	allowW.push_back(AIRATTACK);
+	allowW.push_back(BANANA);
+	allowW.push_back(HMISSILE);
+
+	menuWeapon->allowWeapon(allowW);
+
+
 	this->gameView->setMenuWeapon(menuWeapon);
 }
 
@@ -219,8 +236,14 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 
 		try 
 		{
-			aWorm->setSpriteWalk(SpriteConfigurator::Instance().get("wwalk"));
-			aWorm->setSpriteBazooka(SpriteConfigurator::Instance().get("wbaz2"));
+
+			aWorm->sprites["caminar"] = SpriteConfigurator::Instance().get("caminar");
+			aWorm->sprites["bazooka"] = SpriteConfigurator::Instance().get("bazooka");
+			aWorm->sprites["dinamita"] = SpriteConfigurator::Instance().get("dinamita");
+			aWorm->sprites["granada"] = SpriteConfigurator::Instance().get("granada");
+			aWorm->sprites["holy"] = SpriteConfigurator::Instance().get("holy");
+			aWorm->sprites["radio"] = SpriteConfigurator::Instance().get("radio");
+			aWorm->sprites["salto"] = SpriteConfigurator::Instance().get("salto");
 		} 
 		catch (std::exception & e) 
 		{

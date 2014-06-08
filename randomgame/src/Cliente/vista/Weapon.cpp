@@ -98,8 +98,8 @@ bool Weapon::hasClickedMenu(SDL_Point clickPoint){
 }
 
 
-int Weapon::getId(){
-	return (int) this->id;
+WeaponId Weapon::getId(){
+	return this->id;
 }
 
 void Weapon::selected(){

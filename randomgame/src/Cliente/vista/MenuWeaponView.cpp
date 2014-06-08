@@ -147,8 +147,8 @@ void MenuWeaponView::buildWeapon(){
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
 	if(shape != NULL){
 		lweapons.push_back("hgrenade.1.2");
-		weapon = new Weapon(HGRANADE, *shape, lweapons, "hgrenade.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(HGRANADE,weapon));
+		weapon = new Weapon(HOLY, *shape, lweapons, "hgrenade.1.1");
+		mapa.insert(pair<WeaponId, Weapon*>(HOLY,weapon));
 		delete shape;
 	}
 
@@ -212,17 +212,6 @@ void MenuWeaponView::buildWeapon(){
 	}
 
 
-	//LUEGO SACAR ESTO,
-	list<WeaponId> allowW;
-	allowW.push_back(BAZOOKA);
-	//allowW.push_back(GRENADE);
-	allowW.push_back(HGRANADE);
-	allowW.push_back(BURRO);
-	allowW.push_back(DYNAMITE);
-	allowW.push_back(AIRATTACK);
-	//allowW.push_back(BANANA);
-	allowW.push_back(HMISSILE);
 
-	allowWeapon(allowW);
 }
 

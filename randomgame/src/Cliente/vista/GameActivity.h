@@ -34,7 +34,7 @@ private:
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
 	bool isMyTurn;
-	int idWeapon;
+	WeaponId idWeapon;
 
 public:
 

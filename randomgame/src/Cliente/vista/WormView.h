@@ -27,10 +27,12 @@ class WormView: public View, public OnMovementListener
 	
 	Sprite* currentSprite;
 
-	Sprite spriteWalk;
+	/*Sprite spriteWalk;
 	Sprite spriteBazooka;
 	Sprite spriteJump;
-
+	Sprite sprite;
+	Sprite spriteJump;
+*/
 	TextView labelUsuario;
 	TextView labelNombre;
 
@@ -40,10 +42,13 @@ class WormView: public View, public OnMovementListener
 	unsigned long color;
 
 	SDL_Color white;
+
+	WeaponId weaponId;
 	
 public:
 	WormView(int id);
-									
+	
+	std::map<std::string, Sprite> sprites;
 	void clean();
 	
 	void update(GameElement* domainElement);
@@ -55,9 +60,12 @@ public:
 	int getId() {return this->id;}
 	std::string getPlayer();
 
-	void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
+	/*void setSpriteWalk(Sprite spriteWalk) {this->spriteWalk = spriteWalk;}
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
 	void setSpriteBazooka(Sprite spriteBazooka) {this->spriteBazooka = spriteBazooka;}
+*/
+	void selectWeapon(WeaponId idWapon);
+	void unselectWeapon() {this->weaponId = NO_WEAPON;}
 
 	void OnMovement(MovementEvent e);
 

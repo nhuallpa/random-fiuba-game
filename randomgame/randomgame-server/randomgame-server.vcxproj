@@ -89,6 +89,10 @@
     <ClCompile Include="..\src\Servidor\modelo\Entities\BurroModel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\GranadaModel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\Missile.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileBazooka.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileFactory.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileGrenade.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\WeaponModel.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Entities\Worm.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Exceptions\ContourException.cpp" />
@@ -115,6 +119,10 @@
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Circle.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2d.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dBazooka.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dFactory.cpp" />
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dGrenade.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Water.cpp" />
@@ -142,6 +150,10 @@
     <ClInclude Include="..\src\Servidor\modelo\Entities\BurroModel.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\GranadaModel.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\Missile.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileBazooka.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileFactory.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileGrenade.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\WeaponModel.h" />
     <ClInclude Include="..\src\Servidor\modelo\Entities\Worm.h" />
     <ClInclude Include="..\src\Servidor\modelo\Exceptions\ContourException.h" />
@@ -168,6 +180,10 @@
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Circle.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Cuadrado.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Hexagon.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2d.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dBazooka.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dFactory.h" />
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dGrenade.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Pentagon.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Triangulo.h" />
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Water.h" />
