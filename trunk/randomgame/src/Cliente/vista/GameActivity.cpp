@@ -19,6 +19,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->wormIdDesSelected = -1;
 	this->isMyTurn = false;
 	this->idWeapon = NO_WEAPON;
+	this->aimView = NULL;
 	
 }
 
@@ -34,6 +35,9 @@ void GameActivity::buildView()
 	builder->buildMenuWeapon();
 	this->setContentView(builder->getGameView());
 	GameView* gameView = static_cast<GameView*>(this->aView);
+	aimView = new AimView();
+	gameView->add(aimView);
+	this->cController->addOnCoordListener(aimView);
 }
 
 void GameActivity::update() 
@@ -211,6 +215,20 @@ void GameActivity::OnClick(ClickEvent e){
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	
 	WormView* aWorm = NULL;
+
+	//Agrego para escuchar el clic del arma
+	if(aimView->isShoot()){
+		int xMira= e.x;
+		int yMira= e.y;
+		std::pair<int, int> data = this->aimView->getData();
+		updater.doShoot(data.first, data.second, xMira, yMira, 0);
+		aimView->unAim();
+		return; //proceso y me voy
+	}
+
+
+
+
 	// nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
 	SDL_Point clickPoint = TextureManager::Instance().convertPointScreen2SDL(e.x,e.y);
 
@@ -221,6 +239,7 @@ void GameActivity::OnClick(ClickEvent e){
 			selectWorm(aWorm);
 			if(this->idWeapon != NO_WEAPON){
 				deselectPreviewsWeapon();
+				aimView->unAim();
 			}
 		}
 	}
@@ -230,6 +249,7 @@ void GameActivity::OnClick(ClickEvent e){
 			WeaponId aux = this->idWeapon;
 			if(this->idWeapon != NO_WEAPON){
 				deselectPreviewsWeapon();
+				aimView->unAim();
 			}
 
 			Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
@@ -239,10 +259,15 @@ void GameActivity::OnClick(ClickEvent e){
 			aWorm->selectWeapon(this->idWeapon);
 			updater.doSelectWapon(wormIdSelected, this->idWeapon);
 
+			//logica de la mira
+			aimView->aimBuild(aWorm, aWeapon);
+
+
 			if(aux == this->idWeapon ){
 				deselectPreviewsWeapon();
 				aWorm->unselectWeapon();
 				updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+				aimView->unAim();
 			}
 		}
 		else{
@@ -255,7 +280,7 @@ void GameActivity::OnClick(ClickEvent e){
 	{
 		deselectPreviewsWorm();
 		deselectPreviewsWeapon();
-		
+		aimView->unAim();		
 	}
 
 	
