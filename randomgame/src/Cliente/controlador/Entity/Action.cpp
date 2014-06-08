@@ -44,6 +44,7 @@ void Action::notify(){
 	ActionEvent a;
 	//Log::e("Erik, Notifico accion menu");
 	a.action = this->a;
+	a.factor = this->factor;
 	it = objects.begin();
 	for(; it != objects.end(); it++){
 		(*it)->OnAction(a);
@@ -56,6 +57,14 @@ void Action::setEvent(ActionKey a){
 
 void Action::setLastEvent(ActionKey a){
 	this->last = a;
+}
+
+void Action::setAim(int xAim, int yAim){
+	this->xAim = xAim;
+	this->yAim = yAim;
+}
+void Action::setFactor(int factor){
+	this->factor = factor;
 }
 
 bool Action::newEvent(){

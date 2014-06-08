@@ -7,6 +7,7 @@ class ActionEvent{
 		ActionEvent(void);
 		~ActionEvent(void);
 		ActionKey action;
+		int xAim, yAim, factor;
 };
 
 #endif

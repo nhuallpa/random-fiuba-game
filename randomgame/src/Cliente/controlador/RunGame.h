@@ -11,6 +11,7 @@
 #include "Entity\Action.h"
 #include "Contracts/Notifiable.h"
 #include "Entity/CollectionEvent.h"
+#include "..\..\utils\Timer.h"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ class RunGame{
 	private:
 		RunGame(void);
 		~RunGame(void);
+		int oldTime, newTime, factor;
+		Timer timer;
 		bool quit;
 		const Uint8* m_keys;
 		void handleEvents(SDL_Event* e);
@@ -49,8 +52,10 @@ class RunGame{
 		void detectClickRight();
 		void detectMovem(SDL_Event* e);
 		void detectMovem(Move* mv, int value, SDL_Event* e);
+		int getFactor(float time);
 		int WIDTH, HIGHT;
 		CollectionEvent listEvent;
+		bool isTimerRun;
 };
 
 #endif
