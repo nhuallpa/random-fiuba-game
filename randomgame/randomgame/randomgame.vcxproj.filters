@@ -258,6 +258,9 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Shape.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\utils\Timer.cpp">
+      <Filter>Archivos de código fuente\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\Shape.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\Timer.h">
+      <Filter>Archivos de código fuente\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
