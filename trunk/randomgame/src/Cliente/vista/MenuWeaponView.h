@@ -17,6 +17,7 @@ public:
 	void draw(SDLScreen & screen);
 	void allowWeapon(list<WeaponId> items);
 	bool hasClickedMenu(SDL_Point clickPoint);
+	bool hasClickedWeapon(SDL_Point clickPoint);
 	Weapon* retrieveWeaponClicked(SDL_Point clickPoint);
 	Weapon* findWeaponById(int idWeapon);
 private:

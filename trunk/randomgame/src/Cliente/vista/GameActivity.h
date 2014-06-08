@@ -72,6 +72,8 @@ public:
 	bool hasClickedWorm(SDL_Point clickPoint);
 
 	bool hasClickedMenu(SDL_Point clickPoint);
+	
+	bool hasClickedWeapon(SDL_Point clickPoint);
 
 	int getWormIdSelected() {return this->wormIdSelected;}
 
