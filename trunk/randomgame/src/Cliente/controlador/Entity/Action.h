@@ -15,6 +15,8 @@ class Action : public Notifiable{
 		void remuve(OnActionListener * obj);
 		void notify();
 		void setEvent(ActionKey a);
+		void setAim(int xAim, int yAim);
+		void setFactor(int factor);
 		void setLastEvent(ActionKey a);
 		bool newEvent();
 
@@ -24,6 +26,7 @@ class Action : public Notifiable{
 		static Action* action;
 		list<OnActionListener*> objects;
 		ActionKey a, last;
+		int xAim, yAim, factor;
 		bool isRegistered(OnActionListener * obj);
 };
 

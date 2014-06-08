@@ -9,6 +9,8 @@ RunGame::RunGame(void){
 	quit = false;
 	this->loadQuadrantFactory();
 	m_keys = SDL_GetKeyboardState(NULL);
+	oldTime = newTime = factor = 0;
+	isTimerRun = false;
 }
 
 RunGame::~RunGame(void){}
@@ -117,20 +119,62 @@ void RunGame::detectMovem(SDL_Event* e){
 	Move* mv = Move::getInstance();
 	Action* at = Action::getInstance();
 	
+	
+
+
+
+
+
 	if(e->type == SDL_KEYDOWN){
+
+		if(e->key.keysym.scancode
+		== SDL_SCANCODE_RETURN){
+			if(isTimerRun == false){
+				timer.start();
+				isTimerRun = true;
+			}
+		}
+
+
+		
 		detectMovem(mv, 1, e);
 		if(mv->newEvent()){
 			listEvent.add(mv);
 		}
 	}
 	else if(e->type == SDL_KEYUP){
+		newTime = SDL_GetTicks();
+		factor = newTime - oldTime;
 		detectMovem(mv, 0, e);
 		if(mv->newEvent()){
 			listEvent.add(mv);
 		}
+		
+		if(e->key.keysym.scancode
+		== SDL_SCANCODE_RETURN){
+			factor = getFactor(timer.elapsed());
+			timer.reset();
+			at->setEvent(SHOOT);
+			at->setFactor(factor);
+			listEvent.add(at);
+			isTimerRun = false;
+		}
 	}
+
+
 }
 
+
+int RunGame::getFactor(float time){
+	int result = 0;
+	float aux = time * 10;
+	int fac = (int) aux;
+	if(fac > 10)
+		result = 10;
+	else if(fac == 0)
+		result = 1;
+	return result;
+}
 
 void RunGame::detectMovem(Move* mv, int value, SDL_Event* e){
 	SDL_Scancode sc = e->key.keysym.scancode;
