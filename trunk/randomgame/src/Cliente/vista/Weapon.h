@@ -15,7 +15,7 @@ public:
 	Weapon(WeaponId id, Shape s, list<string> keys, string allowWeapon);
 	~Weapon();
 	bool findWeapon(string key);
-	int getId();
+	WeaponId getId();
 	void setWeapon(string key);
 	void setRender();
 	void removeWeapon(string key);

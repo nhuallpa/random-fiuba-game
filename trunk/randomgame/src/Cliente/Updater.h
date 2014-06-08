@@ -52,13 +52,15 @@ public:
 
 	void doSelectWapon(int wormIdSelected, int idWeapon);
 
+	void doUnselectWapon(int wormId, int idWeapon);
+
 	/** Recupera el level yaml del servidor*/
 	void retrieveLevel();
 
 	void addLocalMovementFromView(Playable p);
 
 	/** x y cross head*/
-	void doShoot(int wormId, int idWeapon, int x_aim, int y_aim);
+	void doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor);
 
 };
 

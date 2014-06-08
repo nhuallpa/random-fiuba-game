@@ -14,13 +14,11 @@ GameActivity::GameActivity(SDLScreen & screen,
 
 	builder = new GameViewBuilder(domain, &screen);
 	builder->setPlayerID(playerId);
-	//this->buildView();
-	//this->setContentView(builder->getGameView());
 	this->setListeners(screen);
 	this->wormIdSelected = -1;
 	this->wormIdDesSelected = -1;
 	this->isMyTurn = false;
-	this->idWeapon = -1;
+	this->idWeapon = NO_WEAPON;
 	
 }
 
@@ -96,6 +94,8 @@ void GameActivity::deselectPreviewsWorm()
 		this->cController->remuveListener(aWorm);
 
 		this->wormIdSelected = -1;
+
+		aWorm->unselectWeapon();
 	}
 	
 }
@@ -203,6 +203,8 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 
 
 void GameActivity::OnClick(ClickEvent e){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	
 	WormView* aWorm = NULL;
 	// nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
 	SDL_Point clickPoint = TextureManager::Instance().convertPointScreen2SDL(e.x,e.y);
@@ -212,48 +214,47 @@ void GameActivity::OnClick(ClickEvent e){
 		if (!aWorm->isSelected()) {
 			deselectPreviewsWorm();
 			selectWorm(aWorm);
-			if(this->idWeapon != -1){
+			if(this->idWeapon != NO_WEAPON){
 				deselectPreviewsWeapon();
 			}
 		}
 	}
 	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint))
 	{
-		int aux = this->idWeapon;
-		if(this->idWeapon != -1){
+		WeaponId aux = this->idWeapon;
+		if(this->idWeapon != NO_WEAPON){
 			deselectPreviewsWeapon();
 		}
 
 		Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
 		this->idWeapon = aWeapon->getId();
 		aWeapon->selected();
-		
+		aWorm = gameView->findWormById(wormIdSelected);
+		aWorm->selectWeapon(this->idWeapon);
+		updater.doSelectWapon(wormIdSelected, this->idWeapon);
+
 		if(aux == this->idWeapon ){
 			deselectPreviewsWeapon();
+			aWorm->unselectWeapon();
+			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
 		}
-
-		/*
-		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
-		int idWeapon = retrieveWaponId(clickPoint);
-		selectItemMenu(idWapon);  // teambien agrega el weapon al listener, 
-		aWorm->setWeapon(idWapon);
-		updater.doSelectWapon(wormIdSelected, idWapon);*/
 	}
 	else
 	{
 		deselectPreviewsWorm();
 		deselectPreviewsWeapon();
+		
 	}
 
 	
 }
 
 void GameActivity::deselectPreviewsWeapon(){
-	if(this->idWeapon != -1){
+	if(this->idWeapon != NO_WEAPON){
 		GameView* gameView = static_cast<GameView*>(this->aView);
 		Weapon* aWeapon = gameView->findWeaponById(idWeapon);
 		aWeapon->unSelected();
-		this->idWeapon = -1;
+		this->idWeapon = NO_WEAPON;
 	}
 
 }
@@ -437,7 +438,15 @@ void GameActivity::OnAction(ActionEvent e){
 		case MENU: 
 			gameView->actionMenu();
 			break;
-		case SHOOT: break;
+		case SHOOT:
+			{
+				// Disparar si worm es selecionado y weapon selecionado
+				int factor = 10;
+				int xMira=10;
+				int yMira=10;
+				updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+			}
+			break;
 		default: ;
 	}
 }

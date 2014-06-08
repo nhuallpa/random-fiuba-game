@@ -97,14 +97,29 @@ void Bootstrap::loadSprites()
 
 	try 
 		{
-			TextureManager::Instance().load("res/images/wwalk.png", "wwalk", this->getScreen().getRenderer());
-			TextureManager::Instance().load("res/images/wbaz2.png", "wbaz2", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wwalk.png", "caminar", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wbazbak.png", "bazooka", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wdynbak.png", "dinamita", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wgrnbak.png", "granada", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/whgrbak.png", "holy", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wairbak.png", "radio", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wflyup.png", "salto", this->getScreen().getRenderer());
+
+			
+			//TextureManager::Instance().load("res/images/wdynlnk.png", "wdynlnk", this->getScreen().getRenderer());
+
+			SpriteConfigurator::Instance().add("caminar", 60, 60, 15, 0);
+			SpriteConfigurator::Instance().add("bazooka", 60, 60, 32, 0);
+			SpriteConfigurator::Instance().add("dinamita", 60, 60, 10, 0);
+			SpriteConfigurator::Instance().add("granada", 60, 60, 10, 0);
+			SpriteConfigurator::Instance().add("holy", 60, 60, 10, 0);
+			SpriteConfigurator::Instance().add("radio", 60, 60, 10, 0);
+			SpriteConfigurator::Instance().add("salto", 60, 60, 2, 0);
+			//SpriteConfigurator::Instance().add("wdynlnk", 60, 60, 10, 0);
+
 
 			TextureManager::Instance().load("res/images/clustlet.png", "clustlet", this->getScreen().getRenderer());
-			TextureManager::Instance().load("res/images/circle25.png", "circle25", this->getScreen().getRenderer());
-
-			SpriteConfigurator::Instance().add("wwalk", 60, 60, 15, 0);
-			SpriteConfigurator::Instance().add("wbaz2", 60, 60, 32, 0);
+			TextureManager::Instance().load("res/images/circle25.png", "circle25", this->getScreen().getRenderer());			
 			SpriteConfigurator::Instance().add("clustlet", 60, 60, 6, 0);
 			SpriteConfigurator::Instance().add("circle25", 50, 50, 8, 0);
 

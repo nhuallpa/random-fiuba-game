@@ -35,6 +35,7 @@ typedef enum{
 	INIT_PLACEMENT,
 	MOVE_STOP,
 	DEAD,
+	WITHOUT_WEAPON,			/* DEPRECATED */
 	WITH_WEAPON,			/* DEPRECATED */
 	WITH_WEAPON_LEFT,		/* Apuntando hacia la izquierda */
 	WITH_WEAPON_RIGHT,		/* Apuntando hacia la derecha */
@@ -66,7 +67,6 @@ typedef enum{
 	BURRO=7,
 	AIRATTACK=3,
 	DYNAMITE=5,
-	HGRANADE = 14,
 	HMISSILE = 15,
 	BANANA = 16
 } WeaponId;

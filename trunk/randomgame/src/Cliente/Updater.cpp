@@ -90,6 +90,17 @@ void Updater::doStopWorm(int idWorm)
 	this->addLocalMovementFromView(p);
 }
 
+
+void Updater::doUnselectWapon(int wormId, int idWeapon)
+{
+	Playable p;
+	p.action = WITHOUT_WEAPON;
+	p.wormid = wormId;
+	p.weaponid = idWeapon;
+	this->addLocalMovementFromView(p);
+}
+
+
 void Updater::doSelectWapon(int wormId, int idWeapon)
 {
 	Playable p;
@@ -99,7 +110,7 @@ void Updater::doSelectWapon(int wormId, int idWeapon)
 	this->addLocalMovementFromView(p);
 }
 
-void Updater::doShoot(int wormId, int idWeapon, int x_aim, int y_aim)
+void Updater::doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor)
 {
 	Playable p;
 	p.action = DO_SHOOT;
@@ -107,6 +118,8 @@ void Updater::doShoot(int wormId, int idWeapon, int x_aim, int y_aim)
 	p.weaponid = idWeapon;
 	p.x = x_aim;
 	p.y = y_aim;
+	//TODO:ARIEL	Agregar este nuevo parametro ó metelo en el life
+	//p.factor = factor;
 	this->addLocalMovementFromView(p);
 }
 

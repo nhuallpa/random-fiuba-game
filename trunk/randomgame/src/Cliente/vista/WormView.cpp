@@ -4,7 +4,7 @@
 WormView::WormView(int id)
 	: View(0, 0), id(id), direction(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
 {
-	currentSprite = &this->spriteBazooka;
+	currentSprite = NULL;
 	this->selected = false;
 	this->gray = false;
 	this->color = COLOR_VERDE;
@@ -12,7 +12,7 @@ WormView::WormView(int id)
 	white.r = 0xFF;
 	white.g = 0xFF;
 	white.b = 0xFF;
-
+	this->weaponId = NO_WEAPON;
 }
 
 void WormView::setUserLabel(std::string text)
@@ -36,6 +36,11 @@ void WormView::clean()
 
 }
 
+void WormView::selectWeapon(WeaponId idWapon)
+{
+	this->weaponId = idWapon;
+}
+
 void WormView::update(GameElement* domainElement)
 {
 	std::pair<float, float> pointUL = domainElement->getPosition();
@@ -57,12 +62,14 @@ void WormView::update(GameElement* domainElement)
             domainElement->getAction() == NOT_CONNECTED_RIGHT ||
             domainElement->getAction() == MOVE_RIGHT)
     {
+			// todo: estado derecha
             this->direction = SDL_FLIP_HORIZONTAL;
     } 
     else if (domainElement->getAction() == MOVELESS_LEFT || 
             domainElement->getAction() == NOT_CONNECTED_LEFT ||
             domainElement->getAction() == MOVE_LEFT)
     {
+			// todo: estado IZquierda
             this->direction = SDL_FLIP_NONE;        
     }
 
@@ -74,13 +81,50 @@ void WormView::update(GameElement* domainElement)
 	
 void WormView::update() 
 {
+	if (currentSprite == NULL) {
+		currentSprite = &this->sprites["caminar"];
+	}
+
 	if (this->state == WORM_VIEW_DOING)
 	{
+		// Camino sin arma
+		if (currentSprite != &this->sprites["caminar"]) {
+			currentSprite = &this->sprites["caminar"];
+		}
 		currentSprite->update();
 	} 
 	else if (this->state == WORM_VIEW_MOTIONLESS)
 	{
+		if (this->weaponId == GRENADE && currentSprite != &this->sprites["granada"]) 
+		{
+			currentSprite = &this->sprites["granada"];
+		} 
+		if (this->weaponId == DYNAMITE && currentSprite != &this->sprites["dinamita"]) 
+		{
+			currentSprite = &this->sprites["dinamita"];
+		}
+		if (this->weaponId == BAZOOKA && currentSprite != &this->sprites["bazooka"]) 
+		{
+			currentSprite = &this->sprites["bazooka"];
+		}
+		if (this->weaponId == HOLY && currentSprite != &this->sprites["holy"]) 
+		{
+			currentSprite = &this->sprites["holy"];
+		}
+		if ((this->weaponId == AIRATTACK || this->weaponId == BURRO)
+						&& currentSprite != &this->sprites["radio"]) 
+		{
+			currentSprite = &this->sprites["radio"];
+		}
+		
+
+		if (this->weaponId == NO_WEAPON && currentSprite != &this->sprites["caminar"]) 
+		{
+			currentSprite = &this->sprites["caminar"];
+		}
+		
 		currentSprite->clean();
+
 	}
 
 }
