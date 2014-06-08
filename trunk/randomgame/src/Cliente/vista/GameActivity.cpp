@@ -456,7 +456,7 @@ void GameActivity::OnAction(ActionEvent e){
 				int factor = 10;
 				int xMira=10;
 				int yMira=10;
-				updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+				//updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 			}
 			break;
 		default: ;
