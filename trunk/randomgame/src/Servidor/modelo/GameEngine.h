@@ -66,6 +66,9 @@ class GameEngine {
 
 		GameEngine();
 
+		void doExplosion(b2Vec2 removalPosition, int removalRadius);
+		poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
+
 		Timer myTimer;
 
 		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }

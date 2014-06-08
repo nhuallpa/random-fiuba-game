@@ -744,3 +744,80 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	//this->gameBodies->insert(std::make_pair<int,Body*>(elementId,w2d));
 	
 }
+
+
+void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
+
+	poly_t* explosion = new poly_t();
+	float x0 = -500.0f ,y0 = -500.0f;
+	float x,y;
+	*explosion = this->makeConvexRing(removalPosition, removalRadius, 16);
+			
+
+	list <poly_t*>* resultado = new list<poly_t*>();
+	
+	for(list<poly_t*>::iterator it = this->gameLevel->myPol->begin(); it != this->gameLevel->myPol->end(); it++){
+			list <poly_t>* output = new list<poly_t>();
+			boost::geometry::difference(*(*it), *explosion, *output);
+			for(list<poly_t>::iterator it2 = output->begin(); it2 != output->end(); it2++){
+					resultado->push_back(&(*it2));
+			}
+
+	}
+	this->gameLevel->myPol->clear();
+	this->gameLevel->myPol = resultado;
+
+	for(std::vector<b2Body*>::iterator it = this->gameLevel->myTerrain.begin(); it != this->gameLevel->myTerrain.end(); it++){
+			this->myWorld->DestroyBody(*it);
+	}
+
+	this->gameLevel->myTerrain.clear();
+
+	//Genero nuevos bodys por cada componente conexa que quedo (chain)
+	for(std::list<poly_t*>::iterator it = resultado->begin(); it != resultado->end(); it++){
+			b2BodyDef* bd = new b2BodyDef();
+			b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
+			int i = 0;
+
+			for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
+					vs[i].Set((*it2).get<0>(),(*it2).get<1>());
+					i++;
+			}
+
+			b2ChainShape shape;
+			shape.CreateLoop(vs,i);
+			b2Body* tierra = this->myWorld->CreateBody(bd);
+			tierra->CreateFixture(&shape, 1.0f);
+			this->gameLevel->myTerrain.push_back(tierra);
+	}
+
+
+
+
+}
+
+
+poly_t GameEngine::makeConvexRing(b2Vec2 position, float radius, int vertices)
+{
+	poly_t convexRing;
+	const float theta = boost::math::constants::two_pi<float>() / static_cast<float>(vertices);
+
+	float c = std::cos(theta);
+	float s = std::sin(theta);
+
+	float t = 0.0f;
+	float y = 0.0f;
+	float x = radius;
+	for (float i = 0; i < vertices; i++)
+	{
+		float v_x = x + position.x;
+		float v_y = y + position.y;
+		bg::append(convexRing, point(v_x, v_y));
+
+		t = x;
+		x = c * x - s * y;
+		y = s * t + c * y;
+	}
+
+	return convexRing;
+}

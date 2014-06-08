@@ -25,8 +25,7 @@ class GameLevel {
 		int amountUser;
 		int amountWorms;
 		int idUnique;
-		std::vector<b2Body*> myTerrain;
-		std::list<poly_t*>* myPol;
+
 
 		void addUserIntoLevel(string user)
 			throw(PlayerExp);
@@ -48,6 +47,9 @@ class GameLevel {
 	public:
 		GameLevel();
 		virtual ~GameLevel();
+
+		std::vector<b2Body*> myTerrain;
+		std::list<poly_t*>* myPol;
 
 		void destroyEntities();
 		void updateElementPosition(int pos, int id, float x, float y, float angle);
