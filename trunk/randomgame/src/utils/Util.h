@@ -109,6 +109,12 @@ public:
 	Util(void);
 	~Util(void);
 
+	static std::map<int, std::pair<float,float> > aimValue;
+
+	/**
+		Inicializo el vector
+	*/
+	static void iniAimValue();
 
 	/**
 	* Valid int
