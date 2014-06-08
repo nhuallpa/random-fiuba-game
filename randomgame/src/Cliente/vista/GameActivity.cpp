@@ -453,10 +453,10 @@ void GameActivity::OnAction(ActionEvent e){
 		case SHOOT:
 			{
 				// Disparar si worm es selecionado y weapon selecionado
-				int factor = 10;
-				int xMira=10;
-				int yMira=10;
-				//updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+				int factor = e.factor;
+				int xMira= e.xAim;
+				int yMira= e.yAim;
+				updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 			}
 			break;
 		default: ;
