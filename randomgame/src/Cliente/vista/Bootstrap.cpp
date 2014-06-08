@@ -154,6 +154,8 @@ void Bootstrap::loadMenuWeapon(){
 		/*TextureManager::Instance().load("res/images/grenade.1.png", "gun_1", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/bazooka.1.png", "gun_2", this->getScreen().getRenderer());
 		*/
+		TextureManager::Instance().load("res/images/aim.png", "aim", this->getScreen().getRenderer());
+
 		TextureManager::Instance().load("res/images/ok.png", "ok", this->getScreen().getRenderer());
 
 		TextureManager::Instance().load("res/images/bazooka.1.1.png", "bazooka.1.1", this->getScreen().getRenderer());
