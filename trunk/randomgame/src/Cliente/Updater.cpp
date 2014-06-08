@@ -118,7 +118,8 @@ void Updater::doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor
 	p.weaponid = idWeapon;
 	p.x = x_aim;
 	p.y = y_aim;
-	//TODO:ARIEL	Agregar este nuevo parametro ó metelo en el life
+	p.life = factor;
+	//TODO:ARIEL	Agregar este nuevo parametro o metelo en el life
 	//p.factor = factor;
 	this->addLocalMovementFromView(p);
 }
