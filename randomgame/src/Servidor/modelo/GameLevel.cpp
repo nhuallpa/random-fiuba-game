@@ -353,7 +353,7 @@ int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
 			p[i].y = (*itW)->getPosition().second;
 			p[i].action = (*itW)->getAction();
 			p[i].life = (*itW)->getLife();
-			p[i].weaponid = (*itW)->getWeapon();
+			p[i].weaponid = (*itW)->getWeaponId();
 
 		}
 

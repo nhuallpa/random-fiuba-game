@@ -41,6 +41,21 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		return;
 	}
 
+	// Contacto de misiles
+	if ( fixtureB->GetUserData() == (void*)UD_MISSIL && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
+		// Si no explota por tiempo (mejor preguntar por hasDelayedExplosion )
+		if ( static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != GRENADE )
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
+		
+		return;
+	}
+	if ( fixtureA->GetUserData() == (void*)UD_MISSIL && ( (int)fixtureB->GetUserData() == UD_TERRAIN  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
+		if ( static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != GRENADE )
+			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);
+		return;
+	}
+
+
 
 }
 

@@ -7,7 +7,6 @@
 class Missile: public GameElement{
 
 	protected:
-		int weaponId;
 		float startTime;
 		float explodeTime;
 		bool withDelayedExplosion;
@@ -18,7 +17,7 @@ class Missile: public GameElement{
 		Missile(int elementId);
 		void setStartTime(float startTime);
 		bool hasDelayedExplosion();
-		bool hasExploded();
+		
 		void updateExplode(float time);
 
 };

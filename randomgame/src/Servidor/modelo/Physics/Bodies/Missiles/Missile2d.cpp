@@ -50,6 +50,12 @@ void Missile2d::animate( float time ){
 		static_cast<Missile*>(myWeapon)->updateExplode( time );
 	}
 
+
+	//IF EXPLODED .. EXPLOTA!
+	// if ( exploded ){
+	//  explota()
+	//}
+
 	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
 		myWeapon->setAction(EXPLOSION);
 	} else{

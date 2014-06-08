@@ -62,17 +62,20 @@ public:
 	bool isFixed();
 	int grounded;
 
-	int weapon;
+	
+	int weaponId;
 	bool alive;
 	bool exploded;
-
+	virtual bool hasExploded();
 	
 	void setExploded(bool b){ this->exploded = b; }
 
 	int getLife();
-	int getWeapon(){ return this->weapon; }
 	
-	void setWeapon( int weaponid) { this->weapon = weaponid; }
+	
+	void setWeapon( int weaponId) { this->weaponId = weaponId; }
+	int getWeaponId() { return this->weaponId; }
+
 	void setLife(int newLife);
 	void addLife(int moreLife);
 	void subLife(int lessLife);
