@@ -100,6 +100,10 @@ bool GameView::hasClickedMenu(SDL_Point clickPoint){
 	return this->menuWeapon->hasClickedMenu(clickPoint);
 }
 
+bool GameView::hasClickedWeapon(SDL_Point clickPoint){
+	return this->menuWeapon->hasClickedWeapon(clickPoint);
+}
+
 Weapon* GameView::retrieveWeaponClicked(SDL_Point clickPoint){
 	return this->menuWeapon->retrieveWeaponClicked(clickPoint);
 }

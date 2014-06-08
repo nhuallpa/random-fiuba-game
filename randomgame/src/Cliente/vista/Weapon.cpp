@@ -73,7 +73,7 @@ bool Weapon::hasClickedMenu(SDL_Point clickPoint){
 	x1 = x, x2 = x + width;
 	y1 = y, y2 = y + height;
 
-	if(!ballow)
+	if((!ballow) && (this->id != NO_WEAPON))
 		return false;
 /*
 	return (

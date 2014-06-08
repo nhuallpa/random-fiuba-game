@@ -68,6 +68,7 @@ public:
 	void actionMenu();
 	
 	bool hasClickedMenu(SDL_Point clickPoint);
+	bool hasClickedWeapon(SDL_Point clickPoint);
 	Weapon* retrieveWeaponClicked(SDL_Point clickPoint);
 	Weapon* findWeaponById(int idWeapon);
 };

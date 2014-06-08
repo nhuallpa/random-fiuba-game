@@ -170,6 +170,11 @@ bool GameActivity::hasClickedMenu(SDL_Point clickPoint){
 	return gameView->hasClickedMenu(clickPoint);
 }
 
+bool GameActivity::hasClickedWeapon(SDL_Point clickPoint){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	return gameView->hasClickedWeapon(clickPoint);
+}
+
 Weapon* GameActivity::retrieveWeaponClicked(SDL_Point clickPoint){
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	return gameView->retrieveWeaponClicked(clickPoint);
@@ -221,22 +226,29 @@ void GameActivity::OnClick(ClickEvent e){
 	}
 	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint))
 	{
-		WeaponId aux = this->idWeapon;
-		if(this->idWeapon != NO_WEAPON){
-			deselectPreviewsWeapon();
+		if(hasClickedWeapon(clickPoint)){
+			WeaponId aux = this->idWeapon;
+			if(this->idWeapon != NO_WEAPON){
+				deselectPreviewsWeapon();
+			}
+
+			Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
+			this->idWeapon = aWeapon->getId();
+			aWeapon->selected();
+			aWorm = gameView->findWormById(wormIdSelected);
+			aWorm->selectWeapon(this->idWeapon);
+			updater.doSelectWapon(wormIdSelected, this->idWeapon);
+
+			if(aux == this->idWeapon ){
+				deselectPreviewsWeapon();
+				aWorm->unselectWeapon();
+				updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+			}
 		}
-
-		Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
-		this->idWeapon = aWeapon->getId();
-		aWeapon->selected();
-		aWorm = gameView->findWormById(wormIdSelected);
-		aWorm->selectWeapon(this->idWeapon);
-		updater.doSelectWapon(wormIdSelected, this->idWeapon);
-
-		if(aux == this->idWeapon ){
-			deselectPreviewsWeapon();
-			aWorm->unselectWeapon();
-			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+		else{
+			/*TODO: entra en este else cuando un worm esta seleccionado
+					y soca algun sector del menu donde no hay armas			
+			*/
 		}
 	}
 	else

@@ -63,6 +63,15 @@ void MenuWeaponView::allowWeapon(list<WeaponId> items){
 
 bool MenuWeaponView::hasClickedMenu(SDL_Point clickPoint){
 	bool result = false;
+	if(menu->findWeapon("MenuWeapon")
+	&& (menu->hasClickedMenu(clickPoint))){
+		result = true;
+	}
+	return result;
+}
+
+bool MenuWeaponView::hasClickedWeapon(SDL_Point clickPoint){
+	bool result = false;
 	if(menu->findWeapon("MenuWeapon")){
 		map<WeaponId, Weapon*>::iterator it;
 		for(it = mapa.begin(); it != mapa.end(); it++){
@@ -210,8 +219,6 @@ void MenuWeaponView::buildWeapon(){
 		mapa.insert(pair<WeaponId, Weapon*>(HMISSILE,weapon));
 		delete shape;
 	}
-
-
 
 }
 
