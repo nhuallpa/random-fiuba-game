@@ -787,7 +787,14 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
 			b2ChainShape shape;
 			shape.CreateLoop(vs,i);
 			b2Body* tierra = this->myWorld->CreateBody(bd);
-			tierra->CreateFixture(&shape, 1.0f);
+			
+			//Defino propiedades del terreno
+			b2FixtureDef myFixtureDef;
+			myFixtureDef.friction=0.999;
+			myFixtureDef.userData = ( (void*) UD_TERRAIN );
+			myFixtureDef.shape = &shape;
+
+			tierra->CreateFixture(&myFixtureDef);
 			this->gameLevel->myTerrain.push_back(tierra);
 	}
 
