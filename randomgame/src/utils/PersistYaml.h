@@ -126,6 +126,12 @@ public:
 	void setDynamite(std::string);
 	void setDonkey(std::string);
 	void setAirStrike(std::string);
+	void setHoly(std::string);
+	void setSheep(std::string);
+	void setSuicide(std::string);
+	void setKick(std::string);
+	void setParrot(std::string);
+	void setAutomissil(std::string);
 
 	void setHexa(std::string id,std::string x,std::string y,std::string rot,std::string masa,std::string escala,std::string estatico,std::string color);
 

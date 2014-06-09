@@ -242,6 +242,25 @@ void PersistYaml::setAirStrike(std::string hab){
 	this->setArma("AirStrike",hab);
 }
 
+void PersistYaml::setHoly(std::string hab){
+	this->setArma("Holy",hab);
+}
+void PersistYaml::setSheep(std::string hab){
+	this->setArma("Sheep",hab);
+}
+void PersistYaml::setSuicide(std::string hab){
+	this->setArma("Suicide",hab);
+}
+void PersistYaml::setKick(std::string hab){
+	this->setArma("Kick",hab);
+}
+void PersistYaml::setParrot(std::string hab){
+	this->setArma("Parrot",hab);
+}
+void PersistYaml::setAutomissil(std::string hab){
+	this->setArma("Automissil",hab);
+}
+
 
 void PersistYaml::escribirYaml(std::string fileOut){
 	int i;
@@ -357,6 +376,7 @@ void PersistYaml::escribirYaml(std::string fileOut){
 
 void PersistYaml::destroyLevel(){
 	this->escenario.elem.clear();
+	this->escenario.arma.clear();
 }
 
 

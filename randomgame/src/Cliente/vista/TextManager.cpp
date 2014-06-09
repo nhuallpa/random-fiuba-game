@@ -13,12 +13,12 @@ void TextManager::loadFont(std::string path,std::string idFont,int h,int w,int l
 	font.altoLetra = letterH;
 	font.anchoLetra = letterW;
 
-	TextureManager::Instance().load(path, this->font.idFont, this->renderer);
+	TextureManager::Instance().load(path,idFont, this->renderer);
 	this->font_map[idFont] = font;
 
 }
 
-void TextManager::wLetter(std::string idFont,int x, int y, char lett){
+void TextManager::wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uint8 g,Uint8 b){
 	SDL_Rect destino, origen; 
 	int fila, columna;
 	int letrasPorFila, letrasPorColumna;
@@ -43,12 +43,22 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett){
 	{
 	
 	Log::i("fuente: %p",TextureManager::Instance().getTexture(idFont));
+	SDL_SetTextureColorMod(TextureManager::Instance().getTexture(idFont),r,g,b);
 	SDL_RenderCopy(this->renderer,
                    TextureManager::Instance().getTexture(idFont),
                    &origen,
                    &destino);
 	} catch (std::exception &e) {
 		Log::e(e.what());
+	}
+	SDL_SetTextureColorMod(TextureManager::Instance().getTexture(idFont),255,255,255);
+
+}
+
+void TextManager::write(std::string idFont,int x, int y, std::string w,SDL_Color color){
+	int i;
+	for(i =0; i<w.size();i++){
+		this->wLetter(idFont,x+(i*this->font.anchoLetra),y,w[i],color.r,color.g,color.b);
 	}
 
 }

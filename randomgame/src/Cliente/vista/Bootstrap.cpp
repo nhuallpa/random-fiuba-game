@@ -181,9 +181,10 @@ void Bootstrap::loadMenuWeapon(){
 		TextureManager::Instance().load("res/images/hmissile.1.2.png", "hmissile.1.2", this->getScreen().getRenderer());
 
 
-		//TODO: @Nahu: agrego la imagen que usas, despues la ponemos donde vos digas,
-		TextureManager::Instance().load("res/images/arial.png", "arial", this->getScreen().getRenderer());
 
+		/*inicia el manejo del texto*/
+		TextManager::Instance().init(this->getScreen().getRenderer());
+		TextManager::Instance().loadFont("res/images/arial.png","arial",256,256,16,16);
 	} catch (GameException & e) 
 	{
 		Log::e(BOOT, e.what());		

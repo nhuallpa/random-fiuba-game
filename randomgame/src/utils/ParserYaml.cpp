@@ -156,6 +156,14 @@ void ParserYaml::startWithDefaultLevel(){
 	aPersist->setDynamite("si");
 	aPersist->setDonkey("si");
 	aPersist->setAirStrike("si");
+	aPersist->setHoly("si");
+	aPersist->setSheep("si");
+	aPersist->setSuicide("si");
+	aPersist->setKick("si");
+	aPersist->setParrot("si");
+	aPersist->setAutomissil("si");
+
+
 	aPersist->escribirYaml(this->levelFilePath);
 	Log::i(PARSER,"Se creo el archivo de Nivel Default");
 	this->cargarNivelYaml(this->levelFilePath);
@@ -200,8 +208,8 @@ void ParserYaml::setTerrain(std::string terrain){
 		}
 		
 		}
-	for(unsigned j=0;j<this->getCantArm();j++){
-		aPersist->setArma(this->getArmaTipo(j),this->getArmaHab(j));	
+	for(unsigned l=0;l<this->getCantArm();l++){
+		aPersist->setArma(this->getArmaTipo(l),this->getArmaHab(l));	
 	}
 
 
@@ -1031,6 +1039,13 @@ bool ParserYaml::esArmaTipoValido(std::string str){
 	if (str.compare("Dynamite") == 0) return true;
 	if (str.compare("Donkey") == 0) return true;
 	if (str.compare("AirStrike") == 0) return true;
+	if (str.compare("Holy") == 0) return true;
+	if (str.compare("Sheep") == 0) return true;
+	if (str.compare("Suicide") == 0) return true;
+	if (str.compare("Kick") == 0) return true;
+	if (str.compare("Parrot") == 0) return true;
+	if (str.compare("Automissil") == 0) return true;
+
 	return false;
 }
 bool ParserYaml::esArmaHabilitadoValido(std::string str){

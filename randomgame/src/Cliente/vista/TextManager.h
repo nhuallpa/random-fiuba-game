@@ -26,7 +26,8 @@ public:
 
 	void init(SDL_Renderer * renderer);
 	void loadFont(std::string path,std::string idFont,int h,int w,int letterH,int letterW);
-	void wLetter(std::string idFont,int x, int y, char lett);
+	void wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uint8 g,Uint8 b);
+	void write(std::string idFont,int x, int y, std::string w,SDL_Color color);
 
 
 
