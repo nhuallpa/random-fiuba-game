@@ -22,7 +22,7 @@
 
 namespace bg = boost::geometry;
 typedef boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian> point;
-typedef boost::geometry::model::polygon<point, false, true> polygon;
+typedef boost::geometry::model::polygon<point, false, false> polygon;
 
 using namespace std;
 

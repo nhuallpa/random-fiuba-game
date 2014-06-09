@@ -351,16 +351,10 @@
     <ClInclude Include="src\Servidor\modelo\Physics\Body.h">
       <Filter>src\Servidor\modelo\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Testbed\Tests\TerrenoConWorms.h">
-      <Filter>Tests</Filter>
-    </ClInclude>
     <ClInclude Include="src\utils\Clipper\clipper.hpp">
       <Filter>src\utils\Clipper</Filter>
     </ClInclude>
     <ClInclude Include="Testbed\Tests\Worms_TerrenoOriginal.h">
-      <Filter>Tests</Filter>
-    </ClInclude>
-    <ClInclude Include="Testbed\Tests\Worms_TerrenoDestructible.h">
       <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>

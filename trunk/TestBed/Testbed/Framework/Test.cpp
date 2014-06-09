@@ -304,7 +304,7 @@ void Test::Step(Settings* settings)
 	}
 
 	//Ariel
-	m_world->ClearForces();
+	//m_world->ClearForces();
 
 	if (settings->drawStats)
 	{

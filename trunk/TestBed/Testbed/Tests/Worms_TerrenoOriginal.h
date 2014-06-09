@@ -25,7 +25,7 @@
 #include <vector>
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\TerrainProcessor.h"
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h"
-#include "TerrenoConWorms.h"
+
 //#include "geometry.hpp"
 #include <unordered_set>
 #define BOOST_GEOMETRY_OVERLAY_NO_THROW
@@ -34,13 +34,26 @@
 #include <boost/geometry/geometries/ring.hpp>
 #include <boost/math/constants/constants.hpp>
 #define PI 3.141592654f
+#define UD_MISSIL 15
+
 
 namespace bg = boost::geometry;
 
 
 
 using namespace std;
-
+typedef enum{
+	KEY_RIGHT,
+	KEY_LEFT,
+	KEY_JUMP,
+	NOTHING,
+	GRENADE,
+	BAZOOKA,
+	HOMING,
+	DOVE,
+	AIRSTRIKE,
+	SHEEP
+} keyAction;
 
 
 #ifndef WORMSTORIG_H
@@ -55,6 +68,38 @@ using namespace std;
 class WormsTOrig;
 
         b2Vec2 normals1[3];
+		bool hasExploded;
+
+
+
+//subclass b2QueryCallback for proximity query callback
+class MyQueryCallback : public b2QueryCallback {
+public:
+    std::vector<b2Body*> foundBodies;
+
+    bool ReportFixture(b2Fixture* fixture) {
+        foundBodies.push_back( fixture->GetBody() );
+        return true;//keep going to find all fixtures in the query area
+    }
+};
+
+//simple ray cast callback to find the closest body the ray hit
+class RayCastClosestCallbackExplosion : public b2RayCastCallback
+{
+public:
+    b2Body* m_body;
+    b2Vec2 m_point;
+
+    RayCastClosestCallbackExplosion() { m_body = NULL; }
+
+    float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+    {
+        m_body = fixture->GetBody();
+        m_point = point;
+        return fraction;
+    }
+};
+
 
 
 class MyContactListener1 : public b2ContactListener
@@ -65,24 +110,36 @@ class MyContactListener1 : public b2ContactListener
     void BeginContact(b2Contact* contact) {
   
       ////check if fixture A is body (2)
-      //b2WorldManifold worldManifold;
+      b2WorldManifold worldManifold;
 
-      //    if ( (int)(contact->GetFixtureA()->GetUserData()) == 3 ){  
-      //          contact->GetWorldManifold(&worldManifold);
-      //          normals1[0].x = worldManifold.normal.x;
-      //          normals1[0].y = worldManifold.normal.y;
-      //          contact->GetFixtureA()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
-      //    }
-      //  
+          if ( (int)(contact->GetFixtureA()->GetUserData()) == 3 ){  
+                contact->GetWorldManifold(&worldManifold);
+                normals1[0].x = worldManifold.normal.x;
+                normals1[0].y = worldManifold.normal.y;
+                //contact->GetFixtureA()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
+          }
+        
   
       ////check if fixture B was the body
-      //if ( (int)(contact->GetFixtureB()->GetUserData()) == 3 ){
-      //          contact->GetWorldManifold(&worldManifold);
-      //          normals1[0].x = worldManifold.normal.x;
-      //          normals1[0].y = worldManifold.normal.y;
-      //          contact->GetFixtureB()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
-      //    }
-      //  
+      if ( (int)(contact->GetFixtureB()->GetUserData()) == 3 ){
+                contact->GetWorldManifold(&worldManifold);
+                normals1[0].x = worldManifold.normal.x;
+                normals1[0].y = worldManifold.normal.y;
+                //contact->GetFixtureB()->GetBody()->SetLinearVelocity(b2Vec2(0,0));
+          }
+
+	  // Check missils
+		if ( (int)(contact->GetFixtureB()->GetUserData()) == UD_MISSIL ){
+			hasExploded = true;
+        }
+
+		if ( (int)(contact->GetFixtureA()->GetUserData()) == UD_MISSIL ){
+			hasExploded = true;
+        }
+
+
+
+        
     } //Begin Contact - END
   
 
@@ -106,6 +163,7 @@ class WormsTOrig : public Test
 public:
 
         b2Body* bodies[3];
+		b2Body* missil;
 
 		std::vector<b2Body*> myTerrain;
 		std::list<polygon*>* myPol;
@@ -143,6 +201,37 @@ public:
 		
 		float gradosAradianes(float grados){
 				return (grados*PI/180.0f);
+		}
+
+		void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower) {
+			b2Vec2 blastDir = applyPoint - blastCenter;
+			float distance = blastDir.Normalize();
+			//ignore bodies exactly at the blast point - blast direction is undefined
+			if ( distance == 0 )
+				return;
+			float invDistance = 1 / distance;
+			float impulseMag = blastPower * invDistance * invDistance;
+			body->ApplyLinearImpulse( impulseMag * blastDir, applyPoint );
+		}
+
+
+
+		void doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower ){
+			int numRays = 16;
+			for (int i = 0; i < numRays; i++) {
+				float angle = (i / (float)numRays) * 360 * DEGTORAD;
+				b2Vec2 rayDir( sinf(angle), cosf(angle) );
+				b2Vec2 rayEnd = center + blastRadius * rayDir;
+  
+				//check what this ray hits
+				RayCastClosestCallbackExplosion callback;//basic callback to record body and hit point
+				m_world->RayCast(&callback, center, rayEnd);
+
+
+                if ( callback.m_body ) {
+                    applyBlastImpulse(callback.m_body, center, callback.m_point, (m_blastPower / (float)numRays));
+                }
+
 		}
 
 		void doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo){
@@ -192,8 +281,8 @@ public:
                 }
 
                 b2ChainShape shape;
-                shape.CreateChain(vs, i);
-                //shape.CreateLoop(vs,i);
+                //shape.CreateChain(vs, i);
+                shape.CreateLoop(vs,i);
                 b2Body* tierra = mundo->CreateBody(bd);
                 tierra->CreateFixture(&shape, 1.0f);
                 myTerrain.push_back(tierra);
@@ -213,6 +302,7 @@ public:
         WormsTOrig()
         {
                 action = NOTHING;
+				hasExploded = false;
                 //Set contact listener
                 m_world->SetContactListener(&myContactListenerInstance);
                 m_world->SetGravity(b2Vec2(0,-10));
@@ -285,51 +375,14 @@ public:
                         TerrainProcessor* aTerrainProcessor = new TerrainProcessor();
 						
 						aTerrainProcessor->process(m_world,path,epsilon, scale,waterLevel,true,&myTerrain,myPol);
-                        
-
-
-						
-
-
-
+                   
 
 
                 }
-
-                // Define platform
-                {
-                        b2BodyDef bd;
-                        bd.type = b2_dynamicBody;
-                        bd.position.Set(-4.0f, 5.0f);
-                        m_platform = m_world->CreateBody(&bd);
-                        m_speed = 3.0f;
-                }
-
-				
-				//doExplosion(b2Vec2(0,0),15.0,m_world);
-        
-
 
         }
 
 
-
-	//polygon* Funciones::explosion(Posicion* centro, float radio){
-	//		polygon* poligono = new polygon();
-	//		float x0 = -500.0f ,y0 = -500.0f;
-	//		float x,y;
-	//		for(int i = 0; i < 360; i+=10){
-	//				x = radio*cos(Funciones::gradosAradianes(i)) + centro->getX();
-	//				y = radio*sin(Funciones::gradosAradianes(i)) + centro->getY();
-	//				if(x0==-500.0f && y0==-500.0f){
-	//						x0 = x;
-	//						y0 = y;
-	//				}
-	//				poligono->outer().push_back(point(x,y));
-	//		}
-	//		poligono->outer().push_back(point(x0,y0));
-	//		return poligono;
-	//}
 
 
 
@@ -348,6 +401,12 @@ public:
                 case 'd':
                         action = KEY_RIGHT;
                         break;
+				case 'g':
+                        action = GRENADE;
+                        break;
+				case 'b':
+                        action = BAZOOKA;
+                        break;
                 }
         }
 
@@ -356,19 +415,21 @@ public:
                 Test::Step(settings);
                 //printf("normals1[0].x: %f, normals1[0].y: %f",normals1[0].x,normals1[0].y);
                 if ( action == KEY_JUMP){
-                        bodies[0]->ApplyLinearImpulse( b2Vec2(0,FUERZA_SALTO), bodies[0]->GetWorldCenter() );
+					bodies[0]->ApplyLinearImpulse( b2Vec2( 0, bodies[0]->GetMass() * 10 ), bodies[0]->GetWorldCenter() );
+					action = NOTHING;
+
                 }
 
                 if ( action == KEY_LEFT){
                         
                         if ( normals1[0].x > 0.02 && normals1[0].y > 0.15){
-                                //bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+                                
                                 bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals1[0].y,VELOCIDAD*normals1[0].x));
                                 action = NOTHING;
                         }
 
                         if (normals1[0].x < -0.02 && normals1[0].y > 0.15){
-                                //bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV*normals[0].y,FUERZA_MOV*normals[0].x), bodies[0]->GetWorldCenter() );
+                                
                                 bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals1[0].y,VELOCIDAD*normals1[0].x));
                                 action = NOTHING;
                         }
@@ -403,9 +464,55 @@ public:
                                 action = NOTHING;
                         }       
 
-
-
                 }
+
+				 if ( action == GRENADE){
+					 //create grenade
+
+					b2BodyDef myBodyDef;
+					myBodyDef.type = b2_dynamicBody;
+
+					b2FixtureDef myFixtureDef;
+   
+					b2CircleShape circleShape;
+					circleShape.m_radius = 0.4f;
+					circleShape.m_p.Set(0,0);
+
+					myFixtureDef.shape = &circleShape;
+					myFixtureDef.density = 1;
+					myFixtureDef.friction = 0.01;
+					myFixtureDef.restitution = 0;
+					myFixtureDef.userData = (void*)UD_MISSIL;
+					myBodyDef.position.Set(bodies[0]->GetWorldCenter().x + 2, bodies[0]->GetWorldCenter().y + 2);
+					this->missil = m_world->CreateBody(&myBodyDef);
+
+					this->missil->CreateFixture(&myFixtureDef);
+
+					this->missil->SetTransform( missil->GetPosition(), 0.0 );
+					this->missil->SetFixedRotation(false);
+
+
+					this->missil->ApplyLinearImpulse( b2Vec2 (this->missil->GetMass() * 10, this->missil->GetMass() * 20), this->missil->GetWorldCenter() );
+
+					action = NOTHING;
+
+
+
+
+
+				 }
+
+
+				 if ( hasExploded ){
+					 this->doExplosion(b2Vec2(missil->GetWorldCenter().x, missil->GetWorldCenter().y +1 ),5.0,m_world);
+					 this->missil->SetActive(false);
+					 hasExploded = false;
+					 m_world->DestroyBody(missil);
+				 }
+
+
+
+
         }
 
 

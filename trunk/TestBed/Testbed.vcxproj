@@ -77,7 +77,6 @@
     <ClInclude Include="Testbed\Framework\Test.h" />
     <ClInclude Include="Testbed\Tests\AddPair.h" />
     <ClInclude Include="Testbed\Tests\ApplyForce.h" />
-    <ClInclude Include="Testbed\Tests\TerrenoConWorms.h" />
     <ClInclude Include="Testbed\Tests\Breakable.h" />
     <ClInclude Include="Testbed\Tests\Bridge.h" />
     <ClInclude Include="Testbed\Tests\BulletTest.h" />
@@ -123,7 +122,6 @@
     <ClInclude Include="Testbed\Tests\VaryingRestitution.h" />
     <ClInclude Include="Testbed\Tests\VerticalStack.h" />
     <ClInclude Include="Testbed\Tests\Web.h" />
-    <ClInclude Include="Testbed\Tests\Worms_TerrenoDestructible.h" />
     <ClInclude Include="Testbed\Tests\Worms_TerrenoOriginal.h" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +190,7 @@
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\local\boost_1_55_0\boost\geometry;C:\local\boost_1_55_0;C:\random-fiuba-game\TestBed\libs\clipper\cpp;C:\random-fiuba-game\TestBed\src;C:\random-fiuba-game\TestBed\libs\yaml-cpp;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\include;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\include;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\include;C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\include;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\include;C:\random-fiuba-game\TestBed\libs\Box2D;C:\random-fiuba-game\TestBed\libs;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\local\boost_1_55_0\libs;C:\random-fiuba-game\TestBed\libs\clipper\cpp;C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\Box2D;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\lib;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\random-fiuba-game\randomgame\libs\release;C:\random-fiuba-game\TestBed\libs\SDL2_gfx\lib;C:\random-fiuba-game\TestBed\libs\SDL2_ttf-2.0.12\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_mixer-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2_image-2.0.0\lib\x86;C:\random-fiuba-game\TestBed\libs\SDL2-2.0.0\lib\x86;C:\random-fiuba-game\randomgame\libs;$(LibraryPath)</LibraryPath>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -275,7 +273,7 @@
       <AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>bin\Release\Box2D.lib;bin\Release\FreeGLUT.lib;bin\Release\GLUI.lib;glu32.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;FreeGLUT.lib;GLUI.lib;glu32.lib;opengl32.lib;winmm.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Testbed.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>

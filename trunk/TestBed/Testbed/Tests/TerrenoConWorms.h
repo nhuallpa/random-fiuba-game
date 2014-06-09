@@ -26,10 +26,10 @@
 #include <math.h>
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\TerrainProcessor.h"
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h"
-#include "C:\random-fiuba-game\TestBed\src\utils\Clipper\clipper.hpp"
+
 
 using namespace std;
-using namespace ClipperLib;
+
 
 
 #ifndef BODY_TYPES_H
@@ -51,7 +51,13 @@ typedef enum{
 	KEY_RIGHT,
 	KEY_LEFT,
 	KEY_JUMP,
-	NOTHING
+	NOTHING,
+	GRENADE,
+	BAZOOKA,
+	HOMING,
+	DOVE,
+	AIRSTRIKE,
+	SHEEP
 } keyAction;
 
 class BodyTypes : public Test
