@@ -30,7 +30,7 @@ using namespace std;
 
 #include "AddPair.h"
 #include "ApplyForce.h"
-#include "TerrenoConWorms.h"
+
 #include "Breakable.h"
 #include "Bridge.h"
 #include "BulletTest.h"
@@ -74,20 +74,13 @@ using namespace std;
 #include "VerticalStack.h"
 #include "Web.h"
 #include "Worms_TerrenoOriginal.h"
-#include "Worms_TerrenoDestructible.h"
 /*#include "inclinacion.h"
 #include "movimiento.h"*/
 
 
 TestEntry g_testEntries[] =
 {
-	//{"Inclinacion", InclinacionTest::Create},
-	//{"Movimiento", MovimientoTest::Create},
 	{"Worms Terreno Original", WormsTOrig::Create},
-
-	{"Terreno Con Worms", BodyTypes::Create},
-
-	{"Worms Terreno Destructible", WormsTDest::Create},
 	{"Tumbler", Tumbler::Create},
 	{"Tiles", Tiles::Create},
 	{"Dump Shell", DumpShell::Create},
