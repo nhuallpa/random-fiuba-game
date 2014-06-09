@@ -27,6 +27,11 @@ void GameViewBuilder::buildContainer()
 	gameView->setProjectileContainer(new ProjectileViewGroup(0,0));
 }
 
+void GameViewBuilder::buildProjectileContainer()
+{
+	gameView->setProjectileContainer(new ProjectileViewGroup(0,0));
+}
+
 void GameViewBuilder::buildSky()
 {
 	gameView->setSky(new SkyView("sky"));
@@ -198,12 +203,42 @@ void GameViewBuilder::buildStateBar()
 void GameViewBuilder::buildMenuWeapon(){
 	MenuWeaponView* menuWeapon = new MenuWeaponView(30,20);
 	menuWeapon->buildWeapon();
+	int cantArmas = ParserYaml::getInstance()->getCantArm();
+	list<WeaponId> allowW;
 
+	//int indiceArmas = 0;
+	//for (indiceArmas=0; indiceArmas<cantArmas; indiceArmas++)
+	//{
+	//	std::string tipo = ParserYaml::getInstance()->getArmaTipo(indiceArmas);
+	//	std::string habilitado = ParserYaml::getInstance()->getArmaHab(indiceArmas);
+	//	if (habilitado.compare("si") == 0) {
+	//		if (tipo.compare("bazooka") == 0) {
+	//			allowW.push_back(BAZOOKA);
+	//		}
+	//		if (tipo.compare("granada") == 0) {
+	//			allowW.push_back(GRENADE);
+	//		}
+	//		if (tipo.compare("dinamita") == 0) {
+	//			allowW.push_back(DYNAMITE);
+	//		}
+	//		if (tipo.compare("holy") == 0) {
+	//			allowW.push_back(HOLY);
+	//		}
+	//		if (tipo.compare("burro") == 0) {
+	//			allowW.push_back(BURRO);
+	//		}
+	//		if (tipo.compare("banana") == 0) {
+	//			allowW.push_back(BANANA);
+	//		}
+	//		if (tipo.compare("aereo") == 0) {
+	//			allowW.push_back(AIRATTACK);
+	//		}
+	//	}
+	//}
 
 	// tomar desde yaml y usar los siguiente. Agregar solo los permitidos
-		//LUEGO SACAR ESTO,
-	list<WeaponId> allowW;
-	allowW.push_back(BAZOOKA);
+	
+	
 	allowW.push_back(GRENADE);
 	allowW.push_back(HOLY);
 	allowW.push_back(BURRO);
@@ -254,9 +289,9 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 }
 
 
-ProjectileView*  GameViewBuilder::createBullet()
+ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement)
 {
-	ProjectileView*  aProjectile = new ProjectileView(33);
+	ProjectileView*  aProjectile = new ProjectileView(domainElement->getId());
 
 	try 
 	{

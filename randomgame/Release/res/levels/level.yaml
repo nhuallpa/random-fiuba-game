@@ -15,14 +15,3 @@ escenario:
     color_tierra: "#BC794FFF"
     imagen_cielo: res/images/cielo1.png
     objetos:
-    armas:
-     -tipo: bazooka
-      habilitado: si
-     -tipo: granada
-      habilitado: si
-     -tipo: dinamita
-      habilitado: si
-     -tipo: banana
-      habilitado: si
-     -tipo: patada
-      habilitado: si

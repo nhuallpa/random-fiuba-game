@@ -53,3 +53,24 @@ escenario:
       masa: 4
       escala: 1.5
       radio: 3
+  armas:
+    - tipo: Bazooka
+      habilitado: si
+    - tipo: Grenade
+      habilitado: si
+    - tipo: Dynamite
+      habilitado: si
+    - tipo: Donkey
+      habilitado: si
+    - tipo: AirStrike
+      habilitado: si
+    - tipo: Bazooka
+      habilitado: si
+    - tipo: Grenade
+      habilitado: si
+    - tipo: Dynamite
+      habilitado: si
+    - tipo: Donkey
+      habilitado: si
+    - tipo: AirStrike
+      habilitado: si

@@ -81,11 +81,14 @@ FigureView* GameView::findFigureById(int idElement)
 		throw GameException(msg.str());
 	}
 }
+ProjectileView* GameView::findProjectileById(int idElement)
+{
+	return this->projectileViewGroup->findById(idElement);
+}
 WormView* GameView::findWormById(int idElement)
 {
 	return this->wormViewGroup->findById(idElement);
 }
-
 
 void GameView::getDestroyEart(int x, int y, int radio)
 {
