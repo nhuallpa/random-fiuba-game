@@ -2,7 +2,7 @@
 
 
 ProjectileView::ProjectileView(int id)
-	: View(0, 0), id(id)
+	: View(0, 0), id(id), detonated(false)
 {
 	currentSprite = &this->spriteBullet;
 
@@ -26,6 +26,13 @@ void ProjectileView::update(GameElement* domainElement)
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
 
+	// todo: quitar
+	static int count = 0;
+	if (count > 100 && !this->detonated)
+	{
+		this->detonate();
+	}
+	count++;
 }
 	
 void ProjectileView::update() 
@@ -36,6 +43,37 @@ void ProjectileView::update()
 
 void ProjectileView::draw(SDLScreen & screen)
 { 
-	
+	bool detonateDone = (detonated && currentSprite->isLastFrame());
+	if (!detonateDone) 
+	{	
+		TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
+											this->getXCenter(), 
+											this->getYCenter(), 
+											currentSprite->getWidth(), 
+											currentSprite->getHeight(), 
+											currentSprite->getCurrentRow(), 
+											currentSprite->getCurrentFrame(), 
+											screen.getRenderer(),
+											false, 
+											SDL_FLIP_NONE);
+	}
+}
 
+
+int ProjectileView::getXCenter()
+{
+	return this->getX()-(currentSprite->getWidth()/2);
+}
+
+
+int ProjectileView::getYCenter()
+{
+	return this->getY()-(currentSprite->getHeight()/2);
+}
+
+void ProjectileView::detonate()
+{
+	currentSprite = &this->spriteExplosion;
+	this->detonated = true;
+	SoundManager::Instance().pEXPLOSION1();
 }

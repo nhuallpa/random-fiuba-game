@@ -30,6 +30,7 @@ void GameActivity::buildView()
 	//builder.buildFigures();
 	builder->buildEart();
 	builder->buildCharacters();
+	builder->buildProjectileContainer();
 	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildMenuWeapon();
@@ -72,6 +73,11 @@ void GameActivity::update()
 						
 				}
 				aWorm->update(&domainElement);
+			}  
+			else if (domainElement.getType() == WEAPON)
+			{
+				ProjectileView * aProjectile = gameView->findProjectileById(domainElement.getId());
+				aProjectile->update(&domainElement);
 			}
 		}
 		catch (GameException e) {
@@ -193,10 +199,9 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
-		if (domainElement.getType() == WORM){
-			WormView* aWorm = gameView->findWormById(domainElement.getId());
-			if (aWorm != NULL){
-
+		try {
+			if (domainElement.getType() == WORM){
+				WormView* aWorm = gameView->findWormById(domainElement.getId());
 				SDL_Rect wormRect;
 				this->calcRectPosition(wormRect,aWorm);
 				if (SDL_EnclosePoints(&clickPoint,1,&wormRect,NULL))
@@ -205,6 +210,8 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 					break;
 				}
 			}
+		} catch (GameException & e) {
+			Log::e(e.what());		
 		}
 	}
 	return aWormClicked;
@@ -349,8 +356,12 @@ void GameActivity::buildProjectile(int idElement, float x, float y, int type)
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 
+	GameElement aGameElem(idElement, this->playerId, WEAPON, x, y, 0, 0, 0, 0, false);
+	
+	this->builder->getDomain()->addElementToDomain(aGameElem);
+
 	// crear el domain element y la vista
-	ProjectileView* aProjectileView = this->builder->createBullet();
+	ProjectileView* aProjectileView = this->builder->createBullet(&aGameElem);
 	gameView->getProjectileContainer()->add(aProjectileView);
 }
 

@@ -350,8 +350,9 @@ int Cliente::netListener(void* data){
 	
 	cli->getRemoteWorld();
 
-
 	cli->gameActivity->buildView();
+
+	cli->gameActivity->buildProjectile(300, 10, 30, 0);
 
 	cli->gameReady = true;
 
@@ -486,11 +487,11 @@ int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 
 }
 
+/** DEPRECATE**/
 void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
 {
 	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
 	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
-	//this->domain.printDomain();
 }
 
 void Cliente::addProjectileToView(float x, float y, int idElement, int type)

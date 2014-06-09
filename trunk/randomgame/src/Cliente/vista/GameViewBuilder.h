@@ -50,11 +50,13 @@ public:
 
 	WormView* createWorm(GameElement * domainElement);
 
-	ProjectileView* createBullet();
+	ProjectileView* createBullet(GameElement * domainElement);
 
 	void setPlayerID(std::string  playerID){ this->playerID = playerID; }
 	
 	void buildContainer();
+
+	void buildProjectileContainer();
 
 	void buildSky();
 

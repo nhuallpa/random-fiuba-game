@@ -7,6 +7,7 @@
 #include "TextView.h"
 #include "Sprite.h"
 #include "../../Servidor/modelo/GameElement.h"
+#include "../sonido/SoundManager.h"
 
 class ProjectileView: public View
 {
@@ -19,6 +20,8 @@ class ProjectileView: public View
 	Sprite spriteBullet;
 
 	Sprite spriteExplosion;
+
+	bool detonated;
 
 	
 public:
@@ -37,6 +40,11 @@ public:
 
 	void draw(SDLScreen & screen);
 
+	int getXCenter();
+
+	int getYCenter();
+
+	void detonate();
 
 	~ProjectileView(void);
 

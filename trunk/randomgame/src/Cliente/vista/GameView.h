@@ -60,6 +60,7 @@ public:
 
 	FigureView* findFigureById(int idElement);
 	WormView* findWormById(int idElement);
+	ProjectileView* findProjectileById(int idElement);
 
 	void getDestroyEart(int x, int y, int radio);
 
