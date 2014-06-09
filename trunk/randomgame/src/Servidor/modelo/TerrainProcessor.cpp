@@ -306,29 +306,53 @@ void TerrainProcessor::process(b2World* m_world, char* path,float epsilon, int s
 			auxv = transformBmpToBox2D( auxR[i], height, width);
 			result[i+count].Set( auxv.x, (auxv.y) );
 			pol->outer().push_back(point(auxv.x,auxv.y));	
-			myPol->push_back(pol);
+			
 		}
-
+		myPol->push_back(pol);
 		count += i;
 		itComponente++;
 	
 	}
 
+		for(list<poly_t*>::iterator it = myPol->begin(); it != myPol->end(); it++){
+			b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
+			int j= 0;
 
-	// AGREGAR CHAIN A BOX2D 
-	b2ChainShape shape;
-    shape.CreateLoop(result,count);
-
-	b2FixtureDef myFixtureDef;
-	b2BodyDef myBodyDef;
-	myBodyDef.type = b2_staticBody; //this will be a static body
-	myBodyDef.position.Set(0, 0); //in the middle
-	myFixtureDef.friction=0.999;
+			for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
+				vs[j].Set((*it2).get<0>(),(*it2).get<1>());
+				j++;
+			}
 			
-	myFixtureDef.userData = ( (void*) UD_TERRAIN );
-	m_attachment = m_world->CreateBody(&myBodyDef);
+			b2BodyDef* bd = new b2BodyDef();
+			bd->type = b2_staticBody;
+			bd->position.Set(0, 0); //in the middle
+			b2ChainShape shape;
+			shape.CreateLoop(vs,j);
+			b2Body* m_attachment = m_world->CreateBody(bd);
+			b2FixtureDef myFixtureDef;
+			myFixtureDef.friction=0.999;
+			myFixtureDef.userData = ( (void*) UD_TERRAIN );
+			myFixtureDef.shape = &shape;
+		
+			m_attachment->CreateFixture(&myFixtureDef);
+			myTerrain->push_back(m_attachment);
+	}
 
-	myFixtureDef.shape = &shape; //change the shape of the fixture
-	m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the	
-	myTerrain->push_back(m_attachment);
+
+	//// AGREGAR CHAIN A BOX2D 
+	//b2ChainShape shape;
+ //   shape.CreateLoop(result,count);
+
+	//b2FixtureDef myFixtureDef;
+	//b2BodyDef myBodyDef;
+	//myBodyDef.type = b2_staticBody; //this will be a static body
+	//myBodyDef.position.Set(0, 0); //in the middle
+	//myFixtureDef.friction=0.999;
+	//		
+	//myFixtureDef.userData = ( (void*) UD_TERRAIN );
+	//m_attachment = m_world->CreateBody(&myBodyDef);
+
+	//myFixtureDef.shape = &shape; //change the shape of the fixture
+	//m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the	
+	//myTerrain->push_back(m_attachment);
 }

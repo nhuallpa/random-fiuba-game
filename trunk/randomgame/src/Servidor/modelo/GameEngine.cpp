@@ -276,36 +276,58 @@ bool GameEngine::step(){
 	//Reflect model - for every body (worm)
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();
-		( iterator != this->gameBodies->end() && static_cast<Worm2d*>(iterator->second)->type == WORM );
-		++iterator) {
-		
-		Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
-		aBody->animate();
-
-	}
-
-	// recorro todas las armas
-	// les paso el tiempo ( actualizan su estado de exploded - si paso el tiempo o si chocan )
-	//  miro si explotaron, 
-	//	si no, animate ( con tiempo ): actualiza el tiempo y posicion
-	//  miro si explotaron y 
-	
-	for(iterator = this->gameBodies->begin();
-		( iterator != this->gameBodies->end() && 
-		static_cast<Worm2d*>(iterator->second)->type == WEAPON );
+		 iterator != this->gameBodies->end();
 		++iterator) {
 			
-			if ( static_cast<WeaponModel*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
-				// do Explosion
-				this->myTimer.reset();
-				continue;
+			if ( iterator->second->type == WORM ){
+				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
+				aBody->animate();
 			}
-			Weapon2d* aBody = static_cast<Weapon2d*>(iterator->second);
-			aBody->animate( this->myTimer.elapsed() );
+
+			if ( iterator->second->type ==	WEAPON ) {
+				
+				
+				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
+					// Viene explotado del ciclo anterior, lo elimino
+					printf("\nAlready exploded, deleting");
+					this->deleteBody( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+					continue;
+				}
+				
+				Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
+				//printf("\nAnimating with time");
+				aBody->animate( this->myTimer.elapsed() );
+
+				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
+					
+					printf("\nDo explosion at position %f,%f with radius %d",
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first + 1,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second + 3,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+						);
+					
+					// Hago agujero en Box2d
+					this->doExplosion( b2Vec2( 
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first + 1,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second + 3),
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+						);
+
+					// Marco como inactivo para borrar en el proximo ciclo
+					static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
+					this->myTimer.reset();
+					continue;
+				}
+
+
+
+			}
 
 	}
+
 	
-	
+
+
 
 
 	/* Logica del agua */
@@ -664,6 +686,7 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			static_cast<Worm*>(myWorm)->weaponedRight();
 			break;
 		case DO_SHOOT:
+			printf("\nGet a DO_SHOOT");
 			animateWeapon(weaponid, id, x, y, intensidad);
 			break;
 	}
@@ -691,7 +714,6 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	float xworm = this->gameLevel->getEntityByID(wormid)->getPosition().first;
 	float yworm = this->gameLevel->getEntityByID(wormid)->getPosition().second;
 
-	Weapon2d* w2d;
 	GameElement* myWeapon;
 
 	int elementId = this->getWeaponUniqueId(); //QUE PASA CON EL ATAQUE AEREO QUE SON VARIOS??
@@ -699,49 +721,15 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	Missile* aMissile = MissileFactory::getInstance()->getMissile(weaponid,elementId);
 	aMissile->setPosition(pair<float,float>(xworm,yworm));
 	aMissile->setStartTime(this->myTimer.elapsed());
-	this->gameLevel->addEntity(aMissile);
+
 
 	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, aMissile);
 	aMissile->setBody(aMissile2d);
 
+	this->gameLevel->addEntity(aMissile);
 	this->gameBodies->insert(std::make_pair<int,Body*>(elementId,aMissile2d));
 
-	//PURO CHAMUYO DE ARI QUE NO FUNCIONA - GATO COPIASTE LO MISMO DENTRO DE UN FACTORY
-	//switch ( weaponid ){
-	//	
-	//	case BAZOOKA:
-	//		this->gameLevel->addEntity( new BazookaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-	//		myWeapon = this->gameLevel->getEntityByID(elementId);
-	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-	//		break;
-	//	
-	//	case GRENADE:
-	//		this->gameLevel->addEntity( new GranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-	//		myWeapon = this->gameLevel->getEntityByID(elementId);
-	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-	//		break;
-	//	case HOLY:
-	//		this->gameLevel->addEntity( new HolyGranadaModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-	//		myWeapon = this->gameLevel->getEntityByID(elementId);
-	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-	//		break;
-	//	case BURRO:
-	//		this->gameLevel->addEntity( new BurroModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-	//		myWeapon = this->gameLevel->getEntityByID(elementId);
-	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-	//		break;
 
-	//	
-	//		
-	//	// TODO comentar cuando existan las otras armas
-	//	default:
-	//		this->gameLevel->addEntity( new WeaponModel(elementId, weaponid, wormid, xworm, yworm, angle_x, angle_y, intensidad, this->myTimer.elapsed()) );
-	//		myWeapon = this->gameLevel->getEntityByID(elementId);
-	//		w2d = new Weapon2d(WEAPON,xworm + angle_x, yworm, angle_x, angle_y, intensidad, this->myWorld, myWeapon );
-	//		break;
-	//}
-	//myWeapon->setBody(w2d);
-	//this->gameBodies->insert(std::make_pair<int,Body*>(elementId,w2d));
 	
 }
 

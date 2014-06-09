@@ -23,12 +23,13 @@
 
 namespace bg = boost::geometry;
 typedef boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian> point;
-typedef boost::geometry::model::polygon<point, false, true> poly_t;
+typedef boost::geometry::model::polygon<point, false, false> poly_t;
 
 using namespace server_model_handle;
 using namespace std;
 class TerrainProcessor
 {
+
 private:
 	b2Vec2 transformBmpToBox2D(b2Vec2 vertex, int height, int width);
 	list< list< pair<float,float> > >* aListOfPolygons;
