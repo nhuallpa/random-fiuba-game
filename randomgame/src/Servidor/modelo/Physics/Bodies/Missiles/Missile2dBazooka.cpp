@@ -10,6 +10,9 @@ Missile2dBazooka::Missile2dBazooka(ElementType type, float posX, float posY, flo
 	
 	this->myWorld = myWorld;
 	this->center = b2Vec2( posX+(BULLET_RADIUS/2), posY+(BULLET_RADIUS/2) );
+	
+	/* Importantisimo! lo seteo como weapon!! */
+	this->type = type;
 
 	b2BodyDef myBodyDef;
 	myBodyDef.type = b2_dynamicBody;

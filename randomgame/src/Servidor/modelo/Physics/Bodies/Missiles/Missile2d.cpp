@@ -23,6 +23,9 @@ Missile2d::Missile2d(ElementType type, float posX, float posY, float angle_x, fl
 	myFixtureDef.friction = 0.01;
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
+
+	printf("\nCreating weapon at: %f, %f",posX,posY);
+
 	myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 
@@ -47,14 +50,9 @@ void Missile2d::animate( float time ){
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
 	if ( static_cast<Missile*>(myWeapon)->hasDelayedExplosion() ){
+		printf("\nUpdating explode time");
 		static_cast<Missile*>(myWeapon)->updateExplode( time );
 	}
-
-
-	//IF EXPLODED .. EXPLOTA!
-	// if ( exploded ){
-	//  explota()
-	//}
 
 	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
 		myWeapon->setAction(EXPLOSION);
