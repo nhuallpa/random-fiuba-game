@@ -83,5 +83,11 @@ void StateBarView::draw(SDLScreen & screen){
 	this->labelCenter.draw(screen.getRenderer(), posX, posY);
 
 	// pichaba ... ver 
-	//TextManager::Instance().wLetter("arial",50, 50,'a');
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
+	TextManager::Instance().write("arial",60, 50,"hola,anda un monton",this->color);
+	this->color.r=0;
+	this->color.b=0;
+	TextManager::Instance().write("arial",60, 70,"y hasta le puedo cambiar el color",this->color);
 }

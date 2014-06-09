@@ -15,7 +15,7 @@ TextView::~TextView()
 
 
 bool TextView::setText( std::string textureText, SDL_Color textColor)
-{
+{/*
 	free();
 
 	SDL_Surface* textSurface = TTF_RenderText_Solid( FontManager::Instance().getFont("arial"), 
@@ -39,7 +39,7 @@ bool TextView::setText( std::string textureText, SDL_Color textColor)
 
 		SDL_FreeSurface( textSurface );
 	}
-	
+	*/
 	return mTexture != NULL;
 }
 
