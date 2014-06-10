@@ -42,8 +42,8 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uin
 	try 
 	{
 	
-	Log::i("fuente: %p",TextureManager::Instance().getTexture(idFont));
-	SDL_SetTextureColorMod(TextureManager::Instance().getTexture(idFont),r,g,b);
+	Log::t("fuente: %p",TextureManager::Instance().getTexture(idFont));
+	
 	SDL_RenderCopy(this->renderer,
                    TextureManager::Instance().getTexture(idFont),
                    &origen,
@@ -51,14 +51,14 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uin
 	} catch (std::exception &e) {
 		Log::e(e.what());
 	}
-	SDL_SetTextureColorMod(TextureManager::Instance().getTexture(idFont),255,255,255);
+	
 
 }
 
 void TextManager::write(std::string idFont,int x, int y, std::string w,SDL_Color color){
 	int i;
+	
 	for(i =0; i<w.size();i++){
 		this->wLetter(idFont,x+(i*this->font.anchoLetra),y,w[i],color.r,color.g,color.b);
 	}
-
 }

@@ -27,12 +27,12 @@ void ProjectileView::update(GameElement* domainElement)
 	this->setY(pointSDL.y);
 
 	// todo: quitar
-	static int count = 0;
-	if (count > 100 && !this->detonated)
-	{
-		this->detonate();
-	}
-	count++;
+	//static int count = 0;
+	//if (count > 100 && !this->detonated)
+	//{
+	//	this->detonate();
+	//}
+	//count++;
 }
 	
 void ProjectileView::update() 

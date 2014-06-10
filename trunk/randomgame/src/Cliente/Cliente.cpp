@@ -285,12 +285,25 @@ int Cliente::applyNetworkChanges(void *data){
 
 bool Cliente::updateModel(Playable p){
 
-	if ( p.action != EXPLOSION ){
+	if ( p.action == MISSIL_FLYING ) {
+
+		this->domainMx.lock();
+		if (!this->domain.existElement(p.wormid)) {
+			this->gameActivity->buildProjectile(p.wormid, p.x, p.y, 0);
+		} else {
+			/*Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f, %f ], action: %s, time: %d, tipo: %d", 
+														p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.life, p.weaponid );*/
+			Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f, %f ]", p.wormid, p.x, p.y);
+			this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
+		}
+		this->domainMx.unlock();
+	} else 	if ( p.action != EXPLOSION ){		
 		this->domainMx.lock();
 		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
 		this->domainMx.unlock();
 	}else{
 		this->processExplosions( p.x, p.y, p.weaponid );
+		// lo elimino de la vista
 	}
 	return true;
 
@@ -423,12 +436,6 @@ int Cliente::netListener(void* data){
 		case MAP_UPDATE:
 			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
 			break;
-
-		case EXPLOSION:
-			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
-			break;
-
-
 		}
 	
 	}
