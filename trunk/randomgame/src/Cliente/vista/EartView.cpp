@@ -27,5 +27,22 @@ void EartView::drawExplotion(int x, int y, int radius)
 {
 
 	Uint32 pixel = 0x00000000;
-	TextureManager::Instance().fillCircleOn(this->imageId, x, y, radius, pixel);
+
+	std::pair<int, int> dimension = TextureManager::Instance().getDimension(this->imageId);
+	
+	SDL_Rect scenario;
+	scenario.x=0;
+	scenario.y=0;
+	scenario.w=dimension.first;
+	scenario.h=dimension.second;
+
+	SDL_Rect dimRectCircle;
+	dimRectCircle.x=x-radius;
+	dimRectCircle.y=y-radius;
+	dimRectCircle.w=radius*2;
+	dimRectCircle.h=radius*2;
+	if (TextureManager::Instance().intersectRects(dimRectCircle, scenario)) {
+		TextureManager::Instance().fillCircleOn(this->imageId, x, y, radius, pixel);
+	}
+	
 }
