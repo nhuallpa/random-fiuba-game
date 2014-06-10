@@ -132,7 +132,7 @@ int Servidor::stepOver(void* data){
 
 	Condition* worldcond =  &srv->canCreate;
 	Mutex* w =  &srv->worldlock;
-	
+
 	Condition* canStart =  &srv->canAddNews;
 	Mutex* allIn =  &srv->playerslock;
 	
@@ -216,6 +216,8 @@ int Servidor::somethingChange(){
 			//Chequeo si es un arma, y en ese caso el Worm ID es 0
 			if ( it->second->getType() == WEAPON ){
 				this->worldQ.play[i].wormid = 0;
+				printf("\nSending weapon: %d at position %f, %f action: %s",it->second->getWeaponId(),it->second->getPosition().first,
+					it->second->getPosition().second, Util::actionString(it->second->getAction() ) );
 			}else{
 				this->worldQ.play[i].wormid = it->second->getId();
 			}
@@ -239,7 +241,9 @@ int Servidor::somethingChange(){
 
 bool Servidor::updateModel(Playable p){
 	// p.life tiene la intensidad del arma
+	//this->worldlock.lock();
 	this->gameEngine.applyAction2Element(p.wormid, p.weaponid, p.x, p.y, p.action, p.life);
+	//this->worldlock.unlock();
 	return true;
 }
 
@@ -438,7 +442,7 @@ int Servidor::initClient(void* data){
 			case UPDATE:
 				m->lock();
 				Log::t("Got update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
-				printf("\nGot update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
+				printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
 

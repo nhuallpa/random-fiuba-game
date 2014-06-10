@@ -238,7 +238,7 @@ void GameViewBuilder::buildMenuWeapon(){
 
 	// tomar desde yaml y usar los siguiente. Agregar solo los permitidos
 	
-	
+	allowW.push_back(BAZOOKA);
 	allowW.push_back(GRENADE);
 	allowW.push_back(HOLY);
 	allowW.push_back(BURRO);

@@ -38,8 +38,9 @@ Missile2d::Missile2d(ElementType type, float posX, float posY, float angle_x, fl
 	this->body->SetUserData(modelElement);
 
 	//TODO @Bauti Aplicale impulso que consideres necesario
+	printf("\nImpulsaNdo!!");
 	this->body->ApplyLinearImpulse( b2Vec2 ( angle_x * 10, angle_y * 10 ),this->body->GetWorldCenter() );
-
+	printf("\nImpulsado!!");
 }
 
 Missile2d::~Missile2d(){}
@@ -53,7 +54,7 @@ void Missile2d::animate( float time ){
 		printf("\nUpdating explode time");
 		static_cast<Missile*>(myWeapon)->updateExplode( time );
 	}
-
+	printf("\nSetting action");
 	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
 		myWeapon->setAction(EXPLOSION);
 	} else{
@@ -62,10 +63,10 @@ void Missile2d::animate( float time ){
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
-
+	printf("\nUpdating his position");
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
-
+	printf("\nChanged, ending");
 
 }
 
