@@ -300,8 +300,18 @@ bool Cliente::updateModel(Playable p){
 		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
 		this->domainMx.unlock();
 	}else{
-		this->processExplosions( p.x, p.y, p.weaponid );
+
+		switch( p.weaponid ){
+		case GRENADE:
+			this->processExplosions( p.x, p.y, EXPLODE_RMEDIUM );
+			break;
+		default:
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
+		}
+			
 		// lo elimino de la vista
+
 	}
 	return true;
 
