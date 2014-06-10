@@ -185,7 +185,11 @@ void TextureManager::draw(std::string id, int x, int y,
 	destRect.x = x;
 	destRect.y = y;
 
-	SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	try {
+		SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
+	} catch (GameException & e) {
+		Log::e(e.what());
+	}
 
 }
 
@@ -204,8 +208,11 @@ void TextureManager::draw(std::string id, int x, int y, int width, int
 	destRect.x = x;
 	destRect.y = y;
 
-	SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
-
+	try {
+		SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
+	} catch (GameException & e) {
+		Log::e(e.what());
+	}
 }
 
 void TextureManager::drawScrollableBackground(std::string imageId, SDL_Renderer* pRenderer) 
@@ -222,12 +229,20 @@ void TextureManager::drawScrollableBackground(std::string imageId, SDL_Renderer*
 	destRect.x = 0;
 	destRect.y = 0;
 
-	SDL_RenderCopyEx(pRenderer, this->texture_map[imageId], &srcRect,&destRect, 0, 0, SDL_FLIP_NONE);
+	try {
+		SDL_RenderCopyEx(pRenderer, getTexture(imageId), &srcRect,&destRect, 0, 0, SDL_FLIP_NONE);
+	} catch (GameException & e) {
+		Log::e(e.what());
+	}
 }
 
 void TextureManager::drawBackground(std::string id, SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
 {
-	SDL_RenderCopy(pRenderer, this->texture_map[id], 0, 0);
+	try {
+		SDL_RenderCopy(pRenderer, getTexture(id), 0, 0);
+	} catch (GameException & e) {
+		Log::e(e.what());
+	}
 }
 
 void TextureManager::drawFrame(std::string id, int x, int y, int width, int	height, 
@@ -250,11 +265,15 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 	viewPort.y = 0;
 	viewPort.w = this->cam.getW();
 	viewPort.h = this->cam.getH();
-	if (grey) SDL_SetTextureColorMod(this->texture_map[id],100,100,100);
-	if (intersectRects(destRect, viewPort)) {
-		SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	try {
+		if (grey) SDL_SetTextureColorMod(getTexture(id),100,100,100);
+		if (intersectRects(destRect, viewPort)) {
+			SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
+		}
+		if (grey) SDL_SetTextureColorMod(getTexture(id),255,255,255);
+	} catch (GameException & e) {
+		Log::e(e.what());
 	}
-	if (grey) SDL_SetTextureColorMod(this->texture_map[id],255,255,255);
 }
 
 
@@ -279,8 +298,12 @@ void TextureManager::drawFrameOnScreen(std::string id, int x, int y, int width, 
 	viewPort.w = this->cam.getW();
 	viewPort.h = this->cam.getH();
 	//if (grey) SDL_SetTextureColorMod(this->texture_map[id],100,100,100);
-	if (intersectRects(destRect, viewPort)) {
-		SDL_RenderCopyEx(pRenderer, this->texture_map[id], &srcRect,&destRect, 0, 0, flip);
+	try {
+		if (intersectRects(destRect, viewPort)) {
+			SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
+		}
+	} catch (GameException & e) {
+		Log::e(e.what());
 	}
 	//if (grey) SDL_SetTextureColorMod(this->texture_map[id],255,255,255);
 }
@@ -484,16 +507,19 @@ void TextureManager::drawCircleOn(SDL_Surface *surface, int centerX, int centerY
 void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
 {
  
+	int w_imagen = surface->w;
+	int h_imagen = surface->h;
+
     static const int BPP = 4;
  
     double r = (double)radius;
  
-    for (double dy = 1; dy <= r; dy += 1.0)
+    for (double dy = 1; dy <= r; dy += 1.0) // media circunferencias superior
     {
-        double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));
+        double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));  // ancho en cada pixel y al centro
 
-		// col_left = cx - dx;
-        int x = cx - dx;
+		//int x_col_left = cx - dx;
+        int x = cx - dx; // old
 		Log::t("Ancho fila circulo %f", dx);
 		// validar que los pixeles se modifiquen dentro del
 
@@ -524,6 +550,9 @@ void TextureManager::fillCircleOn(std::string imageId, int x, int y, int radius,
 		TextureManager::Instance().fillCircleOn(surface, x, y, radius, pixel);
 
 		SDL_Texture* newTexture = SDL_CreateTextureFromSurface(FontManager::Instance().getRenderer(), surface);
+		if (newTexture==NULL) {
+			Log::e("Error al crear texture %s", SDL_GetError());
+		}
 		this->texture_map[imageId]=newTexture;
 
 	}
