@@ -30,7 +30,6 @@ using namespace std;
 
 #include "AddPair.h"
 #include "ApplyForce.h"
-
 #include "Breakable.h"
 #include "Bridge.h"
 #include "BulletTest.h"
@@ -89,7 +88,6 @@ TestEntry g_testEntries[] =
 	{"Varying Restitution", VaryingRestitution::Create},
 	{"Character Collision", CharacterCollision::Create},
 	{"Edge Test", EdgeTest::Create},
-	
 	{"Shape Editing", ShapeEditing::Create},
 	{"Car", Car::Create},
 	{"Apply Force", ApplyForce::Create},
@@ -99,7 +97,6 @@ TestEntry g_testEntries[] =
 	{"Revolute", Revolute::Create},
 	{"Pulleys", Pulleys::Create},
 	{"Polygon Shapes", PolyShapes::Create},
-	//{"Rope", Rope::Create},
 	{"Web", Web::Create},
 	{"RopeJoint", RopeJoint::Create},
 	{"One-Sided Platform", OneSidedPlatform::Create},

@@ -25,8 +25,6 @@
 #include <vector>
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\TerrainProcessor.h"
 #include "C:\random-fiuba-game\TestBed\src\Servidor\modelo\Physics\Bodies\Worm\Worm2d.h"
-
-//#include "geometry.hpp"
 #include <unordered_set>
 #define BOOST_GEOMETRY_OVERLAY_NO_THROW
 #include <boost/geometry/geometry.hpp>
@@ -35,7 +33,7 @@
 #include <boost/math/constants/constants.hpp>
 #define PI 3.141592654f
 #define UD_MISSIL 15
-
+#define BLAST_RADIUS 25
 
 namespace bg = boost::geometry;
 
@@ -67,8 +65,8 @@ typedef enum{
 
 class WormsTOrig;
 
-        b2Vec2 normals1[3];
-		bool hasExploded;
+b2Vec2 normals1[3];
+bool hasExploded;
 
 
 
@@ -197,12 +195,6 @@ public:
 		}
 
 
-		
-		
-		float gradosAradianes(float grados){
-				return (grados*PI/180.0f);
-		}
-
 		void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower) {
 			b2Vec2 blastDir = applyPoint - blastCenter;
 			float distance = blastDir.Normalize();
@@ -210,14 +202,65 @@ public:
 			if ( distance == 0 )
 				return;
 			float invDistance = 1 / distance;
-			float impulseMag = blastPower * invDistance * invDistance;
+			float impulseMag = blastPower * invDistance*500 ; //* invDistance;
 			body->ApplyLinearImpulse( impulseMag * blastDir, applyPoint );
 		}
 
 
 
+	void display_raycast(bool showRayHits)
+    {
+        glEnable(GL_BLEND);
+        glPointSize(8);
+        if ( !showRayHits ) {
+            //just to visually differentiate this from the raycast mode
+            glEnable(GL_LINE_STIPPLE);
+            glLineStipple( 1, 0xF0F0 );
+        }
+        if ( this->missil ) {
+            //draw all rays around grenade
+			b2Vec2 center = this->missil->GetPosition();
+            for (int i = 0; i < 32; i++) {
+                float angle = (i / (float)32) * 360 * DEGTORAD;
+                b2Vec2 rayDir( sinf(angle), cosf(angle) );
+                b2Vec2 rayEnd = center + BLAST_RADIUS * rayDir;
+                glColor4f(0.5f,0.5f,0.5f,0.5f);
+                glLineWidth(1);
+                glBegin(GL_LINES);
+                glVertex2fv( (GLfloat*)&rayEnd );
+                glVertex2fv( (GLfloat*)&center );
+                glEnd();
+
+                if ( showRayHits ) {
+                    //check what this ray hits
+                    RayCastClosestCallbackExplosion callback;
+                    m_world->RayCast(&callback, center, rayEnd);
+                    if ( callback.m_body ) {
+                        //draw line and dot to show which bodies will get blasted
+                        glColor4f(1,1,0,0.5);
+                        glLineWidth(2);
+                        glBegin(GL_LINES);
+                        glVertex2fv( (GLfloat*)&center );
+                        glVertex2fv( (GLfloat*)&callback.m_point );
+                        glEnd();
+                        glBegin(GL_POINTS);
+                        glVertex2fv( (GLfloat*)&callback.m_point );
+                        glEnd();
+                    }
+                }
+            }
+        }
+        glLineWidth(1);
+        glPointSize(1);
+        glDisable(GL_LINE_STIPPLE);
+    }
+
+
+
+
 		void doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower ){
-			int numRays = 16;
+			int numRays = 32;
+			display_raycast(true);
 			for (int i = 0; i < numRays; i++) {
 				float angle = (i / (float)numRays) * 360 * DEGTORAD;
 				b2Vec2 rayDir( sinf(angle), cosf(angle) );
@@ -229,66 +272,64 @@ public:
 
 
                 if ( callback.m_body ) {
-                    applyBlastImpulse(callback.m_body, center, callback.m_point, (m_blastPower / (float)numRays));
+					printf("\nI touch'd a body!!");
+                    applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
                 }
+			}
 
 		}
+
+
+
+
+
+
 
 		void doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo){
 
 			polygon* explosion = new polygon();
 			float x0 = -500.0f ,y0 = -500.0f;
 			float x,y;
-			//for(int i = 0; i < 360; i+=10){
-			//	x = removalRadius*cos(gradosAradianes(i)) + removalPosition.x;
-			//	y = removalRadius*sin(gradosAradianes(i)) + removalPosition.y;
-			//		if(x0==-500.0f && y0==-500.0f){
-			//				x0 = x;
-			//				y0 = y;
-			//		}
-			//		explosion->outer().push_back(point(x,y));
-			//}
-			//explosion->outer().push_back(point(x0,y0));
 			*explosion = makeConvexRing(removalPosition, removalRadius, 16);
 			
 
-		list <polygon*>* resultado = new list<polygon*>();
-        for(list<polygon*>::iterator it = this->myPol->begin(); it != this->myPol->end(); it++){
-                list <polygon>* output = new list<polygon>();
-                boost::geometry::difference(*(*it), *explosion, *output);
-                for(list<polygon>::iterator it2 = output->begin(); it2 != output->end(); it2++){
-                        resultado->push_back(&(*it2));
-                }
-                //output.clear();
-        }
-        this->myPol->clear();
-        this->myPol = resultado;
+			list <polygon*>* resultado = new list<polygon*>();
+			for(list<polygon*>::iterator it = this->myPol->begin(); it != this->myPol->end(); it++){
+					list <polygon>* output = new list<polygon>();
+					boost::geometry::difference(*(*it), *explosion, *output);
+					for(list<polygon>::iterator it2 = output->begin(); it2 != output->end(); it2++){
+							resultado->push_back(&(*it2));
+					}
+					//output.clear();
+			}
+			this->myPol->clear();
+			this->myPol = resultado;
 
-		for(std::vector<b2Body*>::iterator it = myTerrain.begin(); it != myTerrain.end(); it++){
-                mundo->DestroyBody(*it);
-        }
+			for(std::vector<b2Body*>::iterator it = myTerrain.begin(); it != myTerrain.end(); it++){
+					mundo->DestroyBody(*it);
+			}
 
-        myTerrain.clear();
+			myTerrain.clear();
 
-        for(std::list<polygon*>::iterator it = resultado->begin(); it != resultado->end(); it++){
-                b2BodyDef* bd = new b2BodyDef();
-                b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
-                int i = 0;
+			for(std::list<polygon*>::iterator it = resultado->begin(); it != resultado->end(); it++){
+				b2BodyDef* bd = new b2BodyDef();
+				b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
+				int i = 0;
 
-                for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
-                        vs[i].Set((*it2).get<0>(),(*it2).get<1>());
-                        i++;
-                }
+				for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
+					vs[i].Set((*it2).get<0>(),(*it2).get<1>());
+					i++;
+				}
 
-                b2ChainShape shape;
-                //shape.CreateChain(vs, i);
-                shape.CreateLoop(vs,i);
-                b2Body* tierra = mundo->CreateBody(bd);
-                tierra->CreateFixture(&shape, 1.0f);
-                myTerrain.push_back(tierra);
-        }
+				b2ChainShape shape;
+				//shape.CreateChain(vs, i);
+				shape.CreateLoop(vs,i);
+				b2Body* tierra = mundo->CreateBody(bd);
+				tierra->CreateFixture(&shape, 1.0f);
+				myTerrain.push_back(tierra);
+			}
 
-
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,40000);
 
 
 		}
@@ -433,7 +474,7 @@ public:
                                 bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD*normals1[0].y,VELOCIDAD*normals1[0].x));
                                 action = NOTHING;
                         }
-                        if ((normals1[0].x <= 0.02 || normals[0].x >= -0.02) && normals1[0].y > 0.15){
+                        if ((normals1[0].x <= 0.02 || normals1[0].x >= -0.02) && normals1[0].y > 0.15){
                                 //printf("\nen el plano horizontal");
                                 //bodies[0]->ApplyForce( b2Vec2(-FUERZA_MOV,0), bodies[0]->GetWorldCenter() );
                                 bodies[0]->SetLinearVelocity( b2Vec2(-VELOCIDAD,0));
