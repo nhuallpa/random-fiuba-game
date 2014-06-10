@@ -15,7 +15,6 @@ GameViewBuilder::~GameViewBuilder(void)
 {
 	if (gameView) delete gameView;
 
-	//TODO: Liberar gameDomain??????????????????????
 }
 
 
@@ -297,17 +296,20 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 	{
 		if (type == GRENADE) {
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_granada"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 		} else if (type == BAZOOKA) { 
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_bazooka"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		} else if (type == HOLY) { 
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_holy"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		} else if (type == DYNAMITE) { 
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		} else {
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		}
-		
-		aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 	} 
 	catch (std::exception & e) 
 	{

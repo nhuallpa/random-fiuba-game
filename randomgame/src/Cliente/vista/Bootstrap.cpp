@@ -136,8 +136,14 @@ void Bootstrap::loadSprites()
 
 
 			// explosiones
-			TextureManager::Instance().load("res/images/circle25.png", "circle25", this->getScreen().getRenderer());			
+			TextureManager::Instance().load("res/images/circle25.png", "circle25", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/circle50.png", "circle50", this->getScreen().getRenderer());			
+			TextureManager::Instance().load("res/images/circle75.png", "circle75", this->getScreen().getRenderer());			
+			TextureManager::Instance().load("res/images/circle100.png", "circle100", this->getScreen().getRenderer());			
 			SpriteConfigurator::Instance().add("circle25", 50, 50, 8, false);
+			SpriteConfigurator::Instance().add("circle50", 100, 100, 8, false);
+			SpriteConfigurator::Instance().add("circle75", 150, 150, 4, false);
+			SpriteConfigurator::Instance().add("circle100", 200, 200, 4, false);
 
 			
 
