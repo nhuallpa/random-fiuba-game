@@ -305,7 +305,12 @@ bool Cliente::updateModel(Playable p){
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		}
-			
+		
+		this->domainMx.lock();
+		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
+		this->domainMx.unlock();
+
+
 		// lo elimino de la vista
 
 	}

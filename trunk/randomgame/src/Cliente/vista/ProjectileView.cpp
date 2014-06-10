@@ -25,7 +25,7 @@ void ProjectileView::update(GameElement* domainElement)
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
-	if (domainElement->action == DO_SHOOT) {
+	if (domainElement->action == EXPLOSION && !this->detonated) {
 		this->detonate();
 	}
 }
