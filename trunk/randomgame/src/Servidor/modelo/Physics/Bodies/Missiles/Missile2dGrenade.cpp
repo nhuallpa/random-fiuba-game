@@ -32,7 +32,7 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 
 	body->CreateFixture(&myFixtureDef);
 
-		printf("\nCreating weapon at: %f, %f",posX,posY);
+	printf("\nCreating weapon at: %f, %f",posX,posY);
 	body->SetTransform( body->GetPosition(), 0.0 );
 	body->SetFixedRotation(false);
 
@@ -42,7 +42,7 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 	//SETEAR EXPLOSION
 	this->explosion.radio=30;
 	//impulso inicial
-	this->body->ApplyLinearImpulse( b2Vec2 (10, 10 ),this->body->GetWorldCenter() );
+	this->body->ApplyLinearImpulse( b2Vec2 (5, 8 ),this->body->GetWorldCenter() );
 	printf("\nImpulsado");
 }
 

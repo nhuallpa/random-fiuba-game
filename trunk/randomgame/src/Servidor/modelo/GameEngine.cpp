@@ -270,16 +270,12 @@ bool GameEngine::step(){
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(this->timeStep,8,3);
 
-	//tomo el tiempo inicial
-
-
 	//Reflect model - for every body (worm)
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();
 		 iterator != this->gameBodies->end();
 		++iterator) {
 			
-			//printf("\nnew step");
 			if ( iterator->second->type == WORM ){
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 				aBody->animate();
@@ -287,7 +283,6 @@ bool GameEngine::step(){
 
 			if ( iterator->second->type ==	WEAPON ) {
 				
-				printf("\nID: %d",static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
 				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
 					// Viene explotado del ciclo anterior, lo elimino
 					printf("\nAlready exploded, deleting");
@@ -323,7 +318,6 @@ bool GameEngine::step(){
 
 
 			}
-			printf("\nGo to next step");
 
 	}
 
@@ -725,7 +719,7 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	aMissile->setStartTime(this->myTimer.elapsed());
 
 
-	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + 10, yworm + 10, angle_x, angle_y, intensidad, this->myWorld, aMissile);
+	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + 0.4f, yworm + 0.4f, angle_x, angle_y, intensidad, this->myWorld, aMissile);
 	aMissile->setBody(aMissile2d);
 
 	this->gameLevel->addEntity(aMissile);
