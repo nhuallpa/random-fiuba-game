@@ -16,6 +16,11 @@ enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED, WAITING_TURN};
 enum GameState {STARTED, WAITING_PLAYERS, OVER, WIN};
 enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORM, UD_MISSIL };
 
+/* Explosion radius */
+#define EXPLODE_RSMALL 2.5
+#define EXPLODE_RMEDIUM 5
+#define EXPLODE_RLARGE 7.5
+#define EXPLODE_RGIANT 10
 
 typedef enum{
 	NEW_PLAYER=0,
@@ -57,6 +62,7 @@ typedef enum{
 	PLAYING_TURN=0,
 	WAITING_FOR_TURN
 } Turn;
+
 
 
 typedef enum{
