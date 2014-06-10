@@ -86,8 +86,8 @@ void StateBarView::draw(SDLScreen & screen){
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;
-	TextManager::Instance().write("arial",60, 50,"hola,anda un monton",this->color);
+	TextManager::Instance().write(Arial16,60, 50,"hola,anda un monton",this->color);
 	this->color.r=0;
 	this->color.b=0;
-	TextManager::Instance().write("arial",60, 70,"y hasta le puedo cambiar el color",this->color);
+	TextManager::Instance().write(Arial12,60, 70,"y hasta le puedo cambiar el color",this->color);
 }

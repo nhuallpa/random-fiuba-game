@@ -202,7 +202,9 @@ void Bootstrap::loadMenuWeapon(){
 
 		/*inicia el manejo del texto*/
 		TextManager::Instance().init(this->getScreen().getRenderer());
-		TextManager::Instance().loadFont("res/images/arial.png","arial",256,256,16,16);
+		TextManager::Instance().loadFont(Arial16);
+		TextManager::Instance().loadFont(Arial12);
+
 	} catch (GameException & e) 
 	{
 		Log::e(BOOT, e.what());		
