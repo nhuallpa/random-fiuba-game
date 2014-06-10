@@ -422,8 +422,13 @@ int Cliente::netListener(void* data){
 
 		case MAP_UPDATE:
 			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
-
 			break;
+
+		case EXPLOSION:
+			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
+			break;
+
+
 		}
 	
 	}

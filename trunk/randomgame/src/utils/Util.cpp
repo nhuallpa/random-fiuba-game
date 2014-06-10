@@ -217,5 +217,13 @@ std::string Util::actionString(Movement action)
 	{
 		sValue.assign("MOVELESS");
 	}
+	else if (action == EXPLOSION)
+	{
+		sValue.assign("EXPLOSION");
+	}
+	else if (action == MISSIL_FLYING)
+	{
+		sValue.assign("MISSIL_FLYING");
+	}
 	return sValue;
 }

@@ -43,7 +43,7 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 	this->explosion.radio=30;
 	//impulso inicial
 	this->body->ApplyLinearImpulse( b2Vec2 (10, 10 ),this->body->GetWorldCenter() );
-
+	printf("\nImpulsado");
 }
 
 Missile2dGrenade::~Missile2dGrenade(){}
