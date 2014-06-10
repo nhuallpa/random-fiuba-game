@@ -5,8 +5,35 @@ void TextManager::init(SDL_Renderer * renderer){
 }
 
 
-void TextManager::loadFont(std::string path,std::string idFont,int h,int w,int letterH,int letterW){
+void TextManager::loadFont(Tfont fuente){
+	std::string path;
+	std::string idFont;
+	int h;
+	int w;
+	int letterH;
+	int letterW;
+	
 	stFont font;
+
+	if (fuente == Arial16){
+		path = ARIAL16;
+		idFont = "arial16";
+		h = 256;
+		w = 256;
+		letterH = 16;
+		letterW = 16;
+	}
+	if (fuente == Arial12){
+		path = ARIAL12;
+		idFont = "arial12";
+		h = 192;
+		w = 192;
+		letterH = 12;
+		letterW = 12;
+	
+	}
+
+	
 	font.idFont = idFont;
 	font.alto = h;
 	font.ancho = w;
@@ -55,9 +82,17 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uin
 
 }
 
-void TextManager::write(std::string idFont,int x, int y, std::string w,SDL_Color color){
+void TextManager::write(Tfont fuente,int x, int y, std::string w,SDL_Color color){
 	int i;
-	
+	std::string idFont;
+	if (fuente == Arial16){
+		idFont = "arial16";
+	}
+	if (fuente == Arial12){
+		idFont = "arial12";	
+	}
+
+
 	for(i =0; i<w.size();i++){
 		this->wLetter(idFont,x+(i*this->font.anchoLetra),y,w[i],color.r,color.g,color.b);
 	}
