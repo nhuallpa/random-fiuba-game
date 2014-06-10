@@ -362,11 +362,18 @@ void GameActivity::buildProjectile(int idElement, float x, float y, int type)
 	
 	this->builder->getDomain()->addElementToDomain(aGameElem);
 
-	// crear el domain element y la vista
-
-	ProjectileView* aProjectileView = this->builder->createBullet(&aGameElem);
+	ProjectileView* aProjectileView = this->builder->createBullet(&aGameElem, type);
 	Log::i("GameActivity::buildProjectile >> Agregando ProjectileView id: %d,pos[ %d, %d ]", aProjectileView->getId(), aProjectileView->getX(), aProjectileView->getY());
 	gameView->getProjectileContainer()->add(aProjectileView);
+
+	// Quien esta selecionado al disparar??
+	try {
+		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
+		Log::i("GameActivity::buildProjectile >> WormView %d seleccionado y pos %d, %d [px]", aWorm->getId(), aWorm->getX(), aWorm->getY());
+	} catch (GameException & e) {
+
+	}
+
 }
 
 bool GameActivity::isAlive(int wormId) {
