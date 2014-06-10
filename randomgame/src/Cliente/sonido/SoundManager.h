@@ -10,6 +10,13 @@ enum FX {eEXPLOSION1,
          eFIREPUNCHIMPACT,
          eOUCH,
          eBYEBYE,
+		 eEXPLOSION2,
+		 eEXPLOSION3,
+		 eAIRSTRIKE,
+		 eHOLYGRENADE,
+		 eKAMIKAZE,
+		 eCOMMUNICATOR,
+
          };
 
 class SoundManager
@@ -22,6 +29,14 @@ private:
 	Mix_Chunk* fxFIREPUNCHIMPACT;
 	Mix_Chunk* fxOUCH;
 	Mix_Chunk* fxBYEBYE;
+
+	Mix_Chunk* fxEXPLOSION2;
+	Mix_Chunk* fxEXPLOSION3;
+	Mix_Chunk* fxAIRSTRIKE;
+	Mix_Chunk* fxHOLYGRENADE;
+	Mix_Chunk* fxKAMIKAZE;
+	Mix_Chunk* fxCOMMUNICATOR;
+
 
 	Mix_Music* music;
 
@@ -48,6 +63,14 @@ public:
 	void pFIREPUNCHIMPACT();
 	void pOUCH();
 	void pBYEBYE();
+	
+	void pEXPLOSION2();
+	void pEXPLOSION3();
+	void pAIRSTRIKE();
+	void pHOLYGRENADE();
+	void pKAMIKAZE();
+	void pCOMMUNICATOR();
+
 
 
 };

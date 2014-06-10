@@ -17,6 +17,12 @@ void SoundManager::init(){
 	if (this->fxFIREPUNCHIMPACT == NULL) Log::i(SOUND,"Error al cargar %s",FIREPUNCHIMPACT);
 	if (this->fxOUCH == NULL) Log::i(SOUND,"Error al cargar %s",OUCH);
 	if (this->fxBYEBYE == NULL) Log::i(SOUND,"Error al cargar %s",BYEBYE);
+	if (this->fxEXPLOSION2 == NULL) Log::i(SOUND,"Error al cargar %s",EXPLOSION2);
+	if (this->fxEXPLOSION3 == NULL) Log::i(SOUND,"Error al cargar %s",EXPLOSION3);
+	if (this->fxAIRSTRIKE == NULL) Log::i(SOUND,"Error al cargar %s",AIRSTRIKE);
+	if (this->fxHOLYGRENADE == NULL) Log::i(SOUND,"Error al cargar %s",HOLYGRENADE);
+	if (this->fxKAMIKAZE == NULL) Log::i(SOUND,"Error al cargar %s",KAMIKAZE);
+	if (this->fxCOMMUNICATOR == NULL) Log::i(SOUND,"Error al cargar %s",COMMUNICATOR);
 }
 
 void SoundManager::playMusic(){
@@ -48,6 +54,13 @@ void SoundManager::close(){
 	Mix_FreeChunk(this->fxFIREPUNCHIMPACT);
 	Mix_FreeChunk(this->fxOUCH);
 	Mix_FreeChunk(this->fxBYEBYE);
+	Mix_FreeChunk(this->fxEXPLOSION2);
+	Mix_FreeChunk(this->fxEXPLOSION3);
+	Mix_FreeChunk(this->fxAIRSTRIKE);
+	Mix_FreeChunk(this->fxHOLYGRENADE);
+	Mix_FreeChunk(this->fxKAMIKAZE);
+	Mix_FreeChunk(this->fxCOMMUNICATOR);
+
 	Mix_Quit();
 }
 
@@ -60,6 +73,12 @@ void SoundManager::playFX(FX i){
 		case eFIREPUNCHIMPACT:fx=this->fxFIREPUNCHIMPACT;break;
 		case eOUCH:fx=this->fxOUCH;break;
 		case eBYEBYE:fx=this->fxBYEBYE;break;	
+		case eEXPLOSION2:fx=this->fxEXPLOSION2;break;
+		case eEXPLOSION3:fx=this->fxEXPLOSION3;break;
+		case eAIRSTRIKE:fx=this->fxAIRSTRIKE;break;
+		case eHOLYGRENADE:fx=this->fxHOLYGRENADE;break;
+		case eKAMIKAZE:fx=this->fxKAMIKAZE;break;
+		case eCOMMUNICATOR:fx=this->fxCOMMUNICATOR;break;
 	}
 	Mix_PlayChannel(-1,fx,0);
 
@@ -78,5 +97,25 @@ void SoundManager::pOUCH(){
 }
 
 void SoundManager::pBYEBYE(){
-	 this->playFX(eBYEBYE);;
+	 this->playFX(eBYEBYE);
+}
+
+void SoundManager::pEXPLOSION2(){
+	 this->playFX(eEXPLOSION2);
+}
+
+void SoundManager::pEXPLOSION3(){
+	 this->playFX(eEXPLOSION3);
+}
+void SoundManager::pAIRSTRIKE(){
+	 this->playFX(eAIRSTRIKE);
+}
+void SoundManager::pHOLYGRENADE(){
+	 this->playFX(eHOLYGRENADE);
+}
+void SoundManager::pKAMIKAZE(){
+	 this->playFX(eKAMIKAZE);
+}
+void SoundManager::pCOMMUNICATOR(){
+	 this->playFX(eCOMMUNICATOR);
 }
