@@ -51,22 +51,27 @@ void Missile2d::animate( float time ){
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
 	if ( static_cast<Missile*>(myWeapon)->hasDelayedExplosion() ){
-		printf("\nUpdating explode time");
 		static_cast<Missile*>(myWeapon)->updateExplode( time );
 	}
-	printf("\nSetting action");
+
 	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
 		myWeapon->setAction(EXPLOSION);
 	} else{
-		myWeapon->setAction(MISSIL_FLYING);
+
+		if ( myWeapon->myLastAction == CREATE_MISSIL ){
+			myWeapon->setAction(CREATE_MISSIL);
+			myWeapon->myLastAction = MISSIL_FLYING;
+		}else{
+			myWeapon->setAction(MISSIL_FLYING);
+		}
+
 	}
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
-	printf("\nUpdating his position");
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
-	printf("\nChanged, ending");
+
 
 }
 

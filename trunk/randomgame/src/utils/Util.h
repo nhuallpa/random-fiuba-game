@@ -52,6 +52,7 @@ typedef enum{
 	MOVELESS,
 	MOVELESS_RIGHT,
 	MOVELESS_LEFT,
+	CREATE_MISSIL,
 	YOUR_TURN,
 	TURN_OVER,
 	EXPLOSION				/* X e Y tienen el radio de la explosion en este caso */
