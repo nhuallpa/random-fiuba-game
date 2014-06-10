@@ -213,14 +213,11 @@ int Servidor::somethingChange(){
 	for ( ; it != copy.end() ; ++it){
 		if( it->second->changed ){
 			
-			//Chequeo si es un arma, y en ese caso el Worm ID es 0
-			if ( it->second->getType() == WEAPON ){
 				this->worldQ.play[i].wormid = it->second->getId();
-				printf("\nSending weapon: %d at position %f, %f action: %d",it->second->getWeaponId(),it->second->getPosition().first,
-					it->second->getPosition().second, it->second->getAction() );
-			}else{
-				this->worldQ.play[i].wormid = it->second->getId();
-			}
+				printf("\nSending weapon: %d at position %f, %f",it->second->getWeaponId(),it->second->getPosition().first,
+					it->second->getPosition().second );
+				printf("\nAction: %d",it->second->getAction() );
+
 
 			this->worldQ.play[i].x = it->second->getPosition().first;
 			this->worldQ.play[i].y = it->second->getPosition().second;

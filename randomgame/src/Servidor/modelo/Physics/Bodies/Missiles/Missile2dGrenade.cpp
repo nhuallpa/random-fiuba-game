@@ -43,9 +43,11 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 	this->explosion.radio=30;
 	//impulso inicial
 	this->body->ApplyLinearImpulse( b2Vec2 (5, 8 ),this->body->GetWorldCenter() );
+	modelElement->myLastAction = CREATE_MISSIL;
+	modelElement->setAlive(true);
 	printf("\nImpulsado");
 
-	modelElement->myLastAction = CREATE_MISSIL;
+	
 }
 
 Missile2dGrenade::~Missile2dGrenade(){}
