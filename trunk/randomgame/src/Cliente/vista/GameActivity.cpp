@@ -133,8 +133,11 @@ void GameActivity::doExplotion(float x, float y, float radio)
 {
 	Log::i(" Explotar terreno en %f y %f  y radio %f [UL]", x, y, radio);
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	int xView = x * ESCALA_UL2PX;
-	int yView = y * ESCALA_UL2PX;
+	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(x, y);
+
+	int xView = pointSDL.x;
+	int yView = pointSDL.y;
+
 	int rView = radio * ESCALA_UL2PX;
 	Log::i(" Explotar terreno en %d y %d  y radio %d [PX]", xView, yView, rView);
 	gameView->getDestroyEart(xView, yView, rView);

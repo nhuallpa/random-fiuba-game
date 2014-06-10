@@ -25,14 +25,9 @@ void ProjectileView::update(GameElement* domainElement)
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
-
-	// todo: quitar
-	//static int count = 0;
-	//if (count > 100 && !this->detonated)
-	//{
-	//	this->detonate();
-	//}
-	//count++;
+	if (domainElement->action == DO_SHOOT) {
+		this->detonate();
+	}
 }
 	
 void ProjectileView::update() 
@@ -44,8 +39,8 @@ void ProjectileView::update()
 void ProjectileView::draw(SDLScreen & screen)
 { 
 	bool detonateDone = (detonated && currentSprite->isLastFrame());
-	if (!detonateDone) 
-	{	
+	/*if (!detonateDone) 
+	{	*/
 		TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
 											this->getXCenter(), 
 											this->getYCenter(), 
@@ -56,7 +51,7 @@ void ProjectileView::draw(SDLScreen & screen)
 											screen.getRenderer(),
 											false, 
 											SDL_FLIP_NONE);
-	}
+	//}
 }
 
 
