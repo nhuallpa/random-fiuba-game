@@ -44,6 +44,8 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 	//impulso inicial
 	this->body->ApplyLinearImpulse( b2Vec2 (5, 8 ),this->body->GetWorldCenter() );
 	printf("\nImpulsado");
+
+	modelElement->myLastAction = CREATE_MISSIL;
 }
 
 Missile2dGrenade::~Missile2dGrenade(){}

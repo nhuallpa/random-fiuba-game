@@ -285,22 +285,18 @@ int Cliente::applyNetworkChanges(void *data){
 
 bool Cliente::updateModel(Playable p){
 
-	if ( p.action == MISSIL_FLYING ) {
-
+	if ( p.action == CREATE_MISSIL ) {
 		this->domainMx.lock();
-		if (!this->domain.existElement(p.wormid)) {
-			this->gameActivity->buildProjectile(p.wormid, p.x, p.y, p.weaponid);
-		} else {
-			Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid);
-			this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
-		}
+		this->gameActivity->buildProjectile(p.wormid, p.x, p.y, p.weaponid);
+		Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid);
 		this->domainMx.unlock();
+	
 	} else 	if ( p.action != EXPLOSION ){		
 		this->domainMx.lock();
 		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
 		this->domainMx.unlock();
+	
 	}else{
-
 		switch( p.weaponid ){
 		case GRENADE:
 			this->processExplosions( p.x, p.y, EXPLODE_RMEDIUM );
