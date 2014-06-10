@@ -37,8 +37,8 @@ typedef enum{
 	DEAD,
 	WITHOUT_WEAPON,			/* DEPRECATED */
 	WITH_WEAPON,			/* DEPRECATED */
-	WITH_WEAPON_LEFT,		/* Apuntando hacia la izquierda */
-	WITH_WEAPON_RIGHT,		/* Apuntando hacia la derecha */
+	WITH_WEAPON_LEFT,		/* Apuntando hacia la izquierda . Nestor: lo resuelvo con move and id weapon. A deprecar*/
+	WITH_WEAPON_RIGHT,		/* Apuntando hacia la derecha. Nestor: lo resuelvo con move and id weapon. A deprecar */
 	DO_SHOOT,				/* Disparo */
 	MISSIL_FLYING,
 	NOT_CONNECTED,

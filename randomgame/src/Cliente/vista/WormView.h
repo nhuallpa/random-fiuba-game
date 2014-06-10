@@ -67,6 +67,8 @@ public:
 	void selectWeapon(WeaponId idWapon);
 	void unselectWeapon() {this->weaponId = NO_WEAPON;}
 
+	WeaponId getWeaponId() {return this->weaponId;}
+
 	void OnMovement(MovementEvent e);
 
 	bool isSelected();

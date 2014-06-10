@@ -215,7 +215,7 @@ int Servidor::somethingChange(){
 			
 			//Chequeo si es un arma, y en ese caso el Worm ID es 0
 			if ( it->second->getType() == WEAPON ){
-				this->worldQ.play[i].wormid = 0;
+				this->worldQ.play[i].wormid = it->second->getId();
 				printf("\nSending weapon: %d at position %f, %f action: %s",it->second->getWeaponId(),it->second->getPosition().first,
 					it->second->getPosition().second, Util::actionString(it->second->getAction() ) );
 			}else{

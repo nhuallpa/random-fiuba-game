@@ -225,5 +225,11 @@ std::string Util::actionString(Movement action)
 	{
 		sValue.assign("MISSIL_FLYING");
 	}
+	else if (action == DO_SHOOT)
+	{
+		sValue.assign("DO_SHOOT");
+	} else {
+		sValue.assign("");
+	}
 	return sValue;
 }

@@ -61,6 +61,7 @@ public:
 		 this->playersPlaying[p] = std::make_pair(st,this->playersPlaying[p].second);
 	 }
 
+	 bool existElement(int id);
 };
 
 #endif

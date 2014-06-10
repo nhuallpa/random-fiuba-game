@@ -131,10 +131,12 @@ void GameActivity::selectWorm(WormView* aWorm)
 
 void GameActivity::doExplotion(float x, float y, float radio)
 {
+	Log::i(" Explotar terreno en %f y %f  y radio %f [UL]", x, y, radio);
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	int xView = x * ESCALA_UL2PX;
 	int yView = y * ESCALA_UL2PX;
 	int rView = radio * ESCALA_UL2PX;
+	Log::i(" Explotar terreno en %d y %d  y radio %d [PX]", xView, yView, rView);
 	gameView->getDestroyEart(xView, yView, rView);
 }
 
@@ -355,13 +357,15 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 void GameActivity::buildProjectile(int idElement, float x, float y, int type)
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
-
+	Log::i("GameActivity::buildProjectile >> Agregando GameElement id: %d,pos[ %f, %f ]", idElement, x, y);
 	GameElement aGameElem(idElement, this->playerId, WEAPON, x, y, 0, 0, 0, 0, false);
 	
 	this->builder->getDomain()->addElementToDomain(aGameElem);
 
 	// crear el domain element y la vista
+
 	ProjectileView* aProjectileView = this->builder->createBullet(&aGameElem);
+	Log::i("GameActivity::buildProjectile >> Agregando ProjectileView id: %d,pos[ %d, %d ]", aProjectileView->getId(), aProjectileView->getX(), aProjectileView->getY());
 	gameView->getProjectileContainer()->add(aProjectileView);
 }
 
@@ -436,6 +440,13 @@ void GameActivity::OnMovement(MovementEvent e)
 {
 	Playable p;
 	int wormIdSelected = this->getWormIdSelected();
+	WeaponId weaponSelected;
+	try {
+		GameView* gameView = static_cast<GameView*>(this->aView);
+		weaponSelected = gameView->findWormById(wormIdSelected)->getWeaponId();
+	} catch (GameElement & e) {
+		weaponSelected = NO_WEAPON;
+	}
 
 	if (wormIdSelected > 0 && 
 		this->isThisClientOwner(wormIdSelected) && 
@@ -458,6 +469,15 @@ void GameActivity::OnMovement(MovementEvent e)
 			{
 				p.action = 	JUMP;
 				Log::t("CLIENTE: Saltar");
+			}
+
+			if (weaponSelected == BAZOOKA && 
+				weaponSelected == GRENADE && 
+				weaponSelected == HMISSILE && 
+				weaponSelected == HOLY)
+			{
+				Log::i("CLIENTE: No salto porque tengo un arma con mira");
+				return;
 			}
 		}
 		else if (e.x == 1) // derecha
@@ -488,11 +508,12 @@ void GameActivity::OnAction(ActionEvent e){
 			break;
 		case SHOOT:
 			{
-				// Disparar si worm es selecionado y weapon selecionado
-				int factor = e.factor;
-				int xMira= e.xAim;
-				int yMira= e.yAim;
-				updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+				if (this->wormIdSelected>0 && this->idWeapon!=NO_WEAPON) {
+					int factor = e.factor;
+					int xMira= e.xAim;
+					int yMira= e.yAim;
+					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+				}
 			}
 			break;
 		default: ;

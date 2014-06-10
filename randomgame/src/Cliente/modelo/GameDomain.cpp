@@ -16,6 +16,16 @@ void GameDomain::updateElement(int id, float posX, float posY){
 	}
 }
 
+bool GameDomain::existElement(int id){
+	std::map<int,GameElement>::iterator it;
+
+	it = this->domainElements.find(id);
+	if ( it != this->domainElements.end() ){
+		return true;
+	}
+	return false;
+}
+
 void GameDomain::updateElement(int id, float posX, float posY, Movement action, int life, int weaponid){
 	std::map<int,GameElement>::iterator it;
 
