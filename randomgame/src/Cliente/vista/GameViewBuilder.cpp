@@ -289,13 +289,24 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 }
 
 
-ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement)
+ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int type)
 {
 	ProjectileView*  aProjectile = new ProjectileView(domainElement->getId());
 
 	try 
 	{
-		aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("clustlet"));
+		if (type == GRENADE) {
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_granada"));
+		} else if (type == BAZOOKA) { 
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_bazooka"));
+		} else if (type == HOLY) { 
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_holy"));
+		} else if (type == DYNAMITE) { 
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
+		} else {
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));
+		}
+		
 		aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 	} 
 	catch (std::exception & e) 

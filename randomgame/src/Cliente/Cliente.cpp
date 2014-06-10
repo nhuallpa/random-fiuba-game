@@ -289,11 +289,9 @@ bool Cliente::updateModel(Playable p){
 
 		this->domainMx.lock();
 		if (!this->domain.existElement(p.wormid)) {
-			this->gameActivity->buildProjectile(p.wormid, p.x, p.y, 0);
+			this->gameActivity->buildProjectile(p.wormid, p.x, p.y, p.weaponid);
 		} else {
-			/*Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f, %f ], action: %s, time: %d, tipo: %d", 
-														p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.life, p.weaponid );*/
-			Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f, %f ]", p.wormid, p.x, p.y);
+			Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid);
 			this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
 		}
 		this->domainMx.unlock();
@@ -364,8 +362,6 @@ int Cliente::netListener(void* data){
 	cli->getRemoteWorld();
 
 	cli->gameActivity->buildView();
-
-	cli->gameActivity->buildProjectile(300, 10, 30, 0);
 
 	cli->gameReady = true;
 

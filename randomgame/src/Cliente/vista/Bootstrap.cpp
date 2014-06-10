@@ -114,11 +114,29 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("radio", 60, 60, 10, true);
 			SpriteConfigurator::Instance().add("salto", 60, 60, 2, true);
 
+			// projectiles
+
+			TextureManager::Instance().load("res/images/weapon/clustlet.png", "bullet_default", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/airmisl.png", "bullet_airmisl", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/donkey.png", "bullet_donkey", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/dynamite.png", "bullet_dinamita", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/hgrenade.png", "bullet_holy", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/grenade.png", "bullet_granada", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/missile.png", "bullet_bazooka", this->getScreen().getRenderer());
+
+			SpriteConfigurator::Instance().add("bullet_default", 60, 60, 6, true);
+			SpriteConfigurator::Instance().add("bullet_airmisl", 60, 60, 32, true);
+			//SpriteConfigurator::Instance().add("donkey", 60, 60, 32, true);  no es sprites
+			SpriteConfigurator::Instance().add("bullet_dinamita", 60, 60, 129, true);
+			SpriteConfigurator::Instance().add("bullet_holy", 60, 60, 32, true);
+			SpriteConfigurator::Instance().add("bullet_granada", 60, 60, 32, true);
+			SpriteConfigurator::Instance().add("bullet_bazooka", 60, 60, 32, true);
 
 
-			TextureManager::Instance().load("res/images/clustlet.png", "clustlet", this->getScreen().getRenderer());
+
+
+			// explosiones
 			TextureManager::Instance().load("res/images/circle25.png", "circle25", this->getScreen().getRenderer());			
-			SpriteConfigurator::Instance().add("clustlet", 60, 60, 6, true);
 			SpriteConfigurator::Instance().add("circle25", 50, 50, 8, false);
 
 			
