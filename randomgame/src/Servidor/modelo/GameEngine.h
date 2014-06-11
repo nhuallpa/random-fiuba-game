@@ -24,16 +24,34 @@
 #include <utility>
 
 
+//simple ray cast callback to find the closest body the ray hit
+class RayCastClosestCallbackExplosion : public b2RayCastCallback
+{
+public:
+    b2Body* m_body;
+    b2Vec2 m_point;
+
+    RayCastClosestCallbackExplosion() { m_body = NULL; }
+
+    float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+    {
+        m_body = fixture->GetBody();
+        m_point = point;
+        return fraction;
+    }
+};
+
+
+
 
 class GameEngine {
 
 	private:
-		/*std::set<fixturePair> m_fixturePairs;*/
+
 		GameLevel* gameLevel;
 		float timeStep;      
 		int velocityIterations;   
 		int positionIterations;
-		//ThreadRcv* pRcvThread;
 		TerrainProcessor* aTerrainProcessor;
 
 		//map de las explosiones del mapa
@@ -58,9 +76,14 @@ class GameEngine {
 		void updateBodyPositions();
 		void deleteBody(int id);
 		int weaponUniquedId;
+
 		//Agarra los worms de un jugador y los pone como activos
 		//Para mi lo mejor es armar una clase GamePlayer que tenga la lista de wormsID que posee.
 		bool setWormsFromPlayerAsActive(std::string playerID);
+
+		 void doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower );
+		 float applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
+
 
 	public:
 

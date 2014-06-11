@@ -46,7 +46,7 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 	modelElement->setAlive(true);
 
 	/* Defino radio de explosion */
-	this->explosion.radio = EXPLODE_RMEDIUM;
+	this->explosion.radio = EXPLODE_RSMALL;
 	
 	printf("\nMisil Impulsado");
 }
