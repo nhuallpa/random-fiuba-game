@@ -81,7 +81,7 @@ class GameEngine {
 		//Para mi lo mejor es armar una clase GamePlayer que tenga la lista de wormsID que posee.
 		bool setWormsFromPlayerAsActive(std::string playerID);
 
-		 void doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower );
+		 void doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower, int maxDamage);
 		 float applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 
 
@@ -89,7 +89,7 @@ class GameEngine {
 
 		GameEngine();
 
-		void doExplosion(b2Vec2 removalPosition, int removalRadius);
+		void doExplosion(b2Vec2 removalPosition, int removalRadius, int weaponid);
 		poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
 
 		Timer myTimer;

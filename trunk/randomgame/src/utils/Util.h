@@ -26,8 +26,26 @@ enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORMS, UD_MISSIL };
 #define DAMAGE_GRENADE 25
 #define DAMAGE_DYNAMITE 40
 #define DAMAGE_HOLY 80
-#define DAMAGE_HOMING 40
+#define DAMAGE_HMISSILE 40
 #define DAMAGE_BAZOOKA 23
+#define DAMAGE_BURRO 33
+#define DAMAGE_SUICIDE 23
+
+
+#define BURRO_REPEAT 4
+
+typedef enum{
+	NO_WEAPON=0,
+	BAZOOKA=2,
+	GRENADE=4,
+	HOLY=12,
+	BURRO=7,
+	AIRATTACK=3,
+	DYNAMITE=5,
+	HMISSILE=15,
+	BANANA=16,
+	SUICIDE=17
+} WeaponId;
 
 
 typedef enum{
@@ -74,17 +92,6 @@ typedef enum{
 
 
 
-typedef enum{
-	NO_WEAPON=0,
-	BAZOOKA=2,
-	GRENADE=4,
-	HOLY=12,
-	BURRO=7,
-	AIRATTACK=3,
-	DYNAMITE=5,
-	HMISSILE = 15,
-	BANANA = 16
-} WeaponId;
 
 
 
