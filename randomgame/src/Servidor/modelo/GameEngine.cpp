@@ -10,7 +10,7 @@
 #define WATER_VELOCITY -2
 #define WEAPON_STARTING_ID 100
 #define BLAST_RADIUS 15
-#define BLAST_FORCE 400
+#define BLAST_FORCE 600
 
 class b2Collision;
 
@@ -320,8 +320,6 @@ void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blast
 
 
 bool GameEngine::step(){
-	
-
 
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(this->timeStep,8,3);
@@ -349,6 +347,9 @@ bool GameEngine::step(){
 				
 					Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
 					aBody->animate( this->myTimer.elapsed() );
+					
+					//printf("\nRemaining time: %d",static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getLife() );
+					
 					if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
 					
 
@@ -379,9 +380,6 @@ bool GameEngine::step(){
 
 	}
 
-	
-
-
 
 
 	/* Logica del agua */
@@ -398,9 +396,17 @@ bool GameEngine::step(){
 		
 		std::vector<b2Vec2> intersectionPoints;
 		if ( intersectionWithWater(fixtureB) ) {
-			/* Velocidad que toma al caer */
-			b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
-			it->second->GetBody()->SetLinearVelocity(vel);
+			/* Si es un misil lo elimino */
+			if ( it->second->GetUserData() == (void*)UD_MISSIL ){
+				it->second->GetBody()->SetActive(false);
+				this->myWorld->DestroyBody( it->second->GetBody() );
+
+			}else{
+			
+				/* Velocidad que toma al caer */
+				b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
+				it->second->GetBody()->SetLinearVelocity(vel);
+			}
 		}
 		++it;
 	}
