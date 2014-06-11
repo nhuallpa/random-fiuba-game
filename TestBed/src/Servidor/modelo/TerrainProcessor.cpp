@@ -466,38 +466,67 @@ void TerrainProcessor::process(b2World* m_world, char* path,float epsilon, int s
 			auxv = transformBmpToBox2D( auxR[i], height, width);
 			result[i+count].Set( auxv.x, (auxv.y) );
 			pol->outer().push_back(point(auxv.x,auxv.y));	
-			myPol->push_back(pol);
+			
 		}
-
+		myPol->push_back(pol);
 		count += i;
 		itComponente++;
 	
 	}
 
 
-	// AGREGAR CHAIN A BOX2D 
 
-	/*count--;*/
-	b2ChainShape shape;
-	//shape.CreateChain(result, count);
-    shape.CreateLoop(result,count);
+	for(list<polygon*>::iterator it = myPol->begin(); it != myPol->end(); it++){
+	b2BodyDef* definicionCuerpo = new b2BodyDef();
+	definicionCuerpo->type = b2_staticBody;
 
-	b2FixtureDef myFixtureDef;
-	b2BodyDef myBodyDef;
-	myBodyDef.type = b2_staticBody; //this will be a static body
-	myBodyDef.position.Set(0, 0); //in the middle
-	myFixtureDef.friction=0.999;
-			
-	myFixtureDef.userData = ( (void*)2 );
-	m_attachment = m_world->CreateBody(&myBodyDef);
+	b2Vec2* vs = new b2Vec2[(*it)->outer().size()];
+	int j= 0;
 
-	myFixtureDef.shape = &shape; //change the shape of the fixture
-	auto polygonFixture = m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the	
-	b2Filter filter;
-	filter.categoryBits = Shape::destructible;
-	polygonFixture->SetFilterData(filter);
-	myTerrain->push_back(m_attachment);
-	
+		for(vector<point>::iterator it2 = (*it)->outer().begin(); it2 != (*it)->outer().end(); it2++){
+			vs[j].Set((*it2).get<0>(),(*it2).get<1>());
+			j++;
+		}
+
+		b2ChainShape shape;
+		//shape.CreateChain(vs, j);
+		shape.CreateLoop(vs,j);
+		b2Body* tierra = m_world->CreateBody(definicionCuerpo);
+		b2FixtureDef myFixtureDef;
+		myFixtureDef.friction=0.999;
+		myFixtureDef.userData = ( (void*)2 );
+		myFixtureDef.shape = &shape;
+		
+		tierra->CreateFixture(&myFixtureDef);
+		myTerrain->push_back(tierra);
+	}
+
+
+
+
+	//// AGREGAR CHAIN A BOX2D 
+
+	///*count--;*/
+	//b2ChainShape shape;
+	////shape.CreateChain(result, count);
+ //   shape.CreateLoop(result,count);
+
+	//b2FixtureDef myFixtureDef;
+	//b2BodyDef myBodyDef;
+	//myBodyDef.type = b2_staticBody; //this will be a static body
+	//myBodyDef.position.Set(0, 0); //in the middle
+	//myFixtureDef.friction=0.999;
+	//		
+	//myFixtureDef.userData = ( (void*)2 );
+	//m_attachment = m_world->CreateBody(&myBodyDef);
+
+	//myFixtureDef.shape = &shape; //change the shape of the fixture
+	//auto polygonFixture = m_attachment->CreateFixture(&myFixtureDef); //add a fixture to the	
+	//b2Filter filter;
+	//filter.categoryBits = Shape::destructible;
+	//polygonFixture->SetFilterData(filter);
+	//myTerrain->push_back(m_attachment);
+	//
 	//polygon* pol = new polygon();			
 	//for ( int j=0; j < shape.m_count ; j++){
 	//	pol->outer().push_back(point(shape.m_vertices[j].x,shape.m_vertices[j].y));	
