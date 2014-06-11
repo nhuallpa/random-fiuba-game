@@ -62,6 +62,8 @@ public:
 	 }
 
 	 bool existElement(int id);
+
+	 void removeElement(int id);
 };
 
 #endif

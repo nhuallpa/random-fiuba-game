@@ -38,6 +38,8 @@ public:
 
 	void update();
 
+	bool isDetonateDone();
+
 	void draw(SDLScreen & screen);
 
 	int getXCenter();

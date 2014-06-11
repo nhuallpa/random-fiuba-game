@@ -84,7 +84,7 @@ bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRe
 	SDL_Surface* tmpSurface = IMG_Load(fileName.c_str());
 
 	SDL_Texture* newTexture = SDL_CreateTextureFromSurface(pRenderer, tmpSurface);
-	
+
 	if (keepSurface) {
 		surface_map[id] = tmpSurface;	
 	} else {
@@ -172,21 +172,22 @@ void TextureManager::draw(std::string id, int x, int y,
 {
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
-	
-	SDL_QueryTexture(this->texture_map[id], NULL, NULL,
-	&srcRect.w, &srcRect.h);
-
-	srcRect.x = 0;
-	srcRect.y = 0;
-	
-	destRect.w = srcRect.w;
-	destRect.h = srcRect.h;
-
-	destRect.x = x;
-	destRect.y = y;
-
 	try {
-		SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
+		SDL_Texture * aTexture = getTexture(id);
+
+		SDL_QueryTexture(aTexture, NULL, NULL,
+		&srcRect.w, &srcRect.h);
+
+		srcRect.x = 0;
+		srcRect.y = 0;
+	
+		destRect.w = srcRect.w;
+		destRect.h = srcRect.h;
+
+		destRect.x = x;
+		destRect.y = y;
+
+		SDL_RenderCopyEx(pRenderer, aTexture, &srcRect,&destRect, 0, 0, flip);
 	} catch (GameException & e) {
 		Log::e(e.what());
 	}
@@ -230,7 +231,8 @@ void TextureManager::drawScrollableBackground(std::string imageId, SDL_Renderer*
 	destRect.y = 0;
 
 	try {
-		SDL_RenderCopyEx(pRenderer, getTexture(imageId), &srcRect,&destRect, 0, 0, SDL_FLIP_NONE);
+		SDL_Texture * aTexture = getTexture(imageId);
+		SDL_RenderCopyEx(pRenderer, aTexture, &srcRect,&destRect, 0, 0, SDL_FLIP_NONE);
 	} catch (GameException & e) {
 		Log::e(e.what());
 	}
@@ -544,19 +546,18 @@ void TextureManager::fillCircleOn(std::string imageId, int x, int y, int radius,
 	try
 	{
 		SDL_Texture* texture = this->getTexture(imageId);
-		SDL_DestroyTexture(texture);
-		
 		SDL_Surface* surface = this->getSurface(imageId);
+
 		TextureManager::Instance().fillCircleOn(surface, x, y, radius, pixel);
 
-		SDL_Texture* newTexture = SDL_CreateTextureFromSurface(FontManager::Instance().getRenderer(), surface);
-		if (newTexture==NULL) {
-			Log::e("Error al crear texture %s", SDL_GetError());
+		if (SDL_UpdateTexture(texture,NULL,surface->pixels,surface->pitch) < 0){
+			Log::e("SDL_UpdateTexture Fail");
 		}
-		this->texture_map[imageId]=newTexture;
+
 
 	}
-	catch (GameException e) {
+	catch (GameException & e) {
 		Log::e(e.what());
+		this->texture_map[imageId]=NULL;
 	}
 }

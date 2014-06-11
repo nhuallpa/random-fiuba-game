@@ -114,3 +114,12 @@ Weapon* GameView::retrieveWeaponClicked(SDL_Point clickPoint){
 Weapon* GameView::findWeaponById(int idWeapon){
 	return this->menuWeapon->findWeaponById(idWeapon);
 }
+
+void GameView::freeProjectileView(int id) {
+	try {
+		ProjectileView* aView = this->projectileViewGroup->removeItem(id);
+		delete aView;
+	} catch (GameException & e){
+		Log::e("Estoy intentando elimiar un projectile en la vista que no exite");
+	}
+}

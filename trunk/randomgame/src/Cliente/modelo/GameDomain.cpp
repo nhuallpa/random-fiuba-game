@@ -26,6 +26,12 @@ bool GameDomain::existElement(int id){
 	return false;
 }
 
+void GameDomain::removeElement(int id) {
+	if (existElement(id)) {
+		this->domainElements.erase(id);
+	}
+}
+
 void GameDomain::updateElement(int id, float posX, float posY, Movement action, int life, int weaponid){
 	std::map<int,GameElement>::iterator it;
 

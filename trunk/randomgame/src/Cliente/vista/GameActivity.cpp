@@ -47,7 +47,6 @@ void GameActivity::update()
 	
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
-	
 	std::map<int,GameElement>::iterator it;
 	Log::t(VIEW,"Actualizando %d elemento", domainElements->size());
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
@@ -78,6 +77,10 @@ void GameActivity::update()
 			else if (domainElement.getType() == WEAPON)
 			{
 				ProjectileView * aProjectile = gameView->findProjectileById(domainElement.getId());
+				if (aProjectile->isDetonateDone()) 
+				{
+					this->futureFree.push_back(aProjectile->getId());
+				}
 				aProjectile->update(&domainElement);
 			}
 		}
@@ -85,6 +88,17 @@ void GameActivity::update()
 			Log::e(e.what());
 		}
 	}
+
+	std::vector<int>::iterator itProj;
+	for (itProj = this->futureFree.begin(); itProj != this->futureFree.end(); ++itProj)
+	{
+		int id = *itProj;
+		gameView->freeProjectileView(id);
+		this->builder->getDomain()->removeElement(id);
+		Log::i("Elimine projectile %d en la vista", id);
+	}
+	this->futureFree.clear();
+
 	this->aView->update();
 
 }

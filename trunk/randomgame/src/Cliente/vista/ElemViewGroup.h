@@ -47,6 +47,11 @@ public:
 	*/
 	void draw(SDLScreen & screen);
 
+	/**
+	* Just remove a item
+	*/
+	T removeItem(int id);
+
 	~ElemViewGroup(void);
 };
 
@@ -74,6 +79,23 @@ T ElemViewGroup<T>::findById(int idElement)
 	}
 }
 
+template <class T>
+T ElemViewGroup<T>::removeItem(int idElement)
+{
+	if (mapElem.find(idElement) != mapElem.end())
+	{
+		T aItem = mapElem[idElement];
+		mapElem.erase(idElement);
+		this->views.remove(aItem);
+		return aItem;
+	} 
+	else 
+	{
+		std::stringstream msg;
+		msg<<"WormView: not found ElemView by id: "<<idElement;
+		throw GameException(msg.str());
+	}
+}
 
 template <class T>
 void ElemViewGroup<T>::add(T aView)
