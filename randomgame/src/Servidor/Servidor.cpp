@@ -213,10 +213,10 @@ int Servidor::somethingChange(){
 	for ( ; it != copy.end() ; ++it){
 		if( it->second->changed ){
 			
-				this->worldQ.play[i].wormid = it->second->getId();
-				printf("\nSending weapon: %d at position %f, %f",it->second->getWeaponId(),it->second->getPosition().first,
-					it->second->getPosition().second );
-				printf("\nAction: %d",it->second->getAction() );
+				//this->worldQ.play[i].wormid = it->second->getId();
+				//printf("\nSending weapon: %d at position %f, %f",it->second->getWeaponId(),it->second->getPosition().first,
+				//	it->second->getPosition().second );
+				//printf("\nAction: %d",it->second->getAction() );
 
 
 			this->worldQ.play[i].x = it->second->getPosition().first;

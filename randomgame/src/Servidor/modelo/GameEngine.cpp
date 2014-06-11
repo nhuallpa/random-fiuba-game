@@ -298,14 +298,14 @@ bool GameEngine::step(){
 						printf("\nDo explosion at position %f,%f with radius %d",
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first + 1,
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second + 3,
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+							static_cast<Missile2d*>(iterator->second)->getExplosion().radio
 							);
 					
 						// Hago agujero en Box2d
 						this->doExplosion( b2Vec2( 
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first + 1,
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second + 3),
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+							static_cast<Missile2d*>(iterator->second)->getExplosion().radio
 							);
 
 						// Marco como inactivo para borrar en el proximo ciclo
@@ -444,191 +444,6 @@ bool GameEngine::intersectionWithWater(b2Fixture* fixture){
 
 /* Initial contacts review, may impact on model Element but we will inform ;) */
 void GameEngine::animateContacts(){
-	//
-	//std::map<int,int> deletedFixtures;
-	//for(b2Contact* contact = this->myWorld->GetContactList(); contact; contact = contact->GetNext()){
-	//	
-	//	b2Fixture* fixtureA = contact->GetFixtureA();
-	//	b2Fixture* fixtureB = contact->GetFixtureB();
-	//	
-	//	/* No matcheo contra el agua */
-	//	if ( fixtureA->IsSensor()  || fixtureB->IsSensor() )
-	//		continue;
-
-	//	/* If A is terrain and B a DYN element body*/
-	//	if ((fixtureA->GetBody()->GetType() == b2_staticBody &&
-	//		(static_cast<int*>(fixtureA->GetBody()->GetUserData()) == (void*)UD_WATER ) ) &&
-	//		( (fixtureB->GetBody()->GetType() == b2_dynamicBody ) && contact->GetFixtureB()->GetBody()->GetUserData() ) )	
-	//	{
-	//		void* modelElementB = contact->GetFixtureB()->GetBody()->GetUserData();
-	//		//if(contact->IsTouching())
-	//			Log::i("Solapa A (terreno) con elemento B dinamico: %d", 
-	//			static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId() );
-	//			if (!deletedFixtures.count(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId()) ){
-	//				deletedFixtures.insert(std::make_pair(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId(),0 ));
-	//				
-	//			}
-	//		continue;
-	//	}
-
-	//	/* If B is terrain and A a DYN element */
-	//	if ((fixtureB->GetBody()->GetType() == b2_staticBody &&
-	//		(static_cast<int*>(fixtureB->GetBody()->GetUserData()) == (void*)UD_WATER ) ) &&
-	//		( (fixtureA->GetBody()->GetType() == b2_dynamicBody ) && contact->GetFixtureA()->GetBody()->GetUserData() ) )
-	//	{
-	//		void* modelElementA = contact->GetFixtureA()->GetBody()->GetUserData();
-	//		//if(contact->IsTouching())
-	//			Log::i("Solapa B (terreno) con elemento A dinamico: %d",
-	//			static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId());
-	//			
-	//			
-	//			if (!deletedFixtures.count(static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId()) ){
-	//				deletedFixtures.insert(std::make_pair(static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId(),0 ));
-	//				
-	//			}
-	//		continue;
-	//	}
-
-	//	/* If B is terrain and A a STATIC element */
-	//	if ((fixtureB->GetBody()->GetType() == b2_staticBody &&
-	//		(static_cast<int*>(fixtureB->GetBody()->GetUserData()) == (void*)UD_WATER ) ) &&
-	//		( (fixtureA->GetBody()->GetType() == b2_staticBody ) && contact->GetFixtureA()->GetBody()->GetUserData() ) )
-	//	{
-	//		if ( static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId() > 0 ){
-	//			void* modelElementA = contact->GetFixtureA()->GetBody()->GetUserData();
-	//			//if(contact->IsTouching())
-	//				Log::i("Solapa B (terreno) con elemento A estatico: %d",
-	//				static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId());
-	//			if (!deletedFixtures.count(static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId()) ){
-	//				deletedFixtures.insert(std::make_pair(static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId(),0 ));
-	//				
-	//			}
-	//			continue;
-	//		}
-	//	}
-
-	//	/* If A is terrain and B a STATIC element */
-	//	if ((fixtureA->GetBody()->GetType() == b2_staticBody &&
-	//		(static_cast<int*>(fixtureA->GetBody()->GetUserData()) == (void*)UD_WATER ) ) &&
-	//		( (fixtureB->GetBody()->GetType() == b2_staticBody ) && contact->GetFixtureB()->GetBody()->GetUserData() ) )
-	//	{
-	//		if ( static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId() > 0 ){
-	//			void* modelElementB = contact->GetFixtureB()->GetBody()->GetUserData();
-	//			//if(contact->IsTouching())
-	//				Log::i("Solapa A (terreno) con elemento B estatico: %d",
-	//				static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId());
-
-	//				if (!deletedFixtures.count(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId()) ){
-	//					deletedFixtures.insert(std::make_pair(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId(),0 ));
-	//			}
-	//			continue;
-	//		}
-	//	}
-
-	//	/* If both are element bodies */
-	//	if ( ( ((fixtureA->GetBody()->GetType() == b2_dynamicBody ) || (fixtureA->GetBody()->GetType() == b2_staticBody )) &&
-	//			contact->GetFixtureA()->GetBody()->GetUserData() ) &&
-	//			( ((fixtureB->GetBody()->GetType() == b2_dynamicBody ) || (fixtureB->GetBody()->GetType() == b2_staticBody ))&& 
-	//			contact->GetFixtureB()->GetBody()->GetUserData() )
-	//		){
-	//			void* modelElementA = contact->GetFixtureA()->GetBody()->GetUserData();
-	//			void* modelElementB = contact->GetFixtureB()->GetBody()->GetUserData();
-	//			//if(contact->IsTouching())
-	//				Log::i("Solapa elemento A (%d)con elemento B (%d)",
-	//				static_cast<GameElement*>(contact->GetFixtureA()->GetBody()->GetUserData())->getId(),
-	//				static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId());
-
-	//			if (!deletedFixtures.count(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId()) ){
-	//				deletedFixtures.insert(std::make_pair(static_cast<GameElement*>(contact->GetFixtureB()->GetBody()->GetUserData())->getId(),0 ));
-	//	
-	//			}
-	//	}
-	//}
-
-	///* Now process all static bodies since they dont contact each other */
-	//Log::i("Proceso estaticos");
-
-
-	//b2Manifold* worldManifold = new b2Manifold();
-	//for (b2Body* b=this->myWorld->GetBodyList(); b; b = b->GetNext() ){
-
-	//	/*Chequeo uno contra todo el resto (estaticos), si hay resto */
-	//	b2Body* c;
-	//	if ( (c=b->GetNext()) && !b->GetMass() ){
-	//		b2Fixture* f1 = b->GetFixtureList();
-
-	//		for ( ; c ; c = c->GetNext()){
-	//			worldManifold->pointCount = 0;
-	//			/* If c is not static skip it */
-	//			if (c->GetMass())
-	//				continue;
-	//			/* If both are part of terrain skip them */
-	//			if ((static_cast<int*>(b->GetUserData()) == 0) &&
-	//				(static_cast<int*>(c->GetUserData()) == 0) )
-	//					continue;
-
-	//			if ( !c->GetMass()){
-	//				b2Fixture* f2 = c->GetFixtureList();
-	//				
-	//				/* poly vs poly */
-	//				if( f1->GetType() == b2Shape::e_polygon && f2->GetType() == b2Shape::e_polygon ){
-	//					b2CollidePolygons(	worldManifold,(b2PolygonShape*)f1->GetShape(),b->GetTransform(),
-	//										(b2PolygonShape*)f2->GetShape(),c->GetTransform() );
-	//				}
-
-	//				/* circle vs circle */
-	//				if( f1->GetType() == b2Shape::e_circle && f2->GetType() == b2Shape::e_circle){
-	//					b2CollideCircles(	worldManifold,(b2CircleShape*)f1->GetShape(),b->GetTransform(),
-	//										(b2CircleShape*)f2->GetShape(),c->GetTransform() );
-
-	//				}
-
-	//				/* poly vs circle */
-	//				if( (f1->GetType() == b2Shape::e_circle && f2->GetType() == b2Shape::e_polygon) ||
-	//					(f1->GetType() == b2Shape::e_polygon && f2->GetType() == b2Shape::e_circle)){
-	//						if ( f1->GetType() == b2Shape::e_circle )
-	//							b2CollidePolygonAndCircle(	worldManifold,(b2PolygonShape*)f2->GetShape(),c->GetTransform(),
-	//										(b2CircleShape*)f2->GetShape(),b->GetTransform() );
-	//						if ( f2->GetType() == b2Shape::e_circle )
-	//							b2CollidePolygonAndCircle(	worldManifold,(b2PolygonShape*)f1->GetShape(),b->GetTransform(),
-	//										(b2CircleShape*)f2->GetShape(),c->GetTransform() );
-
-	//				}
-
-
-	//				if (worldManifold->pointCount > 0 ){
-	//					/* Si B es el terreno */
-	//					if (static_cast<int*>(b->GetUserData()) == 0){
-	//						Log::t("Solapamiento de estaticos: %d", 
-	//								static_cast<GameElement*>(c->GetUserData())->getId());
-	//						deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(c->GetUserData())->getId()),0 ));
-	//					}
-
-	//					/* Si C es el terreno */
-	//					if (static_cast<int*>(c->GetUserData()) == 0){
-	//						Log::t("Solapamiento de estaticos: %d", 
-	//								static_cast<GameElement*>(b->GetUserData())->getId());
-	//						deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(b->GetUserData())->getId()),0 ));
-	//					}
-
-	//					/* Si ninguno de los dos es terreno quito el ultimo */
-	//					Log::t("Solapamiento de estaticos: %d", 
-	//							static_cast<GameElement*>(b->GetUserData())->getId());
-	//					deletedFixtures.insert(std::make_pair((static_cast<GameElement*>(b->GetUserData())->getId()),0 ));
-
-	//					worldManifold->pointCount = 0;
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-
-	//std::map<int,int>::iterator iterator = deletedFixtures.begin();
-	//for ( ; iterator != deletedFixtures.end(); iterator++) {
-	//	Log::i("Eliminando objeto de id: %d, por encontrarse superpuesto",
-	//			iterator->first);
-	//	this->deleteBody(iterator->first);
-	//}
 
 }
 
@@ -655,7 +470,6 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 	std::map<int,GameElement*> copy = this->gameLevel->getEntities();
 	GameElement* myWorm = copy[id];
 
-	//printf("\n looking for worm %d and located worm: %d", id, myWorm->getId() );
 	switch (action){
 		case MOVE_RIGHT:
 			static_cast<Worm*>(myWorm)->moveRight();
@@ -682,7 +496,6 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			static_cast<Worm*>(myWorm)->weaponedRight();
 			break;
 		case DO_SHOOT:
-			printf("\nGet a DO_SHOOT id %d, at %f, %f",id,x,y);
 			animateWeapon(weaponid, id, x, y, intensidad);
 			break;
 	}
@@ -712,20 +525,17 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 
 	GameElement* myWeapon;
 
-	int elementId = this->getWeaponUniqueId(); //QUE PASA CON EL ATAQUE AEREO QUE SON VARIOS??
+	int elementId = this->getWeaponUniqueId(); 
 
 	Missile* aMissile = MissileFactory::getInstance()->getMissile(weaponid,elementId);
 	aMissile->setPosition(pair<float,float>(xworm,yworm));
 	aMissile->setStartTime(this->myTimer.elapsed());
 
-
-	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + 0.4f, yworm + 0.4f, angle_x, angle_y, intensidad, this->myWorld, aMissile);
+	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + 0.3f, yworm + 0.3f, angle_x, angle_y, intensidad, this->myWorld, aMissile);
 	aMissile->setBody(aMissile2d);
 
 	this->gameLevel->addEntity(aMissile);
-	this->gameBodies->insert(std::make_pair<int,Body*>(elementId,aMissile2d));
-
-
+	this->gameBodies->insert(std::make_pair<int,Body*>(elementId, aMissile2d));
 	
 }
 
@@ -735,7 +545,7 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
 	poly_t* explosion = new poly_t();
 	float x0 = -500.0f ,y0 = -500.0f;
 	float x,y;
-	*explosion = this->makeConvexRing(removalPosition, removalRadius, 16);
+	*explosion = this->makeConvexRing(removalPosition, removalRadius*2, 16);
 			
 
 	list <poly_t*>* resultado = new list<poly_t*>();
