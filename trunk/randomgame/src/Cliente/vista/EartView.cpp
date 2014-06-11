@@ -42,7 +42,7 @@ void EartView::drawExplotion(int x, int y, int radius)
 	dimRectCircle.w=radius*2;
 	dimRectCircle.h=radius*2;
 	if (TextureManager::Instance().intersectRects(dimRectCircle, scenario)) {
-		TextureManager::Instance().fillCircleOn(this->imageId, x, y, radius, pixel);
+		TextureManager::Instance().fillCircleOn(this->imageId, x, y, radius*2, pixel);
 	}
 	
 }
