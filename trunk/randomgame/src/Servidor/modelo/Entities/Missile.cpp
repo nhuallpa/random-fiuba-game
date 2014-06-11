@@ -27,6 +27,9 @@ bool Missile::hasDelayedExplosion()
 	return this->withDelayedExplosion;
 }
 
+int Missile::remainingTime(float time){
+	return ( this->explodeTime - ( time - this->startTime) );
+}
 
 
 void Missile::updateExplode(float time){

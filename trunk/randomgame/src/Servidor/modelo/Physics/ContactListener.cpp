@@ -24,7 +24,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
 	//If My body (B) is touching the floor (A) (somewhere)
 	if ( fixtureB->GetBody()->GetType() == b2_dynamicBody && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
-		//printf("\nSetted has GROUNDED");
+
+		//Puedo comparar Y para ver si le sumo o no, basado en que si soy el de abajo no puedo saltar
+
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->addGrounded();
 		
 		contact->GetWorldManifold(&worldManifold);

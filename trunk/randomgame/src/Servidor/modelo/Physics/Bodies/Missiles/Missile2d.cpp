@@ -72,6 +72,9 @@ void Missile2d::animate( float time ){
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
 
+	//Actualizo tiempo restante
+	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
+
 
 }
 
