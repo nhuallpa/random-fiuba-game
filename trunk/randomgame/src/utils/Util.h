@@ -125,13 +125,25 @@ struct s_point{
 };
 typedef struct s_point tPoint;
 
+struct s_pointf{
+	float x;
+	float y;
+};
+typedef struct s_point tPointf;
+
+
+typedef struct{
+	tPoint pointView;
+	tPointf pointModel;
+} AimPosition;
+
 class Util
 {
 public:
 	Util(void);
 	~Util(void);
 
-	static std::map<int, std::pair<float,float> > aimValue;
+	static std::map<int, AimPosition> aim;
 
 	/**
 		Inicializo el vector
