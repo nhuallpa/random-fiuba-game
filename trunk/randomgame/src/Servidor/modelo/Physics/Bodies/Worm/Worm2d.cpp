@@ -51,7 +51,7 @@ Worm2d::Worm2d(ElementType type, float posX, float posY, float h,
     myFixtureDef.density = 1;
 	myFixtureDef.friction = 0.999;
 	myFixtureDef.restitution = 0;
-   
+	myFixtureDef.userData = (void*)UD_WORMS;
 
     //create dynamic body
     myBodyDef.position.Set(posX, posY);

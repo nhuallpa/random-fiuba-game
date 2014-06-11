@@ -14,13 +14,21 @@ typedef std::string Player;
 
 enum StateConn {CONNECTED, DISCONNECTED, RECONNECTED, WAITING_TURN};
 enum GameState {STARTED, WAITING_PLAYERS, OVER, WIN};
-enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORM, UD_MISSIL };
+enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORMS, UD_MISSIL };
 
 /* Explosion radius */
 #define EXPLODE_RSMALL 2.5
 #define EXPLODE_RMEDIUM 5
 #define EXPLODE_RLARGE 7.5
 #define EXPLODE_RGIANT 10
+
+/* Damage of Weapons */
+#define DAMAGE_GRENADE 25
+#define DAMAGE_DYNAMITE 40
+#define DAMAGE_HOLY 80
+#define DAMAGE_HOMING 40
+#define DAMAGE_BAZOOKA 23
+
 
 typedef enum{
 	NEW_PLAYER=0,

@@ -9,6 +9,8 @@
 #define UPDATE_STEPS 3
 #define WATER_VELOCITY -2
 #define WEAPON_STARTING_ID 100
+#define BLAST_RADIUS 15
+#define BLAST_FORCE 400
 
 class b2Collision;
 
@@ -263,6 +265,60 @@ float GameEngine::getTimeStep () {
 	return timeStep;
 }
 
+
+float GameEngine::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower) {
+	b2Vec2 blastDir = applyPoint - blastCenter;
+	float distance = blastDir.Normalize();
+	//ignore bodies exactly at the blast point - blast direction is undefined, but do maximum damage!
+	if ( distance == 0 )
+		return distance;
+	float invDistance = 1 / distance;
+	float impulseMag = blastPower * invDistance * invDistance ; //* invDistance;
+	body->ApplyLinearImpulse( impulseMag * blastDir, applyPoint );
+
+	return distance;
+
+}
+
+
+void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower ){
+	
+	int numRays = 32;
+	for (int i = 0; i < numRays; i++) {
+		float angle = (i / (float)numRays) * 360 * DEGTORAD;
+		b2Vec2 rayDir( sinf(angle), cosf(angle) );
+		b2Vec2 rayEnd = center + blastRadius * rayDir;
+  
+		// Uso un raycast callback para tener una referencia a los cuerpos que toco dentro del radio
+		RayCastClosestCallbackExplosion callback;
+		this->myWorld->RayCast(&callback, center, rayEnd);
+
+		if ( callback.m_body ) {
+			if ( callback.m_body->GetFixtureList()->GetUserData() == (void*)UD_WORMS ){
+				printf("\nI touch'd a WORM!!");
+				
+				//Impulsar
+				float distance = applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
+
+				//Calcular damage en base a distancia
+				
+
+				float factor = (float)(BLAST_RADIUS - distance)/ (float)BLAST_RADIUS;
+				
+				//Deberia multiplicar por el danio del arma
+				int damage = factor * 10;
+				printf("\nDoing damage of %d to worm %d cause it's at a distance of %f",damage,
+					static_cast<GameElement*>(callback.m_body->GetUserData())->getId(),distance);
+				//Damage
+				static_cast<GameElement*>(callback.m_body->GetUserData())->subLife(damage);
+			}
+        }
+	}
+
+}
+
+
+
 bool GameEngine::step(){
 	
 
@@ -295,21 +351,23 @@ bool GameEngine::step(){
 					aBody->animate( this->myTimer.elapsed() );
 					if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
 					
+
 						printf("\nDo explosion at position %f,%f with radius %d",
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first + 1,
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second + 3,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
 							static_cast<Missile2d*>(iterator->second)->getExplosion().radio
 							);
 					
 						// Hago agujero en Box2d
 						this->doExplosion( b2Vec2( 
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first + 1,
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second + 3),
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
 							static_cast<Missile2d*>(iterator->second)->getExplosion().radio
 							);
 
 						// Marco como inactivo para borrar en el proximo ciclo
 						static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
+
 						this->myTimer.reset();
 					}
 
@@ -543,8 +601,6 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
 
 	poly_t* explosion = new poly_t();
-	float x0 = -500.0f ,y0 = -500.0f;
-	float x,y;
 	*explosion = this->makeConvexRing(removalPosition, removalRadius*2, 16);
 			
 
@@ -552,11 +608,11 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
 	
 	for(list<poly_t*>::iterator it = this->gameLevel->myPol->begin(); it != this->gameLevel->myPol->end(); it++){
 			list <poly_t>* output = new list<poly_t>();
+			//resto los poligonos, guardo salida en output
 			boost::geometry::difference(*(*it), *explosion, *output);
-			for(list<poly_t>::iterator it2 = output->begin(); it2 != output->end(); it2++){
-					resultado->push_back(&(*it2));
+			for(list<poly_t>::iterator diffIt = output->begin(); diffIt != output->end(); diffIt++){
+					resultado->push_back(&(*diffIt));
 			}
-
 	}
 	this->gameLevel->myPol->clear();
 	this->gameLevel->myPol = resultado;
@@ -592,6 +648,8 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
 			this->gameLevel->myTerrain.push_back(tierra);
 	}
 
+	// Podria cambiar la onda expansiva de cada arma pero tendria que pasarle al do explosion el arma que genera la explosion.
+	this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE);
 
 
 

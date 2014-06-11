@@ -299,7 +299,7 @@ bool Cliente::updateModel(Playable p){
 	}else{
 		switch( p.weaponid ){
 		case GRENADE:
-			this->processExplosions( p.x, p.y, EXPLODE_RLARGE );
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		default:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
