@@ -146,8 +146,8 @@ void WormView::draw(SDLScreen & screen)
 	 
 	if (this->isSelected())
 	{
-		labelUsuario.draw(screen.getRenderer(),this->getXCenter(), this->getYCenter()-9);
-		labelNombre.draw(screen.getRenderer(),this->getXCenter(), this->getYCenter());
+		labelUsuario.draw(screen.getRenderer(),-TextureManager::Instance().getCamera().getX() + this->getXCenter(), -TextureManager::Instance().getCamera().getY() + this->getYCenter()-9);
+		labelNombre.draw(screen.getRenderer(),-TextureManager::Instance().getCamera().getX() + this->getXCenter(),-TextureManager::Instance().getCamera().getY() + this->getYCenter());
 	}
 	
 }
