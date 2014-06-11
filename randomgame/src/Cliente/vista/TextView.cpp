@@ -6,6 +6,7 @@ TextView::TextView()
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
+	this->font = Arial12;
 }
 
 TextView::~TextView()
@@ -13,6 +14,10 @@ TextView::~TextView()
 	free();
 }
 
+void TextView::setFont(Tfont font){
+	this->font = font;
+
+}
 
 bool TextView::setText( std::string textureText, SDL_Color textColor)
 {/*
@@ -39,8 +44,12 @@ bool TextView::setText( std::string textureText, SDL_Color textColor)
 
 		SDL_FreeSurface( textSurface );
 	}
-	*/
-	return mTexture != NULL;
+	
+	return mTexture != NULL;*/
+	
+	this->text = textureText;
+	this->textColor = textColor;
+	return true;
 }
 
 void TextView::free()
@@ -71,7 +80,7 @@ void TextView::setAlpha( Uint8 alpha )
 
 void TextView::draw(SDL_Renderer * gRenderer, int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
-
+	/*
 	x = x - TextureManager::Instance().getCamera().getX();
 	y = y - TextureManager::Instance().getCamera().getY();
 
@@ -83,7 +92,9 @@ void TextView::draw(SDL_Renderer * gRenderer, int x, int y, SDL_Rect* clip, doub
 		renderQuad.h = clip->h;
 	}
 
-	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
+	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );*/
+
+	TextManager::Instance().write(this->font,x, y,this->text,this->textColor);
 }
 
 int TextView::getWidth()

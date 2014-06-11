@@ -8,6 +8,7 @@
 #include <string.h>
 #include "TextureManager.h"
 #include "FontManager.h"
+#include "TextManager.h"
 
 
 class TextView
@@ -20,6 +21,7 @@ class TextView
 		~TextView();
 
 
+		void setFont(Tfont font);
 
 		bool setText( std::string textureText, SDL_Color textColor);
 
@@ -38,6 +40,10 @@ class TextView
 	private:
 		
 		SDL_Texture* mTexture;
+
+		Tfont font;
+		std::string text;
+		SDL_Color textColor;
 
 
 		int mWidth;

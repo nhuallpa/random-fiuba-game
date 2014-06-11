@@ -76,18 +76,10 @@ void StateBarView::draw(SDLScreen & screen){
 
 	}	
 	
-	int posX = TextureManager::Instance().getCamera().getX() + 
+	int posX = - TextureManager::Instance().getCamera().getX() + 
 					TextureManager::Instance().getCamera().getW()/2 - 
 						this->labelCenter.getWidth() / 2;
-	int posY = TextureManager::Instance().getCamera().getY() + 10;
+	int posY = - TextureManager::Instance().getCamera().getY() + 10;
 	this->labelCenter.draw(screen.getRenderer(), posX, posY);
 
-	// pichaba ... ver 
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	TextManager::Instance().write(Arial16,60, 50,"hola,anda un monton",this->color);
-	this->color.r=0;
-	this->color.b=0;
-	TextManager::Instance().write(Arial12,60, 70,"y hasta le puedo cambiar el color",this->color);
 }
