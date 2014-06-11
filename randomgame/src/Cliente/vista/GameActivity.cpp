@@ -39,7 +39,7 @@ void GameActivity::buildView()
 	aimView = new AimView();
 	gameView->add(aimView);
 	this->cController->addOnCoordListener(aimView);
-	this->cController->addOnMovementListener(aimView);
+	//this->cController->addOnMovementListener(aimView);
 }
 
 void GameActivity::update() 

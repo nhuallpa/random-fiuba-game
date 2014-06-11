@@ -84,7 +84,8 @@ void Bootstrap::loadEart()
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 	try 
 		{
-			TextureManager::Instance().load(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer(), true);
+			//TextureManager::Instance().load(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer(), true);
+			TextureManager::Instance().loadStream(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer());
 		} 
 		catch (GameException & e) 
 		{

@@ -141,13 +141,17 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 			else
 			{
 				//Lock texture for manipulation
-				SDL_LockTexture( newTexture, NULL, &mPixels, &mPitch );
+				//SDL_LockTexture( newTexture, NULL, &mPixels, &mPitch );
 
-				memcpy( mPixels, formattedSurface->pixels, mPitch * formattedSurface->h );
+				//memcpy( mPixels, formattedSurface->pixels, mPitch * formattedSurface->h );
 
-				//Unlock texture to update
-				SDL_UnlockTexture( newTexture );
-				mPixels = NULL;
+				////Unlock texture to update
+				//SDL_UnlockTexture( newTexture );
+				//mPixels = NULL;
+
+
+				SDL_UpdateTexture(newTexture,NULL, formattedSurface->pixels, formattedSurface->pitch);
+
 				surface_map[id] = formattedSurface;	
 			}
 		}

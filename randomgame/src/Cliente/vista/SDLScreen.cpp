@@ -19,10 +19,10 @@ void SDLScreen::init(const char* title, int xpos, int ypos, int width,
 	{
 		this->height = height;
 		this->width = width;
-		renderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_TARGETTEXTURE);
+		renderer = SDL_CreateRenderer(m_pWindow, -1, 0);
 			if(renderer != 0) // renderer init success
 		{
-			SDL_RenderSetLogicalSize( renderer, width, height );
+			//SDL_RenderSetLogicalSize( renderer, width, height );
 			SDL_SetRenderDrawColor(renderer,
 			0xFF,0xFF,0xFF,0xFF);
 
