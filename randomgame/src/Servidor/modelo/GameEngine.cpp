@@ -281,7 +281,7 @@ float GameEngine::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 app
 }
 
 
-void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower ){
+void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower, int maxDamage ){
 	
 	int numRays = 32;
 	for (int i = 0; i < numRays; i++) {
@@ -306,7 +306,7 @@ void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blast
 				float factor = (float)(BLAST_RADIUS - distance)/ (float)BLAST_RADIUS;
 				
 				//Deberia multiplicar por el danio del arma
-				int damage = factor * 10;
+				int damage = factor * maxDamage;
 				printf("\nDoing damage of %d to worm %d cause it's at a distance of %f",damage,
 					static_cast<GameElement*>(callback.m_body->GetUserData())->getId(),distance);
 				//Damage
@@ -363,7 +363,8 @@ bool GameEngine::step(){
 						this->doExplosion( b2Vec2( 
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
-							static_cast<Missile2d*>(iterator->second)->getExplosion().radio
+							static_cast<Missile2d*>(iterator->second)->getExplosion().radio,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
 							);
 
 						// Marco como inactivo para borrar en el proximo ciclo
@@ -399,7 +400,8 @@ bool GameEngine::step(){
 			/* Si es un misil lo elimino */
 			if ( it->second->GetUserData() == (void*)UD_MISSIL ){
 				it->second->GetBody()->SetActive(false);
-				this->myWorld->DestroyBody( it->second->GetBody() );
+				
+				this->deleteBody( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
 
 			}else{
 			
@@ -604,7 +606,7 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 }
 
 
-void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
+void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius, int weapon){
 
 	poly_t* explosion = new poly_t();
 	*explosion = this->makeConvexRing(removalPosition, removalRadius*2, 16);
@@ -655,9 +657,26 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius){
 	}
 
 	// Podria cambiar la onda expansiva de cada arma pero tendria que pasarle al do explosion el arma que genera la explosion.
-	this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE);
-
-
+	
+	switch ( weapon ){
+	
+	case GRENADE:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_GRENADE);
+	case BAZOOKA:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BAZOOKA);
+	case DYNAMITE:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_DYNAMITE);
+	case HOLY:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HOLY);
+	case HMISSILE:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HMISSILE);
+	case SUICIDE:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_SUICIDE);
+	case BURRO:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BURRO);
+	default:
+		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, 10);
+	}
 
 }
 
