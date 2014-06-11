@@ -5,6 +5,7 @@
 #include "Weapon.h"
 #include "..\..\utils\Util.h"
 #include "..\controlador\Contracts\OnCoordListener.h"
+#include "..\controlador\Contracts\OnMovementListener.h"
 #include "..\controlador\Entity\CoordEvent.h"
 #include "View.h"
 #include <SDL.h>
@@ -12,14 +13,20 @@
 
 using namespace std;
 
-class AimView : public View, public OnCoordListener{
+class AimView : 
+	public View, 
+	public OnCoordListener,
+	public OnMovementListener{
 public:
 	AimView();
 	~AimView();
-	void aimBuild(WormView* aWorm, Weapon* aWeapon);
-	void aimMouseBuild(WormView* aWorm, Weapon* aWeapon);
+	void aimBuild();
+	void setWorm(WormView* aWorm, Weapon* aWeapon);
+	void aimMouseBuild();
+	void aimArrowBuild();
 	void draw(SDLScreen & screen);
 	void OnCoordinate(CoordEvent e);
+	void OnMovement(MovementEvent e);
 	void unAim();
 	bool isShoot();
 
@@ -27,10 +34,15 @@ public:
 	pair<int, int> getData();
 
 private:
-	bool bDraw, bShoot;
-	int x, y;
+	std::map<int, AimPosition>::iterator it;
+	bool bDraw, bShoot,
+		 bArrow, bCoord;
+	int x, y, xx, yy,
+		xDraw, yDraw;
 	WormView* worm;
 	Weapon* weapon;
+	void getPositionUp(tPoint * point);
+	void getPositionUnder(tPoint * point);
 };
 
 #endif

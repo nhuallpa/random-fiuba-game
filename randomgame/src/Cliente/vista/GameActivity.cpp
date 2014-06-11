@@ -39,7 +39,7 @@ void GameActivity::buildView()
 	aimView = new AimView();
 	gameView->add(aimView);
 	this->cController->addOnCoordListener(aimView);
-	//this->cController->addOnMovementListener(aimView);
+	this->cController->addOnMovementListener(aimView);
 }
 
 void GameActivity::update() 
@@ -287,7 +287,8 @@ void GameActivity::OnClick(ClickEvent e){
 			updater.doSelectWapon(wormIdSelected, this->idWeapon);
 
 			//logica de la mira
-			aimView->aimBuild(aWorm, aWeapon);
+			aimView->setWorm(aWorm, aWeapon);
+			aimView->aimBuild();
 
 
 			if(aux == this->idWeapon ){
