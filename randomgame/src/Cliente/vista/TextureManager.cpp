@@ -121,7 +121,7 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 		Log::e( "Unable to load image %s! SDL_image Error: %s\n", fileName.c_str(), IMG_GetError() );
 	} else {
 
-		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat( tmpSurface, SDL_PIXELFORMAT_RGBA8888, NULL );
+		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat( tmpSurface, SDL_PIXELFORMAT_ARGB8888, NULL );
 		if( formattedSurface == NULL )
 		{
 			Log::e( "Unable to convert loaded surface to display format! %s\n", SDL_GetError() );
@@ -129,7 +129,7 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 		else
 		{
 			newTexture = SDL_CreateTexture(pRenderer, 
-													SDL_PIXELFORMAT_RGBA8888, 
+													SDL_PIXELFORMAT_ARGB8888, 
 													SDL_TEXTUREACCESS_STREAMING, 
 													formattedSurface->w, 
 													formattedSurface->h );
