@@ -148,7 +148,7 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 				////Unlock texture to update
 				//SDL_UnlockTexture( newTexture );
 				//mPixels = NULL;
-
+				SDL_SetTextureBlendMode(newTexture,SDL_BLENDMODE_BLEND);
 
 				SDL_UpdateTexture(newTexture,NULL, formattedSurface->pixels, formattedSurface->pitch);
 
