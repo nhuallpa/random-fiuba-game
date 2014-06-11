@@ -33,7 +33,9 @@
 #include <boost/math/constants/constants.hpp>
 #define PI 3.141592654f
 #define UD_MISSIL 15
-#define BLAST_RADIUS 25
+#define UD_WORMS 3
+#define BLAST_RADIUS 15
+#define BLAST_POWER 1000
 
 namespace bg = boost::geometry;
 
@@ -202,7 +204,8 @@ public:
 			if ( distance == 0 )
 				return;
 			float invDistance = 1 / distance;
-			float impulseMag = blastPower * invDistance*500 ; //* invDistance;
+			float impulseMag = blastPower * invDistance * invDistance ; //* invDistance;
+			printf("at distance: %f",distance);
 			body->ApplyLinearImpulse( impulseMag * blastDir, applyPoint );
 		}
 
@@ -210,49 +213,49 @@ public:
 
 	void display_raycast(bool showRayHits)
     {
-        glEnable(GL_BLEND);
-        glPointSize(8);
-        if ( !showRayHits ) {
-            //just to visually differentiate this from the raycast mode
-            glEnable(GL_LINE_STIPPLE);
-            glLineStipple( 1, 0xF0F0 );
-        }
-        if ( this->missil ) {
-            //draw all rays around grenade
-			b2Vec2 center = this->missil->GetPosition();
-            for (int i = 0; i < 32; i++) {
-                float angle = (i / (float)32) * 360 * DEGTORAD;
-                b2Vec2 rayDir( sinf(angle), cosf(angle) );
-                b2Vec2 rayEnd = center + BLAST_RADIUS * rayDir;
-                glColor4f(0.5f,0.5f,0.5f,0.5f);
-                glLineWidth(1);
-                glBegin(GL_LINES);
-                glVertex2fv( (GLfloat*)&rayEnd );
-                glVertex2fv( (GLfloat*)&center );
-                glEnd();
+   //     glEnable(GL_BLEND);
+   //     glPointSize(8);
+   //     if ( !showRayHits ) {
+   //         //just to visually differentiate this from the raycast mode
+   //         glEnable(GL_LINE_STIPPLE);
+   //         glLineStipple( 1, 0xF0F0 );
+   //     }
+   //     if ( this->missil ) {
+   //         //draw all rays around grenade
+			//b2Vec2 center = this->missil->GetPosition();
+   //         for (int i = 0; i < 32; i++) {
+   //             float angle = (i / (float)32) * 360 * DEGTORAD;
+   //             b2Vec2 rayDir( sinf(angle), cosf(angle) );
+   //             b2Vec2 rayEnd = center + BLAST_RADIUS * rayDir;
+   //             glColor4f(0.5f,0.5f,0.5f,0.5f);
+   //             glLineWidth(1);
+   //             glBegin(GL_LINES);
+   //             glVertex2fv( (GLfloat*)&rayEnd );
+   //             glVertex2fv( (GLfloat*)&center );
+   //             glEnd();
 
-                if ( showRayHits ) {
-                    //check what this ray hits
-                    RayCastClosestCallbackExplosion callback;
-                    m_world->RayCast(&callback, center, rayEnd);
-                    if ( callback.m_body ) {
-                        //draw line and dot to show which bodies will get blasted
-                        glColor4f(1,1,0,0.5);
-                        glLineWidth(2);
-                        glBegin(GL_LINES);
-                        glVertex2fv( (GLfloat*)&center );
-                        glVertex2fv( (GLfloat*)&callback.m_point );
-                        glEnd();
-                        glBegin(GL_POINTS);
-                        glVertex2fv( (GLfloat*)&callback.m_point );
-                        glEnd();
-                    }
-                }
-            }
-        }
-        glLineWidth(1);
-        glPointSize(1);
-        glDisable(GL_LINE_STIPPLE);
+   //             if ( showRayHits ) {
+   //                 //check what this ray hits
+   //                 RayCastClosestCallbackExplosion callback;
+   //                 m_world->RayCast(&callback, center, rayEnd);
+   //                 if ( callback.m_body ) {
+   //                     //draw line and dot to show which bodies will get blasted
+   //                     glColor4f(1,1,0,0.5);
+   //                     glLineWidth(2);
+   //                     glBegin(GL_LINES);
+   //                     glVertex2fv( (GLfloat*)&center );
+   //                     glVertex2fv( (GLfloat*)&callback.m_point );
+   //                     glEnd();
+   //                     glBegin(GL_POINTS);
+   //                     glVertex2fv( (GLfloat*)&callback.m_point );
+   //                     glEnd();
+   //                 }
+   //             }
+   //         }
+   //     }
+   //     glLineWidth(1);
+   //     glPointSize(1);
+   //     glDisable(GL_LINE_STIPPLE);
     }
 
 
@@ -260,7 +263,7 @@ public:
 
 		void doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower ){
 			int numRays = 32;
-			display_raycast(true);
+			//display_raycast(true);
 			for (int i = 0; i < numRays; i++) {
 				float angle = (i / (float)numRays) * 360 * DEGTORAD;
 				b2Vec2 rayDir( sinf(angle), cosf(angle) );
@@ -271,9 +274,11 @@ public:
 				m_world->RayCast(&callback, center, rayEnd);
 
 
-                if ( callback.m_body ) {
-					printf("\nI touch'd a body!!");
-                    applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
+				if ( callback.m_body ) {
+					if ( callback.m_body->GetUserData() == (void*)UD_WORMS ){
+						printf("\nI touch'd a WORM!!");
+						applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
+					}
                 }
 			}
 
@@ -329,7 +334,7 @@ public:
 				myTerrain.push_back(tierra);
 			}
 
-			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,40000);
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_POWER);
 
 
 		}
@@ -374,6 +379,7 @@ public:
 						myPol = new list<polygon*>();
                         ////Create Bodies (AKA Worms)
 
+						//#1ST worm
 						b2BodyDef myBodyDef;
 						myBodyDef.type = b2_dynamicBody;
 
@@ -386,26 +392,33 @@ public:
 						myFixtureDef.density = 1;
                         myFixtureDef.restitution = 0;
                         myFixtureDef.friction = 0.999;
-                        myFixtureDef.userData = (void*)3;
-
-						
-						
+                        myFixtureDef.userData = (void*)UD_WORMS;
 
                         myBodyDef.position.Set(26, 60);
                         bodies[0] = m_world->CreateBody(&myBodyDef);
-                        auto polygonFixture =  bodies[0]->CreateFixture(&myFixtureDef);
-						b2Filter filter;
-						filter.categoryBits = Shape::normal;
-						polygonFixture->SetFilterData(filter);
-
-
+                        bodies[0]->CreateFixture(&myFixtureDef);
                         circleShape.m_p.Set(0,1);
-                        
-                        auto polygonFixture2 = bodies[0]->CreateFixture(&myFixtureDef);
+                        bodies[0]->CreateFixture(&myFixtureDef);
                         bodies[0]->SetFixedRotation(true);
-						polygonFixture2->SetFilterData(filter);
+						bodies[0]->SetUserData((void*)UD_WORMS);
 
+						//OTRO WORM
+						myBodyDef.position.Set(40, 60);
+                        bodies[1] = m_world->CreateBody(&myBodyDef);
+                        bodies[1]->CreateFixture(&myFixtureDef);
+                        circleShape.m_p.Set(0,1);
+                        bodies[1]->CreateFixture(&myFixtureDef);
+                        bodies[1]->SetFixedRotation(true);
+						bodies[1]->SetUserData((void*)UD_WORMS);
 
+						//OTRO WORM
+						myBodyDef.position.Set(52, 60);
+                        bodies[2] = m_world->CreateBody(&myBodyDef);
+                        bodies[2]->CreateFixture(&myFixtureDef);
+                        circleShape.m_p.Set(0,1);
+                        bodies[2]->CreateFixture(&myFixtureDef);
+                        bodies[2]->SetFixedRotation(true);
+						bodies[2]->SetUserData((void*)UD_WORMS);
 
 
                         //Create terrain
