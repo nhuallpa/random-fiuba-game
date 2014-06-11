@@ -17,9 +17,9 @@ enum GameState {STARTED, WAITING_PLAYERS, OVER, WIN};
 enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORMS, UD_MISSIL };
 
 /* Explosion radius */
-#define EXPLODE_RSMALL 2.5
+#define EXPLODE_RSMALL 2
 #define EXPLODE_RMEDIUM 5
-#define EXPLODE_RLARGE 7.5
+#define EXPLODE_RLARGE 7
 #define EXPLODE_RGIANT 10
 
 /* Damage of Weapons */
