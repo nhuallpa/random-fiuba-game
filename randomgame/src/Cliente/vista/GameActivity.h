@@ -39,6 +39,8 @@ private:
 
 	AimView* aimView;
 
+	std::vector<int> futureFree;
+
 public:
 
 	int wormIdDesSelected;

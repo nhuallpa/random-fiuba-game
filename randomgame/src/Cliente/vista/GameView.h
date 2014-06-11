@@ -72,6 +72,8 @@ public:
 	bool hasClickedWeapon(SDL_Point clickPoint);
 	Weapon* retrieveWeaponClicked(SDL_Point clickPoint);
 	Weapon* findWeaponById(int idWeapon);
+
+	void freeProjectileView(int id);
 };
 
 
