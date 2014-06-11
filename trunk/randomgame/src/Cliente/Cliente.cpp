@@ -299,13 +299,14 @@ bool Cliente::updateModel(Playable p){
 	}else{
 		switch( p.weaponid ){
 		case GRENADE:
-			this->processExplosions( p.x, p.y, EXPLODE_RMEDIUM );
+			this->processExplosions( p.x, p.y, EXPLODE_RLARGE );
 			break;
 		default:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		}
 		
+		// lo actualiza para que llegue el EXPLOTE al misil con  id p.wormid tambien.
 		this->domainMx.lock();
 		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
 		this->domainMx.unlock();
