@@ -32,6 +32,7 @@ public:
 
 	//devuelvo <IdWorm, IdWeapon>
 	pair<int, int> getData();
+	int getAngle();
 
 private:
 	std::map<int, AimPosition>::iterator it;
@@ -43,6 +44,7 @@ private:
 	Weapon* weapon;
 	void getPositionUp(tPoint * point);
 	void getPositionUnder(tPoint * point);
+	void PositionAbs();
 };
 
 #endif

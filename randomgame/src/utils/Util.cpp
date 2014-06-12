@@ -19,101 +19,104 @@ void Util::iniAimValue(){
 	if(!aim.size()){
 		aux.pointModel.x = 1;
 		aux.pointModel.y = 0;
-		aux.pointView.x = 30;
-		aux.pointView.y = -30;
+		aux.pointView.x = 60 - 5;
+		aux.pointView.y = 0;
 		aim.insert(std::pair<int, AimPosition>( 0, aux));
-
+		
 		aux.pointModel.x = 0.866;
 		aux.pointModel.y = 0.5;
-		aux.pointView.x =  15;
-		aux.pointView.y = -45;
+		aux.pointView.x =  45 + 5;
+		aux.pointView.y = -15 - 5;
 		aim.insert(std::pair<int, AimPosition>( 30, aux));
-
+		
 		aux.pointModel.x = 0.707;
 		aux.pointModel.y = 0.707;
-		aux.pointView.x = 0;
-		aux.pointView.y = -60;
+		aux.pointView.x = 30 + 10;
+		aux.pointView.y = -30 - 10;
 		aim.insert(std::pair<int, AimPosition>( 45, aux));
-
+		
 		aux.pointModel.x = 0.5;
 		aux.pointModel.y = 0.866;
-		aux.pointView.x = -15;
-		aux.pointView.y = -75;
+		aux.pointView.x = 15 + 5;
+		aux.pointView.y = -45 - 5;
 		aim.insert(std::pair<int, AimPosition>( 60, aux));
-
+		
 		aux.pointModel.x = 0;
 		aux.pointModel.y = 1;
-		aux.pointView.x = -30;
-		aux.pointView.y = -90;
+		aux.pointView.x = 0;
+		aux.pointView.y = -60 + 5;
 		aim.insert(std::pair<int, AimPosition>( 90, aux));
 
-		aux.pointModel.x = -0.5;
-		aux.pointModel.y = 0.866;
-		aux.pointView.x = -45;
-		aux.pointView.y = -75;
-		aim.insert(std::pair<int, AimPosition>( 120, aux));
 
 		
+		aux.pointModel.x = -0.5;
+		aux.pointModel.y = 0.866;
+		aux.pointView.x = -15 - 5;
+		aux.pointView.y = -45 - 5;
+		aim.insert(std::pair<int, AimPosition>( 120, aux));
+		
+
 		aux.pointModel.x = -0.707;
 		aux.pointModel.y = 0.707;
-		aux.pointView.x = -60;
-		aux.pointView.y = -60;
+		aux.pointView.x = -30 - 10;
+		aux.pointView.y = -30 - 10;
 		aim.insert(std::pair<int, AimPosition>( 135, aux));
-
+		
 		aux.pointModel.x = -0.866;
 		aux.pointModel.y = 0.5;
-		aux.pointView.x = -75;
-		aux.pointView.y = -45;
+		aux.pointView.x = -45 - 5;
+		aux.pointView.y = -15 - 5;
 		aim.insert(std::pair<int, AimPosition>( 150, aux));
-
+		
 		aux.pointModel.x = -1;
 		aux.pointModel.y = 0;
-		aux.pointView.x = -90;
-		aux.pointView.y = -30;
+		aux.pointView.x = -60 + 5;
+		aux.pointView.y = 0;
 		aim.insert(std::pair<int, AimPosition>( 180, aux));
+		
 
 		aux.pointModel.x = -0.866;
 		aux.pointModel.y = -0.5;
-		aux.pointView.x = -75;
-		aux.pointView.y = -15;
+		aux.pointView.x = -45 - 5;
+		aux.pointView.y = 15 + 5;
 		aim.insert(std::pair<int, AimPosition>( 210, aux));
-
+		
 		aux.pointModel.x = -0.707;
 		aux.pointModel.y = -0.707;
-		aux.pointView.x = -60;
-		aux.pointView.y = 0;
+		aux.pointView.x = -30 - 10;
+		aux.pointView.y = 30 + 10;
 		aim.insert(std::pair<int, AimPosition>( 225, aux));
-
+		
 		aux.pointModel.x = -0.5;
 		aux.pointModel.y = -0.866;
-		aux.pointView.x = -45;
-		aux.pointView.y = 15;
+		aux.pointView.x = -15 - 5;
+		aux.pointView.y = 45 + 5;
 		aim.insert(std::pair<int, AimPosition>( 240, aux));
-
+		
 		aux.pointModel.x = 0;
 		aux.pointModel.y = -1;
-		aux.pointView.x = -30;
-		aux.pointView.y = 30;
+		aux.pointView.x = 0;
+		aux.pointView.y = 60 - 5;
 		aim.insert(std::pair<int, AimPosition>( 270, aux));
-
+		
 		aux.pointModel.x = 0.5;
 		aux.pointModel.y = -0.866;
-		aux.pointView.x = -15;
-		aux.pointView.y = 15;
+		aux.pointView.x = 15 + 5;
+		aux.pointView.y = 45 + 5;
 		aim.insert(std::pair<int, AimPosition>( 300, aux));
-
+		
 		aux.pointModel.x = 0.707;
 		aux.pointModel.y = -0.707;
-		aux.pointView.x = 0;
-		aux.pointView.y = 0;
+		aux.pointView.x = 30 + 10;
+		aux.pointView.y = 30 + 10;
 		aim.insert(std::pair<int, AimPosition>( 315, aux));
-
+		
 		aux.pointModel.x = 0.866;
 		aux.pointModel.y = -0.5;
-		aux.pointView.x = 15;
-		aux.pointView.y = -15;
+		aux.pointView.x = 45 + 5;
+		aux.pointView.y = 15 + 5;
 		aim.insert(std::pair<int, AimPosition>( 330, aux));
-
+		
 	}
 
 }
