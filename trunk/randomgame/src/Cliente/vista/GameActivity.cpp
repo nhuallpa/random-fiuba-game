@@ -465,6 +465,13 @@ void GameActivity::showMessageInfo(std::string msg)
 void GameActivity::OnMovement(MovementEvent e)
 {
 	Playable p;
+
+
+	//no lo dejo mover si va a disparar
+	if(aimView->isShoot()){
+		return;
+	}
+
 	int wormIdSelected = this->getWormIdSelected();
 	WeaponId weaponSelected;
 	try {
@@ -534,10 +541,19 @@ void GameActivity::OnAction(ActionEvent e){
 			break;
 		case SHOOT:
 			{
+
 				if (this->wormIdSelected>0 && this->idWeapon!=NO_WEAPON) {
 					int factor = e.factor;
 					int xMira= e.xAim;
 					int yMira= e.yAim;
+
+					if(aimView->isShoot()){
+						std::pair<int, int> data = this->aimView->getData();
+						int angle = this->aimView->getAngle();
+						xMira = yMira = angle;
+						aimView->unAim();
+						deselectPreviewsWeapon();
+					}
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 				}
 			}

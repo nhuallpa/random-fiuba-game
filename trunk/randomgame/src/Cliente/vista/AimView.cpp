@@ -32,17 +32,12 @@ void AimView::setWorm(WormView* aWorm, Weapon* aWeapon){
 	this->weapon = aWeapon;
 }
 void AimView::aimArrowBuild(){
-	this->x = this->worm->getX();
-	this->y = this->worm->getY();
-	//TODO: por defecto, seteo a la derecha
-	this->xDraw = this->x + 30; 
-	this->yDraw = this->y - 30;
-	
-
+	this->PositionAbs();
+	this->xDraw = this->x + it->second.pointView.x; 
+	this->yDraw = this->y + it->second.pointView.y;
 
 	bDraw = bArrow =  bShoot = true;
 	bCoord = false;
-	//bDraw = bShoot = true;
 }
 
 void AimView::aimMouseBuild(){
@@ -58,6 +53,8 @@ bool AimView::isShoot(){
 
 void AimView::unAim(){
 	bDraw = bShoot = false;
+	bArrow = false;
+	bCoord = false;
 	SDL_ShowCursor(1);
 }
 
@@ -81,8 +78,18 @@ void AimView::OnMovement(MovementEvent e){
 			this->xDraw = this->x + position.x;
 			this->yDraw = this->y + position.y;
 		}
+		else if((e.x == 1) || (e.x == -1)){
+
+		}
 
 	}
+}
+
+int AimView::getAngle(){
+	if(it != Util::aim.end()){
+		return it->first;
+	}
+	return -1;
 }
 
 pair<int, int> AimView::getData(){
@@ -92,32 +99,36 @@ pair<int, int> AimView::getData(){
 void AimView::getPositionUp(tPoint * point){
 	if(Util::aim.size()>0){
 		it++;
-		if(it != Util::aim.end()){
-			point->x = it->second.pointView.x;
-			point->y = it->second.pointView.y;
-		}
-		else{
+		if(it == Util::aim.end()){
 			it = Util::aim.begin();
-			point->x = it->second.pointView.x;
-			point->y = it->second.pointView.y;
 		}
+		point->x = it->second.pointView.x;
+		point->y = it->second.pointView.y;
 	}
 }
 
 void AimView::getPositionUnder(tPoint * point){
 	if(Util::aim.size()>0){
 		it--;
-		if(it != Util::aim.begin() && it != Util::aim.end()){
-			point->x = it->second.pointView.x;
-			point->y = it->second.pointView.y;
+		if(it == Util::aim.begin() || it == Util::aim.end()){
+			if(it == Util::aim.begin()){
+			}
+			else{
+				it = Util::aim.end();
+				it--;
+			}
 		}
-		else{
-			it = Util::aim.end();
-			it--;
-			point->x = it->second.pointView.x;
-			point->y = it->second.pointView.y;
-		}
+		point->x = it->second.pointView.x;
+		point->y = it->second.pointView.y;
 	}
+
+
+
+}
+
+void AimView::PositionAbs(){
+	this->x = this->worm->getXCenter();
+	this->y = this->worm->getYCenter();
 }
 
 
