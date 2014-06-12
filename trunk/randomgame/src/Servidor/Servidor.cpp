@@ -145,7 +145,6 @@ int Servidor::stepOver(void* data){
 	
 	bool doWeHaveAExplosion = false;
 	float explosionTime = 0;
-	//TODO @Ariel si no estan todos no arranca el juego (la simulacion fisica)
 
 	allIn->lock();
 	while ( srv->turnMgr.getRegisteredPlayers() != srv->cantJugadores ){
@@ -161,7 +160,7 @@ int Servidor::stepOver(void* data){
 
 	while(true){
 		
-		if ( timeHandler.elapsed() >= 25 || ( doWeHaveAExplosion && ( timeHandler.elapsed() - explosionTime ) >= 5 )  ){
+		if ( timeHandler.elapsed() >= TURN_DURATION || ( doWeHaveAExplosion && ( timeHandler.elapsed() - explosionTime ) >= 5 )  ){
 			printf("\n pasaron 60 seg o 5 seg despues de una explosion");
 			doWeHaveAExplosion = false;
 			explosionTime = 0;

@@ -129,7 +129,7 @@ struct s_pointf{
 	float x;
 	float y;
 };
-typedef struct s_point tPointf;
+typedef struct s_pointf tPointf;
 
 
 typedef struct{

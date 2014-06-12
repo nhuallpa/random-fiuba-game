@@ -8,7 +8,7 @@ Missile2dGrenade::Missile2dGrenade()
 Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;
-	this->center = b2Vec2( posX+(BULLET_RADIUS/2), posY+(BULLET_RADIUS/2) );
+	
 
 	/* Importantisimo! lo seteo como weapon!! */
 	this->type = type;
@@ -27,20 +27,39 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 	myFixtureDef.friction = 0.01;
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
-	myBodyDef.position.Set(posX, posY);
+	float angx = cosf(angle_x  * PI / 180.0);
+	float angy = sinf(angle_y  * PI / 180.0);
+
+	if ( angx < 0 ){
+		myBodyDef.position.Set(posX - 1.0f, posY);
+		this->setPosition(posX - 1.0f, posY,0);
+	}else if ( angx > 0){
+		myBodyDef.position.Set(posX + 1.0f, posY);
+		this->setPosition(posX + 1.0f, posY,0);
+	}else{
+		myBodyDef.position.Set(posX, posY + 1.0f);
+		this->setPosition(posX , posY + 1.0f,0);
+	}
+
+	//myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 
 	body->CreateFixture(&myFixtureDef);
 
 	printf("\nCreating weapon at: %f, %f",posX,posY);
-	body->SetTransform( body->GetPosition(), 0.0 );
+	//body->SetTransform( body->GetPosition(), 0.0 );
 	body->SetFixedRotation(false);
 
 	this->body = body;
 	this->body->SetUserData(modelElement);
 		
 	//impulso inicial
-	this->body->ApplyLinearImpulse( b2Vec2 (5, 8 ),this->body->GetWorldCenter() );
+
+	float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
+	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
+	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
+
+	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
 	
 	modelElement->myLastAction = CREATE_MISSIL;
 	modelElement->setAlive(true);

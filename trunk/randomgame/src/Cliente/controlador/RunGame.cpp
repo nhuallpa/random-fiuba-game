@@ -172,12 +172,12 @@ void RunGame::detectMovem(SDL_Event* e){
 
 int RunGame::getFactor(float time){
 	int result = 0;
-	float aux = time * 10;
-	int fac = (int) aux;
-	if(fac > 10)
-		result = 10;
-	else if(fac == 0)
-		result = 1;
+	
+	if ( time >= MAX_TIME_POWER)
+		return MAX_POWER;
+
+	result = (time / (float)MAX_TIME_POWER)*MAX_POWER;
+
 	return result;
 }
 

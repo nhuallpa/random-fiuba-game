@@ -110,6 +110,8 @@ public:
 	virtual Movement getAction(){ return this->action; }
 	virtual void setAction(Movement m){ this->action = m; }
 
+	void* myBody;
+
 protected:
 	int id;
 	
@@ -119,7 +121,7 @@ protected:
 	float height;
 	float width;
 	float mass;
-	void* myBody;
+	
 	// Center position!
 	std::pair<float,float> position;
 	std::list<std::pair<float,float>> vertexList;
