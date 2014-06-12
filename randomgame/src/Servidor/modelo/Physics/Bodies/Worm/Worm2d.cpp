@@ -66,6 +66,7 @@ Worm2d::Worm2d(ElementType type, float posX, float posY, float h,
 	body->SetFixedRotation(true);
 
 	this->body = body;
+	this->damaged = false;
 	this->body->SetUserData(modelElement);
 
 	b2Vec2 v = this->body->GetWorldPoint(b2Vec2( 0,0));
@@ -112,6 +113,12 @@ void Worm2d::animate(){
 
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWorm = static_cast<GameElement*>(this->body->GetUserData());
+
+	if ( !myWorm->isAlive() ){
+		myWorm->changed = true;
+		myWorm->action = DEAD;
+		return;
+	}
 
 	this->aWormActions->updateJumpTimeout();
 

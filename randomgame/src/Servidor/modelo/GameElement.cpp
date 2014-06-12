@@ -23,7 +23,13 @@ void GameElement::addLife(int moreLife)
 
 void GameElement::subLife(int lessLife)
 {
- this->life= this->life-lessLife;
+	if ( !this->damaged ){
+		this->life= this->life-lessLife;
+		if ( this->life <= 0 ){
+			this->setAlive(false);
+		}
+		this->damaged = true;
+	}
 }
 
 
