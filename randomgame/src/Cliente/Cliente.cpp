@@ -339,6 +339,8 @@ int Cliente::notifyLocalUpdates(void *data){
 
 		msg->play[0].wormid = cli->localChanges.back().wormid;
 		msg->play[0].weaponid = cli->localChanges.back().weaponid;
+		msg->play[0].x =  cli->localChanges.back().x;
+		msg->play[0].y =  cli->localChanges.back().y;
 		msg->play[0].life = cli->localChanges.back().life;
 		msg->play[0].action = cli->localChanges.back().action;
 		msg->playerID = cli->pl.c_str();

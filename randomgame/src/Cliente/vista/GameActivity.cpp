@@ -248,6 +248,7 @@ void GameActivity::OnClick(ClickEvent e){
 		int xMira= e.x;
 		int yMira= e.y;
 		std::pair<int, int> data = this->aimView->getData();
+		Log::i("\nShoot 1: x %d, y %d FACTOR 0",xMira,yMira);
 		updater.doShoot(data.first, data.second, xMira, yMira, 0);
 		aimView->unAim();
 		return; //proceso y me voy
@@ -553,6 +554,7 @@ void GameActivity::OnAction(ActionEvent e){
 						xMira = yMira = angle;
 						aimView->unAim();
 					}
+					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 					deselectPreviewsWeapon();
 				}

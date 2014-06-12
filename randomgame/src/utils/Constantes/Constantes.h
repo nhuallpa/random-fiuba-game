@@ -47,8 +47,15 @@
 #define COLOR_VERDE 0xFF01DF3A
 #define COLOR_AZUL 0xFF0040FF
 
+#define PI 3.14159265
 
 #define WORM_LIFE 100
+
+#define SHOOT_POWER 8
+#define MAX_TIME_POWER 3
+#define MAX_POWER 10
+
+#define TURN_DURATION 25
 
 
 /****************************************************************************************************/

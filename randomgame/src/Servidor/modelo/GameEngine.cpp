@@ -573,6 +573,7 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			static_cast<Worm*>(myWorm)->weaponedRight();
 			break;
 		case DO_SHOOT:
+			printf("\n animate weapon: x %f, y %f, intensidad: %d",x,y,intensidad);
 			animateWeapon(weaponid, id, x, y, intensidad);
 			break;
 	}
@@ -597,8 +598,8 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 
 
 	//Crea el arma en el modelo
-	float xworm = this->gameLevel->getEntityByID(wormid)->getPosition().first;
-	float yworm = this->gameLevel->getEntityByID(wormid)->getPosition().second;
+	float xworm = static_cast<Worm2d*>(this->gameLevel->getEntityByID(wormid)->myBody)->body->GetWorldCenter().x;
+	float yworm = static_cast<Worm2d*>(this->gameLevel->getEntityByID(wormid)->myBody)->body->GetWorldCenter().y;
 
 	GameElement* myWeapon;
 
@@ -608,7 +609,7 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	aMissile->setPosition(pair<float,float>(xworm,yworm));
 	aMissile->setStartTime(this->myTimer.elapsed());
 
-	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + 0.3f, yworm + 0.3f, angle_x, angle_y, intensidad, this->myWorld, aMissile);
+	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm, yworm, angle_x, angle_y, intensidad, this->myWorld, aMissile);
 	aMissile->setBody(aMissile2d);
 
 	this->gameLevel->addEntity(aMissile);
