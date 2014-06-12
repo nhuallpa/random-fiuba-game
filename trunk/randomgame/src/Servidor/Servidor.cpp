@@ -168,7 +168,10 @@ int Servidor::stepOver(void* data){
 			timeHandler.reset();
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
 			srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
-			//printf("\n TIME RESETED: Continuo!");
+
+			/* Actualizo la vida y notifico */
+			srv->processPlayersLife();
+
 		}
 
 		Sleep(15);
@@ -474,6 +477,21 @@ void Servidor::notifyReject(Socket& client) {
 }
 
 
+void Servidor::processPlayersLife(){
+
+	std::map<std::string, GamePlayer*> gpcopy = this->gameEngine.getLevel()->getPlayers();
+	std::map<std::string, GamePlayer*>::iterator itGP = gpcopy.begin(); 
+	
+	//Por cada player proceso su vida
+	for ( ; itGP != gpcopy.end(); ++itGP ){
+		itGP->second->updateLife();
+	}
+
+	// Notifico de la vida de cada player
+	//TODO
+
+
+}
 
 
 void Servidor::disconnect(Player playerId) {

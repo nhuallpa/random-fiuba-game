@@ -104,8 +104,8 @@ class GameLevel {
 
 		std::map<string, GamePlayer*> getPlayers(){ return this->players; }
 
-		void doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo);
-		poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
+		//void doExplosion(b2Vec2 removalPosition, int removalRadius, b2World* mundo);
+		//poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
 
 		bool stopWormsFromPlayer(std::string playerId);
 

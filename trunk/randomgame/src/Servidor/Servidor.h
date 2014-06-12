@@ -120,7 +120,7 @@ class Servidor{
 		Mutex playerslock;
 		Condition canAddNews;
 
-
+		void processPlayersLife();
 
 		void waitConnections();
 		void notifyAll();

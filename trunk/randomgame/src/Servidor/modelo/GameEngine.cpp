@@ -285,9 +285,7 @@ void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blast
 	
 	int numRays = 32;
 	std::vector<GameElement*> damagedBodies;
-
-
-	printf("\nProccessing onda expansiva!");
+	Log::t("Proceso onda expansiva");
 	for (int i = 0; i < numRays; i++) {
 		float angle = (i / (float)numRays) * 360 * DEGTORAD;
 		b2Vec2 rayDir( sinf(angle), cosf(angle) );
@@ -296,17 +294,14 @@ void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blast
 		// Uso un raycast callback para tener una referencia a los cuerpos que toco dentro del radio
 		RayCastClosestCallbackExplosion callback;
 		this->myWorld->RayCast(&callback, center, rayEnd);
-		
 
 		if ( callback.m_body ) {
 			
 			if ( callback.m_body->GetFixtureList()->GetUserData() == (void*)UD_WORMS ){
-				
-				printf("\nI touch'd a WORM!!");
-			/*	if ( !static_cast<Worm2d*>(callback.m_body->GetUserData())->damaged ){*/
+
+				if ( !static_cast<GameElement*>(callback.m_body->GetUserData())->damaged ){
 					static_cast<Worm2d*>(callback.m_body->GetUserData())->damaged = true;
 					damagedBodies.push_back( static_cast<GameElement*>(callback.m_body->GetUserData()) );
-					printf("\nI touch'd a WORM!!");
 
 					//Impulsar
 					float distance = applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
@@ -315,18 +310,13 @@ void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blast
 					float factor = (float)(BLAST_RADIUS - distance)/ (float)BLAST_RADIUS;
 				
 					int damage = factor * maxDamage;
-					printf("\nDoing damage of %d to worm %d cause it's at a distance of %f",damage,
+					Log::i("\nDoing damage of %d to worm %d cause it's at a distance of %f",damage,
 						static_cast<GameElement*>(callback.m_body->GetUserData())->getId(),distance);
 					//Damage
 					static_cast<GameElement*>(callback.m_body->GetUserData())->subLife(damage);
-			//	}
-				
+				}
 			}
-
-			
 		}
-		
-
 	}
 
 	for ( int i = 0; i < damagedBodies.size(); i++){
@@ -354,8 +344,6 @@ bool GameEngine::step(){
 			if ( !static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->isAlive() ){
 				//Viene muerto del ciclo anterior, lo elimino
 				this->deleteBody( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
-
-				//proceso vida del jugador
 
 			}else{
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
@@ -682,30 +670,30 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius, int weap
 	// Podria cambiar la onda expansiva de cada arma pero tendria que pasarle al do explosion el arma que genera la explosion.
 	
 	switch ( weapon ){
-	
-	case GRENADE:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_GRENADE);
-		break;
-	case BAZOOKA:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BAZOOKA);
-		break;
-	case DYNAMITE:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_DYNAMITE);
-		break;
-	case HOLY:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HOLY);
-		break;
-	case HMISSILE:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HMISSILE);
-		break;
-	case SUICIDE:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_SUICIDE);
-		break;
-	case BURRO:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BURRO);
-		break;
-	default:
-		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, 10);
+		case GRENADE:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_GRENADE);
+			break;
+		case BAZOOKA:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BAZOOKA);
+			break;
+		case DYNAMITE:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_DYNAMITE);
+			break;
+		case HOLY:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HOLY);
+			break;
+		case HMISSILE:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HMISSILE);
+			break;
+		case SUICIDE:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_SUICIDE);
+			break;
+		case BURRO:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BURRO);
+			break;
+		default:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, 10);
+			break;
 	}
 
 }
