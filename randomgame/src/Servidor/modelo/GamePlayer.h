@@ -18,9 +18,12 @@ public:
 	void initPlayer(int prefId, int amountWorms, int height, int width);
 	std::string playerID;
 	StateConn getStatus(){ return this->state; }
-	
+	bool hasAnyWormAlive() { return ( !this->worms.empty() ) ? true : false; }
+	void updateLife();
+	int getLife() { return this->life; }
 
 private:
+	int life;
 	std::vector<Worm*> worms;
 	StateConn state;
 	pair<int,int> transformBmpToBox2D(pair<int,int> vertex, int height, int width);

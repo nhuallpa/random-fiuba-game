@@ -76,7 +76,23 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
                                                  
         }
 
+		this->life = amountWorms * WORM_LIFE;
+
 }
+
+void GamePlayer::updateLife(){
+
+	this->life = 0;
+	for ( int i=0; i < this->worms.size(); i++ ){
+		this->life = this->life + this->worms[i]->getLife();
+	}
+	
+	printf("\n Life of player %s is %d",this->playerID.c_str(),this->getLife());
+
+
+}
+
+
 
 GamePlayer* GamePlayer::NewPlayerFactory(int prefId, int amountWorms){
         //deprecated
