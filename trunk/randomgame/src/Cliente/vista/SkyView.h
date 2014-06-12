@@ -4,11 +4,15 @@
 #define __SKYVIEW_H__
 #include "TextureManager.h"
 #include "View.h"
+#include "Sprite.h"
 class SkyView: public View
 {
 	std::string imageId;
 
 public:
+
+	std::map<std::string, Sprite> sprites;
+
 	SkyView(std::string imageId);
 									
 	void clean();

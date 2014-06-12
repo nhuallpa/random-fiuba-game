@@ -92,7 +92,7 @@ public:
 	**/
 	void drawFrame(std::string id, int x, int y, int width, int
 					height, int currentRow, int currentFrame, SDL_Renderer*
-					pRenderer,bool grey, SDL_RendererFlip flip = SDL_FLIP_NONE);
+					pRenderer,bool grey = false, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 
 	/**

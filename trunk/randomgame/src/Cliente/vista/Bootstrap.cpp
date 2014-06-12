@@ -147,6 +147,10 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("circle100", 200, 200, 4, false);
 
 			
+			// Nueves
+			TextureManager::Instance().load("res/images/cloudm.png", "nuve", this->getScreen().getRenderer());
+			SpriteConfigurator::Instance().add("nuve", 128, 128, 20, true);
+			
 
 		} catch (GameException & e) 
 		{

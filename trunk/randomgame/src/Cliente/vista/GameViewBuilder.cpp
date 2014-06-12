@@ -33,7 +33,15 @@ void GameViewBuilder::buildProjectileContainer()
 
 void GameViewBuilder::buildSky()
 {
-	gameView->setSky(new SkyView("sky"));
+	SkyView* skyView = new SkyView("sky");
+	try {
+		skyView->sprites["nuve"] = SpriteConfigurator::Instance().get("nuve");
+	} 
+	catch (GameException & e) 
+	{
+		Log::e(e.what());
+	}
+	gameView->setSky(skyView);
 }
 
 void GameViewBuilder::buildEart()
