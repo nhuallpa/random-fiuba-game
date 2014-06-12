@@ -552,9 +552,9 @@ void GameActivity::OnAction(ActionEvent e){
 						int angle = this->aimView->getAngle();
 						xMira = yMira = angle;
 						aimView->unAim();
-						deselectPreviewsWeapon();
 					}
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+					deselectPreviewsWeapon();
 				}
 			}
 			break;
