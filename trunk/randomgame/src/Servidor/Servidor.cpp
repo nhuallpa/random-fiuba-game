@@ -222,9 +222,9 @@ int Servidor::somethingChange(){
 			flag = true;
 			i++;
 		}
-		if ( !static_cast<Worm*>(it->second)->isAlive() ){
-			this->gameEngine.getLevel()->removeEntity(it->second->getId());
-		}
+		//if ( !static_cast<Worm*>(it->second)->isAlive() ){
+		//	this->gameEngine.getLevel()->removeEntity(it->second->getId());
+		//}
 	}
 	this->worldQ.elements = i; 
 	return i;

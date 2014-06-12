@@ -284,6 +284,10 @@ float GameEngine::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 app
 void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blastPower, int maxDamage ){
 	
 	int numRays = 32;
+	std::vector<GameElement*> damagedBodies;
+
+
+	printf("\nProccessing onda expansiva!");
 	for (int i = 0; i < numRays; i++) {
 		float angle = (i / (float)numRays) * 360 * DEGTORAD;
 		b2Vec2 rayDir( sinf(angle), cosf(angle) );
@@ -292,28 +296,43 @@ void GameEngine::doOndaExpansiva(b2Vec2 center, float blastRadius, float m_blast
 		// Uso un raycast callback para tener una referencia a los cuerpos que toco dentro del radio
 		RayCastClosestCallbackExplosion callback;
 		this->myWorld->RayCast(&callback, center, rayEnd);
+		
 
 		if ( callback.m_body ) {
+			
 			if ( callback.m_body->GetFixtureList()->GetUserData() == (void*)UD_WORMS ){
+				
 				printf("\nI touch'd a WORM!!");
-				
-				//Impulsar
-				float distance = applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
+			/*	if ( !static_cast<Worm2d*>(callback.m_body->GetUserData())->damaged ){*/
+					static_cast<Worm2d*>(callback.m_body->GetUserData())->damaged = true;
+					damagedBodies.push_back( static_cast<GameElement*>(callback.m_body->GetUserData()) );
+					printf("\nI touch'd a WORM!!");
 
-				//Calcular damage en base a distancia
-				
+					//Impulsar
+					float distance = applyBlastImpulse(callback.m_body, center, callback.m_point, m_blastPower);
 
-				float factor = (float)(BLAST_RADIUS - distance)/ (float)BLAST_RADIUS;
+					//Calcular damage en base a distancia
+					float factor = (float)(BLAST_RADIUS - distance)/ (float)BLAST_RADIUS;
 				
-				//Deberia multiplicar por el danio del arma
-				int damage = factor * maxDamage;
-				printf("\nDoing damage of %d to worm %d cause it's at a distance of %f",damage,
-					static_cast<GameElement*>(callback.m_body->GetUserData())->getId(),distance);
-				//Damage
-				static_cast<GameElement*>(callback.m_body->GetUserData())->subLife(damage);
+					int damage = factor * maxDamage;
+					printf("\nDoing damage of %d to worm %d cause it's at a distance of %f",damage,
+						static_cast<GameElement*>(callback.m_body->GetUserData())->getId(),distance);
+					//Damage
+					static_cast<GameElement*>(callback.m_body->GetUserData())->subLife(damage);
+			//	}
+				
 			}
-        }
+
+			
+		}
+		
+
 	}
+
+	for ( int i = 0; i < damagedBodies.size(); i++){
+		damagedBodies[i]->damaged = false;
+	}
+
 
 }
 
@@ -330,55 +349,59 @@ bool GameEngine::step(){
 		 iterator != this->gameBodies->end();
 		++iterator) {
 			
-			if ( iterator->second->type == WORM ){
+		if ( iterator->second->type == WORM ){
+			
+			if ( !static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->isAlive() ){
+				//Viene muerto del ciclo anterior, lo elimino
+				this->deleteBody( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
+
+				//proceso vida del jugador
+
+			}else{
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 				aBody->animate();
 			}
+		}
 
-			if ( iterator->second->type ==	WEAPON ) {
+		if ( iterator->second->type ==	WEAPON ) {
 				
+			if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
+				// Viene explotado del ciclo anterior, lo elimino
+				printf("\nAlready exploded, deleting");
+				this->deleteBody( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+					
+				return false;
+			}else{
+				
+				Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
+				aBody->animate( this->myTimer.elapsed() );
+					
+				//printf("\nRemaining time: %d",static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getLife() );
+					
 				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
-					// Viene explotado del ciclo anterior, lo elimino
-					printf("\nAlready exploded, deleting");
-					this->deleteBody( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
-					
-					return false;
-				}else{
-				
-					Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
-					aBody->animate( this->myTimer.elapsed() );
-					
-					//printf("\nRemaining time: %d",static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getLife() );
-					
-					if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
 					
 
-						printf("\nDo explosion at position %f,%f with radius %d",
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
-							static_cast<Missile2d*>(iterator->second)->getExplosion().radio
-							);
+					printf("\nDo explosion at position %f,%f with radius %d",
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+						static_cast<Missile2d*>(iterator->second)->getExplosion().radio
+						);
 					
-						// Hago agujero en Box2d
-						this->doExplosion( b2Vec2( 
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
-							static_cast<Missile2d*>(iterator->second)->getExplosion().radio,
-							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
-							);
+					// Hago agujero en Box2d
+					this->doExplosion( b2Vec2( 
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
+						static_cast<Missile2d*>(iterator->second)->getExplosion().radio,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+						);
 
-						// Marco como inactivo para borrar en el proximo ciclo
-						static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
+					// Marco como inactivo para borrar en el proximo ciclo
+					static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
 
-						this->myTimer.reset();
-					}
-
+					this->myTimer.reset();
 				}
-
-
-
 			}
-
+		}
 	}
 
 
@@ -662,18 +685,25 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius, int weap
 	
 	case GRENADE:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_GRENADE);
+		break;
 	case BAZOOKA:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BAZOOKA);
+		break;
 	case DYNAMITE:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_DYNAMITE);
+		break;
 	case HOLY:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HOLY);
+		break;
 	case HMISSILE:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_HMISSILE);
+		break;
 	case SUICIDE:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_SUICIDE);
+		break;
 	case BURRO:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BURRO);
+		break;
 	default:
 		this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, 10);
 	}

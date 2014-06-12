@@ -37,6 +37,8 @@ public:
 
 	virtual void setPosition(float x, float y,float rot){};
 	float getMass();
+	bool damaged;
+
 	float width;
 	float height;
 	ElementType type;
