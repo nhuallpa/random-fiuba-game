@@ -1,24 +1,24 @@
-#include "Coord.h"
+#include "Change.h"
 #include <algorithm>
 #include "..\..\..\utils\Log.h"
 
-Coord* Coord::coord = NULL;
+Change* Change::change = NULL;
 
-Coord::Coord(void){
+Change::Change(void){
 	x  = 0, y  = 0,
 	xp = 0, yp = 0;
 }
 
-Coord::~Coord(void){}
+Change::~Change(void){}
 
-Coord* Coord::getInstance(){
-	if(!coord){
-		coord = new Coord();
+Change* Change::getInstance(){
+	if(!change){
+		change = new Change();
 	}
-	return coord;
+	return change;
 }
 
-bool Coord::newEvent(){
+bool Change::newEvent(){
 	bool result = true;
 	if((x == xp) && (y == yp)){
 		result = false;
@@ -30,13 +30,13 @@ bool Coord::newEvent(){
 }
 
 
-void Coord::add(OnChangeListener * obj){
+void Change::add(OnChangeListener * obj){
 	if(!isRegistered(obj)){
 		objects.push_back(obj);
 	}
 }
 
-void Coord::remuve(OnChangeListener * obj){
+void Change::remuve(OnChangeListener * obj){
 	list<OnChangeListener*>::iterator it;
 	list<OnChangeListener*>::iterator itDrop;
 	it = objects.begin();
@@ -52,7 +52,7 @@ void Coord::remuve(OnChangeListener * obj){
 	}
 }
 
-void Coord::notify(){
+void Change::notify(){
 	list<OnChangeListener*>::iterator it;
 	ChangeEvent co;
 	co.x = x, co.y = y;
@@ -63,12 +63,12 @@ void Coord::notify(){
 }
 
 
-void Coord::setEvent(int x, int y){
+void Change::setEvent(int x, int y){
 	this->x = x, this->y = y;
 }
 
 
-bool Coord::isRegistered(OnChangeListener * obj){
+bool Change::isRegistered(OnChangeListener * obj){
 	return (find(objects.begin(),
 			objects.end(), 
 			obj) != objects.end());

@@ -8,7 +8,7 @@
 #include "Entity/Click.h"
 #include "Entity/Zoom.h"
 #include "Entity/Move.h"
-#include "Entity/Coord.h"
+#include "Entity/Change.h"
 #include "Entity\Action.h"
 #include "Contracts/Notifiable.h"
 #include "Entity/CollectionEvent.h"
