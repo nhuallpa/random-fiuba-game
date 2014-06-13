@@ -18,6 +18,7 @@ Worm::Worm(int id, std::string playerID, ElementType type, float posX, float pos
 	this->life = MAX_WORM_LIFE;
 	this->weaponId = NO_WEAPON;
 	this->damaged = false;
+	this->drowned = false;
 }
 
 
