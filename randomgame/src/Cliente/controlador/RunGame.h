@@ -38,6 +38,7 @@ class RunGame{
 		const Uint8* m_keys;
 		void handleEvents(SDL_Event* e);
 		bool isValidKey(SDL_Event* e);
+		bool isKeyPress(SDL_Event* e, SDL_Scancode sc);
 		void execute(SDL_Event* e, const Uint8* keys);
 		static RunGame* runGame;
 		void updateMouse();
@@ -53,6 +54,7 @@ class RunGame{
 		void detectClickRight();
 		void detectCoord();
 		void detectMovem(SDL_Event* e);
+		void detectMovementAim(SDL_Event* e);
 		void detectMovem(Move* mv, int value, SDL_Event* e);
 		int getFactor(float time);
 		int WIDTH, HIGHT;

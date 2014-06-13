@@ -2,9 +2,9 @@
 #include "TextureManager.h"
 
 AimView::AimView():View(30,30){
-	bDraw = bShoot = bArrow = bCoord = false;
-	it = Util::aim.begin();
-	yy = 0;
+	bShootMouse = 
+	bShootEnter = false;
+	xRelative = 90, yRelative = 0;
 }
 
 AimView::~AimView(){}
@@ -14,13 +14,13 @@ void AimView::aimBuild(){
 	switch(this->weapon->getId()){
 		case BURRO:
 		case AIRATTACK:
-			aimMouseBuild();
+			aimBuildMouse();
 			break;
 		case BAZOOKA:
 		case GRENADE:
 		case HOLY:
 		case HMISSILE:
-			aimArrowBuild();
+			aimBuildEnter();
 			break;
 		default:;
 	}
@@ -31,52 +31,53 @@ void AimView::setWorm(WormView* aWorm, Weapon* aWeapon){
 	this->worm = aWorm;
 	this->weapon = aWeapon;
 }
-void AimView::aimArrowBuild(){
+void AimView::aimBuildEnter(){
 	this->PositionAbs();
-	this->xDraw = this->x + it->second.pointView.x; 
-	this->yDraw = this->y + it->second.pointView.y;
+	this->xDraw = this->x + this->xRelative; 
+	this->yDraw = this->y + this->yRelative;
 
-	bDraw = bArrow =  bShoot = true;
-	bCoord = false;
+	bShootEnter = true;
+	bShootMouse = false;
 }
 
-void AimView::aimMouseBuild(){
-	bDraw = bCoord = bShoot = true;
-	bArrow = false;
+void AimView::aimBuildMouse(){
+	bShootMouse = true;
+	bShootEnter = false;
 	SDL_ShowCursor(0);
-
 }
 
-bool AimView::isShoot(){
-	return bShoot;
+bool AimView::isShootMouse(){
+	return bShootMouse;
+}
+
+bool AimView::isShootEnter(){
+	return bShootEnter;
 }
 
 void AimView::unAim(){
-	bDraw = bShoot = false;
-	bArrow = false;
-	bCoord = false;
+	bShootMouse = 
+	bShootEnter = false;
 	SDL_ShowCursor(1);
 }
 
 void AimView::OnCoordinate(CoordEvent e){
-	if(bCoord){
+	if(bShootMouse){
 		this->xDraw = e.x - 30;
 		this->yDraw = e.y - 30;
 	}
 }
 
 void AimView::OnMovement(MovementEvent e){
-	tPoint position;
-	if(bArrow){
-		if(e.y == -1){
-			getPositionUp(&position);
-			this->xDraw = this->x + position.x;
-			this->yDraw = this->y + position.y;
+	if(bShootEnter){
+		if(e.me == M_ANTICLOCK){
+			PositionUp();
+			this->xDraw = this->x + this->xRelative;
+			this->yDraw = this->y + this->yRelative;
 		}
-		else if(e.y == 1){
-			getPositionUnder(&position);
-			this->xDraw = this->x + position.x;
-			this->yDraw = this->y + position.y;
+		else if(e.me == M_SHEDULE){
+			PositionUnder();
+			this->xDraw = this->x + this->xRelative;
+			this->yDraw = this->y + this->yRelative;
 		}
 		else if((e.x == 1) || (e.x == -1)){
 
@@ -86,9 +87,6 @@ void AimView::OnMovement(MovementEvent e){
 }
 
 int AimView::getAngle(){
-	if(it != Util::aim.end()){
-		return it->first;
-	}
 	return -1;
 }
 
@@ -96,34 +94,34 @@ pair<int, int> AimView::getData(){
 	return pair<int, int>(this->worm->getId(), this->weapon->getId());
 }
 
-void AimView::getPositionUp(tPoint * point){
-	if(Util::aim.size()>0){
-		it++;
-		if(it == Util::aim.end()){
-			it = Util::aim.begin();
-		}
-		point->x = it->second.pointView.x;
-		point->y = it->second.pointView.y;
+void AimView::PositionUp(){
+	if(this->firstCoord()){
+		xRelative--, yRelative--;
+	}
+	else if(this->secondCoord()){
+		xRelative--, yRelative++;
+	}
+	else if(this->thirdCoord()){
+		xRelative++, yRelative++;
+	}
+	else if(this->fourthCoord()){
+		xRelative++, yRelative--;
 	}
 }
 
-void AimView::getPositionUnder(tPoint * point){
-	if(Util::aim.size()>0){
-		it--;
-		if(it == Util::aim.begin() || it == Util::aim.end()){
-			if(it == Util::aim.begin()){
-			}
-			else{
-				it = Util::aim.end();
-				it--;
-			}
-		}
-		point->x = it->second.pointView.x;
-		point->y = it->second.pointView.y;
+void AimView::PositionUnder(){
+	if(this->firstCoord()){
+		xRelative++, yRelative++;
 	}
-
-
-
+	else if(this->secondCoord()){
+		xRelative++, yRelative--;
+	}
+	else if(this->thirdCoord()){
+		xRelative--, yRelative--;
+	}
+	else if(this->fourthCoord()){
+		xRelative--, yRelative++;
+	}
 }
 
 void AimView::PositionAbs(){
@@ -134,16 +132,36 @@ void AimView::PositionAbs(){
 
 
 void AimView::draw(SDLScreen & screen){
-	if(bDraw && bCoord){
+	if(bShootMouse){
 		TextureManager::Instance().drawFrameOnScreen(
 						"aim", this->xDraw, this->yDraw, 60, 57, 
 						0, 0, screen.getRenderer(),
 						false, SDL_FLIP_NONE);
 		}
-	else if(bDraw && bArrow){
+	else if(bShootEnter){
 		TextureManager::Instance().drawFrame(
 						"aim", this->xDraw, this->yDraw, 60, 57, 
 						0, 0, screen.getRenderer(),
 						false, SDL_FLIP_NONE);
 	}
+}
+
+
+
+
+
+
+
+
+bool AimView::firstCoord() {
+	return ((xRelative>0)&& (yRelative<=0));
+}
+bool AimView::secondCoord(){
+	return ((xRelative<=0)&& (yRelative<0));
+}
+bool AimView::thirdCoord() {
+	return ((xRelative<0)&& (yRelative>=0));
+}
+bool AimView::fourthCoord(){
+	return ((xRelative>=0)&& (yRelative>0));
 }

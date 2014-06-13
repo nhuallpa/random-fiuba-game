@@ -70,6 +70,7 @@ void RunGame::execute(SDL_Event* e, const Uint8* keys){
 	this->detectWheel(e);
 	this->detectClick();
 	this->detectMovem(e);
+	this->detectMovementAim(e);
 }
 
 Side RunGame::GetCursorLook(int xr, int yr){
@@ -126,6 +127,24 @@ void RunGame::detectClickRight(){
 	}
 }
 
+
+void RunGame::detectMovementAim(SDL_Event* e){
+	SDL_Scancode sc = SDL_SCANCODE_UP;
+	Move* mv = Move::getInstance();
+	if(this->isKeyPress(e, sc)){
+		mv->me = M_ANTICLOCK;
+		mv->x = 2, mv->y = 2;
+		listEvent.add(mv);
+	}
+	sc = SDL_SCANCODE_DOWN;
+	if(this->isKeyPress(e, sc)){
+		mv->me = M_SHEDULE;
+		mv->x = 2, mv->y = 2;
+		listEvent.add(mv);
+	}
+}
+
+
 void RunGame::detectMovem(SDL_Event* e){
 	Move* mv = Move::getInstance();
 	Action* at = Action::getInstance();
@@ -169,6 +188,15 @@ void RunGame::detectMovem(SDL_Event* e){
 
 }
 
+
+
+bool RunGame::isKeyPress(SDL_Event* e, SDL_Scancode sc){
+	bool result = false;
+	if(e->key.keysym.scancode == sc){
+		result = true;
+	}
+	return result;
+}
 
 int RunGame::getFactor(float time){
 	int result = 0;

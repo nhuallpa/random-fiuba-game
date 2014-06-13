@@ -32,8 +32,6 @@ int main(int argc, char* argv[]) {
 		int serverPort = atoi(argv[3]);
 		Log::userId = userId;
 
-		Util::iniAimValue();
-
 		Cliente aClient(userId, serverIp, serverPort);
 
 		aClient.run();
