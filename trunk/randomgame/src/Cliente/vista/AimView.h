@@ -3,7 +3,6 @@
 
 #include "WormView.h"
 #include "Weapon.h"
-#include "..\..\utils\Util.h"
 #include "..\controlador\Contracts\OnCoordListener.h"
 #include "..\controlador\Contracts\OnMovementListener.h"
 #include "..\controlador\Entity\CoordEvent.h"
@@ -22,29 +21,35 @@ public:
 	~AimView();
 	void aimBuild();
 	void setWorm(WormView* aWorm, Weapon* aWeapon);
-	void aimMouseBuild();
-	void aimArrowBuild();
 	void draw(SDLScreen & screen);
 	void OnCoordinate(CoordEvent e);
 	void OnMovement(MovementEvent e);
 	void unAim();
-	bool isShoot();
+	bool isShootMouse();
+	bool isShootEnter();
 
 	//devuelvo <IdWorm, IdWeapon>
 	pair<int, int> getData();
 	int getAngle();
 
 private:
-	std::map<int, AimPosition>::iterator it;
-	bool bDraw, bShoot,
-		 bArrow, bCoord;
-	int x, y, xx, yy,
+	bool bShootMouse,
+		 bShootEnter;
+	int x, y, xRelative, yRelative,
 		xDraw, yDraw;
 	WormView* worm;
 	Weapon* weapon;
-	void getPositionUp(tPoint * point);
-	void getPositionUnder(tPoint * point);
+	void PositionUp();
+	void PositionUnder();
 	void PositionAbs();
+
+	bool firstCoord();
+	bool secondCoord();
+	bool thirdCoord();
+	bool fourthCoord();
+	void aimBuildMouse();
+	void aimBuildEnter();
+
 };
 
 #endif

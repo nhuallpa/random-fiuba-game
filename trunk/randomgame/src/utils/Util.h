@@ -132,10 +132,7 @@ struct s_pointf{
 typedef struct s_pointf tPointf;
 
 
-typedef struct{
-	tPoint pointView;
-	tPointf pointModel;
-} AimPosition;
+
 
 class Util
 {
@@ -143,12 +140,6 @@ public:
 	Util(void);
 	~Util(void);
 
-	static std::map<int, AimPosition> aim;
-
-	/**
-		Inicializo el vector
-	*/
-	static void iniAimValue();
 
 	/**
 	* Valid int

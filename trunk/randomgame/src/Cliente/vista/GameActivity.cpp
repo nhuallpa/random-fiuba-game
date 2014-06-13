@@ -244,7 +244,7 @@ void GameActivity::OnClick(ClickEvent e){
 	WormView* aWorm = NULL;
 
 	//Agrego para escuchar el clic del arma
-	if(aimView->isShoot()){
+	if(aimView->isShootMouse()){
 		int xMira= e.x;
 		int yMira= e.y;
 		std::pair<int, int> data = this->aimView->getData();
@@ -469,7 +469,7 @@ void GameActivity::OnMovement(MovementEvent e)
 
 
 	//no lo dejo mover si va a disparar
-	if(aimView->isShoot()){
+	if(aimView->isShootEnter()){
 		return;
 	}
 
@@ -548,7 +548,7 @@ void GameActivity::OnAction(ActionEvent e){
 					int xMira= e.xAim;
 					int yMira= e.yAim;
 
-					if(aimView->isShoot()){
+					if(aimView->isShootEnter()){
 						std::pair<int, int> data = this->aimView->getData();
 						int angle = this->aimView->getAngle();
 						xMira = yMira = angle;

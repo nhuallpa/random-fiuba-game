@@ -55,6 +55,7 @@ void Move::notify(){
 	MovementEvent m;
 	//Log::d("(%d,%d)\n", this->x, this->y);
 	m.x = this->x, m.y = this->y;
+	m.me = this->me;
 	it = objects.begin();
 	for(; it != objects.end(); it++){
 		(*it)->OnMovement(m);
