@@ -13,7 +13,6 @@
 #include "Physics\Bodies\Triangulo.h"
 #include "Physics\Bodies\Pentagon.h"
 #include "Physics\Bodies\Water.h"
-#include "Physics\Weapon2d.h"
 #include "TerrainProcessor.h"
 #include "Entities\MissileFactory.h"
 #include "..\modelo\Physics\Bodies\Missiles\Missile2dFactory.h"

@@ -44,7 +44,8 @@ typedef enum{
 	DYNAMITE=5,
 	HMISSILE=15,
 	BANANA=16,
-	SUICIDE=17
+	SUICIDE=17,
+	SHEEP=18,
 } WeaponId;
 
 

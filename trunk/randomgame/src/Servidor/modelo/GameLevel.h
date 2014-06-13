@@ -10,10 +10,6 @@
 #include "TerrainProcessor.h"
 #include "GamePlayer.h"
 #include "Exceptions\PlayerException.h"
-#include "Entities\BurroModel.h"
-#include "Entities\BazookaModel.h"
-#include "Entities\HolyGranadaModel.h"
-#include "Entities\GranadaModel.h"
 
 
 using namespace server_model_exp;
