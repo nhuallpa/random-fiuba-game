@@ -55,6 +55,9 @@
 #define MAX_TIME_POWER 3
 #define MAX_POWER 10
 
+#define BAZOOKA_X_FACTOR 1.7
+
+
 #define TURN_DURATION 25
 
 
