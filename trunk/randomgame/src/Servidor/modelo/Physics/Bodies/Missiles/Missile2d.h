@@ -13,7 +13,7 @@ class Missile2d : public Body{
 	public:
 		Missile2d();
 		Missile2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement);
-		void animate( float time );
+		virtual void animate( float time ) = 0;
 		 Explosion getExplosion();
 		virtual ~Missile2d();
 

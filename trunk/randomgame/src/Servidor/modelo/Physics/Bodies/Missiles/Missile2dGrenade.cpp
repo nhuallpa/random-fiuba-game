@@ -71,3 +71,36 @@ Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, flo
 }
 
 Missile2dGrenade::~Missile2dGrenade(){}
+
+void Missile2dGrenade::animate( float time ){
+
+	//Use userdata to reflect changes in physics to model
+	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
+
+	if ( static_cast<Missile*>(myWeapon)->hasDelayedExplosion() ){
+		static_cast<Missile*>(myWeapon)->updateExplode( time );
+	}
+
+	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
+		myWeapon->setAction(EXPLOSION);
+	} else{
+
+		if ( myWeapon->myLastAction == CREATE_MISSIL ){
+			myWeapon->setAction(CREATE_MISSIL);
+			myWeapon->myLastAction = MISSIL_FLYING;
+		}else{
+			myWeapon->setAction(MISSIL_FLYING);
+		}
+
+	}
+
+	//Actualizo la posicion
+	b2Vec2 f = this->body->GetPosition();
+	myWeapon->setPosition(std::make_pair( f.x,f.y) );
+	myWeapon->changed = true;
+
+	//Actualizo tiempo restante
+	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
+
+
+}
