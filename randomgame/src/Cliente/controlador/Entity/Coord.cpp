@@ -30,15 +30,15 @@ bool Coord::newEvent(){
 }
 
 
-void Coord::add(OnCoordListener * obj){
+void Coord::add(OnChangeListener * obj){
 	if(!isRegistered(obj)){
 		objects.push_back(obj);
 	}
 }
 
-void Coord::remuve(OnCoordListener * obj){
-	list<OnCoordListener*>::iterator it;
-	list<OnCoordListener*>::iterator itDrop;
+void Coord::remuve(OnChangeListener * obj){
+	list<OnChangeListener*>::iterator it;
+	list<OnChangeListener*>::iterator itDrop;
 	it = objects.begin();
 	itDrop = objects.end();
 	for(; it != objects.end(); it++){
@@ -53,12 +53,12 @@ void Coord::remuve(OnCoordListener * obj){
 }
 
 void Coord::notify(){
-	list<OnCoordListener*>::iterator it;
-	CoordEvent co;
+	list<OnChangeListener*>::iterator it;
+	ChangeEvent co;
 	co.x = x, co.y = y;
 	it = objects.begin();
 	for(; it != objects.end(); it++){
-		(*it)->OnCoordinate(co);
+		(*it)->OnChange(co);
 	}
 }
 
@@ -68,7 +68,7 @@ void Coord::setEvent(int x, int y){
 }
 
 
-bool Coord::isRegistered(OnCoordListener * obj){
+bool Coord::isRegistered(OnChangeListener * obj){
 	return (find(objects.begin(),
 			objects.end(), 
 			obj) != objects.end());
