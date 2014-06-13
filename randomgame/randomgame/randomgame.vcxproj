@@ -79,7 +79,7 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Click.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ClickEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\CollectionEvent.cpp" />
-    <ClCompile Include="..\src\Cliente\controlador\Entity\Coord.cpp" />
+    <ClCompile Include="..\src\Cliente\controlador\Entity\Change.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\ChangeEvent.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\Move.cpp" />
     <ClCompile Include="..\src\Cliente\controlador\Entity\MovementEvent.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="..\src\Cliente\controlador\Entity\Click.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ClickEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\CollectionEvent.h" />
-    <ClInclude Include="..\src\Cliente\controlador\Entity\Coord.h" />
+    <ClInclude Include="..\src\Cliente\controlador\Entity\Change.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\ChangeEvent.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\Move.h" />
     <ClInclude Include="..\src\Cliente\controlador\Entity\MovementEvent.h" />
