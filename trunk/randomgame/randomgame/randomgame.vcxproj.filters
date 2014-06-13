@@ -249,9 +249,6 @@
     <ClCompile Include="..\src\Cliente\vista\AimView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\controlador\Entity\CoordEvent.cpp">
-      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Cliente\controlador\Entity\Coord.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
@@ -293,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\figuras\TriangleView.cpp">
       <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\controlador\Entity\ChangeEvent.cpp">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -512,12 +512,6 @@
     <ClInclude Include="..\src\Cliente\vista\AimView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnCoordListener.h">
-      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\controlador\Entity\CoordEvent.h">
-      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\Coord.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
@@ -559,6 +553,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\figuras\TriangleView.h">
       <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Contracts\OnChangeListener.h">
+      <Filter>Archivos de código fuente\client\controller\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\controlador\Entity\ChangeEvent.h">
+      <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
