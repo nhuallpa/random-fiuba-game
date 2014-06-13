@@ -10,6 +10,8 @@
 #include <SDL.h>
 #include <map>
 
+#define STEP_AIM 5
+
 using namespace std;
 
 class AimView : 
