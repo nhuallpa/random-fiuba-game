@@ -62,10 +62,12 @@ public:
 	bool isFixed();
 	int grounded;
 
+	bool drowned;
 	bool damaged;
 	int weaponId;
 	bool alive;
 	bool exploded;
+
 	virtual bool hasExploded();
 	
 	void setExploded(bool b){ this->exploded = b; }

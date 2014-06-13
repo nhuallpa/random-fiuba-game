@@ -27,6 +27,7 @@ void GameElement::subLife(int lessLife)
 		this->life= this->life-lessLife;
 		if ( this->life <= 0 ){
 			this->setAlive(false);
+			this->life = 0;
 		}
 		this->damaged = true;
 	}
