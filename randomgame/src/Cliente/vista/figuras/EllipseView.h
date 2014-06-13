@@ -2,7 +2,7 @@
 #ifndef __ELLIPSE_VIEW_H_
 #define __ELLIPSE_VIEW_H_
 
-#include "FigureView.h"
+#include "../FigureView.h"
 class EllipseView : 	public FigureView
 {
 private:

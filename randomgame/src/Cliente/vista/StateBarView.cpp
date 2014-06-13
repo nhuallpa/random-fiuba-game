@@ -17,18 +17,7 @@ StateBarView::StateBarView():View(0, 0){
 
 StateBarView::~StateBarView(void)
 {
-	this->stateV.clear();
 
-}
-
-void StateBarView::cutVect(){
-	int lon = this->stateV.size();
-	time_t ttime = time(NULL);
-	if (lon>0){
-		if ((this->i - this->stateV[lon-1].j ) > (DELAY * 100)) this->stateV.pop_back();		
-	}
-	if (lon == 6) this->stateV.pop_back();
-	
 }
 
 void StateBarView::setMsjInfo(std::string msj){

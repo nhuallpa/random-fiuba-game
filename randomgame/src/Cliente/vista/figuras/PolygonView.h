@@ -2,7 +2,7 @@
 #ifndef __POLYGON_VIEW_H_
 #define __POLYGON_VIEW_H_
 #include <list>
-#include "FigureView.h"
+#include "../FigureView.h"
 class PolygonView :	public FigureView
 {
 private:

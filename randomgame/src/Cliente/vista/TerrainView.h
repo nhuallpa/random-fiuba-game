@@ -2,7 +2,7 @@
 #ifndef __TERRAIN_VIEW__
 #define __TERRAIN_VIEW__
 #include "View.h"
-#include "PolygonView.h"
+#include "figuras/PolygonView.h"
 
 class TerrainView :
 	public View

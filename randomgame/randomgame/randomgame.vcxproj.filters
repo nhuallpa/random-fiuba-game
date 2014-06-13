@@ -49,6 +49,12 @@
     <Filter Include="Archivos de código fuente\client\sound">
       <UniqueIdentifier>{d6b6eae0-f07b-4147-a6f9-9720ad5c015d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\client\view\weapon">
+      <UniqueIdentifier>{ab0e2020-0d91-4006-9eca-f73e8e3f69d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\client\view\figures">
+      <UniqueIdentifier>{98835fc2-007a-4195-8ae8-1ca90333078c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Cliente\Cliente.cpp">
@@ -96,18 +102,6 @@
     <ClCompile Include="..\src\Cliente\vista\WaterView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\RectangleView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\CircleView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\PolygonView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\TriangleView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
@@ -115,15 +109,6 @@
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Cliente\vista\FigureViewGroup.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\EllipseView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\PentagonView.cpp">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cliente\vista\HexagonView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Cliente\controlador\RunGame.cpp">
@@ -270,6 +255,45 @@
     <ClCompile Include="..\src\Cliente\controlador\Entity\Coord.cpp">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\GrenadeView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\HolyView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\BazookaView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\DynamiteView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\DonkeyView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\AirStrikeView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\CircleView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\EllipseView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\HexagonView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\PentagonView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\PolygonView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\RectangleView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\figuras\TriangleView.cpp">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -317,18 +341,6 @@
     <ClInclude Include="..\src\Cliente\vista\WaterView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\RectangleView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\CircleView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\PolygonView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\TriangleView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
@@ -336,15 +348,6 @@
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\FigureViewGroup.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\EllipseView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\PentagonView.h">
-      <Filter>Archivos de código fuente\client\view</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Cliente\vista\HexagonView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\RunGame.h">
@@ -517,6 +520,45 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\controlador\Entity\Coord.h">
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\GrenadeView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\HolyView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\BazookaView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\DynamiteView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\DonkeyView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\AirStrikeView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\CircleView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\EllipseView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\HexagonView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\PentagonView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\PolygonView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\RectangleView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\figuras\TriangleView.h">
+      <Filter>Archivos de código fuente\client\view\figures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

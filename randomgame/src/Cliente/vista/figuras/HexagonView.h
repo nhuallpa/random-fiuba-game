@@ -1,5 +1,5 @@
 #pragma once
-#include "FigureView.h"
+#include "../FigureView.h"
 #ifndef __HEXAGON_VIEW_H_
 #define __HEXAGON_VIEW_H_
 

@@ -10,16 +10,9 @@
 class StateBarView : public View
 {
 private:
-	struct state{
-		std::string msj;
-		int j;
-	};
 
-	std::vector <state> stateV;
 
 	int i;
-
-	void cutVect();
 
 	std::string msj;
 
@@ -50,10 +43,6 @@ public:
 
 	void draw(SDLScreen & screen);
 
-	static StateBarView & Instance(){
-			static StateBarView theStateBarView;
-			return theStateBarView;
-	}
 };
 
 #endif /** __STATEBARVIEW_H__*/

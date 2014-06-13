@@ -11,6 +11,8 @@
 
 class ProjectileView: public View
 {
+protected:
+
 	int id;
 	
 	Sprite* currentSprite;
@@ -40,7 +42,7 @@ public:
 
 	bool isDetonateDone();
 
-	void draw(SDLScreen & screen);
+	virtual void draw(SDLScreen & screen) = 0;
 
 	int getXCenter();
 

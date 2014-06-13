@@ -71,6 +71,7 @@ void Bootstrap::loadWait()
 	try 
 		{
 			TextureManager::Instance().load("res/images/watting.jpg", "waitting", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/donkey.jpg", "waitting", this->getScreen().getRenderer());
 		} 
 		catch (GameException & e) 
 		{
