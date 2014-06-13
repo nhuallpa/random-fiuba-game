@@ -11,6 +11,7 @@ class Missile2dGrenade : public Missile2d{
 		Missile2dGrenade(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement);
 		Missile2dGrenade();
 		virtual ~Missile2dGrenade();
+		virtual void animate( float time );
 
 };
 
