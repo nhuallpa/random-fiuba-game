@@ -208,6 +208,9 @@ int RunGame::getFactor(float time){
 		return MAX_POWER;
 
 	result = (time / (float)MAX_TIME_POWER)*MAX_POWER;
+	
+	if(result <= 0)
+		result = 1;
 
 	return result;
 }
