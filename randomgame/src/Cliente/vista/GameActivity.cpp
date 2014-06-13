@@ -38,7 +38,7 @@ void GameActivity::buildView()
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	aimView = new AimView();
 	gameView->add(aimView);
-	this->cController->addOnCoordListener(aimView);
+	this->cController->addOnChangeListener(aimView);
 	this->cController->addOnMovementListener(aimView);
 }
 

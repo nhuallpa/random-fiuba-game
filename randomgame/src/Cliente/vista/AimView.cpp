@@ -60,7 +60,7 @@ void AimView::unAim(){
 	SDL_ShowCursor(1);
 }
 
-void AimView::OnCoordinate(CoordEvent e){
+void AimView::OnChange(ChangeEvent e){
 	if(bShootMouse){
 		this->xDraw = e.x - 30;
 		this->yDraw = e.y - 30;
