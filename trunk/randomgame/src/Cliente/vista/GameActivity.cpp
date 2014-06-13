@@ -469,18 +469,20 @@ void GameActivity::OnMovement(MovementEvent e)
 
 
 	//no lo dejo mover si va a disparar
-	if(aimView->isShootEnter()){
+	if(aimView->isShootEnter()/*
+		|| e.me == M_ANTICLOCK
+		|| e.me == M_SHEDULE*/){
 		return;
 	}
 
 	int wormIdSelected = this->getWormIdSelected();
-	WeaponId weaponSelected;
+	/*WeaponId weaponSelected;
 	try {
 		GameView* gameView = static_cast<GameView*>(this->aView);
 		weaponSelected = gameView->findWormById(wormIdSelected)->getWeaponId();
 	} catch (GameElement & e) {
 		weaponSelected = NO_WEAPON;
-	}
+	}*/
 
 	if (wormIdSelected > 0 && 
 		this->isThisClientOwner(wormIdSelected) && 
@@ -504,7 +506,7 @@ void GameActivity::OnMovement(MovementEvent e)
 				p.action = 	JUMP;
 				Log::t("CLIENTE: Saltar");
 			}
-
+			/*
 			if (weaponSelected == BAZOOKA && 
 				weaponSelected == GRENADE && 
 				weaponSelected == HMISSILE && 
@@ -512,7 +514,7 @@ void GameActivity::OnMovement(MovementEvent e)
 			{
 				Log::i("CLIENTE: No salto porque tengo un arma con mira");
 				return;
-			}
+			}*/
 		}
 		else if (e.x == 1) // derecha
 		{
