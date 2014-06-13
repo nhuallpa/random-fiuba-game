@@ -70,7 +70,7 @@ void RunGame::execute(SDL_Event* e, const Uint8* keys){
 	this->detectWheel(e);
 	this->detectClick();
 	this->detectMovem(e);
-	this->detectMovementAim(e);
+	//this->detectMovementAim(e);
 }
 
 Side RunGame::GetCursorLook(int xr, int yr){
