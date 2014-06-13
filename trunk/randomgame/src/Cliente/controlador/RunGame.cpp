@@ -85,7 +85,7 @@ Side RunGame::GetCursorLook(int xr, int yr){
 }
 
 void RunGame::detectCoord(){
-	Coord* co = Coord::getInstance();
+	Change* co = Change::getInstance();
 	int x, y = 0;
 	SDL_GetMouseState(&x, &y);
 	co->setEvent(x,y);

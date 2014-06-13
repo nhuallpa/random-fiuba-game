@@ -83,10 +83,10 @@ void GameController::remuveOnClickListener(OnClickListener* c)
 }
 
 void GameController::addOnChangeListener(OnChangeListener* coord){
-	Coord* co = Coord::getInstance();
-	co->add(coord);
+	Change* ch = Change::getInstance();
+	ch->add(coord);
 }
 void GameController::remuveOnChangeListener(OnChangeListener* coord){
-	Coord* co = Coord::getInstance();
-	co->remuve(coord);
+	Change* ch = Change::getInstance();
+	ch->remuve(coord);
 }

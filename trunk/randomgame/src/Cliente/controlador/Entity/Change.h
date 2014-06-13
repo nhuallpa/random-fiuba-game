@@ -1,5 +1,5 @@
-#ifndef __COORD__
-#define __COORD__
+#ifndef __CHANGE__
+#define __CHANGE__
 #include <list>
 #include "..\Contracts\OnChangeListener.h"
 #include "ChangeEvent.h"
@@ -8,9 +8,9 @@
 using namespace std;
 
 
-class Coord : public Notifiable{
+class Change : public Notifiable{
 	public:
-		static Coord* getInstance();
+		static Change* getInstance();
 		void add(OnChangeListener * obj);
 		void remuve(OnChangeListener * obj);
 		void notify();
@@ -18,9 +18,9 @@ class Coord : public Notifiable{
 		bool newEvent();
 
 	private:
-		Coord(void);
-		~Coord(void);
-		static Coord* coord;
+		Change(void);
+		~Change(void);
+		static Change* change;
 		list<OnChangeListener*> objects;
 		int x, y;
 		int xp, yp;
