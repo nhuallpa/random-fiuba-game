@@ -2,7 +2,7 @@
 #ifndef __CIRCLE_VIEW_H_
 #define __CIRCLE_VIEW_H_
 
-#include "FigureView.h"
+#include "../FigureView.h"
 class CircleView : 	public FigureView
 {
 private:

@@ -298,23 +298,36 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 
 ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int type)
 {
-	ProjectileView*  aProjectile = new ProjectileView(domainElement->getId());
+	ProjectileView*  aProjectile = NULL;
 
 	try 
 	{
 		if (type == GRENADE) {
+			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_granada"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 		} else if (type == BAZOOKA) { 
+			aProjectile = new BazookaView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_bazooka"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		} else if (type == HOLY) { 
+			aProjectile = new HolyView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_holy"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		} else if (type == DYNAMITE) { 
+			aProjectile = new DynamiteView(domainElement->getId());
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+		} else if (type == AIRATTACK) { 
+			aProjectile = new AirStrikeView(domainElement->getId());
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+		} else if (type == BURRO) { 
+			aProjectile = new DonkeyView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		} else {
+			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
 		}

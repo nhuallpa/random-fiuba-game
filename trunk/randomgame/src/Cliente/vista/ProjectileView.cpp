@@ -5,7 +5,6 @@ ProjectileView::ProjectileView(int id)
 	: View(0, 0), id(id), detonated(false)
 {
 	currentSprite = &this->spriteBullet;
-
 }
 
 
@@ -39,20 +38,6 @@ void ProjectileView::update()
 bool ProjectileView::isDetonateDone()
 {
 	return (detonated && currentSprite->isLastFrame());
-}
-
-void ProjectileView::draw(SDLScreen & screen)
-{ 
-	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
-										this->getXCenter(), 
-										this->getYCenter(), 
-										currentSprite->getWidth(), 
-										currentSprite->getHeight(), 
-										currentSprite->getCurrentRow(), 
-										currentSprite->getCurrentFrame(), 
-										screen.getRenderer(),
-										false, 
-										SDL_FLIP_NONE);
 }
 
 

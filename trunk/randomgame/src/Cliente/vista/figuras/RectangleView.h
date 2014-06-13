@@ -2,7 +2,7 @@
 
 #ifndef __RECTANGLE_VIEW_H_
 #define __RECTANGLE_VIEW_H_
-#include "FigureView.h"
+#include "../FigureView.h"
 #include <list>
 class RectangleView :	public FigureView
 {
