@@ -3,9 +3,9 @@
 
 #include "WormView.h"
 #include "Weapon.h"
-#include "..\controlador\Contracts\OnCoordListener.h"
+#include "..\controlador\Contracts\OnChangeListener.h"
 #include "..\controlador\Contracts\OnMovementListener.h"
-#include "..\controlador\Entity\CoordEvent.h"
+#include "..\controlador\Entity\ChangeEvent.h"
 #include "View.h"
 #include <SDL.h>
 #include <map>
@@ -16,7 +16,7 @@ using namespace std;
 
 class AimView : 
 	public View, 
-	public OnCoordListener,
+	public OnChangeListener,
 	public OnMovementListener{
 public:
 	AimView();
@@ -24,7 +24,7 @@ public:
 	void aimBuild();
 	void setWorm(WormView* aWorm, Weapon* aWeapon);
 	void draw(SDLScreen & screen);
-	void OnCoordinate(CoordEvent e);
+	void OnChange(ChangeEvent e);
 	void OnMovement(MovementEvent e);
 	void unAim();
 	bool isShootMouse();
