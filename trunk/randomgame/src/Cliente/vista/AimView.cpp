@@ -96,31 +96,31 @@ pair<int, int> AimView::getData(){
 
 void AimView::PositionUp(){
 	if(this->firstCoord()){
-		xRelative--, yRelative--;
+		xRelative-= STEP_AIM, yRelative-= STEP_AIM;
 	}
 	else if(this->secondCoord()){
-		xRelative--, yRelative++;
+		xRelative-= STEP_AIM, yRelative+= STEP_AIM;
 	}
 	else if(this->thirdCoord()){
-		xRelative++, yRelative++;
+		xRelative+= STEP_AIM, yRelative+= STEP_AIM;
 	}
 	else if(this->fourthCoord()){
-		xRelative++, yRelative--;
+		xRelative+= STEP_AIM, yRelative-= STEP_AIM;
 	}
 }
 
 void AimView::PositionUnder(){
 	if(this->firstCoord()){
-		xRelative++, yRelative++;
+		xRelative+= STEP_AIM, yRelative+= STEP_AIM;
 	}
 	else if(this->secondCoord()){
-		xRelative++, yRelative--;
+		xRelative+= STEP_AIM, yRelative-= STEP_AIM;
 	}
 	else if(this->thirdCoord()){
-		xRelative--, yRelative--;
+		xRelative-= STEP_AIM, yRelative-= STEP_AIM;
 	}
 	else if(this->fourthCoord()){
-		xRelative--, yRelative++;
+		xRelative-= STEP_AIM, yRelative+= STEP_AIM;
 	}
 }
 

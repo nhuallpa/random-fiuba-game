@@ -129,18 +129,21 @@ void RunGame::detectClickRight(){
 
 
 void RunGame::detectMovementAim(SDL_Event* e){
-	SDL_Scancode sc = SDL_SCANCODE_UP;
-	Move* mv = Move::getInstance();
-	if(this->isKeyPress(e, sc)){
-		mv->me = M_ANTICLOCK;
-		mv->x = 2, mv->y = 2;
-		listEvent.add(mv);
-	}
-	sc = SDL_SCANCODE_DOWN;
-	if(this->isKeyPress(e, sc)){
-		mv->me = M_SHEDULE;
-		mv->x = 2, mv->y = 2;
-		listEvent.add(mv);
+
+	if(e->type == SDL_KEYDOWN){
+		SDL_Scancode sc = SDL_SCANCODE_UP;
+		Move* mv = Move::getInstance();
+		if(this->isKeyPress(e, sc)){
+			mv->me = M_ANTICLOCK;
+			mv->x = 2, mv->y = 2;
+			listEvent.add(mv);
+		}
+		sc = SDL_SCANCODE_DOWN;
+		if(this->isKeyPress(e, sc)){
+			mv->me = M_SHEDULE;
+			mv->x = 2, mv->y = 2;
+			listEvent.add(mv);
+		}
 	}
 }
 
