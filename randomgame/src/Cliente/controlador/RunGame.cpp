@@ -104,6 +104,7 @@ void RunGame::detectChange(){
 	}
 
 	
+	this->detectMovementAim();
 	listEvent.add(ch);
 }
 
@@ -141,23 +142,48 @@ void RunGame::detectClickRight(){
 }
 
 
-void RunGame::detectMovementAim(SDL_Event* e){
+void RunGame::detectMovementAim(){
+	Change* ch = Change::getInstance();
+/*	//if(e->type == SDL_KEYDOWN){
+		if((e->type == SDL_KEYDOWN) &&
+			this->isKeyPress(e, SDL_SCANCODE_UP)){
+			ch->setAimMove(M_ANTICLOCK);
+			ch->setAimEnter(true);
+			//listEvent.add(ch);
+		}
+		else if((e->type == SDL_KEYDOWN) &&
+			this->isKeyPress(e, SDL_SCANCODE_DOWN)){
+			ch->setAimMove(M_SHEDULE);
+			ch->setAimEnter(true);
+			//listEvent.add(ch);
+		}
+		else{
+			ch->setAimEnter(false);
+		}*/
 
-	if(e->type == SDL_KEYDOWN){
-		SDL_Scancode sc = SDL_SCANCODE_UP;
-		Move* mv = Move::getInstance();
-		if(this->isKeyPress(e, sc)){
-			mv->me = M_ANTICLOCK;
-			mv->x = 2, mv->y = 2;
-			listEvent.add(mv);
-		}
-		sc = SDL_SCANCODE_DOWN;
-		if(this->isKeyPress(e, sc)){
-			mv->me = M_SHEDULE;
-			mv->x = 2, mv->y = 2;
-			listEvent.add(mv);
-		}
+
+	if(m_keys[SDL_SCANCODE_UP]){
+		ch->setAimMove(M_ANTICLOCK);
+		ch->setAimEnter(true);	
 	}
+	else if(m_keys[SDL_SCANCODE_DOWN]){
+		ch->setAimMove(M_SHEDULE);
+		ch->setAimEnter(true);
+	}
+	else if(m_keys[SDL_SCANCODE_RIGHT]){
+		ch->setAimMove(M_RIGHT);
+		ch->setAimEnter(true);
+	}
+	else if(m_keys[SDL_SCANCODE_LEFT]){
+		ch->setAimMove(M_LEFT);
+		ch->setAimEnter(true);
+	}
+	else{
+		ch->setAimEnter(false);
+	}
+
+	listEvent.add(ch);
+	//}
 }
 
 

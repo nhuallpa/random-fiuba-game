@@ -16,11 +16,14 @@ class Change : public Notifiable{
 		void notify();
 		void setEvent(int x, int y);
 		void setFactor(int factor);
+		void setAimMove(AimMove aimMove);
 		void setStateBar(bool stateBar);
 		void setCoordenate(bool coordenate);
+		void setAimEnter(bool aimEnter);
 		bool newEvent();
 		bool isStateBar();
 		bool isCoordenate();
+		bool isAimEnter();
 
 	private:
 		Change(void);
@@ -31,8 +34,9 @@ class Change : public Notifiable{
 		int xp, yp;
 		int factor;
 		bool stateBar,
-			 coordenate;
-
+			 coordenate,
+			 aimEnter;
+		AimMove aimMove;
 		bool isRegistered(OnChangeListener * obj);
 };
 

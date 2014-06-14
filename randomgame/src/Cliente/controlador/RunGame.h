@@ -54,7 +54,7 @@ class RunGame{
 		void detectClickRight();
 		void detectChange();
 		void detectMovem(SDL_Event* e);
-		void detectMovementAim(SDL_Event* e);
+		void detectMovementAim();
 		void detectMovem(Move* mv, int value, SDL_Event* e);
 		int getFactor(float time);
 		int WIDTH, HIGHT;

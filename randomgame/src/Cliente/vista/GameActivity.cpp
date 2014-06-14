@@ -469,11 +469,9 @@ void GameActivity::OnMovement(MovementEvent e)
 
 
 	//no lo dejo mover si va a disparar
-	if(aimView->isShootEnter()/*
-		|| e.me == M_ANTICLOCK
-		|| e.me == M_SHEDULE*/){
+	/*if(aimView->isShootEnter()){
 		return;
-	}
+	}*/
 
 	int wormIdSelected = this->getWormIdSelected();
 	/*WeaponId weaponSelected;
@@ -503,8 +501,10 @@ void GameActivity::OnMovement(MovementEvent e)
 			} 
 			else 
 			{
-				p.action = 	JUMP;
-				Log::t("CLIENTE: Saltar");
+				if(!aimView->isShootEnter()){
+					p.action = 	JUMP;
+					Log::t("CLIENTE: Saltar");
+				} 
 			}
 			/*
 			if (weaponSelected == BAZOOKA && 
