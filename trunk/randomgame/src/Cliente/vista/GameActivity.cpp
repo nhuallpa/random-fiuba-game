@@ -528,7 +528,7 @@ void GameActivity::OnMovement(MovementEvent e)
 		{
 			p.action = 	MOVE_STOP;
 		}
-		updater.addLocalMovementFromView(p);
+		updater.addLocalMovementFromView(p);//Esta linea me pincha el server by ERIK
 	}
 
 	
@@ -543,7 +543,7 @@ void GameActivity::OnAction(ActionEvent e){
 			gameView->actionMenu();
 			break;
 		case SHOOT:
-			{
+			{  
 
 				if (this->wormIdSelected>0 && this->idWeapon!=NO_WEAPON) {
 					int factor = e.factor;
@@ -555,7 +555,7 @@ void GameActivity::OnAction(ActionEvent e){
 						int angle = this->aimView->getAngle();
 						xMira = yMira = angle;
 						aimView->unAim();
-					}
+					} 
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 					deselectPreviewsWeapon();
