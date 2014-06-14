@@ -7,6 +7,9 @@ Change* Change::change = NULL;
 Change::Change(void){
 	x  = 0, y  = 0,
 	xp = 0, yp = 0;
+	stateBar =
+	coordenate =
+	aimEnter = false;
 }
 
 Change::~Change(void){}
@@ -17,6 +20,7 @@ Change* Change::getInstance(){
 	}
 	return change;
 }
+
 
 bool Change::newEvent(){
 	bool result = true;
@@ -59,6 +63,8 @@ void Change::notify(){
 	co.factor = this->factor;
 	co.setStateBar(this->stateBar);
 	co.setCoordenate(this->coordenate);
+	co.setAimEnter(this->aimEnter);
+	co.aimMove = this->aimMove;
 	it = objects.begin();
 	for(; it != objects.end(); it++){
 		(*it)->OnChange(co);
@@ -69,9 +75,17 @@ bool Change::isStateBar(){
 	return stateBar;
 }
 
+bool Change::isAimEnter(){
+	return aimEnter;
+}
 
 bool Change::isCoordenate(){
 	return coordenate;
+}
+
+
+void Change::setAimEnter(bool aimEnter){
+	this->aimEnter = aimEnter;
 }
 
 void Change::setFactor(int factor){
@@ -79,6 +93,9 @@ void Change::setFactor(int factor){
 }
 
 
+void Change::setAimMove(AimMove aimMove){
+	this->aimMove = aimMove;
+}
 
 void Change::setStateBar(bool stateBar){
 	this->stateBar = stateBar;

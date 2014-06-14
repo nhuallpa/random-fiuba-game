@@ -10,7 +10,8 @@
 #include <SDL.h>
 #include <map>
 
-#define STEP_AIM 5
+#define RADIO 90
+#define PASO 3
 
 using namespace std;
 
@@ -41,17 +42,17 @@ private:
 		xDraw, yDraw;
 	WormView* worm;
 	Weapon* weapon;
-	void PositionUp();
-	void PositionUnder();
-	void PositionAbs();
+	void pointUp();
+	void pointUnder();
+	void centerPoint();
 
-	bool firstCoord();
-	bool secondCoord();
-	bool thirdCoord();
-	bool fourthCoord();
 	void aimBuildMouse();
 	void aimBuildEnter();
 
+	void createPositionAimEnter();
+	void generatePoint();
+	map<int,pair<float, float>> aimEnter;
+	map<int,pair<float, float>>::iterator it;
 };
 
 #endif

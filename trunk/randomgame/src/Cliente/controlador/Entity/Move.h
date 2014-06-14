@@ -16,7 +16,6 @@ class Move : public Notifiable{
 		void remuve(OnMovementListener* obj);
 		void notify();
 		int x, y;
-		MoveEvent me;
 		bool newEvent();
 
 	private:
