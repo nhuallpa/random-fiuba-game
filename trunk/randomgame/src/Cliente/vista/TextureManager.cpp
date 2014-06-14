@@ -198,6 +198,37 @@ void TextureManager::draw(std::string id, int x, int y,
 
 }
 
+//void TextureManager::drawScale(std::string id, int x, int y, int , float scale, SDL_Renderer* pRenderer, SDL_RendererFlip flip){
+//
+//}
+
+
+void TextureManager::drawScale(std::string id, int x, int y, float scale, SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
+{
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+
+	std::pair<int, int> dim = this->getDimension(id);
+
+	srcRect.x = 0;
+	srcRect.y = 0;
+	
+	srcRect.w = dim.first;
+	srcRect.h = dim.second;
+
+	destRect.w = (int)((float)dim.first * scale);
+	destRect.h = (int)((float)dim.second * scale);
+
+	destRect.x = x;
+	destRect.y = y;
+
+	try {
+		SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
+	} catch (GameException & e) {
+		Log::e(e.what());
+	}
+}
+
 void TextureManager::draw(std::string id, int x, int y, int width, int
 	height, SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
 {

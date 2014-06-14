@@ -75,6 +75,7 @@ public:
 	void draw(std::string id, int x, int y, int width, int
 			height, SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+	void drawScale(std::string id, int x, int y, float scale, SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	
 	/**
 	* Draw a frame from sprite

@@ -269,11 +269,11 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 		aWorm->update(domainElement);
 
 		std::stringstream name;
-		name<<"Worm "<< domainElement->getId();
+		name<<domainElement->getPlayerID()<<" "<< domainElement->getId();
 
 		aWorm->setColor(this->getDomain()->getPlayerColor(domainElement->getPlayerID()));
 		aWorm->setPlayer(domainElement->getPlayerID());
-		aWorm->setUserLabel(domainElement->getPlayerID());
+		aWorm->setUserLabel(name.str());
 		aWorm->setName(name.str());
 
 		try 
