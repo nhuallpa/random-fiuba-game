@@ -195,24 +195,6 @@
     <ClCompile Include="..\src\utils\Timer.cpp">
       <Filter>Archivos de código fuente\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Physics\Weapon2d.cpp">
-      <Filter>Archivos de código fuente\server\model\physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Entities\WeaponModel.cpp">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Entities\BazookaModel.cpp">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Entities\BurroModel.cpp">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Entities\GranadaModel.cpp">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.cpp">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\Entities\Missile.cpp">
       <Filter>Archivos de código fuente\server\model\Entities</Filter>
     </ClCompile>
@@ -235,6 +217,51 @@
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dGrenade.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileBurro.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileDynamite.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileHoly.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileHoming.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileSheep.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileSuicide.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileAirStrike.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Entities\MissileBanana.cpp">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileBanana2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileBurro2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileDynamite2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileHoly2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileHoming2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileSheep2d.cpp">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileAirStrike2d.cpp">
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -386,24 +413,6 @@
     <ClInclude Include="..\src\utils\Timer.h">
       <Filter>Archivos de código fuente\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Physics\Weapon2d.h">
-      <Filter>Archivos de código fuente\server\model\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Entities\WeaponModel.h">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Entities\BazookaModel.h">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Entities\BurroModel.h">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Entities\GranadaModel.h">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Servidor\modelo\Entities\HolyGranadaModel.h">
-      <Filter>Archivos de código fuente\server\model\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Entities\Missile.h">
       <Filter>Archivos de código fuente\server\model\Entities</Filter>
     </ClInclude>
@@ -426,6 +435,51 @@
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\Missile2dGrenade.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileBurro.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileDynamite.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileHoly.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileHoming.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileSheep.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileSuicide.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileAirStrike.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Entities\MissileBanana.h">
+      <Filter>Archivos de código fuente\server\model\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileBanana2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileBurro2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileDynamite2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileHoly2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileHoming2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileSheep2d.h">
+      <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Servidor\modelo\Physics\Bodies\Missiles\MissileAirStrike2d.h">
       <Filter>Archivos de código fuente\server\model\physics\Bodies\Missiles</Filter>
     </ClInclude>
   </ItemGroup>
