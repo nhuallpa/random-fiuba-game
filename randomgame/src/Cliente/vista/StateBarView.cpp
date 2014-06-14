@@ -71,4 +71,11 @@ void StateBarView::draw(SDLScreen & screen){
 	int posY = - TextureManager::Instance().getCamera().getY() + 10;
 	this->labelCenter.draw(screen.getRenderer(), posX, posY);
 
+
+	// Fondo Texto
+
+
+	TextureManager::Instance().drawScale("fondo_msg", 250, 0, 0.6, screen.getRenderer());
+
+	TextureManager::Instance().drawScale("poder", 100, 200, 0.7, screen.getRenderer());
 }

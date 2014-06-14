@@ -64,13 +64,15 @@ escenario:
       habilitado: si
     - tipo: AirStrike
       habilitado: si
-    - tipo: Bazooka
+    - tipo: Holy
       habilitado: si
-    - tipo: Grenade
+    - tipo: Sheep
       habilitado: si
-    - tipo: Dynamite
+    - tipo: Suicide
       habilitado: si
-    - tipo: Donkey
+    - tipo: Kick
       habilitado: si
-    - tipo: AirStrike
+    - tipo: Parrot
+      habilitado: si
+    - tipo: Automissil
       habilitado: si

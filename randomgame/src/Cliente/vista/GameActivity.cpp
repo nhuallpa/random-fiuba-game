@@ -536,7 +536,7 @@ void GameActivity::OnMovement(MovementEvent e)
 
 
 void GameActivity::OnAction(ActionEvent e){
-	Log::e("ASD: %d", (int)e.action);
+	Log::i("ASD: %d", (int)e.action);
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	switch(e.action){
 		case MENU: 

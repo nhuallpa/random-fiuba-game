@@ -44,6 +44,9 @@ class WormView: public View, public OnMovementListener
 	SDL_Color white;
 
 	WeaponId weaponId;
+
+	int widhtLife100;
+	int widhtLifeCurrent;
 	
 public:
 	WormView(int id);
