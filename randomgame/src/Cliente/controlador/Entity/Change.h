@@ -15,7 +15,12 @@ class Change : public Notifiable{
 		void remuve(OnChangeListener * obj);
 		void notify();
 		void setEvent(int x, int y);
+		void setFactor(int factor);
+		void setStateBar(bool stateBar);
+		void setCoordenate(bool coordenate);
 		bool newEvent();
+		bool isStateBar();
+		bool isCoordenate();
 
 	private:
 		Change(void);
@@ -24,6 +29,10 @@ class Change : public Notifiable{
 		list<OnChangeListener*> objects;
 		int x, y;
 		int xp, yp;
+		int factor;
+		bool stateBar,
+			 coordenate;
+
 		bool isRegistered(OnChangeListener * obj);
 };
 
