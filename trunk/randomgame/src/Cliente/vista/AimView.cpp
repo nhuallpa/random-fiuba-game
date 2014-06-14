@@ -61,9 +61,14 @@ void AimView::unAim(){
 }
 
 void AimView::OnChange(ChangeEvent e){
+	/*if(e.isStateBar()){
+		Log::i("Factor: %d", e.factor);
+	}*/
 	if(bShootMouse){
-		this->xDraw = e.x - 30;
-		this->yDraw = e.y - 30;
+		if(e.isCoordenate()){
+			this->xDraw = e.x - 30;
+			this->yDraw = e.y - 30;
+		}
 	}
 }
 

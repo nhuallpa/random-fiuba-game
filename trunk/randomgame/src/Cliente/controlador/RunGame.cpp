@@ -18,7 +18,7 @@ RunGame::~RunGame(void){}
 void RunGame::addCallFromOver(){
 	SDL_PumpEvents();
 	this->detectMouse();
-	this->detectCoord();
+	this->detectChange();
 }
 
 
@@ -84,14 +84,27 @@ Side RunGame::GetCursorLook(int xr, int yr){
 		return S_UP;
 }
 
-void RunGame::detectCoord(){
-	Change* co = Change::getInstance();
+void RunGame::detectChange(){
+	Change* ch = Change::getInstance();
 	int x, y = 0;
 	SDL_GetMouseState(&x, &y);
-	co->setEvent(x,y);
-	if(co->newEvent()){
-		listEvent.add(co);
+	ch->setEvent(x,y);
+	if(this->isTimerRun){
+		ch->setStateBar(true);
+		ch->setFactor(getFactor(timer.elapsed()));
 	}
+	else{
+		ch->setStateBar(false);
+	}
+	if(ch->newEvent()){
+		ch->setCoordenate(true);
+	}
+	else{
+		ch->setCoordenate(false);
+	}
+
+	
+	listEvent.add(ch);
 }
 
 void RunGame::detectWheel(SDL_Event* e){

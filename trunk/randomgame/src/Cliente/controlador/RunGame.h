@@ -52,7 +52,7 @@ class RunGame{
 		void detectClick();
 		void detectClickLeft();
 		void detectClickRight();
-		void detectCoord();
+		void detectChange();
 		void detectMovem(SDL_Event* e);
 		void detectMovementAim(SDL_Event* e);
 		void detectMovem(Move* mv, int value, SDL_Event* e);

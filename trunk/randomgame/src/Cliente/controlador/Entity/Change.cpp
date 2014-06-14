@@ -56,11 +56,39 @@ void Change::notify(){
 	list<OnChangeListener*>::iterator it;
 	ChangeEvent co;
 	co.x = x, co.y = y;
+	co.factor = this->factor;
+	co.setStateBar(this->stateBar);
+	co.setCoordenate(this->coordenate);
 	it = objects.begin();
 	for(; it != objects.end(); it++){
 		(*it)->OnChange(co);
 	}
 }
+
+bool Change::isStateBar(){
+	return stateBar;
+}
+
+
+bool Change::isCoordenate(){
+	return coordenate;
+}
+
+void Change::setFactor(int factor){
+	this->factor = factor;
+}
+
+
+
+void Change::setStateBar(bool stateBar){
+	this->stateBar = stateBar;
+}
+
+void Change::setCoordenate(bool coordenate){
+	this->coordenate = coordenate;
+}
+
+
 
 
 void Change::setEvent(int x, int y){
