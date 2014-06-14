@@ -343,8 +343,8 @@ bool GameEngine::step(){
 			
 			if ( !static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->isAlive() ){
 				//Viene muerto del ciclo anterior, lo elimino
-				printf("Esta muerto");
-				this->deleteBody( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
+				//ERIK printf("Esta muerto");
+				//ERIK this->deleteBody( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
 
 			}else{
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
