@@ -33,6 +33,30 @@ Missile* MissileFactory::getMissile(int weaponId, int elementId)
 	case GRENADE:
 		aNewMissile = new MissileGrenade(elementId);
 		break;
+	case BANANA:
+		aNewMissile = new MissileBanana(elementId);
+		break;
+	case BURRO:
+		aNewMissile = new MissileBurro(elementId);
+		break;
+	case HMISSILE:
+		aNewMissile = new MissileHoming(elementId);
+		break;
+	case AIRATTACK:
+		aNewMissile = new MissileAirStrike(elementId);
+		break;
+	case DYNAMITE:
+		aNewMissile = new MissileDynamite(elementId);
+		break;
+	case HOLY:
+		aNewMissile = new MissileHoly(elementId);
+		break;
+	case SHEEP:
+		aNewMissile = new MissileSheep(elementId);
+		break;
+	case SUICIDE:
+		aNewMissile = new MissileSuicide(elementId);
+		break;
 	default:
 		aNewMissile = new MissileBazooka(elementId);
 		break;

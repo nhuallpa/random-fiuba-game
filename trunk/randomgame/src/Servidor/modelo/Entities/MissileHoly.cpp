@@ -2,8 +2,9 @@
 
 
 MissileHoly::MissileHoly(int id):Missile(id){
+	printf("\ncreating holy");
 	this->withDelayedExplosion=true;
 	this->weaponId=HOLY;
-	this->explodeTime=6;
+	this->explodeTime=3;
 	this->exploded = false;
 }

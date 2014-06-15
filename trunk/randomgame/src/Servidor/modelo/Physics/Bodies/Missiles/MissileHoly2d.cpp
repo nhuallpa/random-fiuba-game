@@ -67,13 +67,14 @@ MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float ang
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RSMALL;
 	
-	printf("\n Granada Impulsada");
+	printf("\n Granada Holy Impulsada");
 }
 
 MissileHoly2d::~MissileHoly2d(){}
 
 void MissileHoly2d::animate( float time ){
 
+	printf("\n ANIMO HOLY");
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
