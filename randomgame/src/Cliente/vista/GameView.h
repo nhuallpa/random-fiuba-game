@@ -14,6 +14,7 @@
 #include "WormView.h"
 #include "WormViewGroup.h"
 #include "MenuWeaponView.h"
+#include "WaterViewImg.h"
 #include "ElemViewGroup.h"
 #include <map>
 #include <string>
@@ -37,6 +38,7 @@ private:
 	TerrainView* terrain;
 	StateBarView* stateBar;
 	MenuWeaponView* menuWeapon;
+	WaterViewImg* waterImg;
 
 public:
 	GameView(int x, int y, int width, int height);
@@ -55,6 +57,7 @@ public:
 	void setTerrain(TerrainView* terrain);
 	void setStateBar(StateBarView* stateBar);
 	void setMenuWeapon(MenuWeaponView* menuWeapon);
+	void setWaterImg(WaterViewImg* waterImg);
 
 	StateBarView* getStateBar() { return this->stateBar;}
 

@@ -36,6 +36,7 @@ void GameActivity::buildView()
 	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildMenuWeapon();
+	builder->buildWaterImg();
 	this->setContentView(builder->getGameView());
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	aimView = new AimView();
