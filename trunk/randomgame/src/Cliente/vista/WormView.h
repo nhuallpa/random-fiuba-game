@@ -45,6 +45,8 @@ class WormView: public View, public OnMovementListener
 
 	WeaponId weaponId;
 
+	int currentLife;
+
 	int widhtLife100;
 	int widhtLifeCurrent;
 	

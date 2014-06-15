@@ -287,8 +287,8 @@ bool Cliente::updateModel(Playable p){
 
 	if ( p.action == CREATE_MISSIL ) {
 		this->domainMx.lock();
-		this->gameActivity->buildProjectile(p.wormid, p.x, p.y, p.weaponid);
-		Log::i("Cliente::updateModel >> Actualizando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid);
+		this->gameActivity->buildProjectile(p.wormid, p.x, p.y, p.weaponid, p.life, p.action);
+		Log::i("Cliente::updateModel >> Creando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d, life: %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid, p.life);
 		this->domainMx.unlock();
 	
 	} else 	if ( p.action != EXPLOSION ){		
@@ -507,17 +507,4 @@ int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	}
 	return 0;
 
-}
-
-/** DEPRECATE**/
-void Cliente::addPlayerToView(std::string playerID, int idWorm, int x, int y)
-{
-	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
-	aGameActivity->buildNewWorms(playerID, idWorm, x, y);
-}
-
-void Cliente::addProjectileToView(float x, float y, int idElement, int type)
-{
-	GameActivity * aGameActivity = static_cast<GameActivity *>(currentActivity);
-	aGameActivity->buildProjectile(idElement, x, y, type);
 }

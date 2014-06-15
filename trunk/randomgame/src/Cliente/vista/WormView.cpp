@@ -14,7 +14,8 @@ WormView::WormView(int id)
 	white.b = 0xFF;
 	this->weaponId = NO_WEAPON;
 	this->widhtLife100 = 25;
-	this->widhtLifeCurrent = 0;
+	this->widhtLifeCurrent = 25;
+	this->currentLife = 100;
 }
 
 void WormView::setUserLabel(std::string text)
@@ -80,13 +81,17 @@ void WormView::update(GameElement* domainElement)
             this->state = WORM_VIEW_MOTIONLESS;
     }
 
-	this->widhtLifeCurrent = (int)(((float)domainElement->getLife() * (float)this->widhtLife100) / 100.0f);
-	if (this->widhtLifeCurrent > this->widhtLife100) {
-		this->widhtLifeCurrent = this->widhtLife100;
+	if (domainElement->getLife() < this->currentLife) {
+		this->widhtLifeCurrent = (int)(((float)domainElement->getLife() * (float)this->widhtLife100) / 100.0f);
+		if (this->widhtLifeCurrent > this->widhtLife100) {
+			this->widhtLifeCurrent = this->widhtLife100;
+		}
+		if (this->widhtLifeCurrent <= 0) {
+			this->widhtLifeCurrent = 1;
+		}
+		this->currentLife = domainElement->getLife();
 	}
-	if (this->widhtLifeCurrent <= 0) {
-		this->widhtLifeCurrent = 1;
-	}
+	
 }
 	
 void WormView::update() 

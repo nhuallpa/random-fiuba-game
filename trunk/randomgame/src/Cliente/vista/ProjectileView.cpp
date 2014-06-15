@@ -5,6 +5,10 @@ ProjectileView::ProjectileView(int id)
 	: View(0, 0), id(id), detonated(false)
 {
 	currentSprite = &this->spriteBullet;
+	this->widhtLife100 = 25;
+	this->widhtLifeCurrent = 25;
+	this->lifeInitial = 0;
+	this->currentLife = 0; //segundos
 }
 
 
@@ -26,6 +30,20 @@ void ProjectileView::update(GameElement* domainElement)
 	this->setY(pointSDL.y);
 	if (domainElement->action == EXPLOSION && !this->detonated) {
 		this->detonate();
+	}
+
+	if (domainElement->getLife() < this->currentLife) {
+
+		float lifePorcentaje = (float)(domainElement->getLife() * 100) / (float)(this->getLifeInitial());
+
+		this->widhtLifeCurrent = (int)((lifePorcentaje * (float)this->widhtLife100) / 100.0f);
+		if (this->widhtLifeCurrent > this->widhtLife100) {
+			this->widhtLifeCurrent = this->widhtLife100;
+		}
+		if (this->widhtLifeCurrent <= 0) {
+			this->widhtLifeCurrent = 1;
+		}
+		this->currentLife = domainElement->getLife();
 	}
 }
 	
@@ -57,4 +75,14 @@ void ProjectileView::detonate()
 	currentSprite = &this->spriteExplosion;
 	this->detonated = true;
 	SoundManager::Instance().pEXPLOSION1();
+}
+
+
+
+int ProjectileView::getLifeInitial() { 
+	return this->lifeInitial;
+} 
+void ProjectileView::setLifeInitial(int life) {
+	this->lifeInitial = life;
+	this->currentLife = life; //segundos
 }
