@@ -33,7 +33,7 @@ void GameActivity::buildView()
 	builder->buildEart();
 	builder->buildCharacters();
 	builder->buildProjectileContainer();
-	builder->buildWater();
+//	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildMenuWeapon();
 	builder->buildWaterImg();
