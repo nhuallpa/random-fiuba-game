@@ -34,6 +34,24 @@ Missile2d* Missile2dFactory::getMissile(int weaponId,ElementType type, float pos
 	case GRENADE:
 		aNewMissile = new Missile2dGrenade(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
 		break;
+	case HOLY:
+		aNewMissile = new MissileHoly2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
+	case BURRO:
+		aNewMissile = new MissileBurro2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
+	case HMISSILE:
+		aNewMissile = new MissileHoming2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
+	case AIRATTACK:
+		aNewMissile = new MissileAirStrike2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
+	case SHEEP:
+		aNewMissile = new MissileSheep2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
+	case BANANA:
+		aNewMissile = new MissileBanana2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
 	default:
 		aNewMissile = new Missile2dBazooka(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
 		break;

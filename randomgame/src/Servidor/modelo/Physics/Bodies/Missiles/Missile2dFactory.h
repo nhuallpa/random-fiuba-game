@@ -5,6 +5,15 @@
 #include "Missile2d.h"
 #include "Missile2dBazooka.h"
 #include "Missile2dGrenade.h"
+#include "MissileAirStrike2d.h"
+#include "MissileBanana2d.h"
+#include "MissileBurro2d.h"
+#include "MissileDynamite2d.h"
+#include "MissileHoly2d.h"
+#include "MissileHoming2d.h"
+#include "MissileSheep2d.h"
+
+
 #include "../../../../../utils/Util.h"
 #include <iostream>
 
