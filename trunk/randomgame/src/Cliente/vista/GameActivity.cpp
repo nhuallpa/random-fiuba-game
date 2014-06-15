@@ -499,7 +499,7 @@ void GameActivity::OnMovement(MovementEvent e)
 		this->isAlive(wormIdSelected))
 	{
 		p.wormid = wormIdSelected;
-		if (e.y == -1)  // Solo saltar
+		if ((e.y == -1) && !aimView->isShootEnter())  // Solo saltar
 		{
 			if (e.x == 1) //Salta derecha
 			{
@@ -513,10 +513,8 @@ void GameActivity::OnMovement(MovementEvent e)
 			} 
 			else 
 			{
-				if(!aimView->isShootEnter()){
-					p.action = 	JUMP;
-					Log::t("CLIENTE: Saltar");
-				} 
+				p.action = 	JUMP;
+				Log::t("CLIENTE: Saltar");
 			}
 			/*
 			if (weaponSelected == BAZOOKA && 
