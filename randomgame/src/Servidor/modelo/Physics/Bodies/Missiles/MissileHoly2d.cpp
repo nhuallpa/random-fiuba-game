@@ -27,6 +27,12 @@ MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float ang
 	myFixtureDef.friction = 0.01;
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
+
+	////Provisorio hasta que me pasen el angulo
+	//angle_x = 45;
+	//angle_y = 45;
+
+
 	float angx = cosf(angle_x  * PI / 180.0);
 	float angy = sinf(angle_y  * PI / 180.0);
 
@@ -102,6 +108,7 @@ void MissileHoly2d::animate( float time ){
 
 	//Actualizo tiempo restante
 	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
+		printf("\n Explota en: %d",static_cast<Missile*>(myWeapon)->remainingTime(time) );
 
 
 }
