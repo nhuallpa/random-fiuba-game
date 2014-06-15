@@ -14,6 +14,7 @@ public:
 	~MenuWeaponView();
 	void buildWeapon();
 	void actionMenu();
+	void offMenu();
 	void draw(SDLScreen & screen);
 	void allowWeapon(list<WeaponId> items);
 	bool hasClickedMenu(SDL_Point clickPoint);

@@ -99,6 +99,10 @@ void GameView::actionMenu(){
 	this->menuWeapon->actionMenu();
 }
 
+void GameView::offMenu(){
+	this->menuWeapon->offMenu();
+}
+
 bool GameView::hasClickedMenu(SDL_Point clickPoint){
 	return this->menuWeapon->hasClickedMenu(clickPoint);
 }

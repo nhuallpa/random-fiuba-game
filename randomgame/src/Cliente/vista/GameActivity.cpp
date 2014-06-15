@@ -20,6 +20,8 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->isMyTurn = false;
 	this->idWeapon = NO_WEAPON;
 	this->aimView = NULL;
+	this->isRightAim = false;
+	this->isLeftAim = false;
 	
 }
 
@@ -49,7 +51,7 @@ void GameActivity::update()
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	std::map<int,GameElement>::iterator it;
 	Log::t(VIEW,"Actualizando %d elemento", domainElements->size());
-	this->iniAfterShoot();
+	this->iniState();
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
@@ -110,9 +112,20 @@ GameActivity::~GameActivity(void)
 }
 
 
-void GameActivity::iniAfterShoot(){
+void GameActivity::iniState(){
 	if(afterShoot){
 		this->cController->remuveOnActionListener(this);
+		this->offMenu();
+	}
+	if(!this->isRightAim && this->aimView->isRightSide()){
+		this->isLeftAim = false;
+		this->isRightAim = true;
+		//TODO: NESTOR O ARIEL, ACA MANDAR AL SERVER EL GUSANO MIRA HACIA LA DRECHA
+	}
+	else if(!this->isLeftAim && this->aimView->isLeftSide()){
+		this->isRightAim = false;
+		this->isLeftAim = true;
+		//TODO: NESTOR O ARIEL, ACA MANDAR AL SERVER EL GUSANO MIRA HACIA LA IZQUIERDA
 	}
 }
 
@@ -260,7 +273,6 @@ void GameActivity::OnClick(ClickEvent e){
 		Log::i("\nShoot 1: x %d, y %d FACTOR 0",xMira,yMira);
 		updater.doShoot(data.first, data.second, xMira, yMira, 0);
 		aimView->unAim();
-		this->actionMenu();
 		afterShoot = true;
 		return; //proceso y me voy
 	}
@@ -569,7 +581,6 @@ void GameActivity::OnAction(ActionEvent e){
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 					deselectPreviewsWeapon();
-					this->actionMenu();
 					afterShoot = true;
 				}
 			}
@@ -583,3 +594,7 @@ void GameActivity::actionMenu(){
 	gameView->actionMenu();
 }
 
+void GameActivity::offMenu(){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->offMenu();
+}

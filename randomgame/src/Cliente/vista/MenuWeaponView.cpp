@@ -18,6 +18,11 @@ MenuWeaponView::~MenuWeaponView(){
 
 }
 
+void MenuWeaponView::offMenu(){
+	if(menu->findWeapon("MenuWeapon")){
+		menu->removeWeapon("MenuWeapon");
+	}
+}
 
 void MenuWeaponView::actionMenu(){
 	if(menu->findWeapon("MenuWeapon")){
