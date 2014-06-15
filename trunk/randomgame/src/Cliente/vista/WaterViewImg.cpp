@@ -61,11 +61,14 @@ void WaterViewImg::draw(SDLScreen & screen){
 
 
 void WaterViewImg::loadWater(){
-	water.insert(pair<string,Shape>("marea_1_1", Shape(30, 30,	618, 80)));
+	int lebel = Util::string2int(ParserYaml::getInstance()->getEscenarioAgua());
+	int width = YAML_PANTALLA_ANCHO_TOPE_MAXIMO;
+	int height = Util::string2int(ParserYaml::getInstance()->getEscenarioAltoP());
+	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel - 70,	width, 70 + lebel)));
 
-	water.insert(pair<string,Shape>("marea_1_2", Shape(30, 30,	618, 80)));
+	water.insert(pair<string,Shape>("marea_1_2", Shape(-10, height - lebel - 70,	width, 70 + lebel)));
 
-	water.insert(pair<string,Shape>("marea_1_3", Shape(30, 30,	618, 80)));
+	water.insert(pair<string,Shape>("marea_1_3", Shape(-10, height - lebel - 70,	width, 70 + lebel)));
 	
-	water.insert(pair<string,Shape>("marea_1_4", Shape(30, 30,	618, 80)));
+	water.insert(pair<string,Shape>("marea_1_4", Shape(-10, height - lebel - 70,	width, 70 + lebel)));//80
 }
