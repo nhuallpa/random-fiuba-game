@@ -261,7 +261,7 @@ void GameViewBuilder::buildMenuWeapon(){
 }
 
 void GameViewBuilder::buildWaterImg(){
-	WaterViewImg* wvi = new WaterViewImg();
+	WaterViewImg* wvi = WaterViewImg::FactoryWater();
 	this->gameView->setWaterImg(wvi);
 }
 
