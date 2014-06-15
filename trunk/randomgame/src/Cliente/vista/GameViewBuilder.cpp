@@ -260,6 +260,11 @@ void GameViewBuilder::buildMenuWeapon(){
 	this->gameView->setMenuWeapon(menuWeapon);
 }
 
+void GameViewBuilder::buildWaterImg(){
+	WaterViewImg* wvi = new WaterViewImg();
+	this->gameView->setWaterImg(wvi);
+}
+
 WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 {
 		WormView* aWorm = new WormView(	domainElement->getId());

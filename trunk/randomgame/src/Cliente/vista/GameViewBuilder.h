@@ -17,6 +17,7 @@
 #include "WormView.h"
 #include "ProjectileView.h"
 #include "MenuWeaponView.h"
+#include "WaterViewImg.h"
 #include "armas/GrenadeView.h"
 #include "armas/HolyView.h"
 #include "armas/BazookaView.h"
@@ -80,7 +81,7 @@ public:
 
 	void buildMenuWeapon();
 
-	
+	void buildWaterImg();
 
 	GameView* getGameView() { return this->gameView;} 
 

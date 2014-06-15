@@ -67,6 +67,11 @@ void GameView::setMenuWeapon(MenuWeaponView* menuWeapon)
 	this->add(menuWeapon);
 }
 
+void GameView::setWaterImg(WaterViewImg* waterImg){
+	this->waterImg = waterImg;
+	this->add(waterImg);
+}
+
 FigureView* GameView::findFigureById(int idElement)
 	
 {

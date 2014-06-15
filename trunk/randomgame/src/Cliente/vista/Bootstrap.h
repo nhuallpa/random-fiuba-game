@@ -44,6 +44,8 @@ public:
 
 	void loadMenuWeapon();
 
+	void loadWaterImg();
+
 	SDLScreen & getScreen();
 	
 	~Bootstrap(void);

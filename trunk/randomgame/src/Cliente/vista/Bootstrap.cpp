@@ -45,6 +45,7 @@ void Bootstrap::loadConfigGame()
 	loadEart();
 	// a a partir de aca tengo las dimensiones del terreno
 	loadMenuWeapon();
+	loadWaterImg();
 	initCamera(this->getScreen().getWidth(), this->getScreen().getHeight());
 	this->getScreen().setCamera(&(TextureManager::Instance().getCamera()));
 	std::pair<int, int> dimensionScenario = TextureManager::Instance().getDimension("eart");
@@ -176,6 +177,18 @@ void Bootstrap::shoutDown()
 	getScreen().terminate();
 	SoundManager::Instance().close();
 
+}
+
+void Bootstrap::loadWaterImg(){
+	try{
+		TextureManager::Instance().load("res/images/water/marea_1_1.png", "marea_1_1.png", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_2.png", "marea_1_2.png", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_3.png", "marea_1_3.png", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_4.png", "marea_1_4.png", this->getScreen().getRenderer());
+	}
+	catch (GameException & e){
+		Log::e(BOOT, e.what());		
+	}
 }
 
 void Bootstrap::loadMenuWeapon(){
