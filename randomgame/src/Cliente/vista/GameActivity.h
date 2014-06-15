@@ -41,6 +41,10 @@ private:
 
 	std::vector<int> futureFree;
 
+	bool afterShoot;
+	void iniAfterShoot();
+	void actionMenu();
+
 public:
 
 	int wormIdDesSelected;

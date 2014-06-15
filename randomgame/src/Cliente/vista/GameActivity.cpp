@@ -49,6 +49,7 @@ void GameActivity::update()
 	std::map<int,GameElement>* domainElements = this->builder->getDomain()->getDomainElements();
 	std::map<int,GameElement>::iterator it;
 	Log::t(VIEW,"Actualizando %d elemento", domainElements->size());
+	this->iniAfterShoot();
 	for (it = domainElements->begin(); it != domainElements->end(); ++it)
 	{
 		GameElement domainElement = it->second;
@@ -107,6 +108,14 @@ GameActivity::~GameActivity(void)
 {
 	delete builder;
 }
+
+
+void GameActivity::iniAfterShoot(){
+	if(afterShoot){
+		this->cController->remuveOnActionListener(this);
+	}
+}
+
 
 void GameActivity::deselectPreviewsWorm()
 {
@@ -251,6 +260,8 @@ void GameActivity::OnClick(ClickEvent e){
 		Log::i("\nShoot 1: x %d, y %d FACTOR 0",xMira,yMira);
 		updater.doShoot(data.first, data.second, xMira, yMira, 0);
 		aimView->unAim();
+		this->actionMenu();
+		afterShoot = true;
 		return; //proceso y me voy
 	}
 
@@ -347,6 +358,7 @@ void GameActivity::endMyTurn() {
 void GameActivity::beginMyTurn() 
 {
 	this->isMyTurn = true;
+	this->afterShoot = false;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->getStateBar()->setMessageCenter("Is your turn");
 	this->cController->addOnClickListener(this);
@@ -536,11 +548,11 @@ void GameActivity::OnMovement(MovementEvent e)
 
 
 void GameActivity::OnAction(ActionEvent e){
-	Log::i("ASD: %d", (int)e.action);
-	GameView* gameView = static_cast<GameView*>(this->aView);
+	//Log::i("ASD: %d", (int)e.action);
+	//GameView* gameView = static_cast<GameView*>(this->aView);
 	switch(e.action){
 		case MENU: 
-			gameView->actionMenu();
+			this->actionMenu();
 			break;
 		case SHOOT:
 			{  
@@ -559,6 +571,8 @@ void GameActivity::OnAction(ActionEvent e){
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 					deselectPreviewsWeapon();
+					this->actionMenu();
+					afterShoot = true;
 				}
 			}
 			break;
@@ -566,5 +580,8 @@ void GameActivity::OnAction(ActionEvent e){
 	}
 }
 
-
+void GameActivity::actionMenu(){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->actionMenu();
+}
 
