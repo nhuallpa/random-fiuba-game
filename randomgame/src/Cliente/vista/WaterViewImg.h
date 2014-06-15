@@ -2,6 +2,8 @@
 #define __WATERVIEWIMG__
 
 #include "View.h"
+#include "..\controlador\Entity\Shape.h"
+#include "..\..\utils\Timer.h"
 #include <map>
 
 using namespace std;
@@ -13,8 +15,16 @@ public:
 	~WaterViewImg();
 	void actionWater();
 	void draw(SDLScreen & screen);
+	static WaterViewImg* FactoryWater(); 
 private:
-	map<int, string> mapa;
+	Timer timer;
+	bool bRender;
+	map<string, Shape> water;
+	map<string, Shape>::iterator it;
+	void loadWater();
+	void iniView();
+	void iniRender();
+	void controlRender();
 };
 
 

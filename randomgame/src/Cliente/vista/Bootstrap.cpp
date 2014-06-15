@@ -181,10 +181,10 @@ void Bootstrap::shoutDown()
 
 void Bootstrap::loadWaterImg(){
 	try{
-		TextureManager::Instance().load("res/images/water/marea_1_1.png", "marea_1_1.png", this->getScreen().getRenderer());
-		TextureManager::Instance().load("res/images/water/marea_1_2.png", "marea_1_2.png", this->getScreen().getRenderer());
-		TextureManager::Instance().load("res/images/water/marea_1_3.png", "marea_1_3.png", this->getScreen().getRenderer());
-		TextureManager::Instance().load("res/images/water/marea_1_4.png", "marea_1_4.png", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_1.png", "marea_1_1", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_2.png", "marea_1_2", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_3.png", "marea_1_3", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/marea_1_4.png", "marea_1_4", this->getScreen().getRenderer());
 	}
 	catch (GameException & e){
 		Log::e(BOOT, e.what());		
