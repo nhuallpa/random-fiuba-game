@@ -30,14 +30,17 @@ public:
 	void unAim();
 	bool isShootMouse();
 	bool isShootEnter();
-
+	bool isRightSide();
+	bool isLeftSide();
 	//devuelvo <IdWorm, IdWeapon>
 	pair<int, int> getData();
 	int getAngle();
 
 private:
 	bool bShootMouse,
-		 bShootEnter;
+		 bShootEnter,
+		 bRight,
+		 bLeft;
 	int x, y, xRelative, yRelative,
 		xDraw, yDraw;
 	WormView* worm;
@@ -51,6 +54,9 @@ private:
 
 	void createPositionAimEnter();
 	void generatePoint();
+	void updateWormSide();
+	void renderAimLeft();
+	void renderAimRight();
 	map<int,pair<float, float>> aimEnter;
 	map<int,pair<float, float>>::iterator it;
 };

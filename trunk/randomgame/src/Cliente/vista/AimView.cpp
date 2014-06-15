@@ -3,8 +3,9 @@
 
 AimView::AimView():View(30,30){
 	bShootMouse = 
-	bShootEnter = false;
-	//xRelative = 90, yRelative = 0;
+	bShootEnter = 
+	bRight =
+	bLeft = false;
 	createPositionAimEnter();
 	it = aimEnter.begin();
 }
@@ -70,37 +71,36 @@ void AimView::OnChange(ChangeEvent e){
 	if(bShootMouse && e.isCoordenate()){
 		this->xDraw = e.x - 30;
 		this->yDraw = e.y - 30;
+		this->updateWormSide();
 	} 
 	if(bShootEnter && e.isAimEnter()){   
 		if(e.aimMove == M_ANTICLOCK){
-			this->pointUp(); 
-			//Log::i("Intento subir****************************");
+			this->pointUp();
 		}
 		else if(e.aimMove == M_SHEDULE){ 
 			this->pointUnder();
-			//Log::i("Intento bajar****************************");
 		}
 		this->centerPoint();
 		this->generatePoint();
 		this->xDraw = this->x + this->xRelative; 
 		this->yDraw = this->y + this->yRelative;
+		this->updateWormSide();
 	}
 }
 
 void AimView::OnMovement(MovementEvent e){
 	if(bShootEnter){
 		if(e.y == -1){
-			/*PositionUp();
-			this->xDraw = this->x + this->xRelative;
-			this->yDraw = this->y + this->yRelative;*/
+			
 		}
 		else if(e.y == 1){
-			/*PositionUnder();
-			this->xDraw = this->x + this->xRelative;
-			this->yDraw = this->y + this->yRelative;*/
-		}
-		else if((e.x == 1) || (e.x == -1)){
 			
+		}
+		else if((e.x == -1) && (!this->bLeft)){
+			this->renderAimLeft();
+		}
+		else if((e.x == 1) && (!this->bRight)){
+			this->renderAimRight();
 		}
 
 	}
@@ -108,6 +108,29 @@ void AimView::OnMovement(MovementEvent e){
 
 int AimView::getAngle(){
 	return it->first;
+}
+
+void AimView::updateWormSide(){
+	if(this->x <= this->xDraw){
+		if(!bRight){
+			bRight = true;
+			bLeft = false;
+		}
+	}
+	else if (this->x > this->xDraw){
+		if(!bLeft){
+			bLeft = true;
+			bRight = false;
+		}
+	}
+}
+
+bool AimView::isRightSide(){
+	return bRight;
+}
+
+bool AimView::isLeftSide(){
+	return bLeft;
 }
 
 pair<int, int> AimView::getData(){
@@ -132,6 +155,26 @@ void AimView::pointUnder(){
 	for(int i = 0; i < PASO; i++){
 		it--;
 	}
+}
+
+void AimView::renderAimLeft(){
+	it = aimEnter.begin();
+	int max = 180/PASO;
+	for(int i = 0; i < max; i++){
+		this->pointUp();
+	} 
+	this->centerPoint();
+	this->generatePoint();
+	this->xDraw = this->x + this->xRelative; 
+	this->yDraw = this->y + this->yRelative;
+}
+
+void AimView::renderAimRight(){
+	it = aimEnter.begin();
+	this->centerPoint();
+	this->generatePoint();
+	this->xDraw = this->x + this->xRelative; 
+	this->yDraw = this->y + this->yRelative;
 }
 
 void AimView::generatePoint(){

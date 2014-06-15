@@ -34,7 +34,10 @@ private:
 	/*para calcular el zoom*/
 	void calcRectPosition(SDL_Rect& wormRect,WormView *aWorm);
 
-	bool isMyTurn;
+	bool isMyTurn,
+		 isRightAim,
+		 isLeftAim;
+
 	WeaponId idWeapon;
 
 	AimView* aimView;
@@ -42,9 +45,9 @@ private:
 	std::vector<int> futureFree;
 
 	bool afterShoot;
-	void iniAfterShoot();
+	void iniState();
 	void actionMenu();
-
+	void offMenu();
 public:
 
 	int wormIdDesSelected;
