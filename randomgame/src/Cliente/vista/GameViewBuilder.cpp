@@ -311,6 +311,7 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_granada"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
+			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == BAZOOKA) { 
 			aProjectile = new BazookaView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_bazooka"));
@@ -319,10 +320,12 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 			aProjectile = new HolyView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_holy"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == DYNAMITE) { 
 			aProjectile = new DynamiteView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == AIRATTACK) { 
 			aProjectile = new AirStrikeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
@@ -335,6 +338,7 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setLifeInitial(domainElement->getLife());
 		}
 	} 
 	catch (std::exception & e) 

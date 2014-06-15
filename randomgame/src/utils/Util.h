@@ -213,6 +213,8 @@ public:
 
 	static std::string actionString(Movement action);
 
+	static void clean(Playable & p);
+
 
 };
 

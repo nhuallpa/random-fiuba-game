@@ -85,6 +85,7 @@ void Updater::doLogout()
 void Updater::doStopWorm(int idWorm)
 {
 	Playable p;
+	//Util::clean(p);
 	p.action = MOVE_STOP;
 	p.wormid = idWorm;
 	this->addLocalMovementFromView(p);
@@ -94,6 +95,7 @@ void Updater::doStopWorm(int idWorm)
 void Updater::doUnselectWapon(int wormId, int idWeapon)
 {
 	Playable p;
+	//Util::clean(p);
 	p.action = WITHOUT_WEAPON;
 	p.wormid = wormId;
 	p.weaponid = idWeapon;
@@ -104,15 +106,19 @@ void Updater::doUnselectWapon(int wormId, int idWeapon)
 void Updater::doSelectWapon(int wormId, int idWeapon)
 {
 	Playable p;
+	//Util::clean(p);
 	p.action = WITH_WEAPON;
 	p.wormid = wormId;
 	p.weaponid = idWeapon;
 	this->addLocalMovementFromView(p);
 }
 
+//void  Updater::notif
+
 void Updater::doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor)
 {
 	Playable p;
+	//Util::clean(p);
 	p.action = DO_SHOOT;
 	p.wormid = wormId;
 	p.weaponid = idWeapon;

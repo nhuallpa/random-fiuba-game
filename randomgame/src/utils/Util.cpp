@@ -210,3 +210,16 @@ std::string Util::actionString(Movement action)
 	}
 	return sValue;
 }
+
+void Util::clean(Playable & p){
+	p.action = MOVELESS;
+	
+	int i=0;
+	for (int i=0; i<sizeof(p.level); i++) {
+		p.level[i] = ' ';
+	}
+	p.life=0;
+	p.weaponid = NO_WEAPON;
+	p.x = 0;
+	p.y = 0;
+}

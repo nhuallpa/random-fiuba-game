@@ -399,11 +399,12 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 
 }
 
-void GameActivity::buildProjectile(int idElement, float x, float y, int type)
+void GameActivity::buildProjectile(int idElement, float x, float y, int type, int life, Movement action)
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	Log::i("GameActivity::buildProjectile >> Agregando GameElement id: %d,pos[ %f, %f ]", idElement, x, y);
 	GameElement aGameElem(idElement, this->playerId, WEAPON, x, y, 0, 0, 0, 0, false);
+	aGameElem.setLife(life);
 	
 	this->builder->getDomain()->addElementToDomain(aGameElem);
 
@@ -491,7 +492,7 @@ void GameActivity::showMessageInfo(std::string msg)
 void GameActivity::OnMovement(MovementEvent e)
 {
 	Playable p;
-
+//	Util::clean(p);
 
 	//no lo dejo mover si va a disparar
 	/*if(aimView->isShootEnter()){

@@ -26,6 +26,14 @@ protected:
 	bool detonated;
 
 	
+	int currentLife;
+
+	int lifeInitial;
+
+	int widhtLife100;
+
+	int widhtLifeCurrent;
+
 public:
 	ProjectileView(int id);
 
@@ -33,7 +41,11 @@ public:
 
 	void setSpriteBullet(Sprite spriteBullet) {this->spriteBullet = spriteBullet;}
 	void setSpriteExplosion(Sprite spriteExplosion) {this->spriteExplosion = spriteExplosion;}
-									
+					
+	int ProjectileView::getLifeInitial();
+		
+	void ProjectileView::setLifeInitial(int life);
+
 	void clean();
 	
 	void update(GameElement* domainElement);
