@@ -16,7 +16,8 @@ enum Messages {
 	ALREADY_EXIST_USER,
 	LOGIN_OK,
 	LOGOUT,
-	MAP_UPDATE		// Actualiza mapa por explosiones 
+	MAP_UPDATE,		// Actualiza mapa por explosiones 
+	LIFE_UPDATE
 };
 
 
