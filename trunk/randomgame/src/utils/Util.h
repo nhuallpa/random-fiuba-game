@@ -31,8 +31,15 @@ enum UserDataPhysics { NO_UD=9, UD_TERRAIN=2, UD_WATER=0, UD_WORMS, UD_MISSIL };
 #define DAMAGE_BURRO 33
 #define DAMAGE_SUICIDE 23
 
-
 #define BURRO_REPEAT 4
+
+typedef enum{
+	ARGENTINA = 0,
+	BRASIL,
+	ALEMANIA,
+	ESPANIA
+} TeamColors;
+
 
 typedef enum{
 	NO_WEAPON=0,
