@@ -357,17 +357,17 @@ bool GameEngine::step(){
 		}
 
 		if ( iterator->second->type ==	WEAPON ) {
-				
+			
+			/* Eliminacion de misiles */
 			if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() && 
 				 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA) ){
 				
 				// Viene explotado del ciclo anterior, lo elimino
-					 printf("\nELIMINO MISIL");
 				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
 
+			/* Explosion de la bazooka (manejada desde el contact listener) */
 			}else if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
 
-				printf("\nBAZOOKA EXPLOTO");
 				printf("\nDo explosion at position %f,%f with radius %d",
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
@@ -394,12 +394,12 @@ bool GameEngine::step(){
 				static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setWeapon(NO_WEAPON);
 
 
+			/* Animacion de misiles y explosion de los misiles con tiempo */
 			}else{				
 				Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
 				aBody->animate( this->myTimer.elapsed() );
 					
-				//printf("\nRemaining time: %d",static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getLife() );
-					
+				/* Restrinjo solo a los que tienen delayed Explosion*/
 				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() && 
 					 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA) ){
 					
@@ -631,7 +631,7 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			static_cast<Worm*>(myWorm)->weaponedRight(weaponid);
 			break;
 		case DO_SHOOT:
-			printf("\n animate weapon: x %f, y %f, intensidad: %d",x,y,intensidad);
+			//printf("\n animate weapon: x %f, y %f, intensidad: %d",x,y,intensidad);
 			this->didWeShoot = true;
 			static_cast<Worm*>(myWorm)->shoot();
 			animateWeapon(weaponid, id, x, y, intensidad);
