@@ -125,12 +125,12 @@ void GameActivity::iniState(){
 	if(!this->isRightAim && this->aimView->isRightSide()){
 		this->isLeftAim = false;
 		this->isRightAim = true;
-		this->updater.notify(this->wormIdSelected, WITH_WEAPON_RIGHT);
+		this->updater.notify(this->wormIdSelected, WITH_WEAPON_RIGHT, this->idWeapon);
 	}
 	else if(!this->isLeftAim && this->aimView->isLeftSide()){
 		this->isRightAim = false;
 		this->isLeftAim = true;
-		this->updater.notify(this->wormIdSelected, WITH_WEAPON_LEFT);
+		this->updater.notify(this->wormIdSelected, WITH_WEAPON_LEFT, this->idWeapon);
 	}
 }
 

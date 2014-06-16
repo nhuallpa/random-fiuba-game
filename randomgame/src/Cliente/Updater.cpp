@@ -145,13 +145,13 @@ void Updater::addLocalMovementFromView(Playable p){
 }
 
 
-void Updater::notify(int wormId, Movement mov)
+void Updater::notify(int wormId, Movement mov, int weaponId)
 {
 	Playable p;
 	//Util::clean(p);
 	p.action = mov;
 	p.wormid = wormId;
-	p.weaponid = NO_WEAPON;
+	p.weaponid = weaponId;
 	p.x = 0;
 	p.y = 0;
 	p.life = 0;
