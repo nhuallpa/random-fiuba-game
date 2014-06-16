@@ -117,6 +117,7 @@ void Worm2d::animate(){
 	if ( !myWorm->isAlive() ){
 		myWorm->changed = true;
 		myWorm->action = DEAD;
+		printf("\nSending dead");
 		return;
 	}
 

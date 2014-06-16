@@ -333,6 +333,9 @@ bool GameEngine::step(){
 	//Simulo (1 step) - default values Box2D
 	this->myWorld->Step(this->timeStep,8,3);
 
+	//Guardo aqui los ID de los cuerpos a eliminar
+	std::vector<int> bodiesToDelete;
+
 	//Reflect model - for every body (worm)
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();
@@ -343,9 +346,9 @@ bool GameEngine::step(){
 			
 			if ( !static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->isAlive() ){
 				//Viene muerto del ciclo anterior, lo elimino
-				//ERIK printf("Esta muerto");
 				//ERIK this->deleteBody( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
-
+				printf("\n lo agrego para eliminar");
+				bodiesToDelete.push_back( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
 			}else{
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 				aBody->animate();
@@ -356,10 +359,10 @@ bool GameEngine::step(){
 				
 			if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
 				// Viene explotado del ciclo anterior, lo elimino
-				printf("\nAlready exploded, deleting");
-				this->deleteBody( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
-					
-				return false;
+				//printf("\nAlready exploded, deleting");
+				//this->deleteBody( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+				//return false;
 			}else{
 				
 				Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
@@ -416,7 +419,7 @@ bool GameEngine::step(){
 					it->second->GetBody()->SetActive(false);
 					static_cast<Missile*>(it->second->GetBody()->GetUserData())->drowned = true;
 					this->deleteBody( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
-
+					bodiesToDelete.push_back( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
 				}else{
 			
 					/* Velocidad que toma al caer */
@@ -425,6 +428,7 @@ bool GameEngine::step(){
 					it->second->GetBody()->SetLinearVelocity(vel);
 					static_cast<Worm*>(it->second->GetBody()->GetUserData())->setLife(0);
 					static_cast<Worm*>(it->second->GetBody()->GetUserData())->drowned = true;
+					it->second->GetBody()->SetActive(false);
 
 					/*this->deleteBody( static_cast<Worm*>(it->second->GetBody()->GetUserData())->getId() )*/;
 					//static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAlive(false);
@@ -434,6 +438,11 @@ bool GameEngine::step(){
 
 		}
 		++it;
+	}
+
+	//Elimino todos los cuerpos que fueron marcados para eliminacion
+	for ( int i=0; i < bodiesToDelete.size(); i++ ){
+		this->deleteBody( bodiesToDelete[i] );
 	}
 
 	return false;
