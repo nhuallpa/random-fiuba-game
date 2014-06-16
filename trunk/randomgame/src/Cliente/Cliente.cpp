@@ -132,13 +132,14 @@ void Cliente::getRemoteWorld() {
 		}
 		int els = msg->elements;
 		this->domainMx.lock();
+		int auxLife =0;
 		for ( int j=0; j < els; j++){
 
 			Log::i("Got worm id: %d at pos: %f, %f, action: %s, life %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, Util::actionString(msg->play[j].action).c_str(), msg->play[j].life);
 
 			//Trigger changes into game elements of the client
 			GameElement* elem = getElementFromPlayable(msg->playerID, msg->play[j]);
-					
+			auxLife = auxLife + msg->play[j].life;		
 			this->domain.addElementToDomain(*elem);
 			
 			if ( msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED){
@@ -147,6 +148,7 @@ void Cliente::getRemoteWorld() {
 			}else
 				this->domain.addPlayer(msg->playerID,CONNECTED,0);
 		}
+		this->domain.setPlayerLife(msg->playerID,auxLife);
 		this->domainMx.unlock();
 
 	}
@@ -441,6 +443,10 @@ int Cliente::netListener(void* data){
 				Log::d("El usuario %s se ha RECONECTADO ", emsg->playerID.c_str());
 				cli->getCurrentActivity()->showMessageInfo("El usuario " + emsg->playerID + " se ha reconectado");	
 			}
+			break;
+
+		case LIFE_UPDATE:
+			cli->domain.setPlayerLife(emsg->playerID,emsg->play[0].life);
 			break;
 
 		case MAP_UPDATE:

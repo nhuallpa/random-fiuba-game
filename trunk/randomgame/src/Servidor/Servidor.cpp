@@ -167,7 +167,7 @@ int Servidor::stepOver(void* data){
 			shootTime = timeHandler.elapsed();
 			srv->gameEngine.didWeShoot = false;
 			localShoot = true;
-			printf("\nHubo disparo at %f",shootTime);
+			//printf("\nHubo disparo at %f",shootTime);
 		}
 
 		/* Se termino el turno o pasaron 5 seg desde el disparo */
@@ -499,11 +499,14 @@ void Servidor::processPlayersLife(){
 	//Por cada player proceso su vida
 	for ( ; itGP != gpcopy.end(); ++itGP ){
 		itGP->second->updateLife();
+
+		// Notifico de la vida de cada player
+		this->worldQ.type = LIFE_UPDATE;
+		this->worldQ.playerID = itGP->first;
+		this->worldQ.play[0].life = itGP->second->getLife();
+		this->worldQ.elements = 1;
+		this->notifyAll();
 	}
-
-	// Notifico de la vida de cada player
-	//TODO
-
 
 }
 
