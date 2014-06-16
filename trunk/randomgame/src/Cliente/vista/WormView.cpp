@@ -51,6 +51,8 @@ void WormView::update(GameElement* domainElement)
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
+	//this->selectWeapon((WeaponId)domainElement->getWeaponId());
+	Log::i("WormView::update >> weapong %d", this->weaponId);
 	// ACTIONS
     if (domainElement->getAction() == MOVE_RIGHT ||
             domainElement->getAction() == MOVE_LEFT)
@@ -79,7 +81,7 @@ void WormView::update(GameElement* domainElement)
             this->direction = SDL_FLIP_NONE;        
     }
 
-    if (domainElement->getAction() == MOVELESS)
+	if (domainElement->getAction() == MOVELESS || domainElement->getAction() == WITH_WEAPON_LEFT || domainElement->getAction() == WITH_WEAPON_RIGHT)
     {
             this->state = WORM_VIEW_MOTIONLESS;
     }
@@ -135,7 +137,6 @@ void WormView::update()
 			currentSprite = &this->sprites["radio"];
 		}
 		
-
 		if (this->weaponId == NO_WEAPON && currentSprite != &this->sprites["caminar"]) 
 		{
 			currentSprite = &this->sprites["caminar"];

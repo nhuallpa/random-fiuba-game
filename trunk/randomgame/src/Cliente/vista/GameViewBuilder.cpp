@@ -354,3 +354,17 @@ void GameViewBuilder::buildPlayerProgress()
 	PlayerProgressView* pProgressView = new PlayerProgressView();
 	this->gameView->setPlayerProgressView(pProgressView);
 }
+
+void GameViewBuilder::buildPower()
+{
+	int w = TextureManager::Instance().getScreenWidth();
+
+	PowerView* powerView = new PowerView(w-100, 10);
+	this->gameView->setPowerView(powerView);
+}
+
+void GameViewBuilder::buildTimer()
+{
+	TimerView* timerView = new TimerView(0, 10);
+	this->gameView->setTimerView(timerView);
+}

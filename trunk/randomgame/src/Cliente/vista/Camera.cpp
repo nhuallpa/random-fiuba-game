@@ -32,7 +32,7 @@ void Camera::OnScroll(ScrollEvent e) {
 	{
 		this->box.y += e.ySpeed;
 	}
-	Log::i("Camera::OnScroll CENTER on x: %d Y:%d", this->box.x, this->box.y);
+	Log::d("Camera::OnScroll CENTER on x: %d Y:%d", this->box.x, this->box.y);
 }
 
 void Camera::setFocus(tFocus tipo, int dest_w, int dest_h)
@@ -47,7 +47,7 @@ void Camera::setFocus(tFocus tipo, int dest_w, int dest_h)
 			yNew = 0;
 		}
 		this->setPosition(xNew, yNew);
-		Log::i("Camera::setFocus CENTER on x: %d Y:%d", xNew, yNew);
+		Log::d("Camera::setFocus CENTER on x: %d Y:%d", xNew, yNew);
 	} 
 	else if (tipo == FOCUS_BOTOOM_CENTER) 
 	{
@@ -60,7 +60,7 @@ void Camera::setFocus(tFocus tipo, int dest_w, int dest_h)
 			yNew = 0;
 		}
 		this->setPosition(xNew, yNew);
-		Log::i("Camera::setFocus FOCUS_BOTOOM_CENTER on x: %d Y:%d", xNew, yNew);
+		Log::d("Camera::setFocus FOCUS_BOTOOM_CENTER on x: %d Y:%d", xNew, yNew);
 	}
 	
 }

@@ -94,6 +94,7 @@ void Updater::doStopWorm(int idWorm)
 
 void Updater::doUnselectWapon(int wormId, int idWeapon)
 {
+	Log::i("Updater::doUnselectWapon of worm %d weapon %d", wormId, idWeapon);
 	Playable p;
 	//Util::clean(p);
 	p.action = WITHOUT_WEAPON;
@@ -105,6 +106,7 @@ void Updater::doUnselectWapon(int wormId, int idWeapon)
 
 void Updater::doSelectWapon(int wormId, int idWeapon)
 {
+	Log::i("Updater::doSelectWapon of worm %d weapon %d", wormId, idWeapon);
 	Playable p;
 	//Util::clean(p);
 	p.action = WITH_WEAPON;

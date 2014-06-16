@@ -137,3 +137,15 @@ void GameView::setPlayerProgressView(PlayerProgressView * pProgressView){
 	this->pProgressView = pProgressView;
 	this->add(pProgressView);
 }
+
+void GameView::setTimerView(TimerView * timerView)
+{
+	this->timerView = timerView;
+	this->add(timerView);
+}
+
+void GameView::setPowerView(PowerView * powerView)
+{
+	this->powerView = powerView;
+	this->add(powerView);
+}

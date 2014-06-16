@@ -144,6 +144,9 @@ public:
 	void drawPolygon(SDL_Renderer * renderer, Sint16 * vx, Sint16 * vy, int n, Uint32 color, Uint32 borderColor);
 	/** Draw Box on renderer*/
 	void drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
+	
+	void drawRoundedBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 rad, Uint32 color);
+
 
 	void drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y, std::string text , Uint32 color);
 

@@ -300,6 +300,12 @@
     <ClCompile Include="..\src\Cliente\vista\PlayerProgressView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\PowerView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\TimerView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -574,6 +580,12 @@
     </ClInclude>
     <ClInclude Include="..\src\utils\Constantes\Colors.h">
       <Filter>Archivos de código fuente\utils\Constantes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\PowerView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\TimerView.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
