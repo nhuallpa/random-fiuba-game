@@ -35,8 +35,8 @@ void jumpLeft();
 void moveLeft();
 void moveRight();
 void stopMoving();
-void weaponedLeft();
-void weaponedRight();
+void weaponedLeft(int weaponid);
+void weaponedRight(int weaponid);
 
 bool isSelected();
 bool isJumping();

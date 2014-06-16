@@ -588,10 +588,13 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			static_cast<Worm*>(myWorm)->stop();
 			break;
 		case WITH_WEAPON_LEFT:
-			static_cast<Worm*>(myWorm)->weaponedLeft();
+			static_cast<Worm*>(myWorm)->weaponedLeft(weaponid);
 			break;
 		case WITH_WEAPON_RIGHT:
-			static_cast<Worm*>(myWorm)->weaponedRight();
+			static_cast<Worm*>(myWorm)->weaponedRight(weaponid);
+			break;
+		case WITH_WEAPON:
+			static_cast<Worm*>(myWorm)->weaponedRight(weaponid);
 			break;
 		case DO_SHOOT:
 			printf("\n animate weapon: x %f, y %f, intensidad: %d",x,y,intensidad);

@@ -73,18 +73,20 @@ void Worm::moveRight()
 	this->action = MOVE_RIGHT;
 }
 
-void Worm::weaponedLeft()
+void Worm::weaponedLeft(int weaponid)
 {
 	this->stopMoving();
 	this->weaponLeft=true;
 	this->action = WITH_WEAPON_LEFT;
+	this->weaponId = weaponid;
 }
 
-void Worm::weaponedRight()
+void Worm::weaponedRight(int weaponid)
 {
 	this->stopMoving();
 	this->weaponRight=true;
 	this->action = WITH_WEAPON_RIGHT;
+	this->weaponId = weaponid;
 }
 
 
