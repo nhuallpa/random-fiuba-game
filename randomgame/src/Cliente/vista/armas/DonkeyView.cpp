@@ -1,8 +1,8 @@
 #include "DonkeyView.h"
 
 
-DonkeyView::DonkeyView(int id)
-	: ProjectileView(id)
+DonkeyView::DonkeyView(int id, std::string imageId)
+	: ProjectileView(id), imageId(imageId)
 {
 	this->enableScroll();
 }
@@ -26,7 +26,7 @@ void DonkeyView::update()
 
 void DonkeyView::draw(SDLScreen & screen)
 { 
-	TextureManager::Instance().draw("donkey", 
+	TextureManager::Instance().draw(imageId.c_str(), 
 										this->getXCenter(), 
 										this->getYCenter(), 
 										screen.getRenderer(),
@@ -38,5 +38,5 @@ void DonkeyView::detonate()
 {
 	currentSprite = &this->spriteExplosion;
 	this->detonated = true;
-	SoundManager::Instance().pEXPLOSION1();
+	SoundManager::Instance().pEXPLOSION3();
 }
