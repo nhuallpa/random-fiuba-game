@@ -19,6 +19,7 @@ GameEngine::GameEngine() {
 	this->gameLevel = new GameLevel();
 	this->weaponUniquedId = WEAPON_STARTING_ID;
 	this->myTimer.start();
+	this->didWeShoot = false;
 }
 
 int GameEngine::getWeaponUniqueId(){
@@ -598,6 +599,7 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 			break;
 		case DO_SHOOT:
 			printf("\n animate weapon: x %f, y %f, intensidad: %d",x,y,intensidad);
+			this->didWeShoot = true;
 			animateWeapon(weaponid, id, x, y, intensidad);
 			break;
 	}
