@@ -104,3 +104,12 @@ void MissileSheep2d::animate( float time ){
 
 
 }
+
+
+void MissileSheep2d::explode( ){
+
+
+
+
+
+}

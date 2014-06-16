@@ -5,6 +5,17 @@ MissileHoming2d::MissileHoming2d()
 
 }
 
+
+
+void MissileHoming2d::explode( ){
+
+
+
+
+
+}
+
+
 MissileHoming2d::MissileHoming2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;

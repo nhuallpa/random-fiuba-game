@@ -12,6 +12,7 @@ class Missile2dGrenade : public Missile2d{
 		Missile2dGrenade();
 		virtual ~Missile2dGrenade();
 		virtual void animate( float time );
+		virtual void explode( );
 
 };
 

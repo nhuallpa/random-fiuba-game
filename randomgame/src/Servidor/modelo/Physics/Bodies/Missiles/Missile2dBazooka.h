@@ -12,6 +12,7 @@ class Missile2dBazooka : public Missile2d{
 		Missile2dBazooka();
 		virtual ~Missile2dBazooka();
 		virtual void animate( float time );
+		virtual void explode( );
 
 };
 

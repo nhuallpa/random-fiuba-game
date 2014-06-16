@@ -12,7 +12,7 @@ class MissileHoming2d : public Missile2d{
 		MissileHoming2d();
 		virtual ~MissileHoming2d();
 		virtual void animate( float time );
-
+		virtual void explode( );
 };
 
 

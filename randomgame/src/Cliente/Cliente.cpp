@@ -299,6 +299,7 @@ bool Cliente::updateModel(Playable p){
 		this->domainMx.unlock();
 	
 	}else{
+		Log::i("Cliente::updateModel >> Processing explosion id: %d, at pos[ %f ul, %f ul] of weapon %d", p.wormid, p.x, p.y, p.weaponid);
 		switch( p.weaponid ){
 		case GRENADE:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
@@ -313,6 +314,10 @@ bool Cliente::updateModel(Playable p){
 			this->processExplosions( p.x, p.y, EXPLODE_RGIANT );
 			break;
 		case AIRATTACK:
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
+		case BAZOOKA:
+
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		default:

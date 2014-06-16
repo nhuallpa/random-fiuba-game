@@ -5,6 +5,19 @@ MissileHoly2d::MissileHoly2d()
 
 }
 
+
+
+
+void MissileHoly2d::explode( ){
+
+
+
+
+
+}
+
+
+
 MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;

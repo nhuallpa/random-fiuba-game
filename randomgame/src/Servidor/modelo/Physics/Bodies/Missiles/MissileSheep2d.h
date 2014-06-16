@@ -12,7 +12,7 @@ class MissileSheep2d : public Missile2d{
 		MissileSheep2d();
 		virtual ~MissileSheep2d();
 		virtual void animate( float time );
-
+		virtual void explode( );
 };
 
 

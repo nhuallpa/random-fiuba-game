@@ -358,20 +358,50 @@ bool GameEngine::step(){
 
 		if ( iterator->second->type ==	WEAPON ) {
 				
-			if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
-				// Viene explotado del ciclo anterior, lo elimino
-				//printf("\nAlready exploded, deleting");
-				//this->deleteBody( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
-				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
-				//return false;
-			}else{
+			if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() && 
+				 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA) ){
 				
+				// Viene explotado del ciclo anterior, lo elimino
+					 printf("\nELIMINO MISIL");
+				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+
+			}else if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
+
+				printf("\nBAZOOKA EXPLOTO");
+				printf("\nDo explosion at position %f,%f with radius %d",
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+					static_cast<Missile2d*>(iterator->second)->getExplosion().radio
+					);
+					
+				// Hago agujero en Box2d
+				this->doExplosion( b2Vec2( 
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
+					static_cast<Missile2d*>(iterator->second)->getExplosion().radio,
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+					);
+
+				static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setAction(EXPLOSION);
+				static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->changed = true;
+
+				// Marco como inactivo para borrar en el proximo ciclo
+				static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
+
+				this->myTimer.reset();
+
+				//Cambio weaponId para eliminar en el proximo ciclo
+				static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setWeapon(NO_WEAPON);
+
+
+			}else{				
 				Missile2d* aBody = static_cast<Missile2d*>(iterator->second);
 				aBody->animate( this->myTimer.elapsed() );
 					
 				//printf("\nRemaining time: %d",static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getLife() );
 					
-				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() ){
+				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() && 
+					 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA) ){
 					
 
 					printf("\nDo explosion at position %f,%f with radius %d",
