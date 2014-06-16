@@ -230,6 +230,13 @@ void Worm2d::animate(){
 				myWorm->setAction(WITH_WEAPON_RIGHT);
 			}
 
+			if ( myWorm->getAction()  ==  MOVELESS){
+				myWorm->setAction(MOVELESS);
+				myWorm->myLastAction = MOVELESS;
+			}
+
+
+
 			myWorm->changed = true;
 		}else{
 			myWorm->changed = false;
