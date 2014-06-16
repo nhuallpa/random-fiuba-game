@@ -34,6 +34,34 @@ void Camera::OnScroll(ScrollEvent e) {
 	}
 }
 
+void Camera::setFocus(tFocus tipo, int dest_w, int dest_h)
+{
+	if (tipo == FOCUS_CENTER) {
+		int xNew = (int)(((float)dest_w / 2) - ((float)this->getW() / 2));
+		if (xNew<0) {
+			xNew = 0;
+		}
+		int yNew = (int)(((float)dest_h / 2) - ((float)this->getH() / 2));
+		if (yNew < 0) {
+			yNew = 0;
+		}
+		this->setPosition(xNew, yNew);
+	} 
+	else if (tipo == FOCUS_BOTOOM_CENTER) 
+	{
+		int xNew = (int)(((float)dest_w / 2) - ((float)this->getW() / 2));
+		if (xNew<0) {
+			xNew = 0;
+		}
+		int yNew = dest_h  - this->getH();
+		if (yNew < 0) {
+			yNew = 0;
+		}
+		this->setPosition(xNew, yNew);
+	}
+}
+
+
 Camera::~Camera(void)
 {
 }

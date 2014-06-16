@@ -44,6 +44,7 @@ void GameActivity::buildView()
 	gameView->add(aimView);
 	this->cController->addOnChangeListener(aimView);
 	this->cController->addOnMovementListener(aimView);
+	TextureManager::Instance().setFocus(FOCUS_BOTOOM_CENTER);
 }
 
 void GameActivity::update() 
@@ -123,13 +124,11 @@ void GameActivity::iniState(){
 		this->isLeftAim = false;
 		this->isRightAim = true;
 		this->updater.notify(this->wormIdSelected, WITH_WEAPON_RIGHT);
-		//TODO: NESTOR O ARIEL, ACA MANDAR AL SERVER EL GUSANO MIRA HACIA LA DRECHA
 	}
 	else if(!this->isLeftAim && this->aimView->isLeftSide()){
 		this->isRightAim = false;
 		this->isLeftAim = true;
 		this->updater.notify(this->wormIdSelected, WITH_WEAPON_LEFT);
-		//TODO: NESTOR O ARIEL, ACA MANDAR AL SERVER EL GUSANO MIRA HACIA LA IZQUIERDA
 	}
 }
 
