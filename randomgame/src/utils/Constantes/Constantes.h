@@ -46,7 +46,7 @@
 #define WORM_LIFE 100
 
 #define SHOOT_POWER 8
-#define MAX_TIME_POWER 3
+#define MAX_TIME_POWER 5
 #define MAX_POWER 10
 
 #define BAZOOKA_X_FACTOR 1.7

@@ -170,6 +170,14 @@ std::string Util::actionString(Movement action)
 	{
 		sValue.assign("WITH_WEAPON");
 	}
+	else if (action == WITH_WEAPON_LEFT)
+	{
+		sValue.assign("WITH_WEAPON_LEFT");
+	}
+	else if (action == WITH_WEAPON_RIGHT)
+	{
+		sValue.assign("WITH_WEAPON_RIGHT");
+	}
 	else if (action == NOT_CONNECTED)
 	{
 		sValue.assign("NOT_CONNECTED");

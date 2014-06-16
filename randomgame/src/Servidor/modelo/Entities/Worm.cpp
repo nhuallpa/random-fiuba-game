@@ -50,7 +50,10 @@ void Worm::jumpLeft()
 void Worm::stop()
 {
 	this->stopMoving();
-	this->action = MOVE_STOP;
+	if ( this->action != WITH_WEAPON_RIGHT &&
+		 this->action != WITH_WEAPON_LEFT ){
+		this->action = MOVE_STOP;
+	}
 	//Worm2d* aWorm2d = (Worm2d*)this->myBody;
 	//aWorm2d->getBody()->SetLinearVelocity(b2Vec2(0,0));
 }
@@ -90,6 +93,26 @@ void Worm::weaponedRight(int weaponid)
 }
 
 
+void Worm::shoot()
+{
+	printf("\n - shoot, my action is %s",Util::actionString(this->action).c_str());
+	if ( this->action == WITH_WEAPON_RIGHT){
+		printf("\n    reseteo arma");
+		this->myLastAction = WITH_WEAPON_RIGHT;
+		this->action = MOVELESS_RIGHT;
+		this->weaponId = NO_WEAPON;
+		this->changed = true;
+	}else if ( this->action == WITH_WEAPON_LEFT){
+		printf("\n    reseteo arma");
+		this->myLastAction = WITH_WEAPON_LEFT;
+		this->action = MOVELESS_LEFT;
+		this->weaponId = NO_WEAPON;
+		this->changed = true;
+	}
+
+}
+
+
 void Worm::stopMoving()
 {
 
@@ -97,8 +120,18 @@ void Worm::stopMoving()
 		this->action = MOVELESS_RIGHT;
 	}else if ( movingLeft ){
 		this->action = MOVELESS_LEFT;
-	}else
+
+	}else if ( this->action == WITH_WEAPON_RIGHT){
+		printf("\n    reseteo WITH_WEAPON_RIGHT");
+		this->action = WITH_WEAPON_RIGHT;
+
+	}else if ( this->action == WITH_WEAPON_LEFT){
+		printf("\n    reseteo WITH_WEAPON_LEFT");
+		this->action = WITH_WEAPON_LEFT;
+
+	}else{
 		this->action = MOVELESS;
+	}
 	jumping=false;
 	jumpingRight=false;
 	jumpingLeft=false;

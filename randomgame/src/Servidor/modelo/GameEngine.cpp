@@ -603,7 +603,9 @@ void GameEngine::applyAction2Element(int id, int weaponid, float x, float y, Mov
 		case DO_SHOOT:
 			printf("\n animate weapon: x %f, y %f, intensidad: %d",x,y,intensidad);
 			this->didWeShoot = true;
+			static_cast<Worm*>(myWorm)->shoot();
 			animateWeapon(weaponid, id, x, y, intensidad);
+						
 			break;
 	}
 

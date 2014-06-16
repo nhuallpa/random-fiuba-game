@@ -22,7 +22,7 @@ class GameDomain{
 	std::map<Player,int> playersLife;
 
 	// Key: PlayerID, Elem: Pair<State,Color>
-	std::map<Player,std::pair<StateConn,unsigned long>> playersPlaying;
+	std::map<Player,std::pair<StateConn,int>> playersPlaying;
 
 public:
 
@@ -34,6 +34,10 @@ public:
 
 	 void setPlayerLife(std::string playerId, int life){
 		 this->playersLife[playerId] = life;
+	 }
+
+	 int getPlayerLife(std::string playerId){
+		 return this->playersLife[playerId];
 	 }
 
 	 void printDomain(){

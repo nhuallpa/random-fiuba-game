@@ -29,6 +29,7 @@ Worm(int id, std::string playerID, ElementType type, float posX, float posY, flo
 
 
 void stop();
+void shoot();
 void jump();
 void jumpRight();
 void jumpLeft();
