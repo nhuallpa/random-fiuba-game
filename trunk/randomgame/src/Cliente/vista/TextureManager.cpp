@@ -493,10 +493,11 @@ tPoint TextureManager::convertPointUL2PXSDL(float x, float y)
 
 void TextureManager::putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel )
 {
-
-    Uint32 *pixels = (Uint32 *)surface->pixels;
+	if ((x>0 && x<surface->w) && (y > 0 && y < surface->h)) {
+		Uint32 *pixels = (Uint32 *)surface->pixels;
+		pixels[ ( y * surface->w ) + x ] = pixel;
+	}
     
-    pixels[ ( y * surface->w ) + x ] = pixel;
 }
 
 void TextureManager::drawCircleOn(SDL_Surface *surface, int centerX, int centerY, int radius, Uint32 pixel)
@@ -551,35 +552,25 @@ void TextureManager::drawCircleOn(SDL_Surface *surface, int centerX, int centerY
 void TextureManager::fillCircleOn(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
 {
  
-	int w_imagen = surface->w;
-	int h_imagen = surface->h;
-
-    static const int BPP = 4;
+	static const int BPP = 4;
  
     double r = (double)radius;
  
-    for (double dy = 1; dy <= r; dy += 1.0) // media circunferencias superior
+    for (double dy = 1; dy <= r; dy += 1.0)
     {
-        double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));  // ancho en cada pixel y al centro
-
-		//int x_col_left = cx - dx;
-        int x = cx - dx; // old
-		Log::t("Ancho fila circulo %f", dx);
-		// validar que los pixeles se modifiquen dentro del
-
-		// row_top = (cy - r + dy) * surface->pitch // Borde arriba hacia abajo
-		// row_bottom = (cy + r - dy) * surface->pitch// Borde abajo hacia arriba   
-        Uint8 *target_pixel_a = (Uint8 *)surface->pixels + ((int)(cy + r - dy)) * surface->pitch + x * BPP;
-        Uint8 *target_pixel_b = (Uint8 *)surface->pixels + ((int)(cy - r + dy)) * surface->pitch + x * BPP;
+     
+        double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));
+        int x = cx - dx; //[ X px]
+        int y_A = (int)(cy + r - dy); //[ Y px] en coordinate A
+		int y_B = (int)(cy - r + dy); //[ Y px] en coordinate B
  
-		// col_right = cx + dx;
+ 
         for (; x <= cx + dx; x++)
         {
-            *(Uint32 *)target_pixel_a = pixel;
-            *(Uint32 *)target_pixel_b = pixel;
-            target_pixel_a += BPP;
-            target_pixel_b += BPP;
+			putPixel32(surface, x, y_A, pixel );  // validar que no pise memoria
+			putPixel32(surface, x, y_B, pixel );  // validar que no pise memoria
         }
+		
     }
 }
 
