@@ -315,25 +315,24 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 		} else if (type == BAZOOKA) { 
 			aProjectile = new BazookaView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_bazooka"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 		} else if (type == HOLY) { 
 			aProjectile = new HolyView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_holy"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle75"));
 			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == DYNAMITE) { 
 			aProjectile = new DynamiteView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == AIRATTACK) { 
 			aProjectile = new AirStrikeView(domainElement->getId());
-			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_airmisl"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 		} else if (type == BURRO) { 
-			aProjectile = new DonkeyView(domainElement->getId());
-			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));
+			aProjectile = new DonkeyView(domainElement->getId(), "donkey");		
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle100"));
 		} else {
 			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));

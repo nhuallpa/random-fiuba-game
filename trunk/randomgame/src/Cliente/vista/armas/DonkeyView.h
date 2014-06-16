@@ -9,8 +9,11 @@
 class DonkeyView: public ProjectileView
 {
 
+private:
+	std::string imageId;
+
 public:
-	DonkeyView(int id);
+	DonkeyView(int id, std::string imageId);
 									
 	void clean();
 	

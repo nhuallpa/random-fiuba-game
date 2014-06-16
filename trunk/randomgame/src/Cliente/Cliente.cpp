@@ -303,6 +303,18 @@ bool Cliente::updateModel(Playable p){
 		case GRENADE:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
+		case HOLY:
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
+		case DYNAMITE:
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
+		case BURRO:
+			this->processExplosions( p.x, p.y, EXPLODE_RGIANT );
+			break;
+		case AIRATTACK:
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
 		default:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
@@ -312,7 +324,6 @@ bool Cliente::updateModel(Playable p){
 		this->domainMx.lock();
 		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
 		this->domainMx.unlock();
-
 
 		// lo elimino de la vista
 
