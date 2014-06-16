@@ -41,39 +41,27 @@ MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY,
 	myFixtureDef.friction = 0.01;
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
-	float angx = cosf(angle_x  * PI / 180.0);
-	float angy = sinf(angle_y  * PI / 180.0);
 
-	if ( angx < 0 ){
-		myBodyDef.position.Set(posX - 1.0f, posY);
-		this->setPosition(posX - 1.0f, posY,0);
-	}else if ( angx > 0){
-		myBodyDef.position.Set(posX + 1.0f, posY);
-		this->setPosition(posX + 1.0f, posY,0);
-	}else{
-		myBodyDef.position.Set(posX, posY + 1.0f);
-		this->setPosition(posX , posY + 1.0f,0);
-	}
+	myBodyDef.position.Set(posX - 16.0f, posY);
+	this->setPosition(posX - 16.0f, posY,0);
 
-	//myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 
 	body->CreateFixture(&myFixtureDef);
 
 	printf("\nCreating weapon at: %f, %f",posX,posY);
-	//body->SetTransform( body->GetPosition(), 0.0 );
+
+
 	body->SetFixedRotation(false);
 
 	this->body = body;
 	this->body->SetUserData(modelElement);
 		
 	//impulso inicial
-
-	float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
-	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
-
-	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
+	//float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
+	//float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
+	//printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
+	//this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
 	
 	modelElement->myLastAction = CREATE_MISSIL;
 	modelElement->setAlive(true);
@@ -81,7 +69,7 @@ MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY,
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RSMALL;
 	
-	printf("\n Granada Impulsada");
+	printf("\n Air attack lanzado");
 }
 
 MissileAirStrike2d::~MissileAirStrike2d(){}
@@ -91,22 +79,13 @@ void MissileAirStrike2d::animate( float time ){
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
-	if ( static_cast<Missile*>(myWeapon)->hasDelayedExplosion() ){
-		static_cast<Missile*>(myWeapon)->updateExplode( time );
+	if ( myWeapon->myLastAction == CREATE_MISSIL ){
+		myWeapon->setAction(CREATE_MISSIL);
+		myWeapon->myLastAction = MISSIL_FLYING;
+	}else{
+		myWeapon->setAction(MISSIL_FLYING);
 	}
 
-	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
-		myWeapon->setAction(EXPLOSION);
-	} else{
-
-		if ( myWeapon->myLastAction == CREATE_MISSIL ){
-			myWeapon->setAction(CREATE_MISSIL);
-			myWeapon->myLastAction = MISSIL_FLYING;
-		}else{
-			myWeapon->setAction(MISSIL_FLYING);
-		}
-
-	}
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
@@ -114,7 +93,7 @@ void MissileAirStrike2d::animate( float time ){
 	myWeapon->changed = true;
 
 	//Actualizo tiempo restante
-	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
+	//myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
 
 
 }

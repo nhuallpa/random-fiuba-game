@@ -360,7 +360,8 @@ bool GameEngine::step(){
 			
 			/* Eliminacion de misiles */
 			if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() && 
-				 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA) ){
+				 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA &&
+				  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != AIRATTACK) ){
 				
 				// Viene explotado del ciclo anterior, lo elimino
 				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
@@ -401,7 +402,8 @@ bool GameEngine::step(){
 					
 				/* Restrinjo solo a los que tienen delayed Explosion*/
 				if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() && 
-					 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA) ){
+					 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA &&
+					  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != AIRATTACK) ){
 					
 
 					printf("\nDo explosion at position %f,%f with radius %d",
@@ -661,20 +663,29 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	//Crea el arma en el modelo
 	float xworm = static_cast<Worm2d*>(this->gameLevel->getEntityByID(wormid)->myBody)->body->GetWorldCenter().x;
 	float yworm = static_cast<Worm2d*>(this->gameLevel->getEntityByID(wormid)->myBody)->body->GetWorldCenter().y;
+	int cantMisiles = 1;
+	
+	if ( weaponid == AIRATTACK ){
+		cantMisiles = 4;
+		xworm = 50;
+		yworm = 80;
+	}
 
-	GameElement* myWeapon;
+	for (int i=0; i < cantMisiles; i++ ){
+		GameElement* myWeapon;
 
-	int elementId = this->getWeaponUniqueId(); 
+		int elementId = this->getWeaponUniqueId(); 
 
-	Missile* aMissile = MissileFactory::getInstance()->getMissile(weaponid,elementId);
-	aMissile->setPosition(pair<float,float>(xworm,yworm));
-	aMissile->setStartTime(this->myTimer.elapsed());
+		Missile* aMissile = MissileFactory::getInstance()->getMissile(weaponid,elementId);
+		aMissile->setPosition(pair<float,float>(xworm,yworm));
+		aMissile->setStartTime(this->myTimer.elapsed());
 
-	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm, yworm, angle_x, angle_y, intensidad, this->myWorld, aMissile);
-	aMissile->setBody(aMissile2d);
+		Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,xworm + i*8, yworm, angle_x, angle_y, intensidad, this->myWorld, aMissile);
+		aMissile->setBody(aMissile2d);
 
-	this->gameLevel->addEntity(aMissile);
-	this->gameBodies->insert(std::make_pair<int,Body*>(elementId, aMissile2d));
+		this->gameLevel->addEntity(aMissile);
+		this->gameBodies->insert(std::make_pair<int,Body*>(elementId, aMissile2d));
+	}
 	
 }
 
@@ -751,6 +762,9 @@ void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius, int weap
 			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_SUICIDE);
 			break;
 		case BURRO:
+			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BURRO);
+			break;
+		case AIRATTACK:
 			this->doOndaExpansiva(removalPosition,BLAST_RADIUS,BLAST_FORCE, DAMAGE_BURRO);
 			break;
 		default:
