@@ -93,6 +93,7 @@ class GameEngine {
 
 		Timer myTimer;
 
+		bool didWeShoot;
 		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }
 		void enqueueExplosion(Explosion e){ this->lastExplosions.push(e); }
 

@@ -80,7 +80,7 @@ MissileHoly2d::~MissileHoly2d(){}
 
 void MissileHoly2d::animate( float time ){
 
-	printf("\n ANIMO HOLY");
+	//printf("\n ANIMO HOLY");
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
@@ -108,7 +108,7 @@ void MissileHoly2d::animate( float time ){
 
 	//Actualizo tiempo restante
 	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
-		printf("\n Explota en: %d",static_cast<Missile*>(myWeapon)->remainingTime(time) );
+		//printf("\n Explota en: %d",static_cast<Missile*>(myWeapon)->remainingTime(time) );
 
 
 }

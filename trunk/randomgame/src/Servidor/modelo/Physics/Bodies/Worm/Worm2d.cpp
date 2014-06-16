@@ -165,6 +165,7 @@ void Worm2d::animate(){
 	if(static_cast<Worm*>(myWorm)->action == MOVE_STOP && noEstabaSatando ){
 		//printf("\nLo detengo 1");
 		this->body->SetLinearVelocity(b2Vec2(0,0));
+		static_cast<Worm*>(myWorm)->action = MOVELESS;
 
 	}
 

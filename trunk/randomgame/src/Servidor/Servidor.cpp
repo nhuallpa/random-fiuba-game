@@ -144,7 +144,10 @@ int Servidor::stepOver(void* data){
 	Timer timeHandler;
 	
 	bool doWeHaveAExplosion = false;
+
 	float explosionTime = 0;
+	float shootTime = 0;
+	bool localShoot = false;
 
 	allIn->lock();
 	while ( srv->turnMgr.getRegisteredPlayers() != srv->cantJugadores ){
@@ -160,16 +163,30 @@ int Servidor::stepOver(void* data){
 
 	while(true){
 		
-		if ( timeHandler.elapsed() >= TURN_DURATION || ( doWeHaveAExplosion && ( timeHandler.elapsed() - explosionTime ) >= 5 )  ){
-			printf("\n pasaron 60 seg o 5 seg despues de una explosion");
+		if ( srv->gameEngine.didWeShoot ){
+			shootTime = timeHandler.elapsed();
+			srv->gameEngine.didWeShoot = false;
+			localShoot = true;
+			printf("\nHubo disparo at %f",shootTime);
+		}
+
+		/* Se termino el turno o pasaron 5 seg desde el disparo */
+		if ( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) ) ){
+			printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
 			doWeHaveAExplosion = false;
+			localShoot = false;
 			explosionTime = 0;
+			shootTime = 0;
+
 			timeHandler.reset();
+
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
-			srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 			/* Actualizo la vida y notifico */
 			srv->processPlayersLife();
+
+			/* Inicio el turno del nuevo player */
+			srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 		}
 
@@ -178,9 +195,9 @@ int Servidor::stepOver(void* data){
 		w->lock();
 		
 		doWeHaveAExplosion = srv->getGameEngine().step();
-		if ( doWeHaveAExplosion){
-			explosionTime = timeHandler.elapsed();
-		}
+		//if ( doWeHaveAExplosion){
+		//	explosionTime = timeHandler.elapsed();
+		//}
 
 		w->unlock();
 
@@ -190,13 +207,11 @@ int Servidor::stepOver(void* data){
 	
 			//chequeo si hay clientes
 			if ( srv->pList.size()  ){
-
 				int res = srv->somethingChange();
 				if ( res ){
 					srv->worldQ.type = UPDATE;
 					srv->notifyAll();
 				}
-
 			} 
 		}
 		i++;
