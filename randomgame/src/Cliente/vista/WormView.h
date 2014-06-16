@@ -9,6 +9,7 @@
 #include "../../Servidor/modelo/GameElement.h"
 #include "../controlador/Contracts/OnMovementListener.h"
 #include "StateBarView.h"
+#include "../../utils/Constantes/Colors.h"
 
 
 enum WormState {

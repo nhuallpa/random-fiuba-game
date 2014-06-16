@@ -41,12 +41,6 @@
 #define DEFAULT_YAML_SERVER "res/levels/level.yaml"
 #define CONFIG_FILE "config/config.yaml"
 
-
-#define COLOR_AMARILLO 0xFFFF00FF
-#define COLOR_ROJO 0xFF0000FF
-#define COLOR_VERDE 0xFF01DF3A
-#define COLOR_AZUL 0xFFFF4000
-
 #define PI 3.14159265
 
 #define WORM_LIFE 100

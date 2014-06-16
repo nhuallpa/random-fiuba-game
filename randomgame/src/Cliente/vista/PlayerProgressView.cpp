@@ -39,14 +39,14 @@ void PlayerProgressView::draw(SDLScreen & screen){
 														rect.y, 
 														rect.x + rect.w,
 														rect.y + rect.h, 
-														COLOR_ROJO);
+														COLOR_ROJO_ALFA);
 		rect.y = screen.getHeight() - (countOfPlayer - 1) * heightBarProgress;
 		TextureManager::Instance().drawBox(screen.getRenderer(), 
 														rect.x, 
 														rect.y, 
 														rect.x + rect.w,
 														rect.y + rect.h, 
-														COLOR_AMARILLO);
+														COLOR_AMARILLO_ALFA);
 
 		rect.y = screen.getHeight() - (countOfPlayer - 2) * heightBarProgress;
 		TextureManager::Instance().drawBox(screen.getRenderer(), 
@@ -54,7 +54,7 @@ void PlayerProgressView::draw(SDLScreen & screen){
 														rect.y, 
 														rect.x + rect.w,
 														rect.y + rect.h, 
-														COLOR_VERDE);
+														COLOR_VERDE_ALFA);
 
 		rect.y = screen.getHeight() - (countOfPlayer - 3) * heightBarProgress;
 		TextureManager::Instance().drawBox(screen.getRenderer(), 
@@ -62,5 +62,5 @@ void PlayerProgressView::draw(SDLScreen & screen){
 														rect.y, 
 														rect.x + rect.w,
 														rect.y + rect.h, 
-														COLOR_AZUL);
+														COLOR_AZUL_ALFA);
 }

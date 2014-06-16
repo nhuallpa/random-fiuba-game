@@ -5,7 +5,7 @@
 #include "TextureManager.h"
 #include "View.h"
 #include "TextView.h"
-
+#include "../../utils/Constantes/Colors.h"
 class PlayerProgressView: public View
 {
 protected:

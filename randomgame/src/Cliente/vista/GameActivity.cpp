@@ -186,10 +186,6 @@ void GameActivity::doExplotion(float x, float y, float radio)
 
 void GameActivity::calcRectPosition(SDL_Rect& wormRect,WormView *aWorm){
 	
-	/*Camera cam = TextureManager::Instance().getCamera();
-	wormRect.x = (aWorm->getX()-(WORM_W/2)-cam.getX());
-	wormRect.y = (aWorm->getY()-(WORM_H/2)-cam.getY());
-*/
 	wormRect.x = (aWorm->getX()-(WORM_W/2));
 	wormRect.y = (aWorm->getY()-(WORM_H/2));
 	
@@ -587,6 +583,7 @@ void GameActivity::OnAction(ActionEvent e){
 					} 
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+					updater.doUnselectWapon(wormIdSelected, this->idWeapon);
 					deselectPreviewsWeapon();
 					afterShoot = true;
 				}
