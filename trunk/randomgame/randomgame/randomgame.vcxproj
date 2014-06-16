@@ -234,6 +234,7 @@
     <ClInclude Include="..\src\Cliente\vista\WaterView.h" />
     <ClInclude Include="..\src\Cliente\vista\WormViewGroup.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameElement.h" />
+    <ClInclude Include="..\src\utils\Constantes\Colors.h" />
     <ClInclude Include="..\src\utils\Constantes\Constantes.h" />
     <ClInclude Include="..\src\utils\Log.h" />
     <ClInclude Include="..\src\utils\Network\Condition.h" />

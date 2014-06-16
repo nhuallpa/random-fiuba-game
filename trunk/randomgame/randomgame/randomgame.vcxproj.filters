@@ -572,5 +572,8 @@
     <ClInclude Include="..\src\Cliente\vista\PlayerProgressView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\utils\Constantes\Colors.h">
+      <Filter>Archivos de código fuente\utils\Constantes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

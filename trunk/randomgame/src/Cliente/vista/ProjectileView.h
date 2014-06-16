@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "../../Servidor/modelo/GameElement.h"
 #include "../sonido/SoundManager.h"
+#include "../../utils/Constantes/Colors.h"
 
 class ProjectileView: public View
 {
