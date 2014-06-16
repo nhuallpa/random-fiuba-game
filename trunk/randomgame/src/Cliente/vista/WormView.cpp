@@ -16,6 +16,7 @@ WormView::WormView(int id)
 	this->widhtLife100 = 25;
 	this->widhtLifeCurrent = 25;
 	this->currentLife = 100;
+	this->enableScroll();
 }
 
 void WormView::setUserLabel(std::string text)
@@ -63,14 +64,16 @@ void WormView::update(GameElement* domainElement)
     // DIRECTION
     if (domainElement->getAction() == MOVELESS_RIGHT || 
             domainElement->getAction() == NOT_CONNECTED_RIGHT ||
-            domainElement->getAction() == MOVE_RIGHT)
+            domainElement->getAction() == MOVE_RIGHT || 
+			domainElement->getAction() == WITH_WEAPON_RIGHT)
     {
 			// todo: estado derecha
             this->direction = SDL_FLIP_HORIZONTAL;
     } 
     else if (domainElement->getAction() == MOVELESS_LEFT || 
             domainElement->getAction() == NOT_CONNECTED_LEFT ||
-            domainElement->getAction() == MOVE_LEFT)
+            domainElement->getAction() == MOVE_LEFT ||
+			domainElement->getAction() == WITH_WEAPON_LEFT)
     {
 			// todo: estado IZquierda
             this->direction = SDL_FLIP_NONE;        
@@ -162,7 +165,9 @@ void WormView::draw(SDLScreen & screen)
 	if (this->isSelected())
 	{
 		//labelUsuario.draw(screen.getRenderer(),-TextureManager::Instance().getCamera().getX() + this->getXCenter(), -TextureManager::Instance().getCamera().getY() + this->getYCenter()-9);
-		labelNombre.draw(screen.getRenderer(),-TextureManager::Instance().getCamera().getX() + this->getXCenter(),-TextureManager::Instance().getCamera().getY() + this->getYCenter());
+		labelNombre.draw(screen.getRenderer(),
+						 this->getXCenter(),
+						 this->getYCenter());
 	}
 
 	SDL_Rect rect;

@@ -349,3 +349,8 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 	return aProjectile;
 }
 
+void GameViewBuilder::buildPlayerProgress()
+{
+	PlayerProgressView* pProgressView = new PlayerProgressView();
+	this->gameView->setPlayerProgressView(pProgressView);
+}

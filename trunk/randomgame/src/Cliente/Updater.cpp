@@ -141,3 +141,17 @@ void Updater::addLocalMovementFromView(Playable p){
 	this->somethingToTell->signal();
 
 }
+
+
+void Updater::notify(int wormId, Movement mov)
+{
+	Playable p;
+	//Util::clean(p);
+	p.action = mov;
+	p.wormid = wormId;
+	p.weaponid = NO_WEAPON;
+	p.x = 0;
+	p.y = 0;
+	p.life = 0;
+	this->addLocalMovementFromView(p);
+}

@@ -9,6 +9,7 @@ ProjectileView::ProjectileView(int id)
 	this->widhtLifeCurrent = 25;
 	this->lifeInitial = 0;
 	this->currentLife = 0; //segundos
+	this->enableScroll();
 }
 
 

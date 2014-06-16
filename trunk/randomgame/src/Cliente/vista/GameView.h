@@ -9,6 +9,7 @@
 #include "SkyView.h"
 #include "WaterView.h"
 #include "ProjectileView.h"
+#include "PlayerProgressView.h"
 #include "TerrainView.h"
 #include "StateBarView.h"
 #include "WormView.h"
@@ -39,6 +40,8 @@ private:
 	StateBarView* stateBar;
 	MenuWeaponView* menuWeapon;
 	WaterViewImg* waterImg;
+
+	PlayerProgressView * pProgressView;
 
 public:
 	GameView(int x, int y, int width, int height);
@@ -78,6 +81,8 @@ public:
 	Weapon* findWeaponById(int idWeapon);
 
 	void freeProjectileView(int id);
+
+	void setPlayerProgressView(PlayerProgressView * pProgressView);
 };
 
 

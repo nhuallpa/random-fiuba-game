@@ -297,6 +297,9 @@
     <ClCompile Include="..\src\Cliente\vista\WaterViewImg.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\PlayerProgressView.cpp">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -564,6 +567,9 @@
       <Filter>Archivos de código fuente\client\controller\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\WaterViewImg.h">
+      <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\PlayerProgressView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClInclude>
   </ItemGroup>

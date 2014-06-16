@@ -60,22 +60,26 @@ void StateBarView::draw(SDLScreen & screen){
 											yLabel + this->label.getHeight(),
 											colorMsg);
 
-		this->label.draw(screen.getRenderer(), TextureManager::Instance().getCamera().getX(),
-												10 + TextureManager::Instance().getCamera().getY());
+		/*this->label.draw(screen.getRenderer(), 
+			TextureManager::Instance().getCamera().getX(),
+			10 + TextureManager::Instance().getCamera().getY());*/
+
+		this->label.draw(screen.getRenderer(), 0, 10);
 
 	}	
 	
-	int posX = - TextureManager::Instance().getCamera().getX() + 
-					TextureManager::Instance().getCamera().getW()/2 - 
-						this->labelCenter.getWidth() / 2;
-	int posY = - TextureManager::Instance().getCamera().getY() + 10;
+	
+
+	//Fondo Texto
+	int posX = TextureManager::Instance().getCamera().getW()/2 -
+		TextureManager::Instance().getDimension("fondo_msg").first / 2;
+
+	int posY = 30;
+	
+	TextureManager::Instance().drawScale("fondo_msg", posX, 0, 1, screen.getRenderer());
+
+	// Texto 
+	posX = posX + 30;
+
 	this->labelCenter.draw(screen.getRenderer(), posX, posY);
-
-
-	// Fondo Texto
-
-
-	TextureManager::Instance().drawScale("fondo_msg", 250, 0, 0.6, screen.getRenderer());
-
-	TextureManager::Instance().drawScale("poder", 100, 200, 0.7, screen.getRenderer());
 }

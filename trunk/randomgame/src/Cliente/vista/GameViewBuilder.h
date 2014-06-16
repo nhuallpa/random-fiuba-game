@@ -24,6 +24,7 @@
 #include "armas/DynamiteView.h"
 #include "armas/DonkeyView.h"
 #include "armas/AirStrikeView.h"
+#include "PlayerProgressView.h"
 #include "EartView.h"
 #include "SDLScreen.h"
 #include "SpriteConfigurator.h"
@@ -78,6 +79,8 @@ public:
 	void buildEart();
 
 	void buildStateBar();
+
+	void buildPlayerProgress();
 
 	void buildMenuWeapon();
 

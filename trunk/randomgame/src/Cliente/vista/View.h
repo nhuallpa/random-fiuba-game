@@ -9,6 +9,7 @@
 #include "SDLScreen.h"
 #include "GameException.h"
 #include "../../utils/Util.h"
+#include "TextureManager.h"
 
 class ViewGroup;
 class View
@@ -21,6 +22,8 @@ class View
 	ViewGroup* parent;
 
 	Uint32 convertToInt(std::string aColor);
+
+	bool scroll;
 	
 public:
 	View(int x, int y, std::string color = DEFAULT_COLOR);
@@ -38,9 +41,6 @@ public:
 	/** Draw on screen */
 	virtual void draw(SDLScreen & screen) = 0;
 
-	
-	int getX() { return x;}
-	int getY() { return y;}
 	std::string getColor() { return color;}
 	std::string getBorderColor() { return borderColor;}
 
@@ -55,7 +55,11 @@ public:
 
 	void swapEndian(Uint32 *colorCode);
 
-	
+	int getX();
+	int getY();
+
+	void enableScroll() {this->scroll = true;}
+	void disableScroll() {this->scroll = false;}
 
 };
 
