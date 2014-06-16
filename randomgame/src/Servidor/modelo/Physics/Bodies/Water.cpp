@@ -41,10 +41,10 @@ Water::Water(float level, b2World* myWorld){
 	b2PolygonShape waterShape;
 	b2Vec2 vs[8];
 
-	vs[0].Set(0.0,0.0);
-	vs[1].Set(Util::string2float(aParser->getEscenarioAnchoU()), 0.0);
-	vs[2].Set(Util::string2float(aParser->getEscenarioAnchoU()), level);
-	vs[3].Set(0.0, level);
+	vs[0].Set(-100.0,0.0);
+	vs[1].Set(Util::string2float(aParser->getEscenarioAnchoU()) + 100.0, 0.0);
+	vs[2].Set(Util::string2float(aParser->getEscenarioAnchoU()) + 100.0, level);
+	vs[3].Set(-100.0, level);
 	waterShape.Set(vs, 4);
 
 	waterFixtureDef.shape = &waterShape;

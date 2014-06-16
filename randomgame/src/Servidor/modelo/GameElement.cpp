@@ -28,6 +28,8 @@ void GameElement::subLife(int lessLife)
 		if ( this->life <= 0 ){
 			this->setAlive(false);
 			this->life = 0;
+			this->action = DEAD;
+			this->changed = true;
 		}
 		this->damaged = true;
 	}
