@@ -5,6 +5,20 @@ Missile2dGrenade::Missile2dGrenade()
 
 }
 
+
+
+
+void Missile2dGrenade::explode( ){
+
+
+
+
+
+}
+
+
+
+
 Missile2dGrenade::Missile2dGrenade(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;

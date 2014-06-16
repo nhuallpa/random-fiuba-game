@@ -79,24 +79,23 @@ void Missile2dBazooka::animate( float time ){
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
-
-	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
-		myWeapon->setAction(EXPLOSION);
-	} else{
-
-		if ( myWeapon->myLastAction == CREATE_MISSIL ){
-			myWeapon->setAction(CREATE_MISSIL);
-			myWeapon->myLastAction = MISSIL_FLYING;
-		}else{
-			myWeapon->setAction(MISSIL_FLYING);
-		}
-
+	if ( myWeapon->myLastAction == CREATE_MISSIL ){
+		myWeapon->setAction(CREATE_MISSIL);
+		myWeapon->myLastAction = MISSIL_FLYING;
+	}else{
+		myWeapon->setAction(MISSIL_FLYING);
 	}
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
+
+
+}
+
+void Missile2dBazooka::explode( ){
+
 
 
 }

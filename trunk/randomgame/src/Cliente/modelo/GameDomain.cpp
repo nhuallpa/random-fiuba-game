@@ -42,7 +42,7 @@ void GameDomain::updateElement(int id, float posX, float posY, Movement action, 
 		this->domainElements[id].setAction(action);
 		this->domainElements[id].setLife(life);
 		this->domainElements[id].setWeapon(weaponid);
-		Log::i("GameDomain::updateElement: Actualizado worm id %d con weapon id %d", id, weaponid);
+		//Log::i("GameDomain::updateElement: Actualizado worm id %d con weapon id %d", id, weaponid);
 	} else {
 		Log::e("GameDomain::updateElement: No se pudo actualizar el worm id %d", id);
 	}

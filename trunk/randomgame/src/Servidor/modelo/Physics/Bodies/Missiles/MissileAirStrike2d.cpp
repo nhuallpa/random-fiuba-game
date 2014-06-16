@@ -5,6 +5,20 @@ MissileAirStrike2d::MissileAirStrike2d()
 
 }
 
+
+
+void MissileAirStrike2d::explode( ){
+
+
+
+
+
+}
+
+
+
+
+
 MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;

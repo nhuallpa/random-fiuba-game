@@ -5,6 +5,23 @@ MissileBurro2d::MissileBurro2d()
 
 }
 
+
+
+
+void MissileBurro2d::explode( ){
+
+
+
+
+
+}
+
+
+
+
+
+
+
 MissileBurro2d::MissileBurro2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;

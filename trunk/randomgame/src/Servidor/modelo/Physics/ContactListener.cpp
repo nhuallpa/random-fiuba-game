@@ -1,5 +1,5 @@
 #include "ContactListener.h"
-#include "Body.h"
+#include "Bodies\Missiles\Missile2d.h"
 
 ContactListener::ContactListener() {
 }
@@ -51,17 +51,24 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != GRENADE && 
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != HOLY &&
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != DYNAMITE &&
-			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != SHEEP)
-			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
-		
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != SHEEP){
+			
+				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
+				printf("\nBAZOOKA COLISIONO");
+				static_cast<Missile2d*>(static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->myBody)->explode();
+		}
 		return;
 	}
 	if ( fixtureA->GetUserData() == (void*)UD_MISSIL && ( (int)fixtureB->GetUserData() == UD_TERRAIN  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
 		if ( static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != GRENADE &&
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != HOLY &&
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != DYNAMITE &&
-			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != SHEEP )
-			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);
+			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != SHEEP ){
+			
+				 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);
+				 printf("\nBAZOOKA COLISIONO");
+				 static_cast<Missile2d*>(static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->myBody)->explode();
+		}
 		return;
 	}
 

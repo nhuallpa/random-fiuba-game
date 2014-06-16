@@ -52,7 +52,7 @@ void WormView::update(GameElement* domainElement)
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
 	//this->selectWeapon((WeaponId)domainElement->getWeaponId());
-	Log::i("WormView::update >> weapong %d", this->weaponId);
+	//Log::i("WormView::update >> weapong %d", this->weaponId);
 	// ACTIONS
     if (domainElement->getAction() == MOVE_RIGHT ||
             domainElement->getAction() == MOVE_LEFT)
