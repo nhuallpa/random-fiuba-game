@@ -21,6 +21,7 @@ void MissileDynamite2d::explode( ){
 
 MissileDynamite2d::MissileDynamite2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
+	printf("\nCreando dinamita");
 	this->myWorld = myWorld;
 	
 
@@ -38,50 +39,43 @@ MissileDynamite2d::MissileDynamite2d(ElementType type, float posX, float posY, f
 
 	myFixtureDef.shape = &circleShape;
     myFixtureDef.density = 1;
-	myFixtureDef.friction = 0.01;
+	myFixtureDef.friction = 1;
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
-	float angx = cosf(angle_x  * PI / 180.0);
-	float angy = sinf(angle_y  * PI / 180.0);
 
-	if ( angx < 0 ){
-		myBodyDef.position.Set(posX - 1.0f, posY);
-		this->setPosition(posX - 1.0f, posY,0);
-	}else if ( angx > 0){
-		myBodyDef.position.Set(posX + 1.0f, posY);
-		this->setPosition(posX + 1.0f, posY,0);
-	}else{
-		myBodyDef.position.Set(posX, posY + 1.0f);
-		this->setPosition(posX , posY + 1.0f,0);
+	
+
+
+	
+	//TODO: Comentar cuando pasen angle_x correctamente
+	angle_x = 1;
+
+	if ( angle_x > 0 ){
+		printf("\nDejo del lado derecho");
+		myBodyDef.position.Set(posX + 1.5f, posY);
+		this->setPosition(posX + 1.5f, posY,0);
+
+	}else {
+		printf("\nDejo del lado Izquierdo");
+		myBodyDef.position.Set(posX - 1.5f, posY);
+		this->setPosition(posX - 1.5f, posY,0);
 	}
-
-	//myBodyDef.position.Set(posX, posY);
-    b2Body* body = this->myWorld->CreateBody(&myBodyDef);
-
+	
+	b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 	body->CreateFixture(&myFixtureDef);
-
-	printf("\nCreating weapon at: %f, %f",posX,posY);
-	//body->SetTransform( body->GetPosition(), 0.0 );
-	body->SetFixedRotation(false);
+	body->SetFixedRotation(true);
 
 	this->body = body;
 	this->body->SetUserData(modelElement);
-		
-	//impulso inicial
 
-	float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
-	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
 
-	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
-	
 	modelElement->myLastAction = CREATE_MISSIL;
 	modelElement->setAlive(true);
 
 	/* Defino radio de explosion */
-	this->explosion.radio = EXPLODE_RSMALL;
+	this->explosion.radio = EXPLODE_RMEDIUM;
 	
-	printf("\n Granada Impulsada");
+	printf("\n Dinamita Impulsada");
 }
 
 MissileDynamite2d::~MissileDynamite2d(){}

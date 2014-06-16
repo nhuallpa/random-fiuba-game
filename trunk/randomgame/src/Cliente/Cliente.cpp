@@ -308,7 +308,7 @@ bool Cliente::updateModel(Playable p){
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		case DYNAMITE:
-			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			this->processExplosions( p.x, p.y, EXPLODE_RMEDIUM );
 			break;
 		case BURRO:
 			this->processExplosions( p.x, p.y, EXPLODE_RGIANT );

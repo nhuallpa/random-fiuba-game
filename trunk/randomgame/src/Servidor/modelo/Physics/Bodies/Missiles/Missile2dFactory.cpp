@@ -52,6 +52,9 @@ Missile2d* Missile2dFactory::getMissile(int weaponId,ElementType type, float pos
 	case BANANA:
 		aNewMissile = new MissileBanana2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
 		break;
+	case DYNAMITE:
+		aNewMissile = new MissileDynamite2d(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
+		break;
 	default:
 		aNewMissile = new Missile2dBazooka(type, posX, posY, angle_x,  angle_y, fuerzaDisparo, myWorld, modelElement);
 		break;
