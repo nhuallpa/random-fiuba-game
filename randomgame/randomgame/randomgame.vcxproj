@@ -115,6 +115,7 @@
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\MenuWeaponView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\PlayerProgressView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\PowerView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ProjectileView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Sprite.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="..\src\Cliente\vista\TerrainView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TextManager.cpp" />
     <ClCompile Include="..\src\Cliente\vista\TextView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\TimerView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaitActivity.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaitView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaterViewImg.cpp" />
@@ -205,6 +207,7 @@
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\MenuWeaponView.h" />
     <ClInclude Include="..\src\Cliente\vista\PlayerProgressView.h" />
+    <ClInclude Include="..\src\Cliente\vista\PowerView.h" />
     <ClInclude Include="..\src\Cliente\vista\ProjectileView.h" />
     <ClInclude Include="..\src\Cliente\vista\Sprite.h" />
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />
@@ -212,6 +215,7 @@
     <ClInclude Include="..\src\Cliente\vista\TerrainView.h" />
     <ClInclude Include="..\src\Cliente\vista\TextManager.h" />
     <ClInclude Include="..\src\Cliente\vista\TextView.h" />
+    <ClInclude Include="..\src\Cliente\vista\TimerView.h" />
     <ClInclude Include="..\src\Cliente\vista\WaitActivity.h" />
     <ClInclude Include="..\src\Cliente\vista\WaitView.h" />
     <ClInclude Include="..\src\Cliente\vista\WaterViewImg.h" />

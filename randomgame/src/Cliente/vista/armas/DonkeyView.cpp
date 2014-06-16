@@ -4,6 +4,7 @@
 DonkeyView::DonkeyView(int id)
 	: ProjectileView(id)
 {
+	this->enableScroll();
 }
 
 
@@ -25,15 +26,10 @@ void DonkeyView::update()
 
 void DonkeyView::draw(SDLScreen & screen)
 { 
-	TextureManager::Instance().drawFrame(currentSprite->getImageId(), 
+	TextureManager::Instance().draw("donkey", 
 										this->getXCenter(), 
 										this->getYCenter(), 
-										currentSprite->getWidth(), 
-										currentSprite->getHeight(), 
-										currentSprite->getCurrentRow(), 
-										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
-										false, 
 										SDL_FLIP_NONE);
 }
 

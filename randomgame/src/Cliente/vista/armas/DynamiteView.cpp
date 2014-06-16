@@ -36,17 +36,20 @@ void DynamiteView::draw(SDLScreen & screen)
 										false, 
 										SDL_FLIP_NONE);
 
-	SDL_Rect rect;
-	rect.x = this->getX()-10;
-	rect.y = this->getY()-22;
-	rect.w = this->widhtLifeCurrent;
-	rect.h = 5;
-	TextureManager::Instance().drawBox(screen.getRenderer(), 
-													rect.x, 
-													rect.y, 
-													rect.x + rect.w,
-													rect.y + rect.h, 
-													0xFF01DF3A);
+	if (!this->detonated) {
+		SDL_Rect rect;
+		rect.x = this->getX()-10;
+		rect.y = this->getY()-22;
+		rect.w = this->widhtLifeCurrent;
+		rect.h = 5;
+		TextureManager::Instance().drawBox(screen.getRenderer(), 
+														rect.x, 
+														rect.y, 
+														rect.x + rect.w,
+														rect.y + rect.h, 
+														COLOR_ROJO);
+	}
+
 }
 
 

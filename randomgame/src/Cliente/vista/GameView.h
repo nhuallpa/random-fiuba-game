@@ -9,6 +9,8 @@
 #include "SkyView.h"
 #include "WaterView.h"
 #include "ProjectileView.h"
+#include "TimerView.h"
+#include "PowerView.h"
 #include "PlayerProgressView.h"
 #include "TerrainView.h"
 #include "StateBarView.h"
@@ -42,6 +44,8 @@ private:
 	WaterViewImg* waterImg;
 
 	PlayerProgressView * pProgressView;
+	PowerView* powerView;
+	TimerView* timerView;
 
 public:
 	GameView(int x, int y, int width, int height);
@@ -83,6 +87,8 @@ public:
 	void freeProjectileView(int id);
 
 	void setPlayerProgressView(PlayerProgressView * pProgressView);
+	void setTimerView(TimerView * timerView);
+	void setPowerView(PowerView * powerView);
 };
 
 

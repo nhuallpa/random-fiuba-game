@@ -82,6 +82,10 @@ public:
 
 	void buildPlayerProgress();
 
+	void buildPower();
+
+	void buildTimer();
+
 	void buildMenuWeapon();
 
 	void buildWaterImg();

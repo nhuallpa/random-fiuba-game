@@ -36,6 +36,8 @@ void GameActivity::buildView()
 	builder->buildPlayerProgress();
 //	builder->buildWater();
 	builder->buildStateBar();
+	builder->buildPower();
+	builder->buildTimer();
 	builder->buildMenuWeapon();
 	builder->buildWaterImg();
 	this->setContentView(builder->getGameView());
