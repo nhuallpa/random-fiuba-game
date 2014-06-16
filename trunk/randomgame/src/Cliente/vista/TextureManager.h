@@ -167,6 +167,8 @@ public:
 	void fillCircleOn(std::string imageId, int cx, int cy, int radius, Uint32 pixel);
 
 	void putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
+
+	void setFocus(tFocus tipo);
 };
 
 

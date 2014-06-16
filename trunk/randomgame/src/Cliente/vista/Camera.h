@@ -4,6 +4,12 @@
 #include <SDL.h>
 #include "../controlador/Contracts/OnScrollListener.h"
 #include "../../utils/Log.h"
+
+typedef enum {
+	FOCUS_BOTOOM_CENTER,
+	FOCUS_CENTER
+} tFocus;
+
 class Camera : public OnScrollListener
 {
 	SDL_Rect box;
@@ -27,6 +33,8 @@ public:
 	void setHeightScenario(int h) {this->heightScenario = h;}
 
 	void OnScroll(ScrollEvent e);
+
+	void setFocus(tFocus tipo, int dest_w, int dest_h);
 
 	~Camera(void);
 };

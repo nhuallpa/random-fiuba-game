@@ -594,3 +594,9 @@ void TextureManager::fillCircleOn(std::string imageId, int x, int y, int radius,
 		this->texture_map[imageId]=NULL;
 	}
 }
+
+void TextureManager::setFocus(tFocus tipo)
+{
+	std::pair<int, int> dimension = this->getDimension("eart");
+	this->cam.setFocus(tipo, dimension.first, dimension.second);
+}
