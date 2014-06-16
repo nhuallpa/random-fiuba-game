@@ -114,6 +114,7 @@
     <ClCompile Include="..\src\Cliente\vista\GameView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\GameViewBuilder.cpp" />
     <ClCompile Include="..\src\Cliente\vista\MenuWeaponView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\PlayerProgressView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ProjectileView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Sprite.cpp" />
     <ClCompile Include="..\src\Cliente\vista\SpriteConfigurator.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="..\src\Cliente\vista\GameView.h" />
     <ClInclude Include="..\src\Cliente\vista\GameViewBuilder.h" />
     <ClInclude Include="..\src\Cliente\vista\MenuWeaponView.h" />
+    <ClInclude Include="..\src\Cliente\vista\PlayerProgressView.h" />
     <ClInclude Include="..\src\Cliente\vista\ProjectileView.h" />
     <ClInclude Include="..\src\Cliente\vista\Sprite.h" />
     <ClInclude Include="..\src\Cliente\vista\SpriteConfigurator.h" />

@@ -7,6 +7,7 @@ View::View(int x, int y, std::string  color)
 	this->y = y;
 	this->color = color;
 	this->borderColor = color;
+	this->scroll = false;
 }
 
 
@@ -51,4 +52,18 @@ void View::swapEndian(Uint32 *colorCode)
 		 ((((*colorCode)&0x00FF0000)>>16)<<8) | (((*colorCode)&0xFF000000)>>24);
 }
 
+int View::getX() { 
+	int x_res = x;
+	if (scroll) {
+		x_res = x - TextureManager::Instance().getCamera().getX();
+	}
+	return x_res;
+}
 
+int View::getY() { 
+	int y_res = y;
+	if (scroll) {
+		y_res = y - TextureManager::Instance().getCamera().getY();
+	}
+	return y_res;
+}

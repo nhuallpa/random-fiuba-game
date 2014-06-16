@@ -295,8 +295,8 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 	srcRect.w = destRect.w = width;
 	srcRect.h = destRect.h = height;
 
-	destRect.x = x - this->cam.getX();
-	destRect.y = y - this->cam.getY();
+	destRect.x = x;
+	destRect.y = y;
 	
 	viewPort.x = 0;
 	viewPort.y = 0;
@@ -409,10 +409,17 @@ void TextureManager::drawText(SDL_Renderer * renderer,Sint16 x, Sint16 y,std::st
 
 void TextureManager::drawBox(SDL_Renderer * renderer, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
 {
-	x1 = x1 - this->cam.getX();
+	
+	/*x1 = x1 - this->cam.getX();
 	y1 = y1 - this->cam.getY();
 	x2 = x2 - this->cam.getX();
 	y2 = y2 - this->cam.getY();
+*/
+	x1 = x1;
+	y1 = y1;
+	x2 = x2;
+	y2 = y2;
+	
 	boxColor(renderer,
 				x1, y1,
 				x2, y2, color);

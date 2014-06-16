@@ -132,3 +132,8 @@ void GameView::freeProjectileView(int id) {
 		Log::e("Estoy intentando elimiar un projectile en la vista que no exite");
 	}
 }
+
+void GameView::setPlayerProgressView(PlayerProgressView * pProgressView){
+	this->pProgressView = pProgressView;
+	this->add(pProgressView);
+}

@@ -62,5 +62,7 @@ public:
 	/** x y cross head*/
 	void doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor);
 
+	void notify(int wormId, Movement mov);
+
 };
 

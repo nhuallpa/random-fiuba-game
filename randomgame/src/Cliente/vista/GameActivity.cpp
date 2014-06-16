@@ -33,6 +33,7 @@ void GameActivity::buildView()
 	builder->buildEart();
 	builder->buildCharacters();
 	builder->buildProjectileContainer();
+	builder->buildPlayerProgress();
 //	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildMenuWeapon();
@@ -121,11 +122,13 @@ void GameActivity::iniState(){
 	if(!this->isRightAim && this->aimView->isRightSide()){
 		this->isLeftAim = false;
 		this->isRightAim = true;
+		this->updater.notify(this->wormIdSelected, WITH_WEAPON_RIGHT);
 		//TODO: NESTOR O ARIEL, ACA MANDAR AL SERVER EL GUSANO MIRA HACIA LA DRECHA
 	}
 	else if(!this->isLeftAim && this->aimView->isLeftSide()){
 		this->isRightAim = false;
 		this->isLeftAim = true;
+		this->updater.notify(this->wormIdSelected, WITH_WEAPON_LEFT);
 		//TODO: NESTOR O ARIEL, ACA MANDAR AL SERVER EL GUSANO MIRA HACIA LA IZQUIERDA
 	}
 }
@@ -184,9 +187,12 @@ void GameActivity::doExplotion(float x, float y, float radio)
 
 void GameActivity::calcRectPosition(SDL_Rect& wormRect,WormView *aWorm){
 	
-	Camera cam = TextureManager::Instance().getCamera();
+	/*Camera cam = TextureManager::Instance().getCamera();
 	wormRect.x = (aWorm->getX()-(WORM_W/2)-cam.getX());
 	wormRect.y = (aWorm->getY()-(WORM_H/2)-cam.getY());
+*/
+	wormRect.x = (aWorm->getX()-(WORM_W/2));
+	wormRect.y = (aWorm->getY()-(WORM_H/2));
 	
 	wormRect.w = WORM_W;  
 	wormRect.h = WORM_H;  
