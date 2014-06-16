@@ -61,14 +61,16 @@ void WaterViewImg::draw(SDLScreen & screen){
 
 
 void WaterViewImg::loadWater(){
-	int lebel = Util::string2int(ParserYaml::getInstance()->getEscenarioAgua());
-	int width = 1000 + 10;//YAML_PANTALLA_ANCHO_TOPE_MAXIMO;
-	int height = 500;//Util::string2int(ParserYaml::getInstance()->getEscenarioAltoP());
-	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel - 70,	width, 70 + lebel)));
+	int lebel, width, height;
+	pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
+	width = dimension.first;
+	height = dimension.second;
 
-	water.insert(pair<string,Shape>("marea_1_2", Shape(-10, height - lebel - 70,	width, 70 + lebel)));
+	int scale = ESCALA_UL2PX;
+	lebel = (int)( Util::string2float(ParserYaml::getInstance()->getEscenarioAgua()) * scale);
 
-	water.insert(pair<string,Shape>("marea_1_3", Shape(-10, height - lebel - 70,	width, 70 + lebel)));
-	
-	water.insert(pair<string,Shape>("marea_1_4", Shape(-10, height - lebel - 70,	width, 70 + lebel)));//80
+	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel,	width, lebel)));
+	water.insert(pair<string,Shape>("marea_1_2", Shape(-10, height - lebel,	width, lebel)));
+	water.insert(pair<string,Shape>("marea_1_3", Shape(-10, height - lebel,	width, lebel)));
+	water.insert(pair<string,Shape>("marea_1_4", Shape(-10, height - lebel,	width, lebel)));
 }
