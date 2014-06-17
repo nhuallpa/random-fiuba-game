@@ -11,20 +11,25 @@ using namespace std;
 class WaterViewImg : public View{
 
 public:
-	WaterViewImg();
+	WaterViewImg(float timmerChange, bool bBackground);
 	~WaterViewImg();
 	void actionWater();
 	void draw(SDLScreen & screen);
-	static WaterViewImg* FactoryWater(); 
+	static WaterViewImg* FactoryWater(int Gap, float timmerChange, bool bBackground);
 private:
 	Timer timer;
-	bool bRender;
+	int timmerChange;
+	bool bRender,
+		 bBackground;
 	map<string, Shape> water;
+	pair<string, Shape> backgroundWater; 
 	map<string, Shape>::iterator it;
-	void loadWater();
+	void loadWater(int Gap);
 	void iniView();
 	void iniRender();
 	void controlRender();
+	void drawSurf(SDLScreen & screen);
+	void drawbackground(SDLScreen & screen);
 };
 
 

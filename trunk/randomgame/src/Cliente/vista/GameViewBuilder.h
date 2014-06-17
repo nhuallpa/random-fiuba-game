@@ -90,6 +90,8 @@ public:
 
 	void buildWaterImg();
 
+	void buildWaterSurfImg();
+
 	GameView* getGameView() { return this->gameView;} 
 
 };

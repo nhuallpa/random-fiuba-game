@@ -261,8 +261,17 @@ void GameViewBuilder::buildMenuWeapon(){
 }
 
 void GameViewBuilder::buildWaterImg(){
-	WaterViewImg* wvi = WaterViewImg::FactoryWater();
+	WaterViewImg* wvi = WaterViewImg::FactoryWater(45,0.5, true);
 	this->gameView->setWaterImg(wvi);
+}
+
+void GameViewBuilder::buildWaterSurfImg(){
+	WaterViewImg* wvi = WaterViewImg::FactoryWater(27,0.5, true);
+	WaterViewImg* wvi2 = WaterViewImg::FactoryWater(9,0.5, false);
+	std::list<WaterViewImg*> listWvi;
+	listWvi.push_back(wvi);
+	listWvi.push_back(wvi2);
+	this->gameView->setWaterSurfImg(listWvi);
 }
 
 WormView* GameViewBuilder::createWorm(GameElement * domainElement)

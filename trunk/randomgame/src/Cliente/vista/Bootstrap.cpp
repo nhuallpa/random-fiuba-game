@@ -185,6 +185,7 @@ void Bootstrap::loadWaterImg(){
 		TextureManager::Instance().load("res/images/water/marea_1_2.png", "marea_1_2", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/water/marea_1_3.png", "marea_1_3", this->getScreen().getRenderer());
 		TextureManager::Instance().load("res/images/water/marea_1_4.png", "marea_1_4", this->getScreen().getRenderer());
+		TextureManager::Instance().load("res/images/water/FondoAgua.png", "FondoAgua", this->getScreen().getRenderer());
 	}
 	catch (GameException & e){
 		Log::e(BOOT, e.what());		

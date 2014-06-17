@@ -65,6 +65,7 @@ public:
 	void setStateBar(StateBarView* stateBar);
 	void setMenuWeapon(MenuWeaponView* menuWeapon);
 	void setWaterImg(WaterViewImg* waterImg);
+	void setWaterSurfImg(std::list<WaterViewImg*> l);
 
 	StateBarView* getStateBar() { return this->stateBar;}
 
