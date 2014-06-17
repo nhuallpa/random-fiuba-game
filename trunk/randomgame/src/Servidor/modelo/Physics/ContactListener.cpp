@@ -51,10 +51,12 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != GRENADE && 
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != HOLY &&
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != DYNAMITE &&
-			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != SHEEP){
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != SHEEP &&
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != BANANA ){
 			
+				/* Misiles que colisionan: Bazooka, Burro */
 				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
-				printf("\MISIL COLISIONO");
+				printf("\nMISIL COLISIONO");
 				//static_cast<Missile2d*>(static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->myBody)->explode();
 		}
 		return;
@@ -63,8 +65,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		if ( static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != GRENADE &&
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != HOLY &&
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != DYNAMITE &&
-			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != SHEEP ){
+			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != SHEEP &&
+			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != BANANA ){
 			
+				 /* Misiles que colisionan: Bazooka, Burro */
 				 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);
 				 printf("\nMISIL COLISIONO");
 				 //static_cast<Missile2d*>(static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->myBody)->explode();
@@ -116,6 +120,21 @@ void ContactListener::EndContact(b2Contact* contact) {
 		return;
 	}
 
+	////Des-contacto de la burra!
+	//if ( fixtureA->GetUserData() == (void*)UD_MISSIL &&
+	//	 ( (int)fixtureB->GetUserData() == UD_TERRAIN  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
+	//	if ( static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() ==BURRO ){
+	//		m_fixturePairs.erase( std::make_pair(fixtureA, fixtureB) );
+	//	}
+	//	return;
+	//}
+	//if ( fixtureB->GetUserData() == (void*)UD_MISSIL &&
+	//	 ( (int)fixtureA->GetUserData() == UD_TERRAIN  || fixtureA->GetBody()->GetType() == b2_dynamicBody) ){
+	//	if ( static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() ==BURRO ){
+	//		m_fixturePairs.erase( std::make_pair(fixtureB, fixtureA) );
+	//	}
+	//	return;
+	//}
 
 
 }

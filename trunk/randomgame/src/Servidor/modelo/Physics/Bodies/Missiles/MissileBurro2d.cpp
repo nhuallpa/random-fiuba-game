@@ -35,56 +35,46 @@ MissileBurro2d::MissileBurro2d(ElementType type, float posX, float posY, float a
 
 	b2FixtureDef myFixtureDef;
    
+	//b2PolygonShape boxShape;
+	//boxShape.SetAsBox(5,5);
+
+	//myFixtureDef.shape = &boxShape;
 	b2CircleShape circleShape;
-	circleShape.m_radius = BULLET_RADIUS;
+	circleShape.m_radius = 2.5;
 	circleShape.m_p.Set(0,0);
 
 	myFixtureDef.shape = &circleShape;
     myFixtureDef.density = 1;
 	myFixtureDef.friction = 0.01;
-	myFixtureDef.restitution = 0;
+	myFixtureDef.restitution = 0.2f;
 	myFixtureDef.userData = (void*)UD_MISSIL;
-	float angx = cosf(angle_x  * PI / 180.0);
-	float angy = sinf(angle_y  * PI / 180.0);
 
-	if ( angx < 0 ){
-		myBodyDef.position.Set(posX - 1.0f, posY);
-		this->setPosition(posX - 1.0f, posY,0);
-	}else if ( angx > 0){
-		myBodyDef.position.Set(posX + 1.0f, posY);
-		this->setPosition(posX + 1.0f, posY,0);
-	}else{
-		myBodyDef.position.Set(posX, posY + 1.0f);
-		this->setPosition(posX , posY + 1.0f,0);
-	}
 
-	//myBodyDef.position.Set(posX, posY);
+
+
+
+	
+	myBodyDef.position.Set(angle_x, BURRO_Y);
+	this->setPosition(angle_x, BURRO_Y,0);
+
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
+
 
 	body->CreateFixture(&myFixtureDef);
 
-	printf("\nCreating weapon at: %f, %f",posX,posY);
-	//body->SetTransform( body->GetPosition(), 0.0 );
-	body->SetFixedRotation(false);
+
+	body->SetFixedRotation(true);
 
 	this->body = body;
 	this->body->SetUserData(modelElement);
 		
-	//impulso inicial
-
-	float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
-	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
-
-	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
-	
 	modelElement->myLastAction = CREATE_MISSIL;
 	modelElement->setAlive(true);
 
 	/* Defino radio de explosion */
-	this->explosion.radio = EXPLODE_RSMALL;
+	this->explosion.radio = EXPLODE_RMEDIUM;
 	
-	printf("\n Granada Impulsada");
+	printf("\n Lanza la burra");
 }
 
 MissileBurro2d::~MissileBurro2d(){}
@@ -94,21 +84,15 @@ void MissileBurro2d::animate( float time ){
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
-	if ( static_cast<Missile*>(myWeapon)->hasDelayedExplosion() ){
-		static_cast<Missile*>(myWeapon)->updateExplode( time );
-	}
-
-	if ( static_cast<Missile*>(myWeapon)->hasExploded() ){
-		myWeapon->setAction(EXPLOSION);
-	} else{
-
-		if ( myWeapon->myLastAction == CREATE_MISSIL ){
-			myWeapon->setAction(CREATE_MISSIL);
-			myWeapon->myLastAction = MISSIL_FLYING;
-		}else{
-			myWeapon->setAction(MISSIL_FLYING);
-		}
-
+	if ( myWeapon->myLastAction == CREATE_MISSIL ){
+		myWeapon->setAction(CREATE_MISSIL);
+		myWeapon->myLastAction = MISSIL_FLYING;
+	}else if ( myWeapon->myLastAction == EXPLOSION ){
+		//printf("\nreset state");
+		myWeapon->setAction(MISSIL_FLYING);
+		myWeapon->myLastAction = MISSIL_FLYING;
+	}else{
+		myWeapon->setAction(MISSIL_FLYING);
 	}
 
 	//Actualizo la posicion
@@ -116,8 +100,6 @@ void MissileBurro2d::animate( float time ){
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
 
-	//Actualizo tiempo restante
-	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
 
 
 }
