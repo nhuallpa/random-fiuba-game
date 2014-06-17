@@ -42,14 +42,14 @@ MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY,
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
 
-	myBodyDef.position.Set(posX - 16.0f, posY);
-	this->setPosition(posX - 16.0f, posY,0);
+	myBodyDef.position.Set(posX - 16.0f, AIR_STRIKE_Y);
+	this->setPosition(posX - 16.0f, AIR_STRIKE_Y,0);
 
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 
 	body->CreateFixture(&myFixtureDef);
 
-	printf("\nCreating weapon at: %f, %f",posX,posY);
+	//printf("\nCreating weapon at: %f, %f",posX,AIR_STRIKE_Y);
 
 
 	body->SetFixedRotation(false);

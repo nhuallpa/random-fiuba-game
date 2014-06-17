@@ -45,11 +45,6 @@ MissileDynamite2d::MissileDynamite2d(ElementType type, float posX, float posY, f
 
 	
 
-
-	
-	//TODO: Comentar cuando pasen angle_x correctamente
-	angle_x = 1;
-
 	if ( angle_x > 0 ){
 		printf("\nDejo del lado derecho");
 		myBodyDef.position.Set(posX + 1.5f, posY);

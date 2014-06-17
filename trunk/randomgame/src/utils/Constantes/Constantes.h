@@ -45,11 +45,17 @@
 
 #define WORM_LIFE 100
 
+/* Constantes referidas a armamento */
+
 #define SHOOT_POWER 8
 #define MAX_TIME_POWER 5
 #define MAX_POWER 10
 
 #define BAZOOKA_X_FACTOR 1.7
+
+#define AIR_STRIKE_Y 80
+
+
 
 
 #define TURN_DURATION 25
