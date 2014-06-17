@@ -45,13 +45,21 @@
 
 #define WORM_LIFE 100
 
-/* Constantes referidas a armamento */
+/* ************************ Constantes referidas a armamento ************************ */
 
 #define SHOOT_POWER 8
 #define MAX_TIME_POWER 5
 #define MAX_POWER 10
 
+#define BANANA_TIME 4
+#define GRENADE_TIME 4
+#define HOLY_TIME 3
+#define BANANITA_TIME 3
+#define DYNAMITE_TIME 5
+#define SHEEP_TIME 10
+
 #define BAZOOKA_X_FACTOR 1.7
+#define BANANITA_Y_FACTOR 2
 
 #define AIR_STRIKE_Y 80
 #define BURRO_Y 80

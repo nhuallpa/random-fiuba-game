@@ -52,7 +52,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != HOLY &&
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != DYNAMITE &&
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != SHEEP &&
-			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != BANANA ){
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != BANANA &&
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != BANANITA ){
 			
 				/* Misiles que colisionan: Bazooka, Burro */
 				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
@@ -66,7 +67,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != HOLY &&
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != DYNAMITE &&
 			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != SHEEP &&
-			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != BANANA ){
+			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != BANANA &&
+			 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() != BANANITA ){
 			
 				 /* Misiles que colisionan: Bazooka, Burro */
 				 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);

@@ -4,6 +4,6 @@
 MissileGrenade::MissileGrenade(int id):Missile(id){
 	this->withDelayedExplosion=true;
 	this->weaponId=GRENADE;
-	this->explodeTime=3;
+	this->explodeTime=GRENADE_TIME;
 	this->exploded = false;
 }
