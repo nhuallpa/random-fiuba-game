@@ -58,6 +58,9 @@
 #define DYNAMITE_TIME 5
 #define SHEEP_TIME 10
 
+#define SHEEP_SPEED 3
+#define SHEEP_FORCE 170
+
 #define BAZOOKA_X_FACTOR 1.7
 #define BANANITA_Y_FACTOR 2
 

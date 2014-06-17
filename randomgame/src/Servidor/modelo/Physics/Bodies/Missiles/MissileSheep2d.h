@@ -13,6 +13,9 @@ class MissileSheep2d : public Missile2d{
 		virtual ~MissileSheep2d();
 		virtual void animate( float time );
 		virtual void explode( );
+		bool left;
+		bool right;
+		bool detention;
 };
 
 

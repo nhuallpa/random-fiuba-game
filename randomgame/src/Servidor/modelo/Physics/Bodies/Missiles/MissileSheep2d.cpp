@@ -8,7 +8,9 @@ MissileSheep2d::MissileSheep2d()
 MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
 	this->myWorld = myWorld;
-	
+	this->left = false;
+	this->right = false;
+	this->detention = false;
 
 	/* Importantisimo! lo seteo como weapon!! */
 	this->type = type;
@@ -19,27 +21,28 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	b2FixtureDef myFixtureDef;
    
 	b2CircleShape circleShape;
-	circleShape.m_radius = BULLET_RADIUS;
+	circleShape.m_radius = 2;
 	circleShape.m_p.Set(0,0);
 
 	myFixtureDef.shape = &circleShape;
     myFixtureDef.density = 1;
-	myFixtureDef.friction = 0.01;
+	myFixtureDef.friction = 0.4;
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
-	float angx = cosf(angle_x  * PI / 180.0);
-	float angy = sinf(angle_y  * PI / 180.0);
+	
+	if ( angle_x < 0 ){
+		printf("\nDejo del lado derecho");
+		this->right = true;
+		myBodyDef.position.Set(posX + 3, posY);
+		this->setPosition(posX + 3, posY,0);
 
-	if ( angx < 0 ){
-		myBodyDef.position.Set(posX - 1.0f, posY);
-		this->setPosition(posX - 1.0f, posY,0);
-	}else if ( angx > 0){
-		myBodyDef.position.Set(posX + 1.0f, posY);
-		this->setPosition(posX + 1.0f, posY,0);
-	}else{
-		myBodyDef.position.Set(posX, posY + 1.0f);
-		this->setPosition(posX , posY + 1.0f,0);
+	}else {
+		this->left = true;
+		printf("\nDejo del lado Izquierdo");
+		myBodyDef.position.Set(posX - 3, posY);
+		this->setPosition(posX - 3, posY,0);
 	}
+	
 
 	//myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
@@ -47,19 +50,21 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	body->CreateFixture(&myFixtureDef);
 
 	printf("\nCreating weapon at: %f, %f",posX,posY);
-	//body->SetTransform( body->GetPosition(), 0.0 );
-	body->SetFixedRotation(false);
+
+	body->SetFixedRotation(true);
+
 
 	this->body = body;
 	this->body->SetUserData(modelElement);
 		
-	//impulso inicial
-
-	float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
-	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
-
-	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
+	//velocidad inicial
+	if ( angle_x > 0 ){
+		//this->body->SetLinearVelocity( b2Vec2(SHEEP_SPEED,0) );
+		this->body->ApplyForce( b2Vec2(SHEEP_FORCE , 0),this->body->GetWorldCenter() );
+	}else{
+		//this->body->SetLinearVelocity( b2Vec2(-SHEEP_SPEED,0) );
+		this->body->ApplyForce( b2Vec2(-SHEEP_FORCE ,0 ),this->body->GetWorldCenter() );
+	}
 	
 	modelElement->myLastAction = CREATE_MISSIL;
 	modelElement->setAlive(true);
@@ -67,7 +72,7 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RSMALL;
 	
-	printf("\n Granada Impulsada");
+	printf("\n Ovejita lanzada");
 }
 
 MissileSheep2d::~MissileSheep2d(){}
@@ -93,6 +98,32 @@ void MissileSheep2d::animate( float time ){
 		}
 
 	}
+	float nx = static_cast<GameElement*>(this->body->GetUserData())->getNormalX();
+	float ny = static_cast<GameElement*>(this->body->GetUserData())->getNormalY();
+
+
+	//vario la velocidad basado en la normal
+	if ( myWeapon->isGrounded()  ){
+		//printf("\navanzo");
+		if ( this->right ) {
+			//this->body->SetLinearVelocity( b2Vec2 (ny*SHEEP_SPEED,-nx*SHEEP_SPEED) );
+			this->body->ApplyForce( b2Vec2(ny*SHEEP_FORCE ,-nx*SHEEP_FORCE ),this->body->GetWorldCenter() );
+		}
+
+		if (this->left){
+			//this->body->SetLinearVelocity( b2Vec2 (-ny*SHEEP_SPEED,nx*SHEEP_SPEED) );
+			this->body->ApplyForce( b2Vec2(-ny*SHEEP_FORCE ,nx*SHEEP_FORCE ),this->body->GetWorldCenter() );
+		}
+
+		this->detention = false;
+
+	}else if ( !this->detention ) {
+		//printf("\ndetengo");
+		this->body->SetLinearVelocity( b2Vec2(0,0) );
+		this->body->SetAngularVelocity( 0 );
+		this->detention = true;
+	}
+
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
