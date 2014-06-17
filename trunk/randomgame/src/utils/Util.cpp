@@ -39,7 +39,6 @@ std::pair<float, float> Util::getTransformFromU2PX(){
 	return vec;
 }
 
-
 tPoint Util::convertPointUL2PXSDL(float x, float y)
 {
 	tPoint aPoint;
@@ -49,6 +48,7 @@ tPoint Util::convertPointUL2PXSDL(float x, float y)
 
 	aPoint.x = x * (float)ESCALA_UL2PX;
 	aPoint.y = (heightScreen) - (y * (float)ESCALA_UL2PX);	
+	
 	
 
 	return aPoint;

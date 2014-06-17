@@ -154,6 +154,8 @@ public:
 
 	tPoint convertPointUL2PXSDL(float x, float y);
 
+	tPointf convertPointPXSDL2UL(int x, int y);
+
 	~TextureManager(void);
 
 	SDL_Texture * getTexture(std::string imageId);

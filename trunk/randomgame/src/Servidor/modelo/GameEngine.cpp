@@ -667,8 +667,10 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	
 	if ( weaponid == AIRATTACK ){
 		cantMisiles = 4;
-		xworm = 50;
-		yworm = 80;
+		/*xworm = 50;
+		yworm = 80;*/
+		xworm = angle_x;
+		yworm = angle_y;
 	}
 
 	for (int i=0; i < cantMisiles; i++ ){

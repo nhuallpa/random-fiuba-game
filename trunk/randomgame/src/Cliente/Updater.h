@@ -50,7 +50,7 @@ public:
 
 	void doStopWorm(int idWorm);
 
-	void doSelectWapon(int wormIdSelected, int idWeapon);
+	void doSelectWapon(int wormIdSelected, int idWeapon, tDirection direction);
 
 	void doUnselectWapon(int wormId, int idWeapon);
 
@@ -60,7 +60,7 @@ public:
 	void addLocalMovementFromView(Playable p);
 
 	/** x y cross head*/
-	void doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor);
+	void doShoot(int wormId, int idWeapon, float x_aim, float y_aim, int factor);
 
 	void notify(int wormId, Movement mov, int weaponId);
 

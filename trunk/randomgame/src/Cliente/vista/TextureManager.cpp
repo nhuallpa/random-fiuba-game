@@ -497,6 +497,18 @@ tPoint TextureManager::convertPointUL2PXSDL(float x, float y)
 	return aPoint;
 }
 
+tPointf TextureManager::convertPointPXSDL2UL(int x, int y)
+{
+	tPointf aPoint;
+	int heightScreen = this->getCamera().getHeightScenario();
+
+	aPoint.x = ((float)x / (float)ESCALA_UL2PX);
+	//aPoint.y = (int)(heightScreen - (y * (float)ESCALA_UL2PX));	invierto
+	aPoint.y = ((float)heightScreen - y) / (float)ESCALA_UL2PX;	
+
+	return aPoint;
+}
+
 void TextureManager::putPixel32( SDL_Surface *surface, int x, int y, Uint32 pixel )
 {
 	if ((x>0 && x<surface->w) && (y > 0 && y < surface->h)) {

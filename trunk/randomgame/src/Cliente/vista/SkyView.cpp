@@ -4,6 +4,7 @@
 SkyView::SkyView(std::string imageId)
 				: View(0, 0), imageId(imageId)
 {
+	this->enableScroll();
 }
 
 
@@ -19,7 +20,7 @@ void SkyView::clean()
 	
 void SkyView::update() 
 {
-	//sprites["nuve"].clean();
+	sprites["nuve"].update();
 }
 
 void SkyView::draw(SDLScreen & screen)
@@ -29,8 +30,8 @@ void SkyView::draw(SDLScreen & screen)
 
 	Sprite* currentSprite = &sprites["nuve"];
 	TextureManager::Instance().drawFrame("nuve", 
-										50, 
-										50, 
+										getX() + 50, 
+										getY() + 50, 
 										currentSprite->getWidth(), 
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
@@ -38,8 +39,8 @@ void SkyView::draw(SDLScreen & screen)
 										screen.getRenderer());
 
 	TextureManager::Instance().drawFrame("nuve", 
-										500, 
-										50, 
+										getX() + 500, 
+										getY() + 50, 
 										currentSprite->getWidth(), 
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
@@ -47,8 +48,8 @@ void SkyView::draw(SDLScreen & screen)
 										screen.getRenderer());
 
 	TextureManager::Instance().drawFrame("nuve", 
-										700, 
-										50, 
+										getX() + 700, 
+										getY() + 50, 
 										currentSprite->getWidth(), 
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
