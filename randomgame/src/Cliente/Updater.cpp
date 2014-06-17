@@ -88,6 +88,7 @@ void Updater::doStopWorm(int idWorm)
 	//Util::clean(p);
 	p.action = MOVE_STOP;
 	p.wormid = idWorm;
+	p.weaponid = NO_WEAPON;
 	this->addLocalMovementFromView(p);
 }
 
