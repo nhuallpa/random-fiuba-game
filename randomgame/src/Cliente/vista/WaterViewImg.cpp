@@ -79,18 +79,29 @@ void WaterViewImg::drawbackground(SDLScreen & screen){
 }
 
 void WaterViewImg::loadWater(int Gap){
-	int lebel, width, height;
+	int positionX, positionY, lebel, width, height;
 	pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
-	width = dimension.first;
-	height = dimension.second;
-
+	
 	int scale = ESCALA_UL2PX;
 	lebel = (int)( Util::string2float(ParserYaml::getInstance()->getEscenarioAgua()) * scale);
+	//dimension.first;
+	positionX = 0;
+	positionY = dimension.second - lebel - Gap;// heightEart,
+	width = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()));
+	height = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()))
+		- dimension.second;
 
+	water.insert(pair<string,Shape>("marea_1_1", Shape(positionX, positionY, width, height)));
+	water.insert(pair<string,Shape>("marea_1_2", Shape(positionX, positionY, width, height)));
+	water.insert(pair<string,Shape>("marea_1_3", Shape(positionX, positionY, width, height)));
+	water.insert(pair<string,Shape>("marea_1_4", Shape(positionX, positionY, width, height)));
+	backgroundWater = pair<string,Shape>("FondoAgua", Shape(positionX, dimension.second - lebel, width, height));
+	/*
 	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel - Gap, width, 80)));
 	water.insert(pair<string,Shape>("marea_1_2", Shape(-10, height - lebel - Gap, width, 80)));
 	water.insert(pair<string,Shape>("marea_1_3", Shape(-10, height - lebel - Gap, width, 80)));
 	water.insert(pair<string,Shape>("marea_1_4", Shape(-10, height - lebel - Gap, width, 80)));
 
 	backgroundWater = pair<string,Shape>("FondoAgua", Shape(-10, height - lebel + 10, width, height));
+*/
 }
