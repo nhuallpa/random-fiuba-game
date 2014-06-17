@@ -9,6 +9,7 @@ class Shape{
 public:
 	Shape(int x, int y,
 		int width, int height);
+	Shape();
 	~Shape();
 
 	/*Summary: return (x, y)*/

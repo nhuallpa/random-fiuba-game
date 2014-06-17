@@ -30,6 +30,7 @@ void GameActivity::buildView()
 	builder->buildContainer();
 	builder->buildSky();
 	//builder.buildFigures();
+	builder->buildWaterImg();
 	builder->buildEart();
 	builder->buildCharacters();
 	builder->buildProjectileContainer();
@@ -39,7 +40,8 @@ void GameActivity::buildView()
 	builder->buildPower();
 	builder->buildTimer();
 	builder->buildMenuWeapon();
-	builder->buildWaterImg();
+
+	builder->buildWaterSurfImg();
 	this->setContentView(builder->getGameView());
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	aimView = new AimView();

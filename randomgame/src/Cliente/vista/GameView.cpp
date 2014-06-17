@@ -68,8 +68,15 @@ void GameView::setMenuWeapon(MenuWeaponView* menuWeapon)
 }
 
 void GameView::setWaterImg(WaterViewImg* waterImg){
-	this->waterImg = waterImg;
+	//this->waterImg = waterImg;
 	this->add(waterImg);
+}
+void GameView::setWaterSurfImg(std::list<WaterViewImg*> l){
+	std::list<WaterViewImg*>::iterator it;
+	for(it = l.begin(); it != l.end(); it++){
+		this->add(*it);
+	}
+
 }
 
 FigureView* GameView::findFigureById(int idElement)
