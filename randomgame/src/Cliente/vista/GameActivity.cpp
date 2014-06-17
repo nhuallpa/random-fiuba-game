@@ -566,15 +566,16 @@ void GameActivity::OnMovement(MovementEvent e)
 
 void GameActivity::OnAction(ActionEvent e){
 	//Log::i("ASD: %d", (int)e.action);
-	//GameView* gameView = static_cast<GameView*>(this->aView);
+	GameView* gameView = static_cast<GameView*>(this->aView);
 	switch(e.action){
 		case MENU: 
 			this->actionMenu();
 			break;
 		case SHOOT:
 			{  
-
+				
 				if (this->wormIdSelected>0 && this->idWeapon!=NO_WEAPON) {
+					WormView * aWormView = gameView->findWormById(this->wormIdSelected);
 					int factor = e.factor;
 					int xMira= e.xAim;
 					int yMira= e.yAim;
@@ -586,6 +587,15 @@ void GameActivity::OnAction(ActionEvent e){
 						aimView->unAim();
 					} 
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
+
+					//Nestor: Esto se llama parche! TODO: a refactorizar
+					if (this->idWeapon == DYNAMITE) {
+						if (aWormView->getDirection() == D_LEFT) {
+							xMira = -1;
+						} else {
+							xMira = 1;
+						}
+					}
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 					updater.doUnselectWapon(wormIdSelected, this->idWeapon);
 					deselectPreviewsWeapon();
