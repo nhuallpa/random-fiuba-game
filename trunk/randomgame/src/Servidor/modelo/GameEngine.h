@@ -149,6 +149,7 @@ class GameEngine {
 		void animateBodies();
 		void animateJoints();
 		void animateWeapon(int weaponid, int wormid, float angle_x, float angle_y, int intensidad);
+		void createWeapon(int weaponid, float posx, float posy, float angle_x, float angle_y, int intensidad);
 
 		std::map<int,Body*>* getGameBodies(){ return this->gameBodies;}
 

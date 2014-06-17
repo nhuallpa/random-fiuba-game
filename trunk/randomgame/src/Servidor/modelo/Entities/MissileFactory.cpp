@@ -57,6 +57,9 @@ Missile* MissileFactory::getMissile(int weaponId, int elementId)
 	case SUICIDE:
 		aNewMissile = new MissileSuicide(elementId);
 		break;
+	case BANANITA:
+		aNewMissile = new MissileBananita(elementId);
+		break;
 	default:
 		aNewMissile = new MissileBazooka(elementId);
 		break;

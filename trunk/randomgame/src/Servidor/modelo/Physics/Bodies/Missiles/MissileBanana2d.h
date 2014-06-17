@@ -16,4 +16,18 @@ class MissileBanana2d : public Missile2d{
 };
 
 
+class MissileBananita2d : public Missile2d{
+
+
+	public:
+		MissileBananita2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement);
+		MissileBananita2d();
+		virtual ~MissileBananita2d();
+		virtual void animate( float time );
+		virtual void explode( );
+};
+
+
+
+
 #endif

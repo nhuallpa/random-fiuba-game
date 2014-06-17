@@ -12,4 +12,13 @@ class MissileBanana: public Missile{
 		MissileBanana(int id);
 };
 
+class MissileBananita: public Missile{
+
+	public:
+		MissileBananita();
+		~MissileBananita();
+		MissileBananita(int id);
+};
+
+
 #endif

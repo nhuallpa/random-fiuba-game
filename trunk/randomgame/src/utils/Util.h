@@ -53,6 +53,7 @@ typedef enum{
 	BANANA=16,
 	SUICIDE=17,
 	SHEEP=18,
+	BANANITA=19
 } WeaponId;
 
 

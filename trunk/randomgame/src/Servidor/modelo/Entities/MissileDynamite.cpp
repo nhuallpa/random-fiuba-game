@@ -4,6 +4,6 @@
 MissileDynamite::MissileDynamite(int id):Missile(id){
 	this->withDelayedExplosion=true;
 	this->weaponId=DYNAMITE;
-	this->explodeTime=3;
+	this->explodeTime=DYNAMITE_TIME;
 	this->exploded = false;
 }

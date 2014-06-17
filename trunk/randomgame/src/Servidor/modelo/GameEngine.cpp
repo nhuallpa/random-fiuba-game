@@ -474,6 +474,24 @@ bool GameEngine::step(){
 					// Marco como inactivo para borrar en el proximo ciclo
 					static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
 
+/* +BANANA: Si es BANANA creo bananitas ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]]] */
+					if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == BANANA){
+						this->createWeapon(BANANITA,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+							60,60,1);
+						this->createWeapon(BANANITA,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+							90,90,1);
+						this->createWeapon(BANANITA,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+							120,120,1);
+
+					}
+
+
 					this->myTimer.reset();
 				}
 			}
@@ -725,6 +743,8 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 		yworm = angle_y;
 	}
 
+
+
 	for (int i=0; i < cantMisiles; i++ ){
 		GameElement* myWeapon;
 
@@ -742,6 +762,28 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 	}
 	
 }
+
+
+// Solo se ejecuta si recibo la accion DO_SHOOT
+void GameEngine::createWeapon(int weaponid, float posx, float posy, float angle_x, float angle_y, int intensidad){
+
+	GameElement* myWeapon;
+
+	int elementId = this->getWeaponUniqueId(); 
+	printf("\ncreating weapon: %d",weaponid);
+	Missile* aMissile = MissileFactory::getInstance()->getMissile(weaponid,elementId);
+	aMissile->setPosition(pair<float,float>(posx,posy));
+	aMissile->setStartTime(this->myTimer.elapsed());
+
+	Missile2d* aMissile2d = Missile2dFactory::getInstance()->getMissile(weaponid,WEAPON,posx, posy, angle_x, angle_y, intensidad, this->myWorld, aMissile);
+	aMissile->setBody(aMissile2d);
+
+	this->gameLevel->addEntity(aMissile);
+	this->gameBodies->insert(std::make_pair<int,Body*>(elementId, aMissile2d));
+
+	
+}
+
 
 
 void GameEngine::doExplosion(b2Vec2 removalPosition, int removalRadius, int weapon){
