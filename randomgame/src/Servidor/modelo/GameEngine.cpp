@@ -367,10 +367,11 @@ bool GameEngine::step(){
 				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
 
 
-/* +BAZOOKA: Explosion de la bazooka (manejada desde el contact listener) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* +BAZOOKA & AIRATTACK: Explosion de la bazooka (manejada desde el contact listener) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 			}else if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() &&
-					   static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == BAZOOKA){
+					   (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == BAZOOKA ||
+					    static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == AIRATTACK)){
 
 				printf("\nDo explosion at position %f,%f with radius %d",
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,

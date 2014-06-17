@@ -31,20 +31,21 @@ Missile2dBazooka::Missile2dBazooka(ElementType type, float posX, float posY, flo
 	float angy = sinf(angle_y  * PI / 180.0);
 
 	if ( angx < 0 ){
-		myBodyDef.position.Set(posX - 1.0f, posY);
-		this->setPosition(posX - 1.0f, posY,0);
+		myBodyDef.position.Set(posX - 2.0f, posY);
+		this->setPosition(posX - 2.0f, posY,0);
 	}else if ( angx > 0){
-		myBodyDef.position.Set(posX + 1.0f, posY);
-		this->setPosition(posX + 1.0f, posY,0);
+		myBodyDef.position.Set(posX + 2.0f, posY);
+		this->setPosition(posX + 2.0f, posY,0);
 	}else{
-		myBodyDef.position.Set(posX, posY + 1.0f);
-		this->setPosition(posX , posY + 1.0f,0);
+		myBodyDef.position.Set(posX, posY + 2.0f);
+		this->setPosition(posX , posY + 2.0f,0);
 	}
 
 	//myBodyDef.position.Set(posX, posY);
     b2Body* body = this->myWorld->CreateBody(&myBodyDef);
 
 	body->CreateFixture(&myFixtureDef);
+	body->SetBullet(true);
 
 	printf("\nCreating weapon at: %f, %f",posX,posY);
 	//body->SetTransform( body->GetPosition(), 0.0 );

@@ -15,7 +15,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		m_fixturePairs.insert( std::make_pair(fixtureA, fixtureB) );
 		return;
 	}
-	else if ( fixtureB->IsSensor() && fixtureA->GetBody()->GetType() == b2_dynamicBody ){
+	if ( fixtureB->IsSensor() && fixtureA->GetBody()->GetType() == b2_dynamicBody ){
 		m_fixturePairs.insert( std::make_pair(fixtureB, fixtureA) );
 		return;
 	}
@@ -23,8 +23,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	b2WorldManifold worldManifold;
 
 	//If My body (B) is touching the floor (A) (somewhere)
-	if ( ( fixtureB->GetBody()->GetType() == b2_dynamicBody && fixtureB->GetUserData() != (void*)UD_MISSIL )
-		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || (fixtureA->GetBody()->GetType() == b2_dynamicBody && fixtureA->GetUserData() != (void*)UD_MISSIL) )){
+	if ( ( fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() != UD_MISSIL )
+		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || (fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() !=  UD_MISSIL) )){
 
 		//Puedo comparar Y para ver si le sumo o no, basado en que si soy el de abajo no puedo saltar
 
@@ -35,8 +35,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
 		return;
 	}
-	if ( ( fixtureA->GetBody()->GetType() == b2_dynamicBody && fixtureA->GetUserData() != (void*)UD_MISSIL )
-		&& ( (int)fixtureB->GetUserData() == UD_TERRAIN  || (fixtureB->GetBody()->GetType() == b2_dynamicBody && fixtureB->GetUserData() != (void*)UD_MISSIL  )) ){
+	if ( ( fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() != UD_MISSIL )
+		&& ( (int)fixtureB->GetUserData() == UD_TERRAIN  || (fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() != UD_MISSIL  )) ){
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->addGrounded();
 		
 		contact->GetWorldManifold(&worldManifold);
@@ -46,7 +46,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	}
 
 	// Contacto de misiles
-	if ( fixtureB->GetUserData() == (void*)UD_MISSIL && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
+	if ( (int)fixtureB->GetUserData() ==  UD_MISSIL && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
 		// Si no explota por tiempo (mejor preguntar por hasDelayedExplosion )
 		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != GRENADE && 
 			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != HOLY &&
@@ -56,8 +56,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			
 				/* Misiles que colisionan: Bazooka, Burro */
 				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
-				printf("\nMISIL COLISIONO");
-				//static_cast<Missile2d*>(static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->myBody)->explode();
+				printf("\nMISIL COLISIONO1");
+				static_cast<Missile2d*>(static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->myBody)->explode();
 		}
 		return;
 	}
@@ -70,8 +70,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			
 				 /* Misiles que colisionan: Bazooka, Burro */
 				 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);
-				 printf("\nMISIL COLISIONO");
-				 //static_cast<Missile2d*>(static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->myBody)->explode();
+				 printf("\nMISIL COLISIONO2");
+				 static_cast<Missile2d*>(static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->myBody)->explode();
 		}
 		return;
 	}
@@ -101,8 +101,8 @@ void ContactListener::EndContact(b2Contact* contact) {
 	}
 
 	//If My body (B) is touching the floor (A) (somewhere)
-	if ( (fixtureB->GetBody()->GetType() == b2_dynamicBody &&  fixtureB->GetUserData() != (void*)UD_MISSIL)
-		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
+	if ( (fixtureB->GetBody()->GetType() == b2_dynamicBody &&  (int)fixtureB->GetUserData() != UD_MISSIL)
+		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || ( fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() != UD_MISSIL ))){
 		//printf("\nSetted has NOT GROUNDED");
 		//fixtureB->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->reduceGrounded();
@@ -110,8 +110,8 @@ void ContactListener::EndContact(b2Contact* contact) {
 
 		return;
 	}
-	if ( (fixtureA->GetBody()->GetType() == b2_dynamicBody &&  fixtureA->GetUserData() != (void*)UD_MISSIL )
-		&& ((int)fixtureB->GetUserData() == UD_TERRAIN || fixtureB->GetBody()->GetType() == b2_dynamicBody)){
+	if ( (fixtureA->GetBody()->GetType() == b2_dynamicBody &&  (int)fixtureA->GetUserData() != UD_MISSIL )
+		&& ((int)fixtureB->GetUserData() == UD_TERRAIN || ( fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() != UD_MISSIL) )){
 		//printf("\nSetted has NOT GROUNDED");
 		//fixtureA->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->reduceGrounded();
@@ -120,21 +120,6 @@ void ContactListener::EndContact(b2Contact* contact) {
 		return;
 	}
 
-	////Des-contacto de la burra!
-	//if ( fixtureA->GetUserData() == (void*)UD_MISSIL &&
-	//	 ( (int)fixtureB->GetUserData() == UD_TERRAIN  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
-	//	if ( static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() ==BURRO ){
-	//		m_fixturePairs.erase( std::make_pair(fixtureA, fixtureB) );
-	//	}
-	//	return;
-	//}
-	//if ( fixtureB->GetUserData() == (void*)UD_MISSIL &&
-	//	 ( (int)fixtureA->GetUserData() == UD_TERRAIN  || fixtureA->GetBody()->GetType() == b2_dynamicBody) ){
-	//	if ( static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() ==BURRO ){
-	//		m_fixturePairs.erase( std::make_pair(fixtureB, fixtureA) );
-	//	}
-	//	return;
-	//}
 
 
 }

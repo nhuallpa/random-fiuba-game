@@ -10,7 +10,7 @@ MissileAirStrike2d::MissileAirStrike2d()
 void MissileAirStrike2d::explode( ){
 
 
-
+	printf("\nair attaack explosion");
 
 
 }
