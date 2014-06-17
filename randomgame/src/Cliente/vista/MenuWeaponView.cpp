@@ -4,7 +4,7 @@
 #include <list>
 
 #define X_MENU 400
-#define Y_MENU 20
+#define Y_MENU 50
 #define WIDTH_WEAPON  32
 #define HEIGHT_WEAPON 32
 
@@ -132,8 +132,8 @@ void MenuWeaponView::buildWeapon(){
 		delete shape;
 	}
 
-	x += 10;
-	y += 25;
+	x += 55;
+	y += WIDTH_WEAPON + 105;
 	lweapons.clear();
 
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
@@ -155,7 +155,7 @@ void MenuWeaponView::buildWeapon(){
 		delete shape;
 	}
 	
-	x += WIDTH_WEAPON;
+	x += WIDTH_WEAPON + 3;
 	lweapons.clear();
 
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
@@ -166,7 +166,7 @@ void MenuWeaponView::buildWeapon(){
 		delete shape;
 	}
 
-	x += WIDTH_WEAPON;
+	x += WIDTH_WEAPON - 2;
 	lweapons.clear();
 
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
@@ -178,7 +178,7 @@ void MenuWeaponView::buildWeapon(){
 	}
 
 
-	x += WIDTH_WEAPON;
+	x += WIDTH_WEAPON + 5;
 	lweapons.clear();
 
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
@@ -190,7 +190,8 @@ void MenuWeaponView::buildWeapon(){
 	}
 
 
-	x += WIDTH_WEAPON;
+	x  = X_MENU + 55;
+	y  = Y_MENU + WIDTH_WEAPON *2 + 105;
 	lweapons.clear();
 
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
@@ -220,10 +221,34 @@ void MenuWeaponView::buildWeapon(){
 	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
 	if(shape != NULL){
 		lweapons.push_back("hmissile.1.2");
-		weapon = new Weapon(HMISSILE, *shape, lweapons, "hmissile.1.2");
+		weapon = new Weapon(HMISSILE, *shape, lweapons, "hmissile.1.1");
 		mapa.insert(pair<WeaponId, Weapon*>(HMISSILE,weapon));
 		delete shape;
 	}
 
+
+	x += WIDTH_WEAPON + 3;
+	y = y - 5;
+	lweapons.clear();
+
+	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
+	if(shape != NULL){
+		lweapons.push_back("sheep.1.2");
+		weapon = new Weapon(SHEEP, *shape, lweapons, "sheep.1.1");
+		mapa.insert(pair<WeaponId, Weapon*>(SHEEP,weapon));
+		delete shape;
+	}
+
+	x += WIDTH_WEAPON + 3;
+	y += 5;
+	lweapons.clear();
+
+	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
+	if(shape != NULL){
+		lweapons.push_back("suicide.1.2");
+		weapon = new Weapon(SUICIDE, *shape, lweapons, "suicide.1.1");
+		mapa.insert(pair<WeaponId, Weapon*>(SUICIDE,weapon));
+		delete shape;
+	}
 }
 
