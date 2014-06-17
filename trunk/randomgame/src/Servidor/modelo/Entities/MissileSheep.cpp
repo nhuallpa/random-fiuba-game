@@ -6,4 +6,5 @@ MissileSheep::MissileSheep(int id):Missile(id){
 	this->weaponId=SHEEP;
 	this->explodeTime=SHEEP_TIME;
 	this->exploded = false;
+	this->grounded = 0;
 }

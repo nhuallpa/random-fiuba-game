@@ -46,6 +46,29 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	}
 
 	// Contacto de misiles
+
+/* +OVEJA y terreno: Logica de normales para el movimiento de la oveja */
+	if ( (int)fixtureB->GetUserData() ==  UD_MISSIL && (int)fixtureA->GetUserData() == UD_TERRAIN){
+		
+		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() == SHEEP){
+			contact->GetWorldManifold(&worldManifold);
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->addGrounded();
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
+			return;
+		}
+
+	}
+	if ( (int)fixtureA->GetUserData() ==  UD_MISSIL && (int)fixtureB->GetUserData() == UD_TERRAIN){
+		if (static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() == SHEEP){
+			contact->GetWorldManifold(&worldManifold);
+			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->addGrounded();
+			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
+			return;
+		}
+
+	}
+
+
 	if ( (int)fixtureB->GetUserData() ==  UD_MISSIL && ((int)fixtureA->GetUserData() == UD_TERRAIN || fixtureA->GetBody()->GetType() == b2_dynamicBody)){
 		// Si no explota por tiempo (mejor preguntar por hasDelayedExplosion )
 		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() != GRENADE && 
@@ -60,6 +83,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
 				printf("\nMISIL COLISIONO1");
 				static_cast<Missile2d*>(static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->myBody)->explode();
 		}
+
+		// OVEJA y WORM
+		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() == SHEEP ){
+			//Detengo la Oveja
+			fixtureB->GetBody()->SetLinearVelocity( b2Vec2(0,0) );
+			//Detengo el Worm
+			fixtureA->GetBody()->SetLinearVelocity( b2Vec2(0,0) );
+		}
+
+
 		return;
 	}
 	if ( fixtureA->GetUserData() == (void*)UD_MISSIL && ( (int)fixtureB->GetUserData() == UD_TERRAIN  || fixtureB->GetBody()->GetType() == b2_dynamicBody) ){
@@ -75,10 +108,20 @@ void ContactListener::BeginContact(b2Contact* contact) {
 				 printf("\nMISIL COLISIONO2");
 				 static_cast<Missile2d*>(static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->myBody)->explode();
 		}
+
+		// OVEJA y WORM
+		if (static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() == SHEEP ){
+			//Detengo la Oveja
+			fixtureA->GetBody()->SetLinearVelocity( b2Vec2(0,0) );
+			//Detengo el Worm
+			fixtureB->GetBody()->SetLinearVelocity( b2Vec2(0,0) );
+		}
+
+
 		return;
 	}
 
-	//TODO @Ariel SHEEP tiene otra logica
+	
 
 
 }
@@ -120,6 +163,29 @@ void ContactListener::EndContact(b2Contact* contact) {
 
 
 		return;
+	}
+
+
+/* +OVEJA: Logica de normales para el movimiento de la oveja */
+	b2WorldManifold worldManifold;
+	if ( (int)fixtureB->GetUserData() ==  UD_MISSIL && (int)fixtureA->GetUserData() == UD_TERRAIN){
+		
+		if (static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getWeaponId() == SHEEP){
+			contact->GetWorldManifold(&worldManifold);
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
+			static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->reduceGrounded();
+			return;
+		}
+
+	}
+	if ( (int)fixtureA->GetUserData() ==  UD_MISSIL && (int)fixtureB->GetUserData() == UD_TERRAIN){
+		if (static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getWeaponId() == SHEEP){
+			contact->GetWorldManifold(&worldManifold);
+			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
+			static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->reduceGrounded();
+			return;
+		}
+
 	}
 
 
