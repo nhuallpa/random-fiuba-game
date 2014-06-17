@@ -84,7 +84,7 @@ MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float ang
 	modelElement->setAlive(true);
 
 	/* Defino radio de explosion */
-	this->explosion.radio = EXPLODE_RSMALL;
+	this->explosion.radio = EXPLODE_RGIANT;
 	
 	printf("\n Granada Holy Impulsada");
 }

@@ -343,7 +343,7 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 		} else if (type == BURRO) { 
 			aProjectile = new DonkeyView(domainElement->getId(), "donkey");		
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle100"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle75"));
 		} else {
 			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));

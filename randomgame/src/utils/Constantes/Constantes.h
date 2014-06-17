@@ -54,7 +54,7 @@
 #define BAZOOKA_X_FACTOR 1.7
 
 #define AIR_STRIKE_Y 80
-
+#define BURRO_Y 80
 
 
 
