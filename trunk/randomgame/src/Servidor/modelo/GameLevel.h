@@ -21,6 +21,7 @@ class GameLevel {
 		int amountUser;
 		int amountWorms;
 		int idUnique;
+		int idColorUnique;
 
 
 		void addUserIntoLevel(string user)
@@ -91,6 +92,7 @@ class GameLevel {
 
 		void disconnectPlayer(std::string playerID);
 		StateConn getPlayerStatus(std::string playerId);
+		int getPlayerColor(std::string playerID);
 
 		int getWormsFromPlayer(std::string playerId,Playable* p);
 		void disconnectWormsFromPlayer(std::string playerId);

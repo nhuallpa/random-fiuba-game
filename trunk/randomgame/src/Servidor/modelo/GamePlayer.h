@@ -10,6 +10,7 @@ using namespace std;
 class GamePlayer{
 public:
 	GamePlayer(std::string playerID);
+	GamePlayer(std::string playerID, int color);
 	~GamePlayer();
 	static GamePlayer* NewPlayerFactory(int prefId, int amountWorms);
 	void setStateConn(StateConn sc);
@@ -21,9 +22,11 @@ public:
 	bool hasAnyWormAlive() { return ( !this->worms.empty() ) ? true : false; }
 	void updateLife();
 	int getLife() { return this->life; }
+	int getColor() { return this->color; }
 
 private:
 	int life;
+	int color;
 	std::vector<Worm*> worms;
 	StateConn state;
 	pair<int,int> transformBmpToBox2D(pair<int,int> vertex, int height, int width);
