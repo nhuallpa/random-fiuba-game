@@ -594,7 +594,7 @@ void GameActivity::OnAction(ActionEvent e){
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 
 					//Nestor: Esto se llama parche! TODO: a refactorizar
-					if (this->idWeapon == DYNAMITE) {
+					if (this->idWeapon == DYNAMITE || this->idWeapon == SHEEP) {
 						if (aWormView->getDirection() == D_LEFT) {
 							xMira = -1;
 						} else {
