@@ -369,6 +369,10 @@ void GameActivity::endMyTurn() {
 		this->cController->remuveOnClickListener(this);
 		this->cController->remuveOnMovementListener(this);
 		this->cController->remuveOnActionListener(this);
+		this->deselectPreviewsWeapon();
+		this->deselectPreviewsWorm();
+		this->offMenu();
+		this->aimView->unAim();
 	}
 }
 
