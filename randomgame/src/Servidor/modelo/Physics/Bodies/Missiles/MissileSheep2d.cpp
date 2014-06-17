@@ -30,7 +30,7 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	myFixtureDef.restitution = 0;
 	myFixtureDef.userData = (void*)UD_MISSIL;
 	
-	if ( angle_x < 0 ){
+	if ( angle_x > 0 ){
 		printf("\nDejo del lado derecho");
 		this->right = true;
 		myBodyDef.position.Set(posX + 3, posY);
