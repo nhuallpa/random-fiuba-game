@@ -7,6 +7,11 @@ GamePlayer::GamePlayer(std::string playerID){
         this->playerID = playerID;
 }
 
+GamePlayer::GamePlayer(std::string playerID, int color){
+        this->playerID = playerID;
+		this->color = color;
+}
+
 GamePlayer::~GamePlayer(){}
 
 void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){

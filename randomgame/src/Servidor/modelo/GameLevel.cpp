@@ -16,6 +16,7 @@ GameLevel::GameLevel() {
 	this->amountUser = Util::string2int(aParser->getMetaMaxPlay()); 
 	this->amountWorms = Util::string2int(aParser->getMetaMaxPj());
 	this->idUnique = 1;
+	this->idColorUnique = 0;
 
 }
 
@@ -285,7 +286,8 @@ PlayerAccounting GameLevel::acceptPlayer(std::string playerID){
 	if ( this->players.size() < this->amountUser ){
 		// No esta en la lista pero lo acepto porque entra
 	
-		GamePlayer* gp = new GamePlayer(playerID);
+		GamePlayer* gp = new GamePlayer(playerID,this->idColorUnique);
+		this->idColorUnique = this->idColorUnique + 1;
 		int height = aTerrainProcessor->getHeight();
 		int width = aTerrainProcessor->getWidth();
 		gp->initPlayer(this->idUnique,this->amountWorms,height,width);
@@ -334,6 +336,19 @@ StateConn GameLevel::getPlayerStatus(std::string playerID){
 		
 }
 
+int GameLevel::getPlayerColor(std::string playerID){
+
+	map<string, GamePlayer*>::iterator it;
+	it=this->players.find(playerID);
+
+	if ( it != this->players.end() ){
+		
+		return it->second->getColor();
+	}
+
+	return 0;
+		
+}
 
 
 int GameLevel::getWormsFromPlayer(std::string playerId, Playable* p){
