@@ -20,7 +20,7 @@ enum WormState {
 class WormView: public View, public OnMovementListener
 {
 	int id;
-	SDL_RendererFlip direction;
+	SDL_RendererFlip flip;
 
 	bool selected;
 
@@ -96,6 +96,8 @@ public:
 
 	void setUserLabel(std::string text);
 	void WormView::setName(std::string text);
+
+	tDirection getDirection();
 
 	~WormView(void);
 

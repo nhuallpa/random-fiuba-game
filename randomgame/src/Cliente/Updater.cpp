@@ -104,12 +104,23 @@ void Updater::doUnselectWapon(int wormId, int idWeapon)
 }
 
 
-void Updater::doSelectWapon(int wormId, int idWeapon)
+void Updater::doSelectWapon(int wormId, int idWeapon, tDirection direction)
 {
 	Log::i("Updater::doSelectWapon of worm %d weapon %d", wormId, idWeapon);
 	Playable p;
 	// Util::clean(p);
-	p.action = WITH_WEAPON;
+
+	// TODO: Pasar izq o derecha
+	if (direction == D_LEFT)
+	{
+		p.action = WITH_WEAPON_LEFT;
+	} 
+	else if (direction == D_RIGHT)
+	{
+		p.action = WITH_WEAPON_RIGHT;
+	}
+	
+
 	p.wormid = wormId;
 	p.weaponid = idWeapon;
 	this->addLocalMovementFromView(p);
@@ -117,7 +128,7 @@ void Updater::doSelectWapon(int wormId, int idWeapon)
 
 //void  Updater::notif
 
-void Updater::doShoot(int wormId, int idWeapon, int x_aim, int y_aim, int factor)
+void Updater::doShoot(int wormId, int idWeapon, float x_aim, float y_aim, int factor)
 {
 	Playable p;
 	//Util::clean(p);

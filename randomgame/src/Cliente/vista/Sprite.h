@@ -15,6 +15,9 @@ class Sprite
 
 	bool repeat;
 
+	int fromFrame;
+	int toFrame;
+
 public:
 
 	Sprite();
@@ -51,6 +54,7 @@ public:
 	int getCurrentFrame() {return this->currentFrame;}
 	int getCurrentRow() {return this->currentRow;}
 	bool isLastFrame();
+
 };
 
 

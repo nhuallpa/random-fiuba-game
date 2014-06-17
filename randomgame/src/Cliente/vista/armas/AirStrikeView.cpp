@@ -19,8 +19,8 @@ void AirStrikeView::clean()
 	
 void AirStrikeView::update() 
 {
-	this->currentSprite->update();
-
+	//this->currentSprite->update();
+	this->currentSprite->setCurrentRow(17);
 }
 
 void AirStrikeView::draw(SDLScreen & screen)

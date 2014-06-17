@@ -277,14 +277,14 @@ void GameActivity::OnClick(ClickEvent e){
 		int yMira= e.y;
 		std::pair<int, int> data = this->aimView->getData();
 		Log::i("\nShoot 1: x %d, y %d FACTOR 0",xMira,yMira);
-		updater.doShoot(data.first, data.second, xMira, yMira, 0);
+		SDL_Point sdlCoordinate = TextureManager::Instance().convertPointScreen2SDL(xMira, yMira);
+		tPointf domainCoordinate = TextureManager::Instance().convertPointPXSDL2UL(sdlCoordinate.x + TextureManager::Instance().getCamera().getX(), 
+																				   sdlCoordinate.y + TextureManager::Instance().getCamera().getY());
+		updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
 		aimView->unAim();
 		afterShoot = true;
 		return; //proceso y me voy
 	}
-
-
-
 
 	// nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
 	SDL_Point clickPoint = TextureManager::Instance().convertPointScreen2SDL(e.x,e.y);
@@ -314,7 +314,7 @@ void GameActivity::OnClick(ClickEvent e){
 			aWeapon->selected();
 			aWorm = gameView->findWormById(wormIdSelected);
 			aWorm->selectWeapon(this->idWeapon);
-			updater.doSelectWapon(wormIdSelected, this->idWeapon);
+			updater.doSelectWapon(wormIdSelected, this->idWeapon, aWorm->getDirection());
 
 			//logica de la mira
 			aimView->setWorm(aWorm, aWeapon);

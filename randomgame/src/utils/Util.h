@@ -98,7 +98,10 @@ typedef enum{
 	WAITING_FOR_TURN
 } Turn;
 
-
+typedef enum{
+	D_LEFT,
+	D_RIGHT
+} tDirection;
 
 
 
@@ -197,15 +200,13 @@ public:
 
 
 	/**
-	* * @DEPRECATE !!!!!!!!!!!!!!!!!!!!!!!!! or change
+	* * @DEPREATE. USAR EL DE TEXTURE_MANAGER
 	* Convert a coordinate x y to coordinate in SDL system reference
 	* @param x Value of axis x in domain
 	* @param y Value of axis y in domain
 	* @return aPoint in SLD system reference
 	*/
 	static tPoint convertPointUL2PXSDL(float x, float y);
-
-
 
 	/**
 	* Property loader

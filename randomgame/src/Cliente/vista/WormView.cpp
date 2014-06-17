@@ -2,7 +2,7 @@
 
 
 WormView::WormView(int id)
-	: View(0, 0), id(id), direction(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
+	: View(0, 0), id(id), flip(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
 {
 	currentSprite = NULL;
 	this->selected = false;
@@ -70,7 +70,7 @@ void WormView::update(GameElement* domainElement)
 			domainElement->getAction() == WITH_WEAPON_RIGHT)
     {
 			// todo: estado derecha
-            this->direction = SDL_FLIP_HORIZONTAL;
+            this->flip = SDL_FLIP_HORIZONTAL;
     } 
     else if (domainElement->getAction() == MOVELESS_LEFT || 
             domainElement->getAction() == NOT_CONNECTED_LEFT ||
@@ -78,7 +78,7 @@ void WormView::update(GameElement* domainElement)
 			domainElement->getAction() == WITH_WEAPON_LEFT)
     {
 			// todo: estado IZquierda
-            this->direction = SDL_FLIP_NONE;        
+            this->flip = SDL_FLIP_NONE;        
     }
 
 	if (domainElement->getAction() == MOVELESS || domainElement->getAction() == WITH_WEAPON_LEFT || domainElement->getAction() == WITH_WEAPON_RIGHT)
@@ -160,7 +160,7 @@ void WormView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
 										this->gray, 
-										this->direction);
+										this->flip);
 	
 	 
 	if (this->isSelected())
@@ -207,12 +207,12 @@ void WormView::OnMovement(MovementEvent e){
 	if (e.x == 1) // derecha
 	{
 		this->state = WORM_VIEW_DOING;
-		this->direction = SDL_FLIP_HORIZONTAL;
+		this->flip = SDL_FLIP_HORIZONTAL;
 	}
 	else if (e.x == -1) // izquierda
 	{
 		this->state = WORM_VIEW_DOING;
-		this->direction = SDL_FLIP_NONE;
+		this->flip = SDL_FLIP_NONE;
 	} 
 	else if (e.x == 0) // quieto
 	{
@@ -242,4 +242,13 @@ int WormView::getXCenter()
 int WormView::getYCenter()
 {
 	return this->getY()-(currentSprite->getHeight()/2);
+}
+
+tDirection WormView::getDirection()
+{
+	if (this->flip == SDL_FLIP_NONE) {
+		return D_LEFT;
+	} else {
+		return D_RIGHT;
+	}
 }
