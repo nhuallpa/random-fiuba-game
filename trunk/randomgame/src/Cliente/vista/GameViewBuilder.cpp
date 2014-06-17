@@ -253,6 +253,8 @@ void GameViewBuilder::buildMenuWeapon(){
 	allowW.push_back(AIRATTACK);
 	allowW.push_back(BANANA);
 	allowW.push_back(HMISSILE);
+	allowW.push_back(SHEEP);
+	allowW.push_back(SUICIDE);
 
 	menuWeapon->allowWeapon(allowW);
 
