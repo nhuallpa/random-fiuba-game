@@ -82,8 +82,7 @@ void WaterViewImg::loadWater(int Gap){
 	int lebel, width, height;
 	pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
 	width = dimension.first;
-	//height = dimension.second; 
-	height = Util::string2int(ParserYaml::getInstance()->getEscenarioAltoP());
+	height = dimension.second;
 
 	int scale = ESCALA_UL2PX;
 	lebel = (int)( Util::string2float(ParserYaml::getInstance()->getEscenarioAgua()) * scale);
