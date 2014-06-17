@@ -281,6 +281,7 @@ void GameActivity::OnClick(ClickEvent e){
 		tPointf domainCoordinate = TextureManager::Instance().convertPointPXSDL2UL(sdlCoordinate.x + TextureManager::Instance().getCamera().getX(), 
 																				   sdlCoordinate.y + TextureManager::Instance().getCamera().getY());
 		updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
+		updater.doUnselectWapon(wormIdSelected, this->idWeapon);
 		aimView->unAim();
 		afterShoot = true;
 		return; //proceso y me voy
