@@ -473,6 +473,17 @@ int Cliente::netListener(void* data){
 		case MAP_UPDATE:
 			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
 			break;
+
+		case GAME_UPDATE:
+			Log::i("We have a winner");
+			break;
+
+		case LOGOUT:
+			Log::i("Logging out");
+			//TODO NESTOR: Pone la pantalla diciendo que cierre y vuelva a abrir
+			closesocket(cli->input.getFD());
+			closesocket(cli->output.getFD());
+			break;
 		}
 	
 	}
