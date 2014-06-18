@@ -194,7 +194,9 @@ int Servidor::stepOver(void* data){
 				srv->processPlayersLife();
 
 				/* Veo si hubo ganador */
-				//srv->
+				if ( srv->doWeHaveAWinner() ){
+					printf("\nHay un ganador");
+				}
 						
 				doWeHaveAExplosion = false;
 				waitingForMissil = false;
@@ -214,7 +216,9 @@ int Servidor::stepOver(void* data){
 				srv->processPlayersLife();
 
 				/* Veo si hubo ganador */
-				//srv->
+				if ( srv->doWeHaveAWinner() ){
+					printf("\nHay un ganador");
+				}
 						
 				doWeHaveAExplosion = false;
 				waitingForMissil = false;
@@ -799,4 +803,29 @@ void Servidor::disconnectAll(){
 	for ( ; it != this->pList.end(); ++it ){
 		disconnect(it->first);
 	}
+}
+
+
+bool Servidor::doWeHaveAWinner(){
+
+	std::map<string, GamePlayer*> copy = this->gameEngine.getLevel()->getPlayers();
+	std::map<string, GamePlayer*>::iterator it =  copy.begin();
+	int q=0;
+	std::vector<string> possibleWinner;
+
+	for ( ; it != copy.end() ; ++it ){
+		if ( it->second->getLife() != 0){
+			printf("\nplayer %s life: %d",it->first.c_str(),it->second->getLife());
+			q++;
+			possibleWinner.push_back(it->first);
+		}
+	}
+
+	if ( q == 1){
+		printf("\Winner: %s",possibleWinner[0].c_str());
+		this->winner = possibleWinner[0];
+		return true;
+	}
+
+	return false;
 }
