@@ -10,13 +10,14 @@ class PlayerProgressView: public View
 {
 private:
 
-	std::map<Player,int>* refPlayersLife;
+	std::map<Player,int> * refPlayersLife;
 
-	std::map<Player,std::pair<StateConn,int>>* refPlayersPlaying;
+	std::map<Player,std::pair<StateConn,int>> * refPlayersPlaying;
 
+	TextView labelUser;
 
 public:
-	PlayerProgressView(std::map<Player,int>* refPlayersLife, std::map<Player,std::pair<StateConn,int>>* refPlayersPlaying);
+	PlayerProgressView(std::map<Player,int> * refPlayersLife, std::map<Player,std::pair<StateConn,int>> * refPlayersPlaying);
 
 	void clean();
 	
@@ -25,6 +26,10 @@ public:
 	void draw(SDLScreen & screen);
 
 	~PlayerProgressView(void);
+
+	SDL_Color geColorTeam(TeamColors teamColor);
+
+	int calcWidth(int life);
 
 };
 

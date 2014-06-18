@@ -25,7 +25,7 @@
 
 
 
-#define BACK_COLOR_PANEL 0xFF636300
+#define BACK_COLOR_PANEL 0x99999999
 
 
 #endif /*__COSNTANTES__H_*/
