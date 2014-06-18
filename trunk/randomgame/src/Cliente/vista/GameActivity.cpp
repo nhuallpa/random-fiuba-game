@@ -315,7 +315,7 @@ void GameActivity::OnClick(ClickEvent e){
 			}
 		}
 	}
-	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint))
+	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint) && this->isThisClientOwner(wormIdSelected))
 	{
 		if(hasClickedWeapon(clickPoint)){
 			WeaponId aux = this->idWeapon;
