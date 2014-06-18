@@ -79,8 +79,11 @@ class Servidor{
 		TurnManager turnMgr;
 		
 		SDL_sem* advance;
+		std::string winner;
 
 		bool deleted;
+		bool doWeHaveAWinner();
+		std::string getWinner(){ return this->winner; }
 
 		void sendHoles();
 		void shutdown();
