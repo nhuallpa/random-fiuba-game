@@ -474,16 +474,27 @@ int Cliente::netListener(void* data){
 			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
 			break;
 
-		case GAME_UPDATE:
-			Log::i("We have a winner");
-			break;
-
 		case LOGOUT:
 			Log::i("Logging out");
 			//TODO NESTOR: Pone la pantalla diciendo que cierre y vuelva a abrir
 			closesocket(cli->input.getFD());
 			closesocket(cli->output.getFD());
 			break;
+
+		case GAME_UPDATE:
+			Log::i("We have a winner");
+			if ( emsg->playerID.compare(playerId) ){
+				//YO GANE
+				Log::i("YO: %s, gane",emsg->playerID.c_str() );
+
+
+			}else{
+				//PERDI
+				Log::i("YO: %s, perdi",emsg->playerID.c_str() );
+			}
+
+			break;
+
 		}
 	
 	}
