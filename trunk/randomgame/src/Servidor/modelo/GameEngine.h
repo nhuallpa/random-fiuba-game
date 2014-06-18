@@ -75,6 +75,7 @@ class GameEngine {
 		void updateBodyPositions();
 		void deleteBody(int id);
 		int weaponUniquedId;
+		int amountOfMissils;
 
 		//Agarra los worms de un jugador y los pone como activos
 		//Para mi lo mejor es armar una clase GamePlayer que tenga la lista de wormsID que posee.
@@ -93,6 +94,7 @@ class GameEngine {
 
 		Timer myTimer;
 
+		bool doWeHaveAMissil(){ return ( this->amountOfMissils > 0) ? true : false; }
 		bool didWeShoot;
 		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }
 		void enqueueExplosion(Explosion e){ this->lastExplosions.push(e); }
