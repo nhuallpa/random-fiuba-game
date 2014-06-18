@@ -504,13 +504,18 @@ bool GameEngine::step(){
 						retval = false;
 					}
 					
-					// if (se fue lejos){
-					// this->amountOfMissils = this->amountOfMissils - 1;
-					// retval = true;
-					//}
-
 					this->myTimer.reset();
 				}
+
+				if (static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first > 105 ||
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first < -5 ){
+					printf("\n se fue de la pantalla");
+					this->amountOfMissils = this->amountOfMissils - 1;
+					bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+					retval = true;
+				}
+
+
 			}
 		}
 	}
