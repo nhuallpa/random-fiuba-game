@@ -17,7 +17,8 @@ enum Messages {
 	LOGIN_OK,
 	LOGOUT,
 	MAP_UPDATE,		// Actualiza mapa por explosiones 
-	LIFE_UPDATE
+	LIFE_UPDATE,	// Actualiza vida de cada jugador
+	GAME_UPDATE		//Indica quien gano
 };
 
 

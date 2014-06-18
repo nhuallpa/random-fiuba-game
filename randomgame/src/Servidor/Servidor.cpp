@@ -144,6 +144,7 @@ int Servidor::stepOver(void* data){
 	Timer timeHandler;
 	
 	bool doWeHaveAExplosion = false;
+	bool waitingForMissil = false;
 
 	float explosionTime = 0;
 	float shootTime = 0;
@@ -161,6 +162,8 @@ int Servidor::stepOver(void* data){
 	timeHandler.start();
 	srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
+	
+
 	while(true){
 		
 		if ( srv->gameEngine.didWeShoot ){
@@ -172,21 +175,44 @@ int Servidor::stepOver(void* data){
 
 		/* Se termino el turno o pasaron 5 seg desde el disparo */
 		if ( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) ) ){
+
 			printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
-			doWeHaveAExplosion = false;
-			localShoot = false;
-			explosionTime = 0;
-			shootTime = 0;
-
-			timeHandler.reset();
-
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
+			//termino el turno
 
-			/* Actualizo la vida y notifico */
-			srv->processPlayersLife();
 
-			/* Inicio el turno del nuevo player */
-			srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+			if ( srv->gameEngine.doWeHaveAMissil() && doWeHaveAExplosion ){
+
+				printf("\n\nCAMBIO DE TURNO \n");
+				/* Actualizo la vida y notifico */
+				srv->processPlayersLife();
+
+				/* Veo si hubo ganador */
+				//srv->
+						
+				doWeHaveAExplosion = false;
+				waitingForMissil = false;
+				localShoot = false;
+				explosionTime = 0;
+				shootTime = 0;
+				timeHandler.reset();
+
+				/* Inicio el turno del nuevo player */
+				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+
+			}else if ( !srv->gameEngine.doWeHaveAMissil() ){
+				printf("\n\nCAMBIO DE TURNO 2\n");
+				doWeHaveAExplosion = false;
+				waitingForMissil = false;
+				localShoot = false;
+				explosionTime = 0;
+				shootTime = 0;
+				timeHandler.reset();
+
+				/* Inicio el turno del nuevo player */
+				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+
+			}
 
 		}
 
@@ -194,10 +220,10 @@ int Servidor::stepOver(void* data){
 
 		w->lock();
 		
-		doWeHaveAExplosion = srv->getGameEngine().step();
-		//if ( doWeHaveAExplosion){
-		//	explosionTime = timeHandler.elapsed();
-		//}
+		waitingForMissil = srv->getGameEngine().step();
+		if ( waitingForMissil){
+			doWeHaveAExplosion = true;
+		}
 
 		w->unlock();
 

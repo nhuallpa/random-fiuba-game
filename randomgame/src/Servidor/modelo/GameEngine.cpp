@@ -20,6 +20,7 @@ GameEngine::GameEngine() {
 	this->weaponUniquedId = WEAPON_STARTING_ID;
 	this->myTimer.start();
 	this->didWeShoot = false;
+	this->amountOfMissils = 0;
 }
 
 int GameEngine::getWeaponUniqueId(){
@@ -337,6 +338,8 @@ bool GameEngine::step(){
 	//Guardo aqui los ID de los cuerpos a eliminar
 	std::vector<int> bodiesToDelete;
 
+	bool retval = false;
+
 	//Reflect model - for every body (worm)
 	std::map<int,Body*>::iterator iterator = this->gameBodies->begin();
 	for(iterator = this->gameBodies->begin();
@@ -397,7 +400,9 @@ bool GameEngine::step(){
 
 				//Cambio weaponId para eliminar en el proximo ciclo
 				static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setWeapon(NO_WEAPON);
-
+				
+				this->amountOfMissils = this->amountOfMissils - 1;
+				retval = true;
 
 /* +BURRO: Explosion de la burra (manejada desde el contact listener) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 			
@@ -432,6 +437,10 @@ bool GameEngine::step(){
 
 					//Cambio weaponId para eliminar en el proximo ciclo
 					static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setWeapon(NO_WEAPON);
+					
+					this->amountOfMissils = this->amountOfMissils - 1;
+					retval = true;
+
 				}else{
 					printf("\nsigo");
 					// Lo freno
@@ -471,6 +480,9 @@ bool GameEngine::step(){
 						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
 						);
 
+					this->amountOfMissils = this->amountOfMissils - 1;
+					retval = true;
+
 					// Marco como inactivo para borrar en el proximo ciclo
 					static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
 
@@ -489,8 +501,13 @@ bool GameEngine::step(){
 							static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
 							120,120,1);
 
+						retval = false;
 					}
-
+					
+					// if (se fue lejos){
+					// this->amountOfMissils = this->amountOfMissils - 1;
+					// retval = true;
+					//}
 
 					this->myTimer.reset();
 				}
@@ -521,7 +538,8 @@ bool GameEngine::step(){
 					printf("\nMisil al agua");
 					it->second->GetBody()->SetActive(false);
 					static_cast<Missile*>(it->second->GetBody()->GetUserData())->drowned = true;
-					//this->deleteBody( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
+					this->amountOfMissils = this->amountOfMissils - 1;
+					retval = true;
 					bodiesToDelete.push_back( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
 				}else{
 			
@@ -532,10 +550,6 @@ bool GameEngine::step(){
 					static_cast<Worm*>(it->second->GetBody()->GetUserData())->setLife(0);
 					static_cast<Worm*>(it->second->GetBody()->GetUserData())->drowned = true;
 					it->second->GetBody()->SetActive(false);
-
-					/*this->deleteBody( static_cast<Worm*>(it->second->GetBody()->GetUserData())->getId() )*/;
-					//static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAlive(false);
-
 				}
 			}
 
@@ -548,7 +562,7 @@ bool GameEngine::step(){
 		this->deleteBody( bodiesToDelete[i] );
 	}
 
-	return false;
+	return retval;
 }
 
 
@@ -759,6 +773,7 @@ void GameEngine::animateWeapon(int weaponid, int wormid, float angle_x, float an
 
 		this->gameLevel->addEntity(aMissile);
 		this->gameBodies->insert(std::make_pair<int,Body*>(elementId, aMissile2d));
+		this->amountOfMissils = this->amountOfMissils + 1;
 	}
 	
 }
@@ -780,6 +795,7 @@ void GameEngine::createWeapon(int weaponid, float posx, float posy, float angle_
 
 	this->gameLevel->addEntity(aMissile);
 	this->gameBodies->insert(std::make_pair<int,Body*>(elementId, aMissile2d));
+	this->amountOfMissils = this->amountOfMissils + 1;
 
 	
 }
