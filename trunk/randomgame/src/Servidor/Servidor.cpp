@@ -218,6 +218,7 @@ int Servidor::stepOver(void* data){
 				/* Veo si hubo ganador */
 				if ( srv->doWeHaveAWinner() ){
 					printf("\nHay un ganador");
+					srv->notifyWinner();
 				}
 						
 				doWeHaveAExplosion = false;
@@ -828,4 +829,14 @@ bool Servidor::doWeHaveAWinner(){
 	}
 
 	return false;
+}
+
+
+
+void Servidor::notifyWinner(){
+
+	this->worldQ.type = GAME_UPDATE;
+	this->worldQ.playerID = this->winner;
+	this->notifyAll();
+
 }

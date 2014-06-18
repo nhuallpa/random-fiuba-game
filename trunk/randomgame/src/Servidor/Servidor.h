@@ -96,6 +96,7 @@ class Servidor{
 
 		bool startNewTurn;
 		void notifyTurnForPlayer(std::string player);
+		void notifyWinner();
 
 		//Mutex per player - basado en consume/producer model
 		std::map<std::string,std::pair<Mutex*,Condition*>> playerMutexes;
