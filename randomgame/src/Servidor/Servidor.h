@@ -80,7 +80,14 @@ class Servidor{
 		
 		SDL_sem* advance;
 
+		bool deleted;
+
 		void sendHoles();
+		void shutdown();
+		void reboot();
+
+		void logoutPlayer(std::string player);
+		void disconnectAll();
 
 		//TurnManager turnMgr;
 

@@ -63,7 +63,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 {
 
 	this->advance = SDL_CreateSemaphore( 1 );
-
+	this->deleted = false;
 	jugadoresConectados = 0;
 
 	//Carga el servidor con un nivel, ese nivel tiene el terreno y su fisica y los jugadores que han
@@ -103,6 +103,10 @@ int Servidor::updating(void* data){
 
 	while(true){
 		Sleep(10);
+
+		if ( srv->deleted )
+			return 0;
+
 		m->lock();
 		if ( changes->empty() ){
 			cond->wait();
@@ -166,6 +170,9 @@ int Servidor::stepOver(void* data){
 
 	while(true){
 		
+		if ( srv->deleted )
+			return 0;
+
 		if ( srv->gameEngine.didWeShoot ){
 			shootTime = timeHandler.elapsed();
 			srv->gameEngine.didWeShoot = false;
@@ -320,6 +327,10 @@ int Servidor::wait4Connections(void* data){
 		if ( srv->jugadoresConectados == srv->cantJugadores){
 			srv->initialNotify();
 		}
+
+		if ( srv->deleted )
+			return 0;
+
 	}
 	return 0;
 }
@@ -467,6 +478,10 @@ int Servidor::initClient(void* data){
 		try {
 		while (activeClient &&  srv->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ) {
 			Sleep(10);
+
+			if ( srv->deleted )
+				return 0;
+
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				printf("\nDesconectando cliente: %s",playerId );
 				//srv->notifyUsersAboutPlayer(playerId);
@@ -596,6 +611,9 @@ int Servidor::updateClient(void* data){
 
     while(true){           
 		//Sleep(25);
+		if ( srv->deleted )
+			return 0;
+
 		srv->playerMutexes[playerId].first->lock();
 		while ( srv->playerQueues[playerId]->empty() ){
 			srv->playerMutexes[playerId].second->wait();
@@ -640,7 +658,6 @@ void Servidor::setWorldQ(){
 
 bool Servidor::allInWaitingStatus(){
 
-	//bool flag = true;
 	std::map<std::string,TransmitStatus> copy = this->playerQueueStat;
 	std::map<std::string,TransmitStatus>::iterator it=copy.begin();
 
@@ -737,4 +754,41 @@ void Servidor::sendHoles(){
 		}
 	}
 
+}
+
+void Servidor::shutdown(){
+	this->disconnectAll();
+	this->deleted = true;
+	Sleep(10);
+	closesocket(this->input.getFD());
+	closesocket(this->output.getFD());
+}
+
+
+void Servidor::reboot(){
+	this->disconnectAll();
+	this->deleted = true;
+	Sleep(10);
+	closesocket(this->input.getFD());
+	closesocket(this->output.getFD());
+
+}
+
+
+void Servidor::logoutPlayer(std::string player){
+
+}
+
+
+void Servidor::disconnectAll(){
+
+	/* Mnado Logout a los clientes*/
+	this->worldQ.type = LOGOUT;
+	this->notifyAll();
+
+	/* Cierro el socket */
+	Players::iterator it = this->pList.begin();
+	for ( ; it != this->pList.end(); ++it ){
+		disconnect(it->first);
+	}
 }
