@@ -22,6 +22,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->aimView = NULL;
 	this->isRightAim = false;
 	this->isLeftAim = false;
+	this->iniHmissile();
 	
 }
 
@@ -273,17 +274,28 @@ void GameActivity::OnClick(ClickEvent e){
 
 	//Agrego para escuchar el clic del arma
 	if(aimView->isShootMouse()){
-		int xMira= e.x;
-		int yMira= e.y;
-		std::pair<int, int> data = this->aimView->getData();
-		Log::i("\nShoot 1: x %d, y %d FACTOR 0",xMira,yMira);
-		SDL_Point sdlCoordinate = TextureManager::Instance().convertPointScreen2SDL(xMira, yMira);
-		tPointf domainCoordinate = TextureManager::Instance().convertPointPXSDL2UL(sdlCoordinate.x + TextureManager::Instance().getCamera().getX(), 
-																				   sdlCoordinate.y + TextureManager::Instance().getCamera().getY());
-		updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
-		updater.doUnselectWapon(wormIdSelected, this->idWeapon);
-		aimView->unAim();
-		afterShoot = true;
+		if(this->idWeapon != HMISSILE){
+			int xMira= e.x;
+			int yMira= e.y;
+			std::pair<int, int> data = this->aimView->getData();
+			Log::i("\nShoot 1: x %d, y %d FACTOR 0",xMira,yMira);
+			SDL_Point sdlCoordinate = TextureManager::Instance().convertPointScreen2SDL(xMira, yMira);
+			tPointf domainCoordinate = TextureManager::Instance().convertPointPXSDL2UL(sdlCoordinate.x + TextureManager::Instance().getCamera().getX(), 
+																					   sdlCoordinate.y + TextureManager::Instance().getCamera().getY());
+			updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
+			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+			aimView->unAim();
+			afterShoot = true;
+			this->iniHmissile();
+		}
+		else{
+			//Estoy en el caso de que se eligio el misil, guardo el x e y Objetivo
+			this->xHmissile = e.x;
+			this->yHmissile = e.y;
+			//cambio la mira para escucharEnter
+			aimView->unAim();
+			this->aimView->aimBuildEnter();
+		}
 		return; //proceso y me voy
 	}
 
@@ -580,6 +592,30 @@ void GameActivity::OnAction(ActionEvent e){
 			{  
 				
 				if (this->wormIdSelected>0 && this->idWeapon!=NO_WEAPON) {
+
+					if(this->idWeapon == HMISSILE){
+					//TODO: @Ari terminalo
+						if(this->isObjetive()){
+							updater.doShoot(this->wormIdSelected, 
+								HMISSILE, 
+								this->xHmissile, 
+								this->yHmissile, 
+								e.factor);
+							updater.doUnselectWapon(wormIdSelected, HMISSILE);
+							deselectPreviewsWeapon();
+							afterShoot = true;
+							this->aimView->unAim();
+						}
+						this->iniHmissile();
+						return; //proceso y me voy
+					}
+
+
+
+
+
+
+
 					WormView * aWormView = gameView->findWormById(this->wormIdSelected);
 					int factor = e.factor;
 					int xMira= e.xAim;
@@ -605,6 +641,7 @@ void GameActivity::OnAction(ActionEvent e){
 					updater.doUnselectWapon(wormIdSelected, this->idWeapon);
 					deselectPreviewsWeapon();
 					afterShoot = true;
+					this->iniHmissile();
 				}
 			}
 			break;
@@ -620,4 +657,15 @@ void GameActivity::actionMenu(){
 void GameActivity::offMenu(){
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->offMenu();
+}
+
+
+bool GameActivity::isObjetive(){
+	return ((this->xHmissile != -1)
+		&&(this->yHmissile != -1));
+}
+
+void GameActivity::iniHmissile(){
+	this->xHmissile =
+	this->yHmissile = -1;
 }

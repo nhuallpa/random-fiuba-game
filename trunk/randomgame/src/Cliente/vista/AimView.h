@@ -32,6 +32,8 @@ public:
 	bool isShootEnter();
 	bool isRightSide();
 	bool isLeftSide();
+	void aimBuildMouse();
+	void aimBuildEnter();
 	//devuelvo <IdWorm, IdWeapon>
 	pair<int, int> getData();
 	int getAngle();
@@ -48,9 +50,6 @@ private:
 	void pointUp();
 	void pointUnder();
 	void centerPoint();
-
-	void aimBuildMouse();
-	void aimBuildEnter();
 
 	void createPositionAimEnter();
 	void generatePoint();
