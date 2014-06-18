@@ -181,7 +181,7 @@ int Servidor::stepOver(void* data){
 			//termino el turno
 
 
-			if ( srv->gameEngine.doWeHaveAMissil() && doWeHaveAExplosion ){
+			if ( doWeHaveAExplosion ){
 
 				printf("\n\nCAMBIO DE TURNO \n");
 				/* Actualizo la vida y notifico */
