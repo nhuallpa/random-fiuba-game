@@ -55,7 +55,7 @@
 #define GRENADE_TIME 4
 #define HOLY_TIME 3
 #define BANANITA_TIME 3
-#define DYNAMITE_TIME 5
+#define DYNAMITE_TIME 3
 #define SHEEP_TIME 10
 
 #define SHEEP_SPEED 3

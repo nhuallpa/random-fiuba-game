@@ -6,4 +6,5 @@ MissileDynamite::MissileDynamite(int id):Missile(id){
 	this->weaponId=DYNAMITE;
 	this->explodeTime=DYNAMITE_TIME;
 	this->exploded = false;
+	this->drowned = false;
 }

@@ -6,4 +6,5 @@ MissileBazooka::MissileBazooka(int id):Missile(id){
 	this->weaponId=BAZOOKA;
 	this->explodeTime=0;
 	this->exploded = false;
+	this->drowned = false;
 }

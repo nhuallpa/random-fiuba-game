@@ -97,6 +97,7 @@ void MissileBurro2d::animate( float time ){
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
+	//printf("\n x,y: %f, %f",f.x,f.y);
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
 

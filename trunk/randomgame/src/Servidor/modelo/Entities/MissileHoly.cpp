@@ -7,4 +7,5 @@ MissileHoly::MissileHoly(int id):Missile(id){
 	this->weaponId=HOLY;
 	this->explodeTime=HOLY_TIME;
 	this->exploded = false;
+	this->drowned = false;
 }

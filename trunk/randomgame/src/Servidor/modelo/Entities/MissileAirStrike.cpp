@@ -6,4 +6,5 @@ MissileAirStrike::MissileAirStrike(int id):Missile(id){
 	this->weaponId=AIRATTACK;
 	this->explodeTime=0;
 	this->exploded = false;
+	this->drowned = false;
 }
