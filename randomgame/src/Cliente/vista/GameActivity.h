@@ -37,6 +37,8 @@ private:
 	bool isMyTurn,
 		 isRightAim,
 		 isLeftAim;
+	
+	int xHmissile, yHmissile;
 
 	WeaponId idWeapon;
 
@@ -48,6 +50,8 @@ private:
 	void iniState();
 	void actionMenu();
 	void offMenu();
+	bool isObjetive();
+	void iniHmissile();
 public:
 
 	int wormIdDesSelected;

@@ -17,12 +17,14 @@ void AimView::aimBuild(){
 	switch(this->weapon->getId()){
 		case BURRO:
 		case AIRATTACK:
+		case HMISSILE:
 			aimBuildMouse();
 			break;
 		case BAZOOKA:
 		case GRENADE:
 		case HOLY:
-		case HMISSILE:
+		case BANANA:
+		case SHEEP:
 			aimBuildEnter();
 			break;
 		default:;
