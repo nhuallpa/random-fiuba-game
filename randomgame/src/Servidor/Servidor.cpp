@@ -148,7 +148,8 @@ int Servidor::stepOver(void* data){
 	Timer timeHandler;
 	
 	bool doWeHaveAExplosion = false;
-	bool waitingForMissil = false;
+	bool simulationEnded = false;
+	int waitingForMissil = false;
 
 	float explosionTime = 0;
 	float shootTime = 0;
@@ -177,17 +178,15 @@ int Servidor::stepOver(void* data){
 			shootTime = timeHandler.elapsed();
 			srv->gameEngine.didWeShoot = false;
 			localShoot = true;
-			//printf("\nHubo disparo at %f",shootTime);
 		}
 
 		/* Se termino el turno o pasaron 5 seg desde el disparo */
 		if ( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) ) ){
 
-			printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
+			//printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
-			//termino el turno
 
-
+			/*Si ya exploto, cambio de turno*/
 			if ( doWeHaveAExplosion ){
 
 				printf("\n\nCAMBIO DE TURNO \n");
@@ -199,6 +198,7 @@ int Servidor::stepOver(void* data){
 						
 				doWeHaveAExplosion = false;
 				waitingForMissil = false;
+				simulationEnded = false;
 				localShoot = false;
 				explosionTime = 0;
 				shootTime = 0;
@@ -207,10 +207,18 @@ int Servidor::stepOver(void* data){
 				/* Inicio el turno del nuevo player */
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
-			}else if ( !srv->gameEngine.doWeHaveAMissil() ){
-				printf("\n\nCAMBIO DE TURNO 2\n");
+			}else if ( !localShoot ){
+
+				printf("\n\nCAMBIO DE TURNO 2 (No disparo) \n");
+				/* Actualizo la vida y notifico */
+				srv->processPlayersLife();
+
+				/* Veo si hubo ganador */
+				//srv->
+						
 				doWeHaveAExplosion = false;
 				waitingForMissil = false;
+				simulationEnded = false;
 				localShoot = false;
 				explosionTime = 0;
 				shootTime = 0;
@@ -228,7 +236,7 @@ int Servidor::stepOver(void* data){
 		w->lock();
 		
 		waitingForMissil = srv->getGameEngine().step();
-		if ( waitingForMissil){
+		if ( waitingForMissil ){
 			doWeHaveAExplosion = true;
 		}
 

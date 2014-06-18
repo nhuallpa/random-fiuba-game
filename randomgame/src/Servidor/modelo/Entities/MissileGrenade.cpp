@@ -6,4 +6,5 @@ MissileGrenade::MissileGrenade(int id):Missile(id){
 	this->weaponId=GRENADE;
 	this->explodeTime=GRENADE_TIME;
 	this->exploded = false;
+	this->drowned = false;
 }

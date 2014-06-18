@@ -6,4 +6,5 @@ MissileSuicide::MissileSuicide(int id):Missile(id){
 	this->weaponId=SUICIDE;
 	this->explodeTime=1;
 	this->exploded = false;
+	this->drowned = false;
 }

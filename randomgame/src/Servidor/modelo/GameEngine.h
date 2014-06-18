@@ -95,9 +95,12 @@ class GameEngine {
 		Timer myTimer;
 
 		bool doWeHaveAMissil(){ return ( this->amountOfMissils > 0) ? true : false; }
+		int getMissils(){ return this->amountOfMissils; }
 		bool didWeShoot;
 		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }
 		void enqueueExplosion(Explosion e){ this->lastExplosions.push(e); }
+
+		void reduceMissils(){ this->amountOfMissils = this->amountOfMissils - 1; }
 
 		std::vector<Explosion> getMapExplosions(){ return this->mapExplosions; }
 
@@ -136,7 +139,7 @@ class GameEngine {
 
 		void applyAction2Element(int id, int weaponid, float x, float y, Movement action, int intensidad);
 
-		bool step();
+		int step();
 
 		float getTimeStep ();
 		//bool iniciarEscenario(SocketServidor* pSocket);
