@@ -412,8 +412,7 @@ int Servidor::initClient(void* data){
 		datagram->playerID = itGP->second->playerID;
 		datagram->playerState = srv->gameEngine.getLevel()->getPlayerStatus(itGP->second->playerID);
 		int el = srv->gameEngine.getLevel()->getWormsFromPlayer(itGP->second->playerID,datagram->play);
-		//TODO: poner color en algun campo
-
+		datagram->type = (Messages)srv->gameEngine.getLevel()->getPlayerColor(itGP->second->playerID);
 		datagram->elements = el;
 		printf("\nSending %d elements about player: %s at init",el,itGP->second->playerID.c_str());
 		aThreadData->clientI.sendmsg(*datagram);

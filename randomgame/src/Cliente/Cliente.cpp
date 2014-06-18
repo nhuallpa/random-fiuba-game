@@ -134,7 +134,7 @@ void Cliente::getRemoteWorld() {
 		this->domainMx.lock();
 		int auxLife =0;
 		for ( int j=0; j < els; j++){
-
+			bool added = false;
 			Log::i("Got worm id: %d at pos: %f, %f, action: %s, life %d",msg->play[j].wormid, msg->play[j].x, msg->play[j].y, Util::actionString(msg->play[j].action).c_str(), msg->play[j].life);
 
 			//Trigger changes into game elements of the client
@@ -142,11 +142,15 @@ void Cliente::getRemoteWorld() {
 			auxLife = auxLife + msg->play[j].life;		
 			this->domain.addElementToDomain(*elem);
 			
-			if ( msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED){
+			if ( (msg->play[j].action == NOT_CONNECTED_RIGHT || msg->play[j].action == NOT_CONNECTED_LEFT || msg->play[j].action == NOT_CONNECTED) && !added ){
 				//Set user disconnected
-				this->domain.addPlayer(msg->playerID,DISCONNECTED,0);
-			}else
-				this->domain.addPlayer(msg->playerID,CONNECTED,0);
+				Log::i("Adding player %s to team: %d",msg->playerID.c_str(), msg->type);
+				this->domain.addPlayer(msg->playerID,DISCONNECTED,msg->type);
+			}else if (!added){
+				Log::i("Adding player %s to team: %d",msg->playerID.c_str(), msg->type);
+				this->domain.addPlayer(msg->playerID,CONNECTED,msg->type);
+				added = true;
+			}
 		}
 		this->domain.setPlayerLife(msg->playerID,auxLife);
 		this->domainMx.unlock();
@@ -462,6 +466,7 @@ int Cliente::netListener(void* data){
 			break;
 
 		case LIFE_UPDATE:
+			Log::i("La vida del player %s se seteo en: %d",emsg->playerID.c_str(),emsg->play[0].life);
 			cli->domain.setPlayerLife(emsg->playerID,emsg->play[0].life);
 			break;
 
