@@ -399,8 +399,16 @@ void GameActivity::beginMyTurn()
 	this->cController->addOnClickListener(this);
 	this->cController->addOnMovementListener(this);
 	this->cController->addOnActionListener(this);
+	//@Ari @Nestor : seteo el timer con un tiempo hardcode
+	this->setTimer(2.0);
 }
 
+
+
+void GameActivity::setTimer(float timer){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	gameView->setTimer(timer);
+}
 
 void GameActivity::setListeners(SDLScreen &  screen) 
 {

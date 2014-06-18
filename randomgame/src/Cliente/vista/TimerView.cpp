@@ -11,6 +11,9 @@ TimerView::TimerView(int x, int y)
 	white.g = 0xFF;
 	white.b = 0xFF;
 	this->label.setText("Tiempo", white);
+	this->finished = true;
+	this->timerP = 0.0;
+	this->index = 0;
 }
 
 
@@ -18,9 +21,16 @@ TimerView::~TimerView(void)
 {
 }
 
+void TimerView::setTimer(float t){
+	this->timerP = t;
+}
+
 void TimerView::update()
 {
-
+	float tim = this->timmer.elapsed();
+	if(this->timerP < tim){
+		this->finished = true;
+	}
 }
 
 
@@ -29,8 +39,23 @@ void TimerView::clean()
 
 }
 
+void TimerView::start(){
+	this->timmer.start();
+	this->finished = false;
+}
+
+void TimerView::reset(){
+	this->start();
+}
+
+bool TimerView::isFinished(){
+	return this->finished;
+}
+
 void TimerView::draw(SDLScreen & screen){
 	
+
+		this->update();
 		int margin = 5;
 		int margin_left = 10;
 		int heightBarProgress = 15;
@@ -40,24 +65,31 @@ void TimerView::draw(SDLScreen & screen){
 		rect.w = 100;
 		rect.h = heightBarProgress - margin;
 
+		if(!this->isFinished()){
+			this->index++;
+		}
+		else{
+			this->index = 0;
+		}
+			TextureManager::Instance().drawBox(screen.getRenderer(), 
+															rect.x, 
+															getY(), 
+															rect.x + 150,
+															rect.y + 50,
+															BACK_COLOR_PANEL);
 
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-														rect.x, 
-														getY(), 
-														rect.x + 150,
-														rect.y + 50,
-														BACK_COLOR_PANEL);
 
 
-
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-														rect.x, 
-														rect.y, 
-														rect.x + rect.w,
-														rect.y + rect.h, 
-														COLOR_AMARILLO);
+			TextureManager::Instance().drawBox(screen.getRenderer(), 
+															rect.x, 
+															rect.y, 
+															rect.x + rect.w
+															- this->index
+															,
+															rect.y + rect.h, 
+															COLOR_AMARILLO);
 		
 
-		this->label.draw(screen.getRenderer(), getX() + margin_left , getY());
+			this->label.draw(screen.getRenderer(), getX() + margin_left , getY());
 
 }

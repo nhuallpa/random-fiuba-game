@@ -52,6 +52,7 @@ private:
 	void offMenu();
 	bool isObjetive();
 	void iniHmissile();
+	void setTimer(float timer);
 public:
 
 	int wormIdDesSelected;

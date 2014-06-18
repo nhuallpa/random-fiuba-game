@@ -140,6 +140,12 @@ void GameView::freeProjectileView(int id) {
 	}
 }
 
+
+void GameView::setTimer(float timer){
+	this->timerView->setTimer(timer);
+	this->timerView->start();
+}
+
 void GameView::setPlayerProgressView(PlayerProgressView * pProgressView){
 	this->pProgressView = pProgressView;
 	this->add(pProgressView);
