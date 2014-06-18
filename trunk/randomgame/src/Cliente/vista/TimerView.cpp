@@ -58,6 +58,7 @@ void TimerView::draw(SDLScreen & screen){
 		this->update();
 		int margin = 5;
 		int margin_left = 10;
+		int padding_left = 10;
 		int heightBarProgress = 15;
 		SDL_Rect rect;
 		rect.x = getX() + margin_left;
@@ -75,17 +76,15 @@ void TimerView::draw(SDLScreen & screen){
 															rect.x, 
 															getY(), 
 															rect.x + 150,
-															rect.y + 50,
+															rect.y + 30,
 															BACK_COLOR_PANEL);
 
 
 
 			TextureManager::Instance().drawBox(screen.getRenderer(), 
-															rect.x, 
+															rect.x + padding_left, 
 															rect.y, 
-															rect.x + rect.w
-															- this->index
-															,
+															rect.x + rect.w	- this->index,
 															rect.y + rect.h, 
 															COLOR_AMARILLO);
 		

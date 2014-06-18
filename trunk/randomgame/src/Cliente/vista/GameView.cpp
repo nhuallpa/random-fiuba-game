@@ -162,3 +162,4 @@ void GameView::setPowerView(PowerView * powerView)
 	this->powerView = powerView;
 	this->add(powerView);
 }
+

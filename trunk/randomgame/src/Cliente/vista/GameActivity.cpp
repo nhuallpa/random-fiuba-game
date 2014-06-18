@@ -35,7 +35,7 @@ void GameActivity::buildView()
 	builder->buildEart();
 	builder->buildCharacters();
 	builder->buildProjectileContainer();
-	builder->buildPlayerProgress();
+	
 //	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildPower();
@@ -47,6 +47,8 @@ void GameActivity::buildView()
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	aimView = new AimView();
 	gameView->add(aimView);
+
+	builder->buildPlayerProgress();
 	this->cController->addOnChangeListener(aimView);
 	this->cController->addOnMovementListener(aimView);
 	TextureManager::Instance().setFocus(FOCUS_BOTOOM_CENTER);
@@ -374,6 +376,7 @@ void GameActivity::otherTurn(std::string playerId)
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->getStateBar()->setMessageCenter("Is turn of " + playerId);
 	this->isMyTurn = false;
+	this->setTimer(25.0);
 }
 
 void GameActivity::endMyTurn() {
@@ -385,7 +388,7 @@ void GameActivity::endMyTurn() {
 		this->deselectPreviewsWeapon();
 		this->deselectPreviewsWorm();
 		this->offMenu();
-		this->aimView->unAim();
+		this->aimView->unAim();		
 	}
 }
 
@@ -400,7 +403,7 @@ void GameActivity::beginMyTurn()
 	this->cController->addOnMovementListener(this);
 	this->cController->addOnActionListener(this);
 	//@Ari @Nestor : seteo el timer con un tiempo hardcode
-	this->setTimer(2.0);
+	this->setTimer(25.0);
 }
 
 

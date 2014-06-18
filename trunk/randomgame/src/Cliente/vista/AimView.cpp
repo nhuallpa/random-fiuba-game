@@ -1,14 +1,13 @@
 #include "AimView.h"
 #include "TextureManager.h"
 
-AimView::AimView():View(0,30){
+AimView::AimView():View(30,30){
 	bShootMouse = 
 	bShootEnter = 
 	bRight =
 	bLeft = false;
 	createPositionAimEnter();
 	it = aimEnter.begin();
-	this->enableScroll();
 }
 
 AimView::~AimView(){}
@@ -40,8 +39,8 @@ void AimView::setWorm(WormView* aWorm, Weapon* aWeapon){
 void AimView::aimBuildEnter(){
 	this->centerPoint();
 	this->generatePoint();
-	this->xDraw = this->getX() + this->xRelative; 
-	this->yDraw = this->getY() + this->yRelative;
+	this->xDraw = this->x + this->xRelative; 
+	this->yDraw = this->y + this->yRelative;
 
 	bShootEnter = true;
 	bShootMouse = false;
@@ -196,23 +195,14 @@ void AimView::centerPoint(){
 void AimView::draw(SDLScreen & screen){
 	if(bShootMouse){
 		TextureManager::Instance().drawFrameOnScreen(
-									"aim", 
-									this->xDraw, 
-									this->yDraw, 
-									60, 57, 
-									0, 0, 
-									screen.getRenderer(),
-									false, 
-									SDL_FLIP_NONE);
+						"aim", this->xDraw, this->yDraw, 60, 57, 
+						0, 0, screen.getRenderer(),
+						false, SDL_FLIP_NONE);
 		}
 	else if(bShootEnter){
 		TextureManager::Instance().drawFrame(
-						"aim", 
-						this->xDraw, 
-						this->yDraw, 
-						60, 57, 
-						0, 0, 
-						screen.getRenderer(),
+						"aim", this->xDraw, this->yDraw, 60, 57, 
+						0, 0, screen.getRenderer(),
 						false, SDL_FLIP_NONE);
 	}
 }
