@@ -1,8 +1,8 @@
 #include "PlayerProgressView.h"
 
 
-PlayerProgressView::PlayerProgressView()
-	: View(0, 0)
+PlayerProgressView::PlayerProgressView(std::map<Player,int>* playersLife, std::map<Player,std::pair<StateConn,int>>* playersPlaying)
+	: View(0, 0), refPlayersLife(playersLife), refPlayersPlaying(playersPlaying)
 {
 
 }

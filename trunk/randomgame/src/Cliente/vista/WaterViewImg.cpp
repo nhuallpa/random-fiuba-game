@@ -11,9 +11,10 @@ WaterViewImg* WaterViewImg::FactoryWater(int Gap, float timmerChange,bool bBackg
 }
 
 
-WaterViewImg::WaterViewImg(float timmerChange, bool bBackground):View(30,30){
+WaterViewImg::WaterViewImg(float timmerChange, bool bBackground):View(0,30){
 	this->timmerChange = timmerChange;
 	this->bBackground = bBackground;
+	this->enableScroll();
 }
 
 WaterViewImg::~WaterViewImg(){
@@ -61,10 +62,15 @@ void WaterViewImg::drawSurf(SDLScreen & screen){
 	pair<int, int> dimen = it->second.getDimension();
 
 	TextureManager::Instance().drawFrame(
-		it->first, point.first, point.second,
-		dimen.first, dimen.second, 
-			0, 0, screen.getRenderer(),
-			false, SDL_FLIP_NONE);
+								it->first, 
+								this->getX(),//point.first, 
+								this->getY(),//point.second,
+								dimen.first, 
+								dimen.second, 
+								0, 0, 
+								screen.getRenderer(),
+								false, 
+								SDL_FLIP_NONE);
 }
 
 
@@ -72,10 +78,16 @@ void WaterViewImg::drawbackground(SDLScreen & screen){
 	pair<int, int> point = backgroundWater.second.getPosition();
 	pair<int, int> dimen = backgroundWater.second.getDimension();
 	TextureManager::Instance().drawFrame(
-		backgroundWater.first, point.first, point.second,
-		dimen.first, dimen.second, 
-			0, 0, screen.getRenderer(),
-			false, SDL_FLIP_NONE);
+											backgroundWater.first, 
+											this->getX(),//point.first, 
+											this->getY(),//point.second,
+											dimen.first, 
+											dimen.second, 
+											0, 
+											0, 
+											screen.getRenderer(),
+											false, 
+											SDL_FLIP_NONE);
 }
 
 void WaterViewImg::loadWater(int Gap){
@@ -87,10 +99,12 @@ void WaterViewImg::loadWater(int Gap){
 	//dimension.first;
 	positionX = 0;
 	positionY = dimension.second - lebel - Gap;// heightEart,
-	width = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()));
-	height = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()))
-		- dimension.second;
+	/*width = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()));
+	height = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP())) - dimension.second;*/
+	width = dimension.first; // ancho del escenario seria el del agua
+	height = lebel + Gap;	// alto del agua
 
+	this->setY(positionY);
 	water.insert(pair<string,Shape>("marea_1_1", Shape(positionX, positionY, width, height)));
 	water.insert(pair<string,Shape>("marea_1_2", Shape(positionX, positionY, width, height)));
 	water.insert(pair<string,Shape>("marea_1_3", Shape(positionX, positionY, width, height)));

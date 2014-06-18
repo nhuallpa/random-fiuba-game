@@ -73,6 +73,10 @@ public:
 	 bool existElement(int id);
 
 	 void removeElement(int id);
+
+	 std::map<Player,std::pair<StateConn,int>>* getPlayersPlaying() {return &this->playersPlaying;}
+
+	 std::map<Player,int>* getPlayersLife() {return &this->playersLife;}
 };
 
 #endif

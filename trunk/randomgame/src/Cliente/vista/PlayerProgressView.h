@@ -8,10 +8,15 @@
 #include "../../utils/Constantes/Colors.h"
 class PlayerProgressView: public View
 {
-protected:
+private:
+
+	std::map<Player,int>* refPlayersLife;
+
+	std::map<Player,std::pair<StateConn,int>>* refPlayersPlaying;
+
 
 public:
-	PlayerProgressView();
+	PlayerProgressView(std::map<Player,int>* refPlayersLife, std::map<Player,std::pair<StateConn,int>>* refPlayersPlaying);
 
 	void clean();
 	
