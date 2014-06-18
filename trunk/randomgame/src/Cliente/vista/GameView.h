@@ -90,6 +90,7 @@ public:
 	void setPlayerProgressView(PlayerProgressView * pProgressView);
 	void setTimerView(TimerView * timerView);
 	void setPowerView(PowerView * powerView);
+	void setTimer(float timer);
 };
 
 
