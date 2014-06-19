@@ -93,6 +93,8 @@ class GameEngine {
 		poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
 
 		Timer myTimer;
+		
+		void destroyWorld();
 
 		bool doWeHaveAMissil(){ return ( this->amountOfMissils > 0) ? true : false; }
 		int getMissils(){ return this->amountOfMissils; }

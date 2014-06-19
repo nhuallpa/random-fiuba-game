@@ -122,6 +122,8 @@ class Cliente { //: public OnMovementListener{
 
 	public:
 
+		bool deleted;
+
 		void processExplosions(float x, float y, int radio);
 
 		/**Activity que maneja la vista del juego*/
@@ -172,6 +174,10 @@ class Cliente { //: public OnMovementListener{
 		void signalLocalChange();
 
 		void signalNetworkChange();
+
+		void reinitGame();
+
+		void resetModel();
 
 		GameElement* getElementFromPlayable(std::string playerID, Playable p);
 

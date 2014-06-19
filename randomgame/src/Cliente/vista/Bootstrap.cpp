@@ -19,7 +19,7 @@ void Bootstrap::init()
 	int h = Util::string2int(prop["ventana.alto"]);
 	if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
-		this->getScreen().init("Fiuba Worms", 50, 50, w, h, 0);
+		this->getScreen().init("Fiuba Worms - Edicion Mundial", 50, 50, w, h, 0);
 	} 
 	FontManager::Instance().init(this->getScreen().getRenderer());
 	TextureManager::Instance().init(w,h);

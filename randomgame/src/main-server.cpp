@@ -43,7 +43,7 @@ void stopGame(){
 void resetGame(){
 	std::cout << "JUEGO REINICIADO\n";
 	srvPointer->reboot();
-	
+	//srvPointer->shutdown();
 	initGame();
 }
 

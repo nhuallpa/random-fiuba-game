@@ -87,6 +87,31 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 }
 
+void Servidor::reinit(){
+
+	this->advance = SDL_CreateSemaphore( 1 );
+	this->deleted = false;
+	jugadoresConectados = 0;
+
+	/*	Start threading stuff	*/
+	this->data.srv = this;
+
+	this->worldQ.type = UPDATE;
+
+	//	Start connection Loop, when a client connects I will trigger a new thread for him
+	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
+
+	//	Dispara el thread que ante un update modifica el mundo, simula un paso
+	//	y notifica a los clientes.
+	Thread clientThread("Updating Thread",updating,&data);
+
+	//	Step Over the
+	Thread stepOverThread("step",stepOver,&data);
+
+
+}
+
+
 int Servidor::updating(void* data){
 	//printf("\n\n\nUpdating Thread running\n");
 
@@ -780,9 +805,11 @@ void Servidor::shutdown(){
 
 
 void Servidor::reboot(){
-	this->disconnectAll();
+
+	this->worldQ.type = REINIT_SRV;
+	this->notifyAll();
 	this->deleted = true;
-	Sleep(10);
+	Sleep(2);
 	closesocket(this->input.getFD());
 	closesocket(this->output.getFD());
 
