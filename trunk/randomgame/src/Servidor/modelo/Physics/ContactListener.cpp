@@ -80,7 +80,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			
 				/* Misiles que colisionan: Bazooka, Burro */
 				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setExploded(true);
-				printf("\nMISIL COLISIONO1");
+				//printf("\nMISIL COLISIONO1");
 				static_cast<Missile2d*>(static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->myBody)->explode();
 		}
 
@@ -105,7 +105,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			
 				 /* Misiles que colisionan: Bazooka, Burro */
 				 static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setExploded(true);
-				 printf("\nMISIL COLISIONO2");
+				 //printf("\nMISIL COLISIONO2");
 				 static_cast<Missile2d*>(static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->myBody)->explode();
 		}
 
@@ -148,7 +148,7 @@ void ContactListener::EndContact(b2Contact* contact) {
 	//If My body (B) is touching the floor (A) (somewhere)
 	if ( (fixtureB->GetBody()->GetType() == b2_dynamicBody &&  (int)fixtureB->GetUserData() != UD_MISSIL)
 		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || ( fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() != UD_MISSIL ))){
-		//printf("\nSetted has NOT GROUNDED");
+		////printf("\nSetted has NOT GROUNDED");
 		//fixtureB->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->reduceGrounded();
 
@@ -157,7 +157,7 @@ void ContactListener::EndContact(b2Contact* contact) {
 	}
 	if ( (fixtureA->GetBody()->GetType() == b2_dynamicBody &&  (int)fixtureA->GetUserData() != UD_MISSIL )
 		&& ((int)fixtureB->GetUserData() == UD_TERRAIN || ( fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() != UD_MISSIL) )){
-		//printf("\nSetted has NOT GROUNDED");
+		////printf("\nSetted has NOT GROUNDED");
 		//fixtureA->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->reduceGrounded();
 

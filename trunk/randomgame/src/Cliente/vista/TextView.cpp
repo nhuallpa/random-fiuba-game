@@ -27,14 +27,14 @@ bool TextView::setText( std::string textureText, SDL_Color textColor)
 													textureText.c_str(), textColor );
 	if( textSurface == NULL )
 	{
-		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+		//printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
 	}
 	else
 	{
         mTexture = SDL_CreateTextureFromSurface( FontManager::Instance().getRenderer(), textSurface );
 		if( mTexture == NULL )
 		{
-			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
+			//printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
 		}
 		else
 		{

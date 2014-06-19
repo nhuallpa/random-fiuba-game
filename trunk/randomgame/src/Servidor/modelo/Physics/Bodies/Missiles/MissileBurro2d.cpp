@@ -74,7 +74,7 @@ MissileBurro2d::MissileBurro2d(ElementType type, float posX, float posY, float a
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RMEDIUM;
 	
-	printf("\n Lanza la burra");
+	//printf("\n Lanza la burra");
 }
 
 MissileBurro2d::~MissileBurro2d(){}
@@ -88,7 +88,7 @@ void MissileBurro2d::animate( float time ){
 		myWeapon->setAction(CREATE_MISSIL);
 		myWeapon->myLastAction = MISSIL_FLYING;
 	}else if ( myWeapon->myLastAction == EXPLOSION ){
-		//printf("\nreset state");
+		////printf("\nreset state");
 		myWeapon->setAction(MISSIL_FLYING);
 		myWeapon->myLastAction = MISSIL_FLYING;
 	}else{
@@ -97,7 +97,7 @@ void MissileBurro2d::animate( float time ){
 
 	//Actualizo la posicion
 	b2Vec2 f = this->body->GetPosition();
-	//printf("\n x,y: %f, %f",f.x,f.y);
+	////printf("\n x,y: %f, %f",f.x,f.y);
 	myWeapon->setPosition(std::make_pair( f.x,f.y) );
 	myWeapon->changed = true;
 

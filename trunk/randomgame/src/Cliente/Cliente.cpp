@@ -354,7 +354,7 @@ int Cliente::notifyLocalUpdates(void *data){
 	while(true && !cli->cController.isQuit()){
 		m->lock();
 		if ( cli->localChanges.empty() ){
-			//printf("\nwaiting.. is empty :(");
+			////printf("\nwaiting.. is empty :(");
 			cond->wait();
 		}
 		Log::t("\nGot a local change");
@@ -552,7 +552,7 @@ void Cliente::signalNetworkChange(){
 int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	if ( !this->output.sendmsg(type, buffer) ) {
 		Log::e("connection error");
-		//printf("Client: connection error");
+		////printf("Client: connection error");
 		return 1;
 	}
 	return 0;

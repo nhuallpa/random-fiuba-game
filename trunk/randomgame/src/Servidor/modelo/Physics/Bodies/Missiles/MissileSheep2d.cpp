@@ -31,14 +31,14 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	myFixtureDef.userData = (void*)UD_MISSIL;
 	
 	if ( angle_x > 0 ){
-		printf("\nDejo del lado derecho");
+		//printf("\nDejo del lado derecho");
 		this->right = true;
 		myBodyDef.position.Set(posX + 3, posY);
 		this->setPosition(posX + 3, posY,0);
 
 	}else {
 		this->left = true;
-		printf("\nDejo del lado Izquierdo");
+		//printf("\nDejo del lado Izquierdo");
 		myBodyDef.position.Set(posX - 3, posY);
 		this->setPosition(posX - 3, posY,0);
 	}
@@ -49,7 +49,7 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 
 	body->CreateFixture(&myFixtureDef);
 
-	printf("\nCreating weapon at: %f, %f",posX,posY);
+	//printf("\nCreating weapon at: %f, %f",posX,posY);
 
 	body->SetFixedRotation(true);
 
@@ -72,7 +72,7 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RSMALL;
 	
-	printf("\n Ovejita lanzada");
+	//printf("\n Ovejita lanzada");
 }
 
 MissileSheep2d::~MissileSheep2d(){}
@@ -104,7 +104,7 @@ void MissileSheep2d::animate( float time ){
 
 	//vario la velocidad basado en la normal
 	if ( myWeapon->isGrounded()  ){
-		//printf("\navanzo");
+		////printf("\navanzo");
 		if ( this->right ) {
 			//this->body->SetLinearVelocity( b2Vec2 (ny*SHEEP_SPEED,-nx*SHEEP_SPEED) );
 			this->body->ApplyForce( b2Vec2(ny*SHEEP_FORCE ,-nx*SHEEP_FORCE ),this->body->GetWorldCenter() );
@@ -118,7 +118,7 @@ void MissileSheep2d::animate( float time ){
 		this->detention = false;
 
 	}else if ( !this->detention ) {
-		//printf("\ndetengo");
+		////printf("\ndetengo");
 		this->body->SetLinearVelocity( b2Vec2(0,0) );
 		this->body->SetAngularVelocity( 0 );
 		this->detention = true;

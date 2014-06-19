@@ -95,15 +95,15 @@ void Worm::weaponedRight(int weaponid)
 
 void Worm::shoot()
 {
-	printf("\n - shoot, my action is %s",Util::actionString(this->action).c_str());
+	//printf("\n - shoot, my action is %s",Util::actionString(this->action).c_str());
 	if ( this->action == WITH_WEAPON_RIGHT){
-		printf("\n    reseteo arma");
+		//printf("\n    reseteo arma");
 		this->myLastAction = WITH_WEAPON_RIGHT;
 		this->action = MOVELESS_RIGHT;
 		this->weaponId = NO_WEAPON;
 		this->changed = true;
 	}else if ( this->action == WITH_WEAPON_LEFT){
-		printf("\n    reseteo arma");
+		//printf("\n    reseteo arma");
 		this->myLastAction = WITH_WEAPON_LEFT;
 		this->action = MOVELESS_LEFT;
 		this->weaponId = NO_WEAPON;
@@ -122,11 +122,11 @@ void Worm::stopMoving()
 		this->action = MOVELESS_LEFT;
 
 	}else if ( this->action == WITH_WEAPON_RIGHT){
-		printf("\n    reseteo WITH_WEAPON_RIGHT");
+		//printf("\n    reseteo WITH_WEAPON_RIGHT");
 		this->action = WITH_WEAPON_RIGHT;
 
 	}else if ( this->action == WITH_WEAPON_LEFT){
-		printf("\n    reseteo WITH_WEAPON_LEFT");
+		//printf("\n    reseteo WITH_WEAPON_LEFT");
 		this->action = WITH_WEAPON_LEFT;
 
 	}else{
