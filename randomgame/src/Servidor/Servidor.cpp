@@ -88,7 +88,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 }
 
 int Servidor::updating(void* data){
-	printf("\n\n\nUpdating Thread running\n");
+	//printf("\n\n\nUpdating Thread running\n");
 
 	threadData* aThreadData = (threadData*)data;
 
@@ -126,7 +126,7 @@ int Servidor::updating(void* data){
 
 
 int Servidor::stepOver(void* data){
-	printf("\n\n\StepOver Thread running\n");
+	//printf("\n\n\StepOver Thread running\n");
 
 	threadData* aThreadData = (threadData*)data;
 	Servidor* srv = aThreadData->srv;
@@ -161,7 +161,7 @@ int Servidor::stepOver(void* data){
 	}
 	allIn->unlock();
 
-	printf("\nInicio tiempo");
+	//printf("\nInicio tiempo");
 	Sleep(10);
 
 	timeHandler.start();
@@ -183,19 +183,19 @@ int Servidor::stepOver(void* data){
 		/* Se termino el turno o pasaron 5 seg desde el disparo */
 		if ( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) ) ){
 
-			//printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
+			////printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
 
 			/*Si ya exploto, cambio de turno*/
 			if ( doWeHaveAExplosion ){
 
-				printf("\n\nCAMBIO DE TURNO \n");
+				//printf("\n\nCAMBIO DE TURNO \n");
 				/* Actualizo la vida y notifico */
 				srv->processPlayersLife();
 
 				/* Veo si hubo ganador */
 				if ( srv->doWeHaveAWinner() ){
-					printf("\nHay un ganador");
+					//printf("\nHay un ganador");
 				}
 						
 				doWeHaveAExplosion = false;
@@ -211,13 +211,13 @@ int Servidor::stepOver(void* data){
 
 			}else if ( !localShoot ){
 
-				printf("\n\nCAMBIO DE TURNO 2 (No disparo) \n");
+				//printf("\n\nCAMBIO DE TURNO 2 (No disparo) \n");
 				/* Actualizo la vida y notifico */
 				srv->processPlayersLife();
 
 				/* Veo si hubo ganador */
 				if ( srv->doWeHaveAWinner() ){
-					printf("\nHay un ganador");
+					//printf("\nHay un ganador");
 					srv->notifyWinner();
 				}
 						
@@ -240,7 +240,7 @@ int Servidor::stepOver(void* data){
 
 		w->lock();
 		
-		waitingForMissil = srv->getGameEngine().step();
+		waitingForMissil = srv->gameEngine.step();
 		if ( waitingForMissil ){
 			doWeHaveAExplosion = true;
 		}
@@ -307,7 +307,7 @@ bool Servidor::updateModel(Playable p){
 
 int Servidor::wait4Connections(void* data){
 	//this is where client connects. srv will hang in this mode until client conn
-	printf("Listening");
+	//printf("Listening");
 
 	threadData* aThreadData = (threadData*)data;
 
@@ -355,7 +355,7 @@ void Servidor::waitConnections(){
 
 
 int Servidor::initClient(void* data){
-	printf("Disparado cliente");
+	//printf("Disparado cliente");
 
 	threadData* aThreadData = (threadData*)data;
 
@@ -377,7 +377,7 @@ int Servidor::initClient(void* data){
 	// Receive LOGIN info
 	if (! ((threadData*)data)->clientO.rcvmsg(*datagram)) {
 		
-		printf("\nDesconectando cliente at login");
+		//printf("\nDesconectando cliente at login");
 		closesocket(aThreadData->clientO.getFD());
 		closesocket(aThreadData->clientI.getFD());
 		srv->jugadoresConectados--;
@@ -389,7 +389,7 @@ int Servidor::initClient(void* data){
 	Log::i("Valido nuevo cliente en el server - %d", datagram->playerID.c_str());
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		w->unlock();
-		printf("\nCliente no permitido en el server");
+		//printf("\nCliente no permitido en el server");
 		
 		// envio Rechazo
 		Sleep(1);
@@ -428,7 +428,7 @@ int Servidor::initClient(void* data){
 	canStart->signal();
 	allIn->unlock();
 
-	printf("\nCliente registrado satisfactoriamente en el servidor");
+	//printf("\nCliente registrado satisfactoriamente en el servidor");
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
 	//Envio el nivel YAML al cliente
@@ -445,14 +445,14 @@ int Servidor::initClient(void* data){
 	srv->playerMutexes[playerId].first->unlock();
 
 
-	printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
+	//printf("\nElements at model: %d, sending to the client", srv->getGameEngine().getLevel()->getEntities().size() );
 	int i = 0;
 	std::string pl;
 		
 	//Notifico de todos los players que tengo en el mundo
 	datagram->elements = srv->gameEngine.getLevel()->getAmountOfUsers();
 	aThreadData->clientI.sendmsg(*datagram);
-	printf("\nAmount of user into the level: %d",datagram->elements);
+	//printf("\nAmount of user into the level: %d",datagram->elements);
 
 	std::map<std::string, GamePlayer*> gpcopy = srv->gameEngine.getLevel()->getPlayers();
 	std::map<std::string, GamePlayer*>::iterator itGP = gpcopy.begin(); 
@@ -464,7 +464,7 @@ int Servidor::initClient(void* data){
 		int el = srv->gameEngine.getLevel()->getWormsFromPlayer(itGP->second->playerID,datagram->play);
 		datagram->type = (Messages)srv->gameEngine.getLevel()->getPlayerColor(itGP->second->playerID);
 		datagram->elements = el;
-		printf("\nSending %d elements about player: %s at init",el,itGP->second->playerID.c_str());
+		//printf("\nSending %d elements about player: %s at init",el,itGP->second->playerID.c_str());
 		aThreadData->clientI.sendmsg(*datagram);
 	}
 	
@@ -496,7 +496,7 @@ int Servidor::initClient(void* data){
 				return 0;
 
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
-				printf("\nDesconectando cliente: %s",playerId );
+				//printf("\nDesconectando cliente: %s",playerId );
 				//srv->notifyUsersAboutPlayer(playerId);
 				srv->disconnect(playerId);
 				activeClient=0;
@@ -507,7 +507,7 @@ int Servidor::initClient(void* data){
 			case UPDATE:
 				m->lock();
 				Log::t("Got update, action %s to worm: %d",Util::actionString(datagram->play[0].action).c_str(), datagram->play[0].wormid);
-				//printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
+				////printf("\nGot update, action %d to worm: %d",datagram->play[0].action, datagram->play[0].wormid);
 				srv->changes.push_back(datagram->play[0]);
 
 
@@ -531,7 +531,7 @@ int Servidor::initClient(void* data){
 		srv->disconnect(playerId);
 		throw std::current_exception();
 	}
-	printf("\nSali intacto");
+	//printf("\nSali intacto");
 	return 0;
 }
 
@@ -572,7 +572,7 @@ void Servidor::disconnect(Player playerId) {
 	//No desconecto dos veces
 	if ( this->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ){
 		Log::i("Releasing player: %s",playerId.c_str());
-		printf("\nReleasing player: %s\n",playerId.c_str());
+		//printf("\nReleasing player: %s\n",playerId.c_str());
 		this->gameEngine.getLevel()->disconnectPlayer(playerId);
 		this->gameEngine.getLevel()->disconnectWormsFromPlayer(playerId);
 		closesocket(this->pList[playerId].first.getFD());
@@ -595,7 +595,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,this->worldQ.play);
 	this->worldQ.elements = el;
 				
-	printf("\nNOTIFYING NEWS: Sending type: %d (player_update), about: %s, elements: %d",this->worldQ.type, this->worldQ.playerID.c_str(), this->worldQ.elements);
+	//printf("\nNOTIFYING NEWS: Sending type: %d (player_update), about: %s, elements: %d",this->worldQ.type, this->worldQ.playerID.c_str(), this->worldQ.elements);
 
 	
 	this->notifyAll();
@@ -608,7 +608,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 
 int Servidor::updateClient(void* data){
 
-	printf("\n\nUpdate Client Thread running for player: %s\n",static_cast<threadData*>(data)->p);
+	//printf("\n\nUpdate Client Thread running for player: %s\n",static_cast<threadData*>(data)->p);
 
     threadData* aThreadData = (threadData*)data;
 
@@ -631,7 +631,7 @@ int Servidor::updateClient(void* data){
 		while ( srv->playerQueues[playerId]->empty() ){
 			srv->playerMutexes[playerId].second->wait();
 		}
-		//printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
+		////printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
 
 		datagram = srv->playerQueues[playerId]->front() ;
 		srv->playerQueues[playerId]->pop();
@@ -639,9 +639,9 @@ int Servidor::updateClient(void* data){
 		if ( datagram.type == PLAYER_UPDATE && !datagram.playerID.compare(playerId) )
 			continue;
 		//Log::i("Sending type: %d to %s",datagram.type,playerId);
-		//printf("\nENVIO");
+		////printf("\nENVIO");
 		if ( !aThreadData->clientI.sendmsg(datagram) ){
-			printf("Desconectando cliente: %s desde Update Thread",playerId);
+			//printf("Desconectando cliente: %s desde Update Thread",playerId);
 			srv->disconnect(playerId);
 			return 0;
 		}
@@ -747,20 +747,20 @@ void Servidor::notifyTurnForPlayer(std::string player){
 
 void Servidor::sendHoles(){
 
-	std::vector<Explosion> copy = this->gameEngine.getMapExplosions();
+	std::vector<Explosion*> copy = this->gameEngine.getMapExplosions();
 	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
 	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
 	EDatagram* msg = new EDatagram();
 	
 	for( ; itm!=mutexes.end(); ++itm){
-		printf("\n Enviando holes");
+		//printf("\n Enviando holes: %d", copy.size());
 		for ( int i=0; i< copy.size() ; i++ ){
 			itm->second.first->lock();
-			printf("\n Enviando hole: %f, %f, %d", copy[i].x, copy[i].y, copy[i].radio);
+			//printf("\n Enviando hole: %f, %f, %d", copy[i]->x, copy[i]->y, copy[i]->radio);
 			msg->type = MAP_UPDATE;
-			msg->play[0].weaponid = copy[i].radio;
-			msg->play[0].x = copy[i].x;
-			msg->play[0].y = copy[i].y;
+			msg->play[0].weaponid = copy[i]->radio;
+			msg->play[0].x = copy[i]->x;
+			msg->play[0].y = copy[i]->y;
 
 			this->playerQueues[itm->first]->push( *msg );
 			itm->second.second->signal();
@@ -817,14 +817,14 @@ bool Servidor::doWeHaveAWinner(){
 
 	for ( ; it != copy.end() ; ++it ){
 		if ( it->second->getLife() != 0){
-			printf("\nplayer %s life: %d",it->first.c_str(),it->second->getLife());
+			//printf("\nplayer %s life: %d",it->first.c_str(),it->second->getLife());
 			q++;
 			possibleWinner.push_back(it->first);
 		}
 	}
 
 	if ( q == 1){
-		printf("\Winner: %s",possibleWinner[0].c_str());
+		//printf("\Winner: %s",possibleWinner[0].c_str());
 		this->winner = possibleWinner[0];
 		return true;
 	}

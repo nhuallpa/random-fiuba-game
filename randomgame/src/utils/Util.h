@@ -124,11 +124,32 @@ typedef struct {
 } Playable;
 
 
-typedef struct{
+typedef struct Explosion{
 	float x;
 	float y;
 	int radio;	/* El arma define el radio */
+
+	Explosion(const Explosion & aExplosion):
+	x(aExplosion.x), y(aExplosion.y), radio(aExplosion.radio){}
+
+	Explosion(float ex, float ey, int eradio){
+		x = ex;
+		y = ey;
+		radio = eradio;
+	}
+
+	Explosion(){
+		x = 0;
+		y = 0;
+		radio = 0;
+	}
+
+
+	~Explosion(){}
+
 } Explosion;
+
+
 
 
 struct s_point{

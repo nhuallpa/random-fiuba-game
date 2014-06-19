@@ -117,7 +117,7 @@ void Worm2d::animate(){
 	if ( !myWorm->isAlive() ){
 		myWorm->changed = true;
 		myWorm->action = DEAD;
-		printf("\nSending dead");
+		//printf("\nSending dead");
 		return;
 	}
 
@@ -163,7 +163,7 @@ void Worm2d::animate(){
 
 
 	if(static_cast<Worm*>(myWorm)->action == MOVE_STOP && noEstabaSatando ){
-		//printf("\nLo detengo 1");
+		////printf("\nLo detengo 1");
 		this->body->SetLinearVelocity(b2Vec2(0,0));
 		static_cast<Worm*>(myWorm)->action = MOVELESS;
 
@@ -291,7 +291,7 @@ void Worm2d::animate(bool update){
 	//b2Vec2 f = this->body->GetPosition();
 
 	//if ( this->ox != f.x || this->oy != f.y){
-	//	printf("distinto X %f to %f, Y %f to %f",this->ox,this->oy,f.x,f.y);
+	//	//printf("distinto X %f to %f, Y %f to %f",this->ox,this->oy,f.x,f.y);
 	//	//this->ox = f.x;
 	//	//this->oy = f.y;
 

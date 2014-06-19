@@ -10,7 +10,7 @@ MissileAirStrike2d::MissileAirStrike2d()
 void MissileAirStrike2d::explode( ){
 
 
-	printf("\nair attaack explosion");
+	//printf("\nair attaack explosion");
 
 
 }
@@ -49,7 +49,7 @@ MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY,
 
 	body->CreateFixture(&myFixtureDef);
 
-	//printf("\nCreating weapon at: %f, %f",posX,AIR_STRIKE_Y);
+	////printf("\nCreating weapon at: %f, %f",posX,AIR_STRIKE_Y);
 
 
 	body->SetFixedRotation(false);
@@ -60,7 +60,7 @@ MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY,
 	//impulso inicial
 	//float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
 	//float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	//printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
+	////printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
 	//this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
 	
 	modelElement->myLastAction = CREATE_MISSIL;
@@ -69,7 +69,7 @@ MissileAirStrike2d::MissileAirStrike2d(ElementType type, float posX, float posY,
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RSMALL;
 	
-	printf("\n Air attack lanzado");
+	//printf("\n Air attack lanzado");
 }
 
 MissileAirStrike2d::~MissileAirStrike2d(){}

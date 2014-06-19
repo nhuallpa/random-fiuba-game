@@ -56,7 +56,7 @@ void WormActions::moveLeft()
 	
 	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
 	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
-	//printf("\ntrying to move left %f, %f, jumping: %d, grounded: %d",nx, ny, static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping(),
+	////printf("\ntrying to move left %f, %f, jumping: %d, grounded: %d",nx, ny, static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping(),
 		//static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() );
 
 	if ( !static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping() && static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() ){
@@ -84,7 +84,7 @@ void WormActions::moveRight()
 
 	float nx = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalX();
 	float ny = static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->getNormalY();
-	//printf("\ntrying to move right %f, %f, jumping: %d, grounded: %d",nx, ny, static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping(),
+	////printf("\ntrying to move right %f, %f, jumping: %d, grounded: %d",nx, ny, static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping(),
 		//static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() );
 
 	if ( !static_cast<Worm*>(this->aWorm2d->body->GetUserData())->isJumping() && static_cast<GameElement*>(this->aWorm2d->body->GetUserData())->isGrounded() ){

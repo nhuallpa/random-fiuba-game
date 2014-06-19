@@ -21,7 +21,7 @@ void MissileDynamite2d::explode( ){
 
 MissileDynamite2d::MissileDynamite2d(ElementType type, float posX, float posY, float angle_x, float angle_y, float fuerzaDisparo, b2World *myWorld, GameElement *modelElement){
 	
-	printf("\nCreando dinamita");
+	//printf("\nCreando dinamita");
 	this->myWorld = myWorld;
 	
 
@@ -46,12 +46,12 @@ MissileDynamite2d::MissileDynamite2d(ElementType type, float posX, float posY, f
 	
 
 	if ( angle_x > 0 ){
-		printf("\nDejo del lado derecho");
+		//printf("\nDejo del lado derecho");
 		myBodyDef.position.Set(posX + 1.5f, posY);
 		this->setPosition(posX + 1.5f, posY,0);
 
 	}else {
-		printf("\nDejo del lado Izquierdo");
+		//printf("\nDejo del lado Izquierdo");
 		myBodyDef.position.Set(posX - 1.5f, posY);
 		this->setPosition(posX - 1.5f, posY,0);
 	}
@@ -70,7 +70,7 @@ MissileDynamite2d::MissileDynamite2d(ElementType type, float posX, float posY, f
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RMEDIUM;
 	
-	printf("\n Dinamita Impulsada");
+	//printf("\n Dinamita Impulsada");
 }
 
 MissileDynamite2d::~MissileDynamite2d(){}

@@ -65,7 +65,7 @@ MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float ang
 
 	body->CreateFixture(&myFixtureDef);
 
-	printf("\nCreating weapon at: %f, %f",posX,posY);
+	//printf("\nCreating weapon at: %f, %f",posX,posY);
 	//body->SetTransform( body->GetPosition(), 0.0 );
 	body->SetFixedRotation(false);
 
@@ -76,7 +76,7 @@ MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float ang
 
 	float factor_x = angx*fuerzaDisparo*SHOOT_POWER;
 	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
+	//printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
 
 	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
 	
@@ -86,14 +86,14 @@ MissileHoly2d::MissileHoly2d(ElementType type, float posX, float posY, float ang
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RGIANT;
 	
-	printf("\n Granada Holy Impulsada");
+	//printf("\n Granada Holy Impulsada");
 }
 
 MissileHoly2d::~MissileHoly2d(){}
 
 void MissileHoly2d::animate( float time ){
 
-	//printf("\n ANIMO HOLY");
+	////printf("\n ANIMO HOLY");
 	//Use userdata to reflect changes in physics to model
 	GameElement* myWeapon = static_cast<GameElement*>(this->body->GetUserData());
 
@@ -121,7 +121,7 @@ void MissileHoly2d::animate( float time ){
 
 	//Actualizo tiempo restante
 	myWeapon->setLife( static_cast<Missile*>(myWeapon)->remainingTime(time) );
-		//printf("\n Explota en: %d",static_cast<Missile*>(myWeapon)->remainingTime(time) );
+		////printf("\n Explota en: %d",static_cast<Missile*>(myWeapon)->remainingTime(time) );
 
 
 }

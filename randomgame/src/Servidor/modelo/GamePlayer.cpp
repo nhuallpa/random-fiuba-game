@@ -19,25 +19,25 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
         int x, y;
         int i = 0;
     std::pair<int,int> puntoTransformado;
-        printf("\n Height %d, width %d ",height,width);
+        //printf("\n Height %d, width %d ",height,width);
 
         puntoTransformado = transformBmpToBox2D(pair<int,int>(0,0),height,width);
-        printf("\n Transformo el 0,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
+        //printf("\n Transformo el 0,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
 
         puntoTransformado = transformBmpToBox2D(pair<int,int>(0,height),height,width);
-        printf("\n Transformo el 0,HEIGHT: %d,%d",puntoTransformado.first, puntoTransformado.second);
+        //printf("\n Transformo el 0,HEIGHT: %d,%d",puntoTransformado.first, puntoTransformado.second);
 
         puntoTransformado = transformBmpToBox2D(pair<int,int>(width,height),height,width);
-        printf("\n Transformo el WIDTH,HEIGHT: %d,%d",puntoTransformado.first, puntoTransformado.second);
+        //printf("\n Transformo el WIDTH,HEIGHT: %d,%d",puntoTransformado.first, puntoTransformado.second);
 
         puntoTransformado = transformBmpToBox2D(pair<int,int>(width,0),height,width);
-        printf("\n Transformo el WIDTH,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
+        //printf("\n Transformo el WIDTH,0: %d,%d",puntoTransformado.first, puntoTransformado.second);
 
         puntoTransformado = transformBmpToBox2D(pair<int,int>(30,960),height,width);
-        printf("\n Transformo el WIDTH/2,HEIGHT/2: %d,%d",puntoTransformado.first, puntoTransformado.second);
+        //printf("\n Transformo el WIDTH/2,HEIGHT/2: %d,%d",puntoTransformado.first, puntoTransformado.second);
         //for ( int z; i < 200 ; i++){
         //      gp->getRandomPosition(&x, &y);
-        //      printf("\nPosicion libre: %d,%d",x,y);
+        //      //printf("\nPosicion libre: %d,%d",x,y);
         //}
 
         
@@ -46,7 +46,7 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
         for(int i = 0; i < amountWorms; i++){
                 gp->getRandomPosition(&x, &y);
                 if((x != -1) && (y != -1)){
-                        printf("Posicion libre a transformar %d,%d",x,y);
+                        //printf("Posicion libre a transformar %d,%d",x,y);
                         puntoTransformado = transformBmpToBox2D(pair<int,int>(x,y),height,width);
                         x=puntoTransformado.first;
                         y=puntoTransformado.second;
@@ -63,7 +63,7 @@ void GamePlayer::initPlayer(int prefId, int amountWorms,int height, int width){
                 }
                 
                 else{     
-                        printf("\n default de ARIEL\n");
+                        //printf("\n default de ARIEL\n");
             x = rand()%500;
             y = (rand()%150) + 100;
             this->add(new Worm(prefId + i, 
@@ -92,7 +92,7 @@ void GamePlayer::updateLife(){
 		this->life = this->life + this->worms[i]->getLife();
 	}
 	
-	printf("\n Life of player %s is %d",this->playerID.c_str(),this->getLife());
+	//printf("\n Life of player %s is %d",this->playerID.c_str(),this->getLife());
 
 
 }

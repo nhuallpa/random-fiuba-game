@@ -23,10 +23,10 @@ Socket::Socket (uint16_t port)
     int error = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (error == SOCKET_ERROR)
     {
-        std::cout << "Server: Winsock Failed to begin!\n";
+        Log::e("Server: Winsock Failed to begin!");
         return;
     }
-	std::cout << "Server: WinSocket Started Correctly!\n";
+	Log::i("Server: WinSocket Started Correctly!");
 
 	this->usable = true;
 	
@@ -39,7 +39,7 @@ Socket::Socket (uint16_t port)
 
 
 	/* IP Address and connection info of the server A.K.A Destination */
-	printf("Creando socket");
+	////printf("Creando socket");
 	struct sockaddr_in server_addr;
 	//Set properties for the host
 	//memset((char *) &server_addr, 0, sizeof(server_addr));
@@ -49,8 +49,8 @@ Socket::Socket (uint16_t port)
 	// Connect
 	error = bind(this->fd, (struct sockaddr*)&server_addr, sizeof(server_addr));
 	if ( error == -1) {
-		printf("\nCouldn't bind server at specified address/port\n");
-		printf("Error during bind: %s, code: %d", std::strerror(errno),WSAGetLastError());
+		////printf("\nCouldn't bind server at specified address/port\n");
+		////printf("Error during bind: %s, code: %d", std::strerror(errno),WSAGetLastError());
 		//Log::e("Couldn't bind server at specified address/port"); 
 	}
 
@@ -58,10 +58,10 @@ Socket::Socket (uint16_t port)
 
     if (error == SOCKET_ERROR)
     {
-        std::cout << "Server: Too deaf to listen...\n"; 
+        Log::e("Server: Too deaf to listen"); 
     }
 
-    std::cout << "Server: Waiting for a client to connect ...\n"; // Just to keep us up to date
+    Log::i("Server: Waiting for a client to connect"); // Just to keep us up to date
 
 
 
@@ -88,7 +88,7 @@ Socket Socket::init()
 
 	if (retval.fd == -1) {
 		//Log::e("Couldn't open socket connection");
-		printf("Couldn't open socket connection");
+		////printf("Couldn't open socket connection");
 	}
 	this->fd = retval.fd;
 	return retval;
@@ -115,7 +115,7 @@ bool Socket::rcvmsg (Datagram &msg){
 	}
 	
 	messageSize = ntohl(messageSize); 
-	//printf("\nGet %d bytes",messageSize);
+	//////printf("\nGet %d bytes",messageSize);
 
 	while(retries < 3){
 		int nBytes = recv(fd, (char*)(&buffer), messageSize, 0);
@@ -124,7 +124,7 @@ bool Socket::rcvmsg (Datagram &msg){
 			if ((errno == EAGAIN || errno == EWOULDBLOCK) &&retries < 3)  {
 				retries++;
 				Sleep(10);
-				//printf("\nRe-trying");
+				//////printf("\nRe-trying");
 				continue;
 			}
 			Log::e("\nError getting message body");
@@ -133,7 +133,7 @@ bool Socket::rcvmsg (Datagram &msg){
 		break;
 
 	}
-	//printf("\nOK");
+	//////printf("\nOK");
 	memcpy(&msg,buffer,messageSize);
 	
 	//Log::i("\nbuffer player: %s, at pos: %d, %d",msg.playerID.c_str(),msg.play.x, msg.play.y );
@@ -155,31 +155,31 @@ bool Socket::sendmsg(Datagram msg){
 
     if (nBytes == SOCKET_ERROR)
     {
-        printf( "Client: Failed to send message size\n");
+        ////printf( "Client: Failed to send message size\n");
 		return false;
     }
 
 
 	if (!messageSize) {
 		
-		printf("Sending empty message");
+		////printf("Sending empty message");
 		return false;
 
 	}
-	//printf("Send Bytes:  %d",messageSize);
+	//////printf("Send Bytes:  %d",messageSize);
 
 
 	memcpy(&buffer,&msg,messageSize);
 
 	while(retries < 3){
 		nBytes = send(fd, buffer, messageSize, 0);
-		//printf("\n Client send %d bytes",nBytes);
+		//////printf("\n Client send %d bytes",nBytes);
 		if (nBytes != messageSize){
 			Log::e("sendmsg: I tried to send %d bytes, but I sent %d bytes", messageSize, nBytes);
 		}
 		if (nBytes == SOCKET_ERROR)
 		{
-			printf("Client: failed to send it at first attempt.\n");
+			////printf("Client: failed to send it at first attempt.\n");
 
 			if (errno == EAGAIN || errno == EWOULDBLOCK){
 				Sleep(10);
@@ -188,10 +188,10 @@ bool Socket::sendmsg(Datagram msg){
 			}
 			return false;
 		}
-		//printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
+		//////printf("\nClient: Sended OK. Player: %s, Worm: %d at pos: %d, %d",msg.playerID.c_str(), msg.play.wormid, msg.play.x, msg.play.y);
 		return true;
 	}
-	printf("Client: Failed to send after several retries.\n");
+	////printf("Client: Failed to send after several retries.\n");
 	return false;
 
 }
@@ -224,7 +224,7 @@ bool Socket::connect2(std::string hostname, uint16_t port)
 	struct hostent *server = gethostbyname(hostname.c_str());
 	if (server == NULL) {
 		Log::e("Couldn't find host: %s",hostname.c_str());
-		printf("Couldn't find host: %s",hostname.c_str());
+		////printf("Couldn't find host: %s",hostname.c_str());
 		return false;
 	}
 
@@ -243,7 +243,7 @@ bool Socket::connect2(std::string hostname, uint16_t port)
 	//Connect server
 	if (connect(this->fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR ) {
 		Log::e("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
-		printf("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
+		////printf("Couldn't connect to specified address/port: %s : %d",hostname.c_str(),port);
 		return false;
 	}
 
@@ -259,10 +259,10 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 	
 	if (datos.empty()) {
 		//Log::e("Sending empty message");
-		printf("Sending empty message");
+		////printf("Sending empty message");
 
 	}
-	//printf("\nSending bytes: %d",datos.size() );
+	//////printf("\nSending bytes: %d",datos.size() );
 	while (aEnviar != 0) {
 		int bytes = send(fd, (char*)(&datos[base]), aEnviar, 0);
 		
@@ -278,7 +278,7 @@ bool Socket::sendmsg (Messages tipo, std::vector<uint8_t> datos)
 				}
 			}
 			
-			printf("\nFailed to send msg");
+			////printf("\nFailed to send msg");
 			return false;
 		} else if (bytes == 0) {
 			return false;
@@ -317,7 +317,7 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 				}
 			}
 			//Log::e("Failed to get data from remote host");
-			//printf("Failed to get data from remote host");
+			//////printf("Failed to get data from remote host");
 			return false;
 		} else if (bytes == 0) {
 			return false;
@@ -328,7 +328,7 @@ bool Socket::rcvmsg (Messages &tipo, std::vector<uint8_t> &datos)
 	}
 	using std::swap;
 	swap(datos, datosRetorno);
-	//printf("\nGet %d bytes",bytes);
+	//////printf("\nGet %d bytes",bytes);
 	return true;
 	
 }
@@ -391,8 +391,8 @@ Socket Socket::aceptar ()
 		//auto msg = "No se pudo aceptar la llamada de salida en el servidor.";
 		//throw Log::Suceso(Log::ERROR, msg);
 	}
-	printf("Recibida conexion %i de %s port %d\n", retval.fd,
-	       inet_ntoa(dirCli.sin_addr), ntohs(dirCli.sin_port));
+	////printf("Recibida conexion %i de %s port %d\n", retval.fd,
+	       //inet_ntoa(dirCli.sin_addr), ntohs(dirCli.sin_port));
 
 	return retval;
 }
@@ -478,7 +478,7 @@ bool Socket::sendmsg(EDatagram msg){
 			Sleep(5);
 			retries++;
 			Log::t("Re-trying because of error: %ld", WSAGetLastError());
-			printf("Re-trying because of error: %ld", WSAGetLastError());
+			////printf("Re-trying because of error: %ld", WSAGetLastError());
 		}
 
 		//Si lo envio bien en la primera vez o tras varios intentos
@@ -496,7 +496,7 @@ bool Socket::sendmsg(EDatagram msg){
 		
 	}
 
-	printf("Client: Failed to send after several retries.\n");
+	////printf("Client: Failed to send after several retries.\n");
 	return false;
 }
 
@@ -515,7 +515,7 @@ bool Socket::sendFile(std::string path){
 
 	//fseek( file, 0, SEEK_END );
 
-	printf("File Size: \n%d bytes\n", stat_buf.st_size);
+	////printf("File Size: \n%d bytes\n", stat_buf.st_size);
 
 
 

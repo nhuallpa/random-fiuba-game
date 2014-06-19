@@ -56,7 +56,7 @@ MissileBanana2d::MissileBanana2d(ElementType type, float posX, float posY, float
 
 	body->CreateFixture(&myFixtureDef);
 
-	printf("\nCreating weapon at: %f, %f",posX,posY);
+	//printf("\nCreating weapon at: %f, %f",posX,posY);
 	//body->SetTransform( body->GetPosition(), 0.0 );
 	body->SetFixedRotation(false);
 
@@ -77,7 +77,7 @@ MissileBanana2d::MissileBanana2d(ElementType type, float posX, float posY, float
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RMEDIUM;
 	
-	printf("\n Banana Impulsada");
+	//printf("\n Banana Impulsada");
 }
 
 MissileBanana2d::~MissileBanana2d(){}
@@ -159,7 +159,7 @@ MissileBananita2d::MissileBananita2d(ElementType type, float posX, float posY, f
 
 	body->CreateFixture(&myFixtureDef);
 
-	printf("\nCreating weapon at: %f, %f",posX,posY);
+	//printf("\nCreating weapon at: %f, %f",posX,posY);
 	//body->SetTransform( body->GetPosition(), 0.0 );
 	body->SetFixedRotation(false);
 
@@ -170,7 +170,7 @@ MissileBananita2d::MissileBananita2d(ElementType type, float posX, float posY, f
 
 	float factor_x = angx*fuerzaDisparo*SHOOT_POWER/BANANITA_Y_FACTOR;
 	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER*BANANITA_Y_FACTOR;
-	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
+	//printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
 
 	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
 	
@@ -180,7 +180,7 @@ MissileBananita2d::MissileBananita2d(ElementType type, float posX, float posY, f
 	/* Defino radio de explosion */
 	this->explosion.radio = EXPLODE_RSMALL;
 	
-	printf("\n Granada Impulsada");
+	//printf("\n Granada Impulsada");
 }
 
 MissileBananita2d::~MissileBananita2d(){}
