@@ -21,8 +21,8 @@ class GameController{
 		void destroy();
 		void addListener(OnClickListener* c);
 		void addListener(OnMovementListener* m);
-		void addListener(OnScrollListener* s);
-		void addListener(OnZoomListener* z);
+		void addOnScrollListener(OnScrollListener* s);
+		void addOnZoomListener(OnZoomListener* z);
 
 		void remuveListener(OnClickListener* c);
 		void remuveListener(OnMovementListener* m);

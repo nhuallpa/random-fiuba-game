@@ -140,6 +140,16 @@ void GameView::freeProjectileView(int id) {
 	}
 }
 
+void GameView::freeWormView(int id) {
+	try {
+		WormView* aView = this->wormViewGroup->removeItem(id);
+		delete aView;
+	} catch (GameException & e){
+		Log::e("Estoy intentando elimiar un projectile en la vista que no exite");
+	}
+}
+
+
 
 void GameView::setTimer(float timer){
 	this->timerView->setTimer(timer);

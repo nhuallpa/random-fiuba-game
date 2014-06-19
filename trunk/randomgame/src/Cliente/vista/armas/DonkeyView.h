@@ -12,6 +12,9 @@ class DonkeyView: public ProjectileView
 private:
 	std::string imageId;
 
+	int w;
+	int h;
+
 public:
 	DonkeyView(int id, std::string imageId);
 									
@@ -22,6 +25,10 @@ public:
 	void draw(SDLScreen & screen);
 
 	void detonate();
+
+	int getXCenter();
+
+	int getYCenter();
 
 	~DonkeyView(void);
 

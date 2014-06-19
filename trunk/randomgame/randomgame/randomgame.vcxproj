@@ -144,7 +144,6 @@
     <ClCompile Include="..\src\Cliente\vista\ViewGroup.cpp" />
     <ClCompile Include="..\src\Cliente\vista\ViewMock.cpp" />
     <ClCompile Include="..\src\Cliente\vista\WaterView.cpp" />
-    <ClCompile Include="..\src\Cliente\vista\WormViewGroup.cpp" />
     <ClCompile Include="..\src\main-client.cpp" />
     <ClCompile Include="..\src\Servidor\modelo\GameElement.cpp" />
     <ClCompile Include="..\src\utils\Log.cpp" />
@@ -236,7 +235,6 @@
     <ClInclude Include="..\src\Cliente\vista\ViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\ViewMock.h" />
     <ClInclude Include="..\src\Cliente\vista\WaterView.h" />
-    <ClInclude Include="..\src\Cliente\vista\WormViewGroup.h" />
     <ClInclude Include="..\src\Servidor\modelo\GameElement.h" />
     <ClInclude Include="..\src\utils\Constantes\Colors.h" />
     <ClInclude Include="..\src\utils\Constantes\Constantes.h" />

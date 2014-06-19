@@ -15,7 +15,6 @@
 #include "TerrainView.h"
 #include "StateBarView.h"
 #include "WormView.h"
-#include "WormViewGroup.h"
 #include "MenuWeaponView.h"
 #include "WaterViewImg.h"
 #include "ElemViewGroup.h"
@@ -26,6 +25,7 @@ using std::map;
 using std::string;
 
 typedef ElemViewGroup<ProjectileView*> ProjectileViewGroup;
+typedef ElemViewGroup<WormView*> WormViewGroup;
 
 class GameView : 	public ViewGroup
 {
@@ -86,6 +86,7 @@ public:
 	Weapon* findWeaponById(int idWeapon);
 
 	void freeProjectileView(int id);
+	void freeWormView(int id);
 
 	void setPlayerProgressView(PlayerProgressView * pProgressView);
 	void setTimerView(TimerView * timerView);
