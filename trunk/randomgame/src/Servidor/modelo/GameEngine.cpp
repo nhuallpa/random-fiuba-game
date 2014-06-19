@@ -23,6 +23,23 @@ GameEngine::GameEngine() {
 	this->amountOfMissils = 0;
 }
 
+void GameEngine::destroyWorld(){
+
+	delete this->gameLevel;
+	delete this->myWorld;
+	delete this->aTerrainProcessor;
+	delete this->gameBodies;
+	delete this->gameWeapons;
+
+	this->mapExplosions.clear();
+
+	this->weaponUniquedId = WEAPON_STARTING_ID;
+	this->myTimer.start();
+	this->didWeShoot = false;
+	this->amountOfMissils = 0;
+
+}
+
 int GameEngine::getWeaponUniqueId(){
 	int id = this->weaponUniquedId;
 	this->weaponUniquedId = this->weaponUniquedId + 1;
@@ -71,7 +88,7 @@ bool GameEngine::initWorld(){
 	this->animateBodies();
 
 	this->animateContacts();
-
+	Log::i("End animation");
 	return true;
 }
 
@@ -606,17 +623,9 @@ GameLevel* GameEngine::getLevel(){
 
 void GameEngine::reInitWorld(){
 
-	ParserYaml* aParser = ParserYaml::getInstance();
+	this->destroyWorld();
+	this->gameLevel = new GameLevel();
 
-	for (unsigned j=0; j<aParser->getCantElem(); j++){
-		Log::t("Elemento: %d",j);
-		this->gameLevel->updateElementPosition(	j,
-												Util::string2int(aParser->getElemId(j)),
-												Util::string2float(aParser->getElemX(j)),
-												Util::string2float(aParser->getElemY(j)),
-												Util::string2float(aParser->getElemRot(j)));
-	}
-	this->updateBodyPositions();
 
 }
 

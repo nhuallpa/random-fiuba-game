@@ -133,6 +133,8 @@ class Servidor{
 
 		void processPlayersLife();
 
+		void reinit();
+
 		void waitConnections();
 		void notifyAll();
 		void initialNotify();

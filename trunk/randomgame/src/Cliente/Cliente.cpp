@@ -21,7 +21,7 @@ Cliente::Cliente(std::string playerID, std::string ip, int port)
 {
 	this->loginOk = false;
 	this->advance = SDL_CreateSemaphore( 1 );
-
+	deleted = false;
 	this->gameReady = false;
 	this->gameOver = false;
 		
@@ -33,7 +33,12 @@ Cliente::~Cliente(void){
 
 
 void Cliente::run(){
-	bootstrap.init();
+	
+	if ( !this->deleted ){
+		bootstrap.init();
+	}
+	this->deleted = false;
+	Log::i("Bootstrap finalizado");
 	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
 	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
 
@@ -68,9 +73,11 @@ bool Cliente::openConnection() {
 
 bool Cliente::begin(){
 
-	if (!this->openConnection())
-	{
-		return false;
+	if ( !this->deleted ){
+		if (!this->openConnection())
+		{
+			return false;
+		}
 	}
 
 	this->data.cli = this;
@@ -165,6 +172,7 @@ void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
 	bool quit = false;
+	this->deleted = false;
 
 	this->currentActivity = this->waitActivity;
 	this->runGame();
@@ -256,7 +264,7 @@ int Cliente::applyNetworkChanges(void *data){
 	EDatagram* msg = new EDatagram();
 	msg->type = KEEPALIVE;
 
-	while(true && !cli->cController.isQuit() ){
+	while(true && !cli->cController.isQuit() && !cli->deleted ){
 
 		Sleep(1); 
 
@@ -351,7 +359,7 @@ int Cliente::notifyLocalUpdates(void *data){
 	char* playerId = aThreadData->p;
 	EDatagram* msg = new EDatagram();
 
-	while(true && !cli->cController.isQuit()){
+	while(true && !cli->cController.isQuit() && !cli->deleted ){
 		m->lock();
 		if ( cli->localChanges.empty() ){
 			////printf("\nwaiting.. is empty :(");
@@ -403,7 +411,7 @@ int Cliente::netListener(void* data){
 
 	EDatagram* emsg = new EDatagram();
 	bool closeListen = false;
-	while(!cli->cController.isQuit() && !closeListen){
+	while(!cli->cController.isQuit() && !closeListen && !cli->deleted ){
 		Sleep(10);
 	
 		if ( !cli->input.rcvmsg(*emsg) ) {
@@ -487,13 +495,20 @@ int Cliente::netListener(void* data){
 			if ( emsg->playerID.compare(playerId) ){
 				//YO GANE
 				Log::i("YO: %s, gane",emsg->playerID.c_str() );
-
-
 			}else{
 				//PERDI
 				Log::i("YO: %s, perdi",emsg->playerID.c_str() );
 			}
+			break;
 
+		case REINIT_SRV:
+			Log::i("Resetting game");
+			cli->deleted = true;
+			closesocket( cli->input.getFD() );
+			closesocket( cli->output.getFD() );
+			Sleep(5);
+			cli->reinitGame();
+			return 0;
 			break;
 
 		}
@@ -503,8 +518,35 @@ int Cliente::netListener(void* data){
 	return 0;
 }
 
-void Cliente::processExplosions(float x, float y, int radio){
+void Cliente::reinitGame(){
 
+	currentActivity->stop();
+	//cController.destroy();
+	
+	delete this->gameActivity;
+	delete this->waitActivity;
+
+	//bootstrap.shoutDown();
+	this->resetModel();
+	this->run();
+
+
+
+
+
+
+}
+
+void Cliente::resetModel(){
+	
+	this->domain.domainElements.clear();
+	this->domain.playersLife.clear();
+	this->domain.playersPlaying.clear();
+
+}
+
+
+void Cliente::processExplosions(float x, float y, int radio){
 	this->gameActivity->doExplotion(x, y, radio);
 }
 

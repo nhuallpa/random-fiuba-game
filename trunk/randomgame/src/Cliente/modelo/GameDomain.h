@@ -18,13 +18,16 @@
 class GameDomain{
 
 	std::string playerID;
+
+
+public:
+
 	std::map<int,GameElement> domainElements;
 	std::map<Player,int> playersLife;
 
 	// Key: PlayerID, Elem: Pair<State,Color>
 	std::map<Player,std::pair<StateConn,int>> playersPlaying;
 
-public:
 
 	GameDomain();
 	 ~GameDomain(void);
