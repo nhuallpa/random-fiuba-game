@@ -332,12 +332,12 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 		} else if (type == HOLY) { 
 			aProjectile = new HolyView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_holy"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle75"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle100"));
 			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == DYNAMITE) { 
 			aProjectile = new DynamiteView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_dinamita"));
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle75"));
 			aProjectile->setLifeInitial(domainElement->getLife());
 		} else if (type == AIRATTACK) { 
 			aProjectile = new AirStrikeView(domainElement->getId());
@@ -345,8 +345,18 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 		} else if (type == BURRO) { 
 			aProjectile = new DonkeyView(domainElement->getId(), "donkey");		
-			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle75"));
-		} else {
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle100"));
+		} else if (type == BANANA ) { 
+			aProjectile = new BananaView(domainElement->getId());
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_banana"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
+			aProjectile->setLifeInitial(domainElement->getLife());
+		}else if (type == SHEEP ) { 
+			aProjectile = new SheepView(domainElement->getId());
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_sheep"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
+			aProjectile->setLifeInitial(domainElement->getLife());
+		}else {
 			aProjectile = new GrenadeView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_default"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle25"));

@@ -471,6 +471,7 @@ int Cliente::netListener(void* data){
 			break;
 
 		case MAP_UPDATE:
+			Log::i("\nDoing explosion: %f, %f, %d",emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid);
 			cli->processExplosions( emsg->play[0].x, emsg->play[0].y, emsg->play[0].weaponid );
 			break;
 

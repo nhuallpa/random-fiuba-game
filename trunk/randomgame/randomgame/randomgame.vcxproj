@@ -95,11 +95,13 @@
     <ClCompile Include="..\src\Cliente\Updater.cpp" />
     <ClCompile Include="..\src\Cliente\vista\AimView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\armas\AirStrikeView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\armas\BananaView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\armas\BazookaView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\armas\DonkeyView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\armas\DynamiteView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\armas\GrenadeView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\armas\HolyView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\armas\SheepView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Camera.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EartView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\figuras\CircleView.cpp" />
@@ -185,11 +187,13 @@
     <ClInclude Include="..\src\Cliente\Updater.h" />
     <ClInclude Include="..\src\Cliente\vista\AimView.h" />
     <ClInclude Include="..\src\Cliente\vista\armas\AirStrikeView.h" />
+    <ClInclude Include="..\src\Cliente\vista\armas\BananaView.h" />
     <ClInclude Include="..\src\Cliente\vista\armas\BazookaView.h" />
     <ClInclude Include="..\src\Cliente\vista\armas\DonkeyView.h" />
     <ClInclude Include="..\src\Cliente\vista\armas\DynamiteView.h" />
     <ClInclude Include="..\src\Cliente\vista\armas\GrenadeView.h" />
     <ClInclude Include="..\src\Cliente\vista\armas\HolyView.h" />
+    <ClInclude Include="..\src\Cliente\vista\armas\SheepView.h" />
     <ClInclude Include="..\src\Cliente\vista\Camera.h" />
     <ClInclude Include="..\src\Cliente\vista\EartView.h" />
     <ClInclude Include="..\src\Cliente\vista\ElemViewGroup.h" />

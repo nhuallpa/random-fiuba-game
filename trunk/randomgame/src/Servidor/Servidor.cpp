@@ -751,11 +751,12 @@ void Servidor::sendHoles(){
 	std::map<std::string,std::pair<Mutex*,Condition*>> mutexes = this->playerMutexes;
 	std::map<std::string,std::pair<Mutex*,Condition*>>::iterator itm=mutexes.begin();
 	EDatagram* msg = new EDatagram();
+	
 	for( ; itm!=mutexes.end(); ++itm){
 		printf("\n Enviando holes");
 		for ( int i=0; i< copy.size() ; i++ ){
 			itm->second.first->lock();
-
+			printf("\n Enviando hole: %f, %f, %d", copy[i].x, copy[i].y, copy[i].radio);
 			msg->type = MAP_UPDATE;
 			msg->play[0].weaponid = copy[i].radio;
 			msg->play[0].x = copy[i].x;

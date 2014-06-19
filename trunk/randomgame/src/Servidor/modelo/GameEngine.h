@@ -98,6 +98,7 @@ class GameEngine {
 		int getMissils(){ return this->amountOfMissils; }
 		bool didWeShoot;
 		void addExplosion(Explosion e){ this->mapExplosions.push_back(e); }
+		void addExplosion(float x, float y, int radio);
 		void enqueueExplosion(Explosion e){ this->lastExplosions.push(e); }
 
 		void reduceMissils(){ this->amountOfMissils = this->amountOfMissils - 1; }

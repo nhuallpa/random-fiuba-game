@@ -24,6 +24,8 @@
 #include "armas/DynamiteView.h"
 #include "armas/DonkeyView.h"
 #include "armas/AirStrikeView.h"
+#include "armas/BananaView.h"
+#include "armas/SheepView.h"
 #include "PlayerProgressView.h"
 #include "EartView.h"
 #include "SDLScreen.h"
@@ -37,15 +39,9 @@ class GameViewBuilder
 {
 	
 	GameView* gameView;
-	
 	SDLScreen * screen;
-
 	std::string playerID;
-
 	GameDomain* domain;
-
-
-	
 
 public:
 
