@@ -57,9 +57,9 @@ public:
 
 	virtual void draw(SDLScreen & screen) = 0;
 
-	int getXCenter();
+	virtual int getXCenter();
 
-	int getYCenter();
+	virtual int getYCenter();
 
 	void detonate();
 

@@ -85,7 +85,12 @@ void GameActivity::update()
 					}
 						
 				}
-				aWorm->update(&domainElement);
+				if (aWorm->isDead()) {
+					this->futureFreeWorm.push_back(aWorm->getId());
+				} else {
+					aWorm->update(&domainElement);
+				}
+				
 			}  
 			else if (domainElement.getType() == WEAPON)
 			{
@@ -111,6 +116,16 @@ void GameActivity::update()
 		Log::i("Elimine projectile %d en la vista", id);
 	}
 	this->futureFree.clear();
+
+	std::vector<int>::iterator itWorm;
+	for (itWorm = this->futureFreeWorm.begin(); itWorm != this->futureFreeWorm.end(); ++itWorm)
+	{
+		int id = *itWorm;
+		gameView->freeWormView(id);
+		this->builder->getDomain()->removeElement(id);
+		Log::i("Elimine Worm %d en la vista", id);
+	}
+	this->futureFreeWorm.clear();
 
 	this->aView->update();
 
@@ -376,7 +391,7 @@ void GameActivity::otherTurn(std::string playerId)
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->getStateBar()->setMessageCenter("Is turn of " + playerId);
 	this->isMyTurn = false;
-	this->setTimer(25.0);
+	this->setTimer((float)TURN_DURATION);
 }
 
 void GameActivity::endMyTurn() {
@@ -403,7 +418,7 @@ void GameActivity::beginMyTurn()
 	this->cController->addOnMovementListener(this);
 	this->cController->addOnActionListener(this);
 	//@Ari @Nestor : seteo el timer con un tiempo hardcode
-	this->setTimer(25.0);
+	this->setTimer((float)TURN_DURATION);
 }
 
 
@@ -415,8 +430,8 @@ void GameActivity::setTimer(float timer){
 
 void GameActivity::setListeners(SDLScreen &  screen) 
 {
-	this->cController->addListener(&TextureManager::Instance().getCamera());
-	this->cController->addListener(&screen);
+	this->cController->addOnScrollListener(&TextureManager::Instance().getCamera());
+	this->cController->addOnZoomListener(&screen);
 }
 
 

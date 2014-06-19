@@ -10,11 +10,13 @@
 #include "../controlador/Contracts/OnMovementListener.h"
 #include "StateBarView.h"
 #include "../../utils/Constantes/Colors.h"
+#include "../sonido/SoundManager.h";
 
 
 enum WormState {
 	WORM_VIEW_DOING,
-	WORM_VIEW_MOTIONLESS
+	WORM_VIEW_MOTIONLESS,
+	WORM_VIEW_DEAD
 };
 
 class WormView: public View, public OnMovementListener
@@ -27,6 +29,8 @@ class WormView: public View, public OnMovementListener
 	WormState state;
 	
 	Sprite* currentSprite;
+
+	bool alive;
 
 	/*Sprite spriteWalk;
 	Sprite spriteBazooka;
@@ -80,6 +84,8 @@ public:
 	bool isSelected();
 	void select();
 	void deselect();
+
+	bool isDead();
 
 	bool isGrey();
 	void putGrey();

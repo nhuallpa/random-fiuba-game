@@ -5,6 +5,9 @@ DonkeyView::DonkeyView(int id, std::string imageId)
 	: ProjectileView(id), imageId(imageId)
 {
 	this->enableScroll();
+	std::pair<int, int> dim = TextureManager::Instance().getDimension(imageId);
+	this->w = dim.first;
+	this->h = dim.second;
 }
 
 
@@ -32,6 +35,19 @@ void DonkeyView::draw(SDLScreen & screen)
 										screen.getRenderer(),
 										SDL_FLIP_NONE);
 }
+
+
+int DonkeyView::getXCenter()
+{
+	return this->getX()-(this->w/2);
+}
+
+
+int DonkeyView::getYCenter()
+{
+	return this->getY()-(this->h/2);
+}
+
 
 
 void DonkeyView::detonate()

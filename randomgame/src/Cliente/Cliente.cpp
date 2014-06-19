@@ -279,7 +279,7 @@ int Cliente::applyNetworkChanges(void *data){
 			p.y = temp.play[i].y;
 			p.action = temp.play[i].action;
 			cli->updateModel(p);
-			Log::i("\nProcessing wid: %d, x: %f, y: %f, weapong %d, action %d", p.wormid,p.x,p.y, p.weaponid, p.action);
+			Log::i("\nProcessing wid: %d, x: %f, y: %f, weapong %d, action %s", p.wormid,p.x,p.y, p.weaponid, Util::actionString(p.action));
 		}
 	}
 

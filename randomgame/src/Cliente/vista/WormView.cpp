@@ -2,7 +2,7 @@
 
 
 WormView::WormView(int id)
-	: View(0, 0), id(id), flip(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS)
+	: View(0, 0), id(id), flip(SDL_FLIP_NONE), state(WORM_VIEW_MOTIONLESS), alive(true)
 {
 	currentSprite = NULL;
 	this->selected = false;
@@ -85,6 +85,11 @@ void WormView::update(GameElement* domainElement)
     {
             this->state = WORM_VIEW_MOTIONLESS;
     }
+	if (domainElement->getAction() == DEAD)
+    {
+		this->state = WORM_VIEW_DEAD;
+		Log::i("WormView::update >> worm %d DEAD", this->getId());
+    }
 
 	if (domainElement->getLife() < this->currentLife) {
 		this->widhtLifeCurrent = (int)(((float)domainElement->getLife() * (float)this->widhtLife100) / 100.0f);
@@ -144,6 +149,14 @@ void WormView::update()
 		
 		currentSprite->clean();
 
+	} else if (this->state == WORM_VIEW_DEAD) {
+		currentSprite = &this->sprites["morir"];
+		currentSprite->update();
+		Log::t("WormView::update >> sprite worm mori");
+		if (alive) {
+			SoundManager::Instance().pBYEBYE();
+		}
+		alive=false;
 	}
 
 }
@@ -176,6 +189,7 @@ void WormView::draw(SDLScreen & screen)
 	rect.y = this->getY()-22;
 	rect.w = this->widhtLifeCurrent;
 	rect.h = 5;
+
 	TextureManager::Instance().drawBox(screen.getRenderer(), 
 													rect.x, 
 													rect.y, 
@@ -251,4 +265,8 @@ tDirection WormView::getDirection()
 	} else {
 		return D_RIGHT;
 	}
+}
+
+bool WormView::isDead() {
+	return (!this->alive && currentSprite->isLastFrame());
 }

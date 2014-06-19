@@ -103,6 +103,7 @@ void Bootstrap::loadSprites()
 	try 
 		{
 			TextureManager::Instance().load("res/images/wwalk.png", "caminar", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wdie.png", "morir", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wbazbak.png", "bazooka", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wdynbak.png", "dinamita", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wgrnbak.png", "granada", this->getScreen().getRenderer());
@@ -118,6 +119,7 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("holy", 60, 60, 10, true);
 			SpriteConfigurator::Instance().add("radio", 60, 60, 10, true);
 			SpriteConfigurator::Instance().add("salto", 60, 60, 2, true);
+			SpriteConfigurator::Instance().add("morir", 60, 60, 60, false);
 
 			// projectiles
 

@@ -45,6 +45,7 @@ private:
 	AimView* aimView;
 
 	std::vector<int> futureFree;
+	std::vector<int> futureFreeWorm;
 
 	bool afterShoot;
 	void iniState();

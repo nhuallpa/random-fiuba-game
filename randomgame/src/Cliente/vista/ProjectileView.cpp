@@ -54,12 +54,13 @@ void ProjectileView::update()
 
 }
 
+// solo para los sprite
 bool ProjectileView::isDetonateDone()
 {
 	return (detonated && currentSprite->isLastFrame());
 }
 
-
+// solo para los sprite
 int ProjectileView::getXCenter()
 {
 	return this->getX()-(currentSprite->getWidth()/2);

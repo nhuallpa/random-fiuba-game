@@ -29,11 +29,11 @@ void GameController::addListener(OnMovementListener* m){
 	Move* mv = Move::getInstance();
 	mv->add(m);
 }
-void GameController::addListener(OnScrollListener* s){
+void GameController::addOnScrollListener(OnScrollListener* s){
 	Over* o = Over::getInstance();
 	o->add(s);
 }
-void GameController::addListener(OnZoomListener* z){
+void GameController::addOnZoomListener(OnZoomListener* z){
 	Zoom* zm = Zoom::getInstance();
 	zm->add(z);
 }
