@@ -263,13 +263,13 @@ void GameViewBuilder::buildMenuWeapon(){
 }
 
 void GameViewBuilder::buildWaterImg(){
-	WaterViewImg* wvi = WaterViewImg::FactoryWater(10,0.5, true);
+	WaterViewImg* wvi = WaterViewImg::FactoryWater(70,0.5, true);
 	this->gameView->setWaterImg(wvi);
 }
 
 void GameViewBuilder::buildWaterSurfImg(){
-	WaterViewImg* wvi = WaterViewImg::FactoryWater(10,0.5, true);
-	WaterViewImg* wvi2 = WaterViewImg::FactoryWater(15,0.5, false);
+	WaterViewImg* wvi = WaterViewImg::FactoryWater(47,0.5, true);
+	WaterViewImg* wvi2 = WaterViewImg::FactoryWater(22,0.5, false);
 	std::list<WaterViewImg*> listWvi;
 	listWvi.push_back(wvi);
 	listWvi.push_back(wvi2);

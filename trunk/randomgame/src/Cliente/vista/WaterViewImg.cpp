@@ -44,7 +44,7 @@ void WaterViewImg::draw(SDLScreen & screen){
 	if(bBackground){
 		this->drawbackground(screen);
 	}
-	this->drawSurf(screen);
+	//this->drawSurf(screen);
 }
 
 void WaterViewImg::drawSurf(SDLScreen & screen){
@@ -64,7 +64,7 @@ void WaterViewImg::drawSurf(SDLScreen & screen){
 	TextureManager::Instance().drawFrame(
 								it->first, 
 								this->getX(),//point.first, 
-								this->getY() - 1,//point.second,
+								this->getY() - 80,//point.second,
 								dimen.first, 
 								dimen.second, 
 								0, 0, 
@@ -102,13 +102,13 @@ void WaterViewImg::loadWater(int Gap){
 	/*width = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()));
 	height = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP())) - dimension.second;*/
 	width = dimension.first; // ancho del escenario seria el del agua
-	height = lebel + Gap;	// alto del agua
+	height = lebel;	// alto del agua
 
 	this->setY(positionY);
-	water.insert(pair<string,Shape>("marea_1_1", Shape(positionX, positionY, width, height)));
-	water.insert(pair<string,Shape>("marea_1_2", Shape(positionX, positionY, width, height)));
-	water.insert(pair<string,Shape>("marea_1_3", Shape(positionX, positionY, width, height)));
-	water.insert(pair<string,Shape>("marea_1_4", Shape(positionX, positionY, width, height)));
+	water.insert(pair<string,Shape>("marea_1_1", Shape(positionX, positionY, width, height + Gap)));
+	water.insert(pair<string,Shape>("marea_1_2", Shape(positionX, positionY, width, height + Gap)));
+	water.insert(pair<string,Shape>("marea_1_3", Shape(positionX, positionY, width, height + Gap)));
+	water.insert(pair<string,Shape>("marea_1_4", Shape(positionX, positionY, width, height + Gap)));
 	backgroundWater = pair<string,Shape>("FondoAgua", Shape(positionX, dimension.second - lebel, width, height));
 	/*
 	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel - Gap, width, 80)));

@@ -31,7 +31,7 @@ void GameActivity::buildView()
 	builder->buildContainer();
 	builder->buildSky();
 	//builder.buildFigures();
-	builder->buildWaterImg();
+	//builder->buildWaterImg();
 	builder->buildEart();
 	builder->buildCharacters();
 	builder->buildProjectileContainer();
