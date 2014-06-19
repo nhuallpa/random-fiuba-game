@@ -9,9 +9,7 @@ escenario:
     alto-un: 400
     alto-px: 400
     ancho-px: 600
-    nivel_agua: 5
+    nivel_agua: 0
     color_agua: "#0000FF99"
     imagen_tierra: res/images/terrain3.png
     color_tierra: "#BC794FFF"
-    imagen_cielo: res/images/cielo1.png
-    objetos:

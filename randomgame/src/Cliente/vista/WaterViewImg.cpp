@@ -64,7 +64,7 @@ void WaterViewImg::drawSurf(SDLScreen & screen){
 	TextureManager::Instance().drawFrame(
 								it->first, 
 								this->getX(),//point.first, 
-								this->getY() - 80,//point.second,
+								this->getY() - 1,//point.second,
 								dimen.first, 
 								dimen.second, 
 								0, 0, 
