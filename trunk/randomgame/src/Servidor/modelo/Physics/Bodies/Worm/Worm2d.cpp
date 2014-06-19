@@ -213,6 +213,7 @@ void Worm2d::animate(){
 		bool estoyConectado = (myWorm->getAction() != NOT_CONNECTED) && (myWorm->getAction() != NOT_CONNECTED_LEFT) && (myWorm->getAction() != NOT_CONNECTED_RIGHT);
 		if ( cambieDeEstado &&  estoyConectado )
 		{
+
 			Log::t("\nModificando worm %d of %s", myWorm->getId(), myWorm->playerID.c_str());
 			if ( myWorm->getAction()  ==  MOVE_RIGHT ) {
 				myWorm->setAction(MOVELESS_RIGHT);
@@ -233,6 +234,16 @@ void Worm2d::animate(){
 			if ( myWorm->getAction()  ==  MOVELESS){
 				myWorm->setAction(MOVELESS);
 				myWorm->myLastAction = MOVELESS;
+			}
+
+			if ( myWorm->getAction()  ==  MOVELESS_RIGHT){
+				myWorm->setAction(MOVELESS_RIGHT);
+				myWorm->myLastAction = MOVELESS_RIGHT;
+			}
+
+			if ( myWorm->getAction()  ==  MOVELESS_LEFT){
+				myWorm->setAction(MOVELESS_LEFT);
+				myWorm->myLastAction = MOVELESS_LEFT;
 			}
 
 
