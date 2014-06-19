@@ -104,7 +104,8 @@ GameElement::GameElement(const GameElement & aGameElement):
 					mass(aGameElement.type), myBody(aGameElement.myBody),
 					degrees(aGameElement.degrees), vertexList(aGameElement.vertexList),
 					radius(aGameElement.radius), scale(aGameElement.scale),
-					fixed(aGameElement.fixed), grounded(aGameElement.grounded), action(aGameElement.action), myLastAction(aGameElement.myLastAction), life(aGameElement.life), weaponId(aGameElement.weaponId)
+					fixed(aGameElement.fixed), grounded(aGameElement.grounded), action(aGameElement.action),
+					myLastAction(aGameElement.myLastAction), life(aGameElement.life),weaponId(aGameElement.weaponId)
 {
 }
 

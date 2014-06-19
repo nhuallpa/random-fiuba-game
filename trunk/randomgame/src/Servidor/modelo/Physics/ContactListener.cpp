@@ -27,20 +27,41 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || (fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() !=  UD_MISSIL) )){
 
 		//Puedo comparar Y para ver si le sumo o no, basado en que si soy el de abajo no puedo saltar
+		/* Si hago contacto con otro worm solo sumo si yo estoy arriba de el */ 
+		if ( (int)fixtureA->GetUserData() == UD_WORMS ){
+			float yB = static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getPosition().second;
+			float yA = static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getPosition().second;
+			if ( yB > yA ){
+				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->addGrounded();
+				contact->GetWorldManifold(&worldManifold);
+				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
+				return;
+			}
+		}
 
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->addGrounded();
-		
 		contact->GetWorldManifold(&worldManifold);
-
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
 		return;
 	}
 	if ( ( fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() != UD_MISSIL )
 		&& ( (int)fixtureB->GetUserData() == UD_TERRAIN  || (fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() != UD_MISSIL  )) ){
-		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->addGrounded();
 		
-		contact->GetWorldManifold(&worldManifold);
+				/* Si hago contacto con otro worm solo sumo si yo estoy arriba de el */ 
+		if ( (int)fixtureB->GetUserData() == UD_WORMS ){
+			float yB = static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getPosition().second;
+			float yA = static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getPosition().second;
+			if ( yA > yB ){
+				static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->addGrounded();
+				contact->GetWorldManifold(&worldManifold);
+				static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
+				return;
+			}
+		}
 
+			
+		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->addGrounded();
+		contact->GetWorldManifold(&worldManifold);
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->setNormalForce(worldManifold.normal.x,worldManifold.normal.y);
 		return;
 	}
@@ -148,17 +169,33 @@ void ContactListener::EndContact(b2Contact* contact) {
 	//If My body (B) is touching the floor (A) (somewhere)
 	if ( (fixtureB->GetBody()->GetType() == b2_dynamicBody &&  (int)fixtureB->GetUserData() != UD_MISSIL)
 		&& ((int)fixtureA->GetUserData() == UD_TERRAIN || ( fixtureA->GetBody()->GetType() == b2_dynamicBody && (int)fixtureA->GetUserData() != UD_MISSIL ))){
-		////printf("\nSetted has NOT GROUNDED");
-		//fixtureB->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
+
+					/* Si hago contacto con otro worm solo sumo si yo estoy arriba de el */ 
+		if ( (int)fixtureA->GetUserData() == UD_WORMS ){
+			float yB = static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getPosition().second;
+			float yA = static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getPosition().second;
+			if ( yB > yA ){
+				static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->reduceGrounded();
+				return;
+			}
+		}
+
 		static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->reduceGrounded();
-
-
 		return;
 	}
 	if ( (fixtureA->GetBody()->GetType() == b2_dynamicBody &&  (int)fixtureA->GetUserData() != UD_MISSIL )
 		&& ((int)fixtureB->GetUserData() == UD_TERRAIN || ( fixtureB->GetBody()->GetType() == b2_dynamicBody && (int)fixtureB->GetUserData() != UD_MISSIL) )){
-		////printf("\nSetted has NOT GROUNDED");
-		//fixtureA->GetBody()->SetLinearVelocity(b2Vec2(0,-5));
+
+		if ( (int)fixtureB->GetUserData() == UD_WORMS ){
+			float yB = static_cast<GameElement*>(fixtureB->GetBody()->GetUserData())->getPosition().second;
+			float yA = static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->getPosition().second;
+			if ( yA > yB ){
+				static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->reduceGrounded();
+				return;
+			}
+		}
+
+
 		static_cast<GameElement*>(fixtureA->GetBody()->GetUserData())->reduceGrounded();
 
 

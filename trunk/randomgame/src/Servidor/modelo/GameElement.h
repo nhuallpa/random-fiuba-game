@@ -62,6 +62,7 @@ public:
 	bool isFixed();
 	int grounded;
 
+
 	bool drowned;
 	bool damaged;
 	int weaponId;
