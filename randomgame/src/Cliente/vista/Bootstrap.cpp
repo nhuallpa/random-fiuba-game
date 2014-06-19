@@ -130,6 +130,9 @@ void Bootstrap::loadSprites()
 			TextureManager::Instance().load("res/images/weapon/hgrenade.png", "bullet_holy", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/weapon/grenade.png", "bullet_granada", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/weapon/missile.png", "bullet_bazooka", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/banana.png", "bullet_banana", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/weapon/sheep.png", "bullet_sheep", this->getScreen().getRenderer());
+
 
 			SpriteConfigurator::Instance().add("bullet_default", 60, 60, 6, true);
 			SpriteConfigurator::Instance().add("bullet_airmisl", 60, 60, 32, true);
@@ -138,6 +141,8 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("bullet_holy", 60, 60, 32, true);
 			SpriteConfigurator::Instance().add("bullet_granada", 60, 60, 32, true);
 			SpriteConfigurator::Instance().add("bullet_bazooka", 60, 60, 32, true);
+			SpriteConfigurator::Instance().add("bullet_banana", 60, 60, 32, true);
+			SpriteConfigurator::Instance().add("bullet_sheep", 60, 60, 32, true);
 
 
 

@@ -381,6 +381,13 @@ int GameEngine::step(){
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
 					static_cast<Missile2d*>(iterator->second)->getExplosion().radio
 					);
+
+
+				this->addExplosion( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+					static_cast<Missile2d*>(iterator->second)->getExplosion().radio 
+					);
+
 					
 				// Hago agujero en Box2d
 				this->doExplosion( b2Vec2( 
@@ -421,6 +428,11 @@ int GameEngine::step(){
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
 					static_cast<Missile2d*>(iterator->second)->getExplosion().radio,
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+					);
+
+				this->addExplosion( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+					static_cast<Missile2d*>(iterator->second)->getExplosion().radio 
 					);
 
 				static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setAction(EXPLOSION);
@@ -477,6 +489,11 @@ int GameEngine::step(){
 						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second),
 						static_cast<Missile2d*>(iterator->second)->getExplosion().radio,
 						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId()
+						);
+
+					this->addExplosion( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
+						static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
+						static_cast<Missile2d*>(iterator->second)->getExplosion().radio 
 						);
 
 					
@@ -915,3 +932,13 @@ poly_t GameEngine::makeConvexRing(b2Vec2 position, float radius, int vertices)
 
 	return convexRing;
 }
+
+
+void GameEngine::addExplosion(float x, float y, int radio){
+	Explosion e;
+	e.x = x;
+	e.y = y;
+	e.radio = radio;
+	this->mapExplosions.push_back(e);
+}
+

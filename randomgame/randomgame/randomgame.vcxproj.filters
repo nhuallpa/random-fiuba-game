@@ -303,6 +303,12 @@
     <ClCompile Include="..\src\Cliente\vista\TimerView.cpp">
       <Filter>Archivos de código fuente\client\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\BananaView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cliente\vista\armas\SheepView.cpp">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Cliente\Cliente.h">
@@ -580,6 +586,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Cliente\vista\TimerView.h">
       <Filter>Archivos de código fuente\client\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\BananaView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Cliente\vista\armas\SheepView.h">
+      <Filter>Archivos de código fuente\client\view\weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
