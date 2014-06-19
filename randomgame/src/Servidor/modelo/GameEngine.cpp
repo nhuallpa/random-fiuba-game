@@ -538,7 +538,7 @@ int GameEngine::step(){
 						retval = 0;
 					}
 					
-					this->myTimer.reset();
+					//this->myTimer.reset();
 				}
 
 				if (static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first > 105 ||
