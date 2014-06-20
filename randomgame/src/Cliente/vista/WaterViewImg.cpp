@@ -104,11 +104,13 @@ void WaterViewImg::loadWater(int Gap){
 	width = dimension.first; // ancho del escenario seria el del agua
 	height = lebel;	// alto del agua
 
-	this->setY(positionY);
 	water.insert(pair<string,Shape>("marea_1_1", Shape(positionX, positionY, width, height + Gap)));
 	water.insert(pair<string,Shape>("marea_1_2", Shape(positionX, positionY, width, height + Gap)));
 	water.insert(pair<string,Shape>("marea_1_3", Shape(positionX, positionY, width, height + Gap)));
 	water.insert(pair<string,Shape>("marea_1_4", Shape(positionX, positionY, width, height + Gap)));
+	
+	
+	this->setY(dimension.second - lebel);
 	backgroundWater = pair<string,Shape>("FondoAgua", Shape(positionX, dimension.second - lebel, width, height));
 	/*
 	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel - Gap, width, 80)));
