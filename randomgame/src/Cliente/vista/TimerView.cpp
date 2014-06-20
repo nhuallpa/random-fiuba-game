@@ -55,7 +55,7 @@ bool TimerView::isFinished(){
 void TimerView::draw(SDLScreen & screen){
 	
 
-		this->update();
+		//this->update();
 		int margin = 5;
 		int margin_left = 10;
 		int padding_left = 10;
@@ -65,6 +65,8 @@ void TimerView::draw(SDLScreen & screen){
 		rect.y = getY() + 20;
 		rect.w = 140;
 		rect.h = heightBarProgress - margin;
+
+		TextureManager::Instance().draw("reloj", 5, 5, screen.getRenderer());
 
 		if(!this->isFinished()){
 			this->index++;

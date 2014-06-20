@@ -33,7 +33,7 @@ void DonkeyView::draw(SDLScreen & screen)
 										this->getXCenter(), 
 										this->getYCenter(), 
 										screen.getRenderer(),
-										SDL_FLIP_NONE,
+										this->flip,
 										true);
 }
 

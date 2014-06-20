@@ -34,7 +34,7 @@ void GrenadeView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
 										false, 
-										SDL_FLIP_NONE,
+										this->flip,
 										true);
 
 	if (!this->detonated) {
