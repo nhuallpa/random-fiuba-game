@@ -56,6 +56,8 @@ public:
 	int getScreenWidth() { return this->screenWidth;}
 	int getScreenHeight() { return this->screenHeight;}
 
+	Camera & getCamera() {return cam;}
+
 	/**
 	* Load image. Allow png, jpg, gif, bmp
 	* @param fileName	The file name of image
@@ -70,61 +72,16 @@ public:
 	bool loadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer);
 
 	void draw(std::string id, int x, int y, 
-					SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+					SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE, bool zoom = false);
 
-	void draw(std::string id, int x, int y, int width, int
-			height, SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
-	void drawScale(std::string id, int x, int y, float scale, SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
-	
-	/**
-	* Draw a frame from sprite
-	*
-	* @param id Id de imagen 
-	* @param x  Position in axis x on scenario
-	* @param y  Position in axis y on scenario
-	* @param width Width of frame 
-	* @param height Height of frame
-	* @param currentRow row to draw. Beginning since 1
-	* @param currentFrame frame to draw. Beginning since 0
-	* @param pRenderer Render to draw
-	* @param flip SDL flip
-	* 
-	**/
 	void drawFrame(std::string id, int x, int y, int width, int
 					height, int currentRow, int currentFrame, SDL_Renderer*
-					pRenderer,bool grey = false, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
-
-	/**
-	* Draw a frame from sprite on screen
-	*
-	* @param id Id de imagen 
-	* @param x  Position in axis x on SCREEN
-	* @param y  Position in axis y on SCREEN
-	* @param width Width of frame 
-	* @param height Height of frame
-	* @param currentRow row to draw. Beginning since 1
-	* @param currentFrame frame to draw. Beginning since 0
-	* @param pRenderer Render to draw
-	* @param flip SDL flip
-	* 
-	**/
-	void drawFrameOnScreen(std::string id, int x, int y, int width, int
-					height, int currentRow, int currentFrame, SDL_Renderer*
-					pRenderer,bool grey, SDL_RendererFlip flip = SDL_FLIP_NONE);
+					pRenderer,bool grey = false, SDL_RendererFlip flip = SDL_FLIP_NONE, bool zoom = false);
 
 	void drawScrollableBackground(std::string imageId, SDL_Renderer* pRenderer);
 
 	void drawBackground(std::string id, SDL_Renderer* pRenderer, 
 						SDL_RendererFlip flip = SDL_FLIP_NONE) ;
-
-	/**
-	*
-	*/
-	void drawImageOffset(std::string id,
-								int x, int y, int widthCamera, int heightCamera,
-								SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	/*
 	* Gets the dimension of an image
@@ -133,8 +90,8 @@ public:
 	**/
 	std::pair<int, int> getDimension(std::string imageId);
 
-	
-	Camera & getCamera() {return cam;}
+
+	void drawFillRect(SDL_Renderer*	pRenderer, SDL_Rect & rect, int r, int g, int b, int a, int zoom = false);
 
 	/** Draw circle on renderer*/
 	void drawCircle(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 r, Uint32 color, Uint32 borderColor);

@@ -172,7 +172,7 @@ bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Rendere
 }
 
 void TextureManager::draw(std::string id, int x, int y, 
-					SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
+					SDL_Renderer* pRenderer, SDL_RendererFlip flip, bool zoom) 
 {
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
@@ -185,70 +185,23 @@ void TextureManager::draw(std::string id, int x, int y,
 		srcRect.x = 0;
 		srcRect.y = 0;
 	
-		destRect.w = srcRect.w;
-		destRect.h = srcRect.h;
-
-		destRect.x = x;
-		destRect.y = y;
+		if (zoom) {
+			destRect.w = srcRect.w * this->cam.getScale();
+			destRect.h = srcRect.h * this->cam.getScale();
+			destRect.x = x * this->cam.getScale();
+			destRect.y = y * this->cam.getScale();
+		} else {
+			destRect.w = srcRect.w;
+			destRect.h = srcRect.h;
+			destRect.x = x;
+			destRect.y = y;
+		}
 
 		SDL_RenderCopyEx(pRenderer, aTexture, &srcRect,&destRect, 0, 0, flip);
 	} catch (GameException & e) {
 		Log::e(e.what());
 	}
 
-}
-
-//void TextureManager::drawScale(std::string id, int x, int y, int , float scale, SDL_Renderer* pRenderer, SDL_RendererFlip flip){
-//
-//}
-
-
-void TextureManager::drawScale(std::string id, int x, int y, float scale, SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
-{
-	SDL_Rect srcRect;
-	SDL_Rect destRect;
-
-	std::pair<int, int> dim = this->getDimension(id);
-
-	srcRect.x = 0;
-	srcRect.y = 0;
-	
-	srcRect.w = dim.first;
-	srcRect.h = dim.second;
-
-	destRect.w = (int)((float)dim.first * scale);
-	destRect.h = (int)((float)dim.second * scale);
-
-	destRect.x = x;
-	destRect.y = y;
-
-	try {
-		SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
-	} catch (GameException & e) {
-		Log::e(e.what());
-	}
-}
-
-void TextureManager::draw(std::string id, int x, int y, int width, int
-	height, SDL_Renderer* pRenderer, SDL_RendererFlip flip) 
-{
-	SDL_Rect srcRect;
-	SDL_Rect destRect;
-
-	srcRect.x = 0;
-	srcRect.y = 0;
-	
-	srcRect.w = destRect.w = width;
-	srcRect.h = destRect.h = height;
-
-	destRect.x = x;
-	destRect.y = y;
-
-	try {
-		SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
-	} catch (GameException & e) {
-		Log::e(e.what());
-	}
 }
 
 void TextureManager::drawScrollableBackground(std::string imageId, SDL_Renderer* pRenderer) 
@@ -267,7 +220,7 @@ void TextureManager::drawScrollableBackground(std::string imageId, SDL_Renderer*
 
 	try {
 		SDL_Texture * aTexture = getTexture(imageId);
-		SDL_RenderCopyEx(pRenderer, aTexture, &srcRect,&destRect, 0, 0, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(pRenderer, aTexture, &srcRect, NULL, 0, 0, SDL_FLIP_NONE);
 	} catch (GameException & e) {
 		Log::e(e.what());
 	}
@@ -284,24 +237,35 @@ void TextureManager::drawBackground(std::string id, SDL_Renderer* pRenderer, SDL
 
 void TextureManager::drawFrame(std::string id, int x, int y, int width, int	height, 
 								int currentRow, int currentFrame, 
-								SDL_Renderer*	pRenderer, bool grey, SDL_RendererFlip flip) 
+								SDL_Renderer*	pRenderer, bool grey, SDL_RendererFlip flip, bool zoom) 
 {	
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
 	SDL_Rect viewPort;
 	srcRect.x = width * currentFrame;
 	srcRect.y = height * currentRow;
+	if (zoom)
+	{
+		srcRect.w = destRect.w = width;
+		srcRect.h = destRect.h = height;
+		destRect.w = width * this->cam.getScale();
+		destRect.h = height * this->cam.getScale();
+		destRect.x = x * this->cam.getScale();
+		destRect.y = y * this->cam.getScale();
+	}
+	else
+	{
+		srcRect.w = destRect.w = width;
+		srcRect.h = destRect.h = height;
+		destRect.x = x;
+		destRect.y = y;
+	}
 	
-	srcRect.w = destRect.w = width;
-	srcRect.h = destRect.h = height;
 
-	destRect.x = x;
-	destRect.y = y;
-	
 	viewPort.x = 0;
 	viewPort.y = 0;
-	viewPort.w = this->cam.getW();
-	viewPort.h = this->cam.getH();
+	viewPort.w = this->screenWidth;
+	viewPort.h = this->screenHeight;
 	try {
 		if (grey) SDL_SetTextureColorMod(getTexture(id),100,100,100);
 		if (intersectRects(destRect, viewPort)) {
@@ -314,35 +278,23 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int	heig
 }
 
 
-void TextureManager::drawFrameOnScreen(std::string id, int x, int y, int width, int
-					height, int currentRow, int currentFrame, SDL_Renderer*
-					pRenderer,bool grey, SDL_RendererFlip flip)
-{
-	SDL_Rect srcRect;
-	SDL_Rect destRect;
-	SDL_Rect viewPort;
-	srcRect.x = width * currentFrame;
-	srcRect.y = height * currentRow;
-	
-	srcRect.w = destRect.w = width;
-	srcRect.h = destRect.h = height;
+void TextureManager::drawFillRect(SDL_Renderer*	pRenderer, SDL_Rect & rect, int r, int g, int b, int a, int zoom) {
 
-	destRect.x = x;
-	destRect.y = y;
-	
-	viewPort.x = 0;
-	viewPort.y = 0;
-	viewPort.w = this->cam.getW();
-	viewPort.h = this->cam.getH();
-	//if (grey) SDL_SetTextureColorMod(this->texture_map[id],100,100,100);
-	try {
-		if (intersectRects(destRect, viewPort)) {
-			SDL_RenderCopyEx(pRenderer, getTexture(id), &srcRect,&destRect, 0, 0, flip);
-		}
-	} catch (GameException & e) {
-		Log::e(e.what());
+	SDL_Rect rectDest;
+	if (zoom) {
+		rectDest.x = rect.x * this->cam.getScale();
+		rectDest.y = rect.y * this->cam.getScale();
+		rectDest.w = rect.w * this->cam.getScale();
+		rectDest.h = rect.h * this->cam.getScale();
+	} else {
+		rectDest.x = rect.x;
+		rectDest.y = rect.y;
+		rectDest.w = rect.w;
+		rectDest.h = rect.h;
 	}
-	//if (grey) SDL_SetTextureColorMod(this->texture_map[id],255,255,255);
+
+	SDL_SetRenderDrawColor(pRenderer, 0, 255, 0, 255); 
+	SDL_RenderFillRect(pRenderer, &rectDest);
 }
 
 std::pair<int, int> TextureManager::getDimension(std::string imageId)
@@ -612,6 +564,8 @@ void TextureManager::fillCircleOn(std::string imageId, int x, int y, int radius,
 		this->texture_map[imageId]=NULL;
 	}
 }
+
+
 
 void TextureManager::setFocus(tFocus tipo)
 {

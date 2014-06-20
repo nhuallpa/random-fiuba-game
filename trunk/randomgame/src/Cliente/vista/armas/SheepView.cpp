@@ -42,12 +42,7 @@ void SheepView::draw(SDLScreen & screen)
 		rect.y = this->getY()-22;
 		rect.w = this->widhtLifeCurrent;
 		rect.h = 5;
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-														rect.x, 
-														rect.y, 
-														rect.x + rect.w,
-														rect.y + rect.h, 
-														COLOR_ROJO);
+		TextureManager::Instance().drawFillRect(screen.getRenderer(),rect,255, 0, 0, 255,true);
 	}
 	
 

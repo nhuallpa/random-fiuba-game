@@ -73,23 +73,16 @@ void TimerView::draw(SDLScreen & screen){
 			this->index = 0;
 		}
 		int w_bar = rect.w	- this->index;
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-														rect.x, 
-														getY(), 
-														rect.x + 150,
-														rect.y + 30,
-														BACK_COLOR_PANEL);
-
-
-
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-														rect.x + padding_left, 
-														rect.y, 
-														rect.x + w_bar,
-														rect.y + rect.h, 
-														COLOR_AMARILLO);
 		
+		
+		SDL_Rect rectBar;
+		rectBar.x = rect.x + padding_left;
+		rectBar.y = rect.y;
+		rectBar.w = w_bar;
+		rectBar.h = rect.h;
 
-			this->label.draw(screen.getRenderer(), getX() + margin_left , getY());
+		TextureManager::Instance().drawFillRect(screen.getRenderer(), rectBar, 200, 200, 200, 200);
+		
+		this->label.draw(screen.getRenderer(), getX() + margin_left , getY());
 
 }

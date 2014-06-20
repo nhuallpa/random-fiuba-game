@@ -45,7 +45,7 @@ void TextManager::loadFont(Tfont fuente){
 
 }
 
-void TextManager::wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uint8 g,Uint8 b){
+void TextManager::wLetter(std::string idFont,int x, int y, char lett,SDL_Color color, bool zoom ){
 	SDL_Rect destino, origen; 
 	int fila, columna;
 	int letrasPorFila, letrasPorColumna;
@@ -53,36 +53,47 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uin
 	font = this->font_map.find(idFont)->second;
 
 
-	letrasPorFila = font.ancho/font.anchoLetra;
-	letrasPorColumna = font.alto/font.altoLetra;
+	letrasPorFila = font.ancho / font.anchoLetra;
+	letrasPorColumna = font.alto / font.altoLetra;
+	
 	fila = lett / letrasPorColumna;
 	columna = lett % letrasPorColumna;
+	
 	origen.x = columna * font.anchoLetra;
 	origen.y = fila * font.altoLetra;
-	
 	origen.w = font.anchoLetra;
 	origen.h = font.altoLetra;
-	destino.x = x;
-	destino.y = y;
-	destino.w = origen.w;
-	destino.h = origen.h;
+	if (zoom) 
+	{
+		Log::i("Zoom de Letras");
+		destino.x = x * TextureManager::Instance().getCamera().getScale();
+		destino.y = y * TextureManager::Instance().getCamera().getScale();
+		destino.w = origen.w * TextureManager::Instance().getCamera().getScale();
+		destino.h = origen.h * TextureManager::Instance().getCamera().getScale();
+	} 
+	else 
+	{
+		destino.x = x;
+		destino.y = y;
+		destino.w = origen.w;
+		destino.h = origen.h;
+	}
 	try 
 	{
 	
-	Log::t("fuente: %p",TextureManager::Instance().getTexture(idFont));
+		Log::t("fuente: %p",TextureManager::Instance().getTexture(idFont));
 	
-	SDL_RenderCopy(this->renderer,
-                   TextureManager::Instance().getTexture(idFont),
-                   &origen,
-                   &destino);
+		SDL_RenderCopy(this->renderer,
+					   TextureManager::Instance().getTexture(idFont),
+					   &origen,
+					   &destino);
 	} catch (std::exception &e) {
 		Log::e(e.what());
 	}
 	
-
 }
 
-void TextManager::write(Tfont fuente,int x, int y, std::string w,SDL_Color color){
+void TextManager::write(Tfont fuente,int x, int y, std::string w,SDL_Color color, bool zoom ){
 	int i;
 	std::string idFont;
 	if (fuente == Arial16){
@@ -94,6 +105,11 @@ void TextManager::write(Tfont fuente,int x, int y, std::string w,SDL_Color color
 
 
 	for(i =0; i<w.size();i++){
-		this->wLetter(idFont,x+(i*this->font.anchoLetra),y,w[i],color.r,color.g,color.b);
+		this->wLetter(idFont,
+						x + (i*(this->font.anchoLetra - 7)) ,
+						y,
+						w[i],
+						color,
+						zoom);
 	}
 }

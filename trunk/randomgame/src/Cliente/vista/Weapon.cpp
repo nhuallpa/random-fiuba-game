@@ -53,10 +53,10 @@ void Weapon::drawItems(SDLScreen & screen){
 	for(it  = lWeaponView.begin();
 		it != lWeaponView.end();
 		it++){
-		TextureManager::Instance().drawFrameOnScreen(
+		TextureManager::Instance().drawFrame(
 					(*it), x, y, width, height, 
 					0, 0, screen.getRenderer(),
-					false, SDL_FLIP_NONE);
+					false, SDL_FLIP_NONE, false);
 	}
 
 }
@@ -72,7 +72,7 @@ bool Weapon::hasClickedMenu(SDL_Point clickPoint){
 	int x1, x2, y1, y2;
 	x1 = x, x2 = x + width;
 	y1 = y, y2 = y + height;
-
+	Log::i("Weapon::hasClickedMenu click:(%d, %d)  dim: (x,y,w,h)=(%d,%d,%d,%d)", clickPoint.x, clickPoint.y, x1, x2, width, height);
 	if((!ballow) && (this->id != NO_WEAPON))
 		return false;
 /*

@@ -71,12 +71,12 @@ void StateBarView::draw(SDLScreen & screen){
 	
 
 	//Fondo Texto
-	int posX = TextureManager::Instance().getCamera().getW()/2 -
+	int posX = screen.getWidth()/2 -
 		TextureManager::Instance().getDimension("fondo_msg").first / 2;
 
 	int posY = 30;
 	
-	TextureManager::Instance().drawScale("fondo_msg", posX, 0, 1, screen.getRenderer());
+	TextureManager::Instance().draw("fondo_msg", posX, 0, screen.getRenderer());
 
 	// Texto 
 	posX = posX + 30;

@@ -194,7 +194,7 @@ void AimView::centerPoint(){
 
 void AimView::draw(SDLScreen & screen){
 	if(bShootMouse){
-		TextureManager::Instance().drawFrameOnScreen(
+		TextureManager::Instance().drawFrame(
 						"aim", this->xDraw, this->yDraw, 60, 57, 
 						0, 0, screen.getRenderer(),
 						false, SDL_FLIP_NONE);
@@ -203,7 +203,7 @@ void AimView::draw(SDLScreen & screen){
 		TextureManager::Instance().drawFrame(
 						"aim", this->xDraw, this->yDraw, 60, 57, 
 						0, 0, screen.getRenderer(),
-						false, SDL_FLIP_NONE);
+						false, SDL_FLIP_NONE, true);
 	}
 }
 

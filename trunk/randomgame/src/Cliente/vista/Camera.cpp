@@ -7,6 +7,7 @@ Camera::Camera(void)
 	this->box.h = 50;
 	this->box.x = 0;
 	this->box.y = 0;
+	this->scale = 1.0f;
 }
 
 void Camera::setDimension(int w, int h) 
@@ -68,4 +69,31 @@ void Camera::setFocus(tFocus tipo, int dest_w, int dest_h)
 
 Camera::~Camera(void)
 {
+}
+
+
+void Camera::OnZoom(ZoomEvent e)
+{
+	Log::d(" Camara Zoom ");
+	SDL_Rect newViewPort;
+	float nextScale = this->scale + (0.01 * e.y);
+	if (nextScale > 0.5 && nextScale <= 3) 
+	{
+		int w_new = (int)(700.0f * 1/nextScale);   // nuevo ancho manual
+		int h_new = (int)(400.0f * 1/nextScale);   // nuevo alto manual
+		newViewPort.w = w_new;
+		newViewPort.h = h_new;
+		Log::t(" Camara view port ancho: %d		alto: %d  scale: %f", newViewPort.w, newViewPort.h, nextScale);
+		
+
+		int camaraBootom = newViewPort.h + this->getY();
+		int camaraRight = newViewPort.w + this->getX();
+		if (camaraBootom <= this->getHeightScenario() &&
+			camaraRight <= this->getWidthScenario())
+		{
+			this->setH(newViewPort.h);
+			this->setW(newViewPort.w);
+			this->scale = nextScale;
+		}
+	}	
 }

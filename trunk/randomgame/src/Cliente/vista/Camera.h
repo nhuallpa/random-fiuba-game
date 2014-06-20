@@ -3,6 +3,7 @@
 #define __CAMERA_H__
 #include <SDL.h>
 #include "../controlador/Contracts/OnScrollListener.h"
+#include "../controlador/Contracts/OnZoomListener.h"
 #include "../../utils/Log.h"
 
 typedef enum {
@@ -10,12 +11,15 @@ typedef enum {
 	FOCUS_CENTER
 } tFocus;
 
-class Camera : public OnScrollListener
+class Camera : public OnScrollListener, public OnZoomListener
 {
 	SDL_Rect box;
 	int widthScenario;
 	int heightScenario;
 	
+
+	float scale;
+
 public:
 	Camera();
 
@@ -36,7 +40,13 @@ public:
 
 	void setFocus(tFocus tipo, int dest_w, int dest_h);
 
+	void OnZoom(ZoomEvent e);
+
+	float getScale() {return this->scale;}
+
 	~Camera(void);
+
+
 };
 
 #endif

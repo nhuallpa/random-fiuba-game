@@ -70,7 +70,8 @@ void WaterViewImg::drawSurf(SDLScreen & screen){
 								0, 0, 
 								screen.getRenderer(),
 								false, 
-								SDL_FLIP_NONE);
+								SDL_FLIP_NONE,
+								true);
 }
 
 
@@ -87,7 +88,8 @@ void WaterViewImg::drawbackground(SDLScreen & screen){
 											0, 
 											screen.getRenderer(),
 											false, 
-											SDL_FLIP_NONE);
+											SDL_FLIP_NONE,
+											true);
 }
 
 void WaterViewImg::loadWater(int Gap){

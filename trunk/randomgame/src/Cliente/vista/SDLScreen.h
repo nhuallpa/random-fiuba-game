@@ -11,6 +11,7 @@
 #include "../../utils/Log.h"
 #include "Camera.h"
 #include "../controlador/Contracts/OnZoomListener.h"
+#include <SDL2_rotozoom.h>
 class SDLScreen : public TScreen, public OnZoomListener
 {
 private:
