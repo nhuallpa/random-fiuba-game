@@ -6,7 +6,8 @@ TextView::TextView()
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
-	this->font = Arial12;
+	this->font = Arial16;
+	this->zoom = false;
 }
 
 TextView::~TextView()
@@ -94,7 +95,7 @@ void TextView::draw(SDL_Renderer * gRenderer, int x, int y, SDL_Rect* clip, doub
 
 	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );*/
 
-	TextManager::Instance().write(this->font,x, y,this->text,this->textColor);
+	TextManager::Instance().write(this->font,x, y,this->text,this->textColor, zoom);
 }
 
 int TextView::getWidth()

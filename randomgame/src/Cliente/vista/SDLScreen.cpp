@@ -20,6 +20,8 @@ void SDLScreen::init(const char* title, int xpos, int ypos, int width,
 		this->height = height;
 		this->width = width;
 		renderer = SDL_CreateRenderer(m_pWindow, -1, 0);
+		//renderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_TARGETTEXTURE);
+		 
 			if(renderer != 0) // renderer init success
 		{
 			//SDL_RenderSetLogicalSize( renderer, width, height );
@@ -82,17 +84,17 @@ void SDLScreen::clear()
 }	
 void SDLScreen::render()
 {
-	//setOriginalTarget();
+	/*setOriginalTarget();*/
 	//SDL_RenderCopy(renderer, this->mTexture, NULL, NULL);
 	//SDL_SetRenderTarget(renderer, NULL); //NULL SETS TO DEFAULT
 
-	//SDL_Rect canvas;
-	//canvas.x=0;
-	//canvas.y=0;
-	//canvas.w=this->refCam->getW();
-	//canvas.h=this->refCam->getH();
+	/*SDL_Rect canvas;
+	canvas.x=0;
+	canvas.y=0;
+	canvas.w=700;
+	canvas.h=400;
 
-	//SDL_RenderCopy(renderer, this->mTexture, NULL, &canvas);
+	SDL_RenderCopy(renderer, this->mTexture, NULL, &canvas);*/
 	SDL_RenderPresent(renderer); // draw to the screen
 }	
 void SDLScreen::terminate()
@@ -131,7 +133,12 @@ void SDLScreen::OnZoom(ZoomEvent e)
 //		this->setTarget(1);
 		SDL_RenderSetScale(renderer, nextScale, nextScale);
 		SDL_RenderGetViewport(renderer, &newViewPort);
-		Log::i(" new view port posX:%d		posY:%d		ancho: %d		alto: %d", newViewPort.x, newViewPort.y, newViewPort.w, newViewPort.h);
+		int w_new = (int)(700.0f * 1/nextScale);   // nuevo ancho manual
+		int h_new = (int)(400.0f * 1/nextScale);   // nuevo alto manual
+
+		Log::i(" new view port posX:%d		posY:%d		ancho: %d		alto: %d  scale: %f", newViewPort.x, newViewPort.y, newViewPort.w, newViewPort.h, nextScale);
+		
+		//Log::i(" new view port posX:%d		posY:%d		ancho: %d		alto: %d  scale: %f ZOOMSURSICE", newViewPort.x, newViewPort.y, w_new, h_new, nextScale);
 		//todo: pasar a camera
 		int camaraBootom = newViewPort.h + this->refCam->getY();
 		int camaraRight = newViewPort.w + this->refCam->getX();

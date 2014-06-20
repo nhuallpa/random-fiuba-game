@@ -51,6 +51,7 @@ void Bootstrap::loadConfigGame()
 	std::pair<int, int> dimensionScenario = TextureManager::Instance().getDimension("eart");
 	//this->getScreen().createTarget(dimensionScenario.first, dimensionScenario.second);
 	//this->getScreen().createTarget(this->getScreen().getWidth(), this->getScreen().getHeight());
+	//this->getScreen().setTarget(1);
 
 	
 	

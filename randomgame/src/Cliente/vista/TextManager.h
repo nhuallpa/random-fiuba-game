@@ -31,8 +31,8 @@ public:
 
 	void init(SDL_Renderer * renderer);
 	void loadFont(Tfont font);
-	void wLetter(std::string idFont,int x, int y, char lett,Uint8 r,Uint8 g,Uint8 b);
-	void write(Tfont fuente,int x, int y, std::string w,SDL_Color color);
+	void wLetter(std::string idFont,int x, int y, char lett,SDL_Color color, bool zoom = false);
+	void write(Tfont fuente,int x, int y, std::string w,SDL_Color color, bool zoom = false);
 
 
 

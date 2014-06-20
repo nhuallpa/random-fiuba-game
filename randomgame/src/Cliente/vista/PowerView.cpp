@@ -40,13 +40,7 @@ void PowerView::draw(SDLScreen & screen){
 		rect.h = heightBarProgress - margin;
 
 
-
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-														rect.x, 
-														rect.y, 
-														rect.x + rect.w,
-														rect.y + rect.h, 
-														COLOR_AZUL);
+		TextureManager::Instance().drawFillRect(screen.getRenderer(), rect, 0,0,255, 255);
 
 		this->label.draw(screen.getRenderer(), getX() , getY());
 

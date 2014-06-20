@@ -17,6 +17,8 @@ WormView::WormView(int id)
 	this->widhtLifeCurrent = 25;
 	this->currentLife = 100;
 	this->enableScroll();
+	labelUsuario.enableZoom();
+	labelNombre.enableZoom();
 }
 
 void WormView::setUserLabel(std::string text)
@@ -173,7 +175,8 @@ void WormView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
 										this->gray, 
-										this->flip);
+										this->flip,
+										true);
 	
 	 
 	if (this->isSelected())
@@ -181,7 +184,7 @@ void WormView::draw(SDLScreen & screen)
 		//labelUsuario.draw(screen.getRenderer(),-TextureManager::Instance().getCamera().getX() + this->getXCenter(), -TextureManager::Instance().getCamera().getY() + this->getYCenter()-9);
 		labelNombre.draw(screen.getRenderer(),
 						 this->getXCenter(),
-						 this->getYCenter());
+						 this->getYCenter() - 15);
 	}
 
 	SDL_Rect rect;
@@ -189,14 +192,8 @@ void WormView::draw(SDLScreen & screen)
 	rect.y = this->getY()-22;
 	rect.w = this->widhtLifeCurrent;
 	rect.h = 5;
+	TextureManager::Instance().drawFillRect(screen.getRenderer(),rect,0, 255, 0, 255,true);
 
-	TextureManager::Instance().drawBox(screen.getRenderer(), 
-													rect.x, 
-													rect.y, 
-													rect.x + rect.w,
-													rect.y + rect.h, 
-													0xFF01DF3A);
-	
 }
 
 bool WormView::isSelected(){

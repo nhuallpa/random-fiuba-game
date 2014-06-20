@@ -4,6 +4,7 @@
 AirStrikeView::AirStrikeView(int id)
 	: ProjectileView(id)
 {
+	SoundManager::Instance().pAIRSTRIKE();
 }
 
 
@@ -19,8 +20,11 @@ void AirStrikeView::clean()
 	
 void AirStrikeView::update() 
 {
-	//this->currentSprite->update();
-	this->currentSprite->setCurrentRow(17);
+	if (this->detonated) {
+		this->currentSprite->update();
+	} else {
+		this->currentSprite->setCurrentRow(17);
+	}
 }
 
 void AirStrikeView::draw(SDLScreen & screen)
@@ -34,7 +38,7 @@ void AirStrikeView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
 										false, 
-										SDL_FLIP_NONE);
+										SDL_FLIP_NONE, true);
 }
 
 

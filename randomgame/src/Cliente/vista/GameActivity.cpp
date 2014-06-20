@@ -36,7 +36,6 @@ void GameActivity::buildView()
 	builder->buildCharacters();
 	builder->buildProjectileContainer();
 	
-//	builder->buildWater();
 	builder->buildStateBar();
 	builder->buildPower();
 	builder->buildTimer();
@@ -283,10 +282,15 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 	return aWormClicked;
 }
 
-
+// nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
 void GameActivity::OnClick(ClickEvent e){
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	
+	SDL_Point clickPointScreen;
+	clickPointScreen.x = e.x;
+	clickPointScreen.y = e.y;
+
+	SDL_Point clickPoint = TextureManager::Instance().convertPointScreen2SDL(e.x,e.y); 
+
 	WormView* aWorm = NULL;
 
 	if(wormIdSelected != -1 && !this->isAlive(wormIdSelected)){
@@ -295,7 +299,7 @@ void GameActivity::OnClick(ClickEvent e){
 
 	//Agrego para escuchar el clic del arma
 	if(aimView->isShootMouse()){
-		if(this->idWeapon != HMISSILE){
+		if(this->idWeapon != HMISSILE){	
 			int xMira= e.x;
 			int yMira= e.y;
 			std::pair<int, int> data = this->aimView->getData();
@@ -320,8 +324,7 @@ void GameActivity::OnClick(ClickEvent e){
 		return; //proceso y me voy
 	}
 
-	// nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
-	SDL_Point clickPoint = TextureManager::Instance().convertPointScreen2SDL(e.x,e.y);
+	
 
 	if (hasClickedWorm(clickPoint)) {
 		aWorm = retrieveWormClicked(clickPoint);
@@ -334,16 +337,16 @@ void GameActivity::OnClick(ClickEvent e){
 			}
 		}
 	}
-	else if (wormIdSelected != -1 && hasClickedMenu(clickPoint) && this->isThisClientOwner(wormIdSelected))
+	else if (wormIdSelected != -1 && hasClickedMenu(clickPointScreen) && this->isThisClientOwner(wormIdSelected))
 	{
-		if(hasClickedWeapon(clickPoint)){
+		if(hasClickedWeapon(clickPointScreen)){
 			WeaponId aux = this->idWeapon;
 			if(this->idWeapon != NO_WEAPON){
 				deselectPreviewsWeapon();
 				aimView->unAim();
 			}
 
-			Weapon* aWeapon = retrieveWeaponClicked(clickPoint);
+			Weapon* aWeapon = retrieveWeaponClicked(clickPointScreen);
 			this->idWeapon = aWeapon->getId();
 			aWeapon->selected();
 			aWorm = gameView->findWormById(wormIdSelected);
@@ -435,7 +438,8 @@ void GameActivity::setTimer(float timer){
 void GameActivity::setListeners(SDLScreen &  screen) 
 {
 	this->cController->addOnScrollListener(&TextureManager::Instance().getCamera());
-	this->cController->addOnZoomListener(&screen);
+	//this->cController->addOnZoomListener(&screen);
+	this->cController->addOnZoomListener(&TextureManager::Instance().getCamera());
 }
 
 
