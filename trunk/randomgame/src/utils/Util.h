@@ -92,7 +92,8 @@ typedef enum{
 	CREATE_MISSIL,
 	YOUR_TURN,
 	TURN_OVER,
-	EXPLOSION				/* X e Y tienen el radio de la explosion en este caso */
+	EXPLOSION,				/* X e Y tienen el radio de la explosion en este caso */
+	EXPLOSION_PARTIAL				/* X e Y tienen el radio de la explosion en este caso */
 } Movement;
 
 
