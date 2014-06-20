@@ -93,33 +93,34 @@ void WaterViewImg::drawbackground(SDLScreen & screen){
 }
 
 void WaterViewImg::loadWater(int Gap){
-	int positionX, positionY, lebel, width, height;
-	pair<int, int> dimension = TextureManager::Instance().getDimension("eart");
+	int positionX, positionX1,
+		positionY, positionX2,
+		lebel, 
+		width, width2,
+		height, height2;
+	pair<int, int> dimension;
 	
-	int scale = ESCALA_UL2PX;
-	lebel = (int)( Util::string2float(ParserYaml::getInstance()->getEscenarioAgua()) * scale);
-	//dimension.first;
+	dimension = TextureManager::Instance().getDimension("eart");
+	lebel = (int)(Util::string2float(ParserYaml::
+		getInstance()->getEscenarioAgua()) 
+							* ESCALA_UL2PX);
+	
 	positionX = 0;
-	positionY = dimension.second - lebel - Gap;// heightEart,
-	/*width = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP()));
-	height = (int)( Util::string2int(ParserYaml::getInstance()->getEscenarioAnchoP())) - dimension.second;*/
-	width = dimension.first; // ancho del escenario seria el del agua
-	height = lebel;	// alto del agua
+	positionY = dimension.second - lebel;
+	width = dimension.first;
+	height = lebel;
 
-	water.insert(pair<string,Shape>("marea_1_1", Shape(positionX, positionY, width, height + Gap)));
-	water.insert(pair<string,Shape>("marea_1_2", Shape(positionX, positionY, width, height + Gap)));
-	water.insert(pair<string,Shape>("marea_1_3", Shape(positionX, positionY, width, height + Gap)));
-	water.insert(pair<string,Shape>("marea_1_4", Shape(positionX, positionY, width, height + Gap)));
-	
-	
-	this->setY(dimension.second - lebel);
-	backgroundWater = pair<string,Shape>("FondoAgua", Shape(positionX, dimension.second - lebel, width, height));
-	/*
-	water.insert(pair<string,Shape>("marea_1_1", Shape(-10, height - lebel - Gap, width, 80)));
-	water.insert(pair<string,Shape>("marea_1_2", Shape(-10, height - lebel - Gap, width, 80)));
-	water.insert(pair<string,Shape>("marea_1_3", Shape(-10, height - lebel - Gap, width, 80)));
-	water.insert(pair<string,Shape>("marea_1_4", Shape(-10, height - lebel - Gap, width, 80)));
+	water.insert(pair<string,Shape>("marea_1_1", 
+		Shape(positionX, positionY - Gap, width, height + Gap)));
+	water.insert(pair<string,Shape>("marea_1_2", 
+		Shape(positionX, positionY - Gap, width, height + Gap)));
+	water.insert(pair<string,Shape>("marea_1_3", 
+		Shape(positionX, positionY - Gap, width, height + Gap)));
+	water.insert(pair<string,Shape>("marea_1_4", 
+		Shape(positionX, positionY - Gap, width, height + Gap)));
 
-	backgroundWater = pair<string,Shape>("FondoAgua", Shape(-10, height - lebel + 10, width, height));
-*/
+	this->setY(positionY);
+	backgroundWater = pair<string,Shape>("FondoAgua", 
+		Shape(positionX, positionY, width, height));
+
 }
