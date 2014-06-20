@@ -289,6 +289,10 @@ void GameActivity::OnClick(ClickEvent e){
 	
 	WormView* aWorm = NULL;
 
+	if(wormIdSelected != -1 && !this->isAlive(wormIdSelected)){
+		wormIdSelected = -1;
+	}
+
 	//Agrego para escuchar el clic del arma
 	if(aimView->isShootMouse()){
 		if(this->idWeapon != HMISSILE){
@@ -600,7 +604,8 @@ void GameActivity::OnMovement(MovementEvent e)
 		{
 			p.action = 	MOVE_STOP;
 		}
-		updater.addLocalMovementFromView(p);//Esta linea me pincha el server by ERIK
+		//if(this->isAlive(wormIdSelected))
+			updater.addLocalMovementFromView(p);//Esta linea me pincha el server by ERIK
 	}
 
 	
