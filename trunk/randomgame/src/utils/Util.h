@@ -81,6 +81,8 @@ typedef enum{
 	WITH_WEAPON_RIGHT,		/* Apuntando hacia la derecha. Nestor: lo resuelvo con move and id weapon. A deprecar */
 	DO_SHOOT,				/* Disparo */
 	MISSIL_FLYING,
+	MISSIL_FLYING_LEFT,
+	MISSIL_FLYING_RIGHT,
 	NOT_CONNECTED,
 	NOT_CONNECTED_LEFT,
 	NOT_CONNECTED_RIGHT,

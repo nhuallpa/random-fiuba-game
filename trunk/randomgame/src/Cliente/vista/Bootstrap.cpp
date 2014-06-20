@@ -24,7 +24,7 @@ void Bootstrap::init()
 	FontManager::Instance().init(this->getScreen().getRenderer());
 	TextureManager::Instance().init(w,h);
 	TextManager::Instance().init(this->getScreen().getRenderer());
-	loadWait();
+	loadImg();
 
 	// despues de que el server dija comienze el juego
 	loadConfigGame();
@@ -68,14 +68,14 @@ void Bootstrap::initCamera(int w, int h)
 	cam.setHeightScenario(dimensionScenario.second);
 }
 
-void Bootstrap::loadWait()
+void Bootstrap::loadImg()
 {
 	try 
 		{
 			TextureManager::Instance().load("res/images/watting.jpg", "waitting", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/weapon/donkey.png", "donkey", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/FondoMensaje.png", "fondo_msg", this->getScreen().getRenderer());
-			TextureManager::Instance().load("res/images/poder.png", "poder", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/reloj.png", "reloj", this->getScreen().getRenderer());
 		} 
 		catch (GameException & e) 
 		{
@@ -103,6 +103,7 @@ void Bootstrap::loadSprites()
 
 	try 
 		{
+			// worm
 			TextureManager::Instance().load("res/images/wwalk.png", "caminar", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wdie.png", "morir", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wbazbak.png", "bazooka", this->getScreen().getRenderer());
@@ -111,6 +112,8 @@ void Bootstrap::loadSprites()
 			TextureManager::Instance().load("res/images/whgrbak.png", "holy", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wairbak.png", "radio", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wflyup.png", "salto", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wshpbak.png", "oveja", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wbanbak.png", "banana", this->getScreen().getRenderer());
 
 
 			SpriteConfigurator::Instance().add("caminar", 60, 60, 15, true);
@@ -121,6 +124,8 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("radio", 60, 60, 10, true);
 			SpriteConfigurator::Instance().add("salto", 60, 60, 2, true);
 			SpriteConfigurator::Instance().add("morir", 60, 60, 60, false);
+			SpriteConfigurator::Instance().add("oveja", 60, 60, 10, false);
+			SpriteConfigurator::Instance().add("banana", 60, 60, 10, false);
 
 			// projectiles
 
@@ -137,13 +142,12 @@ void Bootstrap::loadSprites()
 
 			SpriteConfigurator::Instance().add("bullet_default", 60, 60, 6, true);
 			SpriteConfigurator::Instance().add("bullet_airmisl", 60, 60, 32, true);
-			//SpriteConfigurator::Instance().add("donkey", 60, 60, 32, true);  no es sprites
 			SpriteConfigurator::Instance().add("bullet_dinamita", 60, 60, 129, true);
 			SpriteConfigurator::Instance().add("bullet_holy", 60, 60, 32, true);
 			SpriteConfigurator::Instance().add("bullet_granada", 60, 60, 32, true);
 			SpriteConfigurator::Instance().add("bullet_bazooka", 60, 60, 32, true);
 			SpriteConfigurator::Instance().add("bullet_banana", 60, 60, 32, true);
-			SpriteConfigurator::Instance().add("bullet_sheep", 60, 60, 32, true);
+			SpriteConfigurator::Instance().add("bullet_sheep", 60, 60, 8, true);
 
 
 

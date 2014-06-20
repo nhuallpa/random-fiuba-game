@@ -15,6 +15,8 @@ class ProjectileView: public View
 protected:
 
 	int id;
+
+	SDL_RendererFlip flip;
 	
 	Sprite* currentSprite;
 
@@ -26,6 +28,7 @@ protected:
 
 	bool detonated;
 
+	tDirection direction;
 	
 	int currentLife;
 
@@ -65,6 +68,11 @@ public:
 
 	~ProjectileView(void);
 
+	void turnRight() {this->direction = D_RIGHT;}
+	void turnLeft() {this->direction = D_LEFT;}
+
+	void calcRemainTime(int domainLife);
 };
+
 
 #endif /** __PROJECTILE_VIEW_H__ **/

@@ -134,6 +134,14 @@ void WormView::update()
 		{
 			currentSprite = &this->sprites["bazooka"];
 		}
+		if (this->weaponId == BANANA && currentSprite != &this->sprites["banana"]) 
+		{
+			currentSprite = &this->sprites["banana"];
+		}
+		if (this->weaponId == SHEEP && currentSprite != &this->sprites["sheep"]) 
+		{
+			currentSprite = &this->sprites["oveja"];
+		}
 		if (this->weaponId == HOLY && currentSprite != &this->sprites["holy"]) 
 		{
 			currentSprite = &this->sprites["holy"];

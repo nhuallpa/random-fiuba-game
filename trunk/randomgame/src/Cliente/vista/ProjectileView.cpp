@@ -2,7 +2,7 @@
 
 
 ProjectileView::ProjectileView(int id)
-	: View(0, 0), id(id), detonated(false)
+	: View(0, 0), id(id), detonated(false), flip(SDL_FLIP_NONE)
 {
 	currentSprite = &this->spriteBullet;
 	this->widhtLife100 = 25;
@@ -31,11 +31,19 @@ void ProjectileView::update(GameElement* domainElement)
 	this->setY(pointSDL.y);
 	if (domainElement->action == EXPLOSION && !this->detonated) {
 		this->detonate();
+	} else if (domainElement->action == MISSIL_FLYING_RIGHT) {
+		this->flip = SDL_FLIP_NONE;
+	} else if (domainElement->action == MISSIL_FLYING_LEFT) {
+		this->flip = SDL_FLIP_HORIZONTAL;
 	}
 
-	if (domainElement->getLife() < this->currentLife) {
+	this->calcRemainTime(domainElement->getLife());
+}
 
-		float lifePorcentaje = (float)(domainElement->getLife() * 100) / (float)(this->getLifeInitial());
+void ProjectileView::calcRemainTime(int domainLife){
+	if (domainLife < this->currentLife) {
+
+		float lifePorcentaje = (float)(domainLife * 100) / (float)(this->getLifeInitial());
 
 		this->widhtLifeCurrent = (int)((lifePorcentaje * (float)this->widhtLife100) / 100.0f);
 		if (this->widhtLifeCurrent > this->widhtLife100) {
@@ -44,7 +52,7 @@ void ProjectileView::update(GameElement* domainElement)
 		if (this->widhtLifeCurrent <= 0) {
 			this->widhtLifeCurrent = 1;
 		}
-		this->currentLife = domainElement->getLife();
+		this->currentLife = domainLife;
 	}
 }
 	

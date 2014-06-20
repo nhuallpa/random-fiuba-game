@@ -38,7 +38,8 @@ void AirStrikeView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
 										false, 
-										SDL_FLIP_NONE, true);
+										this->flip, 
+										true);
 }
 
 

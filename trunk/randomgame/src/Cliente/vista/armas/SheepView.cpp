@@ -34,7 +34,8 @@ void SheepView::draw(SDLScreen & screen)
 										currentSprite->getCurrentFrame(), 
 										screen.getRenderer(),
 										false, 
-										SDL_FLIP_NONE);
+										this->flip,
+										true);
 
 	if (!this->detonated) {
 		SDL_Rect rect;

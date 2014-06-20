@@ -36,7 +36,7 @@ public:
 	/**Load sprites*/
 	void loadSprites();
 
-	void loadWait();
+	void loadImg();
 
 	void initCamera(int w, int h);
 
