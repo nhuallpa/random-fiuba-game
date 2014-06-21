@@ -65,7 +65,7 @@ void TextManager::wLetter(std::string idFont,int x, int y, char lett,SDL_Color c
 	origen.h = font.altoLetra;
 	if (zoom) 
 	{
-		Log::i("Zoom de Letras");
+		//Log::i("Zoom de Letras");
 		destino.x = x * TextureManager::Instance().getCamera().getScale();
 		destino.y = y * TextureManager::Instance().getCamera().getScale();
 		destino.w = origen.w * TextureManager::Instance().getCamera().getScale();

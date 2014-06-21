@@ -312,3 +312,7 @@ tDirection WormView::getDirection()
 bool WormView::isDead() {
 	return (!this->alive && currentSprite->isLastFrame());
 }
+
+bool WormView::isAlive(){
+	return this->alive;
+}

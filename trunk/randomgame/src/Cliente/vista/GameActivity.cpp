@@ -23,6 +23,7 @@ GameActivity::GameActivity(SDLScreen & screen,
 	this->isRightAim = false;
 	this->isLeftAim = false;
 	this->iniHmissile();
+	this->auxCallLog = CALL_NULL;
 	
 }
 
@@ -611,7 +612,8 @@ void GameActivity::OnMovement(MovementEvent e)
 			p.action = 	MOVE_STOP;
 		}
 		//if(this->isAlive(wormIdSelected))
-			updater.addLocalMovementFromView(p);//Esta linea me pincha el server by ERIK
+		//	updater.addLocalMovementFromView(p);//Esta linea me pincha el server by ERIK
+		this->ActionResult(CALL_MOVE, &p, NULL);
 	}
 
 	
@@ -620,6 +622,7 @@ void GameActivity::OnMovement(MovementEvent e)
 
 void GameActivity::OnAction(ActionEvent e){
 	//Log::i("ASD: %d", (int)e.action);
+	ActionWorm actionWorm;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	switch(e.action){
 		case MENU: 
@@ -674,8 +677,16 @@ void GameActivity::OnAction(ActionEvent e){
 							xMira = 1;
 						}
 					}
-					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
-					updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+					//updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
+					//updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+					actionWorm.x = xMira;
+					actionWorm.y = yMira;
+					//actionWorm.angle = ???;
+					actionWorm.factor = factor;
+
+					this->ActionResult(CALL_SHOOT, NULL, &actionWorm);
+					this->ActionResult(CALL_UNWEAPON, NULL, NULL);
+					
 					deselectPreviewsWeapon();
 					afterShoot = true;
 
@@ -706,4 +717,55 @@ bool GameActivity::isObjetive(){
 void GameActivity::iniHmissile(){
 	this->xHmissile =
 	this->yHmissile = -1;
+}
+
+
+
+void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
+	if(validateWormBeforeCall()){
+		//Se loguea las acciones del worm contra el server
+		this->ActionResultLog(call, p, aw);
+		switch(call){
+		case CALL_MOVE:
+			updater.addLocalMovementFromView(*p);
+			break;
+		case CALL_SHOOT:
+			updater.doShoot(this->wormIdSelected, this->idWeapon, aw->x, aw->y, aw->factor);
+			break;
+		case CALL_UNWEAPON:
+			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+			break;
+		}
+	}
+	else{
+		
+	}
+
+}
+
+bool GameActivity::validateWormBeforeCall(){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	WormView * aWormView = gameView->findWormById(this->wormIdSelected);
+	return aWormView->isAlive();
+}
+
+
+void GameActivity::ActionResultLog(CallClient call, Playable* p, ActionWorm *aw){
+	char *msj = NULL;
+	switch(call){
+		case CALL_MOVE:
+			msj = "MOVER";
+			break;
+		case CALL_SHOOT:
+			msj = "DISPARAR";
+			break;
+		case CALL_UNWEAPON:
+			msj = "QUTAR SU ARMA";
+			break;
+		}
+	if(this->auxCallLog != call){
+		this->auxCallLog = call;
+		Log::i(GAME_ACTIVITY,"El worm con id=%2d ejecutar la accion de %s sobre el servidor",
+			this->wormIdSelected, msj);
+	}
 }

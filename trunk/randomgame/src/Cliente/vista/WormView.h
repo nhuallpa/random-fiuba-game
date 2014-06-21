@@ -86,6 +86,7 @@ public:
 	void deselect();
 
 	bool isDead();
+	bool isAlive();
 
 	bool isGrey();
 	void putGrey();

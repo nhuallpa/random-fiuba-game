@@ -17,6 +17,14 @@
 #include "AimView.h"
 
 
+enum CallClient {CALL_NULL,CALL_MOVE, CALL_SHOOT, CALL_UNWEAPON};
+typedef struct {
+	int x;
+	int y;
+	int angle;
+	int factor;
+} ActionWorm;
+
 class GameActivity : public Activity, 
 					 public OnClickListener, 
 					 public OnMovementListener,
@@ -37,6 +45,8 @@ private:
 	bool isMyTurn,
 		 isRightAim,
 		 isLeftAim;
+
+	CallClient auxCallLog;
 	
 	int xHmissile, yHmissile;
 
@@ -119,7 +129,11 @@ public:
 
 	void beginMyTurn();
 
-	
+	void ActionResult(CallClient call, Playable* p, ActionWorm *aw);
+
+	bool validateWormBeforeCall();
+
+	void ActionResultLog(CallClient call, Playable* p, ActionWorm *aw);
 
 	~GameActivity(void);
 };
