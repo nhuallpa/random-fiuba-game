@@ -345,7 +345,7 @@ void GameActivity::OnClick(ClickEvent e){
 
 	
 
-	if (hasClickedWorm(clickPoint)) {
+	if (!hasClickedMenu(clickPointScreen) && hasClickedWorm(clickPoint)) {
 		aWorm = retrieveWormClicked(clickPoint);
 		if (!aWorm->isSelected()) {
 			deselectPreviewsWorm();
