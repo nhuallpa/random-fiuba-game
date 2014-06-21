@@ -17,12 +17,19 @@
 #include "AimView.h"
 
 
-enum CallClient {CALL_NULL,CALL_MOVE, CALL_SHOOT, CALL_UNWEAPON};
+enum CallClient {CALL_NULL,
+	             CALL_MOVE, 
+				 CALL_SHOOT, 
+				 CALL_UNWEAPON,
+				 CALL_WEAPON,
+				 CALL_STOPWORM};
 typedef struct {
+	int id;
 	int x;
 	int y;
 	int angle;
 	int factor;
+	tDirection dim;
 } ActionWorm;
 
 class GameActivity : public Activity, 
