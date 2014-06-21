@@ -123,6 +123,7 @@ class Cliente { //: public OnMovementListener{
 	public:
 
 		bool deleted;
+		bool rebooted;
 
 		void processExplosions(float x, float y, int radio);
 

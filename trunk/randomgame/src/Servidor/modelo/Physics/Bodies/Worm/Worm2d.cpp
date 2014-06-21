@@ -116,7 +116,7 @@ void Worm2d::makeTumb(){
 
 		b2Filter filter = f->GetFilterData();
 		filter.categoryBits = TUMB_CAT;
-		filter.maskBits = 0x0;
+		filter.maskBits = TERRAIN_CAT;
 		f->SetFilterData(filter);
 	}
 
