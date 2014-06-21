@@ -23,6 +23,7 @@ void moveRight();
 void animate();
 void animate(bool update);
 virtual ~Worm2d();
+void makeTumb();
 
 
 

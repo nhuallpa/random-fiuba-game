@@ -14,6 +14,11 @@ Over* Over::getInstance(){
 	return over;
 }
 
+void Over::removeAll(){
+	objects.clear();
+
+}
+
 void Over::add(OnScrollListener * obj){
 	if(!isRegistered(obj)){
 		objects.push_back(obj);

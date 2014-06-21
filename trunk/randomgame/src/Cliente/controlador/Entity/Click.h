@@ -15,6 +15,7 @@ class Click : public Notifiable{
 		void remuve(OnClickListener * obj);
 		void notify();
 		void setEvent(int x, int y);
+		void removeAll();
 
 	private:
 		Click(void);

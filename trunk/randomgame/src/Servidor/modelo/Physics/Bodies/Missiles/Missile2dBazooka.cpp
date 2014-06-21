@@ -17,7 +17,8 @@ Missile2dBazooka::Missile2dBazooka(ElementType type, float posX, float posY, flo
 	myBodyDef.type = b2_dynamicBody;
 
 	b2FixtureDef myFixtureDef;
-   
+   	myFixtureDef.filter.categoryBits = MISSIL_CAT;
+	myFixtureDef.filter.maskBits = WORM_CAT | WATER_CAT | TERRAIN_CAT;
 	b2CircleShape circleShape;
 	circleShape.m_radius = BULLET_RADIUS;
 	circleShape.m_p.Set(0,0);

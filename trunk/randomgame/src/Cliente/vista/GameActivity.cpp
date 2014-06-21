@@ -85,7 +85,9 @@ void GameActivity::update()
 						
 				}
 				if (aWorm->isDead()) {
-					this->futureFreeWorm.push_back(aWorm->getId());
+					//this->futureFreeWorm.push_back(aWorm->getId());
+					//Cambiar Sprite a tumba
+
 				} else {
 					aWorm->update(&domainElement);
 				}

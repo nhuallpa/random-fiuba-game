@@ -15,6 +15,11 @@ Zoom* Zoom::getInstance(){
 	return zoom;
 }
 
+void Zoom::removeAll(){
+	objects.clear();
+
+}
+
 void Zoom::add(OnZoomListener* obj){
 	if(!isRegistered(obj)){
 		objects.push_back(obj);

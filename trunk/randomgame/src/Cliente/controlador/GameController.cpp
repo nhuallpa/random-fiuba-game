@@ -19,6 +19,25 @@ bool GameController::isQuit(){
 
 void GameController::destroy(){
 	rg->destroy();
+	
+	Click* ck = Click::getInstance();
+	ck->removeAll();
+	
+	Move* mv = Move::getInstance();
+	mv->removeAll();
+
+	Over* o = Over::getInstance();
+	o->removeAll();
+
+	Zoom* zm = Zoom::getInstance();
+	zm->removeAll();
+
+	Action* at = Action::getInstance();
+	at->removeAll();
+
+	Change* ch = Change::getInstance();
+	ch->removeAll();
+
 }
 
 void GameController::addListener(OnClickListener* c){
@@ -28,6 +47,7 @@ void GameController::addListener(OnClickListener* c){
 void GameController::addListener(OnMovementListener* m){
 	Move* mv = Move::getInstance();
 	mv->add(m);
+	
 }
 void GameController::addOnScrollListener(OnScrollListener* s){
 	Over* o = Over::getInstance();

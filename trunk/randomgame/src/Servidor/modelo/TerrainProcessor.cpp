@@ -72,7 +72,8 @@ TerrainProcessor::TerrainProcessor(b2World* m_world, char* path,float epsilon, i
 			myBodyDef.type = b2_staticBody; //this will be a static body
 			myBodyDef.position.Set(0, 0); //in the middle
 			myFixtureDef.friction=0.999;
-			
+			myFixtureDef.filter.categoryBits = TERRAIN_CAT;
+			myFixtureDef.filter.maskBits = WORM_CAT | MISSIL_CAT | TERRAIN_CAT;
 			myFixtureDef.userData = ( (void*) UD_TERRAIN );
 			m_attachment = m_world->CreateBody(&myBodyDef);
 

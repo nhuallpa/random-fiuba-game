@@ -43,6 +43,8 @@ Worm2d::Worm2d(ElementType type, float posX, float posY, float h,
     //fixture definition
     b2FixtureDef myFixtureDef;
    
+	myFixtureDef.filter.categoryBits = WORM_CAT;
+    myFixtureDef.filter.maskBits = WORM_CAT | MISSIL_CAT | TERRAIN_CAT | WATER_CAT;
 	b2CircleShape circleShape;
 	circleShape.m_radius = 1;
 	circleShape.m_p.Set(0,0);
@@ -107,7 +109,19 @@ void Worm2d::moveRight()
 	aWormActions->moveRight();
 }
 
+void Worm2d::makeTumb(){
 
+
+	for (b2Fixture* f = this->body->GetFixtureList(); f; f = f->GetNext()){
+
+		b2Filter filter = f->GetFilterData();
+		filter.categoryBits = TUMB_CAT;
+		filter.maskBits = 0x0;
+		f->SetFilterData(filter);
+	}
+
+
+}
 
 void Worm2d::animate(){
 

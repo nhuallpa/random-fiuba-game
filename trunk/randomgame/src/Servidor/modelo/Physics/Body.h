@@ -24,6 +24,15 @@
 class b2Body;
 class b2Vec2;
 class b2World;
+
+ enum _entityCategory {
+    WORM_CAT =          0x0001,
+    TUMB_CAT =     0x0002,
+    TERRAIN_CAT =        0x0004,
+    MISSIL_CAT = 0x0008,
+    WATER_CAT =    0x0010,
+  };
+
 class Body {
 public:
 	Body();

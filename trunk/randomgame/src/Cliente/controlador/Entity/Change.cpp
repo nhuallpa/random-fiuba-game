@@ -12,6 +12,11 @@ Change::Change(void){
 	aimEnter = false;
 }
 
+void Change::removeAll(){
+	objects.clear();
+
+}
+
 Change::~Change(void){}
 
 Change* Change::getInstance(){

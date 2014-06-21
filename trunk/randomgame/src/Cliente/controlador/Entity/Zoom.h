@@ -15,6 +15,7 @@ class Zoom : public Notifiable{
 		void remuve(OnZoomListener* obj);
 		void notify();
 		void setEvent(int y);
+		void removeAll();
 
 	private:
 		Zoom(void);
