@@ -159,12 +159,15 @@ void GameActivity::iniState(){
 
 void GameActivity::deselectPreviewsWorm()
 {
+	ActionWorm aw;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	if (this->wormIdSelected > 0) {
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
 
 		aWorm->deselect();
-		updater.doStopWorm(aWorm->getId());
+		//updater.doStopWorm(aWorm->getId());
+		aw.id = aWorm->getId();
+		this->ActionResult(CALL_STOPWORM, NULL, &aw);
 		this->cController->remuveListener(aWorm);
 
 		this->wormIdSelected = -1;
@@ -176,9 +179,12 @@ void GameActivity::deselectPreviewsWorm()
 
 void GameActivity::stop()
 {
+	ActionWorm aw;
 	if (this->wormIdSelected > 0) 
 	{
-		updater.doStopWorm(this->wormIdSelected);
+		//updater.doStopWorm(this->wormIdSelected);
+		aw.id = this->wormIdSelected;
+		this->ActionResult(CALL_STOPWORM, NULL, &aw);
 		this->wormIdSelected = -1;
 	}
 }
@@ -287,6 +293,7 @@ WormView* GameActivity::retrieveWormClicked(SDL_Point clickPoint)
 
 // nota: e.x e.y son posiciones de click en la pantalla sin importar el zoom ó scroll
 void GameActivity::OnClick(ClickEvent e){
+	ActionWorm aw;
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	SDL_Point clickPointScreen;
 	clickPointScreen.x = e.x;
@@ -310,8 +317,13 @@ void GameActivity::OnClick(ClickEvent e){
 			SDL_Point sdlCoordinate = TextureManager::Instance().convertPointScreen2SDL(xMira, yMira);
 			tPointf domainCoordinate = TextureManager::Instance().convertPointPXSDL2UL(sdlCoordinate.x + TextureManager::Instance().getCamera().getX(), 
 																					   sdlCoordinate.y + TextureManager::Instance().getCamera().getY());
-			updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
-			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+			//updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
+			//updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+			/*aw.x = domainCoordinate.x;
+			aw.y = domainCoordinate.y;
+			aw.factor = 0;
+			this->ActionResult(CALL_SHOOT, NULL, &aw);
+			this->ActionResult(CALL_UNWEAPON, NULL, NULL);*/
 			aimView->unAim();
 			afterShoot = true;
 			this->iniHmissile();
@@ -354,7 +366,9 @@ void GameActivity::OnClick(ClickEvent e){
 			aWeapon->selected();
 			aWorm = gameView->findWormById(wormIdSelected);
 			aWorm->selectWeapon(this->idWeapon);
-			updater.doSelectWapon(wormIdSelected, this->idWeapon, aWorm->getDirection());
+			//updater.doSelectWapon(wormIdSelected, this->idWeapon, aWorm->getDirection());
+			aw.dim = aWorm->getDirection();
+			this->ActionResult(CALL_WEAPON, NULL, &aw);
 
 			//logica de la mira
 			aimView->setWorm(aWorm, aWeapon);
@@ -364,7 +378,8 @@ void GameActivity::OnClick(ClickEvent e){
 			if(aux == this->idWeapon ){
 				deselectPreviewsWeapon();
 				aWorm->unselectWeapon();
-				updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+				//updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+				this->ActionResult(CALL_UNWEAPON, NULL, NULL);
 				aimView->unAim();
 			}
 		}
@@ -636,12 +651,12 @@ void GameActivity::OnAction(ActionEvent e){
 					if(this->idWeapon == HMISSILE){
 					//TODO: @Ari terminalo
 						if(this->isObjetive()){
-							updater.doShoot(this->wormIdSelected, 
+							/*updater.doShoot(this->wormIdSelected, 
 								HMISSILE, 
 								this->xHmissile, 
 								this->yHmissile, 
 								e.factor);
-							updater.doUnselectWapon(wormIdSelected, HMISSILE);
+							updater.doUnselectWapon(wormIdSelected, HMISSILE);*/
 							deselectPreviewsWeapon();
 							afterShoot = true;
 							this->aimView->unAim();
@@ -735,6 +750,12 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 		case CALL_UNWEAPON:
 			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
 			break;
+		case CALL_WEAPON:
+			updater.doSelectWapon(wormIdSelected, this->idWeapon, aw->dim);
+			break;
+		case CALL_STOPWORM:
+			updater.doStopWorm(aw->id);
+			break;
 		}
 	}
 	else{
@@ -761,6 +782,9 @@ void GameActivity::ActionResultLog(CallClient call, Playable* p, ActionWorm *aw)
 			break;
 		case CALL_UNWEAPON:
 			msj = "QUTAR SU ARMA";
+			break;
+		case CALL_WEAPON:
+			msj = "EQUIPAR SU ARMA";
 			break;
 		}
 	if(this->auxCallLog != call){
