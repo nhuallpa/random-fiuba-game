@@ -8,6 +8,11 @@ Action::Action(void){
 	last = a = NONE;
 }
 
+void Action::removeAll(){
+	objects.clear();
+
+}
+
 Action::~Action(void){}
 
 Action* Action::getInstance(){

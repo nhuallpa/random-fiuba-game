@@ -24,6 +24,7 @@ class Change : public Notifiable{
 		bool isStateBar();
 		bool isCoordenate();
 		bool isAimEnter();
+		void removeAll();
 
 	private:
 		Change(void);

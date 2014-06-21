@@ -10,6 +10,13 @@ Move::Move(void){
 
 Move::~Move(void){}
 
+
+void Move::removeAll(){
+	objects.clear();
+
+}
+
+
 Move* Move::getInstance(){
 	if(!move){
 		move = new Move();

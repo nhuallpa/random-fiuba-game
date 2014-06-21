@@ -15,6 +15,7 @@ class Over : public Notifiable{
 		void remuve(OnScrollListener * obj);
 		void notify();
 		void setEvent(int x, int y);
+		void removeAll();
 
 	private:
 		Over(void);

@@ -367,7 +367,8 @@ int GameEngine::step(){
 		if ( iterator->second->type == WORM ){
 			if ( !static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->isAlive() ){
 				//Viene muerto del ciclo anterior, lo elimino
-				bodiesToDelete.push_back( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
+				static_cast<Worm2d*>(iterator->second)->makeTumb();
+				//bodiesToDelete.push_back( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
 			}else{
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 				aBody->animate();
@@ -581,14 +582,19 @@ int GameEngine::step(){
 					retval = 1;
 					bodiesToDelete.push_back( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
 				}else{
-			
-					/* Velocidad que toma al caer */
-					////printf("\nWorm al agua");
-					b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
-					it->second->GetBody()->SetLinearVelocity(vel);
-					static_cast<Worm*>(it->second->GetBody()->GetUserData())->setLife(0);
-					static_cast<Worm*>(it->second->GetBody()->GetUserData())->drowned = true;
-					it->second->GetBody()->SetActive(false);
+					if ( !static_cast<GameElement*>(it->second->GetBody()->GetUserData())->drowned){
+						/* Velocidad que toma al caer */
+						printf("\nWorm al agua");
+						b2Vec2 vel=b2Vec2(0,WATER_VELOCITY);
+						it->second->GetBody()->SetLinearVelocity(vel);
+						static_cast<Worm*>(it->second->GetBody()->GetUserData())->setLife(0);
+						static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAlive(true);
+						static_cast<Worm*>(it->second->GetBody()->GetUserData())->drowned = true;
+						//Mandar DEAD o DROWNED
+						//Convertir en TUMBA
+
+
+					}
 				}
 			}
 
@@ -679,7 +685,7 @@ bool GameEngine::intersectionWithWater(b2Fixture* fixture){
 		//Log::t("Circle");
 		b2CircleShape* circ = (b2CircleShape*)fixture->GetShape();
 		
-		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y + circ->m_radius) <= this->gameLevel->getWaterLevel() )
+		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y + circ->m_radius*2) <= this->gameLevel->getWaterLevel() )
 			return true;
 	}
 

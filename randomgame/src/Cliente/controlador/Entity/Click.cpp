@@ -14,6 +14,13 @@ Click* Click::getInstance(){
 	return click;
 }
 
+
+void Click::removeAll(){
+	objects.clear();
+
+}
+
+
 void Click::add(OnClickListener * obj){
 	if(!isRegistered(obj)){
 		objects.push_back(obj);

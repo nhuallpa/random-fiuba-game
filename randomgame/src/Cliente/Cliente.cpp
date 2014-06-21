@@ -184,7 +184,7 @@ void Cliente::loop(void){
 	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
 	
-	while (!this->cController.isQuit()){		
+	while (!this->cController.isQuit() ){		
 		cController.handlerEvent();
 		currentActivity->update();
 		currentActivity->render();
@@ -200,15 +200,35 @@ void Cliente::loop(void){
 		}
 
 		SDL_framerateDelay(&fpsManager);
-	}
-	currentActivity->stop();
-	cController.destroy();
-	
-	this->disconnectClient();
-	delete this->gameActivity;
-	delete this->waitActivity;
 
-	bootstrap.shoutDown();
+		if ( this->deleted ) {
+			currentActivity->stop();
+			cController.destroy();
+	
+			delete this->gameActivity;
+			delete this->waitActivity;
+
+			//bootstrap.shoutDown();
+			this->resetModel();
+			
+			this->waitActivity = new WaitActivity(bootstrap.getScreen());	
+			this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);
+			this->begin();
+			this->deleted = false;
+		}
+
+	}
+
+
+		currentActivity->stop();
+		cController.destroy();
+	
+		this->disconnectClient();
+		delete this->gameActivity;
+		delete this->waitActivity;
+
+		bootstrap.shoutDown();
+
 }
 
 
@@ -507,7 +527,7 @@ int Cliente::netListener(void* data){
 			closesocket( cli->input.getFD() );
 			closesocket( cli->output.getFD() );
 			Sleep(5);
-			cli->reinitGame();
+			//cli->reinitGame();
 			return 0;
 			break;
 
@@ -521,14 +541,14 @@ int Cliente::netListener(void* data){
 void Cliente::reinitGame(){
 
 	currentActivity->stop();
-	//cController.destroy();
+	cController.destroy();
 	
 	delete this->gameActivity;
 	delete this->waitActivity;
 
 	//bootstrap.shoutDown();
 	this->resetModel();
-	this->run();
+	//this->run();
 
 
 

@@ -17,6 +17,7 @@ class Move : public Notifiable{
 		void notify();
 		int x, y;
 		bool newEvent();
+		void removeAll();
 
 	private:
 		Move(void);

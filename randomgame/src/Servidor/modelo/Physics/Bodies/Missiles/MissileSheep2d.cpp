@@ -19,7 +19,8 @@ MissileSheep2d::MissileSheep2d(ElementType type, float posX, float posY, float a
 	myBodyDef.type = b2_dynamicBody;
 
 	b2FixtureDef myFixtureDef;
-   
+   	myFixtureDef.filter.categoryBits = MISSIL_CAT;
+	myFixtureDef.filter.maskBits = WORM_CAT | WATER_CAT | TERRAIN_CAT;
 	b2CircleShape circleShape;
 	circleShape.m_radius = 2;
 	circleShape.m_p.Set(0,0);

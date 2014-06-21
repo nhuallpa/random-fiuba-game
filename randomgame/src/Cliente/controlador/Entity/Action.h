@@ -19,6 +19,7 @@ class Action : public Notifiable{
 		void setFactor(int factor);
 		void setLastEvent(ActionKey a);
 		bool newEvent();
+		void removeAll();
 
 	private:
 		Action(void);

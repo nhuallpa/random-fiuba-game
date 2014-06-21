@@ -7,6 +7,7 @@
 #include "HandleContour.h"
 #include "../../libs/Box2D/Box2D.h"
 #include"../../utils/ParserYaml.h"
+#include "Physics\Body.h"
 
 #include <cstdio>
 #include <iostream>
