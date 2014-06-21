@@ -30,10 +30,12 @@ void Activity::clear()
 {
 	this->m_screen.clear();
 }
+
 void Activity::stop()
 {
 	
 }
+
 void Activity::setContentView(ViewGroup * newView)
 {
 	this->aView = newView;

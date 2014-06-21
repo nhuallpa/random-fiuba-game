@@ -18,7 +18,7 @@ bool GameController::isQuit(){
 
 
 void GameController::destroy(){
-	rg->destroy();
+	//rg->destroy();
 	
 	Click* ck = Click::getInstance();
 	ck->removeAll();

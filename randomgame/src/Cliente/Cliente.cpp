@@ -21,7 +21,7 @@ Cliente::Cliente(std::string playerID, std::string ip, int port)
 {
 	this->loginOk = false;
 	this->advance = SDL_CreateSemaphore( 1 );
-	deleted = false;
+	this->deleted = false;
 	this->gameReady = false;
 	this->gameOver = false;
 		
@@ -34,18 +34,29 @@ Cliente::~Cliente(void){
 
 void Cliente::run(){
 	
-	if ( !this->deleted ){
-		bootstrap.init();
-	}
-	this->deleted = false;
-	Log::i("Bootstrap finalizado");
-	this->waitActivity = new WaitActivity(bootstrap.getScreen());	
-	this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
 
-	if (!this->begin()){
-		Log::e("Error al iniciar el juego el cliente");
+	bootstrap.init();
+
+	while( !this->deleted ){
+
+
+		this->rebooted = false;
+		Log::i("Bootstrap iniciado");
+		this->waitActivity = new WaitActivity(bootstrap.getScreen());	
+		this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);	
+
+
+		if (!this->begin()){
+			Log::e("Error al iniciar el juego el cliente");
+		}
+		this->loop();
+		this->resetModel();
+		Log::i("Game rebooted or ended");
+		Sleep(10);
 	}
-	this->loop();
+
+	bootstrap.shoutDown();
+	Log::i("Bootstrap finalizado");
 }
 
 /************************ Start Network Client Side code *************************/
@@ -73,12 +84,12 @@ bool Cliente::openConnection() {
 
 bool Cliente::begin(){
 
-	if ( !this->deleted ){
+
 		if (!this->openConnection())
 		{
 			return false;
 		}
-	}
+
 
 	this->data.cli = this;
 	strcpy(this->data.p,this->pl.c_str());
@@ -171,8 +182,6 @@ void Cliente::getRemoteWorld() {
 void Cliente::loop(void){
 	Log::i("============== INICIANDO CLIENTE =============");		
 
-	bool quit = false;
-	this->deleted = false;
 
 	this->currentActivity = this->waitActivity;
 	this->runGame();
@@ -184,7 +193,7 @@ void Cliente::loop(void){
 	fpsManager.rate = 30;
 	SDL_initFramerate(&fpsManager);
 	
-	while (!this->cController.isQuit() ){		
+	while (!this->cController.isQuit() && !this->rebooted ){		
 		cController.handlerEvent();
 		currentActivity->update();
 		currentActivity->render();
@@ -201,33 +210,22 @@ void Cliente::loop(void){
 
 		SDL_framerateDelay(&fpsManager);
 
-		if ( this->deleted ) {
-			currentActivity->stop();
-			cController.destroy();
-	
-			delete this->gameActivity;
-			delete this->waitActivity;
-
-			//bootstrap.shoutDown();
-			this->resetModel();
-			
-			this->waitActivity = new WaitActivity(bootstrap.getScreen());	
-			this->gameActivity = new GameActivity(bootstrap.getScreen(), &this->domain, &this->cController, this->pl, this->updater);
-			this->begin();
-			this->deleted = false;
-		}
-
 	}
+	Log::i("Ending While LOOP");
+	if ( this->cController.isQuit() ){
+		Log::i("Ending cONTROLLER");
+		this->deleted = true;
+	}
+	currentActivity->stop();
+	Log::i("aCTIVITY sTOPPED");
+	cController.destroy();
+	Log::i("Controller destroyed");
+	//this->disconnectClient();
+	delete this->gameActivity;
+	delete this->waitActivity;
+	Log::i("Ending LOOP");
 
 
-		currentActivity->stop();
-		cController.destroy();
-	
-		this->disconnectClient();
-		delete this->gameActivity;
-		delete this->waitActivity;
-
-		bootstrap.shoutDown();
 
 }
 
@@ -235,6 +233,7 @@ void Cliente::loop(void){
 void Cliente::disconnectClient(){
 
 	if (this->isLoginOk()) {
+		Log::i("Doing LOGOUT");
 		this->updater.doLogout();
 		// TODO: Cerrar hilo y sockets
 
@@ -284,7 +283,7 @@ int Cliente::applyNetworkChanges(void *data){
 	EDatagram* msg = new EDatagram();
 	msg->type = KEEPALIVE;
 
-	while(true && !cli->cController.isQuit() && !cli->deleted ){
+	while(true && !cli->cController.isQuit() && !cli->rebooted ){
 
 		Sleep(1); 
 
@@ -310,6 +309,8 @@ int Cliente::applyNetworkChanges(void *data){
 			Log::d("\nProcessing wid: %d, x: %f, y: %f, weapong %d, action %s", p.wormid,p.x,p.y, p.weaponid, Util::actionString(p.action).c_str() );
 		}
 	}
+	if ( cli->cController.isQuit() )
+		cli->deleted = true;
 
 	Log::i("Cliente::applyNetworkChanges >> Terminado apply Network Changes thread");
 	return 0;
@@ -379,7 +380,7 @@ int Cliente::notifyLocalUpdates(void *data){
 	char* playerId = aThreadData->p;
 	EDatagram* msg = new EDatagram();
 
-	while(true && !cli->cController.isQuit() && !cli->deleted ){
+	while(true && !cli->cController.isQuit() && !cli->rebooted ){
 		m->lock();
 		if ( cli->localChanges.empty() ){
 			////printf("\nwaiting.. is empty :(");
@@ -398,16 +399,21 @@ int Cliente::notifyLocalUpdates(void *data){
 		msg->type = UPDATE;
 
 		if ( !cli->output.sendmsg(*msg) ) {
-			Log::t("Local Update - Client connection with server error");
-			cli->srvStatus = SERVER_TIMEDOUT;
-			cli->informStateClient();
+			if (  !cli->rebooted ){
+				Log::t("Local Update - Client connection with server error");
+				cli->srvStatus = SERVER_TIMEDOUT;
+				cli->informStateClient();
+			}
 			m->unlock();
+			
 			return 1;
 		}
 
 		cli->localChanges.pop_back();
 		m->unlock();
 	}
+	if ( cli->cController.isQuit() )
+		cli->deleted = true;
 
 	Log::i("Cliente::notifyLocalUpdates >> Terminado notify local updates thread");
 	return 0;
@@ -431,7 +437,7 @@ int Cliente::netListener(void* data){
 
 	EDatagram* emsg = new EDatagram();
 	bool closeListen = false;
-	while(!cli->cController.isQuit() && !closeListen && !cli->deleted ){
+	while(!cli->cController.isQuit() && !closeListen && !cli->rebooted ){
 		Sleep(10);
 	
 		if ( !cli->input.rcvmsg(*emsg) ) {
@@ -523,37 +529,29 @@ int Cliente::netListener(void* data){
 
 		case REINIT_SRV:
 			Log::i("Resetting game");
-			cli->deleted = true;
+
 			closesocket( cli->input.getFD() );
 			closesocket( cli->output.getFD() );
-			Sleep(5);
-			//cli->reinitGame();
+
+			Sleep(10);
+						cli->rebooted = true;
 			return 0;
 			break;
 
 		}
 	
 	}
+
+	if ( cli->cController.isQuit() )
+		cli->deleted = true;
+
 	Log::i("Cliente::netListener >> Terminado net listen thread");
 	return 0;
 }
 
 void Cliente::reinitGame(){
 
-	currentActivity->stop();
-	cController.destroy();
-	
-	delete this->gameActivity;
-	delete this->waitActivity;
-
-	//bootstrap.shoutDown();
 	this->resetModel();
-	//this->run();
-
-
-
-
-
 
 }
 
@@ -562,6 +560,7 @@ void Cliente::resetModel(){
 	this->domain.domainElements.clear();
 	this->domain.playersLife.clear();
 	this->domain.playersPlaying.clear();
+	this->localChanges.clear();
 
 }
 
