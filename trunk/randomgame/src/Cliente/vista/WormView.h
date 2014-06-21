@@ -30,7 +30,8 @@ class WormView: public View, public OnMovementListener
 	
 	Sprite* currentSprite;
 
-	bool alive;
+	bool alive,
+		 lastWords;
 
 	/*Sprite spriteWalk;
 	Sprite spriteBazooka;
@@ -87,6 +88,8 @@ public:
 
 	bool isDead();
 	bool isAlive();
+	bool isLastWords();
+	void setLastWords(bool lastWords);
 
 	bool isGrey();
 	void putGrey();

@@ -142,6 +142,10 @@ public:
 
 	bool validateWormBeforeCall();
 
+	bool validateWormAlive();
+
+	bool validateWormLastWords();
+
 	void ActionResultLog(CallClient call, Playable* p, ActionWorm *aw);
 
 	~GameActivity(void);

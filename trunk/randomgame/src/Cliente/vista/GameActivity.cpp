@@ -88,7 +88,6 @@ void GameActivity::update()
 				if (aWorm->isDead()) {
 					//this->futureFreeWorm.push_back(aWorm->getId());
 					//Cambiar Sprite a tumba
-
 				} else {
 					aWorm->update(&domainElement);
 				}
@@ -765,6 +764,12 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 			this->updater.notify(this->wormIdSelected, aw->moveView, this->idWeapon);
 			break;
 		}
+
+		if(!this->validateWormAlive()){
+			GameView* gameView = static_cast<GameView*>(this->aView);
+			WormView * aWormView = gameView->findWormById(this->wormIdSelected);	
+			aWormView->setLastWords(false);
+		}
 	}
 	else{
 		
@@ -773,9 +778,20 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 }
 
 bool GameActivity::validateWormBeforeCall(){
+	return(this->validateWormAlive()
+		|| this->validateWormLastWords());
+}
+
+bool GameActivity::validateWormAlive(){
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	WormView * aWormView = gameView->findWormById(this->wormIdSelected);
 	return aWormView->isAlive();
+}
+
+bool GameActivity::validateWormLastWords(){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	WormView * aWormView = gameView->findWormById(this->wormIdSelected);
+	return aWormView->isLastWords();
 }
 
 

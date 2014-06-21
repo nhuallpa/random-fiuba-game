@@ -19,6 +19,7 @@ WormView::WormView(int id)
 	this->enableScroll();
 	labelUsuario.enableZoom();
 	labelNombre.enableZoom();
+	this->lastWords = true;
 }
 
 void WormView::setUserLabel(std::string text)
@@ -40,6 +41,15 @@ WormView::~WormView(void)
 void WormView::clean()
 {
 
+}
+
+
+bool WormView::isLastWords(){
+	return this->lastWords;
+}
+
+void WormView::setLastWords(bool lastWords){
+	this->lastWords = lastWords;
 }
 
 void WormView::selectWeapon(WeaponId idWapon)
@@ -137,6 +147,7 @@ void WormView::update(GameElement* domainElement)
 		}
 		if (this->widhtLifeCurrent <= 0) {
 			this->widhtLifeCurrent = 1;
+			this->alive = false; // Esta linea la agregue yo (Erik)
 		}
 		this->currentLife = domainElement->getLife();
 	}
