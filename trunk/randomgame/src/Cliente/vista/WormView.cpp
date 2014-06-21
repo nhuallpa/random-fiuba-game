@@ -56,7 +56,25 @@ void WormView::update(GameElement* domainElement)
 	this->selectWeapon((WeaponId)domainElement->getWeaponId());
 	//Log::i("WormView::update >> weapon %d", this->weaponId);
 	// ACTIONS
-    if (domainElement->getAction() == MOVE_RIGHT ||
+	switch (domainElement->getAction())
+	{
+		case MOVE_RIGHT:
+		case MOVE_LEFT:
+			this->state = WORM_VIEW_DOING;
+			break;
+		case MOVELESS:
+		case WITH_WEAPON_LEFT:
+		case WITH_WEAPON_RIGHT:
+			this->state = WORM_VIEW_MOTIONLESS;
+			break;
+		case DEAD:
+			this->state = WORM_VIEW_DEAD;
+			break;
+		/*default:
+			this->state = WORM_VIEW_MOTIONLESS;
+			break;*/
+	}
+   /* if (domainElement->getAction() == MOVE_RIGHT ||
             domainElement->getAction() == MOVE_LEFT)
     {
             this->state = WORM_VIEW_DOING;
@@ -64,34 +82,53 @@ void WormView::update(GameElement* domainElement)
     else 
     {
             this->state = WORM_VIEW_MOTIONLESS;
-    }
+    }*/
     // DIRECTION
-    if (domainElement->getAction() == MOVELESS_RIGHT || 
-            domainElement->getAction() == NOT_CONNECTED_RIGHT ||
-            domainElement->getAction() == MOVE_RIGHT || 
-			domainElement->getAction() == WITH_WEAPON_RIGHT)
-    {
-			// todo: estado derecha
-            this->flip = SDL_FLIP_HORIZONTAL;
-    } 
-    else if (domainElement->getAction() == MOVELESS_LEFT || 
-            domainElement->getAction() == NOT_CONNECTED_LEFT ||
-            domainElement->getAction() == MOVE_LEFT ||
-			domainElement->getAction() == WITH_WEAPON_LEFT)
-    {
-			// todo: estado IZquierda
-            this->flip = SDL_FLIP_NONE;        
-    }
+	switch (domainElement->getAction())
+	{
+		case MOVELESS_RIGHT:
+		case NOT_CONNECTED_RIGHT:
+		case MOVE_RIGHT:
+		case WITH_WEAPON_RIGHT:
+			this->flip = SDL_FLIP_HORIZONTAL;
+			break;
+		case MOVELESS_LEFT:
+		case NOT_CONNECTED_LEFT:
+		case MOVE_LEFT:
+		case WITH_WEAPON_LEFT:
+			this->flip = SDL_FLIP_NONE;
+			break;
+		/*default:
+			this->flip = SDL_FLIP_NONE; 
+			break;*/
+	}
 
-	if (domainElement->getAction() == MOVELESS || domainElement->getAction() == WITH_WEAPON_LEFT || domainElement->getAction() == WITH_WEAPON_RIGHT)
+   // if (domainElement->getAction() == MOVELESS_RIGHT || 
+   //         domainElement->getAction() == NOT_CONNECTED_RIGHT ||
+   //         domainElement->getAction() == MOVE_RIGHT || 
+			//domainElement->getAction() == WITH_WEAPON_RIGHT)
+   // {
+			//// todo: estado derecha
+   //         this->flip = SDL_FLIP_HORIZONTAL;
+   // } 
+   // else if (domainElement->getAction() == MOVELESS_LEFT || 
+   //         domainElement->getAction() == NOT_CONNECTED_LEFT ||
+   //         domainElement->getAction() == MOVE_LEFT ||
+			//domainElement->getAction() == WITH_WEAPON_LEFT)
+   // {
+			//// todo: estado IZquierda
+   //         this->flip = SDL_FLIP_NONE;        
+   // }
+
+	/*if (domainElement->getAction() == MOVELESS || domainElement->getAction() == WITH_WEAPON_LEFT || domainElement->getAction() == WITH_WEAPON_RIGHT)
     {
             this->state = WORM_VIEW_MOTIONLESS;
-    }
-	if (domainElement->getAction() == DEAD)
+    }*/
+	/*if (domainElement->getAction() == DEAD)
     {
 		this->state = WORM_VIEW_DEAD;
 		Log::i("WormView::update >> worm %d DEAD", this->getId());
-    }
+    }*/
 
 	if (domainElement->getLife() < this->currentLife) {
 		this->widhtLifeCurrent = (int)(((float)domainElement->getLife() * (float)this->widhtLife100) / 100.0f);
