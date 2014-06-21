@@ -22,14 +22,16 @@ enum CallClient {CALL_NULL,
 				 CALL_SHOOT, 
 				 CALL_UNWEAPON,
 				 CALL_WEAPON,
-				 CALL_STOPWORM};
+				 CALL_STOPWORM,
+                 CALL_MOVEVIEW};
 typedef struct {
 	int id;
-	int x;
-	int y;
+	float x;
+	float y;
 	int angle;
 	int factor;
 	tDirection dim;
+	Movement moveView;
 } ActionWorm;
 
 class GameActivity : public Activity, 

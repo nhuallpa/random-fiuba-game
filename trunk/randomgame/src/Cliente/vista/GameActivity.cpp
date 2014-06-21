@@ -140,6 +140,7 @@ GameActivity::~GameActivity(void)
 
 
 void GameActivity::iniState(){
+	ActionWorm aw;
 	if(afterShoot){
 		this->cController->remuveOnActionListener(this);
 		this->offMenu();
@@ -147,12 +148,16 @@ void GameActivity::iniState(){
 	if(!this->isRightAim && this->aimView->isRightSide()){
 		this->isLeftAim = false;
 		this->isRightAim = true;
-		this->updater.notify(this->wormIdSelected, WITH_WEAPON_RIGHT, this->idWeapon);
+		//this->updater.notify(this->wormIdSelected, WITH_WEAPON_RIGHT, this->idWeapon);
+		aw.moveView = WITH_WEAPON_RIGHT;
+		this->ActionResult(CALL_MOVEVIEW, NULL, &aw);
 	}
 	else if(!this->isLeftAim && this->aimView->isLeftSide()){
 		this->isRightAim = false;
 		this->isLeftAim = true;
-		this->updater.notify(this->wormIdSelected, WITH_WEAPON_LEFT, this->idWeapon);
+		//this->updater.notify(this->wormIdSelected, WITH_WEAPON_LEFT, this->idWeapon);
+		aw.moveView = WITH_WEAPON_LEFT;
+		this->ActionResult(CALL_MOVEVIEW, NULL, &aw);
 	}
 }
 
@@ -319,11 +324,11 @@ void GameActivity::OnClick(ClickEvent e){
 																					   sdlCoordinate.y + TextureManager::Instance().getCamera().getY());
 			//updater.doShoot(data.first, data.second, domainCoordinate.x, domainCoordinate.y, 0);
 			//updater.doUnselectWapon(wormIdSelected, this->idWeapon);
-			/*aw.x = domainCoordinate.x;
+			aw.x = domainCoordinate.x;
 			aw.y = domainCoordinate.y;
 			aw.factor = 0;
 			this->ActionResult(CALL_SHOOT, NULL, &aw);
-			this->ActionResult(CALL_UNWEAPON, NULL, NULL);*/
+			this->ActionResult(CALL_UNWEAPON, NULL, NULL);
 			aimView->unAim();
 			afterShoot = true;
 			this->iniHmissile();
@@ -755,6 +760,9 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 			break;
 		case CALL_STOPWORM:
 			updater.doStopWorm(aw->id);
+			break;
+		case CALL_MOVEVIEW:
+			this->updater.notify(this->wormIdSelected, aw->moveView, this->idWeapon);
 			break;
 		}
 	}
