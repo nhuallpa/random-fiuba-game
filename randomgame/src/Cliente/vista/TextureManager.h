@@ -92,6 +92,7 @@ public:
 
 
 	void drawFillRect(SDL_Renderer*	pRenderer, SDL_Rect & rect, int r, int g, int b, int a, int zoom = false);
+	void drawRect(SDL_Renderer*	pRenderer, SDL_Rect & rect, int r, int g, int b, int a, int zoom = false);
 
 	/** Draw circle on renderer*/
 	void drawCircle(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 r, Uint32 color, Uint32 borderColor);

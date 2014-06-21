@@ -293,8 +293,27 @@ void TextureManager::drawFillRect(SDL_Renderer*	pRenderer, SDL_Rect & rect, int 
 		rectDest.h = rect.h;
 	}
 
-	SDL_SetRenderDrawColor(pRenderer, 0, 255, 0, 255); 
+	SDL_SetRenderDrawColor(pRenderer, r, g, b, a); 
 	SDL_RenderFillRect(pRenderer, &rectDest);
+}
+
+void TextureManager::drawRect(SDL_Renderer*	pRenderer, SDL_Rect & rect, int r, int g, int b, int a, int zoom) {
+
+	SDL_Rect rectDest;
+	if (zoom) {
+		rectDest.x = rect.x * this->cam.getScale();
+		rectDest.y = rect.y * this->cam.getScale();
+		rectDest.w = rect.w * this->cam.getScale();
+		rectDest.h = rect.h * this->cam.getScale();
+	} else {
+		rectDest.x = rect.x;
+		rectDest.y = rect.y;
+		rectDest.w = rect.w;
+		rectDest.h = rect.h;
+	}
+
+	SDL_SetRenderDrawColor(pRenderer, r, g, b, a); 
+	SDL_RenderDrawRect(pRenderer, &rectDest);
 }
 
 std::pair<int, int> TextureManager::getDimension(std::string imageId)

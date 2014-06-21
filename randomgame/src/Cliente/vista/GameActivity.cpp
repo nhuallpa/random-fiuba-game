@@ -666,11 +666,13 @@ void GameActivity::OnAction(ActionEvent e){
 					} 
 					Log::i("\nShoot 2: x %d, y %d, factor %d",xMira,yMira,factor);
 
-					
-					if (aWormView->getDirection() == D_LEFT) {
+					if (this->idWeapon == DYNAMITE || this->idWeapon == SHEEP)
+					{
+						if (aWormView->getDirection() == D_LEFT) {
 						xMira = -1;
-					} else {
-						xMira = 1;
+						} else {
+							xMira = 1;
+						}
 					}
 					updater.doShoot(this->wormIdSelected, this->idWeapon, xMira, yMira, factor);
 					updater.doUnselectWapon(wormIdSelected, this->idWeapon);

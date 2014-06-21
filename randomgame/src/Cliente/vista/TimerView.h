@@ -12,6 +12,7 @@ class TimerView: public View
 private:
 
 	TextView label;
+	TextView numberLabel;
 	Timer timmer;
 	float timerP;
 	bool finished;

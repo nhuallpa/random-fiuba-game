@@ -29,12 +29,12 @@ void PlayerProgressView::draw(SDLScreen & screen){
 		int countOfPlayer = 5;
 		int heightBarProgress = 15;
 		SDL_Rect rect;
-		rect.x = screen.getWidth() / 2;
+		rect.x = this->getX();
 		rect.y = screen.getHeight() - countOfPlayer * heightBarProgress;
 		rect.w = 0;
 		rect.h = heightBarProgress - margin;
 
-		int x = rect.x - 200;
+		int x = rect.x - 100;
 
 		std::map<Player, std::pair < StateConn, int > >::iterator it;
 
@@ -46,13 +46,16 @@ void PlayerProgressView::draw(SDLScreen & screen){
 
 			rect.w = calcWidth((*this->refPlayersLife)[aPlayer]);
 			rect.y = screen.getHeight() - (countOfPlayer - indexPlayer) * heightBarProgress; // apilar barras
+			SDL_Rect rectBar = rect;
+			rectBar.x = rectBar.x + 80;
 			SDL_Color color = geColorTeam((TeamColors)value.second);
-			SDL_SetRenderDrawColor(screen.getRenderer(), color.r, color.g, color.b, color.a); 
-			SDL_RenderFillRect(screen.getRenderer(), &rect);
+			TextureManager::Instance().drawFillRect(screen.getRenderer(), rectBar, color.r, color.g, color.b, color.a);
+			TextureManager::Instance().drawRect(screen.getRenderer(), rectBar, 0, 0, 0, 255);
+			
 			indexPlayer++;
 
 			labelUser.setText((std::string)aPlayer, geColorTeam((TeamColors)value.second));
-			labelUser.draw(screen.getRenderer(), x, rect.y);
+			labelUser.draw(screen.getRenderer(), rect.x, rect.y - 5);
 		}
 }
 
