@@ -8,6 +8,7 @@
 
 class SheepView: public ProjectileView
 {
+	int count;
 
 public:
 	SheepView(int id);

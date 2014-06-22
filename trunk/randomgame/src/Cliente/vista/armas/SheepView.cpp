@@ -4,6 +4,7 @@
 SheepView::SheepView(int id)
 	: ProjectileView(id)
 {
+	count = 0;
 }
 
 
@@ -19,6 +20,15 @@ void SheepView::clean()
 	
 void SheepView::update() 
 {
+	
+	if (count == 0) {
+		SoundManager::Instance().pSHEEPBAA();
+	} else if (count > 80) {
+		count=0;
+	} else {
+		count++;
+	}
+
 	this->currentSprite->update();
 
 }
