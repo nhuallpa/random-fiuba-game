@@ -5,16 +5,18 @@ TimerView::TimerView(int x, int y)
 	: View(x, y)
 {
 	SDL_Color white;
-
+	this->beforeTimer = 0.0;
+	this->timerView = 60;
 	white.a = 0xFF;
 	white.r = 0xFF;
 	white.g = 0xFF;
 	white.b = 0xFF;
-	this->label.setText("Tiempo", white);
-	this->numberLabel.setText("60", white);
 	this->finished = true;
 	this->timerP = 0.0;
 	this->index = 0;
+	this->i = 1.0;
+	this->label.setText("Tiempo", white);
+	this->updateTime();
 }
 
 
@@ -26,12 +28,40 @@ void TimerView::setTimer(float t){
 	this->timerP = t;
 }
 
+
 void TimerView::update()
 {
-	float tim = this->timmer.elapsed();
-	if(this->timerP < tim){
-		this->finished = true;
+	if(!this->finished){
+		float tim = this->timmer.elapsed();
+		if(this->timerP < tim){
+			this->finished = true;
+			this->i = 1.0;
+			this->beforeTimer = 0.0;
+			this->timerView = 60;
+			this->updateTime();
+		}
+
+		if((tim - this->beforeTimer)> i){
+			this->beforeTimer = this->i* 1.5;
+			this->i += 1.0;
+			this->updateTime();
+		}
 	}
+	else{
+	}
+
+}
+
+void TimerView::updateTime(){
+	SDL_Color white;	
+	white.a = 0xFF;
+	white.r = 0xFF;
+	white.g = 0xFF;
+	white.b = 0xFF;
+	int val = this->timerView
+		- this->beforeTimer;
+	stgTimerView = Util::int2string(val);
+	this->numberLabel.setText(stgTimerView, white);
 }
 
 
