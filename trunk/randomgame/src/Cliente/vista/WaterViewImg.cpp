@@ -106,7 +106,7 @@ void WaterViewImg::loadWater(int Gap){
 							* ESCALA_UL2PX);
 	
 	positionX = 0;
-	positionY = dimension.second - lebel;
+	positionY = dimension.second - lebel + 8;
 	width = dimension.first;
 	height = lebel;
 
