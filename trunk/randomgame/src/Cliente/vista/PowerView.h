@@ -3,15 +3,14 @@
 #ifndef __POWER_VIEW_H__
 #define __POWER_VIEW_H__
 #include "TextureManager.h"
+#include "..\controlador\Contracts\OnChangeListener.h"
+#include "..\controlador\Entity\ChangeEvent.h"
 #include "View.h"
 #include "TextView.h"
 #include "../../utils/Constantes/Colors.h"
-class PowerView: public View
+class PowerView: public View,
+	             public OnChangeListener
 {
-private:
-
-	TextView label;
-
 public:
 	PowerView(int x, int y);
 
@@ -19,10 +18,14 @@ public:
 	
 	void update();
 
+	void OnChange(ChangeEvent e);
+
 	void draw(SDLScreen & screen);
 
 	~PowerView(void);
-
+private:
+	TextView label;
+	SDL_Rect rect;
 };
 
 #endif /** __POWER_VIEW_H__ **/

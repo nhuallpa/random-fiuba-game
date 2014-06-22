@@ -380,11 +380,12 @@ void GameViewBuilder::buildPlayerProgress()
 	this->gameView->setPlayerProgressView(pProgressView);
 }
 
-void GameViewBuilder::buildPower()
+void GameViewBuilder::buildPower(GameController* cController)
 {
 	int w = TextureManager::Instance().getScreenWidth();
 
 	PowerView* powerView = new PowerView(w-100, 10);
+	cController->addOnChangeListener(powerView);
 	this->gameView->setPowerView(powerView);
 }
 

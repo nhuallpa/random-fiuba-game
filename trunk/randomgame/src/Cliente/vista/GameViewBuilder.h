@@ -78,7 +78,7 @@ public:
 
 	void buildPlayerProgress();
 
-	void buildPower();
+	void buildPower(GameController* cController);
 
 	void buildTimer();
 

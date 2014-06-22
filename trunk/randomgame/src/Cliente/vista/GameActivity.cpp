@@ -38,7 +38,7 @@ void GameActivity::buildView()
 	builder->buildProjectileContainer();
 	
 	builder->buildStateBar();
-	builder->buildPower();
+	builder->buildPower(cController);
 	builder->buildTimer();
 	builder->buildMenuWeapon();
 

@@ -11,6 +11,7 @@ PowerView::PowerView(int x, int y)
 	white.g = 0xFF;
 	white.b = 0xFF;
 	this->label.setText("Poder", white);
+	this->rect.w = 1;
 }
 
 
@@ -24,6 +25,15 @@ void PowerView::update()
 }
 
 
+void PowerView::OnChange(ChangeEvent e){
+	if(e.isStateBar()){
+		this->rect.w = e.factor*10;
+	}
+	else{
+		this->rect.w = 1;
+	}
+}
+
 void PowerView::clean()
 {
 
@@ -33,15 +43,10 @@ void PowerView::draw(SDLScreen & screen){
 	
 		int margin = 5;
 		int heightBarProgress = 15;
-		SDL_Rect rect;
 		rect.x = getX();
 		rect.y = getY() + 20;
-		rect.w = 100;
 		rect.h = heightBarProgress - margin;
-
-
 		TextureManager::Instance().drawFillRect(screen.getRenderer(), rect, 0,0,255, 255);
-
 		this->label.draw(screen.getRenderer(), getX() , getY());
 
 }
