@@ -37,9 +37,8 @@ private:
 	float timerP;
 	bool finished;
 	int index;
-	float i;
-	float beforeTimer;
 	int timerView;
+	int updateTimer;
 	std::string stgTimerView;
 };
 
