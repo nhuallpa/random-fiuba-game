@@ -146,6 +146,10 @@ public:
 
 	bool validateWormLastWords();
 
+
+	void linkWormWithWeapon(SDL_Point clickPointScreen);
+	void linkWorm(SDL_Point clickPoint);
+
 	void ActionResultLog(CallClient call, Playable* p, ActionWorm *aw);
 
 	~GameActivity(void);
