@@ -61,6 +61,8 @@ void TimerView::clean()
 void TimerView::start(){
 	this->timmer.start();
 	this->finished = false;
+	this->timerView = 60;
+	this->updateTimer = 0;
 }
 
 void TimerView::reset(){
