@@ -15,6 +15,7 @@
 
 enum WormState {
 	WORM_VIEW_DOING,
+	WORM_VIEW_JUMPING,
 	WORM_VIEW_MOTIONLESS,
 	WORM_VIEW_DEAD
 };
@@ -88,6 +89,7 @@ public:
 
 	bool isDead();
 	bool isAlive();
+	bool isJumping() {return (this->state == WORM_VIEW_JUMPING);}
 	bool isLastWords();
 	void setLastWords(bool lastWords);
 

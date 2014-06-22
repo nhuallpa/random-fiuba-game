@@ -301,8 +301,9 @@ WormView* GameViewBuilder::createWorm(GameElement * domainElement)
 			aWorm->sprites["granada"] = SpriteConfigurator::Instance().get("granada");
 			aWorm->sprites["holy"] = SpriteConfigurator::Instance().get("holy");
 			aWorm->sprites["radio"] = SpriteConfigurator::Instance().get("radio");
-			aWorm->sprites["salto"] = SpriteConfigurator::Instance().get("salto");
+			aWorm->sprites["saltar"] = SpriteConfigurator::Instance().get("saltar");
 			aWorm->sprites["morir"] = SpriteConfigurator::Instance().get("morir");
+			aWorm->sprites["cripta"] = SpriteConfigurator::Instance().get("cripta");
 			aWorm->sprites["oveja"] = SpriteConfigurator::Instance().get("oveja");
 			aWorm->sprites["banana"] = SpriteConfigurator::Instance().get("banana");
 			aWorm->sprites["explosion"] = SpriteConfigurator::Instance().get("circle25");

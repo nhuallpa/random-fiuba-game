@@ -77,6 +77,11 @@ void WormView::update(GameElement* domainElement)
 		case WITH_WEAPON_RIGHT:
 			this->state = WORM_VIEW_MOTIONLESS;
 			break;
+		case JUMP_LEFT:
+		case JUMP:
+		case JUMP_RIGHT:
+			this->state = WORM_VIEW_JUMPING;
+			break;
 		case DEAD:
 			this->state = WORM_VIEW_DEAD;
 			break;
@@ -84,27 +89,21 @@ void WormView::update(GameElement* domainElement)
 			this->state = WORM_VIEW_MOTIONLESS;
 			break;*/
 	}
-   /* if (domainElement->getAction() == MOVE_RIGHT ||
-            domainElement->getAction() == MOVE_LEFT)
-    {
-            this->state = WORM_VIEW_DOING;
-    } 
-    else 
-    {
-            this->state = WORM_VIEW_MOTIONLESS;
-    }*/
+  
     // DIRECTION
 	switch (domainElement->getAction())
 	{
 		case MOVELESS_RIGHT:
 		case NOT_CONNECTED_RIGHT:
 		case MOVE_RIGHT:
+		case JUMP_RIGHT:
 		case WITH_WEAPON_RIGHT:
 			this->flip = SDL_FLIP_HORIZONTAL;
 			break;
 		case MOVELESS_LEFT:
 		case NOT_CONNECTED_LEFT:
 		case MOVE_LEFT:
+		case JUMP_LEFT:
 		case WITH_WEAPON_LEFT:
 			this->flip = SDL_FLIP_NONE;
 			break;
@@ -113,33 +112,6 @@ void WormView::update(GameElement* domainElement)
 			break;*/
 	}
 
-   // if (domainElement->getAction() == MOVELESS_RIGHT || 
-   //         domainElement->getAction() == NOT_CONNECTED_RIGHT ||
-   //         domainElement->getAction() == MOVE_RIGHT || 
-			//domainElement->getAction() == WITH_WEAPON_RIGHT)
-   // {
-			//// todo: estado derecha
-   //         this->flip = SDL_FLIP_HORIZONTAL;
-   // } 
-   // else if (domainElement->getAction() == MOVELESS_LEFT || 
-   //         domainElement->getAction() == NOT_CONNECTED_LEFT ||
-   //         domainElement->getAction() == MOVE_LEFT ||
-			//domainElement->getAction() == WITH_WEAPON_LEFT)
-   // {
-			//// todo: estado IZquierda
-   //         this->flip = SDL_FLIP_NONE;        
-   // }
-
-	/*if (domainElement->getAction() == MOVELESS || domainElement->getAction() == WITH_WEAPON_LEFT || domainElement->getAction() == WITH_WEAPON_RIGHT)
-    {
-            this->state = WORM_VIEW_MOTIONLESS;
-    }*/
-	/*if (domainElement->getAction() == DEAD)
-    {
-		this->state = WORM_VIEW_DEAD;
-		Log::i("WormView::update >> worm %d DEAD", this->getId());
-    }*/
-
 	if (domainElement->getLife() < this->currentLife) {
 		this->widhtLifeCurrent = (int)(((float)domainElement->getLife() * (float)this->widhtLife100) / 100.0f);
 		if (this->widhtLifeCurrent > this->widhtLife100) {
@@ -147,6 +119,7 @@ void WormView::update(GameElement* domainElement)
 		}
 		if (this->widhtLifeCurrent <= 0) {
 			this->widhtLifeCurrent = 1;
+			//this->alive = false; // Esta linea la agregue yo (Erik)
 		}
 		this->currentLife = domainElement->getLife();
 	}
@@ -158,8 +131,15 @@ void WormView::update()
 	if (currentSprite == NULL) {
 		currentSprite = &this->sprites["caminar"];
 	}
-
-	if (this->state == WORM_VIEW_DOING)
+	if (this->state == WORM_VIEW_JUMPING)
+	{
+		// Camino sin arma
+		if (currentSprite != &this->sprites["saltar"]) {
+			SoundManager::Instance().pJUMP1();
+			currentSprite = &this->sprites["saltar"];
+		}
+		currentSprite->update();
+	} else if (this->state == WORM_VIEW_DOING)
 	{
 		// Camino sin arma
 		if (currentSprite != &this->sprites["caminar"]) {
@@ -207,13 +187,21 @@ void WormView::update()
 		currentSprite->clean();
 
 	} else if (this->state == WORM_VIEW_DEAD) {
-		currentSprite = &this->sprites["morir"];
-		currentSprite->update();
-		Log::t("WormView::update >> sprite worm mori");
+	
+		Log::i("WormView::update >> sprite worm mori");
 		if (alive) {
 			SoundManager::Instance().pBYEBYE();
+			currentSprite = &this->sprites["morir"];
 		}
+		if (currentSprite == &this->sprites["morir"] && currentSprite->isLastFrame()) {
+			currentSprite = &this->sprites["explosion"];
+		} else if (currentSprite == &this->sprites["explosion"] && currentSprite->isLastFrame()) {
+			currentSprite = &this->sprites["cripta"];
+		}
+
 		alive=false;
+
+		currentSprite->update();
 	}
 
 }
@@ -270,20 +258,20 @@ void WormView::quitGrey(){this->gray = false;}
 
 void WormView::OnMovement(MovementEvent e){
 
-	if (e.x == 1) // derecha
-	{
-		this->state = WORM_VIEW_DOING;
-		this->flip = SDL_FLIP_HORIZONTAL;
-	}
-	else if (e.x == -1) // izquierda
-	{
-		this->state = WORM_VIEW_DOING;
-		this->flip = SDL_FLIP_NONE;
-	} 
-	else if (e.x == 0) // quieto
-	{
-		this->state = WORM_VIEW_MOTIONLESS;
-	}
+	//if (e.x == 1) // derecha
+	//{
+	//	this->state = WORM_VIEW_DOING;
+	//	this->flip = SDL_FLIP_HORIZONTAL;
+	//}
+	//else if (e.x == -1) // izquierda
+	//{
+	//	this->state = WORM_VIEW_DOING;
+	//	this->flip = SDL_FLIP_NONE;
+	//} 
+	//else if (e.x == 0) // quieto
+	//{
+	//	this->state = WORM_VIEW_MOTIONLESS;
+	//}
 
 }
 

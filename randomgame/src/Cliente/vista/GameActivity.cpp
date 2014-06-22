@@ -578,18 +578,15 @@ void GameActivity::OnMovement(MovementEvent e)
 	}*/
 
 	int wormIdSelected = this->getWormIdSelected();
-	/*WeaponId weaponSelected;
-	try {
-		GameView* gameView = static_cast<GameView*>(this->aView);
-		weaponSelected = gameView->findWormById(wormIdSelected)->getWeaponId();
-	} catch (GameElement & e) {
-		weaponSelected = NO_WEAPON;
-	}*/
+	
+	
 
 	if (wormIdSelected > 0 && 
 		this->isThisClientOwner(wormIdSelected) && 
 		this->isAlive(wormIdSelected))
 	{
+		
+
 		p.wormid = wormIdSelected;
 		if ((e.y == -1) && !aimView->isShootEnter())  // Solo saltar
 		{
@@ -633,6 +630,8 @@ void GameActivity::OnMovement(MovementEvent e)
 		//if(this->isAlive(wormIdSelected))
 		//	updater.addLocalMovementFromView(p);//Esta linea me pincha el server by ERIK
 		this->ActionResult(CALL_MOVE, &p, NULL);
+
+
 	}
 
 	
@@ -746,6 +745,17 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 		this->ActionResultLog(call, p, aw);
 		switch(call){
 		case CALL_MOVE:
+			if (p->action == MOVE_LEFT || p->action == MOVE_RIGHT) {
+				try {
+					GameView* gameView = static_cast<GameView*>(this->aView);
+					WormView* wormView = gameView->findWormById(this->getWormIdSelected());
+					if (wormView->isJumping()) {
+						return;
+					}
+				} catch (GameElement & e) {
+					Log::e("GameActivity::OnMovement() Worm view no encontrado");			
+				}
+			}
 			updater.addLocalMovementFromView(*p);
 			break;
 		case CALL_SHOOT:

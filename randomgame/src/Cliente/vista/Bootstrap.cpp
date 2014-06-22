@@ -106,12 +106,14 @@ void Bootstrap::loadSprites()
 			// worm
 			TextureManager::Instance().load("res/images/wwalk.png", "caminar", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wdie.png", "morir", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/grave2.png", "cripta", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wbazbak.png", "bazooka", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wdynbak.png", "dinamita", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wgrnbak.png", "granada", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/whgrbak.png", "holy", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wairbak.png", "radio", this->getScreen().getRenderer());
-			TextureManager::Instance().load("res/images/wflyup.png", "salto", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/wflyup.png", "saltar", this->getScreen().getRenderer());
+
 			TextureManager::Instance().load("res/images/wshpbak.png", "oveja", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/wbanbak.png", "banana", this->getScreen().getRenderer());
 
@@ -122,8 +124,9 @@ void Bootstrap::loadSprites()
 			SpriteConfigurator::Instance().add("granada", 60, 60, 10, true);
 			SpriteConfigurator::Instance().add("holy", 60, 60, 10, true);
 			SpriteConfigurator::Instance().add("radio", 60, 60, 10, true);
-			SpriteConfigurator::Instance().add("salto", 60, 60, 2, true);
+			SpriteConfigurator::Instance().add("saltar", 60, 60, 2, true);
 			SpriteConfigurator::Instance().add("morir", 60, 60, 60, false);
+			SpriteConfigurator::Instance().add("cripta", 60, 60, 20, false);
 			SpriteConfigurator::Instance().add("oveja", 60, 60, 10, false);
 			SpriteConfigurator::Instance().add("banana", 60, 60, 10, false);
 
