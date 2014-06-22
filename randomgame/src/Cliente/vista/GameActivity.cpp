@@ -169,14 +169,14 @@ void GameActivity::deselectPreviewsWorm()
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
 
 		aWorm->deselect();
+		ActionWorm aw;
+		aw.dim = aWorm->getDirection();
+		this->ActionResult(CALL_UNWEAPON, NULL, &aw);
 		//updater.doStopWorm(aWorm->getId());
 		aw.id = aWorm->getId();
 		this->ActionResult(CALL_STOPWORM, NULL, &aw);
 		this->cController->remuveListener(aWorm);
-
 		this->wormIdSelected = -1;
-
-		aWorm->unselectWeapon();
 	}
 	
 }
@@ -326,8 +326,7 @@ void GameActivity::OnClick(ClickEvent e){
 			aw.x = domainCoordinate.x;
 			aw.y = domainCoordinate.y;
 			aw.factor = 0;
-			this->ActionResult(CALL_SHOOT, NULL, &aw);
-			this->ActionResult(CALL_UNWEAPON, NULL, NULL);
+			this->ActionResult(CALL_SHOOT, NULL, &aw); // Despues de shoot, el modelo desecciona el arma
 			aimView->unAim();
 			afterShoot = true;
 			this->iniHmissile();
@@ -346,46 +345,12 @@ void GameActivity::OnClick(ClickEvent e){
 	
 
 	if (!hasClickedMenu(clickPointScreen) && hasClickedWorm(clickPoint)) {
-		aWorm = retrieveWormClicked(clickPoint);
-		if (!aWorm->isSelected()) {
-			deselectPreviewsWorm();
-			selectWorm(aWorm);
-			if(this->idWeapon != NO_WEAPON){
-				deselectPreviewsWeapon();
-				aimView->unAim();
-			}
-		}
+		linkWorm(clickPoint);
 	}
 	else if (wormIdSelected != -1 && hasClickedMenu(clickPointScreen) && this->isThisClientOwner(wormIdSelected))
 	{
 		if(hasClickedWeapon(clickPointScreen)){
-			WeaponId aux = this->idWeapon;
-			if(this->idWeapon != NO_WEAPON){
-				deselectPreviewsWeapon();
-				aimView->unAim();
-			}
-
-			Weapon* aWeapon = retrieveWeaponClicked(clickPointScreen);
-			this->idWeapon = aWeapon->getId();
-			aWeapon->selected();
-			aWorm = gameView->findWormById(wormIdSelected);
-			aWorm->selectWeapon(this->idWeapon);
-			//updater.doSelectWapon(wormIdSelected, this->idWeapon, aWorm->getDirection());
-			aw.dim = aWorm->getDirection();
-			this->ActionResult(CALL_WEAPON, NULL, &aw);
-
-			//logica de la mira
-			aimView->setWorm(aWorm, aWeapon);
-			aimView->aimBuild();
-
-
-			if(aux == this->idWeapon ){
-				deselectPreviewsWeapon();
-				aWorm->unselectWeapon();
-				//updater.doUnselectWapon(wormIdSelected, this->idWeapon);
-				this->ActionResult(CALL_UNWEAPON, NULL, NULL);
-				aimView->unAim();
-			}
+			linkWormWithWeapon(clickPointScreen);
 		}
 		else{
 			/*TODO: entra en este else cuando un worm esta seleccionado
@@ -401,6 +366,49 @@ void GameActivity::OnClick(ClickEvent e){
 	}
 
 	
+}
+void GameActivity::linkWorm(SDL_Point clickPoint) {
+	WormView* aWorm = retrieveWormClicked(clickPoint);
+	if (!aWorm->isSelected()) {
+		deselectPreviewsWorm();
+		selectWorm(aWorm);
+		if(this->idWeapon != NO_WEAPON){
+			deselectPreviewsWeapon();
+			aimView->unAim();
+		}
+	}
+}
+
+void GameActivity::linkWormWithWeapon(SDL_Point clickPointScreen) {
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	
+	WeaponId aux = this->idWeapon;
+	if(this->idWeapon != NO_WEAPON){
+		this->deselectPreviewsWeapon();
+		aimView->unAim();
+	}
+
+	Weapon* aWeapon = retrieveWeaponClicked(clickPointScreen);
+	this->idWeapon = aWeapon->getId();
+	aWeapon->selected();
+	WormView* aWorm = gameView->findWormById(wormIdSelected);
+
+	ActionWorm aw;
+	aw.dim = aWorm->getDirection();
+	this->ActionResult(CALL_WEAPON, NULL, &aw); 
+
+	//logica de la mira
+	aimView->setWorm(aWorm, aWeapon);
+	aimView->aimBuild();
+
+
+	if(aux == this->idWeapon ){
+		deselectPreviewsWeapon();
+		//updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+		aw.dim = aWorm->getDirection();
+		this->ActionResult(CALL_UNWEAPON, NULL, &aw);
+		aimView->unAim();
+	}
 }
 
 void GameActivity::deselectPreviewsWeapon(){
@@ -429,7 +437,7 @@ void GameActivity::endMyTurn() {
 		this->cController->remuveOnClickListener(this);
 		this->cController->remuveOnMovementListener(this);
 		this->cController->remuveOnActionListener(this);
-		this->deselectPreviewsWeapon();
+		//this->deselectPreviewsWeapon();
 		this->deselectPreviewsWorm();
 		this->offMenu();
 		this->aimView->unAim();		
@@ -669,11 +677,7 @@ void GameActivity::OnAction(ActionEvent e){
 					}
 
 
-
-
-
-
-
+					
 					WormView * aWormView = gameView->findWormById(this->wormIdSelected);
 					int factor = e.factor;
 					int xMira= e.xAim;
@@ -703,11 +707,11 @@ void GameActivity::OnAction(ActionEvent e){
 					actionWorm.factor = factor;
 
 					this->ActionResult(CALL_SHOOT, NULL, &actionWorm);
-					this->ActionResult(CALL_UNWEAPON, NULL, NULL);
+
+					//this->ActionResult(CALL_UNWEAPON, NULL, NULL);  // Esto no esta funcionando, ya lo hace el modelo
 					
 					deselectPreviewsWeapon();
 					afterShoot = true;
-
 					this->iniHmissile();
 				}
 			}
@@ -762,7 +766,7 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 			updater.doShoot(this->wormIdSelected, this->idWeapon, aw->x, aw->y, aw->factor);
 			break;
 		case CALL_UNWEAPON:
-			updater.doUnselectWapon(wormIdSelected, this->idWeapon);
+			updater.doUnselectWapon(wormIdSelected, this->idWeapon, aw->dim);
 			break;
 		case CALL_WEAPON:
 			updater.doSelectWapon(wormIdSelected, this->idWeapon, aw->dim);

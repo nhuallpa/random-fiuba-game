@@ -52,7 +52,7 @@ public:
 
 	void doSelectWapon(int wormIdSelected, int idWeapon, tDirection direction);
 
-	void doUnselectWapon(int wormId, int idWeapon);
+	void doUnselectWapon(int wormId, int idWeapon, tDirection direction);
 
 	/** Recupera el level yaml del servidor*/
 	void retrieveLevel();

@@ -43,38 +43,23 @@ void StateBarView::setMessageCenter(std::string msg) {
 
 void StateBarView::draw(SDLScreen & screen){
 	
-	int xLabel = TextureManager::Instance().getCamera().getX();
-	int yLabel = 10 + TextureManager::Instance().getCamera().getY();
+	int xLabel = (int)(((float)screen.getWidth() / 2) - ((float)this->label.getWidth() / 2));
+	int yLabel = screen.getHeight() - this->label.getHeight() - 20;
 
-	float lastScaleX=0;
-	float lastScaleY=0;
+	SDL_Rect rectAlert = {xLabel, yLabel, this->label.getWidth(), this->label.getHeight()};
 
 	if (i<=300) 
 	{
 		i++;
-	
-		TextureManager::Instance().drawBox(screen.getRenderer(), 
-											xLabel,
-											yLabel,
-											xLabel + this->label.getWidth(),
-											yLabel + this->label.getHeight(),
-											colorMsg);
-
-		/*this->label.draw(screen.getRenderer(), 
-			TextureManager::Instance().getCamera().getX(),
-			10 + TextureManager::Instance().getCamera().getY());*/
-
-		this->label.draw(screen.getRenderer(), 0, 10);
-
-	}	
-	
-	
+		TextureManager::Instance().drawFillRect(screen.getRenderer(), rectAlert,0,255,0,255);
+		this->label.draw(screen.getRenderer(), xLabel, yLabel);
+	}
 
 	//Fondo Texto
 	int posX = screen.getWidth()/2 -
 		TextureManager::Instance().getDimension("fondo_msg").first / 2;
 
-	int posY = 30;
+	int posY = 40;
 	
 	TextureManager::Instance().draw("fondo_msg", posX, 0, screen.getRenderer());
 

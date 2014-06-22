@@ -22,6 +22,7 @@ enum WormState {
 
 class WormView: public View, public OnMovementListener
 {
+private: 
 	int id;
 	SDL_RendererFlip flip;
 
@@ -34,12 +35,6 @@ class WormView: public View, public OnMovementListener
 	bool alive,
 		 lastWords;
 
-	/*Sprite spriteWalk;
-	Sprite spriteBazooka;
-	Sprite spriteJump;
-	Sprite sprite;
-	Sprite spriteJump;
-*/
 	TextView labelUsuario;
 	TextView labelNombre;
 
@@ -57,6 +52,10 @@ class WormView: public View, public OnMovementListener
 	int widhtLife100;
 	int widhtLifeCurrent;
 	
+	void selectWeapon(WeaponId idWapon);
+	void unselectWeapon() {this->weaponId = NO_WEAPON;}
+
+
 public:
 	WormView(int id);
 	
@@ -76,9 +75,7 @@ public:
 	void setSpriteJump(Sprite spriteJump) {this->spriteJump = spriteJump;}
 	void setSpriteBazooka(Sprite spriteBazooka) {this->spriteBazooka = spriteBazooka;}
 */
-	void selectWeapon(WeaponId idWapon);
-	void unselectWeapon() {this->weaponId = NO_WEAPON;}
-
+	
 	WeaponId getWeaponId() {return this->weaponId;}
 
 	void OnMovement(MovementEvent e);
