@@ -9,15 +9,6 @@
 #include "../../utils/Timer.h"
 class TimerView: public View
 {
-private:
-
-	TextView label;
-	TextView numberLabel;
-	Timer timmer;
-	float timerP;
-	bool finished;
-	int index;
-
 public:
 	TimerView(int x, int y);
 
@@ -31,12 +22,25 @@ public:
 
 	void reset();
 
+	void updateTime();
+
 	bool isFinished();
 
 	void setTimer(float t);
 
 	~TimerView(void);
 
+private:
+	TextView label;
+	TextView numberLabel;
+	Timer timmer;
+	float timerP;
+	bool finished;
+	int index;
+	float i;
+	float beforeTimer;
+	int timerView;
+	std::string stgTimerView;
 };
 
 #endif /** __TIMER_VIEW_H__ **/
