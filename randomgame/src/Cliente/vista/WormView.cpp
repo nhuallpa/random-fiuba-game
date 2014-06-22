@@ -147,7 +147,6 @@ void WormView::update(GameElement* domainElement)
 		}
 		if (this->widhtLifeCurrent <= 0) {
 			this->widhtLifeCurrent = 1;
-			this->alive = false; // Esta linea la agregue yo (Erik)
 		}
 		this->currentLife = domainElement->getLife();
 	}
