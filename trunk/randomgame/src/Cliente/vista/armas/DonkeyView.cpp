@@ -23,7 +23,9 @@ void DonkeyView::clean()
 	
 void DonkeyView::update() 
 {
-	this->currentSprite->update();
+	if (this->detonatedParcial) {
+		this->currentSprite->update();
+	}
 
 }
 
@@ -35,6 +37,18 @@ void DonkeyView::draw(SDLScreen & screen)
 										screen.getRenderer(),
 										this->flip,
 										true);
+	if (this->detonatedParcial) {
+		TextureManager::Instance().draw(this->currentSprite->getImageId(), 
+										this->getXCenter(), 
+										this->getYCenter(), 
+										screen.getRenderer(),
+										this->flip,
+										true);
+		if (this->currentSprite->isLastFrame()) {
+			this->detonatedParcial = false;
+			this->currentSprite->clean();
+		}
+	}
 }
 
 
@@ -53,7 +67,9 @@ int DonkeyView::getYCenter()
 
 void DonkeyView::detonate()
 {
-	currentSprite = &this->spriteExplosion;
+	/*currentSprite = &this->spriteExplosion;
 	this->detonated = true;
-	SoundManager::Instance().pEXPLOSION3();
+	SoundManager::Instance().pEXPLOSION3();*/
+	Log::i("Burro detonado");
+	this->detonateParcial();
 }
