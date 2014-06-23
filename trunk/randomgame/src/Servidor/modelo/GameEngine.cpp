@@ -367,8 +367,8 @@ int GameEngine::step(){
 		if ( iterator->second->type == WORM ){
 			if ( !static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->isAlive() ){
 				//Viene muerto del ciclo anterior, lo elimino
-				static_cast<Worm2d*>(iterator->second)->makeTumb();
-				//bodiesToDelete.push_back( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
+				//static_cast<Worm2d*>(iterator->second)->makeTumb();
+				bodiesToDelete.push_back( static_cast<Worm*>(static_cast<Worm2d*>(iterator->second)->body->GetUserData())->getId() );
 			}else{
 				Worm2d* aBody = static_cast<Worm2d*>(iterator->second);
 				aBody->animate();
@@ -459,19 +459,7 @@ int GameEngine::step(){
 				
 
 				//printf("\nlevel: %f , y: %f",this->gameLevel->getWaterLevel(), (iterator->second)->body->GetPosition().y);
-				if ( (iterator->second)->body->GetPosition().y <= this->gameLevel->getWaterLevel() ){
-					// Marco como inactivo para borrar en el proximo ciclo
-					////printf("\n\n\n\nLo marco para borrar\n\n\n");
-					static_cast<Missile2d*>(iterator->second)->body->SetActive(false);
-
-					//Cambio weaponId para eliminar en el proximo ciclo
-					static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setWeapon(NO_WEAPON);
-					
-					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->drowned = true;
-					retval = 1;
-
-				}else{
-					////printf("\nsigo");
+					printf("\nsigo");
 					// Lo freno
 					(iterator->second)->body->SetLinearVelocity( b2Vec2(0,0) );
 						
@@ -479,7 +467,7 @@ int GameEngine::step(){
 					(iterator->second)->body->ApplyLinearImpulse( b2Vec2(0, (iterator->second)->body->GetMass()*8), (iterator->second)->body->GetWorldCenter() );
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->myLastAction == EXPLOSION;
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setExploded(false);
-				}
+				
 
 
 
@@ -576,7 +564,7 @@ int GameEngine::step(){
 			if ( !static_cast<GameElement*>(it->second->GetBody()->GetUserData())->drowned){
 				/* Si es un misil lo elimino */
 				if ( it->second->GetUserData() == (void*)UD_MISSIL ){
-					////printf("\n\n\nMisil al agua\n\n\n");
+					printf("\n\n\nMisil al agua\n\n\n");
 					it->second->GetBody()->SetActive(false);
 					static_cast<Missile*>(it->second->GetBody()->GetUserData())->drowned = true;
 					retval = 1;
@@ -590,9 +578,8 @@ int GameEngine::step(){
 						static_cast<Worm*>(it->second->GetBody()->GetUserData())->setLife(0);
 						static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAlive(true);
 						static_cast<Worm*>(it->second->GetBody()->GetUserData())->drowned = true;
-						//Mandar DEAD o DROWNED
-						//Convertir en TUMBA
-
+						static_cast<Worm*>(it->second->GetBody()->GetUserData())->setAction(WORM_DROWNED);
+						static_cast<Worm*>(it->second->GetBody()->GetUserData())->changed = true;
 
 					}
 				}
@@ -685,7 +672,7 @@ bool GameEngine::intersectionWithWater(b2Fixture* fixture){
 		//Log::t("Circle");
 		b2CircleShape* circ = (b2CircleShape*)fixture->GetShape();
 		
-		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y + circ->m_radius*2) <= this->gameLevel->getWaterLevel() )
+		if ( (fixture->GetBody()->GetWorldPoint(b2Vec2(0.0,0.0)).y + circ->m_radius) <= this->gameLevel->getWaterLevel() )
 			return true;
 	}
 

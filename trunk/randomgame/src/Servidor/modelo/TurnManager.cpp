@@ -15,11 +15,15 @@ void TurnManager::addPlayer(std::string player){
 
 void TurnManager::removePlayer(std::string player){
 
-	for ( std::vector<std::string>::iterator it = this->players.begin(); it != this->players.end(); ++it){
+	for ( std::vector<std::string>::iterator it = players.begin(); it != players.end(); ++it){
 		if ( !it->compare(player) ){
-			this->players.erase(it);
+			players.erase(it);
+			printf("\nplayer erased");
 		}
+	
 	}
+
+
 
 }
 

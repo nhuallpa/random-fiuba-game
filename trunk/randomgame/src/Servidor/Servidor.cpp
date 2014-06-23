@@ -211,18 +211,21 @@ int Servidor::stepOver(void* data){
 			////printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
 
-			/*Si ya exploto, cambio de turno*/
+/* HUBO EXPLOSION y pasaron 5 seg despues del disparo o acabo el turno */
 			if ( doWeHaveAExplosion ){
 
-				//printf("\n\nCAMBIO DE TURNO \n");
+				printf("\n\nCAMBIO DE TURNO \n");
 				/* Actualizo la vida y notifico */
 				srv->processPlayersLife();
 
+
+
 				/* Veo si hubo ganador */
 				if ( srv->doWeHaveAWinner() ){
-					//printf("\nHay un ganador");
+					printf("\nHay un ganador");
+					srv->notifyWinner();
 				}
-						
+
 				doWeHaveAExplosion = false;
 				waitingForMissil = false;
 				simulationEnded = false;
@@ -234,15 +237,16 @@ int Servidor::stepOver(void* data){
 				/* Inicio el turno del nuevo player */
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
+/* NO DISPARO y se acabo el turno */
 			}else if ( !localShoot ){
 
-				//printf("\n\nCAMBIO DE TURNO 2 (No disparo) \n");
+				printf("\n\nCAMBIO DE TURNO 2 (No disparo) \n");
 				/* Actualizo la vida y notifico */
 				srv->processPlayersLife();
 
 				/* Veo si hubo ganador */
 				if ( srv->doWeHaveAWinner() ){
-					//printf("\nHay un ganador");
+					printf("\nHay un ganador");
 					srv->notifyWinner();
 				}
 						
@@ -258,6 +262,8 @@ int Servidor::stepOver(void* data){
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 			}
+
+/* DISPARO y NO HUBO EXPLOSION*/
 
 		}
 
@@ -585,6 +591,7 @@ void Servidor::processPlayersLife(){
 		this->worldQ.play[0].life = itGP->second->getLife();
 		this->worldQ.elements = 1;
 		this->notifyAll();
+
 	}
 
 }
@@ -776,10 +783,10 @@ void Servidor::sendHoles(){
 	EDatagram* msg = new EDatagram();
 	
 	for( ; itm!=mutexes.end(); ++itm){
-		//printf("\n Enviando holes: %d", copy.size());
+		//Log::i("\n Enviando holes: %d", copy.size());
 		for ( int i=0; i< copy.size() ; i++ ){
 			itm->second.first->lock();
-			//printf("\n Enviando hole: %f, %f, %d", copy[i]->x, copy[i]->y, copy[i]->radio);
+			Log::i("\n Enviando hole: %f, %f, %d", copy[i]->x, copy[i]->y, copy[i]->radio);
 			msg->type = MAP_UPDATE;
 			msg->play[0].weaponid = copy[i]->radio;
 			msg->play[0].x = copy[i]->x;
@@ -805,8 +812,10 @@ void Servidor::shutdown(){
 void Servidor::reboot(){
 
 	this->worldQ.type = REINIT_SRV;
+	gameEngine.mapExplosions.clear();
 	this->notifyAll();
 	this->deleted = true;
+
 	Sleep(2);
 	closesocket(this->input.getFD());
 	closesocket(this->output.getFD());
@@ -834,7 +843,7 @@ void Servidor::disconnectAll(){
 
 
 bool Servidor::doWeHaveAWinner(){
-
+	printf("Do we have a winner?");
 	std::map<string, GamePlayer*> copy = this->gameEngine.getLevel()->getPlayers();
 	std::map<string, GamePlayer*>::iterator it =  copy.begin();
 	int q=0;
