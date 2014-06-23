@@ -165,10 +165,10 @@ void AimView::renderAimLeft(){
 	for(int i = 0; i < max; i++){
 		this->pointUp();
 	} 
-	this->centerPoint();
-	this->generatePoint();
-	this->xDraw = this->x + this->xRelative; 
-	this->yDraw = this->y + this->yRelative;
+	//this->centerPoint();
+	//this->generatePoint();
+	//this->xDraw = this->x + this->xRelative; 
+	//this->yDraw = this->y + this->yRelative;
 }
 
 void AimView::renderAimRight(){
@@ -200,6 +200,10 @@ void AimView::draw(SDLScreen & screen){
 						false, SDL_FLIP_NONE);
 		}
 	else if(bShootEnter){
+		this->centerPoint();
+		this->generatePoint();
+		this->xDraw = this->x + this->xRelative; 
+		this->yDraw = this->y + this->yRelative;
 		TextureManager::Instance().drawFrame(
 						"aim", this->xDraw, this->yDraw, 60, 57, 
 						0, 0, screen.getRenderer(),
