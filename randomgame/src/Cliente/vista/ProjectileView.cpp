@@ -30,6 +30,7 @@ void ProjectileView::update(GameElement* domainElement)
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
 	if (domainElement->action == EXPLOSION && !this->detonated) {
+		Log::i("ProjectileView::update burro");
 		this->detonate();
 	} else if (domainElement->action == MISSIL_FLYING_RIGHT) {
 		this->flip = SDL_FLIP_NONE;
@@ -82,12 +83,13 @@ int ProjectileView::getYCenter()
 
 void ProjectileView::detonate()
 {
-	currentSprite = &this->spriteExplosion;
-	this->detonated = true;
-	SoundManager::Instance().pEXPLOSION1();
 }
 
-
+void ProjectileView::detonateParcial() {
+	this->detonatedParcial = true;
+	currentSprite = &this->spriteExplosion;
+	SoundManager::Instance().pEXPLOSION1();
+}
 
 int ProjectileView::getLifeInitial() { 
 	return this->lifeInitial;

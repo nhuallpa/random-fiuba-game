@@ -28,6 +28,8 @@ protected:
 
 	bool detonated;
 
+	bool detonatedParcial;
+
 	tDirection direction;
 	
 	int currentLife;
@@ -64,7 +66,8 @@ public:
 
 	virtual int getYCenter();
 
-	void detonate();
+	virtual void detonate();
+	virtual void detonateParcial();
 
 	~ProjectileView(void);
 

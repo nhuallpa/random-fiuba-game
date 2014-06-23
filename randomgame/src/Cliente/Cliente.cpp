@@ -332,7 +332,12 @@ bool Cliente::updateModel(Playable p){
 		this->domainMx.unlock();
 	
 	}else{
-		Log::i("Cliente::updateModel >> Processing explosion id: %d, at pos[ %f ul, %f ul] of weapon %d", p.wormid, p.x, p.y, p.weaponid);
+		Log::i("Cliente::updateModel >> Processing explosion id: %d, at pos[ %f ul, %f ul] of weapon %d action: %s", p.wormid, p.x, p.y, p.weaponid, Util::actionString(p.action).c_str());
+		// lo actualiza para que llegue el EXPLOTE al misil con  id p.wormid tambien.
+		this->domainMx.lock();
+		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
+		this->domainMx.unlock();
+
 		switch( p.weaponid ){
 		case GRENADE:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
@@ -350,7 +355,12 @@ bool Cliente::updateModel(Playable p){
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		case BAZOOKA:
-
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
+		case SHEEP:
+			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
+			break;
+		case BANANA:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
 			break;
 		default:
@@ -358,14 +368,9 @@ bool Cliente::updateModel(Playable p){
 			break;
 		}
 		
-		// lo actualiza para que llegue el EXPLOTE al misil con  id p.wormid tambien.
-		this->domainMx.lock();
-		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
-		this->domainMx.unlock();
-
-		// lo elimino de la vista
-
+		
 	}
+
 	return true;
 
 }
