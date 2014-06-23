@@ -11,7 +11,7 @@ StateBarView::StateBarView():View(0, 0){
 	colorError = 0xFF3300CC;
 	colorInfo = 0xFF006633;
 	colorMsg = colorError;
-
+	i = 300;
 	
 }
 
@@ -43,15 +43,17 @@ void StateBarView::setMessageCenter(std::string msg) {
 
 void StateBarView::draw(SDLScreen & screen){
 	
-	int xLabel = (int)(((float)screen.getWidth() / 2) - ((float)this->label.getWidth() / 2));
-	int yLabel = screen.getHeight() - this->label.getHeight() - 20;
+	int height = 20;
+	int width = 350;
+	int xLabel = (int)(((float)screen.getWidth() / 2) - ((float)width / 2));
+	int yLabel = screen.getHeight() - height - 20;
 
-	SDL_Rect rectAlert = {xLabel, yLabel, this->label.getWidth(), this->label.getHeight()};
+	SDL_Rect rectAlert = {xLabel, yLabel, width, height};
 
-	if (i<=300) 
+	if (i<300) 
 	{
 		i++;
-		TextureManager::Instance().drawFillRect(screen.getRenderer(), rectAlert,0,255,0,255);
+		TextureManager::Instance().drawFillRect(screen.getRenderer(), rectAlert,0,0,0,200);
 		this->label.draw(screen.getRenderer(), xLabel, yLabel);
 	}
 

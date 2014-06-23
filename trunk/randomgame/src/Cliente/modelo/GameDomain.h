@@ -69,6 +69,8 @@ public:
 		this->playersPlaying[p] = std::make_pair(c,color);
 	}
 
+	 void updatePlayerState(Player p, StateConn c);
+
 	 void updatePlayerStatus(Player p, StateConn st){
 		 this->playersPlaying[p] = std::make_pair(st,this->playersPlaying[p].second);
 	 }

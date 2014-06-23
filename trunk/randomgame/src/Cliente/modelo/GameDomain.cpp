@@ -53,3 +53,12 @@ void GameDomain::setPlayerState(Player p, StateConn c, unsigned long color){
 	this->playersPlaying[p] = std::make_pair(c,color);
 }
 
+void GameDomain::updatePlayerState(Player p, StateConn c)
+{
+	std::map<Player,std::pair<StateConn,int>>::iterator it;
+	it = this->playersPlaying.find(p);
+	if (it != this->playersPlaying.end()) {
+		unsigned long color = this->playersPlaying[p].second;
+		this->playersPlaying[p] = std::make_pair(c,color);	
+	}
+}

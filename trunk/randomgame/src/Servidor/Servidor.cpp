@@ -415,7 +415,7 @@ int Servidor::initClient(void* data){
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		w->unlock();
 		//printf("\nCliente no permitido en el server");
-		
+		Log::i("Cliente ya resgistrado en el server - %s", datagram->playerID.c_str());
 		// envio Rechazo
 		Sleep(1);
 		EDatagram* msg = new EDatagram();
@@ -431,15 +431,12 @@ int Servidor::initClient(void* data){
 		return 1;
 	} else {
 		// envio LOGIN_OK
+		Log::i("Cliente registrado correctamente - %s", datagram->playerID.c_str());
 		w->unlock();
 		EDatagram* msg = new EDatagram();
 		msg->type = LOGIN_OK;
 		((threadData*)data)->clientI.sendmsg(*msg);
 	}
-	
-
-
-	
 	
 	srv->pList.insert(	std::make_pair<std::string,std::pair<Socket,Socket>>(datagram->playerID,
 					std::make_pair(aThreadData->clientO,
@@ -457,6 +454,7 @@ int Servidor::initClient(void* data){
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
 	//Envio el nivel YAML al cliente
+	Log::i("Envio yaml al cliente");
 	ParserYaml* aParser = ParserYaml::getInstance();
 	aThreadData->clientI.sendFile(aParser->getLevelFilePath());
 
