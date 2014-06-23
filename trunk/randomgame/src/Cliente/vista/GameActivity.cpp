@@ -330,6 +330,7 @@ void GameActivity::OnClick(ClickEvent e){
 			aimView->unAim();
 			afterShoot = true;
 			this->iniHmissile();
+			deselectPreviewsWeapon();
 		}
 		else{
 			//Estoy en el caso de que se eligio el misil, guardo el x e y Objetivo
