@@ -53,9 +53,7 @@ class GameEngine {
 		int positionIterations;
 		TerrainProcessor* aTerrainProcessor;
 
-		//map de las explosiones del mapa
-		std::vector<Explosion*> mapExplosions;
-		std::queue<Explosion> lastExplosions;
+
 
 		b2World* myWorld;
 		Water* water;
@@ -91,6 +89,10 @@ class GameEngine {
 
 		void doExplosion(b2Vec2 removalPosition, int removalRadius, int weaponid);
 		poly_t makeConvexRing(b2Vec2 position, float radius, int vertices);
+
+				//map de las explosiones del mapa
+		std::vector<Explosion*> mapExplosions;
+		std::queue<Explosion> lastExplosions;
 
 		Timer myTimer;
 		

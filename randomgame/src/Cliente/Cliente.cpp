@@ -524,7 +524,7 @@ int Cliente::netListener(void* data){
 
 		case GAME_UPDATE:
 			Log::i("We have a winner");
-			if ( emsg->playerID.compare(playerId) ){
+			if ( !emsg->playerID.compare(playerId) ){
 				//YO GANE
 				Log::i("YO: %s, gane",emsg->playerID.c_str() );
 			}else{
@@ -540,7 +540,7 @@ int Cliente::netListener(void* data){
 			closesocket( cli->output.getFD() );
 
 			Sleep(10);
-						cli->rebooted = true;
+			cli->rebooted = true;
 			return 0;
 			break;
 
