@@ -37,6 +37,7 @@ void GameView::setEart(EartView* eart)
 {
 	this->eart = eart;
 	this->add(eart);
+	this->waterImg->initialize(5,0.5, true);
 }
 void GameView::setSky(SkyView* sky)
 {
@@ -68,7 +69,7 @@ void GameView::setMenuWeapon(MenuWeaponView* menuWeapon)
 }
 
 void GameView::setWaterImg(WaterViewImg* waterImg){
-	//this->waterImg = waterImg;
+	this->waterImg = waterImg;
 	this->add(waterImg);
 }
 void GameView::setWaterSurfImg(std::list<WaterViewImg*> l){

@@ -18,7 +18,7 @@ void WaterViewImg::initialize(int Gap, float timmerChange,bool bBackground){
 	this->bBackground = bBackground;
 	this->Gap = 35;
 	this->enableScroll();
-	this->loadWater(Gap);
+	this->loadWater3(Gap);
 	this->iniView();
 	this->iniRender();
 }
@@ -166,13 +166,13 @@ void WaterViewImg::loadWater2(int Gap){
 	height = lebel;
 
 	water.insert(pair<string,Shape>("marea_1_1", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 	water.insert(pair<string,Shape>("marea_1_2", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 	water.insert(pair<string,Shape>("marea_1_3", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 	water.insert(pair<string,Shape>("marea_1_4", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 
 	this->setY(positionY);
 	backgroundWater = pair<string,Shape>("FondoAgua", 
@@ -197,18 +197,18 @@ void WaterViewImg::loadWater3(int Gap){
 	
 	positionX = 0;
 	this->Gap += Gap;
-	positionY = dimension.second - lebel - 40;
+	positionY = dimension.second - lebel - 5;
 	width = dimension.first;
 	height = lebel;
 
 	water.insert(pair<string,Shape>("marea_1_1", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 	water.insert(pair<string,Shape>("marea_1_2", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 	water.insert(pair<string,Shape>("marea_1_3", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 	water.insert(pair<string,Shape>("marea_1_4", 
-		Shape(positionX, positionY - Gap, width, Gap)));
+		Shape(positionX, positionY - Gap, width, 47)));
 
 	this->setY(positionY);
 	backgroundWater = pair<string,Shape>("FondoAgua", 
