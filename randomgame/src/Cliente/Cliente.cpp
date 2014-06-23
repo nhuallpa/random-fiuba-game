@@ -485,7 +485,8 @@ int Cliente::netListener(void* data){
 		case PLAYER_UPDATE:
 			//Add the user to the players that are playing list
 			Log::i("Updated player: %s state to %d",emsg->playerID.c_str(), emsg->playerState);
-			cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
+			//cli->domain.addPlayer(emsg->playerID,emsg->playerState,0);
+			cli->domain.updatePlayerState(emsg->playerID,emsg->playerState);
 
 			if (emsg->playerState == DISCONNECTED)
 			{
