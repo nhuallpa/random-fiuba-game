@@ -312,7 +312,7 @@ void GameActivity::OnClick(ClickEvent e){
 	}
 
 	//Agrego para escuchar el clic del arma
-	if(aimView->isShootMouse()){
+	if(aimView->isShootMouse() && !hasClickedMenu(clickPointScreen)){
 		if(this->idWeapon != HMISSILE){	
 			int xMira= e.x;
 			int yMira= e.y;
