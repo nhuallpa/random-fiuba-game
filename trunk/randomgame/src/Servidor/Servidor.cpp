@@ -592,6 +592,11 @@ void Servidor::processPlayersLife(){
 		this->worldQ.elements = 1;
 		this->notifyAll();
 
+		if ( !itGP->second->getLife() ){
+			printf("\nRemoving player");
+			this->turnMgr.removePlayer(itGP->first);
+		}
+
 	}
 
 }
