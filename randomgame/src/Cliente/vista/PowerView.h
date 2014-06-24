@@ -22,10 +22,15 @@ public:
 
 	void draw(SDLScreen & screen);
 
+	void allow();
+
+	void deny();
+
 	~PowerView(void);
 private:
 	TextView label;
 	SDL_Rect rect;
+	bool bAllow;
 };
 
 #endif /** __POWER_VIEW_H__ **/

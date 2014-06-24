@@ -12,6 +12,7 @@ PowerView::PowerView(int x, int y)
 	white.b = 0xFF;
 	this->label.setText("Poder", white);
 	this->rect.w = 1;
+	this->bAllow = false;
 }
 
 
@@ -26,7 +27,7 @@ void PowerView::update()
 
 
 void PowerView::OnChange(ChangeEvent e){
-	if(e.isStateBar()){
+	if(bAllow && e.isStateBar()){
 		this->rect.w = e.factor;
 	}
 	else{
@@ -37,6 +38,15 @@ void PowerView::OnChange(ChangeEvent e){
 void PowerView::clean()
 {
 
+}
+
+
+void PowerView::allow(){
+	this->bAllow = true;
+}
+
+void PowerView::deny(){
+	this->bAllow = false;
 }
 
 void PowerView::draw(SDLScreen & screen){

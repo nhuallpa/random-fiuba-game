@@ -85,6 +85,9 @@ public:
 	void actionMenu();
 	void offMenu();
 	
+	void allowPower();
+	void denyPower();
+
 	bool hasClickedMenu(SDL_Point clickPoint);
 	bool hasClickedWeapon(SDL_Point clickPoint);
 	Weapon* retrieveWeaponClicked(SDL_Point clickPoint);

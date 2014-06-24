@@ -143,6 +143,7 @@ void GameActivity::iniState(){
 	if(afterShoot){
 		this->cController->remuveOnActionListener(this);
 		this->offMenu();
+		this->denyPower();
 	}
 	if(!this->isRightAim && this->aimView->isRightSide()){
 		this->isLeftAim = false;
@@ -158,6 +159,16 @@ void GameActivity::iniState(){
 		aw.moveView = WITH_WEAPON_LEFT;
 		this->ActionResult(CALL_MOVEVIEW, NULL, &aw);
 	}
+}
+
+void GameActivity::allowPower(){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	return gameView->allowPower();
+}
+
+void GameActivity::denyPower(){
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	return gameView->denyPower();
 }
 
 
@@ -376,6 +387,7 @@ void GameActivity::linkWorm(SDL_Point clickPoint) {
 		if(this->idWeapon != NO_WEAPON){
 			deselectPreviewsWeapon();
 			aimView->unAim();
+			denyPower();
 		}
 	}
 }
@@ -387,6 +399,7 @@ void GameActivity::linkWormWithWeapon(SDL_Point clickPointScreen) {
 	if(this->idWeapon != NO_WEAPON){
 		this->deselectPreviewsWeapon();
 		aimView->unAim();
+		denyPower();
 	}
 
 	Weapon* aWeapon = retrieveWeaponClicked(clickPointScreen);
@@ -397,7 +410,10 @@ void GameActivity::linkWormWithWeapon(SDL_Point clickPointScreen) {
 	ActionWorm aw;
 	aw.dim = aWorm->getDirection();
 	this->ActionResult(CALL_WEAPON, NULL, &aw); 
-
+	
+	if(!isWeaponAir()){
+		allowPower();
+	}
 	//logica de la mira
 	aimView->setWorm(aWorm, aWeapon);
 	aimView->aimBuild();
@@ -409,6 +425,7 @@ void GameActivity::linkWormWithWeapon(SDL_Point clickPointScreen) {
 		aw.dim = aWorm->getDirection();
 		this->ActionResult(CALL_UNWEAPON, NULL, &aw);
 		aimView->unAim();
+		denyPower();
 	}
 }
 
@@ -667,6 +684,9 @@ void GameActivity::OnAction(ActionEvent e){
 			break;
 		case SHOOT:
 			{  
+				if(aimView->isShootMouse()){
+					return;//no puedo disparar con shootEnter
+				}
 				
 				if (this->wormIdSelected>0 && this->idWeapon!=NO_WEAPON) {
 
@@ -841,4 +861,11 @@ void GameActivity::ActionResultLog(CallClient call, Playable* p, ActionWorm *aw)
 		Log::i(GAME_ACTIVITY,"El worm con id=%2d ejecutar la accion de %s sobre el servidor",
 			this->wormIdSelected, msj);
 	}
+}
+
+
+bool GameActivity::isWeaponAir(){
+	return (this->idWeapon == AIRATTACK
+		|| this->idWeapon == BURRO
+		|| this->idWeapon == HMISSILE);
 }

@@ -148,6 +148,9 @@ public:
 
 	bool validateWormLastWords();
 
+	void allowPower();
+	void denyPower();
+	bool isWeaponAir();
 
 	void linkWormWithWeapon(SDL_Point clickPointScreen);
 	void linkWorm(SDL_Point clickPoint);
