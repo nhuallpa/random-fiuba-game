@@ -7,6 +7,8 @@
 #define Y_MENU 50
 #define WIDTH_WEAPON  32
 #define HEIGHT_WEAPON 32
+#define WIDTH_MENU_WEAPON 150
+#define HEIGHT_MENU_WEAPON 70
 
 MenuWeaponView::MenuWeaponView(int x, int y)
 	:View(x,y){
@@ -117,138 +119,83 @@ Weapon* MenuWeaponView::findWeaponById(int idWeapon){
 
 
 void MenuWeaponView::buildWeapon(){
-	int x, y;
+	int x, y,
+		widthScreen, heightScreen;
 	Shape *shape = NULL;
 	list<string> lweapons;
 	Weapon * weapon;
 
-	x = X_MENU;
-	y = Y_MENU;
+	widthScreen = TextureManager::Instance().getScreenWidth();
+	heightScreen = TextureManager::Instance().getScreenHeight();
 
-	shape = new Shape(x, y, 280, 214);
-	if(shape != NULL){
-		//lweapons.push_back("MenuWeapon");
-		menu = new Weapon(NO_WEAPON, *shape, lweapons, "");
-		delete shape;
-	}
 
-	x += 55;
-	y += WIDTH_WEAPON + 105;
+	x = widthScreen - WIDTH_MENU_WEAPON;
+	y = HEIGHT_MENU_WEAPON;
+
+	menu = new Weapon(NO_WEAPON,Shape(x,y,WIDTH_MENU_WEAPON,HEIGHT_MENU_WEAPON), lweapons, "");
+
+	x += 1;	y += 2;
 	lweapons.clear();
+	lweapons.push_back("bazooka.1.2");
+	weapon = new Weapon(BAZOOKA, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "bazooka.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(BAZOOKA,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("bazooka.1.2");
-		weapon = new Weapon(BAZOOKA, *shape, lweapons, "bazooka.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(BAZOOKA,weapon));
-		delete shape;
-	}
-
-	x += WIDTH_WEAPON;
+	x += WIDTH_WEAPON - 3;
 	lweapons.clear();
+	lweapons.push_back("grenade.1.2");
+	weapon = new Weapon(GRENADE, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "grenade.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(GRENADE,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("grenade.1.2");
-		weapon = new Weapon(GRENADE, *shape, lweapons, "grenade.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(GRENADE,weapon));
-		delete shape;
-	}
-	
-	x += WIDTH_WEAPON + 3;
+	x += WIDTH_WEAPON - 3;
 	lweapons.clear();
+	lweapons.push_back("hgrenade.1.2");
+	weapon = new Weapon(HOLY, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "hgrenade.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(HOLY,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("hgrenade.1.2");
-		weapon = new Weapon(HOLY, *shape, lweapons, "hgrenade.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(HOLY,weapon));
-		delete shape;
-	}
+	x += WIDTH_WEAPON - 3;
+	lweapons.clear();
+	lweapons.push_back("donkey.1.2");
+	weapon = new Weapon(BURRO, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "donkey.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(BURRO,weapon));
+
+	x += WIDTH_WEAPON - 3;
+	lweapons.clear();
+	lweapons.push_back("dynamite.1.2");
+	weapon = new Weapon(DYNAMITE, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "dynamite.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(DYNAMITE,weapon));
+
+	x  = widthScreen - WIDTH_MENU_WEAPON + 1;
+	y  += HEIGHT_WEAPON;
+	lweapons.clear();
+	lweapons.push_back("airstrke.1.2");
+	weapon = new Weapon(AIRATTACK, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "airstrke.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(AIRATTACK,weapon));
 
 	x += WIDTH_WEAPON - 2;
 	lweapons.clear();
+	lweapons.push_back("banana.1.2");
+	weapon = new Weapon(BANANA, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "banana.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(BANANA,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("donkey.1.2");
-		weapon = new Weapon(BURRO, *shape, lweapons, "donkey.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(BURRO,weapon));
-		delete shape;
-	}
-
-
-	x += WIDTH_WEAPON + 5;
+	x += WIDTH_WEAPON - 3;
 	lweapons.clear();
+	lweapons.push_back("hmissile.1.2");
+	weapon = new Weapon(HMISSILE, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "hmissile.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(HMISSILE,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("dynamite.1.2");
-		weapon = new Weapon(DYNAMITE, *shape, lweapons, "dynamite.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(DYNAMITE,weapon));
-		delete shape;
-	}
-
-
-	x  = X_MENU + 55;
-	y  = Y_MENU + WIDTH_WEAPON *2 + 105;
-	lweapons.clear();
-
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("airstrke.1.2");
-		weapon = new Weapon(AIRATTACK, *shape, lweapons, "airstrke.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(AIRATTACK,weapon));
-		delete shape;
-	}
-
-
-	x += WIDTH_WEAPON;
-	lweapons.clear();
-
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("banana.1.2");
-		weapon = new Weapon(BANANA, *shape, lweapons, "banana.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(BANANA,weapon));
-		delete shape;
-	}
-
-
-	x += WIDTH_WEAPON;
-	lweapons.clear();
-
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("hmissile.1.2");
-		weapon = new Weapon(HMISSILE, *shape, lweapons, "hmissile.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(HMISSILE,weapon));
-		delete shape;
-	}
-
-
-	x += WIDTH_WEAPON + 3;
+	x += WIDTH_WEAPON - 3;
 	y = y - 5;
 	lweapons.clear();
+	lweapons.push_back("sheep.1.2");
+	weapon = new Weapon(SHEEP, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "sheep.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(SHEEP,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("sheep.1.2");
-		weapon = new Weapon(SHEEP, *shape, lweapons, "sheep.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(SHEEP,weapon));
-		delete shape;
-	}
-
-	x += WIDTH_WEAPON + 3;
+	x += WIDTH_WEAPON - 3;
 	y += 5;
 	lweapons.clear();
+	lweapons.push_back("suicide.1.2");
+	weapon = new Weapon(SUICIDE, Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON), lweapons, "suicide.1.1");
+	mapa.insert(pair<WeaponId, Weapon*>(SUICIDE,weapon));
 
-	shape = new Shape(x, y, WIDTH_WEAPON, HEIGHT_WEAPON);
-	if(shape != NULL){
-		lweapons.push_back("suicide.1.2");
-		weapon = new Weapon(SUICIDE, *shape, lweapons, "suicide.1.1");
-		mapa.insert(pair<WeaponId, Weapon*>(SUICIDE,weapon));
-		delete shape;
-	}
 }
 
