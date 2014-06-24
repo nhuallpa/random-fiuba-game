@@ -61,6 +61,14 @@ void GameView::setTerrain(TerrainView* terrain)
 	this->add(water);
 }
 
+void GameView::allowPower(){
+	this->powerView->allow();
+}
+
+void GameView::denyPower(){
+	this->powerView->deny();
+}
+
 void GameView::setStateBar(StateBarView* stateBar)
 {
 	this->stateBar = stateBar;
