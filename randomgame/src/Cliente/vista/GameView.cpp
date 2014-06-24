@@ -33,6 +33,11 @@ void GameView::setProjectileContainer(ProjectileViewGroup * projectileViewGroup)
 	this->add(projectileViewGroup);
 }
 
+void GameView::setExplosionContainer(ExplosionViewGroup * explosionViewGroup) {
+	this->explosionViewGroup = explosionViewGroup;
+	this->add(explosionViewGroup);
+}
+
 void GameView::setEart(EartView* eart)
 {
 	this->eart = eart;

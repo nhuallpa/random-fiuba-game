@@ -18,6 +18,7 @@
 #include "MenuWeaponView.h"
 #include "WaterViewImg.h"
 #include "ElemViewGroup.h"
+#include "ExplosionViewGroup.h"
 #include <map>
 #include <string>
 #include "Weapon.h"
@@ -34,6 +35,7 @@ private:
 	
 	WormViewGroup * wormViewGroup;
 	ProjectileViewGroup* projectileViewGroup;
+	ExplosionViewGroup* explosionViewGroup;
 
 	EartView* eart;
 	SkyView* sky;
@@ -57,6 +59,9 @@ public:
 
 	void setProjectileContainer(ProjectileViewGroup * projectileViewGroup);
 	ProjectileViewGroup* getProjectileContainer() {return this->projectileViewGroup;}
+
+	void setExplosionContainer(ExplosionViewGroup * explosionViewGroup);
+	ExplosionViewGroup* getExplosionContainer() {return this->explosionViewGroup;}
 
 	void setEart(EartView* eart);
 	void setSky(SkyView* sky);

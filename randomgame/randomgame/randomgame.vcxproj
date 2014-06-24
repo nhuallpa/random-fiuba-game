@@ -104,6 +104,8 @@
     <ClCompile Include="..\src\Cliente\vista\armas\SheepView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\Camera.cpp" />
     <ClCompile Include="..\src\Cliente\vista\EartView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\ExplosionView.cpp" />
+    <ClCompile Include="..\src\Cliente\vista\ExplosionViewGroup.cpp" />
     <ClCompile Include="..\src\Cliente\vista\figuras\CircleView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\figuras\EllipseView.cpp" />
     <ClCompile Include="..\src\Cliente\vista\figuras\HexagonView.cpp" />
@@ -197,6 +199,8 @@
     <ClInclude Include="..\src\Cliente\vista\Camera.h" />
     <ClInclude Include="..\src\Cliente\vista\EartView.h" />
     <ClInclude Include="..\src\Cliente\vista\ElemViewGroup.h" />
+    <ClInclude Include="..\src\Cliente\vista\ExplosionView.h" />
+    <ClInclude Include="..\src\Cliente\vista\ExplosionViewGroup.h" />
     <ClInclude Include="..\src\Cliente\vista\figuras\CircleView.h" />
     <ClInclude Include="..\src\Cliente\vista\figuras\EllipseView.h" />
     <ClInclude Include="..\src\Cliente\vista\figuras\HexagonView.h" />

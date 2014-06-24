@@ -44,6 +44,13 @@ public:
 
 	float getScale() {return this->scale;}
 
+	void scrollUp(int delta_y);
+	void scrollLeft(int delta_x);
+
+	bool validateScrollUp(int delta_y);
+
+	bool validateScrollLeft(int delta_x);
+
 	~Camera(void);
 
 

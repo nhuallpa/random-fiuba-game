@@ -36,7 +36,10 @@ void SkyView::draw(SDLScreen & screen)
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
 										currentSprite->getCurrentFrame(), 
-										screen.getRenderer());
+										screen.getRenderer(),
+										false,
+										SDL_FLIP_NONE,
+										true);
 
 	TextureManager::Instance().drawFrame("nuve", 
 										getX() + 500, 
@@ -45,7 +48,10 @@ void SkyView::draw(SDLScreen & screen)
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
 										currentSprite->getCurrentFrame(), 
-										screen.getRenderer());
+										screen.getRenderer(),
+										false,
+										SDL_FLIP_NONE,
+										true);
 
 	TextureManager::Instance().drawFrame("nuve", 
 										getX() + 700, 
@@ -54,6 +60,9 @@ void SkyView::draw(SDLScreen & screen)
 										currentSprite->getHeight(), 
 										currentSprite->getCurrentRow(), 
 										currentSprite->getCurrentFrame(), 
-										screen.getRenderer());
+										screen.getRenderer(),
+										false,
+										SDL_FLIP_NONE,
+										true);
 
 }

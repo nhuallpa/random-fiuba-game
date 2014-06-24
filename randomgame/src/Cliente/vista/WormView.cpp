@@ -116,12 +116,11 @@ void WormView::update(GameElement* domainElement)
 		this->widhtLifeCurrent = (int)(((float)domainElement->getLife() * (float)this->widhtLife100) / 100.0f);
 		if (this->widhtLifeCurrent > this->widhtLife100) {
 			this->widhtLifeCurrent = this->widhtLife100;
-		}
-		if (this->widhtLifeCurrent <= 0) {
+		} else if (this->widhtLifeCurrent <= 0) {
 			this->widhtLifeCurrent = 1;
-			//this->alive = false; // Esta linea la agregue yo (Erik)
 		}
 		this->currentLife = domainElement->getLife();
+		SoundManager::Instance().pOUCH();
 	}
 	
 }
@@ -195,9 +194,7 @@ void WormView::update()
 		}
 		if (currentSprite == &this->sprites["morir"] && currentSprite->isLastFrame()) {
 			currentSprite = &this->sprites["explosion"];
-		} else if (currentSprite == &this->sprites["explosion"] && currentSprite->isLastFrame()) {
-			currentSprite = &this->sprites["cripta"];
-		}
+		} 
 
 		alive=false;
 
@@ -308,7 +305,7 @@ tDirection WormView::getDirection()
 }
 
 bool WormView::isDead() {
-	return (!this->alive && currentSprite->isLastFrame());
+	return (!this->alive && (&this->sprites["explosion"] == currentSprite) && currentSprite->isLastFrame());
 }
 
 bool WormView::isAlive(){

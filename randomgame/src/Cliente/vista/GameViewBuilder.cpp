@@ -26,6 +26,12 @@ void GameViewBuilder::buildContainer()
 	gameView->setProjectileContainer(new ProjectileViewGroup(0,0));
 }
 
+void GameViewBuilder::buildExplosionContainter()
+{
+	gameView->setExplosionContainer(new ExplosionViewGroup(0,0));
+}
+
+
 void GameViewBuilder::buildProjectileContainer()
 {
 	gameView->setProjectileContainer(new ProjectileViewGroup(0,0));
@@ -372,6 +378,22 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 		return NULL;
 	}
 	return aProjectile;
+}
+
+ExplosionView* GameViewBuilder::createExplosion(float x, float y, int radio)
+{
+	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(x, y);
+	ExplosionView* explosionView = new ExplosionView(pointSDL.x, pointSDL.y);
+	try 
+	{
+		explosionView->setSpriteExplosion(SpriteConfigurator::Instance().get("circle100"));
+	}
+	catch (std::exception & e) 
+	{
+		Log::e(e.what());
+		return NULL;
+	}
+	return explosionView;
 }
 
 void GameViewBuilder::buildPlayerProgress()

@@ -21,6 +21,25 @@ void Camera::setPosition(int x, int y)
 	this->box.y = y;
 }
 
+bool Camera::validateScrollUp(int delta_y)
+{
+	return (this->box.y - delta_y >= 0);
+}
+bool Camera::validateScrollLeft(int delta_x)
+{
+	return (this->box.x - delta_x >=0);
+}
+
+void Camera::scrollUp(int delta_y)
+{
+	this->box.y-= delta_y;
+}
+void Camera::scrollLeft(int delta_x)
+{
+	this->box.x-= delta_x;
+}
+
+
 void Camera::OnScroll(ScrollEvent e) {
 	if ( (this->box.x + e.xSpeed) > 0 && 
 		 (this->box.x + this->box.w + e.xSpeed) < this->getWidthScenario()) 
@@ -85,15 +104,45 @@ void Camera::OnZoom(ZoomEvent e)
 		newViewPort.h = h_new;
 		Log::t(" Camara view port ancho: %d		alto: %d  scale: %f", newViewPort.w, newViewPort.h, nextScale);
 		
-
 		int camaraBootom = newViewPort.h + this->getY();
 		int camaraRight = newViewPort.w + this->getX();
-		if (camaraBootom <= this->getHeightScenario() &&
-			camaraRight <= this->getWidthScenario())
+		if (camaraBootom <= this->getHeightScenario() && camaraRight <= this->getWidthScenario())
 		{
 			this->setH(newViewPort.h);
 			this->setW(newViewPort.w);
 			this->scale = nextScale;
+		} 
+		else if (camaraBootom > this->getHeightScenario() && camaraRight > this->getWidthScenario()) 
+		{
+			int delta_x = camaraRight - this->getWidthScenario();
+			int delta_y = camaraBootom - this->getHeightScenario();
+			if (this->validateScrollLeft(delta_x) && this->validateScrollUp(delta_y)) {
+				this->scrollUp(delta_y);
+				this->scrollLeft(delta_x);
+				this->setH(newViewPort.h);
+				this->setW(newViewPort.w);
+				this->scale = nextScale;
+			}	
+		}
+		else if (camaraBootom > this->getHeightScenario()) 
+		{
+			int delta_y = camaraBootom - this->getHeightScenario();
+			if (this->validateScrollUp(delta_y)) {
+				this->scrollUp(delta_y);
+				this->setH(newViewPort.h);
+				this->setW(newViewPort.w);
+				this->scale = nextScale;
+			}
+		}
+		else if (camaraRight > this->getWidthScenario()) 
+		{
+			int delta_x = camaraRight - this->getWidthScenario();
+			if (this->validateScrollLeft(delta_x)) {
+				this->scrollLeft(delta_x);
+				this->setH(newViewPort.h);
+				this->setW(newViewPort.w);
+				this->scale = nextScale;
+			}	
 		}
 	}	
 }
