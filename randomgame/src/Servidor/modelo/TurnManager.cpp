@@ -7,6 +7,13 @@ TurnManager::TurnManager(int nrPlayers):
 
 }
 
+std::string TurnManager::getCurrentPlayerTurn(){
+	if ( this->indicator == NOT_YET_ASSIGNED ){
+		this->indicator = 0;
+	}
+	return this->players[indicator]; 
+
+}
 
 
 void TurnManager::addPlayer(std::string player){
