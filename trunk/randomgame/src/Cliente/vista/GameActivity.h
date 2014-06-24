@@ -122,6 +122,8 @@ public:
 
 	void buildProjectile(int idElement, float x, float y, int type, int life, Movement action);
 
+	void buildExplosion( float x, float y, int type, int radio);
+
 	bool isThisClientOwner(int wormId);
 
 	bool isAlive(int wormId);

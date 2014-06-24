@@ -323,7 +323,7 @@ bool Cliente::updateModel(Playable p){
 	if ( p.action == CREATE_MISSIL ) {
 		this->domainMx.lock();
 		this->gameActivity->buildProjectile(p.wormid, p.x, p.y, p.weaponid, p.life, p.action);
-		Log::i("Cliente::updateModel >> Creando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d, life: %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid, p.life);
+		Log::d("Cliente::updateModel >> Creando proyectil id: %d, pos[ %f ul, %f ul], accion: %s, tipo %d, life: %d", p.wormid, p.x, p.y, Util::actionString(p.action).c_str(), p.weaponid, p.life);
 		this->domainMx.unlock();
 	
 	} else 	if ( p.action != EXPLOSION ){		
@@ -332,12 +332,11 @@ bool Cliente::updateModel(Playable p){
 		this->domainMx.unlock();
 	
 	}else{
-		Log::i("Cliente::updateModel >> Processing explosion id: %d, at pos[ %f ul, %f ul] of weapon %d action: %s", p.wormid, p.x, p.y, p.weaponid, Util::actionString(p.action).c_str());
+		Log::d("Cliente::updateModel >> Processing explosion id: %d, at pos[ %f ul, %f ul] of weapon %d action: %s", p.wormid, p.x, p.y, p.weaponid, Util::actionString(p.action).c_str());
 		// lo actualiza para que llegue el EXPLOTE al misil con  id p.wormid tambien.
 		this->domainMx.lock();
 		this->domain.updateElement(p.wormid, p.x, p.y, p.action, p.life, p.weaponid );
-		this->domainMx.unlock();
-
+		
 		switch( p.weaponid ){
 		case GRENADE:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
@@ -350,6 +349,7 @@ bool Cliente::updateModel(Playable p){
 			break;
 		case BURRO:
 			this->processExplosions( p.x, p.y, EXPLODE_RMEDIUM );
+			this->gameActivity->buildExplosion(p.x, p.y, p.weaponid, EXPLODE_RMEDIUM);
 			break;
 		case AIRATTACK:
 			this->processExplosions( p.x, p.y, EXPLODE_RSMALL );
@@ -368,7 +368,7 @@ bool Cliente::updateModel(Playable p){
 			break;
 		}
 		
-		
+		this->domainMx.unlock();
 	}
 
 	return true;

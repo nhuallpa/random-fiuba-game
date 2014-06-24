@@ -5,6 +5,8 @@
 #include "ViewGroup.h"
 #include "GameView.h"
 #include "FigureViewGroup.h"
+#include "ExplosionViewGroup.h"
+#include "ExplosionView.h"
 #include "WaterView.h"
 #include "figuras/RectangleView.h"
 #include "figuras/PentagonView.h"
@@ -56,11 +58,15 @@ public:
 
 	ProjectileView* createBullet(GameElement * domainElement, int type);
 
+	ExplosionView* createExplosion(float x, float y, int radio);
+
 	void setPlayerID(std::string  playerID){ this->playerID = playerID; }
 	
 	void buildContainer();
 
 	void buildProjectileContainer();
+
+	void buildExplosionContainter();
 
 	void buildSky();
 

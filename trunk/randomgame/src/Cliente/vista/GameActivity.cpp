@@ -35,6 +35,7 @@ void GameActivity::buildView()
 	builder->buildWaterImg();
 	builder->buildEart();
 	builder->buildCharacters();
+	builder->buildExplosionContainter();
 	builder->buildProjectileContainer();
 	
 	builder->buildStateBar();
@@ -86,8 +87,7 @@ void GameActivity::update()
 						
 				}
 				if (aWorm->isDead()) {
-					//this->futureFreeWorm.push_back(aWorm->getId());
-					//Cambiar Sprite a tumba
+					this->futureFreeWorm.push_back(aWorm->getId());
 				} else {
 					aWorm->update(&domainElement);
 				}
@@ -508,6 +508,16 @@ void GameActivity::buildProjectile(int idElement, float x, float y, int type, in
 	}
 
 }
+
+
+void GameActivity::buildExplosion( float x, float y, int type, int radio)
+{
+	GameView* gameView = static_cast<GameView*>(this->aView);
+	ExplosionView* aExplosionView = this->builder->createExplosion(x, y, radio);
+	Log::i("GameActivity::buildExplosion >> Agregando explosion ");
+	gameView->getExplosionContainer()->add(aExplosionView);
+}
+
 
 bool GameActivity::isAlive(int wormId) {
 	GameView* gameView = static_cast<GameView*>(this->aView);
