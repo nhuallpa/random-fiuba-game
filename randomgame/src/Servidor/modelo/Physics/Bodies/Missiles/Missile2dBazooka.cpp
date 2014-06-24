@@ -59,7 +59,7 @@ Missile2dBazooka::Missile2dBazooka(ElementType type, float posX, float posY, flo
 
 	float factor_x = angx*fuerzaDisparo*SHOOT_POWER*BAZOOKA_X_FACTOR;
 	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER;
-	//printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
+	printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
 
 	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
 	

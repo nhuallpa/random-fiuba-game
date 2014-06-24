@@ -27,7 +27,7 @@ void PowerView::update()
 
 void PowerView::OnChange(ChangeEvent e){
 	if(e.isStateBar()){
-		this->rect.w = e.factor*10;
+		this->rect.w = e.factor;
 	}
 	else{
 		this->rect.w = 1;

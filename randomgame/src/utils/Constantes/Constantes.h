@@ -47,9 +47,9 @@
 
 /* ************************ Constantes referidas a armamento ************************ */
 
-#define SHOOT_POWER 8
-#define MAX_TIME_POWER 5
-#define MAX_POWER 10
+#define SHOOT_POWER 0.1
+#define MAX_TIME_POWER 3
+#define MAX_POWER 100
 
 #define BANANA_TIME 4
 #define GRENADE_TIME 4
