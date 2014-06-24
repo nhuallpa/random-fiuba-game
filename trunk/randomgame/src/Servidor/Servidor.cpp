@@ -190,7 +190,7 @@ int Servidor::stepOver(void* data){
 	Sleep(10);
 
 	timeHandler.start();
-	srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
+	//srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 	
 
@@ -515,6 +515,8 @@ int Servidor::initClient(void* data){
 	srv->sendHoles();
 
 
+	//Envio turno inicial
+	srv->notifyTurnForPlayer( srv->turnMgr.getCurrentPlayerTurn() );
 
 	int activeClient=1;
 		try {

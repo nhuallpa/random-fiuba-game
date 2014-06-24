@@ -383,7 +383,7 @@ int GameEngine::step(){
 				 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA &&
 				  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != AIRATTACK &&
 				  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BURRO ) ){
-				
+				printf("\nElimino misil");
 				// Viene explotado del ciclo anterior, lo elimino
 				bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
 
@@ -393,13 +393,6 @@ int GameEngine::step(){
 			}else if ( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() &&
 					   (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == BAZOOKA ||
 					    static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == AIRATTACK)){
-
-				//printf("\nDo explosion at position %f,%f with radius %d",
-					//static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
-					//static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
-					//static_cast<Missile2d*>(iterator->second)->getExplosion().radio
-					//);
-
 
 				this->addExplosion( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
@@ -433,13 +426,6 @@ int GameEngine::step(){
 			}else if (static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->hasExploded() &&
 					  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() == BURRO){
 
-
-				//printf("\nDo explosion at position %f,%f with radius %d",
-					//static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
-					//static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
-					//static_cast<Missile2d*>(iterator->second)->getExplosion().radio
-					//);
-					
 				// Hago agujero en Box2d
 				this->doExplosion( b2Vec2( 
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
@@ -453,13 +439,10 @@ int GameEngine::step(){
 					static_cast<Missile2d*>(iterator->second)->getExplosion().radio 
 					);
 
-				static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setAction(EXPLOSION);
-				static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->changed = true;
-
 				
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setAction(EXPLOSION);
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->changed = true;
 
-				//printf("\nlevel: %f , y: %f",this->gameLevel->getWaterLevel(), (iterator->second)->body->GetPosition().y);
-					printf("\nsigo");
 					// Lo freno
 					(iterator->second)->body->SetLinearVelocity( b2Vec2(0,0) );
 						
@@ -481,13 +464,6 @@ int GameEngine::step(){
 					 (static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BAZOOKA &&
 					  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != AIRATTACK &&
 					  static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getWeaponId() != BURRO) ){
-					
-
-					//printf("\nDo explosion at position %f,%f with radius %d",
-						//static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first,
-						//static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second,
-						//static_cast<Missile2d*>(iterator->second)->getExplosion().radio
-						//);
 					
 					// Hago agujero en Box2d
 					this->doExplosion( b2Vec2( 
@@ -530,16 +506,21 @@ int GameEngine::step(){
 					//this->myTimer.reset();
 				}
 
+/*FUERA DE PANTALLA: Elimino misiles que salieron de la pantalla*/
 				if (static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first > 105 ||
-					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first < -5 ){
-					////printf("\n se fue de la pantalla");
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first < -5 || 
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second < -15){
+					//printf("\n se fue de la pantalla");
 
-					bodiesToDelete.push_back( static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getId() );
+					//Cambio weaponId para eliminar en el proximo ciclo
+					static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setWeapon(NO_WEAPON);
+					static_cast<GameElement*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setExploded(true);
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->drowned = true;
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->setAction(MISSIL_DELETED);
+					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->changed = true;
 					retval = 1;
+
 				}
-
-
 			}
 		}
 	}
@@ -564,11 +545,19 @@ int GameEngine::step(){
 			if ( !static_cast<GameElement*>(it->second->GetBody()->GetUserData())->drowned){
 				/* Si es un misil lo elimino */
 				if ( it->second->GetUserData() == (void*)UD_MISSIL ){
-					printf("\n\n\nMisil al agua\n\n\n");
-					it->second->GetBody()->SetActive(false);
-					static_cast<Missile*>(it->second->GetBody()->GetUserData())->drowned = true;
-					retval = 1;
-					bodiesToDelete.push_back( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
+
+					if ( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getWeaponId() != BURRO){
+						printf("\nMisil al agua\n");
+						//Cambio weaponId para eliminar en el proximo ciclo
+						static_cast<Missile*>(it->second->GetBody()->GetUserData())->setWeapon(NO_WEAPON);
+						static_cast<Missile*>(it->second->GetBody()->GetUserData())->setExploded(true);
+						static_cast<Missile*>(it->second->GetBody()->GetUserData())->drowned = true;
+						static_cast<Missile*>(it->second->GetBody()->GetUserData())->setAction(MISSIL_DELETED);
+						static_cast<Missile*>(it->second->GetBody()->GetUserData())->changed = true;
+						retval = 1;
+						//bodiesToDelete.push_back( static_cast<Missile*>(it->second->GetBody()->GetUserData())->getId() );
+					}
+					
 				}else{
 					if ( !static_cast<GameElement*>(it->second->GetBody()->GetUserData())->drowned){
 						/* Velocidad que toma al caer */
