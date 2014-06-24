@@ -24,7 +24,7 @@ void SheepView::update()
 	if (count == 0) {
 		SoundManager::Instance().pSHEEPBAA();
 		count++;
-	} else if (count > 80) {
+	} else if (count > 40) {
 		count=0;
 	} else {
 		count++;
