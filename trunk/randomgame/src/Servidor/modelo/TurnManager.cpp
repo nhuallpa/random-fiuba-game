@@ -7,6 +7,11 @@ TurnManager::TurnManager(int nrPlayers):
 
 }
 
+void TurnManager::destroyTurnMgr(){
+	this->indicator = NOT_YET_ASSIGNED;
+	this->players.clear();
+}
+
 std::string TurnManager::getCurrentPlayerTurn(){
 	if ( this->indicator == NOT_YET_ASSIGNED ){
 		this->indicator = 0;
