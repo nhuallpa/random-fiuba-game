@@ -190,7 +190,7 @@ void WormView::update()
 
 	} else if (this->state == WORM_VIEW_DEAD) {
 	
-		Log::i("WormView::update >> sprite worm mori");
+		Log::t("WormView::update >> sprite worm mori");
 		if (alive) {
 			SoundManager::Instance().pBYEBYE();
 			currentSprite = &this->sprites["morir"];
