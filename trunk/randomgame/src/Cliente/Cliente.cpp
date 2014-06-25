@@ -102,6 +102,9 @@ bool Cliente::begin(){
 	if (this->updater.doLogin())
 	{
 		this->loginOk = true;
+	} else {
+		this->loginOk = false;
+		this->srvStatus = SERVER_REFUSE;
 	}
 
 	if (this->isLoginOk())
@@ -259,10 +262,17 @@ void Cliente::informStateClient()
 	if (this->srvStatus == SERVER_NOT_RESPONDING)
 	{
 		this->currentActivity->showMessageError("El servidor no responde. Vuelva a conectarse mas tarde");
+		this->showAlert();
 	}
 	else if (this->srvStatus == SERVER_TIMEDOUT)
 	{
 		this->currentActivity->showMessageError("El servidor ha dejado de responder");
+		this->showAlert();
+	}
+	else if (this->srvStatus == SERVER_REFUSE)
+	{
+		this->currentActivity->showMessageError("El nombre de usuario ya existe o no hay cupo");
+		this->showAlert();
 	}
 	else if (this->srvStatus == SERVER_OK)
 	{

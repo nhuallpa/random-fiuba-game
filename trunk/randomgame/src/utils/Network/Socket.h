@@ -22,6 +22,7 @@
 typedef enum{
 	SERVER_OK=0,
 	SERVER_NOT_RESPONDING,
+	SERVER_REFUSE,
 	SERVER_TIMEDOUT
 } ServerStatus;
 
