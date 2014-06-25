@@ -37,7 +37,7 @@ std::list<poly_t*>* myPol;*/
 		it_GE != entities.end();
 		it_GE++){
 			if(it_GE->second){
-				delete it_GE->second;
+				//delete it_GE->second;
 			}
 	}
 
