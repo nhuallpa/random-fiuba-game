@@ -44,6 +44,13 @@ void AimView::aimBuildEnter(){
 
 	bShootEnter = true;
 	bShootMouse = false;
+
+	if(this->worm->getDirection() == D_LEFT){
+		this->renderAimLeft();
+	}
+	else{
+		this->renderAimRight();
+	}
 }
 
 void AimView::aimBuildMouse(){
