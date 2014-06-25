@@ -507,7 +507,7 @@ int GameEngine::step(){
 				}
 
 /*FUERA DE PANTALLA: Elimino misiles que salieron de la pantalla*/
-				if (static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first > 105 ||
+				if (static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first > 400 ||
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().first < -5 || 
 					static_cast<Missile*>(static_cast<Missile2d*>(iterator->second)->body->GetUserData())->getPosition().second < -15){
 					//printf("\n se fue de la pantalla");
