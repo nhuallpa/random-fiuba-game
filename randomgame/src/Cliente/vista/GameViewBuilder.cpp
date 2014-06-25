@@ -360,6 +360,11 @@ ProjectileView*  GameViewBuilder::createBullet(GameElement* domainElement, int t
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_banana"));
 			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
 			aProjectile->setLifeInitial(domainElement->getLife());
+		} else if (type == BANANITA ) { 
+			aProjectile = new BananaView(domainElement->getId());
+			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_banana"));
+			aProjectile->setSpriteExplosion(SpriteConfigurator::Instance().get("circle50"));
+			aProjectile->setLifeInitial(domainElement->getLife());
 		}else if (type == SHEEP ) { 
 			aProjectile = new SheepView(domainElement->getId());
 			aProjectile->setSpriteBullet(SpriteConfigurator::Instance().get("bullet_sheep"));
