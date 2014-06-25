@@ -192,7 +192,8 @@ int Servidor::stepOver(void* data){
 	timeHandler.start();
 	//srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
-	
+	float stepTime = 0;
+
 
 	while(true){
 		
@@ -204,6 +205,14 @@ int Servidor::stepOver(void* data){
 			srv->gameEngine.didWeShoot = false;
 			localShoot = true;
 		}
+
+		/* Si paso 1 segundo */
+		if ( (timeHandler.elapsed() - stepTime) >= 1 ){
+			stepTime = timeHandler.elapsed();
+			srv->notifyTimeUpdate( TURN_DURATION - stepTime );
+		
+		}
+
 
 		/* Se termino el turno o pasaron 5 seg desde el disparo */
 		if ( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) ) ){
@@ -232,6 +241,7 @@ int Servidor::stepOver(void* data){
 				localShoot = false;
 				explosionTime = 0;
 				shootTime = 0;
+				stepTime = 0;
 				timeHandler.reset();
 
 				/* Inicio el turno del nuevo player */
@@ -256,6 +266,7 @@ int Servidor::stepOver(void* data){
 				localShoot = false;
 				explosionTime = 0;
 				shootTime = 0;
+				stepTime = 0;
 				timeHandler.reset();
 
 				/* Inicio el turno del nuevo player */
@@ -632,7 +643,7 @@ void Servidor::notifyUsersAboutPlayer(std::string playerId){
 	int el = this->gameEngine.getLevel()->getWormsFromPlayer(playerId,this->worldQ.play);
 	this->worldQ.elements = el;
 				
-	//printf("\nNOTIFYING NEWS: Sending type: %d (player_update), about: %s, elements: %d",this->worldQ.type, this->worldQ.playerID.c_str(), this->worldQ.elements);
+	printf("\nNOTIFYING NEWS: Sending type: %d (player_update), about: %s, elements: %d",this->worldQ.type, this->worldQ.playerID.c_str(), this->worldQ.elements);
 
 	
 	this->notifyAll();
@@ -834,6 +845,15 @@ void Servidor::logoutPlayer(std::string player){
 
 }
 
+
+void Servidor::notifyTimeUpdate(int time){
+
+	this->worldQ.type = TIME_UPDATE;
+	this->worldQ.playerID = this->turnMgr.getCurrentPlayerTurn();
+	this->worldQ.elements = time;
+	this->notifyAll();
+
+}
 
 void Servidor::disconnectAll(){
 

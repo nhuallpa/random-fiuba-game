@@ -76,7 +76,7 @@ MissileBanana2d::MissileBanana2d(ElementType type, float posX, float posY, float
 	modelElement->setAlive(true);
 
 	/* Defino radio de explosion */
-	this->explosion.radio = EXPLODE_RMEDIUM;
+	this->explosion.radio = EXPLODE_RSMALL;
 	
 	//printf("\n Banana Impulsada");
 }

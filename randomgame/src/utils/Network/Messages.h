@@ -19,7 +19,8 @@ enum Messages {
 	MAP_UPDATE,		// Actualiza mapa por explosiones 
 	LIFE_UPDATE,	// Actualiza vida de cada jugador
 	GAME_UPDATE,	//Indica quien gano
-	REINIT_SRV
+	REINIT_SRV,
+	TIME_UPDATE
 };
 
 

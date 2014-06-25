@@ -89,6 +89,8 @@ class Servidor{
 		void shutdown();
 		void reboot();
 
+		void notifyTimeUpdate(int time);
+
 		void logoutPlayer(std::string player);
 		void disconnectAll();
 

@@ -505,6 +505,11 @@ int Cliente::netListener(void* data){
 			}
 			break;
 
+		case TIME_UPDATE:
+			//Llamo al metodo de Erik
+			cli->gameActivity->printTimer(emsg->elements);
+			break;
+
 		case LIFE_UPDATE:
 			Log::i("La vida del player %s se seteo en: %d",emsg->playerID.c_str(),emsg->play[0].life);
 			cli->domain.setPlayerLife(emsg->playerID,emsg->play[0].life);
