@@ -17,7 +17,18 @@ MenuWeaponView::MenuWeaponView(int x, int y)
 
 
 MenuWeaponView::~MenuWeaponView(){
-
+	if(menu){
+		delete menu;
+	}
+	map<WeaponId, Weapon*>::iterator it;
+	for(it = mapa.begin();
+		it != mapa.end();
+		it++
+		){
+		if(it->second){
+			delete it->second;
+		}
+	}
 }
 
 void MenuWeaponView::offMenu(){
