@@ -2,7 +2,7 @@
 
 
 ProjectileView::ProjectileView(int id)
-	: View(0, 0), id(id), detonated(false), flip(SDL_FLIP_NONE)
+	: View(0, 0), id(id), detonated(false), flip(SDL_FLIP_NONE), drowned(false)
 {
 	currentSprite = &this->spriteBullet;
 	this->widhtLife100 = 25;
@@ -29,14 +29,17 @@ void ProjectileView::update(GameElement* domainElement)
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(pointUL.first, pointUL.second);
 	this->setX(pointSDL.x);
 	this->setY(pointSDL.y);
-	Log::i("ProjectileView::update accion %s", Util::actionString(domainElement->action).c_str());
+	Log::t("ProjectileView::update accion %s", Util::actionString(domainElement->action).c_str());
 	if (domainElement->action == EXPLOSION && !this->detonated) {
-		Log::i("ProjectileView::update burro");
+		
 		this->detonate();
 	} else if (domainElement->action == MISSIL_FLYING_RIGHT) {
 		this->flip = SDL_FLIP_NONE;
 	} else if (domainElement->action == MISSIL_FLYING_LEFT) {
 		this->flip = SDL_FLIP_HORIZONTAL;
+	} else if (domainElement->action == MISSIL_DELETED) {
+		Log::i("ProjectileView:: MISSIL DELETE %d", domainElement->getId());
+		this->drowned = true;
 	}
 
 	this->calcRemainTime(domainElement->getLife());

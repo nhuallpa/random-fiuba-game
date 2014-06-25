@@ -106,6 +106,19 @@ bool TextureManager::load(std::string fileName,std::string id, SDL_Renderer* pRe
 	return false;
 }
 
+bool TextureManager::reloadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer)
+{
+	try {
+		SDL_Texture* texture = this->getTexture(id);
+		SDL_DestroyTexture(texture);
+		this->loadStream(fileName, id, pRenderer);
+		return true;
+	} catch (GameException & e) {
+		Log::e(e.what());
+		return false;
+	}
+}
+
 bool TextureManager::loadStream(std::string fileName,std::string id, SDL_Renderer* pRenderer)
 {
 	/*this is filled in with a pointer to the locked pixels, appropriately offset by the locked area*/

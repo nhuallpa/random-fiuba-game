@@ -98,8 +98,8 @@ void Camera::OnZoom(ZoomEvent e)
 	float nextScale = this->scale + (0.01 * e.y);
 	if (nextScale > 0.5 && nextScale <= 3) 
 	{
-		int w_new = (int)(700.0f * 1/nextScale);   // nuevo ancho manual
-		int h_new = (int)(400.0f * 1/nextScale);   // nuevo alto manual
+		int w_new = (int)((float)this->widthScreen * 1/nextScale);   // nuevo ancho manual
+		int h_new = (int)((float)this->heightScreen * 1/nextScale);   // nuevo alto manual
 		newViewPort.w = w_new;
 		newViewPort.h = h_new;
 		Log::t(" Camara view port ancho: %d		alto: %d  scale: %f", newViewPort.w, newViewPort.h, nextScale);

@@ -34,7 +34,10 @@ public:
 
 	void showMessageInfo(std::string msg);
 
-	
+	void showGameOver();	
+	void showWinner();
+	void showAlert();
+	void showWaitting();
 };
 
 #endif /* defined(__WAIT_ACTIVITY_H_) */

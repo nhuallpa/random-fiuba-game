@@ -51,6 +51,8 @@ void Cliente::run(){
 		}
 		this->loop();
 		this->resetModel();
+		bootstrap.reinit();
+
 		Log::i("Game rebooted or ended");
 		Sleep(10);
 	}
@@ -184,6 +186,9 @@ void Cliente::loop(void){
 
 
 	this->currentActivity = this->waitActivity;
+	if (this->isLoginOk()) {
+		this->showWaitting();
+	}
 	this->runGame();
 
 	/** refresh the initial view*/
@@ -199,14 +204,15 @@ void Cliente::loop(void){
 		currentActivity->render();
 		// evaluar cambio de pantalla
 
-		if (this->gameReady) 
-		{
-			this->currentActivity = this->gameActivity;
-		} 
-		else if (this->gameOver) 
+		if (this->gameOver) 
 		{
 			this->currentActivity = this->waitActivity;
 		}
+		else if (this->gameReady) 
+		{
+			this->currentActivity = this->gameActivity;
+		} 
+		
 
 		SDL_framerateDelay(&fpsManager);
 
@@ -456,7 +462,7 @@ int Cliente::netListener(void* data){
 			//Log::t("Got UPDATE message from server");
 			
 			try{
-				//Log::i("\nGot something from client %s worm: %d posY: %f",emsg->playerID.c_str(),emsg->play[0].wormid,emsg->play[0].y);
+				Log::t("\nGot something from client %s worm: %d posY: %f",emsg->playerID.c_str(),emsg->play[0].wormid,emsg->play[0].y);
 				n->lock();
 				cli->clientQueue.push(*emsg);
 				netcond->signal();
@@ -531,9 +537,11 @@ int Cliente::netListener(void* data){
 			Log::i("We have a winner");
 			if ( !emsg->playerID.compare(playerId) ){
 				//YO GANE
+				cli->showWinner();
 				Log::i("YO: %s, gane",emsg->playerID.c_str() );
 			}else{
 				//PERDI
+				cli->showGameOver();
 				Log::i("YO: %s, perdi",emsg->playerID.c_str() );
 			}
 			break;
@@ -629,4 +637,29 @@ int Cliente::sendMsg(Messages type, std::vector<uint8_t> buffer) {
 	}
 	return 0;
 
+}
+
+void Cliente::showAlert()
+{
+	this->waitActivity->showAlert();
+}
+
+void Cliente::showWaitting()
+{
+	this->gameOver=false;
+	this->waitActivity->showWaitting();
+}
+
+void Cliente::showWinner()
+{
+	this->gameOver = true;
+	this->gameReady = false;
+	this->waitActivity->showWinner();
+}
+
+void Cliente::showGameOver()
+{
+	this->gameOver = true;
+	this->gameReady = false;
+	this->waitActivity->showGameOver();
 }

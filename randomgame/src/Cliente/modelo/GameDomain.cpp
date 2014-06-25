@@ -29,6 +29,8 @@ bool GameDomain::existElement(int id){
 void GameDomain::removeElement(int id) {
 	if (existElement(id)) {
 		this->domainElements.erase(id);
+	} else {
+		Log::e("GameDomain::removeElement no existe id %d", id);
 	}
 }
 

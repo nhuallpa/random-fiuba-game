@@ -231,3 +231,36 @@ void Util::clean(Playable & p){
 	p.x = 0;
 	p.y = 0;
 }
+
+
+SDL_Color Util::geColorTeam(TeamColors teamColor)
+{
+	SDL_Color color;
+	if (teamColor == ARGENTINA) {
+		color.r = 91;
+		color.g = 192;
+		color.b = 222;
+		color.a = 255;
+	} else if (teamColor == BRASIL) {
+		color.r = 92;
+		color.g = 184;
+		color.b = 92;
+		color.a = 255;
+	} else if (teamColor == ALEMANIA) {
+		color.r = 240;
+		color.g = 173;
+		color.b = 78;
+		color.a = 255;
+	} else if (teamColor == ESPANIA) {
+		color.r = 217;
+		color.g = 83;
+		color.b = 79;
+		color.a = 255;
+	} else {
+		color.r = 255;
+		color.g = 255;
+		color.b = 255;
+		color.a = 255;
+	}
+	return color;
+}

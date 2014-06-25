@@ -6,6 +6,7 @@
 #include "ParserYaml.h"
 #include <map>
 #include <stdlib.h>
+#include <SDL.h>
 
 typedef std::string Player;
 
@@ -250,7 +251,7 @@ public:
 
 	static void clean(Playable & p);
 
-
+	static SDL_Color geColorTeam(TeamColors teamColor);
 };
 
 

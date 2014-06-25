@@ -16,7 +16,8 @@ class Camera : public OnScrollListener, public OnZoomListener
 	SDL_Rect box;
 	int widthScenario;
 	int heightScenario;
-	
+	int widthScreen;
+	int heightScreen;
 
 	float scale;
 
@@ -35,6 +36,8 @@ public:
 	int getHeightScenario() {return this->heightScenario;}
 	void setWidthScenario(int w) { this->widthScenario = w;}
 	void setHeightScenario(int h) {this->heightScenario = h;}
+	void setWidthScreen(int w) { this->widthScreen = w;}
+	void setHeightScreen(int h) {this->heightScreen = h;}
 
 	void OnScroll(ScrollEvent e);
 

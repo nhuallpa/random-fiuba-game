@@ -28,6 +28,8 @@ public:
 	/**Inicialize enviroment*/
 	void init();
 
+	void reinit();
+
 	void loadConfigGame();
 
 	/**Shout down enviroment*/
@@ -39,6 +41,8 @@ public:
 	void loadImg();
 
 	void initCamera(int w, int h);
+
+	void reloadEart();
 
 	void loadEart();
 

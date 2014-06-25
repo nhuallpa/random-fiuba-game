@@ -27,8 +27,6 @@ public:
 
 	~PlayerProgressView(void);
 
-	SDL_Color geColorTeam(TeamColors teamColor);
-
 	int calcWidth(int life);
 
 };
