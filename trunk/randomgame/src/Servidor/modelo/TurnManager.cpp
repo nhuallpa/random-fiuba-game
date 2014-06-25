@@ -25,7 +25,7 @@ void TurnManager::removePlayer(std::string player){
 	for ( std::vector<std::string>::iterator it = players.begin(); it != players.end(); ++it){
 		if ( !it->compare(player) ){
 			players.erase(it);
-			printf("\nplayer erased");
+			return;
 		}
 	
 	}
