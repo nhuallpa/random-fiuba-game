@@ -14,7 +14,7 @@ void Servidor::loop(void){
 	Log::i("============== INICIANDO SERVIDOR =============");		
 	// Init conns from clients
 	bool quit = false;		
-	while (quit == false){
+	while (quit == false && !this->deleted){
 		if( this->gameEngine.initWorld() ) quit = true;
 	}
 
@@ -126,15 +126,17 @@ int Servidor::updating(void* data){
 	Condition* netcond =  &srv->canBroadcast;
 	Mutex* n =  &srv->netlock;
 
-	while(true){
+	while(true && !srv->deleted){
 		Sleep(10);
-
-		if ( srv->deleted )
-			return 0;
 
 		m->lock();
 		if ( changes->empty() ){
 			cond->wait();
+		}
+
+		if ( srv->deleted ){
+			printf("\nEXITING Updating Thread");
+			return 0;
 		}
 
 		Playable p;
@@ -145,6 +147,7 @@ int Servidor::updating(void* data){
 		srv->changes.pop_back();
 		m->unlock();
 	}
+	printf("\nEXITING Updating Thread");
 	return 0;
 }
 
@@ -197,8 +200,10 @@ int Servidor::stepOver(void* data){
 
 	while(true){
 		
-		if ( srv->deleted )
+		if ( srv->deleted ){
+			printf("\nEXITING StepOver Thread");
 			return 0;
+		}
 
 		if ( srv->gameEngine.didWeShoot ){
 			shootTime = timeHandler.elapsed();
@@ -304,6 +309,7 @@ int Servidor::stepOver(void* data){
 		}
 		i++;
 	}
+	printf("\nEXITING StepOver Thread");
 	return 0;
 }
 
@@ -363,7 +369,7 @@ int Servidor::wait4Connections(void* data){
 
 
 	int players = 0;
-	while (true){
+	while (true && !srv->deleted){
 		Sleep(10);
 		while(srv->cantJugadores > srv->jugadoresConectados){
 			
@@ -383,10 +389,13 @@ int Servidor::wait4Connections(void* data){
 			srv->initialNotify();
 		}
 
-		if ( srv->deleted )
+		if ( srv->deleted ){
+			printf("\nEXITING Wait4Clients Thread");
 			return 0;
+		}
 
 	}
+	printf("\nEXITING Wait4Clients Thread");
 	return 0;
 }
 
@@ -820,7 +829,7 @@ void Servidor::sendHoles(){
 
 void Servidor::shutdown(){
 	this->disconnectAll();
-	this->deleted = true;
+	deleted = true;
 	Sleep(10);
 	closesocket(this->input.getFD());
 	closesocket(this->output.getFD());
@@ -830,13 +839,17 @@ void Servidor::shutdown(){
 void Servidor::reboot(){
 
 	this->worldQ.type = REINIT_SRV;
-	gameEngine.mapExplosions.clear();
+	//gameEngine.mapExplosions.clear();
 	this->notifyAll();
-	this->deleted = true;
-
 	Sleep(2);
+	deleted = true;
+	this->canUpdate.broadcast();
+	Sleep(10);
+	this->hardDisconnect();
 	closesocket(this->input.getFD());
 	closesocket(this->output.getFD());
+	
+
 
 }
 
@@ -865,6 +878,16 @@ void Servidor::disconnectAll(){
 	Players::iterator it = this->pList.begin();
 	for ( ; it != this->pList.end(); ++it ){
 		disconnect(it->first);
+	}
+}
+
+void Servidor::hardDisconnect(){
+
+	/* Cierro el socket */
+	Players::iterator it = this->pList.begin();
+	for ( ; it != this->pList.end(); ++it ){
+		closesocket(it->second.first.getFD());
+		closesocket(it->second.second.getFD());
 	}
 }
 

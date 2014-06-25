@@ -93,6 +93,7 @@ class Servidor{
 
 		void logoutPlayer(std::string player);
 		void disconnectAll();
+		void hardDisconnect();
 
 		//TurnManager turnMgr;
 
