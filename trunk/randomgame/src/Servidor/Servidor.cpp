@@ -260,7 +260,7 @@ int Servidor::stepOver(void* data){
 					Log::i("\nThere is a Winner, rebooting game");
 					Sleep(5);
 					srv->reboot();
-					return;
+					return 0;
 				}
 
 				/* Inicio el turno del nuevo player */
@@ -293,7 +293,7 @@ int Servidor::stepOver(void* data){
 					Log::i("\nThere is a Winner, rebooting game");
 					Sleep(5);
 					srv->reboot();
-					return;
+					return 0;
 				}
 
 				/* Inicio el turno del nuevo player */
