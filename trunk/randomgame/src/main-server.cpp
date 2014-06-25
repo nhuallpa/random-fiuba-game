@@ -17,6 +17,7 @@ using namespace std;
 
 std::string path;
 Servidor* srvPointer;
+Servidor* srvPointer2;
 
 void selectYaml(){
 	std::cout << "Ingrese el directorio del archivo YAML\n";
@@ -28,6 +29,7 @@ void selectYaml(){
 
 }
 void initGame(){
+
 	if (path.empty() ) path = DEFAULT_YAML_SERVER;
 	ParserYaml* aParser = ParserYaml::getInstance(path);
 	srvPointer = new Servidor( SERVER_PORT , Util::string2int(aParser->getMetaMaxPlay()) );
@@ -47,6 +49,7 @@ void resetGame(){
 	//delete srvPointer;
 	//srvPointer->shutdown();
 	std::cout << "\nINICIANDO NUEVO JUEGO\n";
+	Sleep(10);
 	initGame();
 }
 

@@ -201,6 +201,7 @@ int Servidor::stepOver(void* data){
 	//srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 	float stepTime = 0;
+	bool thereIsAWinner = false;
 
 
 	while(true){
@@ -243,6 +244,7 @@ int Servidor::stepOver(void* data){
 				if ( srv->doWeHaveAWinner() ){
 					printf("\nHay un ganador");
 					srv->notifyWinner();
+					thereIsAWinner = true;
 				}
 
 				doWeHaveAExplosion = false;
@@ -253,6 +255,13 @@ int Servidor::stepOver(void* data){
 				shootTime = 0;
 				stepTime = 0;
 				timeHandler.reset();
+
+				if ( thereIsAWinner ){
+					Log::i("\nThere is a Winner, rebooting game");
+					Sleep(5);
+					srv->reboot();
+					return;
+				}
 
 				/* Inicio el turno del nuevo player */
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
@@ -268,6 +277,7 @@ int Servidor::stepOver(void* data){
 				if ( srv->doWeHaveAWinner() ){
 					printf("\nHay un ganador");
 					srv->notifyWinner();
+					thereIsAWinner = true;
 				}
 						
 				doWeHaveAExplosion = false;
@@ -278,6 +288,13 @@ int Servidor::stepOver(void* data){
 				shootTime = 0;
 				stepTime = 0;
 				timeHandler.reset();
+
+				if ( thereIsAWinner ){
+					Log::i("\nThere is a Winner, rebooting game");
+					Sleep(5);
+					srv->reboot();
+					return;
+				}
 
 				/* Inicio el turno del nuevo player */
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
@@ -548,12 +565,19 @@ int Servidor::initClient(void* data){
 		while (activeClient &&  srv->gameEngine.getLevel()->getPlayerStatus(playerId) != DISCONNECTED ) {
 			Sleep(10);
 
-			if ( srv->deleted )
+			if ( srv->deleted){
+				printf("\nExit init client");
 				return 0;
+			}
 
 			if (! aThreadData->clientO.rcvmsg(*datagram)) {
 				//printf("\nDesconectando cliente: %s",playerId );
 				//srv->notifyUsersAboutPlayer(playerId);
+				Log::e("Disconnecting: not data received");
+				if ( srv->deleted){
+					printf("\nExit init client");
+					return 0;
+				}
 				srv->disconnect(playerId);
 				activeClient=0;
 				break;
@@ -578,12 +602,14 @@ int Servidor::initClient(void* data){
 				break;
 
 			case LOGOUT:
+				Log::i("LOGOUT");
 				srv->disconnect(playerId);
 				break;
 
 			}
 		}
 	} catch (...) {
+		Log::e("Disconnecting");
 		srv->disconnect(playerId);
 		throw std::current_exception();
 	}
@@ -688,14 +714,21 @@ int Servidor::updateClient(void* data){
 
     while(true){           
 		//Sleep(25);
-		if ( srv->deleted )
+		if ( srv->deleted ){
+			printf("\nExit update client");
 			return 0;
+		}
 
 		srv->playerMutexes[playerId].first->lock();
 		while ( srv->playerQueues[playerId]->empty() ){
 			srv->playerMutexes[playerId].second->wait();
 		}
 		////printf("Messages at queue: %d", srv->playerQueues[playerId]->size() );
+
+		if ( srv->deleted ){
+			printf("\nExit update client");
+			return 0;
+		}
 
 		datagram = srv->playerQueues[playerId]->front() ;
 		srv->playerQueues[playerId]->pop();
@@ -706,6 +739,7 @@ int Servidor::updateClient(void* data){
 		////printf("\nENVIO");
 		if ( !aThreadData->clientI.sendmsg(datagram) ){
 			//printf("Desconectando cliente: %s desde Update Thread",playerId);
+			Log::e("Disconnecting: cannot send data at update thread");
 			srv->disconnect(playerId);
 			return 0;
 		}
@@ -853,9 +887,10 @@ void Servidor::reboot(){
 	this->canUpdate.broadcast();
 	this->canAddNews.broadcast();
 	Sleep(10);
-	this->hardDisconnect();
 	closesocket(this->input.getFD());
 	closesocket(this->output.getFD());
+	this->hardDisconnect();
+
 	
 
 
@@ -879,6 +914,7 @@ void Servidor::notifyTimeUpdate(int time){
 void Servidor::disconnectAll(){
 
 	/* Mnado Logout a los clientes*/
+	Log::i("Disconnecting all");
 	this->worldQ.type = LOGOUT;
 	this->notifyAll();
 
@@ -890,10 +926,11 @@ void Servidor::disconnectAll(){
 }
 
 void Servidor::hardDisconnect(){
-
+	Log::i("Hard close");
 	/* Cierro el socket */
 	Players::iterator it = this->pList.begin();
 	for ( ; it != this->pList.end(); ++it ){
+		this->playerMutexes[it->first].second->broadcast();
 		closesocket(it->second.first.getFD());
 		closesocket(it->second.second.getFD());
 	}
