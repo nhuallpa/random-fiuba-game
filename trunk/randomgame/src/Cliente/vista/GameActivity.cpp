@@ -235,7 +235,7 @@ void GameActivity::selectWorm(WormView* aWorm)
 
 void GameActivity::doExplotion(float x, float y, float radio)
 {
-	Log::i(" Explotar terreno en %f y %f  y radio %f [UL]", x, y, radio);
+	Log::t(" Explotar terreno en %f y %f  y radio %f [UL]", x, y, radio);
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	tPoint pointSDL = TextureManager::Instance().convertPointUL2PXSDL(x, y);
 
@@ -243,7 +243,7 @@ void GameActivity::doExplotion(float x, float y, float radio)
 	int yView = pointSDL.y;
 
 	int rView = radio * ESCALA_UL2PX;
-	Log::i(" Explotar terreno en %d y %d  y radio %d [PX]", xView, yView, rView);
+	Log::t(" Explotar terreno en %d y %d  y radio %d [PX]", xView, yView, rView);
 	gameView->getDestroyEart(xView, yView, rView);
 }
 
@@ -525,7 +525,7 @@ void GameActivity::buildNewWorms(std::string playerID, int id, int x, int y)
 void GameActivity::buildProjectile(int idElement, float x, float y, int type, int life, Movement action)
 {
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	Log::i("GameActivity::buildProjectile >> Agregando GameElement id: %d,pos[ %f, %f ]", idElement, x, y);
+	Log::t("GameActivity::buildProjectile >> Agregando GameElement id: %d,pos[ %f, %f ]", idElement, x, y);
 	GameElement aGameElem(idElement, this->playerId, WEAPON, x, y, 0, 0, 0, 0, false);
 	aGameElem.setLife(life);
 	
@@ -883,7 +883,7 @@ void GameActivity::ActionResultLog(CallClient call, Playable* p, ActionWorm *aw)
 		}
 	if(this->auxCallLog != call){
 		this->auxCallLog = call;
-		Log::i(GAME_ACTIVITY,"El worm con id=%2d ejecutar la accion de %s sobre el servidor",
+		Log::t(GAME_ACTIVITY,"El worm con id=%2d ejecutar la accion de %s sobre el servidor",
 			this->wormIdSelected, msj);
 	}
 }

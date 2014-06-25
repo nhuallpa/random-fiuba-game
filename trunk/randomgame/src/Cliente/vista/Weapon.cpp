@@ -72,7 +72,7 @@ bool Weapon::hasClickedMenu(SDL_Point clickPoint){
 	int x1, x2, y1, y2;
 	x1 = x, x2 = x + width;
 	y1 = y, y2 = y + height;
-	Log::i("Weapon::hasClickedMenu click:(%d, %d)  dim: (x,y,w,h)=(%d,%d,%d,%d)", clickPoint.x, clickPoint.y, x1, x2, width, height);
+	Log::t("Weapon::hasClickedMenu click:(%d, %d)  dim: (x,y,w,h)=(%d,%d,%d,%d)", clickPoint.x, clickPoint.y, x1, x2, width, height);
 	if((!ballow) && (this->id != NO_WEAPON))
 		return false;
 /*
@@ -88,7 +88,7 @@ bool Weapon::hasClickedMenu(SDL_Point clickPoint){
 		((y1 <= clickPoint.y) && (y2 >= clickPoint.y))
 		){
 	
-			Log::i("xx (weaponId=%d)", (int)id);
+			Log::t("xx (weaponId=%d)", (int)id);
 			return true;
 	}
 	else{
