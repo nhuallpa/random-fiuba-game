@@ -22,6 +22,46 @@ GameLevel::GameLevel() {
 
 GameLevel::~GameLevel() {
 
+/*
+	TerrainProcessor* aTerrainProcessor;
+std::map<int, GameElement*> entities;
+std::map<string, GamePlayer*> players;
+std::vector<b2Body*> myTerrain;
+std::list<poly_t*>* myPol;*/
+
+	if(aTerrainProcessor){
+		delete aTerrainProcessor;
+	}
+	std::map<int, GameElement*>::iterator it_GE;
+	for(it_GE = entities.begin();
+		it_GE != entities.end();
+		it_GE++){
+			if(it_GE->second){
+				delete it_GE->second;
+			}
+	}
+
+	std::map<string, GamePlayer*>::iterator it_GP;
+	for(it_GP = players.begin();
+		it_GP != players.end();
+		it_GP++){
+			if(it_GP->second){
+				delete it_GP->second;
+			}
+	}
+
+	std::list<poly_t*>::iterator it_P;
+	for(it_P = myPol->begin();
+		it_P != myPol->end();
+		it_P++){
+			if(*it_P){
+				delete *it_P;
+			}
+	}
+
+	if(myPol){
+		delete myPol;
+	}
 }
 
 int GameLevel::getHeight() {
