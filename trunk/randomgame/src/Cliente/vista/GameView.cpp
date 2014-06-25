@@ -165,9 +165,8 @@ void GameView::freeWormView(int id) {
 
 
 
-void GameView::setTimer(float timer){
-	this->timerView->setTimer(timer);
-	this->timerView->start();
+void GameView::printTimer(int second){
+	this->timerView->printTimer(second);
 }
 
 void GameView::setPlayerProgressView(PlayerProgressView * pProgressView){

@@ -446,7 +446,7 @@ void GameActivity::otherTurn(std::string playerId)
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	gameView->getStateBar()->setMessageCenter("Is turn of " + playerId);
 	this->isMyTurn = false;
-	this->setTimer((float)TURN_DURATION);
+	//this->setTimer((float)TURN_DURATION);
 }
 
 void GameActivity::endMyTurn() {
@@ -473,14 +473,14 @@ void GameActivity::beginMyTurn()
 	this->cController->addOnMovementListener(this);
 	this->cController->addOnActionListener(this);
 	//@Ari @Nestor : seteo el timer con un tiempo hardcode
-	this->setTimer((float)TURN_DURATION);
+	//this->setTimer((float)TURN_DURATION);
 }
 
 
 
-void GameActivity::setTimer(float timer){
+void GameActivity::printTimer(int second){
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	gameView->setTimer(timer);
+	gameView->printTimer(second);
 }
 
 void GameActivity::setListeners(SDLScreen &  screen) 

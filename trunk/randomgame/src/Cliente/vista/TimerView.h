@@ -17,7 +17,10 @@ public:
 	void update();
 
 	void draw(SDLScreen & screen);
+	
+	void printTimer(int second);
 
+/*
 	void start();
 
 	void reset();
@@ -27,19 +30,20 @@ public:
 	bool isFinished();
 
 	void setTimer(float t);
-
+	*/
 	~TimerView(void);
 
 private:
 	TextView label;
 	TextView numberLabel;
+	std::string stgTimerView;
+	/*
 	Timer timmer;
 	float timerP;
 	bool finished;
 	int index;
 	int timerView;
-	int updateTimer;
-	std::string stgTimerView;
+	int updateTimer;*/
 };
 
 #endif /** __TIMER_VIEW_H__ **/
