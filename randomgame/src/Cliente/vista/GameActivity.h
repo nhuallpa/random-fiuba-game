@@ -72,7 +72,6 @@ private:
 	void offMenu();
 	bool isObjetive();
 	void iniHmissile();
-	void setTimer(float timer);
 public:
 
 	int wormIdDesSelected;
@@ -149,8 +148,12 @@ public:
 	bool validateWormLastWords();
 
 	void allowPower();
+
 	void denyPower();
+
 	bool isWeaponAir();
+
+	void printTimer(int second);
 
 	void linkWormWithWeapon(SDL_Point clickPointScreen);
 	void linkWorm(SDL_Point clickPoint);
