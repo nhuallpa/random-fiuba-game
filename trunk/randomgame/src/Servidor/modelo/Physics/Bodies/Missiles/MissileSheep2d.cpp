@@ -93,9 +93,15 @@ void MissileSheep2d::animate( float time ){
 
 		if ( myWeapon->myLastAction == CREATE_MISSIL ){
 			myWeapon->setAction(CREATE_MISSIL);
-			myWeapon->myLastAction = MISSIL_FLYING_LEFT;
+			if (this->right){
+				myWeapon->myLastAction = MISSIL_FLYING_RIGHT;
+			}else
+				myWeapon->myLastAction = MISSIL_FLYING_LEFT;
 		}else{
-			myWeapon->setAction(MISSIL_FLYING_LEFT);
+			if (this->right){
+				myWeapon->myLastAction = MISSIL_FLYING_RIGHT;
+			}else
+				myWeapon->myLastAction = MISSIL_FLYING_LEFT;
 		}
 
 	}
