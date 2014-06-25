@@ -189,6 +189,11 @@ int Servidor::stepOver(void* data){
 	}
 	allIn->unlock();
 
+	if ( srv->deleted ){
+		printf("\nEXITING StepOver Thread");
+		return 0;
+	}
+
 	//printf("\nInicio tiempo");
 	Sleep(10);
 
@@ -846,6 +851,7 @@ void Servidor::reboot(){
 	Sleep(2);
 	deleted = true;
 	this->canUpdate.broadcast();
+	this->canAddNews.broadcast();
 	Sleep(10);
 	this->hardDisconnect();
 	closesocket(this->input.getFD());

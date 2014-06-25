@@ -552,7 +552,7 @@ int Cliente::netListener(void* data){
 			closesocket( cli->input.getFD() );
 			closesocket( cli->output.getFD() );
 
-			Sleep(10);
+			Sleep(15);
 			cli->rebooted = true;
 			return 0;
 			break;
