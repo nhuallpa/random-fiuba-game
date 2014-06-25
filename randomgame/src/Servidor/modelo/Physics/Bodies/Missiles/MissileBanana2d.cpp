@@ -169,8 +169,8 @@ MissileBananita2d::MissileBananita2d(ElementType type, float posX, float posY, f
 		
 	//impulso inicial
 
-	float factor_x = angx*fuerzaDisparo*SHOOT_POWER/BANANITA_Y_FACTOR;
-	float  factor_y = angy*fuerzaDisparo*SHOOT_POWER*BANANITA_Y_FACTOR;
+	float factor_x = angx*fuerzaDisparo*7/BANANITA_Y_FACTOR;
+	float  factor_y = angy*fuerzaDisparo*7*BANANITA_Y_FACTOR;
 	//printf("\nAngle x,y: %f, %f \nFuerza: %f \nFactor <X,Y>: %f,%f",angle_x,angle_y,fuerzaDisparo,factor_x,factor_y);
 
 	this->body->ApplyLinearImpulse( b2Vec2(factor_x, factor_y ),this->body->GetWorldCenter() );
