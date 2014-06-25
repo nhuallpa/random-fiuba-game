@@ -393,18 +393,20 @@ int Servidor::wait4Connections(void* data){
 	int players = 0;
 	while (true && !srv->deleted){
 		Sleep(10);
-		while(srv->cantJugadores > srv->jugadoresConectados){
+		//while(srv->cantJugadores > srv->jugadoresConectados){  
 			
-			Socket sClientO = srv->input.aceptar();
-			Socket sClientI = srv->output.aceptar();
+			Socket sClientO = srv->input.aceptar();                // para destrabar esto, hay que hacer un shoutdown desde main principail
+			Socket sClientI = srv->output.aceptar();			   // el acept devolvera -1 y lo tomamos como desconexion
 
 			threadData* dataCliente = new threadData();
 			dataCliente->srv = srv;
 			dataCliente->clientI = sClientI;
 			dataCliente->clientO = sClientO;
-			srv->jugadoresConectados++;
+			if (srv->cantJugadores > srv->jugadoresConectados) {
+				srv->jugadoresConectados++;
+			}
 			Thread clientThread("Client Thread",initClient,dataCliente);
-		}
+		//}
 
 		// Avisa si todos estan conectados
 		if ( srv->jugadoresConectados == srv->cantJugadores){
@@ -459,7 +461,7 @@ int Servidor::initClient(void* data){
 
 	w->lock();
 	//Valido si puede estar en el nivel antes de avanzar
-	Log::i("Valido nuevo cliente en el server - %d", datagram->playerID.c_str());
+	Log::i("Valido nuevo cliente en el server - %s", datagram->playerID.c_str());
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		w->unlock();
 		//printf("\nCliente no permitido en el server");
