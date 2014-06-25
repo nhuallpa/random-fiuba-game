@@ -153,7 +153,7 @@ public:
 
 	void denyPower();
 
-	bool isWeaponAir();
+	bool isWeaponWithOutPower();
 
 	void printTimer(int second);
 

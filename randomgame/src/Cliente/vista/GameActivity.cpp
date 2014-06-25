@@ -430,7 +430,7 @@ void GameActivity::linkWormWithWeapon(SDL_Point clickPointScreen) {
 	aw.dim = aWorm->getDirection();
 	this->ActionResult(CALL_WEAPON, NULL, &aw); 
 	
-	if(!isWeaponAir()){
+	if(!isWeaponWithOutPower()){
 		allowPower();
 	}
 	//logica de la mira
@@ -889,8 +889,11 @@ void GameActivity::ActionResultLog(CallClient call, Playable* p, ActionWorm *aw)
 }
 
 
-bool GameActivity::isWeaponAir(){
+bool GameActivity::isWeaponWithOutPower(){
 	return (this->idWeapon == AIRATTACK
 		|| this->idWeapon == BURRO
-		|| this->idWeapon == HMISSILE);
+		|| this->idWeapon == HMISSILE
+		|| this->idWeapon == DYNAMITE
+		|| this->idWeapon == SHEEP
+		|| this->idWeapon == SUICIDE);
 }
