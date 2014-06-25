@@ -49,6 +49,8 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 	: input (nroPuerto) // En este port se recibe data del cliente
 	, output (nroPuerto + 1) // Por aca realizamos updates a los clientes
 	, cantJugadores(cantJugadores)
+	, dataPort (nroPuerto)
+	, controlPort (nroPuerto + 1) 
 	, pList()
 	, changes()
 	, lock()
@@ -64,6 +66,7 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 	this->advance = SDL_CreateSemaphore( 1 );
 	this->deleted = false;
+	rebooted = false;
 	jugadoresConectados = 0;
 
 	//Carga el servidor con un nivel, ese nivel tiene el terreno y su fisica y los jugadores que han
@@ -87,33 +90,52 @@ Servidor::Servidor(int nroPuerto, size_t cantJugadores)
 
 }
 
-void Servidor::reinit(){
+void Servidor::reinit() {
+	rebooted = true;
+	//reboot();
+	//Sleep(40);
+	//Log::i("Starting again");
+	//input = Socket(dataPort);
+	//output = Socket(controlPort);
+	//turnMgr.destroyTurnMgr();
+	//gameEngine.mapExplosions.clear();
+	//playerQueueStat.clear();
+	//worldModifications.clear();
+	//worldChanges.clear();
+	//pList.clear();
+	//playerMutexes.clear();
+	//playerQueues.clear();
 
-	this->advance = SDL_CreateSemaphore( 1 );
-	this->deleted = false;
-	jugadoresConectados = 0;
-
-	/*	Start threading stuff	*/
-	this->data.srv = this;
-
-	this->worldQ.type = UPDATE;
-
-	//	Start connection Loop, when a client connects I will trigger a new thread for him
-	Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
-
-	//	Dispara el thread que ante un update modifica el mundo, simula un paso
-	//	y notifica a los clientes.
-	Thread clientThread("Updating Thread",updating,&data);
-
-	//	Step Over the
-	Thread stepOverThread("step",stepOver,&data);
+	//Log::i("Advancing");
 
 
+
+
+	//deleted = false;
+	//jugadoresConectados = 0;
+
+	///*	Start threading stuff	*/
+	//this->data.srv = this;
+
+	//this->worldQ.type = UPDATE;
+
+	////	Start connection Loop, when a client connects I will trigger a new thread for him
+	//Thread waitConnections("Connection Handler Thread",wait4Connections,&data);
+
+	////	Dispara el thread que ante un update modifica el mundo, simula un paso
+	////	y notifica a los clientes.
+	//Thread clientThread("Updating Thread",updating,&data);
+
+	//////	Step Over the
+	//Thread stepOverThread("step",stepOver,&data);
+
+	//Log::i("Done reinit");
 }
 
 
 int Servidor::updating(void* data){
 	//printf("\n\n\nUpdating Thread running\n");
+	Log::i("Initializing Thread Updating");
 
 	threadData* aThreadData = (threadData*)data;
 
@@ -155,7 +177,7 @@ int Servidor::updating(void* data){
 
 int Servidor::stepOver(void* data){
 	//printf("\n\n\StepOver Thread running\n");
-
+	Log::i("Initializing Thread StepOver");
 	threadData* aThreadData = (threadData*)data;
 	Servidor* srv = aThreadData->srv;
 	
@@ -188,6 +210,7 @@ int Servidor::stepOver(void* data){
 		canStart->wait();
 	}
 	allIn->unlock();
+	Log::i("All In: Lets go ahead");
 
 	if ( srv->deleted ){
 		printf("\nEXITING StepOver Thread");
@@ -202,6 +225,7 @@ int Servidor::stepOver(void* data){
 
 	float stepTime = 0;
 	bool thereIsAWinner = false;
+	float winnerTime = 0;
 
 
 	while(true){
@@ -224,9 +248,17 @@ int Servidor::stepOver(void* data){
 		
 		}
 
+		/* Si pasaron 10 segundos desde que hubo un ganador*/
+		if ( thereIsAWinner && (timeHandler.elapsed() >= 10) ){
+			printf("\nPasaron 10 segundos desde que alguien gano");
+			srv->reinit();
+			printf("\nEXITING StepOver Thread");
+			return 0;
+		}
+
 
 		/* Se termino el turno o pasaron 5 seg desde el disparo */
-		if ( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) ) ){
+		if (( timeHandler.elapsed() >= TURN_DURATION || (localShoot && ((timeHandler.elapsed() - shootTime)  >= 5) )) && !thereIsAWinner){
 
 			////printf("\nSe termino el turno o pasaron 5 seg desde el disparo");
 			srv->gameEngine.stopPlayer( srv->turnMgr.getCurrentPlayerTurn() );
@@ -256,12 +288,7 @@ int Servidor::stepOver(void* data){
 				stepTime = 0;
 				timeHandler.reset();
 
-				if ( thereIsAWinner ){
-					Log::i("\nThere is a Winner, rebooting game");
-					Sleep(5);
-					srv->reboot();
-					return 0;
-				}
+
 
 				/* Inicio el turno del nuevo player */
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
@@ -289,19 +316,13 @@ int Servidor::stepOver(void* data){
 				stepTime = 0;
 				timeHandler.reset();
 
-				if ( thereIsAWinner ){
-					Log::i("\nThere is a Winner, rebooting game");
-					Sleep(5);
-					srv->reboot();
-					return 0;
-				}
 
 				/* Inicio el turno del nuevo player */
 				srv->notifyTurnForPlayer( srv->turnMgr.getNextPlayerTurn() );
 
 			}
 
-/* DISPARO y NO HUBO EXPLOSION*/
+		/* DISPARO y NO HUBO EXPLOSION*/
 
 		}
 
@@ -378,7 +399,7 @@ bool Servidor::updateModel(Playable p){
 int Servidor::wait4Connections(void* data){
 	//this is where client connects. srv will hang in this mode until client conn
 	//printf("Listening");
-
+	Log::i("Initializing Thread wait4connections");
 	threadData* aThreadData = (threadData*)data;
 
 	Servidor* srv = aThreadData->srv;
@@ -393,10 +414,10 @@ int Servidor::wait4Connections(void* data){
 	int players = 0;
 	while (true && !srv->deleted){
 		Sleep(10);
-		//while(srv->cantJugadores > srv->jugadoresConectados){  
+		/*while(srv->cantJugadores > srv->jugadoresConectados){*/
 			
-			Socket sClientO = srv->input.aceptar();                // para destrabar esto, hay que hacer un shoutdown desde main principail
-			Socket sClientI = srv->output.aceptar();			   // el acept devolvera -1 y lo tomamos como desconexion
+			Socket sClientO = srv->input.aceptar();
+			Socket sClientI = srv->output.aceptar();
 
 			threadData* dataCliente = new threadData();
 			dataCliente->srv = srv;
@@ -405,8 +426,9 @@ int Servidor::wait4Connections(void* data){
 			if (srv->cantJugadores > srv->jugadoresConectados) {
 				srv->jugadoresConectados++;
 			}
+			
 			Thread clientThread("Client Thread",initClient,dataCliente);
-		//}
+		/*}*/
 
 		// Avisa si todos estan conectados
 		if ( srv->jugadoresConectados == srv->cantJugadores){
@@ -431,6 +453,7 @@ void Servidor::waitConnections(){
 
 int Servidor::initClient(void* data){
 	//printf("Disparado cliente");
+	Log::i("Inicializando Thread Init client");
 
 	threadData* aThreadData = (threadData*)data;
 
@@ -461,7 +484,7 @@ int Servidor::initClient(void* data){
 
 	w->lock();
 	//Valido si puede estar en el nivel antes de avanzar
-	Log::i("Valido nuevo cliente en el server - %s", datagram->playerID.c_str());
+	Log::i("Valido nuevo cliente en el server - %d", datagram->playerID.c_str());
 	if ( !srv->getGameEngine().registerPlayer(datagram->playerID) ){
 		w->unlock();
 		//printf("\nCliente no permitido en el server");
@@ -499,7 +522,7 @@ int Servidor::initClient(void* data){
 	srv->inserPlayerIntotWorld(datagram->playerID);
 	canStart->signal();
 	allIn->unlock();
-
+	
 	//printf("\nCliente registrado satisfactoriamente en el servidor");
 	std::strcpy((char*)playerId,datagram->playerID.c_str() );
 
@@ -577,7 +600,7 @@ int Servidor::initClient(void* data){
 				//srv->notifyUsersAboutPlayer(playerId);
 				Log::e("Disconnecting: not data received");
 				if ( srv->deleted){
-					printf("\nExit init client");
+					Log::e("\nExit init client");
 					return 0;
 				}
 				srv->disconnect(playerId);
@@ -882,17 +905,17 @@ void Servidor::shutdown(){
 void Servidor::reboot(){
 
 	this->worldQ.type = REINIT_SRV;
-	//gameEngine.mapExplosions.clear();
+	
 	this->notifyAll();
 	Sleep(2);
 	deleted = true;
 	this->canUpdate.broadcast();
 	this->canAddNews.broadcast();
-	Sleep(10);
+	Sleep(2);
 	closesocket(this->input.getFD());
 	closesocket(this->output.getFD());
 	this->hardDisconnect();
-
+	Sleep(8);
 	
 
 

@@ -17,7 +17,7 @@ using namespace std;
 
 std::string path;
 Servidor* srvPointer;
-Servidor* srvPointer2;
+
 
 void selectYaml(){
 	std::cout << "Ingrese el directorio del archivo YAML\n";
@@ -78,10 +78,17 @@ int main(int argc, char* argv[]) {
 	
 	Log::logSide = LOG_SERVER;
 	
-	while(true){
-		Sleep(1);
+	//while(true){
+	//	Sleep(1);
 		printOptions();
-	}
+		
+	//}
+		while ( true ) {
+			Sleep(1000);
+			if ( srvPointer->rebooted ){
+				resetGame();
+			}
+		}
 	return 0;
 
 }

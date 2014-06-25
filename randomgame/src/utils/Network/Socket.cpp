@@ -61,7 +61,7 @@ Socket::Socket (uint16_t port)
         Log::e("Server: Too deaf to listen"); 
     }
 
-    Log::i("Server: Waiting for a client to connect"); // Just to keep us up to date
+    Log::i("Server: Waiting for a client to connect at port %d",port); // Just to keep us up to date
 
 
 

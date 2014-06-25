@@ -54,7 +54,7 @@ void Cliente::run(){
 		bootstrap.reinit();
 
 		Log::i("Game rebooted or ended");
-		Sleep(30);
+		Sleep(80);
 	}
 
 	bootstrap.shoutDown();

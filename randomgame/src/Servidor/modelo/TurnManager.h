@@ -27,6 +27,7 @@ class TurnManager{
 		void addPlayer(std::string player);
 		void removePlayer(std::string player);
 		std::string getNextPlayerTurn();
+		void destroyTurnMgr();
 
 
 };

@@ -71,6 +71,8 @@ class Servidor{
 
 		/* Data for threading**/
 		threadData data;
+		int dataPort;
+		int controlPort;
 
 	public:
 
@@ -150,6 +152,8 @@ class Servidor{
 		static int updateClient(void* data);
 
 		int somethingChange();
+
+		bool rebooted;
 
 		bool run(void);
 		void destroyWorld();
