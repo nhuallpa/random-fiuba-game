@@ -31,6 +31,11 @@ void Bootstrap::init()
 
 }
 
+void Bootstrap::reinit()
+{
+	this->reloadEart();
+}
+
 void Bootstrap::loadConfigGame() 
 {
 	Log::i("Bootstrap: Iniciando");
@@ -64,6 +69,8 @@ void Bootstrap::initCamera(int w, int h)
 	Camera & cam = TextureManager::Instance().getCamera();
 	cam.setPosition(0, 0);
 	cam.setDimension(w, h);
+	cam.setHeightScreen(h);
+	cam.setWidthScreen(w);
 	cam.setWidthScenario(dimensionScenario.first);
 	cam.setHeightScenario(dimensionScenario.second);
 }
@@ -72,10 +79,28 @@ void Bootstrap::loadImg()
 {
 	try 
 		{
-			TextureManager::Instance().load("res/images/watting.jpg", "waitting", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/watting.jpg", "alert", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/WaitingScreen.png", "waitting", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/GameOverScreen.png", "gameover", this->getScreen().getRenderer());
+			TextureManager::Instance().load("res/images/WinnerScreen.png", "winner", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/weapon/donkey.png", "donkey", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/FondoMensaje.png", "fondo_msg", this->getScreen().getRenderer());
 			TextureManager::Instance().load("res/images/reloj.png", "reloj", this->getScreen().getRenderer());
+		} 
+		catch (GameException & e) 
+		{
+			Log::e(BOOT, e.what());		
+		}
+}
+
+void Bootstrap::reloadEart()
+{
+	std::string path = DEFAULT_YAML_LEVEL;
+	ParserYaml* aParser = ParserYaml::getInstance(path);
+	try 
+		{
+			
+			TextureManager::Instance().reloadStream(aParser->getEscenarioTierra(), "eart", this->getScreen().getRenderer());
 		} 
 		catch (GameException & e) 
 		{

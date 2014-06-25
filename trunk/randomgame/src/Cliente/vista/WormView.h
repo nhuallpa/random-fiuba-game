@@ -17,6 +17,7 @@ enum WormState {
 	WORM_VIEW_DOING,
 	WORM_VIEW_JUMPING,
 	WORM_VIEW_MOTIONLESS,
+	WORM_VIEW_DROWNED,
 	WORM_VIEW_DEAD
 };
 
@@ -27,6 +28,8 @@ private:
 	SDL_RendererFlip flip;
 
 	bool selected;
+
+	
 
 	WormState state;
 	
@@ -41,7 +44,7 @@ private:
 	bool gray;
 
 	std::string player;
-	unsigned long color;
+	TeamColors color;
 
 	SDL_Color white;
 
@@ -86,6 +89,7 @@ public:
 
 	bool isDead();
 	bool isAlive();
+	bool isDrowned() {return (this->state == WORM_VIEW_DROWNED);}
 	bool isJumping() {return (this->state == WORM_VIEW_JUMPING);}
 	bool isLastWords();
 	void setLastWords(bool lastWords);
@@ -94,7 +98,8 @@ public:
 	void putGrey();
 	void quitGrey();
 
-	void setColor(unsigned long color);
+	void setColor(TeamColors color);
+
 	void setPlayer(std::string player);
 
 	int getXCenter();

@@ -84,9 +84,8 @@ void GameActivity::update()
 					{
 						aWorm->quitGrey();
 					}
-						
 				}
-				if (aWorm->isDead()) {
+				if (aWorm->isDead() || aWorm->isDrowned()) {
 					this->futureFreeWorm.push_back(aWorm->getId());
 				} else {
 					aWorm->update(&domainElement);
@@ -96,7 +95,7 @@ void GameActivity::update()
 			else if (domainElement.getType() == WEAPON)
 			{
 				ProjectileView * aProjectile = gameView->findProjectileById(domainElement.getId());
-				if (aProjectile->isDetonateDone()) 
+				if (aProjectile->isDetonateDone() || aProjectile->isDrowned()) 
 				{
 					this->futureFree.push_back(aProjectile->getId());
 				}
@@ -107,7 +106,17 @@ void GameActivity::update()
 			Log::e(e.what());
 		}
 	}
+	this->runGarbarageColector();
+	this->aView->update();
+}
 
+GameActivity::~GameActivity(void)
+{
+	delete builder;
+}
+
+void GameActivity::runGarbarageColector() {
+	GameView* gameView = static_cast<GameView*>(this->aView);
 	std::vector<int>::iterator itProj;
 	for (itProj = this->futureFree.begin(); itProj != this->futureFree.end(); ++itProj)
 	{
@@ -122,19 +131,16 @@ void GameActivity::update()
 	for (itWorm = this->futureFreeWorm.begin(); itWorm != this->futureFreeWorm.end(); ++itWorm)
 	{
 		int id = *itWorm;
+		if (this->wormIdSelected == id ){
+			Log::i("Elimine Worm %d que estaba seleccionado", id);
+			dettachWorm();
+		}
 		gameView->freeWormView(id);
 		this->builder->getDomain()->removeElement(id);
+		
 		Log::i("Elimine Worm %d en la vista", id);
 	}
 	this->futureFreeWorm.clear();
-
-	this->aView->update();
-
-}
-
-GameActivity::~GameActivity(void)
-{
-	delete builder;
 }
 
 
@@ -178,19 +184,32 @@ void GameActivity::deselectPreviewsWorm()
 	GameView* gameView = static_cast<GameView*>(this->aView);
 	if (this->wormIdSelected > 0) {
 		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
-
+		this->cController->remuveListener(aWorm);
 		aWorm->deselect();
+		
+
 		ActionWorm aw;
 		aw.dim = aWorm->getDirection();
 		this->ActionResult(CALL_UNWEAPON, NULL, &aw);
-		//updater.doStopWorm(aWorm->getId());
+	
 		aw.id = aWorm->getId();
 		this->ActionResult(CALL_STOPWORM, NULL, &aw);
-		this->cController->remuveListener(aWorm);
 		this->wormIdSelected = -1;
 	}
-	
 }
+void GameActivity::dettachWorm() {
+	try {
+		GameView* gameView = static_cast<GameView*>(this->aView);
+		WormView* aWorm = gameView->findWormById(this->wormIdSelected);
+		this->cController->remuveListener(aWorm);
+		this->wormIdSelected = -1;
+	} 
+	catch (GameException & e) 
+	{
+		Log::e(e.what());
+	}
+}
+
 
 void GameActivity::stop()
 {
@@ -318,9 +337,9 @@ void GameActivity::OnClick(ClickEvent e){
 
 	WormView* aWorm = NULL;
 
-	if(wormIdSelected != -1 && !this->isAlive(wormIdSelected)){
+	/*if(wormIdSelected != -1 && !this->isAlive(wormIdSelected)){
 		wormIdSelected = -1;
-	}
+	}*/
 
 	//Agrego para escuchar el clic del arma
 	if(aimView->isShootMouse() && !hasClickedMenu(clickPointScreen)){
@@ -775,7 +794,7 @@ void GameActivity::iniHmissile(){
 
 
 void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
-	if(validateWormBeforeCall()){
+	//if(validateWormBeforeCall()){
 		//Se loguea las acciones del worm contra el server
 		this->ActionResultLog(call, p, aw);
 		switch(call){
@@ -788,7 +807,7 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 						return;
 					}
 				} catch (GameElement & e) {
-					Log::e("GameActivity::OnMovement() Worm view no encontrado");			
+					Log::e("GameActivity::ActionResult() Worm view no encontrado %d", this->getWormIdSelected());			
 				}
 			}
 			updater.addLocalMovementFromView(*p);
@@ -810,16 +829,16 @@ void GameActivity::ActionResult(CallClient call, Playable* p, ActionWorm *aw){
 			break;
 		}
 
-		if(!this->validateWormAlive()){
+		/*if(!this->validateWormAlive()){
 			GameView* gameView = static_cast<GameView*>(this->aView);
 			WormView * aWormView = gameView->findWormById(this->wormIdSelected);	
 			aWormView->setLastWords(false);
-		}
-	}
-	else{
+		}*/
+	//}
+	/*else{
 		
 	}
-
+*/
 }
 
 bool GameActivity::validateWormBeforeCall(){
@@ -829,8 +848,14 @@ bool GameActivity::validateWormBeforeCall(){
 
 bool GameActivity::validateWormAlive(){
 	GameView* gameView = static_cast<GameView*>(this->aView);
-	WormView * aWormView = gameView->findWormById(this->wormIdSelected);
-	return aWormView->isAlive();
+	try {
+		WormView * aWormView = gameView->findWormById(this->wormIdSelected);
+		return aWormView->isAlive();
+	} catch (GameException & e) {
+		Log::e(e.what());
+		return false;
+	}
+	
 }
 
 bool GameActivity::validateWormLastWords(){

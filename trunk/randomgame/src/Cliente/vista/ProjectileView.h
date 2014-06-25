@@ -30,6 +30,8 @@ protected:
 
 	bool detonatedParcial;
 
+	bool drowned;
+
 	tDirection direction;
 	
 	int currentLife;
@@ -68,6 +70,8 @@ public:
 
 	virtual void detonate();
 	virtual void detonateParcial();
+
+	bool isDrowned() {return this->drowned;}
 
 	~ProjectileView(void);
 

@@ -17,7 +17,7 @@ void EartView::draw(SDLScreen & screen)
 	if (this->counter > 10)
 	{
 		this->counter = 0;
-		this->drawExplotion(200, 200, 2);
+		this->drawExplotion(50, 50, 2);
 	}
 	this->counter++;
 	TextureManager::Instance().drawScrollableBackground(imageId, screen.getRenderer());

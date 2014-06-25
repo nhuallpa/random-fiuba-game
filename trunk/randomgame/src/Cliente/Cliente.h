@@ -180,6 +180,14 @@ class Cliente { //: public OnMovementListener{
 
 		void resetModel();
 
+		void showAlert();
+
+		void showWaitting();
+
+		void showWinner();
+
+		void showGameOver();
+
 		GameElement* getElementFromPlayable(std::string playerID, Playable p);
 
 };

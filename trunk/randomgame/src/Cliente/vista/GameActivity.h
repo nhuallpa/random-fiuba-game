@@ -72,6 +72,8 @@ private:
 	void offMenu();
 	bool isObjetive();
 	void iniHmissile();
+	void runGarbarageColector();
+	void dettachWorm();
 public:
 
 	int wormIdDesSelected;

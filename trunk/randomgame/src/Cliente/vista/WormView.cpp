@@ -7,7 +7,6 @@ WormView::WormView(int id)
 	currentSprite = NULL;
 	this->selected = false;
 	this->gray = false;
-	this->color = COLOR_VERDE;
 	white.a = 0xFF;
 	white.r = 0xFF;
 	white.g = 0xFF;
@@ -84,6 +83,10 @@ void WormView::update(GameElement* domainElement)
 			break;
 		case DEAD:
 			this->state = WORM_VIEW_DEAD;
+			break;
+		case WORM_DROWNED:
+			Log::i("WormView:: WORM_VIEW_DROWNED %d", domainElement->getId());
+			this->state = WORM_VIEW_DROWNED;
 			break;
 		/*default:
 			this->state = WORM_VIEW_MOTIONLESS;
@@ -221,7 +224,6 @@ void WormView::draw(SDLScreen & screen)
 	 
 	if (this->isSelected())
 	{
-		//labelUsuario.draw(screen.getRenderer(),-TextureManager::Instance().getCamera().getX() + this->getXCenter(), -TextureManager::Instance().getCamera().getY() + this->getYCenter()-9);
 		labelNombre.draw(screen.getRenderer(),
 						 this->getXCenter(),
 						 this->getYCenter() - 15);
@@ -232,7 +234,8 @@ void WormView::draw(SDLScreen & screen)
 	rect.y = this->getY()-22;
 	rect.w = this->widhtLifeCurrent;
 	rect.h = 5;
-	TextureManager::Instance().drawFillRect(screen.getRenderer(),rect,0, 255, 0, 255,true);
+	SDL_Color color = Util::geColorTeam(this->color);
+	TextureManager::Instance().drawFillRect(screen.getRenderer(),rect, color.r, color.g, color.b, color.a,true);
 
 }
 
@@ -272,7 +275,7 @@ void WormView::OnMovement(MovementEvent e){
 
 }
 
-void WormView::setColor(unsigned long color){
+void WormView::setColor(TeamColors color){
 	this->color = color;
 }
 
