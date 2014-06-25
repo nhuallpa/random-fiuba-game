@@ -46,6 +46,55 @@ int GameEngine::getWeaponUniqueId(){
 	return id;
 }
 
+
+void GameEngine::destroyGameEngine(){
+	
+	if(gameLevel){
+		gameLevel->destroyEntities();
+		delete gameLevel;
+	}
+	if(aTerrainProcessor){
+		delete aTerrainProcessor;
+	}
+	if(myWorld){
+		delete myWorld;
+	}
+	if(water){
+		delete water;
+	}
+	std::map<int, Body*>::iterator it_B;
+	if(gameBodies){
+		for(it_B = gameBodies->begin();
+			it_B != gameBodies->end();
+			it_B++){
+				if(it_B->second){
+					if(it_B->second->body){
+						this->myWorld->DestroyBody(it_B->second->body);
+					}
+					//delete it_B->second;
+				}
+		}
+		delete gameBodies;
+	}
+
+	std::map<int, Body*>::iterator it_BB;
+	if(gameWeapons){
+		for(it_BB = gameWeapons->begin();
+			it_BB != gameWeapons->end();
+			it_BB++){
+				if(it_BB->second){
+					if(it_BB->second->body){
+						this->myWorld->DestroyBody(it_BB->second->body);
+					}
+					//delete it_BB->second;
+				}
+		}
+		delete gameWeapons;
+	}
+
+}
+
+
 GameEngine::~GameEngine() {
 
 }

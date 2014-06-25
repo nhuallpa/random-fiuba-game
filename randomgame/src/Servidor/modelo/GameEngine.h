@@ -172,7 +172,7 @@ class GameEngine {
 		void incrementUpdateStep(){ this->getLevel()->updateStep += 1; }
 		void resetUpdateStep(){ this->getLevel()->updateStep = 0; }
 
-		
+		void destroyGameEngine();
 };
 
 
